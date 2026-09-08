@@ -1,127 +1,87 @@
-# Architecture
+# Architecture — smallest reliable implementation
 
-Status: proposed, pending stack/scope approval. No application or infrastructure is created by this document. Read `tech-stack.md`, `data-model.md` and `commerce-and-video.md` together.
+Recommended baseline, revised 2026-09-08. No application or infrastructure is created by this document. [Decisions](decisions.md) records changes from the earlier, broader proposal.
 
-## Architectural shape
+## Shape
 
-One modular web application, one Postgres database, and managed auth/files/video/payments. Start with a modular monolith: keep feature ownership clear without introducing a network service per domain. Public discovery, private learning, Creator Studio and operator tools are route/layout boundaries within the same product.
+One Next.js application, one Supabase Postgres database, Supabase Auth/Storage, Stripe Connect/Checkout for money, and Mux for video. Public catalog, learner experience, Creator Studio and operator pages are route/layout groups in the same app. No separate API server, monorepo packages, microservices, event bus, or custom worker framework.
 
-The proposed new app lives in `web/`. The archived `apple-music-clone/` remains outside the active app, workspace and deployment root. Do not copy its all-screen component, demo data, music assets, arbitrary screen mappings or lockfile into the new product.
-
-## Target structure — not files to create now
+The active app belongs in `web/`. The archived `apple-music-clone/` is excluded from its workspace, build, and deployment. Start fresh instead of importing the prototype's scene switcher, fake assets, lockfile, or all-screen client component.
 
 ```text
-AGENTS.md
-docs/
-apple-music-clone/          # frozen prototype and reference archive
-web/                       # only after BOOT-001 is authorized
-  src/app/                 # thin App Router pages, layouts, actions/handlers
-  src/components/ui/       # accessible primitives and approved token wrappers
+web/
+  src/app/                 # Next routes, layouts, route handlers
+  src/components/ui/       # only shared accessible primitives we actually use
+  src/components/shell/    # learner/studio navigation when implemented
   src/features/
-    catalog/
-    learning/
-    creators/
-    commerce/
-    community/
-    moderation/
+    catalog/               # views + small server query functions
+    learning/              # lesson access, player, progress, notes
+    studio/                # draft authoring and review submission
+    commerce/              # checkout and fulfillment, added at M2
+    moderation/            # minimal operator functions, added when needed
   src/lib/
-    auth/
-    db/
-    media/
-    payments/
-    jobs/
-    observability/
-  public/                  # only original/licensed public assets
-  supabase/migrations/     # one versioned database schema authority
-  tests/                   # unit, integration, authorization and browser evidence
+    supabase/              # browser, request-scoped server, restricted admin client
+    env.ts                 # staged configuration validation
+    money.ts               # currency formatting / validated minor-unit helpers
+  public/                  # our public, licensed assets only
+  supabase/                # CLI config, SQL migrations, deterministic test seed
+  tests/                   # integration/browser tests as slices appear
 ```
 
-Use domain-oriented services/repositories inside the owning feature. Do not precreate empty abstraction layers for every possible future provider. Shared utilities should be genuinely shared; do not turn `lib` into an unstructured second application.
+This is a location guide, not a command to create every directory. Add Stripe/Mux helpers at integration time. A feature can start with a view and a server file; it does not need controller/service/repository/interface/factory layers.
 
-## Ownership boundaries
+## Boundaries
 
-| Domain | Owns | Must not own |
-| --- | --- | --- |
-| Catalog | Safe published course/creator projections, categories, search, editorial shelves | Private lesson bodies, financial fulfillment |
-| Creators | Workspace roles, draft curriculum, revisions, publishing lifecycle | Self-granted payment access or global moderator powers |
-| Commerce | Offers, order snapshots, provider integration, refunds, grant sources, reconciliation | UI-driven 'paid' flags or learner progress |
-| Learning | Authorized lesson delivery, progress, private notes, resources | Purchase truth or cross-creator publishing |
-| Community | Space membership rules, questions, posts, replies, reviews, reports | Private note access or unrestricted direct messages |
-| Moderation | Review decisions, content actions, appeals, operator audit | Unrestricted browsing of all learner private data |
-| Media adapter | Direct-upload authorization, provider mapping, readiness events, playback signing | Deciding purchase eligibility from a browser-supplied flag |
+Route/page → small feature function → Supabase or a provider SDK. Validate and authorize in the server function closest to the protected operation; return an explicit, minimal view model. Reuse that function when multiple entry points need the same rule. Ordinary TypeScript functions are enough; no generic repository, dependency injection container, or framework around SDKs.
 
-Learning calls a shared access policy backed by commerce grants and the published-content policy. It does not duplicate payment rules in the player. Catalog search consumes a safe projection, not an unrestricted query across every course/lesson column.
+Server Components read feature functions directly, not our own HTTP API. Server Actions handle first-party form mutations. Route Handlers are for real HTTP needs: provider webhooks, playback/resource authorization, upload authorization, and bounded progress requests. Do not expose a parallel REST endpoint for every Server Action. These Next capabilities and security boundaries are documented in [R01–R04](research.md).
 
-## Rendering and client boundaries
+## Rendering, state, and caching
 
-Server-render public course/creator pages for useful first content, metadata and link previews. Cache only explicitly safe published catalog representations, with invalidation on publication, unlisting and relevant changes. Paid lesson text/transcripts/resources must never leak into public HTML, client props, static bundles, preview metadata or search indexes.
+Default pages/layouts to Server Components. Use client components for the player, menu interaction, forms that need local feedback, and temporary state—not for the whole product. Keep filters/sort/query in the URL; keep server records on the server; use local state for temporary interaction. Add a client cache/store only for a demonstrated workflow.
 
-Authenticated pages, responses carrying cookies and user-specific access/financial state must not enter shared public caches. Follow current Next.js and Supabase SSR guidance; do not assume a user-specific component is protected merely because its parent checks login [S01, S08](research.md).
+Public catalog reads return approved metadata, not lesson bodies, resource keys, private profiles, or provider credentials. Initially prefer simple correct server rendering. Add public caching only to an explicitly safe query after measuring a need, and invalidate on publication, unlisting, suspension and content changes. Never cache a signed-in response or Set-Cookie response in a shared public cache. Private endpoint responses use private/no-store semantics; do not assume a login check in a parent layout protects data produced by descendants [R02–R05](research.md).
 
-Use client components only for interaction that needs them: player, menus, editable forms, local state and selected live updates. Prefer server-side data loading for catalog and authenticated entry points. Keep URL state for search/filter/sort and local component state for temporary controls. Do not make the root layout a giant client component or introduce a global state store for all server data.
+Paid content must be absent—not hidden with CSS—from unauthorized HTML, RSC payloads, JSON, metadata, search results, and preview data. Public previews are intentional lesson-level permissions.
 
-Use the current App Router conventions, async request APIs and version-matched framework documentation after bootstrap. No experimental caching/offline features are required for the baseline.
+## Auth and database
 
-## Request and authorization path
+Use Supabase's current SSR integration with separate browser and request-scoped server clients. Verify identity with the documented token-validation path; use fresh user/account state where required. Cookie refresh/proxy logic is not resource authorization. Ownership and suspension are checked against current database records [R05](research.md).
 
-A typical authenticated operation is: validate request shape → verify identity → load current resource/workspace/access facts → authorize the specific action → execute a constrained transaction → produce a minimal response → emit reliable follow-up work when needed.
+Use the user's identity/RLS context for routine operations. The restricted admin client is server-only and used only for verified webhook processing or explicitly authorized privileged operations. It is not the default query client.
 
-Identity alone is not permission. Validate both the resource and its parent relationship. A supplied `workspaceId`, `courseId`, `orderId` or upload ID must be bound to authorized data; never trust a hidden field or route nesting. Check fresh workspace membership for sensitive publishing, payout and operator actions, not a user-editable metadata role. Verify provider-account relationships server-side.
+SQL migrations are the single schema authority; generate TypeScript database types. Do not add an ORM just to wrap every Supabase call. Exposed tables need both appropriate grants and RLS. Separate public metadata from protected content rather than expecting row policies to hide columns. Atomic cross-table changes use a narrowly scoped SQL function with explicit execution grants and tests; do not call several independent REST writes and describe them as a transaction [R06–R07](research.md).
 
-Use separate server/browser Supabase clients following the installed SSR integration. Browser access uses publishable credentials and appropriately scoped RLS. Never expose service/secret keys through public environment variables, generated HTML, logs or client bundles [S08–S09](research.md).
+## Current authorization model
 
-## Database access policy
+One workspace owner per creator in the pilot, stored server-side. That owner can manage their own drafts and view their own sales. A private operator assignment permits named review/support actions. Learners can hold access to courses from many workspaces. Team invitations and a generalized permission engine are not needed now.
 
-Use SQL migrations as the schema authority and generate application types. Apply least-privilege grants and RLS to exposed tables; grants and row policies are different layers. Protect sensitive columns by table/projection boundaries, not by expecting row policies to hide selected fields. Use security-invoker views where appropriate and verify their effective permissions [S09–S10](research.md).
+One shared lesson-access decision covers video, text, transcripts, and downloads. Inputs are authenticated identity or explicit anonymous preview, course/lesson relationships, content availability, workspace suspension, and active course grants. Bookmarks, progress, email address, checkout URLs, and UI role selection never supply access.
 
-Routine user-scoped reads/writes should preserve the user's identity/RLS context. Commerce fulfillment, moderation and narrowly scoped operational work may require privileged server paths, but those must perform explicit authorization and audit. Do not use an unrestricted service credential as the default for every route and assume RLS still protects it.
+## Publishing without a CMS framework
 
-For an atomic operation across several tables, use a reviewed database function or server transaction strategy with restricted privileges. A security-definer function is not a shortcut for fixing permission errors: constrain its schema/search path and execution grants, validate its inputs/principal and test cross-tenant attempts. A server-only webhook fulfillment function must not be callable by ordinary users. Do not expose generic 'run SQL' or arbitrary ownership-change RPCs.
+Use a simple lifecycle: draft → submitted → published; changes requested returns an unpublished submission to draft. Submission locks authoring until the operator decides. Each draft has an integer edit version so concurrent saves and approval cannot race unnoticed.
 
-## API/action contracts
+Published curriculum/content is immutable to the creator during the pilot. An unlisted course remains locked and accessible to valid buyers. Bounded operator-approved corrections preserve stable lesson IDs, record a reason and version, and commit atomically. Destructive content replacement and self-service draft/live versions require a later task; do not implement a generic revision graph now. This deliberately trades some creator flexibility for a much smaller trustworthy pilot.
 
-Implementation may use Server Actions for first-party mutations and Route Handlers where an HTTP boundary is required. Both need authentication, authorization, validation, rate controls and safe errors. Reuse domain services instead of maintaining different business rules for a form action and its API equivalent.
+## Reliable payments without a custom job framework
 
-| Boundary | Contract |
-| --- | --- |
-| Catalog/search | Only approved published metadata; bounded query/filter/sort/pagination; no paid-content joins |
-| Free enrollment | Authenticated, published/free offer, idempotent grant/enrollment creation |
-| Checkout creation | Authenticated, server-resolved offer/currency/creator status, pending order and provider idempotency |
-| Purchase status | Authenticated owner/operator scope; minimal financial/access status |
-| Playback authorization | Active permitted grant or explicit public preview; lesson/version/media ready; short-lived signed response, no shared cache |
-| Resource download | Same access policy; validated asset relation; short-lived private URL where needed |
-| Progress/notes | Self-owned record and authorized lesson; bounded payload; retry/concurrency contract |
-| Creator upload | Current editor permission and own draft lesson; type/size/quota limits; short-lived upload authorization |
-| Publishing | Current role, reviewed revision and publish checklist; no direct client status update |
-| Provider webhooks | Raw-body signature verification, deduplication, durable event recording, bounded processing/retry |
-| Internal job runner | Service-authenticated, no public invocation with an anonymous key; lease-based bounded work and safe retries |
+For the small one-time-purchase pilot, the webhook performs only signature/context checks, any bounded authoritative provider lookup, and one short atomic database operation. That operation records successful event handling, updates the order, and creates/revokes the source-specific grant together. Business effects have unique constraints; duplicates cannot duplicate access.
 
-Any internal paths used later must be documented with their actual methods/payload schemas when implemented. Do not introduce a public versioned API merely to satisfy a diagram. Preserve a clean service boundary so a future native app can reuse rules without promising automatic React-to-native UI reuse.
+Return success only after the necessary durable effect succeeds (or a known already-handled/no-op event is safely recognized). Return a retryable failure on transient processing/database failure. Do not insert an event as handled before applying its effect. Keep email, video processing, analytics and unrelated work out of this request. See [commerce and video](commerce-and-video.md).
 
-## Durable asynchronous work
+Stripe generally recommends queue-based handling for scale [R09](research.md). Our narrow synchronous pilot is a deliberate simplification, not a claim that queues are bad. Measure handler duration, concurrency, retry rate, and recovery before live activation. If the handler cannot stay reliably within provider/hosting limits, adopt one managed durable queue with a recorded decision; never quietly add an in-memory task or acknowledge before durable enqueue.
 
-Use a transactional outbox for side effects that must survive request failure: enrollment email, moderation notifications, provider reconciliation and media follow-up. Persist the required state/outbox atomically where they share the database. A bounded authenticated scheduled worker claims jobs with a lease, records attempts, retries with backoff and exposes dead-letter failures for operators.
+A small reconciliation command calls the same fulfillment functions to compare recent provider payments/refunds with local orders/access. Run it before a paid pilot and daily during the pilot; record the result. Automate that exact bounded function later if needed. No outbox table, lease scheduler, dead-letter dashboard, generalized job DSL, or notification bus in the initial schema.
 
-Do not use an unawaited promise or an in-memory timer as reliable payment processing. External systems and the database cannot form one ordinary local transaction; model pending states and reconciliation. Provider event delivery may repeat or arrive out of order; business effects must be idempotent. Keep expensive media work at the media provider, not inside a web request.
+## Media and files
 
-A managed workflow/queue service can be adopted later if measured duration, throughput or operational needs exceed the simple worker; record that decision rather than adding several job systems on day one.
+Authorize direct uploads server-side after ownership/quota checks; the browser sends large videos to Mux, not through Next. Provider events establish ready/failed state. Playback signing follows the same course-access rule as protected text and resources. Use a mature player, not a custom streaming engine [R12–R13](research.md).
 
-## Publication and versioning
+Storage covers can be public only when intended and licensed. Paid files stay private with short-lived authorized links. A media identifier is not permission. Separate browser upload completion from processing readiness. Limit uploads before opening creator enrollment.
 
-Stable course and lesson identities connect purchases, notes and progress. Draft revisions can change metadata/content/order without mutating the currently approved version. Publishing atomically points to a validated approved revision. Existing buyers retain the advertised access, and ordinary catalog unlisting does not revoke it.
+## Environment and evolution
 
-Document whether material changes require renewed review, how removed lessons affect progress, and what support/refund policy covers substantial purchased-content changes. Do not silently make course completion jump backward or erase notes when a creator reorders a lesson. The initial implementation may keep revisioning simple, but cannot use uncontrolled in-place edits for all paid content.
+M0 uses explicit, public fixtures and no provider credentials. M1 introduces actual local/staging identity/data; M2 introduces payment sandbox credentials. No silent fallback from a missing integration to fake success. No production data or live payments in development.
 
-## Search, notifications and telemetry
-
-Start with indexed catalog search in Postgres. Searchable fields and result projections are explicit. Later paid transcript/semantic search requires authorization during retrieval, not just filtering a displayed result afterward.
-
-Transactional notifications follow outbox events and recipient preferences; never include paid transcripts, private notes or unnecessary personal details in email. Analytics distinguishes preview, enrolled and paid learning. Do not treat client analytics as payment, authorization or certification truth.
-
-## Configuration and environments
-
-Separate local/development, preview/staging and production data and provider credentials. Hosted payment/video callbacks must point to the correct environment and verify signatures there. Provide an `.env.example` containing names and explanations, never real values, only after implementation starts.
-
-Public catalog/demo UI development should not require production secrets. Integration work needs deliberately configured local/staging services; missing secrets must produce a clear setup error, never silently switch to a fake successful payment/backend. Mock adapters and fixtures belong to explicit test/demo modes and cannot be mistaken for production readiness.
-
-Deploy the product app root only, excluding the archive. Use a supported Node LTS runtime and compatible stable dependencies. Region, backups, provider budgets, live domains and operational ownership are launch decisions, not defaults silently chosen by an agent.
+Add complexity only when a current requirement cannot be met simply: dedicated search after measured search problems; a managed queue after duration/volume evidence; versioning after a defined content-update need; native APIs when there is an actual native client. Architecture quality means correct boundaries and replaceable small functions, not anticipating every future business model.

@@ -1,98 +1,59 @@
-# Quality, verification and operations
+# Quality, evidence and operations
 
-Status: proposed acceptance plan. No application build, browser test, visual comparison, database/RLS test or provider integration test was run in the documentation audit. Do not interpret this checklist as completed verification.
+Checks grow with the product. Do not run the archived prototype as a substitute for testing the new app. No application checks have been run by this docs-only revision.
 
-## Definition of done
+## Layered checks
 
-A task is done when its bounded behavior is implemented, applicable specification/decision records are updated, relevant automated and manual checks pass, and evidence is recorded. UI approval, functional verification, security checks and commercial/legal approval are separate gates. A route that loads, a green build or a good-looking static mockup cannot substitute for the others.
-
-For documentation-only work, inspect the diff, paths/links, internal consistency, source attribution and stated evidence limits. Running the archived Apple Music prototype is not required to validate planning documents.
-
-## Verification layers
-
-| Layer | Required evidence once applicable |
+| Change | Minimum evidence |
 | --- | --- |
-| Static | Installed-toolchain type check, lint, dependency/secret review and production build; actual commands/results recorded |
-| Domain unit tests | Offer/access predicates, source-specific revocation, progress ordering, money/currency formatting, publication transitions |
-| Database integration | Constraints, transactions, grants, RLS, views/functions and concurrency against representative roles/tenants |
-| Provider integration | Sandbox signed webhooks, duplicate/out-of-order/delayed cases, checkout reconciliation, media readiness and token refresh |
-| Browser journeys | Critical learner/creator/operator flows with realistic content and error states, not only the homepage |
-| Visual review | Approved course-design frames versus actual matched-viewport output; intentional differences explained |
-| Accessibility | Automated checks plus keyboard/focus, screen-reader spot checks, captions, contrast, zoom/reflow and reduced motion |
-| Operational rehearsal | Refund/access repair, job replay, incident handling, restore/recovery and rollback compatibility |
-| Pilot usability | Real consenting participants finding/buying/resuming/publishing without guided rescue; observed failures recorded |
+| Documentation | Internal paths/IDs/decisions consistent; no invented completion; diff restricted to intended docs/reference synchronization |
+| Scaffold | Actual version/CLI record, locked install, typecheck, lint, production build, local route smoke check |
+| UI | Type/lint/build, relevant browser interactions, desktop/mobile screenshots, keyboard/focus and overflow checks |
+| Data/auth | Migrations on disposable local DB, generated types, grants/RLS positive and cross-user/workspace negative tests |
+| Media | Owned upload, wrong-owner rejection, verified ready/failed state, private download/signing, expiry/refresh and browser playback |
+| Money | Sandbox buy/decline/cancel/delay, concurrent/duplicate/out-of-order events, rollback/replay, refunds and grant reconciliation |
+| Release | All required slices, production configuration/rights/policies/support, monitoring/limits, restore and rollback evidence |
 
-Use unit tests for business invariants, not brittle snapshots of every markup detail. Visual snapshots must use deterministic fixtures, viewport and font settings. Do not game an image-diff score by hiding difficult content or flattening interactive UI into screenshots.
+Unit tests cover pure access/state/price/progress helpers; integration tests cover actual database constraints/RLS/atomic operations; browser tests cover user journeys. Do not mock away the very authorization or payment state being tested. No arbitrary coverage percentage or snapshot count replaces the critical negative cases.
 
-## Critical adversarial scenarios
+## Visual acceptance
 
-| Scenario | Pass condition |
-| --- | --- |
-| Nonbuyer requests paid media/text/transcript/resource directly | No protected bytes or authorization token leaked |
-| Learner changes another user's note/order/progress ID | Read and write denied without cross-user data disclosure |
-| Creator substitutes another workspace/course/asset ID | All affected read/mutation paths reject the cross-tenant relation |
-| User edits metadata to become creator/operator | No permission escalation |
-| Forged webhook or wrong environment/account | Rejected; no financial/access state change |
-| Duplicate fulfillment delivery | One business grant/order effect; no duplicate transfer/notification effect |
-| Delayed payment / return before webhook | Honest pending UI, eventually reconciled, no forced duplicate payment |
-| Refunded purchase but another active grant exists | Only the related grant is revoked; legitimate access remains |
-| Offer price changes during checkout | Server detects stale terms and obtains a deliberate decision; no surprise charge |
-| Unlisted versus suspended course | Ordinary unlisting preserves valid buyer access; suspension follows explicit policy |
-| Paid response accidentally cached | Another user/anonymous client cannot obtain private content/session data |
-| Upload completes but provider processing fails | No false ready/publish state; retry preserves the draft |
-| Media authorization expires mid-lesson | Authorized refresh or useful recovery, not uncontrolled token leakage |
-| Stale progress update follows completion or rewind | Completion is not lost; legitimate latest resume intent is handled correctly |
-| Concurrent Studio/notes edits | Conflict is visible and input preserved; no silent destructive overwrite |
-| Keyboard-only course discovery and lesson navigation | All essential actions reachable, focus clear, no keyboard trap |
+Use deterministic fixture content, viewport, browser/OS, font availability, motion and loading conditions. Playwright visual comparisons depend on their rendering environment; compare stable baselines rather than screenshots from unrelated systems [R16](research.md).
 
-Use two independent learners and at least two workspaces in authorization fixtures. A single happy-path admin account cannot test isolation.
+For each changed family save the source reference path, our course screenshot, viewport, relevant states, and intentional adaptation notes. First verify one screen before applying its components everywhere. Never update baselines solely to silence a regression. A screenshot route existing is not a fidelity check.
 
-## Visual and responsive gates
+Start with 390px mobile and 1440px desktop. Before pilot test 320px, tablet, wide desktop, zoom, long text, mobile keyboard/safe area and actual iOS Safari/Android Chrome. Desktop Chrome emulation alone is not proof of mobile media behavior. Check Back, deep links and refreshing a lesson route.
 
-First compare against approved course-specific frames, not arbitrary scene mappings from the clone. Reference review must identify actual app bounds and exclude Mobbin footer/chrome from measurements while preserving original source files. Record the source path, viewport, target route/state, screenshot and reviewer.
+## Accessibility
 
-Proposed coverage: 375/390px mobile, tablet, 1280px and 1512px desktop widths; long titles; empty/full curriculum; free/paid/owned/pending/suspended states; zoom/reflow; software keyboard and safe areas. Test target browsers including mobile Safari and a Chromium browser; the exact supported-version policy is a launch decision based on audience/device evidence.
+Target WCAG 2.2 AA and test actual content/controls, not only a component library claim [R14, R17](research.md). Keyboard navigation, visible focus, meaningful labels, dialog focus/return, error association, contrast, reduced motion, readable zoom and captions are required for the relevant surfaces. Automated checks supplement manual testing; they do not certify the whole product.
 
-Do not set a universal 'under 1% screenshot difference' as a definition of UX correctness. Course-specific content/layout adaptations can be intentional. Review hierarchy, typography, spacing, touch behavior, focus and real interactions. Major unexplained mismatches block approval even when the route technically renders.
+## Critical acceptance scenarios
 
-## Accessibility and performance
+The first free journey: creator A drafts and uploads → operator approves → learner A discovers/enrolls → plays/reads/downloads → leaves/resumes. Learner B and creator B cannot use A's private records or draft media.
 
-Aim for WCAG 2.2 AA with applicable media/text alternatives and manual verification [S22](research.md). Our preferred 44px touch targets are a design choice; the standard's precise criteria and exceptions still need checking. Do not claim compliance from a single automated audit score.
+The paid journey: pending order → sandbox payment → verified fulfillment → active source grant → playback → confirmed refund → that grant revoked. A concurrent duplicate produces no duplicate grant/charge attempt; a delayed old paid event does not undo the refund. Dropped callbacks are repaired through replay/reconciliation. A forged success URL never grants access.
 
-Target field Core Web Vitals at the 75th percentile: LCP at or below 2.5 seconds, INP at or below 200ms and CLS at or below 0.1 [S23](research.md). These are targets, not measurements from this repo. Distinguish public catalog performance from protected player and Studio workflows.
+Progress: rewind can lower resume position; an older write cannot undo completion; a conflict does not erase local notes. Publishing: no draft leak, no editing beneath review, no unlisting-to-edit bypass. Access: protected text/resources/transcripts are tested along with video.
 
-Budget images/fonts and client JavaScript, reserve media/art dimensions, lazy-load noncritical player/editor code, paginate large lists and avoid request waterfalls. Measure on realistic mobile conditions and production-like content before adding speculative caching or complex state libraries.
+## Operational minimum for the pilot
 
-## Environments and release process
+One named owner monitors failed payments/access, webhook errors, media failures, support and reports. Record safe correlation/event/order IDs, never secrets or private note content. Provider dashboards plus a small app exceptions view are sufficient; no custom observability platform or finance dashboard.
 
-Local/demo mode must be explicit. Staging uses separate database/provider credentials and safe test data. No real payments or production emails for tests. Validate environment-specific webhook secrets, callback URLs, storage policies and signed playback configuration.
+Run the bounded payment/refund/access reconciliation command before launch and daily during the paid pilot. Record date/result and investigate discrepancies. Test callback replay after downtime. Automatic scheduling can be added to the same command later; it is not a job-framework project.
 
-Review migrations with schema/permission tests and application compatibility. Keep backups and rehearse a restore appropriate to the selected provider plan. A code rollback does not automatically undo a data migration or provider transaction; define forward fixes and compatible rollout/rollback steps. Never blindly run destructive migrations to make a preview build pass.
+For a payment-without-access incident: inspect owner/order/provider context → confirm current provider state → run the idempotent reconcile function → verify grant and delivery → record support outcome. Never repair by blindly toggling an `is_paid` field. For media failure: verify ownership/provider state/captions, retry a draft safely or issue a reviewed correction; don't expose a paid asset publicly as a workaround.
 
-Release gates: approved UI/scope; working vertical slices; auth/access/payment/media tests; real operator tools; reviewed legal/provider eligibility; observability/quotas; support ownership; pilot feedback addressed. Deployment and live-payment activation require explicit owner authorization.
+## Budgets and data recovery
 
-## Operational dashboards and alerts
+Track stored and delivered video minutes, upload quotas, processing failures, database/storage/egress and provider payment costs. Estimate contribution from actual revenue minus refunds, processor/platform charges, media/storage and support; do not publish a margin based on an unverified vendor price. Set alerts and hard upload limits before opening creator registration.
 
-Monitor signed webhook failures/processing delay, stuck purchases, paid-order/grant mismatches, failed/refunded/disputed orders, provider-account restrictions, video processing failures, playback authorization errors, failed outbox jobs and error rates. Alert on meaningful thresholds and route alerts to a named responsible operator selected before launch.
+Document database backup coverage and restore procedure; also document how private storage/media content and provider mappings recover, since database backup alone is not the full product. Perform a test restore in a nonproduction environment and record recovery gaps before live launch. Do not claim a provider tier includes a feature without checking the actual purchased plan.
 
-A small operator UI should support bounded replay, reconciliation and investigation with reasons and audit. Never expose arbitrary SQL, signing keys or unrestricted provider payloads to ordinary support roles. Scrub personal data and secrets from logs; document retention and access.
+## Release and rollback
 
-Define runbooks for: payment confirmed but access absent; refund/chargeback handling; incorrect creator association; video outage; compromised creator account; abusive course/report; accidental private cache leak; job backlog; and database restore. Each runbook states verification, safe corrective steps, escalation, user communication and audit requirements.
+Deploy `web/` only, excluding the archive and local evidence. Keep local, preview/staging and production credentials/data separate. Validate origin/callback configuration, private cache behavior, auth email, legal/support pages and actual course/asset rights. Fixture previews are non-indexable; release routes must use real data and no fake success paths.
 
-## Cost model and constraints
+Use backward-compatible migrations where possible. An application rollback does not automatically undo database/provider state. Record migration compatibility, restore plan, rollout/rollback steps and known risks for the release. Do not run destructive down migrations against paid records as a routine rollback.
 
-Do not choose platform pricing from a competitor headline alone. Model fixed application/database costs, stored/uploaded/delivered video minutes, resolution/features, resource storage/egress, email, monitoring, payment/Connect fees, refunds/disputes, fraud losses and support. Creator payouts are not platform revenue.
-
-Illustrative usage arithmetic only: 1,000 active learners watching 300 minutes each means 300,000 delivered minutes in that period. It is not a provider quote. Insert current actual provider rates, storage assumptions, geography and the approved fee/settlement model before computing margin [S17–S18](research.md).
-
-Set creator upload quotas, abandoned-asset cleanup rules, payment/OTP/post rate controls and spend alerts before broad self-serve access. Track contribution after variable costs and refunds; do not report gross course sales as platform profit.
-
-## Product measurement
-
-Define events with a stable schema and privacy review: course viewed, preview started, checkout initiated, order fulfilled (server-authoritative), first entitled lesson started, lesson completed, course resumed, question asked/replied and creator revision published. Distinguish anonymous previews and test traffic from actual learners.
-
-Pilot metrics and thresholds are hypotheses in `platform.md`. Record observed failure reasons and qualitative usability, not only conversion charts. Do not optimize notifications or streaks to inflate engagement at the expense of learning.
-
-## Evidence record template
-
-For each task record: commit/branch, environment, seed/fixture version, commands and actual results, tested identities/roles, browser/device/viewport, screenshot/video paths, known failures, residual risks and reviewer/approval. If a check is blocked, state why and leave it open. Never replace missing evidence with 'should work', 'pixel-perfect' or 'production-ready'.
+The owner explicitly approves production deployment/live payments. A successful build, a nice mockup, or this documentation commit is not that approval.

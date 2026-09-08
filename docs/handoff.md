@@ -1,91 +1,41 @@
-# Local-agent handoff
+# Local agent handoff
 
-This handoff continues reference/planning work. It does not authorize implementation, dependency installation, cloud setup or deployment. The original prototype remains frozen.
+The docs are ready to guide a bounded first implementation. Full remote visual review is not complete; the local agent must open the already saved references relevant to its UI task. Do not redownload them, finish the old music clone, or wait for all 159 images before scaffolding.
 
-## Branch and workspace safety
+## Branch and safety
 
-Planning branch: `astra/course-platform-plan`. Before changing branches, inspect `git status` and preserve unrelated local work. Fetch the remote branch and inspect its changes; do not reset, clean, stash indiscriminately or overwrite ongoing work. A docs PR being available does not authorize the agent to merge it.
+Use `astra/course-platform-plan`, which integrates the updated reference archive and the revised canonical docs. Before switching/pulling, inspect the local working tree and preserve unrelated work. Do not reset or force a branch. Confirm the actual latest remote commit and read root AGENTS. The documentation change itself did not authorize or perform application work.
 
-Typical branch discovery commands, only in the correct local repository:
+## First implementation prompt
 
-```sh
-git status --short
-git fetch origin
-git branch --all
-```
-
-With a clean or deliberately preserved worktree, switch to the existing local planning branch or create a tracking branch for `origin/astra/course-platform-plan` using the appropriate standard Git command. Do not guess that a branch is missing and force-create it over unrelated work.
-
-## Copy this as the next local-agent assignment
+Send the following when ready to authorize the initial slice:
 
 ```text
-Work in the darkapoparka/courses repository. MODE: REFERENCE_ONLY + DOCS_ONLY.
+Work in darkapoparka/courses using the latest astra/course-platform-plan branch. Inspect git status and preserve unrelated local changes before switching or pulling.
 
-Read AGENTS.md, docs/README.md, docs/platform.md, docs/reference-audit.md,
-docs/design-system.md, docs/screens-and-flows.md, docs/decisions.md and the
-REF-001/REF-002 rows in docs/tasks.md before editing.
+I approve Next.js App Router + React + strict TypeScript, Tailwind with custom tokens/selected accessible primitives, and the staged architecture in these docs. Implement only BOOT-001 plus the relevant REF-002 and UI-001: the minimal new web/ scaffold and the learner shell/Home screen. Do not implement the full backlog.
 
-The goal is an independent multi-creator course platform informed by Apple
-Music. The existing apple-music-clone is an unapproved frozen prototype.
-Do not continue implementing it, initialize web/, install dependencies,
-change runtime/source/config files, create services, migrate a database,
-deploy, merge branches or generate new product UI as part of this task.
+Read AGENTS.md, docs/README.md, docs/platform.md, docs/architecture.md, docs/coding-standards.md, docs/development.md, docs/design-system.md, and the assigned task rows. Use the other docs only when the slice needs them.
 
-Perform REF-001: inspect the existing local reference library at
-apple-music-clone/reference/originals/index.html and its manifests.
-The acquisition records already report 159 standalone screens, 58 flows,
-218 flow-step images and 13 animations/recordings. Do not redownload the
-collection unless a specific recorded file is genuinely missing/corrupt.
-File validation and visual inspection must have separate evidence.
+Open the saved local index and UI-elements gallery. Inspect the relevant high-resolution Apple Music shell/discovery originals and their useful flow states at readable size. Record exact source paths, app bounds excluding the Mobbin footer, useful tokens and course-specific changes in the reference ledger. Do not infer a screen's identity from the archived prototype's fallback mapping.
 
-Open the actual images at readable size. Catalog standalone screens and
-flow sequences, grouping duplicates and variants into meaningful pattern
-families. Record the source file and canonical URL, actual image/app bounds,
-visible content/state, relevance to our course platform, and inspection
-status. Do not derive observations from the prototype's modulo mapping,
-filenames, alt text or a tiny contact sheet. Play relevant recordings when
-motion/interaction matters. Mark uninspected assets honestly.
+Resolve current supported stable CLI/package versions from official sources, inspect CLI help, and use the official create-next-app CLI to initialize web/ with the agreed options. Pin runtime/package manager/dependencies and commit one active lockfile. Preserve all of apple-music-clone/ unchanged and outside the active workspace/deployment root.
 
-Write the actual review ledger and concise family index in
-`docs/reference-review/` (create this documentation directory as needed).
-Preserve source watermarks and all original files. Do not claim the Mobbin
-footer or embedded browser dimensions are part of the app design.
+Build the first course Home and shared learner shell using explicit public fixtures and original/licensed assets. Make it good at 390px and 1440px with real navigation behavior, useful shelves, accessible controls and the relevant empty/loading/error states. Keep provider SDKs, auth/backend, checkout, creator editor, queues, ORM, global state and unused future folders out of this slice. It must run without Supabase/Stripe/Mux credentials. Label fixture behavior honestly and do not add fake purchase or persistence success.
 
-Then perform the documentation portion of REF-002: identify exact inspected
-references for discovery, course-detail adaptation, creator profile,
-library, lesson/player/transcript and auth patterns. State what to retain,
-adapt or discard, and what needs a new course-specific design. Map them to
-screen IDs in docs/screens-and-flows.md. Do not implement 159 routes or turn
-music-specific radio/shuffle/concert flows into course requirements.
+Run the actual typecheck, lint, build and browser checks appropriate to the slice. Capture desktop/mobile screenshots, inspect them, and record what passed or remains blocked. Update tasks and any intentionally changed contract. Commit only intended files and show me the local run command, screenshots, exact commit and remaining issues.
 
-Update docs/tasks.md with the precise evidence and any remaining uninspected
-items. Correct draft reference assumptions only when supported by actual
-inspection; do not mark owner approval or application verification. Commit
-only intended documentation/evidence files on the assigned branch.
-
-Finish with: inspected coverage; strongest patterns to retain; course-only
-screens still needing design; files/commit; checks actually performed;
-blockers; and the next bounded task. Stop before application implementation.
+Stop after this first slice for my visual review. Do not build further screens, provision services, deploy, merge to main, or activate payments.
 ```
 
-## What follows reference review
+This prompt explicitly adopts the engineering baseline for the named task. It does not approve final brand/assets, every visual proposal, commerce terms, or release. Normal local edits/checks within the slice do not require repeated permission requests.
 
-The next decision is approving the stack/scope and authorizing course-specific design, not resuming the Apple clone. UX-001 produces five golden screen families—Home, Course detail, Lesson workspace, Creator profile and Studio curriculum editor—at desktop/mobile sizes with their important states. UX-002 fills the other launch workflows before the corresponding features are built.
+## After the first review
 
-An approved stack decision alone does not approve a visual layout. An approved mockup alone does not authorize live payments. Record each approval in `decisions.md`; future agents should not repeatedly ask questions that are already answered there.
+Fix the owner-reviewed shell/Home before spreading its styling. Then assign UI-002 (course detail/preview), UI-003 (lesson/Library), and UI-004 (search/creator) as small tasks. No requirement to create image-generated mockups for every state before testing a working UI.
 
-## Later bootstrap procedure — only after explicit authorization
+Once M0 is accepted, introduce real local/staging data and the free-course journey through the M1 tasks. Configure media only when MEDIA-001 needs it. Add sandbox commerce only after PAY-001's business assumptions are resolved. Do not ask for every vendor credential on the first run.
 
-For BOOT-001, first check current official installation documentation and the package registry, inspect CLI help, and resolve supported stable versions/peer dependencies. Prefer the supported Node LTS specified in the approved stack decision, with a pinned patch and package manager. Do not copy the prototype's version pins simply because they exist.
+## Every completion report
 
-For the currently recommended Next.js choice, the official scaffold is `create-next-app`; consult its current help/installation guide [S02](research.md) before constructing the exact command. Configure one app in `web/` with TypeScript, App Router, the approved styling setup and selected lint tooling. Record exact installed versions and actual check commands. Do not invent unsupported CLI flags or run the CLI in the archive directory.
-
-Use the equivalent current official `sv create` guidance [S26](research.md) only if the owner explicitly selects SvelteKit instead. Never initialize both alternatives to 'keep options open'. This procedure describes the future authorized task; no scaffold command was executed by the planning change.
-
-After bootstrap, implement the smallest approved free-course vertical slice in task order: creator draft → review/publish → public discovery → free enrollment → protected lesson → progress/resume. Then add and verify the sandbox paid lifecycle. Do not start with all feature folders, production service setup or a 159-screen implementation sprint.
-
-## When something is blocked
-
-For inaccessible images, name the files/actions that failed and leave visual status open; do not invent their contents. For missing integration credentials, continue only the explicitly authorized UI/domain tests or documentation; never fake successful payment/media/backend state. For unresolved business decisions, work on independent tasks without silently choosing commercial obligations.
-
-Do not delete or rebuild prior work as an unrequested cleanup. Report real conflicts and preserve unrelated changes. Completion reports must separate source inspection, design approval, implementation and tests.
+State the task, actual changed files/commit, actual commands and results, reference paths/screenshots, limitations, and next task. Distinguish fixture-only UI from live persistence, sandbox checks from live eligibility, and visual review from owner approval. Never claim the architecture or interface is flawless merely because a document or build exists.

@@ -1,71 +1,60 @@
-# Research and provenance
+# Primary sources and evidence
 
-Retrieved/rechecked **2026-09-08**. Sources are primary vendor/project/standards/regulator material. This is a dated snapshot: refresh versions, prices, regulations and provider eligibility before implementation or launch. Product choices, scope, screen hierarchy and architecture contracts in these docs are our recommendations—not claims made by the sources.
+Planning baseline 2026-09-08; visual review and key technical sources rechecked 2026-09-09. Product choices are recommendations, not vendor statements. Refresh versions, security advisories, API details, prices, regions and legal/provider eligibility at the task that uses them. No framework benchmark, exhaustive market study, legal opinion or provider approval was performed.
 
-## Primary source register
+## Implementation reference register
 
-| ID | Primary source | Used for |
+| ID | Official source | Purpose |
 | --- | --- | --- |
-| S01 | https://nextjs.org/blog/next-16-3 | Stable 16.3 capabilities and bundled version-matched agent documentation; distinguish opt-in/experimental features |
-| S02 | https://nextjs.org/docs/app/getting-started/installation | Supported scaffold and installation guidance; commands not executed in planning |
-| S03 | https://svelte.dev/docs/svelte/overview and https://svelte.dev/docs/kit/introduction | Svelte/SvelteKit model and full-stack alternative |
-| S04 | https://nuxt.com/docs/4.x/getting-started/introduction | Nuxt full-stack SSR alternative; see S33 for release context |
-| S05 | https://tanstack.com/start/latest/docs/framework/react/overview | Router-first model and Release Candidate label observed during research |
-| S06 | https://www.skool.com/pricing | Existing competitor scope and advertised pricing; not proof of an all-in transaction cost |
-| S07 | https://help.skool.com/article/168-how-to-set-up-one-time-course-purchases | Existing planning source for one-time purchases; do not market that capability as unique |
-| S08 | https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=framework&framework=nextjs | SSR clients, verified identity and session/caching boundaries |
-| S09 | https://supabase.com/docs/guides/database/postgres/row-level-security | Database grants, row policies and testing |
-| S10 | https://supabase.com/changelog | Revalidation entry point for breaking changes, Data API exposure and supported runtimes; do not infer exact changes from an inaccessible page |
-| S11 | https://docs.stripe.com/connect/marketplace | Marketplace/Connect integration model |
-| S12 | https://docs.stripe.com/connect/charges | Charge model and responsibility tradeoffs |
-| S13 | https://docs.stripe.com/webhooks | Signature verification, durable event handling, retries, duplicate and out-of-order delivery |
-| S14 | https://stripe.com/legal/restricted-businesses | Third-party content-platform approval and deceptive/get-rich-quick restrictions; country-specific terms require review |
-| S15 | https://www.mux.com/docs/guides/upload-files-directly | Direct media ingest model |
-| S16 | https://www.mux.com/docs/guides/secure-video-playback | Signed playback and private signing credentials |
-| S17 | https://www.mux.com/pricing | Usage-based video cost inputs; no perpetual fixed-price assumption |
-| S18 | https://developers.cloudflare.com/stream/pricing/ | Alternative video pricing model to evaluate |
-| S19 | https://nodejs.org/en/about/previous-releases | Node 24 LTS, Node 26 Current, Node 20 EOL at research date |
-| S20 | https://react.dev/versions | React release compatibility/version revalidation |
-| S21 | https://www.radix-ui.com/primitives/docs/overview/accessibility | Primitive keyboard/focus semantics; application still needs accessibility testing |
-| S22 | https://www.w3.org/TR/WCAG22/ | WCAG 2.2; 44px is our preferred touch target, not a blanket AA minimum |
-| S23 | https://web.dev/articles/vitals | Core Web Vitals and field-measurement targets; not measured scores for this repository |
-| S24 | https://europa.eu/youreurope/citizens/consumers/shopping/returns/index_en.htm | Digital-content withdrawal conditions; professional review needed for actual offers/jurisdictions |
-| S25 | https://digital-strategy.ec.europa.eu/en/policies/e-commerce-rules-eu | Seller/offer transparency and digital-commerce review areas |
-| S26 | https://svelte.dev/docs/kit/creating-a-project | Official Svelte CLI alternative; not executed |
-| S27 | https://github.com/vercel/next.js/releases/tag/v16.3.4 | Official stable release marked Latest; August 31, 2026; inspected September 8 |
-| S28 | https://svelte.dev/blog/whats-new-in-svelte-september-2026 | September 1 report: Svelte 5.57, stable Kit 2 patch releases, continued Kit 3 prereleases |
-| S29 | https://svelte.dev/blog/sveltekit-3-release-candidate | Svelte team's August 13, 2026 Kit 3 RC announcement |
-| S30 | https://reactrouter.com/start/modes | Framework Mode typed route modules/data/actions and SSR/SPA/static strategies |
-| S31 | https://docs.astro.build/en/concepts/why-astro/ | Content-focused architecture and selective interactivity; not evidence of a universal performance ranking |
-| S32 | https://laravel.com/framework/docs/13.x/starter-kits | Laravel 13 application starter kits and Inertia-based alternatives |
-| S33 | https://nuxt.com/blog | Current Nuxt 4 release/security context; roadmap dates are not proof a later major shipped |
-| S34 | https://docs.stripe.com/connect/merchant-of-record | Merchant responsibilities and how direct/indirect charges and on_behalf_of affect the arrangement |
-| S35 | https://circle.so/platform/courses | Competitor overlap in courses, community and monetization; feature bundling alone is not differentiation |
-| S36 | https://www.mux.com/docs/guides/add-autogenerated-captions-and-use-transcripts | Caption/transcript processing lifecycle; readiness must be verified separately |
-| S37 | https://www.mux.com/docs/api-reference/video/direct-uploads/create-direct-upload | Current direct-upload API and public/signed playback policy options |
+| R01 | https://nextjs.org/docs/app/getting-started/server-and-client-components | Server/client composition and small interactive boundaries |
+| R02 | https://nextjs.org/docs/app/guides/authentication | Identity/action checks and layout limitations |
+| R03 | https://nextjs.org/docs/app/guides/data-security | Server-only data functions, authorization and safe minimal return values |
+| R04 | https://nextjs.org/docs/app/getting-started/installation and https://nextjs.org/docs/app/getting-started/mutating-data | Official scaffold and current mutation conventions |
+| R05 | https://supabase.com/docs/guides/auth/server-side/creating-a-client | Request-scoped SSR clients, verified identity, refresh/private caching |
+| R06 | https://supabase.com/docs/guides/database/postgres/row-level-security | Grants/policies, metadata risk, views and row authorization |
+| R07 | https://supabase.com/docs/guides/api/securing-your-api | Exposed schema/table grants and privileged boundaries |
+| R08 | https://nodejs.org/en/about/previous-releases | Supported runtime release lines |
+| R09 | https://docs.stripe.com/webhooks | Signature verification, retries, duplicate/unordered delivery, queue guidance |
+| R10 | https://docs.stripe.com/checkout/fulfillment | Authoritative idempotent fulfillment, webhooks and delayed payment |
+| R11 | https://docs.stripe.com/connect/charges and https://docs.stripe.com/connect/merchant-of-record | Charge/refund/funds and merchant responsibility |
+| R12 | https://www.mux.com/docs/guides/upload-files-directly | Direct upload and processing model |
+| R13 | https://www.mux.com/docs/guides/secure-video-playback | Signed delivery and private signing credentials |
+| R14 | https://www.radix-ui.com/primitives/docs/overview/accessibility | Primitive behavior; composed UI still needs testing |
+| R15 | https://supabase.com/docs/guides/local-development | Local CLI/database workflow and prerequisites |
+| R16 | https://playwright.dev/docs/test-snapshots | Deterministic visual comparisons and environment sensitivity |
+| R17 | https://www.w3.org/TR/WCAG22/ | Accessibility criteria; distinguish our preferred touch sizes from formal requirements |
+| R18 | https://stripe.com/legal/restricted-businesses | Content-platform/category eligibility and prohibited/deceptive offerings |
+| R19 | https://europa.eu/youreurope/citizens/consumers/shopping/returns/index_en.htm | Digital-content withdrawal review area for qualified jurisdiction-specific review |
+| R20 | https://docs.stripe.com/api/idempotent_requests | Provider request idempotency and retry constraints |
+| R21 | https://nextjs.org/docs/app/guides/backend-for-frontend | Internal data functions versus real HTTP entry points and hosting limits |
+| R22 | https://svelte.dev/ and https://svelte.dev/docs/kit/introduction | Credible alternate application stack, not a universal performance ranking |
 
-## September 8 review additions — PLAN-002
+R01/R03/R05/R08/R09 were reopened during the final review. Next's current docs displayed 16.3.4 and Node's table showed Node 24 as LTS. Those observations do not authorize copying the prototype's entire dependency combination. Resolve supported stable patches/peers again at bootstrap.
 
-The existing planning branch was inspected rather than replaced with another documentation folder. Its scope, `web/` target, conservative one-time commerce model and paused implementation remain unchanged.
+Other links are the implementation reference register carried from the planning research and should be reopened when used. Some prior detailed fulfillment content was obtained through search when a variant page did not load; a Supabase changelog fetch also failed. No unverified changelog change is used here as an implementation instruction.
 
-The stack comparison now separates Svelte 5 from SvelteKit 3 prerelease status and covers React Router Framework Mode, Astro and Laravel/Inertia in addition to Next, SvelteKit, Nuxt and TanStack Start. Next 16.3.4's official release and Node's support table were rechecked. These are documented recommendations and source observations; no framework spike, install, benchmark or production test occurred.
+## Project decisions, not source claims
 
-The source register was extended with explicit merchant-of-record and media lifecycle references. A Connect integration is not a merchant-of-record outsourcing service or approval for every category. The correct charge/merchant arrangement must match the actual business and be recorded before live commerce [S34].
+One Next app, small server-only feature functions, SQL migrations without a second ORM authority, one creator owner, locked published content, one-course checkout, fixture-first UI and staged community are scope choices for this pilot. Sources explain capabilities and constraints; they do not prove that these choices are universally best.
 
-## Repository sources
+Stripe generally recommends asynchronous queue-based handling for scale. The pilot's short atomic handler with retries and reconciliation is a deliberate limited design with measured latency/recovery gates. Add one managed durable queue if those gates cannot be met. No in-memory background task, unsupported exactly-once promise or custom workflow framework is prescribed.
 
-Application/reference audit base: `0f8e5f89a0320f6f6f557ecb6f30b428594f9c02` in `darkapoparka/courses`; root tree `82f5237588ab562eaee494c57cafb778efb49fe8`.
+Supabase does not remove backend/security work. Signed playback is not piracy-proof DRM. A Next build does not certify a production marketplace. Our application still owns authorization, accurate purchase/access state, safe content rendering, operational recovery and tested UI.
 
-Existing planning commit reviewed: `3bb3a35f4644a376990b099ccc01faf3f30a698f` on `astra/course-platform-plan`. This follow-up extends that work; it does not claim that every pre-existing document was newly authored in the follow-up review.
+## Repository provenance
 
-The root README and `apple-music-clone/reference/originals/README.md` describe completed acquisition. `originals/verification.json` records 159 standalone screens, 58 flows, 377 valid images and 13 video headers. The originals README reports 218 ordered flow-step images. `download-manifest.json`, `flow-download-manifest.json`, `browser-observed-flows.json` and `all-image-dimensions.json` preserve source/provenance information.
+Original source/reference baseline: `0f8e5f89a0320f6f6f557ecb6f30b428594f9c02`. Updated archive commit: `849594d4a0cb9a6befc6474019d3bf6e9601740e`; its complete `apple-music-clone/` tree is `510a7a8131f1aa97dfecc09c09ef9a1575202620`. The documentation branch preserves that subtree byte-for-byte rather than editing the prototype/reference assets.
 
-`lib/reference.ts` contains explicit and modulo-fallback scene mappings plus three hardcoded implementation flows. These mappings are not reference truth. `components/apple-music-app.tsx` supplies evidence of a large client prototype and generated artwork fixtures. Historical review notes are not a new visual inspection by the author of a later documentation update.
+The original planning commits `3bb3a35` and `ef0140d` remain in history. This revision updates their canonical docs instead of adding a competing plan. Earlier speculative outbox/revision/team/offer structures are explicitly superseded in the decision register.
 
-## Evidence limits
+Updated acquisition metadata was read and flow counts independently calculated: 159 high-resolution entries, 58 flows, 218 steps, 159 distinct screen IDs. UI-elements metadata reports 29 categories and 53 memberships. Bulk image hashes/header checks are the acquisition author's evidence, not a bulk rerun by this review.
 
-Mobbin's connected screen-search tool required a paid plan. Saved WebP/MP4 assets were not successfully rendered in the remote review; public binary retrieval also failed. The archive validation report was read, not rerun. No full per-screen visual classification, recording-playback audit, runtime audit, dependency install, load test or usability study was completed. Exact design measurements, source-screen fidelity and course-design approval remain open.
+## Visual evidence and limits
 
-Documents do not establish an exhaustive market comparison, a live provider quote, a legal/tax opinion or provider approval. 'Recommended' means project fit on available evidence, not universally best or flawless. Sources carried over from the existing planning set should be reopened when their claim is used for implementation; an entry in this register is not a permanent guarantee of current availability or validity.
+**17 originals were visually opened: 16 high-resolution variants plus one standard-resolution billing image.** Exact immutable source paths, observed states and course adaptations are in [the ledger](reference-review/ledger.md). The billing file alone was additionally fetched into memory, fully decoded with Pillow, and matched against its Git blob/hash. Do not generalize that check to every file.
 
-Do not use a current web image of Apple Music, the archived prototype, or an invented course mockup as evidence that the exact saved Mobbin original was inspected. Preserve original files, watermarks, source identity and the distinction between acquisition, visual review, proposed adaptation and owner approval.
+All 58 flow names/ordered IDs were read as metadata; selected corresponding still states were viewed. No full MP4 playback, native-mobile reference audit, every-pixel CSS extraction, browser interaction test or complete 159-image review was performed. The other 142 screen identities remain visually unreviewed in this session.
+
+Actual images confirm mistakes in the old prototype's ID mappings, beyond its arbitrary modulo fallback and invented artwork. The image reader now works; earlier inability to view sources is historical, not a reason to send the owner another blocked-audit claim.
+
+No product scaffold, dependency installation, database migration, provider account, real payment, deployment or runtime test of a new app occurred in this documentation work. Course visual approval, business eligibility and production verification remain separate gates.

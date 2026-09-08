@@ -1,98 +1,78 @@
-# Commerce, access and video delivery
+# Commerce, access and media
 
-Status: proposed integration design. No accounts, checkout sessions, uploads, keys or infrastructure were created. Commercial eligibility, legal terms and production activation remain explicit launch gates.
+M1 introduces media/free enrollment; M2 introduces paid commerce. No vendor accounts, uploads, keys or payments were created by this documentation work. Read [data model](data-model.md) for constraints and [decisions](decisions.md) for business gates.
 
-## Commercial baseline
+## Business boundary before payment code
 
-Start with free enrollment and one-time course purchases. One order buys one course from one creator. No multi-seller cart, creator subscription, global all-access subscription, cross-creator bundle, affiliate settlement or internal cryptocurrency balance in the first release.
+One course, one seller, one-time purchase; free enrollment is separate. No cart, subscriptions, bundles, affiliate payouts or internal wallet. Use Connect and hosted Checkout. Choose the actual platform/entity countries, merchant identity, charge model, fee/refund responsibility, tax treatment and supported currency before implementing the financial integration.
 
-Stripe Connect plus hosted Checkout is recommended for marketplace money movement and payment collection. Connect does not automatically resolve seller-of-record, tax, consumer law, refund liability or platform eligibility. The selected charge model changes responsibility for fees, refunds/disputes and transfers [S11–S14](research.md).
+Destination charges are a candidate for a platform-branded single-seller marketplace, not a silently approved choice. Direct/indirect charges and `on_behalf_of` affect merchant/funds responsibilities. Connect is not automatic merchant-of-record outsourcing [R11](research.md). Third-party content and sensitive claims require provider eligibility review [R18](research.md).
 
-Evaluate destination charges as an initial candidate for a platform-collected, single-creator purchase; do not treat that as approved until the business accepts the corresponding responsibilities and supported account/country setup. Compare direct charges when the actual seller arrangement calls for them. Record the final charge model and refund/transfer/fee behavior in `decisions.md` before implementing its irreversible assumptions.
+## Checkout creation contract
 
-Provider approval and country-specific restrictions must be checked for this third-party educational content platform. Broad 'business/money-making/crypto' categories cannot be treated as automatic eligibility for every seller or claim. No guaranteed-profit or deceptive get-rich-quick offerings [S14](research.md).
+The server verifies the learner, course publication/availability, current course price/currency/terms, creator selling readiness and existing access. Compare the accepted offer version; show a changed-price summary rather than silently charging different terms. Validate callback origins.
 
-## Checkout creation
+Create/reuse one appropriate pending order under a buyer/course concurrency constraint. Snapshot the accepted course/seller/price/access/terms and relevant fee/tax consent information. Create hosted Checkout with server-resolved values and a stable provider idempotency key derived from that attempt. Never accept an arbitrary amount or connected account from the browser.
 
-An authenticated learner initiates checkout from a current offer. The server validates buyer identity, course publication/suspension, offer type/price/currency, creator account relationship and applicable selling readiness. It checks for existing access and an appropriate in-flight purchase to avoid accidental duplicate charges. A changed offer returns an updated summary for user confirmation rather than silently charging a different amount.
+The provider request and the database cannot share one atomic transaction. If session creation succeeds but saving its reference fails, recover using the existing attempt/idempotency identity and reconciliation. Do not immediately create another charge attempt. Reuse an existing active session when appropriate; verify terminal/expired state before replacing it [R20](research.md).
 
-Create a pending order with immutable commercial terms and a stable server-generated request/idempotency identity. Create the provider Checkout Session with the correct connected-account/charge configuration and server-resolved values. Persist the provider relationship. Handle the gap between local transaction and external API success through idempotency and reconciliation; a database transaction cannot atomically commit the provider's external state.
+## Fulfillment
 
-Use provider-hosted payment collection; never store card data or reproduce Apple account/card forms. Validate allowlisted return URLs. Provider metadata helps correlate records but is not a substitute for checking buyer/order/course/account relationships and actual amounts.
+The return URL may select an order for an authenticated owner-only status read. It does not prove payment. Display Confirming purchase honestly until an authoritative paid state has been applied. Server reconciliation may accelerate the return path, but browser return is never the only fulfillment mechanism [R10](research.md).
 
-## Payment return versus payment truth
+For relevant verified events, obtain the current provider state when needed; match environment, account, order, buyer, course, amount/currency and provider relationships. Session completion alone is not sufficient for a delayed payment. Support only deliberately configured methods and test their actual transitions.
 
-The browser return page displays the authenticated user's order status. It may show 'Confirming purchase' and poll/retry an authorized status endpoint. An order ID, Checkout Session ID or `success=true` in a URL is not proof of payment or ownership.
+Apply payment/refund state through one constrained database transaction: lock the relevant order; check existing business effect; update authoritative local fields; create or revoke only the order's grant; record the successfully handled provider event. A unique event key prevents duplicate delivery effects, and a unique source grant also protects against different events describing the same purchase. Ordinary users cannot call this privileged function.
 
-Access is granted only after an authoritative paid/fulfilled condition is established through a verified provider event or authenticated server reconciliation. Some payment methods are asynchronous; session completion alone is not always settled payment. Select supported methods deliberately and follow their actual state transitions. Never show a fake purchased state to hide processing delay.
+Do not mark an event handled before its required effect succeeds. Transient provider/database failures return a retryable error so delivery can retry. Known duplicates/no-ops return success. Deterministic inconsistencies are recorded as exceptions for operator review, not retried forever or converted into access. Nothing else—email, analytics, media processing—belongs inside this transaction/request.
 
-## Webhook processing
+Stripe documents retries, duplicate delivery and non-guaranteed ordering, and recommends asynchronous processing for scale [R09](research.md). The pilot deliberately uses a short bounded handler. Measure it under concurrent/replayed events and provider/hosting limits before live activation. A queue becomes necessary if that boundary cannot be met; choose one managed durable queue, not a custom framework or fire-and-forget promise.
 
-Follow current provider signature guidance and preserve the raw request body for verification [S13](research.md). Reject invalid signatures or wrong-environment/account events. Bound request size, protect secrets and avoid logging sensitive payloads unnecessarily.
+## Payment/access state matrix
 
-Durably record a verified event with a unique provider/account/event key. Either process a small atomic business transaction immediately or enqueue a durable job, then acknowledge according to the provider contract. Do not acknowledge and rely on an unawaited in-memory promise for the only fulfillment attempt.
-
-Events may repeat, arrive late or arrive out of order. Handlers must verify object relations and be idempotent. Query the authoritative current provider object when an event's ordering or fields cannot safely establish the present state. A duplicated 'paid' event must not duplicate access, revenue entries, notifications or transfers.
-
-For fulfillment, atomically update the relevant order state, create the source-specific entitlement grant if absent, establish enrollment as appropriate, and emit the needed outbox notification. Store processing outcome separately from event receipt. Failed jobs retry with backoff and become visible in operator tooling; scheduled reconciliation catches missed events and mismatches.
-
-## Lifecycle matrix
-
-| Situation | Financial behavior | Access/UI behavior |
+| Situation | Financial record | Access/UI |
 | --- | --- | --- |
-| Pending session | No assumed revenue | Confirming/pending, paid lesson remains locked |
-| Definitively paid and fulfilled | Record confirmed provider amounts/references | Create exactly one business grant for that source; show Start learning |
-| Failed/canceled before payment | Record terminal attempt; allow a deliberate retry | No paid grant; keep user context |
-| Duplicate/out-of-order event | Deduplicate/reconcile, do not regress authoritative state | No duplicate grant or misleading rollback |
-| Refund requested | Request is not a completed refund | Explain request status under the actual policy |
-| Confirmed full refund | Record refund and any required transfer/application-fee handling for the charge model | Revoke that purchase's grant under the approved policy; other valid grants remain |
-| Partial refund | Record exact adjustment | Access effect must be explicitly defined; do not automatically remove the whole course |
-| Dispute | Follow provider/business policy, record dispute state | Access suspension/continuation is an explicit documented policy, not guessed from a generic failure |
-| Creator/course unlisted | Stop new sales | Existing valid buyer access remains |
-| Safety/legal suspension | Escalate support/refund and provider obligations as applicable | Restrict affected content with an explanation and support path |
+| Session created / payment pending | Pending, not revenue | No paid grant; confirming or continue checkout |
+| Authoritatively paid | Preserve provider references/amounts | Idempotent order grant; start learning |
+| Declined / expired before payment | Terminal attempt after verification | No grant; deliberate retry allowed |
+| Duplicate / stale event | Deduplicate or refresh current state | No duplicate grant or regression |
+| Refund requested / pending | Request/pending is not success | Explain actual policy/status; no fictional completed refund |
+| Confirmed full refund | Record refund and charge-model adjustments | Revoke this order grant under approved policy; other grants survive |
+| Partial refund | Record exact adjustment | No automatic whole-course revocation; apply agreed policy |
+| Dispute | Separate current dispute facts | Follow explicit suspension/access policy, not a generic failed flag |
+| Course unlisted | Stop new sales | Existing valid access remains |
+| Course/workspace suspended | Record support/remedy process | Delivery blocked with explanation even if grant/payment exists |
 
-Do not overwrite past commercial terms when the creator changes a price. Provider fees, refunds and transfer reversals must be reconciled rather than approximated by a single subtraction in the UI. The financial log supports operations but does not replace an accountant or statutory books.
+Late successful events must not resurrect an already refunded grant. Refresh provider state and update under the order lock; keep refunded/disputed facts distinct from original payment success. A course becoming unavailable after payment requires support/remedy handling, not pretending the buyer never paid.
 
-## Creator onboarding and payouts
+## Operations without a job platform
 
-Use provider-hosted onboarding and status retrieval. Distinguish identity/application review, payout-account connection, selling capability, payout capability, course approval and platform suspension. Completing one is not proof of all others.
+Provide a bounded, paginated reconciliation command reusing the same domain functions: compare recent provider sessions/payments/refunds against local order/grant state, report exceptions, repair only documented idempotent effects, and record a safe audit result. Run before the pilot and daily during it; name the owner. Test replay after webhook outage. A future scheduled invocation can call that same function.
 
-Store the account relationship server-side and expose only necessary readiness/status messages. Do not collect sensitive identity documents into our own storage when the provider's hosted flow handles them. Creator payout edits and workspace finance access require stronger permission checks and audit.
+Use provider receipts and in-app purchase status initially. Do not introduce an outbox/email pipeline just to send a duplicate receipt. Failed essential auth email is a separate production configuration/monitoring issue.
 
-The owner must approve supported platform/seller countries, settlement and buyer currencies, platform fee model, refund responsibilities, tax/seller arrangement and support workflow. Do not promise global payouts simply because the application accepts a country field.
+Refunds may initially be performed by authorized operators in Stripe's dashboard, followed by verified webhook/reconciliation updates; document the workflow, transfer reversal and application-fee behavior for the chosen model. Do not build a custom finance ledger/dashboard to recreate the provider [R11](research.md).
 
-## Video ingest
+## Media ingest
 
-Use Mux direct-upload capability so the browser transfers the video to the media service rather than proxying large files through the application server [S15](research.md). The server first checks editor permission, draft lesson ownership, creator status, file constraints and quota. It creates an expiring upload authorization bound to the relevant media/lesson record.
+The creator requests upload authorization for an owned editable lesson. Check workspace/course state, file constraints and quota. Create a server-owned media record and expiring provider upload; bind returned provider IDs to that record. The browser uploads directly to Mux, not through Next [R12](research.md).
 
-Track browser transfer progress separately from provider asset processing. Verified provider events update the authoritative mapping, duration/readiness and failure details. Bind every event to the expected account/environment and our media record. The browser cannot mark an arbitrary asset ready or attach another workspace's video.
+Track transferring separately from processing. Verified events or authenticated reconciliation establish ready/failed, duration and caption status. The client cannot mark an arbitrary asset ready or attach another creator's asset. Retrying a failed draft upload must not replace a published asset. Record cleanup ownership and retention for abandoned drafts; do not leave unlimited free uploads.
 
-Allow retry/replacement without deleting the last published version prematurely. Validate caption/transcript availability and permissions before publication. Assets abandoned in drafts need a documented cleanup policy, not silent indefinite storage. Limit upload size/duration/count and protect trial/free accounts from expensive abuse.
+Before publishing, verify required lesson assets are ready, captions are usable and resources have passed the allowed-type/size/review checks. AI-generated captions, when used, need creator review; successful video encoding is not proof that captions are correct.
 
-## Protected playback
+## Playback and files
 
-Use private/signed playback for paid video. After verifying identity, grant or preview permission, content state and media readiness, the server returns the minimal short-lived playback authorization. Keep signing credentials server-only. Signed URLs/tokens are a delivery control, not a substitute for entitlement checks [S16](research.md).
+The server checks the same lesson access policy for video, paid text, transcript and resources. For Mux signed playback, keep signing keys private and issue only the needed short-lived authorization after that check [R13](research.md). Choose/record token lifetime during integration; long lessons need authorized refresh. Revocation can leave an already-issued token usable until expiry. This is not piracy-proof DRM.
 
-Choose token lifetime through an explicit security/usability test; allow authorized refresh for long lessons. A revoked grant cannot necessarily invalidate a token already issued until its validity expires, so document that residual access window. Signed playback is not a guarantee against screen recording or redistribution and must not be marketed as piracy-proof DRM.
+Never put paid tokens/links/transcripts in public caches, static exports, share metadata or analytics. Explicit previews use intentionally public lesson permission, not a hidden URL to the complete paid course. Validate that every file/media ID actually belongs to the requested lesson.
 
-Never place paid media authorization in a public cache, static HTML export, analytics event or shareable unauthenticated endpoint. Public previews use explicitly designated assets/content, not a secret URL for the entire paid course. A lesson's thumbnail/poster may be public while its media/transcript/resource remains protected; represent that distinction.
+Use a maintained provider-compatible player with captions, speed, keyboard, fullscreen where supported, buffering/retry and clear failure states. Do not autoplay sound. V1 pauses on navigating away and offers a resume destination; a persistent multi-route mini-player is not required.
 
-## Player behavior
+Progress saves periodically and on useful supported events, using the version/conflict contract in the data model. Do not rely only on browser shutdown delivery. Video position is not proof of learning or access.
 
-Provide captions, play/pause, accessible keyboard control, speed, fullscreen where supported, clear buffering/error/retry and appropriate mobile browser behavior. Use a mature provider-compatible player rather than building a custom media engine. Do not autoplay with sound.
+Paid resources stay in private storage with authorized expiring download links. Allow only reviewed file types; deliver untrusted archives as attachments on an appropriate storage origin, never execute them in the app. No arbitrary creator HTML/MDX/scripts or unreviewed embeds.
 
-V1 pauses on leaving the lesson and offers a resume destination elsewhere; persistent mini-video is not required. Update progress periodically and at supported pause/navigation/visibility events, with retry and a documented stale-update policy. Browser shutdown events are not guaranteed delivery, so do not rely on a single final beacon for all progress.
+## Required integration evidence
 
-Video views are not proof of learning, financial settlement or course access. Private notes/timecodes belong to the learner and require their own save/authorization path.
-
-## Files and text
-
-Paid PDFs, templates, source archives, lesson text and transcripts use the same access decision as video. Store private resources in protected storage and issue short-lived download links only after a resource-to-lesson relation check. Validate uploads by actual type/size and scan/restrict risky content according to the trust policy. Do not render arbitrary creator HTML or execute uploaded code on the application origin.
-
-A coding course may offer source files; that is not permission to run untrusted learner/creator code on our servers. Embedded content must be allowlisted and reviewed for privacy and access leakage.
-
-## Cost and observability
-
-Compare Mux and Cloudflare Stream using current ingest/encoding, stored minutes, delivered minutes, resolution/features and expected geography [S17–S18](research.md). No provider is assumed universally cheapest. Instrument upload failures, processing latency, playback authorization failures, provider errors and playback startup/rebuffering where available, while minimizing learner data.
-
-Track paid order → active grant reconciliation separately from video usage. Add budgets/quotas and alerts before opening creator uploads widely. Real provider costs, settlement behavior and test-mode scenarios must be recorded in the corresponding integration task before production activation.
+Record sandbox environment/account mapping, SDK/API versions, events subscribed, signature checks, idempotency/concurrency behavior, webhook latency under replay, outage recovery, refunds, cross-tenant upload/token attempts, expired playback refresh and known residual risk. No live selling until those checks and business gates pass.

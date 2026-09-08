@@ -1,89 +1,57 @@
 # Security, privacy and marketplace trust
 
-Status: design requirements and review gates, not a security certification or legal opinion. Apply the current provider/standards guidance in `research.md` and obtain jurisdiction-specific professional review before paid launch.
-
-## Threat model
-
-Protect against cross-creator data access, paid-content theft through unprotected endpoints, forged purchase success, duplicated/reordered webhooks, client-side role escalation, public cache leakage, malicious uploads/rich text, account takeover, creator fraud, misleading education claims, abusive community content and operational mistakes involving money/access.
-
-The system must work for an honest user and remain safe when request IDs, workspace fields, URLs, JWT metadata, price fields and webhook payloads are deliberately manipulated. 'The button is hidden' is not a security boundary.
+Security is part of each slice, not a giant security platform to build first. These are engineering requirements and launch review areas, not a legal opinion or certification.
 
 ## Permission matrix
 
-| Actor | May do | Must not do |
+| Actor | Allowed | Explicitly denied |
 | --- | --- | --- |
-| Anonymous visitor | Read approved catalog and explicit public previews | Read drafts, paid bodies/transcripts/resources, orders or private profiles |
-| Signed-in nonbuyer | Save/follow, manage own account, initiate an eligible purchase | Grant access, set prices, access paid content merely by knowing IDs |
-| Entitled learner | Read permitted content; write own progress/notes; participate where membership allows | Read others' notes/orders; modify curriculum or financial truth |
-| Creator editor | Edit permitted workspace drafts, uploads, curriculum and approved discussion actions | Inspect other workspaces, privately read learner notes, change payout ownership without permission |
-| Creator owner/finance role | Manage authorized workspace members/profile and permitted finance/onboarding operations | Grant global operator power, access all learner PII or bypass course review |
-| Operator | Perform assigned review/support/refund/reconciliation actions with reason/audit | Use a general unrestricted personal-data browser or silently alter financial history |
-| Provider webhook worker | Process verified, bound events through narrow server privileges | Accept arbitrary client event claims or expose its credentials |
+| Anonymous | Published safe catalog/creator metadata and intentional public previews | Drafts, paid content, private profiles, orders, provider mappings |
+| Learner | Own profile/bookmarks/progress/notes; authorized course content; own purchase/support state | Other learners' records, self-granted access, creator/provider/operator fields |
+| Creator owner | Own workspace drafts, private previews, approved submission, own sales summaries and course questions | Other workspaces, buyer private notes, direct paid-grant writes, self-publication bypass, editing locked published content |
+| Operator | Explicit review, report, suspension and support/reconciliation actions with reasons | Unnecessary learner private-note access, arbitrary SQL UI, unlogged privileged changes |
+| Verified provider integration | Narrow mapped media/financial state updates | Unverified browser events, arbitrary ownership or role changes |
 
-Implement only the roles needed initially, but preserve the scope distinctions. An operator permission should be explicit; it is not an email-domain check or a public profile badge.
+One user may be learner and creator. Workspace ownership and operator assignment are database facts, not user-editable JWT/profile metadata. Sensitive requests check current account/workspace suspension and authority, not only a possibly old token role.
 
-## Authentication and sessions
+## Access and data controls
 
-Use current Supabase SSR guidance and verified identity methods appropriate to the operation [S08](research.md). Do not authorize from an unverified browser session object or user-editable metadata. Role/membership changes and suspension need fresh checks for sensitive actions; stale JWT claims cannot be the only source of truth.
+Validate identity, resource ID, parent relationships, payload size/type and authorization at every protected Server Action/Route Handler/data function. UI hiding, middleware/proxy, URL nesting, and a layout redirect are not complete protection [R02–R03](research.md).
 
-Use HTTPS in deployed environments, secure session handling and allowlisted auth redirects. Avoid account enumeration in OTP/error messages. Add abuse controls for OTP attempts/resends, sign-in, checkout creation, posting and uploads. Require appropriate stronger authentication/reverification for finance and operator actions; define recovery and emergency access procedures without creating shared untracked admin credentials.
+Use least-privilege grants plus RLS for exposed tables and storage. Public metadata and paid content are separated. Review views/functions as carefully as tables; privileged credentials/functions require restricted usage and execution grants. Test direct API requests using real anonymous/learner/creator roles, not only service credentials [R06–R07](research.md).
 
-Review logout/revocation behavior explicitly. Deleting an account record is not proof that all previously issued tokens stopped working immediately. Sensitive operations should check current account/workspace restrictions in addition to identity.
+Never expose provider/admin/signing secrets through `NEXT_PUBLIC_`, client props, logs, source maps or screenshots. Avoid shared caching of user/cookie-bearing responses. Use the current Supabase SSR verification/refresh guidance and account for the fact that token verification is not a fresh authorization lookup [R05](research.md).
 
-## Authorization, database and storage
+## Input, upload and abuse limits
 
-Enable RLS and deliberate grants for exposed data. Policies need ownership/tenant predicates on both readable and writable states. Test INSERT/UPDATE/DELETE as well as SELECT, including attempts to reassign another user's/workspace's IDs. Verify view/function behavior and privileges; do not assume a view or privileged function preserves the caller's row policies [S09–S10](research.md).
+Bound search queries, mutation bodies, note/post lengths, upload sizes/duration/count, token issuance and checkout attempts. Add appropriate per-account and network rate controls on auth, uploads, signing and payments; do not claim in-memory limits survive serverless scaling. Use provider protections plus a deliberately selected durable/hosting mechanism when implementing the public endpoint, not an untested blanket rate-limiter package.
 
-Keep privileged service credentials out of browser code, public environment variables, logs and generated assets. A server endpoint using privileged credentials needs its own rigorous authorization because those credentials may bypass RLS. Restrict security-definer execution and search paths; do not add privilege escalation to fix a broken query.
+Render restricted Markdown/plain text without raw HTML or executable MDX. Reject unsafe URL schemes and unreviewed embeds. Image uploads allow only supported decoded formats; reject unrestricted SVG/HTML. Private PDF/source archives still need allowed-type/size checking and a malware/review process before public creator onboarding. Never run uploaded course code on our server.
 
-Storage policy must bind the requesting user, target workspace, draft lesson and asset path. Private resources must not become public because a bucket-level setting was convenient. Validate relationship and access again before issuing a signed download/playback URL.
+Allowlist redirect/callback origins. First-party mutations need appropriate origin/CSRF protections; do not exempt all routes because signed provider webhooks need a different verification path. Webhooks verify raw-body signatures and environment/account mapping.
 
-## Web/application controls
+## Content trust
 
-Validate all boundary inputs and return minimal data. Protect state-changing requests using the framework's current origin/CSRF protections and appropriate explicit checks for custom endpoints. Sanitize restricted rich-text output, use allowlisted embeds and safe links, and configure an appropriate content security policy for the selected media/payment integrations.
+Use actual creator identity/credentials and licensed assets. No fabricated reviews, counts, certifications or guaranteed-income claims. Broad education categories do not imply permission to sell every claim within them. Review scam/deceptive business claims, unsafe health advice, copyright complaints and provider eligibility; do not turn the platform into financial execution/custody or medical diagnosis software [R18](research.md).
 
-Do not fetch arbitrary creator-supplied URLs from privileged infrastructure without SSRF controls. Do not execute uploaded code. Restrict file types/size, quarantine or scan risky uploads where required, and serve downloadable material with safe content disposition/content type. Prevent secrets from entering fixtures, screenshots and support logs.
+Curated publication review is sufficient initially; there is no need for an AI moderation pipeline. A report produces a real restricted operator record and a reviewable action. Record why content was hidden/suspended and the support/appeal path. Creator ownership does not permit suppressing legitimate criticism or reading private notes.
 
-Review shared caching, redirects, image proxying, webhook body handling, preview links and metadata generation as potential leakage paths. Paid text/transcripts must not appear in anonymous HTML, search indexes or client data payloads.
+## Privacy and retention
 
-## Content quality and creator trust
+Collect only what the current product needs. Let the payment provider host identity/KYC and card collection; do not copy identity documents into our storage unnecessarily. Do not include paid lesson content, note bodies or sensitive financial payloads in analytics/session replay. Disable or redact recording on protected surfaces unless deliberately reviewed.
 
-Use a curated/application-based pilot. Require a clear course outcome, truthful prerequisites, actual instructor identity, rights to the material, sample content and enough quality/support information for a buyer to decide. Teaching credentials, completion claims and testimonials must have evidence. Do not fabricate sales, ratings, urgency, endorsements or expected earnings.
+Separate profile/note deletion from retention of necessary financial/audit records. Provide a working verified support process for access, export and deletion requests before live launch; a sophisticated self-service privacy dashboard can come later. Document processors, data regions, retention, breach response, account suspension and support responsibility for the actual operating markets.
 
-Provider payout verification is a financial onboarding signal, not proof that a creator is qualified to teach fitness, finance or coding. Do not display a generic 'verified expert' badge merely because a payout account was connected.
+An adults-only pilot is a proposal, not a claim that an age checkbox supplies legal compliance. Child participation requires a separate deliberate policy. Health information, learner submissions and private communities may introduce additional data risks; don't collect them opportunistically.
 
-For fitness/health-adjacent content, require appropriate scope, safety framing and escalation/reporting rules; the platform should not present a course as personalized diagnosis or guaranteed treatment. For investing/crypto/business content, prohibit fraudulent schemes, guaranteed-return claims, deceptive testimonials and illegal financial activity. Legitimate education is not the same as custody, trading execution, signals or regulated individualized advice.
+## Commercial/legal launch checks
 
-Stripe restricts deceptive/get-rich-quick activities and may require review of third-party content platforms and specific business models [S14](research.md). Validate the actual platform entity, seller categories, countries and offer claims before accepting live payments. A generic disclaimer does not make an otherwise prohibited or misleading offering acceptable.
+Resolve actual merchant and seller identity, supported buyer/creator countries, tax/invoice responsibility, payouts, platform fees, refund/access terms, provider restrictions, and consumer notices. Digital-content withdrawal rules can depend on consent and the transaction; do not simply copy a no-refunds banner [R11, R18–R19](research.md). Obtain qualified review for the real entity and launch jurisdictions.
 
-## Moderation workflow
+Reference possession does not establish redistribution or product-use rights. Preserve the existing archive, keep it outside production, and do not expand distribution or change repository visibility without the owner. Production uses independent branding/assets/fonts.
 
-Provide visible reporting for courses, creator profiles, posts/questions/replies and reviews. Capture target, reason, necessary evidence and status. Protect reporter identity. Use a documented operator queue with triage, action, user communication, appeal and audit; do not rely exclusively on creator self-moderation.
+## Mandatory adversarial checks
 
-Creators can manage their own discussion within defined rules, but should not silently remove legitimate negative reviews or control global dispute outcomes. Keep enough revision/action history for appeals while minimizing unnecessary retained personal content. Suspensions distinguish affected assets/courses/workspaces/accounts rather than using a single destructive global switch for every issue.
+Try learner A reading learner B's notes/orders; creator A attaching creator B's media or editing their course; modifying ownership/status fields directly; reading paid content through HTML/RSC/search/storage/API; forging checkout success; replaying duplicate/late refund/payment events; requesting tokens after grant revocation or suspension; editing a submitted/published lesson via direct API. Every relevant negative case must be tested in its owning task.
 
-Automated moderation can assist later; it is not a substitute for accountable review. Do not implement an autonomous AI ban/refund system without a separately approved policy and tests.
-
-## Privacy and consumer review gates
-
-Before launch, identify the actual operating entity, markets, seller/merchant arrangement, processors, data regions and retention needs. Produce reviewed terms, privacy notice, creator agreement, refund/support policy and relevant consents. Do not ship boilerplate placeholders as finished legal compliance.
-
-For EU digital content, withdrawal/early-access conditions depend on the circumstances and required consumer consent/acknowledgment; review the specific offer and checkout record rather than assuming all digital purchases are automatically nonrefundable [S24](research.md). Marketplace/seller information requirements must be reviewed for the actual model [S25](research.md).
-
-Implement data request/deletion processes with identity verification, clear status and a retention explanation. Financial/audit records may have separate lawful retention requirements; deletion should remove/minimize data appropriately without falsifying transaction history. Private notes are sensitive learner content and should have restrictive defaults. Avoid collecting detailed health/financial personal information just because the platform contains courses in those categories.
-
-Choose an age policy deliberately. An adults-only pilot is a reasonable proposal to simplify initial safeguards, but it is not approved or a guarantee that an age checkbox resolves obligations. Supporting children needs its own parental/privacy/safety design and review.
-
-## Analytics and communications
-
-Collect only events needed to evaluate learning and reliability, with required disclosure/consent for the selected jurisdictions/tools. Separate transactional messages from marketing. Provide notification preferences and avoid sending private notes or paid content into third-party analytics/email payloads. Scrub error logs and define access/retention for support tools.
-
-## Reference and production asset rights
-
-The source repository is public at the audited baseline and already contains third-party reference assets. Review permission for continued public distribution and production use; downloading an asset does not establish a license. Do not change repository visibility or delete archives without owner authorization.
-
-Keep Mobbin/Apple screenshots, logos, music artwork and proprietary font files out of production assets and bundles. Use references to study layout/behavior, and create an independent product identity with original or properly licensed assets. Preserve reference watermarks and provenance; do not present them as our work.
-
-## Security acceptance gate
-
-No paid launch until adversarial cross-tenant/access tests, webhook forgery/replay tests, storage/media permission checks, private-cache checks, dependency/secret scans, operator authorization/audit review and account/payout recovery procedures pass. Record known residual risks, such as the validity window of already-issued playback tokens. Passing automated tests alone is not evidence of complete security or legal compliance.
+Privileged operator actions need a named actor, reason, current authorization and audit. Before live operation, strengthen operator/provider account authentication and document recovery. No destructive remote writes or security promises based only on an apparently working UI.

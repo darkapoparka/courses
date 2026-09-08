@@ -1,27 +1,21 @@
 # Courses
 
-Planning repository for an independent multi-creator course marketplace and learning app, using Apple Music Web as a design reference.
+An independent course marketplace and learning app, using Apple Music Web as a visual reference.
 
-**Current stage: references acquired; product/architecture documentation drafted; application implementation paused.** The proposed stack and course-specific UI are recommendations awaiting the owner's approval. No production application has been initialized by this documentation work.
+**Current state:** reference archive acquired; build specifications revised; product application not scaffolded by this work. Architecture recommendations are not a claim of a tested or launched platform.
 
-Start with [the agent contract](AGENTS.md), then [the documentation map](docs/README.md). The next local-agent assignment is [reference audit and planning only](docs/handoff.md), not an instruction to resume the clone.
+Start with [AGENTS.md](AGENTS.md), the [documentation map](docs/README.md), and the [local build handoff](docs/handoff.md). The plan is one Next.js app under `web/`, added only when an implementation task is assigned.
 
-## Existing reference archive
+## References
 
-Open [the saved reference index](apple-music-clone/reference/originals/index.html) locally after cloning. The repository's acquisition records report 159 screen images, all 58 flow sequences with 218 ordered step images, and 13 animations/recordings. Source watermarks are preserved. See [capture details](apple-music-clone/reference/originals/README.md), [file validation](apple-music-clone/reference/originals/verification.json), and [this audit's evidence limits](docs/reference-audit.md).
+The archive is in `apple-music-clone/reference/originals/`. Open [screens and flows](apple-music-clone/reference/originals/index.html) or [UI-element categories](apple-music-clone/reference/originals/ui-elements.html) locally.
 
-Acquisition is not design approval. Do not redownload everything or build a route for every reference image. Review the reusable patterns and adapt only those appropriate for learning and selling courses.
+The current acquisition report records 159 screen IDs at both 1440px and 3024px, 29 UI-element category mappings, 58 flows with 218 steps, and 13 animations/recordings. Categories and flows reuse those screen identities; they are not additional unique product screens. See [archive completeness](apple-music-clone/reference/originals/COMPLETENESS.md) and [our inspection evidence](docs/reference-audit.md).
 
-## Archived prototype
+The old implementation is unapproved and frozen. Its arbitrary screen mappings and placeholder artwork are not the course design specification. Preserve it and the reference archive; neither belongs in the production application.
 
-`apple-music-clone/` contains the initial unapproved Next.js implementation and references. Preserve it unchanged. Its fallback screen mappings and invented artwork are not authoritative reference specifications. The original root commit is `0f8e5f89a0320f6f6f557ecb6f30b428594f9c02`.
+## Build sequence
 
-Only when explicitly asked to inspect the old prototype:
+First: a small fixture-backed course UI for review, requiring no external credentials. Second: one real free-course journey with identity, authoring, access, and progress. Third: verified sandbox commerce and a controlled paid pilot. Community expansion, subscriptions, native apps, AI tutors, and generalized infrastructure come later, only when assigned.
 
-```sh
-cd apple-music-clone
-pnpm install --frozen-lockfile
-pnpm exec next dev --hostname 127.0.0.1 --port 6431
-```
-
-Reference browsing and documentation tasks do not require installing or running it. The proposed future product location is `web/`, created only after the planning/design gates are approved.
+[Tasks](docs/tasks.md) defines the exact order and acceptance criteria. [Decisions](docs/decisions.md) separates engineering recommendations from unresolved commercial or visual approval. There is no requirement to reproduce every Apple screen before starting the first course slice.

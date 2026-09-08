@@ -1,108 +1,80 @@
-# Design system and adaptation contract
+# Course design system and interaction direction
 
-Status: proposed direction, not approved visual designs. Original references were not rendered during the documentation audit; no values below are claimed as measurements of Apple Music. Read `reference-audit.md` before referencing a source image.
+Revised after the 2026-09-09 visual review. Source observations below link to the [17-screen ledger](reference-review/ledger.md). Course layouts/tokens are implementation proposals, not owner-approved final designs or a claim of extracted Apple CSS.
 
-## What we preserve
+## Preserve the reference character
 
-Preserve the owner's preference for an editorial, content-first music-library experience: strong artwork, clear typography, useful content shelves, compact navigation, purposeful lists and quiet surfaces. Do not replace it with a generic SaaS landing page, a dashboard of white cards, oversized gradients, glowing buttons or arbitrary glass effects.
+Use content-led shelves, strong artwork, restrained navigation, readable compact metadata, gentle surface contrast, purposeful type hierarchy and whitespace. Keep captions outside ordinary course artwork. Do not replace this with a generic SaaS dashboard, repeated statistic cards, giant marketing slogans, gradient placeholders or a white box around every section.
 
-Apple Music supplies reference patterns, not every required course screen. Our goal is an independent learning product with coherent interaction quality, not a pixel-identical Apple product with changed nouns. Inspect and document the actual reference before deciding which spacing, hierarchy or behavior to carry over.
+Apple's detail page uses a black main Play action and red for identity/selected states. Our default may likewise use a neutral high-contrast primary action with a restrained brand accent. Do not make every button bright red or treat a full red selected row as the only way to show lesson progress.
 
-## Semantic adaptation
+## Source anchors by family
 
-| Reference concept | Course equivalent | Important difference |
-| --- | --- | --- |
-| Album | Course | Needs outcome, prerequisites, level, curriculum, price and access terms |
-| Track | Lesson | Ordered learning context, completion and access state; not interchangeable entertainment |
-| Artist | Creator | Identity, teaching expertise, course quality and learner support |
-| Library | Owned/enrolled courses, saved courses, joined spaces | Saved does not imply paid access; progress is separate from ownership |
-| Playlist | Curated collection / future learning path | A collection is not automatically a bundle or purchase |
-| Lyrics | Transcript / reading material | Paid transcripts need access control; notes are private learner content |
-| Player | Focused lesson workspace | Video, resources, curriculum, speed, captions and progress; no shuffle |
-| Follow artist | Follow creator | Explicit notification preferences; not paid enrollment |
-| Trial/paywall | Course offer and checkout entry | Our actual commercial terms and hosted payment flow, not copied Apple subscription steps |
+| Family | Viewed evidence | Preserve | Change for courses |
+| --- | --- | --- | --- |
+| Visitor discovery | VIS-05/06 | Labeled editorial landscape cards, small content shelves, clear rail | No global subscription banner or empty playback bar; sign-in preserves course intent |
+| Returning Home | VIS-07 | Personal content shelves and square recent covers | Continue learning is first; portrait campaigns are optional, not every card |
+| Course detail | VIS-02 | Square cover beside identity/actions, ordered content immediately below | Outcomes/prerequisites, price/access, module/lesson status, Preview/Buy/Continue |
+| Creator | VIS-08/10 | Image-led identity followed by actual content | Real expertise, courses and useful samples; shorter mobile header |
+| Search | VIS-03/14 | Prominent input, category versus results states, distinct result types | Courses and Creators; public-safe fields and purposeful filters |
+| Library | VIS-04/12/13 | Quiet empty state, cover grid or compact list | Owned/free-enrolled versus saved, resume/progress, no fake media collections |
+| Learning | VIS-09/11/15 | Focused media and optional secondary panel | Readable transcript, curriculum, captions/speed, notes/questions; no karaoke blur/queue controls |
+| Dialog/menu | VIS-01/16/17 | Focus isolation, concise action hierarchy, grouped controls | Real authentication/access/error behavior and mobile fit; no Apple billing/legal clone |
 
-## Navigation proposal
+## Desktop and mobile layouts
 
-Desktop learner shell: a compact left rail with Home, Browse, Search and Library. Library exposes Courses, Saved and Spaces within its own view. Account/settings and a clearly labeled Creator Studio switch are secondary. A creator is still a learner; switching workspaces must not make their purchases disappear.
+Desktop uses a single quiet learner rail with content beside it. The references allocate roughly a sixth of the width to navigation at their reported desktop viewport and start content with a noticeable inset; preserve the relationship rather than copying a scaled screenshot coordinate. Creator Studio has its own focused layout, not a second app or every creator action in the learner rail.
 
-Mobile learner shell: four labeled destinations—**Home, Search, Library, You**. Search includes category discovery, so a separate Browse tab is unnecessary. Spaces live in Library and are also reachable from creator/course context. This is a proposal for usability testing, not a user-approved final navbar.
+Provisional desktop implementation starting point: about 248px rail width, 8px outer inset, 40px content padding; smaller content padding at intermediate widths. These are our adjustable tokens, not measured source CSS. Validate at 1440px and tablet before freezing them. The rail must never squeeze the lesson into an unusable video width; collapse to the mobile layout based on actual fit.
 
-Use real navigation links with URL/back/forward behavior. The current active destination is visible without relying only on color. Hide tabs during full-screen media and disruptive account/payment tasks when appropriate; restore the prior context on return. The keyboard, safe-area insets and browser chrome must not cover controls or the last item in a list.
+Mobile proposal: Home / Search / Library / You, four equal destinations. Creator entry/settings live under You. No oversized center action or fifth vague destination. A local Home-only preview explicitly marks destinations that are not implemented yet; it does not send users to 404s or fake backend screens.
 
-Creator Studio and operator tools use their own task-focused shells. Do not squeeze course authoring, payout settings, moderation and learning into one primary navbar. Mobile Studio supports essential operations and access to all critical fields; clearly disclose any intentionally desktop-oriented advanced workflow instead of silently clipping it.
+On lesson routes, desktop can place curriculum beside the video. Mobile stacks media, lesson context/actions, then curriculum/study content. No dock + purchase bar + persistent mini-video stack. V1 pauses when leaving a lesson and provides a compact resume destination elsewhere. Continuous multi-route mini-playback is deferred.
 
-## Contextual primary action
+## Page hierarchy
 
-| Course/user state | Primary action | Supporting action |
-| --- | --- | --- |
-| Public visitor, paid course not owned | Buy course, with visible price/currency | Preview a sample lesson |
-| Signed-in nonbuyer | Buy course | Save / Preview |
-| Free course, not enrolled | Enroll free | Preview |
-| Active access, not started | Start learning | View curriculum |
-| Active access, in progress | Continue: lesson title | View curriculum |
-| Completed | Review lessons | Leave/update an eligible review |
-| Payment not yet fulfilled | Confirming purchase | Refresh status / Get help, not a second charge |
-| Access expired or purchase refunded | Explain access status | View valid offer / Support, as appropriate |
-| Course suspended | Explain unavailability without exposing sensitive report details | Support/refund information |
+Home: returning learners see Continue learning first; visitors see a modest editorial selection and useful categories. Use a few meaningful shelves rather than repeating every topic. A section action navigates somewhere real; it is not decoration.
 
-Do not show a generic 'Play course' as the only action on an unowned paid course. Use Play/Pause inside a real lesson or preview. Never autoplay previews with sound. A saved bookmark must not masquerade as enrollment.
+Course: outcome/title, teacher, artwork/preview, concise price/access or progress action, then curriculum. Supporting prerequisites, resources, update/access/support details follow. Do not hide the curriculum behind authentication. One obvious main action reflects the actual state: Preview, Enroll free, Buy course, Start learning, Continue or Review lessons.
 
-## Screen hierarchy
+Creator: identity and substantiated expertise, concise introduction, then courses. Avoid artificial follower counts, fabricated badges/testimonials and a giant image that pushes all useful information off mobile. Studio: save state, draft checklist, curriculum and review status before analytics.
 
-Home opens with an immediately useful action: returning learners see Continue learning before promotional content; visitors see a restrained editorial introduction and relevant course discovery. Keep a few intentional shelves rather than endless duplicated carousels. Shelf headings and See all links explain the selection. Search should be discoverable without consuming the entire mobile hero.
+## Tokens and assets
 
-Course detail places the title, creator, concise outcome, offer/access state and primary action together. Put prerequisites, curriculum, effort, language, update date and support expectations where a buyer can inspect them before checkout. Use progressive disclosure for long descriptions, not for hiding commercial terms. Long course titles and multilingual text must fit without shrinking into unreadable captions.
+Create semantic variables for canvas, surface, text, muted text, border, accent, danger, focus, spacing, radii and content measures. Initial spacing scale: 4/8/12/16/24/32/40/48. Mobile body text starts at 16px; desktop body 14–16px depending on content; metadata may be smaller only where readable. Heading scale follows the content hierarchy, not marketing display type everywhere.
 
-Creator profile emphasizes a real portrait/identity, verifiable expertise, short teaching proposition, courses and relevant community. Do not invent achievements, badges, follower counts or testimonials. Payment-provider verification is not a teaching-quality endorsement.
+Ordinary course covers: 1:1 across discovery/library/detail. Lesson video thumbnails and media: 16:9. Editorial landscape and optional 3:4 campaign assets are separate components, not inconsistent course-card shapes. Avoid letterboxing a video frame into a square course cover when a purpose-made cover is available.
 
-The lesson workspace emphasizes the lesson itself. Desktop can place video/reading beside a curriculum column, with Resources, Transcript, Notes and Questions below or adjacent. Mobile uses one clear content column and accessible secondary tabs/sections. Never require dragging a tiny pane to access a resource or next lesson.
+Provisional radii: 10–12px for artwork/cards, a larger dialog radius, and pill controls only where appropriate. Keep shadows restrained and test against real imagery. Use a system stack or one licensed font and a single icon family/weight. Do not redistribute Apple's proprietary fonts. Start light-mode; a second theme is not required before the first screen is right.
 
-## Resume bar versus persistent media
+Check actual contrast and focus visibility; color alone cannot communicate selected, locked or complete. Preferred touch areas are around 44×44 CSS pixels where practical; that preference is not a blanket statement of WCAG's AA minimum [R14, R17](research.md).
 
-For the first release, use a compact **Continue lesson** bar/card only when there is meaningful progress to resume. It is navigation, not an always-running mini-video. Navigating away from the lesson pauses playback and records the latest supported progress update. Returning resumes the correct lesson and position after access is checked.
+## Components, extracted only as used
 
-Do not keep an empty music player on every page. Do not stack a floating purchase CTA, resume bar, cookie banner, video controls and bottom tabs over each other. Within the lesson page, remove redundant global resume controls. Persistent cross-page playback/picture-in-picture is a later feature requiring explicit design, accessibility and device testing.
-
-## Provisional token contract
-
-Token roles must be established before feature-specific CSS: background, surface, elevated surface, text, muted text, border, accent, accent-contrast, success, warning, danger, focus and overlay. Keep one accent family and restrained semantic colors. Initial release is light mode unless dark mode receives its own approved frames and tests.
-
-Use a consistent spacing scale, for example 4/8/12/16/24/32/48px, as a starting proposal; validate it against the inspected references and real content. Use a system font stack or one appropriately licensed family. No redistribution of proprietary Apple font files. Define a small type hierarchy with comfortable reading text; do not reproduce tiny desktop labels on mobile.
-
-Prefer native document scrolling and normal layout constraints over fixed device-sized canvases. Breakpoints follow content fit, not device branding. Test at 375/390px phone widths, a tablet width and 1280/1512px desktop widths, plus zoom/reflow. These are test proposals, not source measurements.
-
-Our preferred primary mobile touch target is at least 44×44 CSS pixels where practical. WCAG 2.2 AA target-size criteria have different minimums/exceptions; do not misstate our design preference as the entire standard [S22](research.md). Visible keyboard focus, semantic controls, readable contrast, captions and reduced-motion behavior are required regardless of visual resemblance to a reference.
-
-## Component contracts
-
-| Component | Required behavior |
+| Component | Contract |
 | --- | --- |
-| CourseCard | One clear detail link; cover/title/creator and concise relevant metadata; access/progress state; independent save button with accessible name; no nested interactive elements |
-| CourseShelf | Meaningful heading, See all route, stable layout, keyboard/touch scrolling; no required hover-only navigation |
-| CourseOffer | Price/currency, access terms and contextual CTA; pending/error/disabled explanations; no fabricated scarcity |
-| CurriculumRow | Module/lesson order, title, duration/type, preview/locked/complete/current state; keyboard navigation |
-| CreatorIdentity | Actual name, portrait or intentional initials fallback, evidence-based badges; profile link |
-| LessonPlayer | Accessible transport controls, captions, speed, quality/provider errors, retry and token-expiry handling |
-| ProgressIndicator | Text alternative, meaningful denominator, not confused with playback loading |
-| FormField | Persistent label, help/error association, keyboard input, pending/save feedback, no color-only validation |
-| Menu/Dialog/Sheet | Focus management, Escape where appropriate, return focus, safe dismissal, no accidental loss of work |
-| Empty/ErrorState | Specific cause and next action, not a generic illustration hiding a broken fetch |
-| UploadItem | File identity, progress, processing, ready/failure/retry; readiness comes from server/provider state |
-| ModerationNotice | Clear status/reason category, appeal/support path, no exposure of reporter identity |
+| CourseCard | Artwork, title, creator, one useful metadata line; real link and separate accessible save action, no nested interactive controls |
+| ContentShelf | Heading and meaningful destination, responsive list, keyboard access; intentional horizontal shelf without whole-page overflow |
+| Curriculum / LessonRow | Ordered module/lesson identity, duration/type, preview/lock/completion and current selection; no shuffle or learner-side destructive reorder |
+| CourseAction | State-specific primary action based on server access/payment truth in integrated stages |
+| CreatorIdentity | Real name/image/expertise, no invented credentials |
+| Dialog / Sheet / Menu | Named heading where applicable, focus/escape/close/return, proper semantics, viewport and keyboard fit |
+| FormField / SaveFeedback | Label, description, inline error, saving/saved/failure/conflict; preserve input |
+| Empty / Error / Loading | Honest state and clear recovery, properly sized skeletons; no indefinite spinner or fake success |
+| Player / StudyPanel | Maintained media engine, captions/speed/keyboard/retry, readable transcript, accessible curriculum and private notes |
 
-Use accessible primitives for behavior, but own the visual tokens and composition. Importing a component kit must not redefine the approved product style.
+A small local fixture/demo route is enough for primitive review. Do not create a separate design-system package, custom media engine or public Storybook deployment as an unassigned foundation project.
 
-## Content and assets
+## Interaction rules
 
-Reference screenshots remain reference material, never production backgrounds or course covers. Each production asset needs source/owner, usage rights, subject, dimensions, focal point and alt-text/decorative classification. Teacher photographs and credentials must correspond to real consenting people.
+Use links for destinations and buttons for actions. URL state owns query/filter/sort. Browser Back and direct lesson links work. A bookmark means Save, not purchase, enrollment or offline download. Mobile actions are discoverable without hover.
 
-Use original course artwork with consistent art direction but enough category distinction to scan. A square catalog cover can echo the music reference; a lesson/video poster is normally a separate landscape asset. Do not crop instructional diagrams or code demonstrations into a square to satisfy a card ratio. Support explicit cover/poster fields and art-directed crops.
+The billing reference is internally scrolled: its clipped top/bottom content is a captured state, not our initial form layout. Dialogs fit small screens and keyboards; destructive actions are clear and confirmed. Hosted Checkout supplies the payment form, not a copied Apple dialog.
 
-Avoid repeating the same stock photograph across unrelated courses, treating generic gradients as finished cover art, or using fake UI/code in educational screenshots. Test fixtures should include fitness, coding and business content with realistic short/long titles, different price states, captions and missing optional artwork. Clearly label fictional demo creators and reviews; never present them as real social proof.
+Keep all transcript text readable; optional active-time highlighting must not blur the surrounding material. Do not autoplay sound. Honor reduced motion and avoid ornamental entrance delays. Sticky controls respect safe areas and cannot cover focus, curriculum or supporting content. Long titles, translated labels and zoom are test cases, not afterthoughts.
 
-## Design approval and evidence
+## Evidence and acceptance
 
-First produce five course-specific golden screen families: Home, Course detail, Lesson workspace, Creator profile and Studio curriculum editor, each desktop and mobile. Record source references, adaptations, viewport, content assumptions, interaction states and unresolved questions. The owner approves the adapted course designs, not merely the original Apple Music screenshots.
+For each family record exact source, course screenshot, viewport, intentional changes and tested states. Use 390px mobile and 1440px desktop first; then 320px, tablet, wide desktop, zoom and actual mobile browsers before pilot. The viewed references are desktop images; our mobile layout is a separate design proposal requiring testing.
 
-Then specify the rest of the launch screen/state matrix before implementing each corresponding feature. A design tool export or generated mockup is not approval. A static beautiful screen does not prove responsive layout, accessibility, error handling or functional correctness. Keep the visual decision log with the reviewed frames, and record approved changes in `decisions.md`.
+Review the first Home/shell before multiplying its components across the platform. Final screenshots are our course-design baselines, not claims of pixel identity to Apple. Original/licensed covers, consented creator imagery and truthful content are required before release; clearly labeled fixtures are acceptable during M0, never invented social proof.

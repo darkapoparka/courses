@@ -1,79 +1,76 @@
-# Tasks — single execution backlog
+# Tasks — one bounded slice at a time
 
-Baseline: 2026-09-08. Active mode: documentation/reference planning. Tasks are not permission to implement. Explicit owner authorization and dependencies are required before changing application code, services or deployment.
+Updated 2026-09-09. Current mode: reference inspection and documentation. No application task is implemented by this revision. An explicit implementation assignment authorizes its normal edits/checks, not the entire backlog.
 
-## Status vocabulary
+Statuses: DOCUMENTED, PARTIAL, READY, TODO, BLOCKED_DECISION, IMPLEMENTED, VERIFIED, OWNER_APPROVED. READY means specified and ready to assign, not executed. Update actual evidence here; do not create a second TODO file.
 
-`DRAFTED` means a document/recommendation exists, not approved. `RECORDED` means repository evidence was read, not independently rerun. `TODO` means not started. `BLOCKED_APPROVAL` needs an explicit decision. `IN_PROGRESS` requires an assigned bounded task. `VERIFIED` requires recorded checks. No application task is currently marked implemented or verified.
+## Planning and first UI
 
-## Planning and reference gates
+| ID | Task | Status | Dependencies / acceptance |
+| --- | --- | --- | --- |
+| PLAN-004 | Refresh reference audit and simplify canonical docs | DOCUMENTED | Updated archive preserved; product, architecture, domain, workflow and build handoff revised without product code or provisioning |
+| REF-001 | Catalog-wide visual review | PARTIAL | 17 identities viewed: 16 high-resolution + one standard original; exact ledger rows. Metadata counts for all 58 flows checked. Remaining 142 images and full recording playback are not marked reviewed. |
+| REF-002 | Source/state review for the assigned UI family | READY | Use existing ledger anchors; open exact local originals, verify needed measurements/state, record course adaptation. No redownload or prototype-derived guessed mapping. |
+| BOOT-001 | Initialize new `web/` application | READY TO ASSIGN | Owner adopts baseline and assigns task; official CLI/help/version record; minimal Next/TS/Tailwind/lint/pnpm; pinned runtime/lockfile; actual type/lint/build/smoke |
+| UI-001 | Learner shell and Home | TODO | BOOT-001 + relevant REF-002 (VIS-05/06/07). 390/1440 fixture UI, original/licensed assets, meaningful navigation, loading/empty/error, keyboard/screenshots. Unbuilt destinations clearly unavailable, not 404/fake-success. |
+| UI-002 | Course detail and explicit preview | TODO | Reviewed UI-001 direction + VIS-02. Outcome/creator/offer/curriculum; locked/owned/resume variants; no fake checkout; responsive evidence |
+| UI-003 | Lesson workspace and Library fixtures | TODO | UI-002 + VIS-09/11/12/13/15. Licensed sample, curriculum/back/next, study states, enrolled vs saved; no backend claims |
+| UI-004 | Search/category and creator fixtures | TODO | Reviewed UI-001 + VIS-03/08/10/14. URL search/filter, useful results/empty/error, creator links; no invented popularity |
+| SLICE-000 | Accept M0 discover → course → lesson | TODO | UI-001–003. Works locally without provider credentials; actual browser/keyboard evidence and owner review |
 
-| ID | Task | Status | Depends on | Acceptance / evidence |
-| --- | --- | --- | --- | --- |
-| PLAN-001 | Audit repo and acquisition records | RECORDED | Existing main commit | `reference-audit.md` identifies exact inspected files/base commit, archive totals, premature prototype/fallback mappings and visual/runtime limits |
-| PLAN-002 | Research current stack and provider constraints | DRAFTED | Product request | `tech-stack.md` and dated primary sources; recommendation versus observed versions/eligibility clearly separated |
-| PLAN-003 | Establish product/agent specifications | DRAFTED | PLAN-001, PLAN-002 | Root AGENTS and coherent docs map, scope, design/route/data/access/commerce/test contracts; no application changes |
-| REF-001 | Visually catalog the existing saved references | TODO — NEXT LOCAL TASK | PLAN-001 | Open saved index/images; account for 159 screen records, 58 flow records and recorded step sets; ledger separates inspected/duplicate/not relevant/not inspected; no redownload or coded clone |
-| REF-002 | Deep-review course-relevant pattern families | TODO | REF-001 | Exact source paths, actual viewport/app bounds, relevant motion/state and adaptation rationale for discovery/detail/creator/library/player/auth patterns; no guessed ID mapping |
-| DEC-001 | Approve stack, scope and business assumptions | BLOCKED_APPROVAL | PLAN-002, PLAN-003 | Owner decisions recorded in `decisions.md`; unresolved commercial matters remain explicit, not silently assumed |
-| UX-001 | Design five course golden screen families | TODO | REF-002; explicit design authorization | Home, Course detail, Lesson, Creator profile and Studio curriculum editor, desktop/mobile; real course semantics and core states; owner review recorded |
-| UX-002 | Complete launch screen/state specifications | TODO | UX-001 | Remaining `screens-and-flows.md` families mapped to reusable components and states; checkout/operator/new course-only screens intentionally designed |
-| TRUST-001 | Confirm legal, provider and asset-rights requirements | TODO | Proposed markets/model | Actual entity, markets, age policy, seller/charge model, refunds/tax, Stripe eligibility, reference/production asset rights and operating responsibilities reviewed before live launch |
+The initial handoff assigns only BOOT-001, the relevant REF-002 and UI-001. It does not require every image, all-page mockups, future table scaffolding, or the rest of M0 in one commit. Local reference re-opening is for the actual implementation state, not restarting this audit.
 
-REF-001/REF-002 produce documentation/evidence, not new product components. A flow catalog can classify irrelevant Apple flows without implementing them. Do not reopen the superseded task of recreating all 159 screens or all 58 music journeys.
-
-## Phase A — approved foundation and free-course vertical slice
+## M1 — real free-course alpha
 
 | ID | Task | Status | Depends on | Acceptance |
 | --- | --- | --- | --- | --- |
-| BOOT-001 | Initialize the new `web/` application | TODO | DEC-001, explicit implementation authorization | Current official CLI/help reviewed; stable compatible versions/runtime/package manager pinned; archive unchanged; app root and generated docs configured; actual type/lint/build checks |
-| FOUND-001 | Tokens, accessible primitives and learner shell | TODO | BOOT-001, approved UX-001 shell | Approved desktop/mobile hierarchy, real links/back behavior, no generic theme or redundant player; screenshot/keyboard evidence |
-| DB-001 | Identity, workspace and permission foundations | TODO | BOOT-001 | Versioned SQL/types; memberships, safe profiles, grants/RLS; adversarial two-tenant tests; no client role escalation |
-| AUTH-001 | Email OTP and identity/session flows | TODO | DB-001, approved AUTH screens | Safe return paths, expired/rate-limited states, verified server identity and private caching checks; optional Google only if configured/approved |
-| CAT-001 | Catalog/course/creator public projections | TODO | DB-001, approved DISC/COURSE/CREATOR screens | Published-safe metadata, real course fixtures, direct URLs/metadata, draft/suspension protection; no paid text in public payloads |
-| CAT-002 | Search and category browsing | TODO | CAT-001 | Indexed bounded search, URL filters, meaningful empty/error states, safe fields only |
-| STUDIO-001 | Draft authoring and curriculum | TODO | DB-001, AUTH-001, approved STUDIO screens | Metadata/modules/stable lesson IDs, accessible reorder, restricted text/resources, save/conflict/revision behavior |
-| MEDIA-001 | Managed video ingest and private resources | TODO | STUDIO-001, approved provider choice | Direct uploads, server/provider readiness, captions/resources, quotas and retry; cross-workspace asset tests |
-| PUBLISH-001 | Course review and publication | TODO | STUDIO-001, MEDIA-001 | Reviewable revision, operator approve/reject reasons, atomic published projection and unlisting policy; no client publish bypass |
-| ACCESS-001 | Entitlement policy and free enrollment | TODO | DB-001, CAT-001 | Idempotent free grant/enrollment, explicit public previews, reusable protected-content access checks and negative tests |
-| LEARN-001 | Lesson workspace, library and progress | TODO | FOUND-001, ACCESS-001, MEDIA-001, approved LEARN/LIB screens | Video/text/resources protected, resume/completion ordering, owned versus saved distinction, error/expiry/caption/keyboard evidence |
-| SLICE-001 | Verify one complete free-course journey | TODO | PUBLISH-001, LEARN-001, CAT-002 | Real test creator publishes one approved course; learner discovers/enrolls/learns/resumes; operator can investigate; entire flow recorded |
+| DB-001 | Local schema, owner permissions, RLS, seed/types | TODO | BOOT-001 | Only current slice tables; constraints/grants; anonymous/two-learner/two-creator negative tests, not service-key-only queries |
+| AUTH-001 | OTP and verified server identity | TODO | DB-001 | Safe return, expiry/resend/rate limits, cookie/private-cache checks; no self-assigned ownership/operator status |
+| CAT-001 | Safe real catalog queries | TODO | DB-001, UI-001/002 | Published metadata/creator/curriculum; no paid/draft payload in HTML/RSC/API/search; direct URLs/unavailable states |
+| CAT-002 | Real category/search queries | TODO | CAT-001, UI-004 | Bounded indexed queries, pagination, URL filters and honest empty/error |
+| STUDIO-001 | Draft metadata/curriculum editor | TODO | DB-001, AUTH-001 | Small tabbed editor, stable lesson IDs, keyboard reorder, version-checked saves; ownership/submitted-lock tests and visual review |
+| MEDIA-001 | Direct video ingest/private resources | TODO | STUDIO-001, test setup assigned | Ownership/quota/type checks, verified processing/captions, retries, private storage, wrong-workspace denial |
+| PUBLISH-001 | Minimal operator review/locked publishing | TODO | STUDIO-001, MEDIA-001 | Submit exact version; approve/reject reasons; published/unlisted edit lock; atomic audited correction; no CMS revision engine |
+| ACCESS-001 | Free grants/shared lesson access | TODO | DB-001, AUTH-001, CAT-001 | Idempotent grant; explicit preview; suspension/unlisting; consistent video/text/transcript/resource protection |
+| LEARN-001 | Real lesson/library/progress | TODO | ACCESS-001, MEDIA-001, UI-003 | Resume/rewind/completion/version conflicts, protected payloads and tokens; actual browser/mobile playback evidence |
+| SLICE-001 | Complete free-course journey | TODO | PUBLISH-001, LEARN-001, CAT-002 | Test creator publishes, another learner discovers/enrolls/learns/leaves/resumes; adversarial checks recorded |
 
-Do not implement every table or future feature during BOOT-001. Foundations should support the next vertical slice, not an untested giant scaffold. CAT/STUDIO/LEARN may use explicit fixtures during UI work, but fixtures cannot be reported as backend completion.
+Curated creator/operator setup can be intentionally small/manual; ownership and review enforcement cannot be pretend. Do not install or provision commerce vendors during DB-001. Only the needed tables from the logical model belong in each migration.
 
-## Phase B — verified commerce and learner support
+## M2 — commerce and paid-pilot support
 
 | ID | Task | Status | Depends on | Acceptance |
 | --- | --- | --- | --- | --- |
-| PAY-001 | Approve/implement sandbox Connect account and charge model | TODO | DEC-001, charge-model decision, DB-001 | Provider/country/role relationships documented; hosted creator onboarding; restricted account states; no live activation |
-| PAY-002 | Order snapshots and hosted checkout | TODO | PAY-001, CAT-001, ACCESS-001, approved PAY screens | Server price/currency, existing access/in-flight checks, immutable offer terms, idempotent external creation/recovery |
-| PAY-003 | Webhooks, fulfillment, outbox and reconciliation | TODO | PAY-002 | Raw signature verification, duplicate/out-of-order/delayed tests, transactional grant effect, honest pending UI and safe replay |
-| PAY-004 | Refunds, disputes and source-specific access changes | TODO | PAY-003, approved policies | Correct charge-model financial adjustments; partial/full distinction; other grants retained; operator reasons/audit |
-| LEARN-002 | Private notes and learning resources UX | TODO | LEARN-001 | Author-only notes, timecodes, save/conflict/retry; protected transcript/download tests |
-| SOCIAL-001 | Lesson questions and creator space posts | TODO | LEARN-001, DB-001, approved SOC screens | Defined course/space membership, replies, author identity, reports, no note/PII leakage |
-| TRUST-002 | Reviews, moderation queues and appeals | TODO | SOCIAL-001, PUBLISH-001 | Review eligibility, no creator suppression of legitimate criticism, scoped operator actions/report privacy/audit |
-| OPS-001 | Purchase/access/job operational tooling | TODO | PAY-003, PAY-004 | Safe investigation/reconciliation/replay with role checks and reasons; no arbitrary SQL UI |
-| NOTIFY-001 | Transactional communications and preferences | TODO | Outbox foundation, approved provider/policies | Enrollment/review/reply messages, retry/idempotency, privacy scrubbing, preferences; no test messages to real users |
-| SETTINGS-001 | Account/purchase/privacy/help flows | TODO | AUTH-001, PAY-004, TRUST-001 | Own receipts/support requests, data-request/deletion workflow and reviewed notices; identity verification where needed |
-| SLICE-002 | Verify the full paid-course lifecycle | TODO | PAY-004, LEARN-002, OPS-001 | Sandbox buy→pending→grant→play→resume→refund; replay and malicious ID attempts; recorded browser/database/provider evidence |
+| PAY-001 | Business/charge decision and sandbox Connect | BLOCKED_DECISION | Actual entity/model, DB-001 | Merchant/account/country/fee/refund responsibility; selected API model; hosted onboarding/readiness; no live activation |
+| PAY-002 | Orders and hosted Checkout | TODO | PAY-001, ACCESS-001 | Server price/terms, immutable snapshots, in-flight concurrency, idempotency and uncertain-session recovery |
+| PAY-003 | Atomic webhook fulfillment and reconciliation | TODO | PAY-002 | Signature/environment/account; durable effect before ack; rollback/retry/duplicate/out-of-order tests; measured latency/queue trigger; no custom outbox/worker framework |
+| PAY-004 | Refund/dispute/source-grant handling | TODO | PAY-003, approved policy | Current provider state, correct fee/transfer treatment, partial/full distinction, other grants retained; stale paid event cannot restore refunded access |
+| LEARN-002 | Private notes | TODO | LEARN-001 | Author-only text/timecode, version conflict/retry, own export after access loss; creator-negative test |
+| SOCIAL-001 | Lesson questions/replies/reports | TODO | LEARN-001, reviewed design | Entitled course context, one reply level, creator response, operator hide/report; no realtime/feed/notification bus |
+| OPS-001 | Minimal purchase/access/report support | TODO | PAY-004, SOCIAL-001 | Restricted diagnosis/reconcile/provider links, reasons/audit, useful contact path; no finance/SQL/job dashboard clone |
+| SETTINGS-001 | Profile/purchases/help/privacy requests | TODO | AUTH-001, PAY-004 | Own receipts/support, safe profile edits, verified data-request workflow and actual policy copy |
+| SLICE-002 | Paid lifecycle verification | TODO | PAY-004, LEARN-002, SOCIAL-001, OPS-001 | Sandbox buy→confirm→grant→learn→refund; callback outage/replay, malicious IDs and stale events tested |
 
-## Phase C — pilot and launch readiness
+Custom email campaigns, creator spaces/reviews/follows and team management are not paid-pilot dependencies. Production auth email delivery and a working support process still are.
 
-| ID | Task | Status | Depends on | Acceptance |
-| --- | --- | --- | --- | --- |
-| QA-001 | Responsive/visual/accessibility acceptance | TODO | Launch UI families implemented and approved | Matched course-design evidence, mobile browser/keyboard/caption/zoom checks, documented intentional differences |
-| QA-002 | Security and reliability acceptance | TODO | SLICE-002, TRUST-002 | Permission/cache/upload/webhook tests and dependency/secret review; residual risks and failed checks recorded |
-| OPS-002 | Monitoring, budgets, backup/recovery and runbooks | TODO | Integration slices | Alert ownership, spend quotas, job/payment reconciliation, tested restore/recovery procedure and rollout compatibility |
-| CONTENT-001 | Curated real pilot content | TODO | TRUST-001, publishing workflow | Consenting real creators, licensed assets, truthful offers/credentials, usable previews/captions; no fake social proof |
-| PILOT-001 | Invite-only usability and business pilot | TODO | QA-001, QA-002, OPS-002, CONTENT-001, required eligibility | Observe discover/evaluate/buy/resume/publish; collect feedback/actual costs; fix critical failures; no unsupported superiority claims |
-| LAUNCH-001 | Explicit release decision | BLOCKED_APPROVAL | Pilot evidence and all launch gates | Owner approves production deployment/live payments; supported markets/policies/support ready; known risks accepted explicitly |
+## Pilot and release
 
-## Deferred backlog — not implementation instructions
+| ID | Task | Status | Required evidence |
+| --- | --- | --- | --- |
+| TRUST-001 | Commercial/privacy/asset-rights review | TODO | Actual entity/markets, provider eligibility, merchant/tax/refunds/access, age, retention, rights and support owner |
+| QA-001 | Visual/responsive/accessibility acceptance | TODO | Reviewed course screens, 320px/tablet/wide/zoom, keyboard/captions, real iOS/Android checks; residual issues explicit |
+| QA-002 | Security/reliability acceptance | TODO | SLICE-002; API/RLS/cache/upload/payment negative tests, secret/dependency review |
+| OPS-002 | Monitoring/budgets/restore/recovery | TODO | Quotas/alerts, named operator, daily reconciliation, tested restore and migration-compatible rollback |
+| CONTENT-001 | Curated real course supply | TODO | Consent/licensed media/covers, useful curriculum/captions/previews, truthful claims |
+| PILOT-001 | Controlled usability/business pilot | TODO | QA-001/002 + OPS-002 + CONTENT-001 + TRUST-001; observe find/evaluate/start/resume/publish and actual costs/support |
+| LAUNCH-001 | Production/live-payment release | BLOCKED_DECISION | Required pilot gates and explicit owner approval; separate configuration, no fake data, support/rollback ready |
 
-Memberships/bundles/global subscriptions, affiliates/multi-seller carts, dedicated search/semantic retrieval, AI study tools, graded assignments/quizzes, live sessions, open messaging, native apps/offline downloads, custom creator domains and complex community gamification require new scoped tasks and decisions. Do not add them opportunistically while working on a launch task.
+## Deferred, not scaffold instructions
 
-## Updating a task
+Memberships, bundles, global subscription, multi-seller carts, affiliates, rich course versioning, teams, spaces/feeds, reviews/follows, live sessions, DMs, assessments, AI tutors, native/offline, dedicated search and managed job infrastructure each need a demonstrated need and a bounded new assignment.
 
-Record task ID, authorized scope, assignee, current status, dependency evidence, branch/commit, actual checks, design approval where applicable and next action. Link implementation detail to the document that owns it rather than duplicating requirements here. Multiple agents may work in parallel only on explicitly nonconflicting bounded tasks with shared contracts settled.
+## Evidence format
 
-A document status can advance independently of implementation. A blocked visual review must not be disguised as acquired/verified, and a dependency-ready task is still not permission to run it without the owner's current assignment.
+Record ID; date/assignee; explicit assignment; starting commit; scope; changed files/commit; actual checks/results; source/design evidence; status; blockers; next task. Fixtures are not backend completion, provider sandbox is not live eligibility, and documents are not visual approval. Parallel tasks need nonconflicting file ownership and settled shared contracts.
+
+Historical PLAN-001–003/FOUND/UX/global mockup gates and outbox-oriented tasks remain in Git history. This is the current backlog. UI-001–004 replace the all-page design prerequisite; PAY-003 replaces the earlier custom-worker proposal.

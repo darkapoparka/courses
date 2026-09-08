@@ -1,64 +1,60 @@
-# Repository and reference audit
+# Repository and visual-reference audit
 
-Audit date: 2026-09-08. Repository baseline: `0f8e5f89a0320f6f6f557ecb6f30b428594f9c02`; tree `82f5237588ab562eaee494c57cafb778efb49fe8`.
+Updated 2026-09-09. Archive baseline: `849594d4a0cb9a6befc6474019d3bf6e9601740e`. Earlier planning head: `ef0140d7a050210ee1ab889c4dd88bea3ed535e7`. This revision preserves the updated archive unchanged and replaces the broader draft plan with staged build specifications.
 
-## What was actually inspected
+## New reference material
 
-Read through the GitHub connector: root structure/recursive tree, root README, prototype package manifest and agent rules, reference inventory, original acquisition README and verification record, portions of the download/flow manifests, `lib/reference.ts` including its mapping/flows, the opening component implementation, and the independent review.
-
-This was a **repository/source/acquisition-record audit**, not a completed visual audit. The connected Mobbin screen search returned a paid-plan error. The execution environment could not clone from GitHub; its binary fetch could not decode WebP, and web retrieval of the supplied asset URLs did not render the images. No original image or full recording was successfully visually inspected in this session. No application was run, built or tested. No screenshot fidelity or measured design-token claims are made here.
-
-These access limits do not mean the images are missing: the files and their validation records are already in the repository. A local agent can open the saved index without reacquiring the collection.
-
-## Acquisition record, newer than the old inventory
-
-| Artifact | Repository record | Evidence |
+| Material | Coverage | Interpretation |
 | --- | ---: | --- |
-| Standalone screens | 159 | `originals/README.md`, `download-manifest.json`, `verification.json` |
-| Flow records | 58 | `originals/README.md`, `flow-download-manifest.json` |
-| Ordered flow-step images | 218 | `originals/README.md` |
-| Valid decoded images | 377 | `verification.json`: no bad images or missing screen IDs reported |
-| Animations/recordings | 13 | Five screen animations plus eight flow recordings; valid MP4 headers reported |
-| Reference footprint | 28.7 MB | `verification.json` |
+| Unique screen identities | 159 | The high-resolution upload is not another 159 unique screens |
+| Original variants | 159 at 1440px width | Preserved alongside the new variants |
+| High-resolution variants | 159 at 3024px width | Manifest: 147 at 3024×2016; 12 at 3024×2018 |
+| UI-element categories | 29 categories / 53 memberships | Full-screen references, not editable components or isolated crops |
+| Flow sequences | 58 / 218 ordered steps | These steps reference the same 159 distinct screen identities |
+| Motion assets | 5 screen animations + 8 flow recordings | Full motion playback was not reviewed in this session |
 
-These are recorded acquisition/validation results, not checks rerun during this audit. The saved README explicitly says video playback has not been checked in full. The earlier statement that only three flows were collected is superseded; do not repeat it or repeat the download work.
+The updated originals README, COMPLETENESS, high-resolution manifest, UI-elements manifest and flow-screen map were read. A read-only metadata calculation independently counted 159 high-resolution entries, 58 flow records, 218 steps and 159 distinct step IDs. The 29/53 category figures and image-size/hash coverage are recorded by the acquisition manifest; this session did not independently rehash all media.
 
-The collection reports an underlying app viewport of 1512×945. Standalone assets are 1440px wide including a Mobbin footer, according to the saved README. Consult `all-image-dimensions.json` and inspect the actual app rectangle before measurement. The old 556×876 in-app browser surface is not proof of a mobile Apple Music layout.
+The srcset advertises 3840w, while decoded widths recorded by the acquisition check are 3024px. Use actual file dimensions, not the advertised label. Source footers/watermarks remain intact and are not application UI.
 
-## Concrete source findings
+## What was actually viewed
 
-| Finding | Evidence | Consequence |
-| --- | --- | --- |
-| The implementation preceded product planning | Root README labels it unapproved and paused | Freeze it; do not treat its existence as an approved stack/layout |
-| Many IDs are arbitrary repeated layouts | `lib/reference.ts`: `fallbackVariants[index % fallbackVariants.length]` | Route coverage is not reference fidelity; do not reuse this mapping as a screen audit |
-| Flow UI covers only three hardcoded examples | `lib/reference.ts` defines onboarding, starting-a-trial and new | This implementation is not the complete 58-flow archive |
-| Reference-style artwork is invented | `Art` renders tone classes and a text label in `components/apple-music-app.tsx` | Do not use these gradient fixtures as course asset direction |
-| Product UI is concentrated in a large client component | `apple-music-app.tsx` is approximately 46 KB and begins with `use client` | It is an interaction prototype, not the recommended production architecture |
-| Agent guidance lacks a product scope contract | Nested AGENTS contains only generated Next.js rules | Add root mode/scope/evidence rules; preserve generated framework guidance |
-| Old review already rejects fidelity | `reference/independent-review.md` | Preserve the review as history, but do not follow its old instruction to finish cloning music screens |
+**17 distinct source screens were visually inspected: 16 high-resolution originals and one standard-resolution original.** The images were rendered through the connected image reader at a readable display scale. Coverage includes logged-out and signed-in discovery, Home, album detail, artist detail, category search and query results, empty and populated library, table/pin state, expanded lyrics, video playback, queue, context menu and email sign-in. Exact paths, states and adaptations are in [the ledger](reference-review/ledger.md).
 
-The package manifest lists Next 16.3.4, React/React DOM 19.2.8, TypeScript 7.0.2 and Tailwind 4.3.3. These are observed repository pins, not independent certification that the build is correct or every pin is still the latest.
+This supersedes the earlier blocked/one-image-only audit. It is still a representative pattern review, not a claim to have viewed all 159 originals or tested every control. The 58 flow names and ordered IDs were inspected as metadata; selected corresponding still states were viewed. None of the 13 recordings was watched in full. No native-mobile Apple references, full app runtime, browser interaction or course-design approval are established by these image reads.
 
-## Correct next reference task
+The standard-resolution billing image `06ea37ef-2485-4219-b244-9d56516c2c42.webp` was also independently fetched into memory, fully decoded with Pillow and hash-checked: 26,056 bytes, 1440×1023, Git blob `5ca1ab76686b8f24639182538a05932810bec3f6`, SHA-256 `0fa40975d506bacdc335c0d8d95fa1bfa017394b83c05b5df2d7da5114a03b0b`. Other visual reads are not being presented as independent bulk hash verification.
 
-Open `../apple-music-clone/reference/originals/index.html`. First inspect all standalone images and flow sequences as a catalog; classify reusable pattern families and duplicates. Deep-review the families relevant to the planned course screens. Do not rebuild 159 routes or turn all 58 music journeys into course features.
+## Findings that change the course UI
 
-Create a durable per-asset review ledger under `docs/reference-review/` only as actual review occurs. Suggested row: reference file and canonical Mobbin URL; source kind; actual image/app viewport; authentication state; visible subject/layout; interaction/flow step; relevance (`reuse`, `adapt`, `discard`, `needs_new_design`); proposed target screen IDs; reviewer/date; inspection status; notes. Use explicit `NOT_INSPECTED` rather than guessed labels.
+**The references are states, not 159 separate page templates.** The guest New screen has a reduced sidebar and trial banner; the signed-in New screen has library destinations. Our visitor and learner shells should differ by actual access, not by rendering fake private content. We do not need Apple's global-subscription banner in a one-time-course marketplace.
 
-A contact sheet is an index, not evidence that every small text/control was inspected. Open relevant originals at readable size. Verify motion by playing applicable recordings. Never remove the watermark from the source file or publish cropped source art as our own.
+**The detail page is a strong course starting point.** A square cover, adjacent title/creator/description and compact actions lead directly into a legible ordered list. Preserve that hierarchy. Replace music metadata with outcome, level, language, effort and explicit access/price; track rows become modules/lessons with preview/lock/completion. A black primary Play button in the reference is also a reminder not to turn every control into a bright accent button.
 
-## Candidate pattern families — not image-verified mappings
+**Library empty and populated states are genuinely different.** The empty reference offers one clear browse action. The populated reference uses cover grids with captions, not a generic statistics dashboard. Our library adds resume/progress while separating enrolled courses from bookmarks.
 
-The historical metadata/code suggests browsing shelves, search/categories/results, album/playlist detail, artist pages, library/list actions, player/lyrics, account dialogs and purchase/trial flows. These are a starting checklist only; verify every chosen source visually.
+**Playback and study require deliberate adaptation.** The expanded lyrics screen has media left and large blurred text right; use the split idea, but not karaoke blur or giant transcript type. The video screen provides an unobstructed playback surface and seek controls. The queue demonstrates a secondary right panel; our curriculum must not expose meaningless Clear queue or Shuffle actions. The reference's floating player sometimes overlaps content: preserve its restraint, not accidental obstruction.
 
-Adapt album detail to a course overview and track rows to a curriculum. Adapt artist identity to a creator profile and playlist organization to saved learning collections. Use player/lyrics patterns only where they improve lesson playback/transcripts. Discard shuffle, radio, concert buying, music-specific settings and Apple subscription identity. Create new designs for learning progress, course offers, studio, payouts, moderation, authoring and accessibility/error states that music references cannot define.
+**Creator identity is more than an avatar card.** The artist reference has a large identity header followed by latest release and content shelves. Adapt to real expertise and courses, but reduce the header on mobile so learners can evaluate actual instruction promptly. Do not infer video motion from a still or invent creator credentials.
 
-## Visual approval gate
+**Search has meaningful states.** Browse categories, recent items and typed-query results are separate layouts. Search remains visible above the results. Our result types are Courses and Creators; library-only search and recents persistence are not automatic launch features merely because Apple has them.
 
-Before product component implementation, produce and review course-specific desktop/mobile golden frames for Home, Course detail, Lesson player, Creator profile and Studio curriculum editor. Then resolve the remaining launch screens/states in `screens-and-flows.md`. Evidence must show original/course frame, viewport and what changed for the learning use case.
+## Concrete problems with the old prototype
 
-Do not require irrelevant Apple billing/concert screens to be pixel-cloned before working on course plans. The goal is an approved course UI informed by references, not an Apple reproduction project.
+The source uses `fallbackVariants[index % fallbackVariants.length]`, combines many views in an approximately 46 KB client component, and invents tone/gradient artwork in `Art`. Those are prototype shortcuts, not production architecture or visual evidence.
 
-## Rights and preservation
+Direct inspection confirms incorrect explicit mappings too: `06be9f09…` is a Songs table with a pinned item, not an artist page; `a917d88f…` is Home, not concerts; `484851bf…` is artist detail, not simply a loading screen. Do not use `lib/reference.ts` as the source-to-course mapping authority. Its three hardcoded flows are also distinct from the complete 58-flow acquisition archive.
 
-The repository is public at the audit baseline. Possession/download of reference files does not establish redistribution or production-use rights. Review Mobbin/asset terms before expanding public distribution; do not change repository visibility without the owner. Keep references out of the production public directory, bundles, metadata and search indexes. Our app must have its own name, artwork, teacher imagery and appropriately licensed icons/fonts.
+The new product should not bulk-import the old scene switcher, fixtures, assets, dependency lockfile or generated music routes. The archive remains preserved for evidence and visual reference; the active application starts in `web/` only when assigned.
+
+## How an implementation task uses this audit
+
+Read the relevant ledger rows and open the linked originals locally, then implement the course-specific family from [screens and flows](screens-and-flows.md). Record the actual viewport, chosen token values, course screenshot, applicable error/access states and intentional differences. Related high-resolution source files are already present; no repeated acquisition is needed.
+
+Full catalog review is not a prerequisite for the scaffold or first Home slice. Source-selection evidence exists for the main families now; local review verifies the exact state/measurement needed for the current UI change. Creator authoring, publication, commercial access and moderation still require course-specific design rather than an invented claim that Apple supplied them.
+
+## Preservation and limits
+
+Keep original bytes/watermarks, manifests and historical QA untouched. Do not expand source redistribution, change repo visibility, or copy source art/proprietary fonts into production. Use independent branding and licensed/consented content. Possession of a reference is not a production-use license.
+
+No product application, migration, provider account, payment or deployment was created by this work. Architecture and course layouts are recommendations; actual implementation, accessibility, performance and usability remain tasks with their own evidence.

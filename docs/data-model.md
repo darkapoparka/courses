@@ -1,97 +1,89 @@
-# Data model and invariants
+# Data model — phase-specific, not a giant initial schema
 
-Status: conceptual design, not an applied schema. Build only the entities needed by the authorized slice. Names below are proposed; actual migrations, indexes, generated types and permission tests must remain the implementation source of truth.
+Proposed logical model. Create tables only in their assigned implementation task. SQL migrations, constraints, generated types, and tests will establish the actual schema. No SQL has been applied by this documentation revision.
 
-## Domain distinctions
+## Keep these concepts separate
 
-Identity answers who the user is. Workspace membership answers which creator actions they may perform. An offer describes what is currently sold. An order records a specific attempted/completed transaction. An entitlement grant records a source of access. Enrollment records the learning relationship. Progress records learning activity. A saved item is a bookmark. None of these should be collapsed into a single `is_paid` or `is_creator` flag.
+Identity is a user. A workspace identifies a creator business. Course metadata describes what is taught. An order records an attempted purchase and its original terms. A course grant is permission to learn. Progress is learner activity. Saving is a bookmark. Neither a progress row nor a checkout redirect implies payment or permission.
 
-A person may learn, create and moderate within different scopes. Do not make 'learner' and 'creator' mutually exclusive account types. Moderator/operator capabilities require explicit scoped assignment and audit.
+We do not need generalized offers, order items for a multi-seller cart, a subscription engine, a separate enrollment table, course-version graphs, creator team roles, or an outbox at this stage. Add them only when an implemented feature needs the independent lifecycle.
 
-## Entity groups
+## M1 records
 
-| Group | Proposed records | Essential fields / purpose |
-| --- | --- | --- |
-| Identity | profiles | Auth user ID, display identity, locale, safe public fields; private contact data not exposed by default |
-| Creator tenancy | workspaces, workspace_members | Workspace identity/slug/status; user, role, membership status; provider payout account relation kept private |
-| Catalog | courses, categories, course_categories | Stable course ID, workspace, slug, catalog state, published revision pointer; category relations |
-| Revisions | course_revisions, modules, lessons, lesson_revisions | Stable course/lesson identity, revision identity, ordered curriculum, outcome/prerequisites/content, review status |
-| Media | media_assets, lesson_resources | Workspace/lesson relation, provider IDs, processing state, type/size/duration, captions, preview designation, private resource reference |
-| Offers | offers | Course, seller workspace, free/one-time type, price in minor units, currency, access terms, active interval/status |
-| Purchases | orders, order_items | Buyer, seller, state, immutable commercial snapshot, provider references, totals and timestamps; one item initially |
-| Financial adjustments | refunds, financial_entries | Provider-confirmed refund/fee/transfer events and reconciliation references; not a replacement for statutory accounting |
-| Access | entitlement_grants | Learner, course or defined future scope, source type/ID, status, valid-from/until, revoke reason |
-| Learning relationship | enrollments | Learner/course, start/last activity, relevant course revision context; not the payment ledger |
-| Progress | lesson_progress | Learner/stable lesson, saved position, completion state/time, last accepted session/sequence metadata |
-| Private study | notes | Author, course/lesson, optional timecode, text, revision/update metadata; author-only |
-| Discovery preference | saved_courses, creator_follows | User/course or user/workspace unique relation; not entitlement |
-| Discussion | posts, replies | Workspace, optional course/lesson context, author, body, moderation state, parent relation |
-| Reviews | course_reviews | Eligible learner/course, rating/text, timestamps/moderation status and eligibility basis |
-| Trust operations | reports, moderation_actions, appeals | Reporter/evidence, target and workspace, reason/status, actor/outcome; restricted fields |
-| Reliability | provider_events, outbox_jobs, audit_events | Unique event identity, durable processing status, job attempts/leases, attributable actions |
+| Record | Minimum role and invariants |
+| --- | --- |
+| `profiles` | Own display name, locale and account status; private by default. Auth owns identity and credentials. Do not publicly expose all learner profiles. |
+| `workspaces` | Creator owner user ID, status, timestamps; one owner in the pilot. Client cannot change owner/status. |
+| `creator_profiles` | Public slug, display name, bio, approved expertise statements, avatar; explicit public projection separate from owner/contact/payment data. |
+| `categories` | Small seeded category set; no arbitrary taxonomy-management product. |
+| `courses` | Workspace/category, stable ID, unique public slug, title/outcome/prerequisites/level/language, cover, state, edit version, free/paid mode, current amount/currency and terms version. Current offer lives here; orders snapshot it. |
+| `modules` | Course relation, title, position; positions unique within course. |
+| `lessons` | Stable ID, course/module, title, type, position, duration metadata, explicit preview flag. These are curriculum fields, not paid content. |
+| `lesson_content` | One protected content row per lesson: safe Markdown/text, transcript reference and media relation as needed. Never exposed just because lesson titles are public. |
+| `media_assets` | Workspace/lesson relationship, provider/environment IDs, processing state, trusted duration, caption readiness; server-controlled provider fields. |
+| `lesson_resources` | Exact lesson relation, private storage path, safe display name/type/size, scan/review status; no public permanent paid URL. |
+| `course_grants` | Learner/course, source kind (`free` initially, `order` at M2), source key, granted/expiry/revoked timestamps and reason. Access exists if at least one valid grant applies. |
+| `lesson_progress` | Unique learner/lesson, position, completion timestamp, version and last activity. Completion is not financial truth. |
+| `saved_courses` | Unique learner/course bookmark. Does not grant access. |
+| `operators` | Private explicit operator assignment, managed outside ordinary user input. No role derived from editable profile metadata. |
+| `audit_events` | Attributable privileged review/access/status action, reason and necessary record IDs; no indiscriminate payload/secret dumping. |
 
-A creator space initially belongs to its workspace; do not create a separate paid-community subscription model. Access to basic course/creator discussion should use the documented enrollment/grant policy. Add an explicit community-membership table only when its independent lifecycle is required, rather than allowing derived and stored memberships to drift.
+Do not duplicate every course relation in every table unnecessarily. Where a row carries both workspace/course or course/module IDs, enforce the relationship through suitable composite foreign keys or checked atomic functions. IDs supplied by a route are not evidence that the records belong together.
 
-## Keys and relationships
+## M2 additions
 
-Use stable opaque IDs for internal relations and unique slugs for public navigation. Slugs may change with redirects; they are not authorization boundaries. Include workspace scope in creator-owned records and verify parent-child relations. Where practical, composite foreign keys such as `(workspace_id, course_id)` and `(course_id, lesson_id)` prevent cross-tenant or cross-course association mistakes at the database layer.
+| Record | Minimum role and invariants |
+| --- | --- |
+| `connected_accounts` | Private workspace/provider/environment account mapping, unique where applicable, server-confirmed readiness. |
+| `orders` | One course and one seller per order; buyer, immutable title/price/currency/terms/fee/tax-consent snapshots as applicable, provider session/payment/account/environment IDs, payment state, refund totals, dispute state, timestamps. No `order_items` until multiple items actually exist. |
+| `refunds` | Provider refund identity, order, amount/currency, state and reconciliation timestamp; request/pending/succeeded are distinct. |
+| `provider_events` | Unique provider/environment/account/event ID, type, relevant object ID and handled timestamp. Handled receipt and business effects commit together. Not a general job queue. |
+| `notes` | Author, lesson, optional timecode, text, edit version, timestamps; author-only reads. Own notes remain available for export after access loss. |
+| `discussion_posts` | Course/optional lesson, author, body, optional root-question parent, hidden state; one reply level initially. Parent must belong to the same course/context. |
+| `reports` | Reporter, exactly one supported target (course or post), reason/status; keep reporter identity restricted. |
 
-Uniqueness constraints include workspace/user membership, user/course enrollment, user/course bookmark, user/course review, user/lesson progress, provider account mapping, and provider/account/event ID. Provider object IDs should carry their provider/account/environment context where needed. Do not assume IDs from separate connected accounts or environments are interchangeable.
+No creator follows, community subscriptions, ratings, team invitations or automatic notification tables in M1/M2. Those belong to later feature assignments.
 
-A lesson referenced in progress or notes must retain stable identity across simple title changes/reordering. Revision-specific content can change without replacing that identity. When a lesson is removed from a released curriculum, retain sufficient relationship/history to explain progress and support obligations; no cascade that silently destroys a learner's notes or purchase audit trail.
+## Keys, constraints, and indexes
 
-## Public versus protected data
+Use opaque stable IDs; slugs are URLs, not permissions. Do not replace lesson IDs when reordering or correcting titles. Prevent hard deletion of records referenced by grants, purchases, progress or notes without an explicit retention/content-removal process.
 
-Separate safe catalog metadata from paid lesson bodies, transcripts, private resource keys, unpublished revision content, financial data and contact details. RLS restricts rows, not arbitrary secrets in otherwise readable columns; use safe projections or separate tables and appropriate column privileges [S09](research.md).
+At minimum enforce: unique public slugs; unique module/lesson positions in their parent; unique learner/lesson progress; unique learner/course bookmark; unique source-specific grant; unique provider event context; unique provider payment/session mapping. An order-linked grant must reference the same buyer/course as its order, enforced by a constrained function or foreign keys, not browser input.
 
-Anonymous users may read approved published metadata and explicitly public previews. Creators may inspect their own drafts but cannot make those drafts anonymously readable by guessing a URL. A creator preview is authorized editor access, not a generally public preview link. Learner notes are not accessible to creators by virtue of owning the course.
+Index actual access paths: course workspace/state/category; ordered curriculum parents; grants by learner/course with validity fields; progress by learner/activity; orders by buyer and seller/date; provider object IDs; posts by course/lesson/date. Add trigram/full-text indexes when search is implemented and inspect representative query plans. Do not create indexes for imagined filters.
 
-Workspace membership is checked against an authoritative record. Never authorize from `user_metadata` or a role selected in a signup form. Avoid broad policies such as 'any authenticated user can read all orders'. Policies need both identity and resource/tenant predicates.
+## Public/protected boundaries
 
-## Access function
+Public readers may see approved creator profiles, published course metadata and curriculum, and explicit published previews. Paid content, resource keys, private profiles, unpublished drafts, provider mappings and financial records are separate protected data. RLS controls rows; safe column/table boundaries are still required [R06–R07](research.md).
 
-Conceptually, `can_access_lesson(user, lesson, now)` requires a permitted course/content state and one of:
+The workspace owner may edit only their own draft records. On submitted/published/unlisted/suspended content, client updates to curriculum, preview flags, media attachments and private content are denied. State changes and owner changes use checked server operations. Operators do not receive blanket access to private notes.
 
-1. The exact lesson/version is intentionally published as a public preview.
-2. The user has at least one applicable active entitlement grant whose validity interval contains `now`.
-3. A separately checked creator/operator preview permission authorizes that inspection context.
+Use grants and RLS together. Prefer invoker semantics; any necessary privileged SQL function has an explicit principal/role contract, fixed search path, restricted EXECUTE grants, and negative tests. A webhook fulfillment function must not be executable by ordinary authenticated users. Avoid recursive policies; test owner/permission lookup helpers through the real API roles.
 
-These are distinct paths; a creator preview must not create a paid enrollment or appear as buyer activity. Define any free-course access policy explicitly rather than letting all signed-in users read every free draft.
+## Lesson access contract
 
-A course purchase grants only the scope advertised. Revoking grant A cannot remove access from still-valid grant B. Enrollment, a bookmarked course, a checkout redirect, a local-storage flag or a client 'completed' event cannot satisfy a paid access check. Course safety suspension may override normal grants according to the reviewed policy; ordinary unlisting does not.
+First verify course/lesson/media relationships and availability. A suspended course or workspace blocks learner delivery even when payment exists. For ordinary unlisting, existing valid grants remain usable but new enrollment/sales/public preview are disabled.
 
-## Money invariants
+For available content, permit exactly one of: an intentional public preview on a published course; an active course grant for this learner; or a separately authorized creator/operator inspection context. Draft preview must remain private and must not create learner progress, purchase grants, or buyer analytics.
 
-All monetary amounts use integer minor units with an explicit supported currency and currency-aware formatting. Do not use binary floating-point arithmetic for authoritative prices/fees. Do not assume every currency has two decimals. Store actual provider IDs and confirmed amounts; never infer financial truth from a client-rendered label.
+Apply the same rule to text, transcripts, video signing, caption access where private, and downloads. A refund revokes only its own order grant; another valid grant remains. Free enrollment is an idempotent grant operation, not a fabricated zero-value paid order. No separate enrollment state may override grants.
 
-An order snapshots course title/ID, creator/seller identity, offer/price, currency, access terms/version, applicable discounts/tax/fee fields and required consent/policy versions. Later edits to an offer must not rewrite what an earlier buyer purchased. A free enrollment is not a fabricated paid order.
+## Money and checkout
 
-Payment status, refund status, dispute status, transfer/payout status and access status are related but different. Keep their relevant source records and transition reasons. The initial schema may use separate state fields/adjustment tables rather than trying to represent every combination in one enormous enum. Dashboard revenue definitions must specify gross, refunded, fees, transferred and net; they are not interchangeable.
+Store money as integer minor units with a supported currency. Use currency-aware formatting; do not assume every currency has two decimals. Snapshot the accepted price and terms in the order; later course edits never rewrite prior purchases.
 
-## Publication invariants
+Serialize creation/reuse of an in-flight order for the same buyer/course using a constrained transaction/uniqueness rule. Resolve uncertain external session creation with the same provider idempotency key, not a fresh charge attempt. Record separate payment, refund and dispute facts rather than a single overloaded `is_paid` value.
 
-A course has stable identity and a pointer to its currently published approved revision. Draft revisions can be edited independently. Publishing requires authorized workspace role, validated content and applicable review/payout eligibility. Use an atomic checked operation to switch the published pointer and catalog state.
+Keep provider financial state authoritative. Our records support access/support/reconciliation, not a custom banking ledger or replacement for accounting. Exact charge model, fee/tax treatment and refund consequences are decisions before payment implementation/live activation.
 
-Proposed lifecycle: draft → submitted → changes requested or approved → published → unlisted; suspension is a distinct operator-controlled restriction. A new draft may coexist with the last published version. A rejected revision does not delete the previously approved course.
+## Editing, publication, and progress
 
-Lesson/media readiness is separate: created → upload authorized → uploading/awaiting ingest → processing → ready or failed → retired. Only verified provider/server processing determines ready. A client may report transfer progress, not grant playback permission or mark processing complete.
+Draft saves compare an expected integer edit version. Submission and approval compare that version too; creators cannot change content underneath a review. For the pilot, published content stays locked and there is no parallel live/draft revision model. Bounded operator corrections preserve IDs, check the current version, and write an audit record in the same transaction. Removing substantial purchased content is not a normal edit.
 
-## Progress and concurrency
+Progress uses an expected version and serialized client saves; older writes fail rather than overwrite newer activity. Resume position may decrease after a deliberate rewind. Completion is stored separately and cannot be undone by an older heartbeat; a reset is a distinct explicit action. Bound positions against trusted duration when available.
 
-Persist explicit completion separately from resume position. An older progress update must not undo a confirmed completion. A legitimate rewind must be able to lower the resume position; simply taking the maximum timestamp in the video is incorrect. Use bounded playback sessions and monotonically increasing event sequence values within a session, with a documented cross-session precedence rule. Record server receipt/update versions and reject stale conflicting writes as appropriate.
+On a conflict, keep the active player's position/local note text, refresh the server version and show an appropriate recovery path. Never blindly retry an old payload over newer data. Periodic saves limit loss; browser close events are not a guaranteed final delivery mechanism. No distributed playback-session coordinator is required for the pilot.
 
-Validate the position against trusted media duration when known and handle content replacement. Progress is a convenience and learner activity record, not proof of professional competence. Define whether completion is explicit, suggested after a threshold, or both; do not claim a certificate merely because a video ended.
+## Retention
 
-Notes and studio edits use optimistic concurrency/version tokens. Preserve local input on conflict; return an actionable stale-revision response instead of silently overwriting another session. Reordering lessons must update an ordered sequence transactionally, with constraints preventing duplicate/conflicting positions within a module/revision.
-
-## Events and outbox
-
-`provider_events` uniquely identifies a provider delivery context, stores verification/receipt and processing state, and retains only the payload/fields needed under the retention policy. Durable receipt and a retryable failure are not the same as completed fulfillment.
-
-Order fulfillment, its grant effect and an outbox event should be applied in one database transaction where possible. The worker claims bounded jobs by lease, supports retry/backoff, and records terminal failures for inspection. Each external side effect has its own idempotency strategy; do not promise exactly-once delivery across vendors.
-
-## Deletion, retention and migration
-
-Soft deletion is not a universal privacy solution. Define retention separately for financial/audit records, account data, private notes, user-generated content and provider payloads. Preserve legally required financial information while minimizing or removing unnecessary personal data according to the reviewed policy. Do not cascade account deletion through immutable purchase/provider history without a retention decision.
-
-Every implemented migration needs constraints, indexes, grants, RLS and positive/negative tests for the affected access model. Use one migration history, reviewed application compatibility and a recovery plan. This document is not permission to execute SQL or modify a connected project.
+Define retention by data type. Financial records may require retention while notes/profile data require deletion or minimization; do not apply blanket soft-delete or cascading erasure. Record the actual jurisdiction/policy decision before production. Migrations include grants, RLS, constraints, indexes, seed/test impact and a compatibility/recovery plan.
