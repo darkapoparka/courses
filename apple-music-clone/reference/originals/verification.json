@@ -1,0 +1,11 @@
+{
+  "validImages": 377,
+  "badImages": [],
+  "screenFiles": 159,
+  "missingScreenIds": [],
+  "flowCount": 58,
+  "flowCountMismatches": [],
+  "recordings": 13,
+  "invalidVideoHeaders": [],
+  "megabytes": 28.7
+}

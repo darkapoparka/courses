@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.turbo/
+dist/
+out/
+.vercel/
+*.tsbuildinfo
+*.log
+.env
+.env.*
+!.env.example
+!.env.sample
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+apple-music-clone/reference/originals/browser-bundles.json
