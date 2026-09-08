@@ -1,0 +1,4 @@
+# Superseded local drafts are retained on the computer, not shipped as baselines.
+/ui-001/
+/ui-001-correction/
+/ui-001-before-1440.png

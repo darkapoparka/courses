@@ -2,9 +2,9 @@
 
 An independent course marketplace and learning app, using Apple Music Web as a visual reference.
 
-**Current state:** reference archive acquired; build specifications revised; product application not scaffolded by this work. Architecture recommendations are not a claim of a tested or launched platform.
+**Current state:** `web/` contains the local learner-shell and Home fixture preview (BOOT-001 / REF-002 / UI-001). It is awaiting owner visual review, not a launched marketplace. Run `pnpm dev` from `web/` and open http://127.0.0.1:3100. No provider credentials are required. See [application commands](web/README.md) and [task evidence](docs/tasks.md).
 
-Start with [AGENTS.md](AGENTS.md), the [documentation map](docs/README.md), and the [local build handoff](docs/handoff.md). The plan is one Next.js app under `web/`, added only when an implementation task is assigned.
+Start with [AGENTS.md](AGENTS.md), the [documentation map](docs/README.md), and the [local build handoff](docs/handoff.md). The single active Next.js application is `web/`; the archive remains outside its build.
 
 ## References
 

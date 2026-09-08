@@ -25,7 +25,7 @@ Apple's detail page uses a black main Play action and red for identity/selected 
 
 Desktop uses a single quiet learner rail with content beside it. The references allocate roughly a sixth of the width to navigation at their reported desktop viewport and start content with a noticeable inset; preserve the relationship rather than copying a scaled screenshot coordinate. Creator Studio has its own focused layout, not a second app or every creator action in the learner rail.
 
-Provisional desktop implementation starting point: about 248px rail width, 8px outer inset, 40px content padding; smaller content padding at intermediate widths. These are our adjustable tokens, not measured source CSS. Validate at 1440px and tablet before freezing them. The rail must never squeeze the lesson into an unusable video width; collapse to the mobile layout based on actual fit.
+UI-001 after the owner fidelity correction uses a 232px rail, 8px outer inset and 37px content padding at 1440px, putting the first artwork at x=285. Editorial Home cards are 265px wide at 3:4; ordinary course covers are 209px square with 19px gaps. This follows the normalized reference proportions more closely than the earlier 248px/40px proposal. These are implementation tokens, not extracted Apple CSS or owner-approved final values. Tablet uses a 200px rail and 28px inset; mobile removes the rail. The rail must never squeeze the lesson into an unusable video width; collapse to the mobile layout based on actual fit.
 
 Mobile proposal: Home / Search / Library / You, four equal destinations. Creator entry/settings live under You. No oversized center action or fifth vague destination. A local Home-only preview explicitly marks destinations that are not implemented yet; it does not send users to 404s or fake backend screens.
 
@@ -78,3 +78,9 @@ Keep all transcript text readable; optional active-time highlighting must not bl
 For each family record exact source, course screenshot, viewport, intentional changes and tested states. Use 390px mobile and 1440px desktop first; then 320px, tablet, wide desktop, zoom and actual mobile browsers before pilot. The viewed references are desktop images; our mobile layout is a separate design proposal requiring testing.
 
 Review the first Home/shell before multiplying its components across the platform. Final screenshots are our course-design baselines, not claims of pixel identity to Apple. Original/licensed covers, consented creator imagery and truthful content are required before release; clearly labeled fixtures are acceptable during M0, never invented social proof.
+
+## UI-001 fidelity correction - 2026-09-09
+
+The owner rejected the first interpretation and explicitly asked to retain the Apple Music look. The current Home uses VIS-07 as its primary composition: a plain Home heading, 3:4 editorial shelf, then square artwork with compact captions. The two-banner visitor composition, extra marketing subheadings, sidebar table of contents, brown accent and boxed resume cards were removed. VIS-05/06 continue to inform the shell and discovery density. Visitor and returning fixtures share this Home composition; the returning sample adds compact Continue learning rows first. This is a deliberate course-specific change, not a claim that Apple has these learning states.
+
+The Mobbin footer, Apple identity/artwork/fonts, subscription trial and music player are not copied. Course artwork is original or licensed; captions stay outside ordinary course covers. Sample-state controls and unavailable destinations remain explicitly labeled. Mobile is a course adaptation because the reviewed originals are desktop captures. See the ledger and task evidence; final visual approval is still the owner's decision.

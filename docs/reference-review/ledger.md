@@ -41,3 +41,49 @@ No MP4 recording was watched in full. No mobile Apple layout was supplied by the
 ## Reuse rules
 
 Open the exact linked source for the assigned screen. Preserve its useful hierarchy and restrained styling; replace music semantics and assets deliberately. Record our implementation tokens and screenshot viewport separately from source observations. Do not reconstruct a whole music feature just because one control appears in an image. The old prototype's screen mapping is not evidence.
+
+## Initial REF-002 / UI-001 review - 2026-09-09 (visual layout superseded below)
+
+Astra reopened the local galleries `apple-music-clone/reference/originals/index.html` and `apple-music-clone/reference/originals/ui-elements.html` in the connected Windows browser during bootstrap, then reopened the following originals at readable size during implementation. These are three already-counted identities, not an expansion of the 17-screen audit. No collection was redownloaded, and no recording playback is claimed.
+
+| Source reopened (repository-relative) | Useful observation | Course implementation |
+| --- | --- | --- |
+| `apple-music-clone/reference/originals/high-resolution/e72be564-1f7a-4448-9568-f239af3233ed.webp` (VIS-05) | Signed-in discovery: narrow pale rail, quiet selected row, heading aligned with landscape artwork; captions outside art; compact rows and subsequent square shelf | Quiet rail, two labeled editorial selections, square course shelf and compact under-an-hour list. Selection is by learning intent, not fabricated popularity. |
+| `apple-music-clone/reference/originals/high-resolution/3731221f-497f-40a3-b00a-30abfe3766da.webp` (VIS-06) | Visitor discovery keeps the same artwork-led canvas but removes private library destinations; player and trial banner are distinct from the gallery's dark footer | Visitor sample contains no progress. No subscription trial, empty player, sign-in simulation or Apple branding. Future navigation is visibly disabled. |
+| `apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp` (VIS-07) | Returning Home changes the active rail row and leads with personal shelves; portrait editorials and square recent covers have distinct roles | Returning sample leads with two Continue learning cards and explicit sample progress. Course cards remain square; no portrait campaign requirement or music-player controls. |
+
+All three originals decode at **3024×2016**. The application occupies roughly the top 1896 source pixels; the bottom approximately 120px is the **Mobbin attribution/footer**, not app navigation. A local pixel check found stable dark footer samples beginning at y=1898/1901/1897 respectively; WebP edge compression means these are sample rows, not exact CSS boundaries. Rail/content relationships, type hierarchy, restrained selected fill and shelf gaps were observed visually, not extracted as Apple CSS.
+
+Implemented course tokens (our choices, not measured Apple tokens): 248px desktop rail with 8px outer inset and 40px content padding at 1440px; 200px rail/28px padding at intermediate desktop widths; mobile shell below 768px with 20px content inset and four equal navigation positions. Canvas `#ffffff`, surface `#f6f6f8`, text `#202023`, muted `#64646b`, accent `#ad372a`, focus `#215bcc`; 12px artwork radius; 4/8/12/16/24/32/40/48 spacing scale. System typography, 36px desktop/32px mobile Home heading, square ordinary course covers, separate landscape editorial composition. Horizontal shelves contain their own overflow.
+
+Intentional differences: independent Courses identity; useful subject/creator/effort/level/sample-price metadata; no fabricated ratings or sales counts; progress separate from access; disabled Resume because lesson routes are not implemented; no fake course-detail links or bookmark persistence. Original SVGs and licensed photographs replace all reference artwork. The source images provide desktop states only; our mobile dock and reflow are a course-design proposal, not a traced mobile Apple screen.
+
+Implementation and screenshots: `web/src/components/shell/learner-shell.tsx`, `web/src/features/home/`, `web/src/components/ui/content-shelf.tsx`, `web/src/app/globals.css`, and [`../evidence/ui-001/`](../evidence/ui-001/). Visitor/learner desktop and mobile, dialog, focus, empty, loading and error evidence are saved there. See `docs/tasks.md` for actual checks and limitations. **Implemented and locally verified; not owner-approved.** The earlier row statuses describe the original documentation audit, not this implementation supplement.
+
+## Current UI-001 fidelity correction - 2026-09-09
+
+The owner requested the Apple Music look be retained rather than redesigned. VIS-05/06/07 were reopened on the connected computer, using the exact three high-resolution paths in the table above. VIS-07 (`apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp`) is now the primary Home composition: restrained pale rail, plain Home heading, portrait editorial cards with lower captions, then square covers with compact outside captions. Source-derived proportions were compared at a normalized desktop width; no Apple CSS or proprietary font was extracted. The gallery's bottom Mobbin attribution strip is excluded from the app, as are the music player and trial banner.
+
+The actual correction replaces the two landscape banners, extra marketing copy, table-of-contents sidebar, brown accent and boxed Continue cards. At 1440px the rail is 232px wide/inset 8px, artwork begins at x=285, portrait cards are 265px at 3:4, square covers 209px, gaps 19px, Home title 34px and shelf title 16px. Canvas `#ffffff`, rail `#f8f8fa`, selected `#eeeef0`, ink `#202023`, muted `#68686d`, accent `#bb1832`, focus `#0068cf`; editorial radius 10px and square radius 8px. A font-token self-reference was removed; system sans-serif is used without bundled Apple fonts.
+
+Intentional course changes: original/licensed course art instead of music artwork; small sample-view controls instead of authentication; compact learner-only Continue rows with explicitly fictional progress; no actionable course/lesson purchase links because those destinations are unbuilt; no fabricated ratings. The visitor has no progress. Mobile is separately adapted at 390px, with a four-position Home/Search/Library/You dock and contained horizontal shelves. Only Home is active.
+
+Current captures and checks are in [`../evidence/ui-001-final/`](../evidence/ui-001-final/). Older `ui-001/` evidence belongs to the rejected first interpretation and must not be used as the current baseline. No further source identities or recordings were reviewed, and no final visual approval is claimed.
+
+## Final measured comparison - 2026-09-09
+
+Reopened VIS-07 from `apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp` and the actual loopback development page. For comparison only, the 3024x2016 source was normalized to 1440x960 in the computer's temporary directory; its application area is approximately 1440x903 after excluding the Mobbin footer. No reference image was copied into `web/public/` or added again to Git. This comparison uses image-space measurements, not extracted Apple CSS.
+
+| Anchor at 1440px width, visitor Home | Normalized source, approximate | Final DOM measurement |
+| --- | --- | --- |
+| First portrait left / top | 285.7 / 135.2px | 285 / 135.1875px |
+| Portrait width / height | 265 / 353px | 265 / 353.328125px |
+| First square left / top | 285.7 / 571px | 285 / 570.703125px |
+| Square width / height | 209 / 209px | 209 / 209px |
+| Rail width / outer inset | 232 / 8px | 232 / 8px |
+
+The earlier portrait row began at y=141px, used 266px cards and 20px gaps, and drifted right across the row. Final gaps are 19px; content inset is 37px after the rail, and the source-shaped heading spacing was corrected. The Windows fallback is Arial instead of Segoe UI; no font is bundled. Desktop Home uses 34px type, section headings 16px, and compact captions no longer reserve an unnecessary blank title line. Navigation vertical spacing was compared separately. Native glyph rasterization is still not pixel-identical to the source.
+
+Screenshots: `docs/evidence/ui-001-final/comparison-viewport-desktop.png` is the actual app at 1440x904 for the normalized comparison. The same folder contains full-page and viewport visitor/learner captures at 1440x1000 and 390x844, plus scrolled mobile, dialog, focus, loading, empty and error captures. The full-page mobile screenshots retain the fixed dock at the captured viewport position; separately inspected scrolled viewports establish the actual visible content and bottom clearance.
+
+**Result:** selected layout anchors are source-aligned within the tested 1.5px tolerance. This is not a full-image pixel-diff pass and does not certify a 1:1 clone. Independent course artwork, licensed photos, course metadata, limited navigation, learner-only Continue rows, lack of a music player and the mobile adaptation remain explicit differences. Technical verification and exact source hashes are in the final evidence; owner visual approval is still pending.

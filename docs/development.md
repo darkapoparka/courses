@@ -1,6 +1,6 @@
 # Development and environment contract
 
-No commands in this file have been executed for the new application. They describe the approved future workflow. The archive does not need installation to inspect references.
+BOOT-001 and UI-001 were implemented locally on 2026-09-09. Actual versions, commands, results and limitations are recorded in `tasks.md`; `web/README.md` is the local run guide. The staged integration guidance below remains prospective. The archive does not need installation to inspect references.
 
 ## Bootstrap once, in the right directory
 
@@ -52,7 +52,7 @@ A destructive local reset is allowed only against the identified disposable loca
 
 ## Command contract after scaffold
 
-BOOT-001 adds and verifies actual package scripts. Until then the following are intended script names, not existing commands:
+BOOT-001 added and verified these actual scripts in `web/package.json`:
 
 ```sh
 cd web
@@ -62,7 +62,7 @@ pnpm lint
 pnpm build
 ```
 
-The test-owning tasks add `pnpm test` and `pnpm test:e2e` when tests exist. Do not use a removed `next lint` convention; configure the installed ESLint tool directly according to current Next guidance. Do not add pass-with-no-tests flags and describe them as coverage.
+UI-001 adds `pnpm test:e2e` for the implemented Home browser suite. It starts a production build on loopback port 3101; the development server uses port 3100. There is no empty `pnpm test` script. Do not use a removed `next lint` convention; configure the installed ESLint tool directly according to current Next guidance. Do not add pass-with-no-tests flags and describe them as coverage.
 
 Use a locked install in CI. Browser tests should start the app deterministically and never depend on live providers. Integration tests target local/staging disposable data. Provider-specific sandbox exercises remain separate documented checks.
 

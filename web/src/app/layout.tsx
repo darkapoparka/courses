@@ -1,0 +1,20 @@
+import type { Metadata } from "next";
+import { LearnerShell } from "@/components/shell/learner-shell";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Home - Courses",
+  description:
+    "A local design preview of Courses, an independent course marketplace. All course content is fictional.",
+  robots: { index: false, follow: false },
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="en">
+      <body>
+        <LearnerShell>{children}</LearnerShell>
+      </body>
+    </html>
+  );
+}
