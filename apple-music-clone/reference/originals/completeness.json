@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-09-08T19:40:27.650405+00:00",
+  "screens": 159,
+  "uiElementsUnfiltered": 159,
+  "uiElementCategories": 29,
+  "uiCategoryMemberships": 53,
+  "flows": 58,
+  "orderedFlowSteps": 218,
+  "screenAnimations": 5,
+  "flowRecordings": 8,
+  "highResolutionScreens": 159,
+  "actualHighResolutionWidth": 3024,
+  "totalImageFiles": 536,
+  "totalVideoFiles": 13,
+  "missingReferences": [],
+  "scope": "Reference acquisition only. No application implementation or Git mutations.",
+  "limitations": [
+    "Source watermarks/footer preserved.",
+    "No source code, DOM implementation, or editable component files are included.",
+    "MP4 file headers and source/hash correspondence verified; full video playback was not checked.",
+    "Coverage is the supplied collection snapshot and media exposed by its three tabs, not every possible Apple Music interaction."
+  ],
+  "evidence": [
+    "download-manifest.json",
+    "flow-download-manifest.json",
+    "high-resolution-manifest.json",
+    "parent-high-resolution-verification.json",
+    "parent-ui-elements-id-check.json",
+    "parent-ui-elements-media-check.json",
+    "parent-flow-media-check.json",
+    "ui-elements-manifest.json",
+    "flow-screen-map.json"
+  ]
+}
