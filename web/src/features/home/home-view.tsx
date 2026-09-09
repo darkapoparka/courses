@@ -157,22 +157,22 @@ function ContinueLearning() {
                     <span>· {learning.progress}% complete</span>
                   </span>
                 </div>
-                <button
+                <Link
                   className="resume-button"
-                  type="button"
-                  disabled
-                  aria-label={`Resume ${course.title}: unavailable in preview`}
+                  href={`/learn/${course.id}/${course.id === "useful-ai" ? "lesson-4" : "lesson-2"}?sample=learner`}
+                  aria-label={`Resume ${course.title}`}
                 >
                   <Play size={18} aria-hidden="true" />
-                  <span>Soon</span>
-                </button>
+                  <span>Resume</span>
+                </Link>
               </article>
             </li>
           );
         })}
       </ul>
       <p className="continue-note">
-        Your place, all in one place. Lessons are unavailable in this preview.
+        Your place, all in one place. Progress and lesson media are explicit UI
+        samples.
       </p>
     </section>
   );
@@ -331,8 +331,8 @@ export function HomeView({
         <div>
           <p>All courses, creators and prices shown are fictional samples.</p>
           <p>
-            Course information opens on Home. Lessons, enrollment, Search,
-            Library, and account features are unavailable.
+            Explore sample courses, lessons, creators and your library.
+            Purchases, enrollment and real accounts are not connected.
           </p>
         </div>
         <div className="sample-controls">

@@ -1,6 +1,6 @@
 # Tasks — one bounded slice at a time
 
-Updated 2026-09-09. Current mode: BOOT-001 / REF-002 / UI-001 implemented and locally verified; owner visual review pending. An explicit implementation assignment authorizes its normal edits/checks, not the entire backlog.
+Updated 2026-09-09. Current mode: owner-authorized expanded frontend preview implementation. Backend, live commerce, deployment and provider provisioning remain unassigned. Actual evidence follows the backlog.
 
 Statuses: DOCUMENTED, PARTIAL, READY, TODO, BLOCKED_DECISION, IMPLEMENTED, VERIFIED, OWNER_APPROVED. READY means specified and ready to assign, not executed. Update actual evidence here; do not create a second TODO file.
 
@@ -9,13 +9,13 @@ Statuses: DOCUMENTED, PARTIAL, READY, TODO, BLOCKED_DECISION, IMPLEMENTED, VERIF
 | ID | Task | Status | Dependencies / acceptance |
 | --- | --- | --- | --- |
 | PLAN-004 | Refresh reference audit and simplify canonical docs | DOCUMENTED | Updated archive preserved; product, architecture, domain, workflow and build handoff revised without product code or provisioning |
-| REF-001 | Catalog-wide visual review | PARTIAL | 17 identities viewed: 16 high-resolution + one standard original; exact ledger rows. Metadata counts for all 58 flows checked. Remaining 142 images and full recording playback are not marked reviewed. |
+| REF-001 | Catalog-wide visual review | PARTIAL | 40 distinct identities cumulatively viewed (39 high-resolution and one standard); 33 viewed during this expansion. All 58 flows/218 steps mapped; 119 identities and full recordings are not marked individually reviewed. |
 | REF-002 | Source/state review for the assigned UI family | VERIFIED | Use existing ledger anchors; open exact local originals, verify needed measurements/state, record course adaptation. No redownload or prototype-derived guessed mapping. |
 | BOOT-001 | Initialize new `web/` application | VERIFIED | Owner adopts baseline and assigns task; official CLI/help/version record; minimal Next/TS/Tailwind/lint/pnpm; pinned runtime/lockfile; actual type/lint/build/smoke |
 | UI-001 | Learner shell and Home | VERIFIED | BOOT-001 + relevant REF-002 (VIS-05/06/07). 390/1440 fixture UI, original/licensed assets, meaningful navigation, loading/empty/error, keyboard/screenshots. Unbuilt destinations clearly unavailable, not 404/fake-success. |
-| UI-002 | Course detail and explicit preview | TODO | Reviewed UI-001 direction + VIS-02. Outcome/creator/offer/curriculum; locked/owned/resume variants; no fake checkout; responsive evidence |
-| UI-003 | Lesson workspace and Library fixtures | TODO | UI-002 + VIS-09/11/12/13/15. Licensed sample, curriculum/back/next, study states, enrolled vs saved; no backend claims |
-| UI-004 | Search/category and creator fixtures | TODO | Reviewed UI-001 + VIS-03/08/10/14. URL search/filter, useful results/empty/error, creator links; no invented popularity |
+| UI-002 | Course detail and explicit preview | VERIFIED | Reviewed UI-001 direction + VIS-02. Outcome/creator/offer/curriculum; locked/owned/resume variants; no fake checkout; responsive evidence |
+| UI-003 | Lesson workspace and Library fixtures | VERIFIED | UI-002 + VIS-09/11/12/13/15. Licensed sample, curriculum/back/next, study states, enrolled vs saved; no backend claims |
+| UI-004 | Search/category and creator fixtures | VERIFIED | Reviewed UI-001 + VIS-03/08/10/14. URL search/filter, useful results/empty/error, creator links; no invented popularity |
 | SLICE-000 | Accept M0 discover → course → lesson | TODO | UI-001–003. Works locally without provider credentials; actual browser/keyboard evidence and owner review |
 
 The initial handoff assigns only BOOT-001, the relevant REF-002 and UI-001. It does not require every image, all-page mockups, future table scaffolding, or the rest of M0 in one commit. Local reference re-opening is for the actual implementation state, not restarting this audit.
@@ -141,3 +141,43 @@ Final desktop/mobile Home and information-dialog images were opened and inspecte
 Changed paths: Home feature files, learner shell, shared shelf semantics, global styles, tests, licensed cover assets, the app run guide, this task record, the design system, reference ledger, and this pass's evidence. The final local commit identifies the exact version. `git diff 9dee4d9 -- apple-music-clone web/package.json web/pnpm-lock.yaml` was empty. No push, merge, deployment, provisioning or payment activation. Development remains at `http://127.0.0.1:3100/`.
 
 Status: implemented and technically VERIFIED; owner visual acceptance remains pending. This is a usable fixture-backed Home browsing slice, not a live marketplace or a claim of whole-image pixel identity. Real-device Safari/Android and comprehensive screen-reader/zoom acceptance remain separate QA work. The next assigned feature after Home acceptance is UI-002; it has not been marked complete by these Home disclosures.
+
+## Expanded UI assignment — 2026-09-09 (in progress)
+
+The owner explicitly requested continuation beyond Home into all reference UI/UX screens and flows. This supersedes the Home-only stop condition for frontend preview work: UI-002, UI-003, UI-004 and the corresponding shared account/collection/feedback UI may now be implemented. It does not authorize live auth, payments, provider provisioning, deployment, or pushing. Starting commit: `14fc434`, clean `astra/implementation`, connected computer `DESKTOP-LMGQO7V`, repository `J:\courses`.
+
+The actual 58-flow/218-step manifest was enumerated. Screens will be implemented as real course routes and interactive states, not a screenshot renderer or the archived scene switcher. Apple-specific music features (radio, shuffle, concerts, subscription trials) must be explicitly accounted for rather than silently claimed as course functionality. The original marketplace/content/asset and no-fake-success boundaries remain in force. Coverage and actual verification will be recorded here and in the reference ledger.
+
+Expanded reference coverage also includes isolated `/preview/` layout studies for event/location, channel/schedule and recap/milestone reference families. These demonstrate requested UI patterns with conspicuous fictional data, not newly approved live classes, bookings, radio, gamification, subscriptions or backend scope. They remain in the single app and use existing sample content/media. Live product adoption remains a separate decision. The existing music-only business non-goals are not quietly replaced by these visual studies.
+
+## UI-002 / UI-003 / UI-004 and expanded reference UI — final local evidence, 2026-09-09
+
+Assignment: the owner explicitly requested the remaining UI/UX screens and flows beyond Home. Work was performed directly on `DESKTOP-LMGQO7V`, Windows 11, repository `J:\courses`, branch `astra/implementation`, starting from clean commit `14fc434`. The current documentation baseline was fetched, and the existing Home implementation was continued rather than replaced. No work in another repository or the protected archive was changed.
+
+Implemented: 29 actual Next page templates covering Home/New, category/search/results/empty/recents, public course/curriculum/offer boundary, creators, owned-vs-saved Library grid/list/search/sort, lesson table/pins, editable Library navigation, learning-list CRUD/reordering, explicit-interest For you, public video previews, focused lesson/player/transcript/notes/resources/question-draft UI, profile/preferences/purchase-empty and sign-in/code/error/expiry demonstrations. Additional `/preview/` families cover event/location/filter/detail, channels/schedules, monthly recap/milestone, code-entry content-preference and English/Chinese language-setting studies. They do not adopt live events, broadcasts, security, achievements or subscriptions into the marketplace.
+
+Small client boundaries use native forms/links, Radix Dialog and the newly used exact `@radix-ui/react-dropdown-menu@2.1.24`; Server Components remain the default. No provider SDK, ORM, global client store, queue, database or deployment configuration was added. The lockfile records the only dependency addition. Runtime remains app-local Node 24.20.0 / pnpm 11.24.0.
+
+All fictional courses explicitly share one locally authored, silent 24-second video UI sample. It has real English WebVTT captions, an original poster and a real public text worksheet. No paid lesson media, Apple artwork, soundtrack or font is copied. Existing photo provenance remains intact. Tab-only saves, lists, notes, preferences, pins, completion and player positions use a named sessionStorage namespace with blocked-storage feedback; they never grant identity or enrollment. Report/question/sign-in/offer surfaces do not claim a sent message, verified identity, real account, purchase or persistent server success.
+
+| Actual final check | Result / evidence |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | Exit 0; `docs/evidence/ui-platform-expansion/locked-install.txt` |
+| `pnpm typecheck` | Exit 0; generated route types and strict TypeScript |
+| `pnpm lint` | Exit 0; zero warnings allowed |
+| `pnpm build` | Exit 0; actual production App Router build |
+| `pnpm audit --json` | Exit 0; zero reported advisories at this run |
+| `pnpm test:e2e`, `COURSES_TEST_PORT=3117` | **140 passed (3.2m)** against the production build |
+| Focused media regression, `--repeat-each=3` | **12 passed**, actual desktop/mobile playback and cached-metadata resume |
+
+`verification.json` records commands, exit codes, durations and SHA-256 hashes for 111 source/test/config/lock/media inputs. Those inputs were unchanged through the final verification run and checked again before commit. No test is inferred from a route existing. Existing Home tests were updated only for destinations intentionally implemented by this assignment; new tests assert the actual new behavior and provider boundaries.
+
+Browser coverage includes 1440px desktop and 390px mobile screenshots, route status/semantics, local asset decoding, no external runtime requests, axe scans, 320/768/1920px overflow checks, form validation, URL filters/Back/reload, menu and dialog focus/Escape, storage failure, list CRUD, pins/preferences, native playback/seek/repeat/speed/captions, worksheet download, note retention and player resume. Source-specific pattern studies and the language toggle are tested as actual routes, not static pictures. The local comparison gallery's controls and a real clipboard-copy action were also exercised through agent-browser; additional scrolled mobile and share-dialog screenshots were inspected.
+
+Actual failures found and corrected: portrait thumbnails stretching table rows; a 320px New-shelf overflow; missing accessible names on channel preview links; caption preference hydration timing; note-feedback layout shift interfering with a mobile tab click; and cached video metadata arriving before React event handlers, causing a stored resume position to be skipped. The last issue now initializes from an already-ready native media element or its metadata event before allowing position writes; the repeated regression suite covers it. Ambiguous test locators were replaced with exact semantic roles, not forced clicks or disabled assertions.
+
+All 58 flows / 218 steps / 159 original screen IDs are explicitly mapped in `reference-review/flow-coverage.md` and its JSON companion. Classification: 30 implemented UI previews, 8 course adaptations, 11 isolated studies, 1 native control, 5 provider/business boundaries and 3 intentional music-only non-goals. This is not a claim of 159 individually recreated/pixel-identical screens. Cumulative visual inspection is 40 unique identities, including 33 opened in this expansion; 119 stills and full recordings are not marked individually inspected. The comparison gallery references archive bytes without copying them into the application.
+
+Status: UI-002/UI-003/UI-004 technically VERIFIED as local fixture UI, NOT_OWNER_APPROVED. AUTH/DB/PAY/media-integration and live-release tasks remain unimplemented. Full Apple pixel/raster identity, real-device Safari/Android, audible-volume verification on the silent clip, full-app translation and security/backend acceptance are not certified. The authorized reference studies remain separated from production product features.
+
+Changed intended paths: existing Home navigation/dialog links, `web/src/features/catalog/`, `learning/`, `account/`, `patterns/`, actual route files, shared used primitives, `flows.css`/`patterns.css`, original sample media and generator, tests, one used primitive/lockfile, existing owning docs and current evidence. Earlier failed diagnostic logs/captures are retained locally but ignored as superseded. The final handoff names the local implementation commit. No push, merge, deployment, provisioning, live auth, payment or external submission occurred. Development remains at `http://127.0.0.1:3100`; the test server used 3117 and did not take over another application's port.

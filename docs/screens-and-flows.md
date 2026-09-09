@@ -77,3 +77,13 @@ For applicable families: anonymous/correct owner/wrong owner, empty/slow/error/r
 The ledger now supplies actual anchors for all core learner/public pattern families, menus and sign-in. It does not supply final course wireframes, browser behavior or mobile references. Use it with the design-system contracts and verify the current implementation locally. There is no full 159-screen approval requirement before a bounded first UI slice.
 
 M3 spaces/reviews/follows/teams/memberships/live/native/offline flows are intentionally absent from pilot navigation. Add routes only when a feature is promoted. Fixture previews must distinguish unavailable future destinations from working routes and must never simulate a successful purchase or publication.
+
+## Current implemented frontend routes — 2026-09-09 expansion
+
+The owner's follow-up expanded the Home-only assignment. The current `web/` preview now implements the course-facing route families above with explicit fixtures: discovery/category/search, course detail/curriculum, creator profiles, Library/list views, saved courses, user learning lists, and the lesson/study workspace. Account/sign-in/code-entry screens are interface demonstrations, not AUTH-001 completion. Notes, preferences, saved/pinned items, list edits and sample progress remain browser-tab-only; real private server data and authoritative access are not implemented.
+
+Additional working entry points are `/new`, `/previews`, `/for-you`, `/library/lessons`, `/collections` and `/collections/[id]`. They respectively expose editorial discovery, public sample thumbnails, explicit interest choices, a sortable/pinnable lesson table and user-controlled study lists. Course actions connect to actual destinations instead of Home-only information dialogs; the original quick-info dialog remains a lightweight discovery affordance with a full course link.
+
+The `/preview` hub isolates the additional reference-pattern families: `/preview/events` and `/preview/events/[id]`; `/preview/channels` and `/preview/channels/[id]`; `/preview/recap` and `/preview/recap/[id]`; `/preview/content`; `/preview/language`. They use conspicuous fictional data and do not add real event booking, radio, subscriptions, earned achievements, parental-control security or application-wide localization. No 404 destination is presented as implemented.
+
+The exact source-flow mappings, adaptations, provider boundaries and intentional music-only omissions are in `reference-review/flow-coverage.md`. Current screenshots and tests are in `docs/evidence/ui-platform-expansion/`. This section records implementation status, not final owner visual approval or full-image Apple parity.

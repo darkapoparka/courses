@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { NavLink } from "./nav-link";
+import { LibraryNavigation } from "./library-navigation";
 import {
   BookOpen,
   Home,
@@ -6,7 +8,6 @@ import {
   LibraryBig,
   UserRound,
   LayoutGrid,
-  Bookmark,
   Code2,
   Dumbbell,
   BriefcaseBusiness,
@@ -15,10 +16,10 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 
-const futureDestinations = [
-  { label: "Search", icon: Search },
-  { label: "Library", icon: LibraryBig },
-  { label: "You", icon: UserRound },
+const destinations = [
+  { label: "Search", href: "/search", icon: Search },
+  { label: "Library", href: "/library", icon: LibraryBig },
+  { label: "You", href: "/settings", icon: UserRound },
 ];
 const topics = [
   { id: "ai-coding", label: "AI & coding", icon: Code2 },
@@ -39,71 +40,44 @@ export function LearnerShell({ children }: { children: ReactNode }) {
           Courses
         </Link>
         <nav aria-label="Main navigation" className="rail-nav">
-          <button
-            className="nav-item future"
-            disabled
-            aria-label="Search: unavailable in this preview"
-          >
+          <NavLink href="/search">
             <Search aria-hidden="true" />
             <span>Search</span>
-            <small>Soon</small>
-          </button>
-          <Link href="/" className="nav-item active" aria-current="page">
+          </NavLink>
+          <NavLink href="/">
             <Home aria-hidden="true" />
             <span>Home</span>
-          </Link>
-          <Link href="/#topics" className="nav-item">
+          </NavLink>
+          <NavLink href="/new">
+            <LayoutGrid aria-hidden="true" />
+            <span>New</span>
+          </NavLink>
+          <NavLink href="/browse">
             <LayoutGrid aria-hidden="true" />
             <span>Browse</span>
-            <small>On Home</small>
-          </Link>
+          </NavLink>
         </nav>
-        <nav aria-label="Library navigation" className="rail-group">
-          <p className="rail-label">Library</p>
-          <button
-            className="nav-item future"
-            disabled
-            aria-label="Library: unavailable in this preview"
-          >
-            <LibraryBig aria-hidden="true" />
-            <span>My courses</span>
-            <small>Soon</small>
-          </button>
-          <button
-            className="nav-item future"
-            disabled
-            aria-label="Saved courses: unavailable in this preview"
-          >
-            <Bookmark aria-hidden="true" />
-            <span>Saved</span>
-            <small>Soon</small>
-          </button>
-        </nav>
-        <nav
-          className="rail-group rail-topics"
-          aria-label="Explore subjects on Home"
-        >
-          <p className="rail-label">Explore on Home</p>
+        <LibraryNavigation />
+        <nav className="rail-group rail-topics" aria-label="Explore subjects">
+          <p className="rail-label">Explore subjects</p>
           {topics.map(({ id, label, icon: Icon }) => (
-            <Link key={id} href={`/#${id}`} className="nav-item">
+            <Link key={id} href={`/browse/${id}`} className="nav-item">
               <Icon aria-hidden="true" />
               <span>{label}</span>
             </Link>
           ))}
         </nav>
         <div className="rail-bottom">
+          <Link href="/preview" className="rail-review-link">
+            More UI studies
+          </Link>
           <Link className="preview-label" href="/#preview-options">
             Sample catalog · Preview options
           </Link>
-          <button
-            className="nav-item future account-item"
-            disabled
-            aria-label="You: unavailable in this preview"
-          >
+          <NavLink href="/settings" className="nav-item account-item">
             <UserRound aria-hidden="true" />
             <span>You</span>
-            <small>Soon</small>
-          </button>
+          </NavLink>
         </div>
       </aside>
       <header className="mobile-header">
@@ -119,22 +93,15 @@ export function LearnerShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <nav className="mobile-dock" aria-label="Mobile navigation">
-        <Link href="/" className="dock-item active" aria-current="page">
+        <NavLink href="/" className="dock-item">
           <Home aria-hidden="true" />
           <span>Home</span>
-        </Link>
-        {futureDestinations.map(({ label, icon: Icon }) => (
-          <button
-            type="button"
-            className="dock-item"
-            key={label}
-            disabled
-            aria-label={`${label}: unavailable in this preview`}
-          >
+        </NavLink>
+        {destinations.map(({ label, href, icon: Icon }) => (
+          <NavLink key={href} href={href} className="dock-item">
             <Icon aria-hidden="true" />
             <span>{label}</span>
-            <small>Soon</small>
-          </button>
+          </NavLink>
         ))}
       </nav>
     </>

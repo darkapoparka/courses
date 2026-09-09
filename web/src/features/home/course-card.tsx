@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Info } from "lucide-react";
 import { CourseInfo } from "./course-info";
 import type { SampleCourse } from "./fixtures";
@@ -25,7 +26,9 @@ export function CourseCard({ course }: { course: SampleCourse }) {
           </span>
         </span>
       </CourseInfo>
-      <h3>{course.title}</h3>
+      <h3>
+        <Link href={`/courses/${course.id}`}>{course.title}</Link>
+      </h3>
       <p className="creator-name">{course.creator}</p>
       <p className="course-meta">
         {course.duration} <span aria-hidden="true">·</span> {course.level}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Courses · expanded reference review</title>
+<style>body{margin:0;background:#f1f1f3;color:#202023;font:14px/1.5 Arial,sans-serif}header{padding:22px 28px;background:white;border-bottom:1px solid #ddd}h1{font-size:24px;margin:0 0 10px}p{margin:8px 0}nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}select,button{font:inherit;padding:9px 12px}a{color:#ad1833}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px}h2{font-size:16px;margin:0 0 10px}.frame{position:relative;aspect-ratio:1440/903;overflow:hidden;background:white;box-shadow:0 4px 20px #0001}.frame img{display:block;width:100%;height:auto}.comparison.mobile{grid-template-columns:1fr}.comparison.mobile .reference{display:none}.comparison.mobile .frame{max-width:390px;aspect-ratio:auto;overflow:visible}.comparison.overlay{display:block}.comparison.overlay .reference{display:none}.overlay-image{position:absolute;inset:0;opacity:0;pointer-events:none}body:has(.comparison.overlay) .overlay-image{opacity:.5}footer{padding:0 28px 24px;color:#555}#path{font:11px/1.6 monospace;overflow-wrap:anywhere}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #0868ce;outline-offset:3px}@media(max-width:850px){.comparison{grid-template-columns:1fr}header{padding:20px}.comparison{padding:20px}}</style></head>
+<body><header><h1>Courses · expanded screen and flow review</h1><p>These are screenshots of the actual local application beside saved Apple Music source states. The app itself uses real routes and controls, not these images.</p>
+<nav aria-label="Review controls"><label>Screen family <select id="family"></select></label><label>View <select id="mode"><option value="desktop">Desktop side by side</option><option value="overlay">Desktop overlay · 50%</option><option value="mobile">Mobile adaptation</option></select></label><a id="live" href="http://127.0.0.1:3100/">Open this working route</a><a href="../../reference-review/flow-coverage.md">All 58 flow mappings</a></nav><p id="path"></p></header>
+<main class="comparison" id="comparison"><section class="reference"><h2>Saved reference · app region only</h2><div class="frame"><img id="source" alt="Selected saved Apple Music reference"><img class="overlay-image" alt=""></div></section><section><h2 id="app-heading">Courses · actual desktop screenshot</h2><div class="frame"><img id="application" alt="Actual Courses application screenshot"><img id="overlay" class="overlay-image" alt=""></div></section></main>
+<footer><p>The Mobbin attribution footer is excluded from the desktop comparison area; source files are unchanged. Course artwork, branding, text, preview disclosures and course-specific behavior intentionally differ. The source collection reviewed here is desktop-only; mobile is separately implemented and tested.</p><p>No whole-image pixel-match or live-backend claim is made. Provider-dependent trial, billing, live broadcast, real identity and access are explicitly not simulated as successful operations.</p></footer>
+<script>
+const families = [
+ ['Home','home/visitor','a917d88f-d15a-4f53-92d3-1daecf59d05f','/'],
+ ['New discovery','new','e72be564-1f7a-4448-9568-f239af3233ed','/new'],
+ ['Course detail','course','b620e4ab-d6dc-47c9-b704-6cd45cbd714c','/courses/useful-ai'],
+ ['Search entry','search','035569a0-e8da-454e-8bfd-83e7eacfecc5','/search'],
+ ['Search results','search-results','e70094e3-980e-4ba7-a454-e8dd6ce55ae4','/search?q=Maya'],
+ ['Creator detail','creator','484851bf-bc23-4088-8a34-4078c4d6b4ff','/creators/maya-chen'],
+ ['Library grid','library','e757eb0f-2d7c-48e6-a37f-54ce600c0a8f','/library'],
+ ['Library empty','library-empty','bdc69b59-1062-43ee-91da-589de56512b6','/library?state=empty'],
+ ['Lesson table','lessons','92589389-e185-401c-a395-c646b801a0c4','/library/lessons'],
+ ['Video previews','previews','4e857921-f588-4920-ad53-634f36389674','/previews'],
+ ['Learning lists','collections','8a2a4241-7833-471f-b5e4-72f89d71412b','/collections'],
+ ['Learning list detail','collection-detail','a573d1ab-e4c7-4f59-beb8-f2e171ba1530','/collections/a-little-every-day'],
+ ['Focused lesson','lesson','c939c9b8-e195-4e43-92a6-b845d0b99243','/learn/useful-ai/lesson-1?sample=learner'],
+ ['Account settings','settings','481cd568-59d9-47ab-88fc-ec20f843d9c1','/settings'],
+ ['Sign-in interface','sign-in','3131018d-35b8-4527-a6fe-384fbe950fe7','/auth/sign-in'],
+ ['Events & locations','events','bd89b0a1-f1ab-499d-8feb-9d0bcbae9f57','/preview/events'],
+ ['Event detail','event-detail','dcafd99e-94e3-42a1-be31-e02f7e015ecc','/preview/events/a-better-brief'],
+ ['Channel discovery','channels','4cb8f3aa-e45c-4482-b47b-7bc395aa4f14','/preview/channels'],
+ ['Channel schedule','channel-schedule','37575452-9dfc-4d5d-a581-cbbcd78b67aa','/preview/channels/ai-coding'],
+ ['Monthly recap','recap','18225175-b422-4fbb-8371-eae08bb6c4a8','/preview/recap'],
+ ['Milestone detail','milestone','cc18744f-ee47-4062-9927-c85c292c25af','/preview/recap/first-step'],
+ ['Language setting','language-zh','50fe374b-43b5-403d-962e-b072bf58d5e1','/preview/language?locale=zh'],
+];
+const select=document.getElementById('family'), mode=document.getElementById('mode');
+for(const [i,item] of families.entries()){const option=document.createElement('option');option.value=String(i);option.textContent=item[0];select.append(option)}
+function update(){
+ const [label,app,id,route]=families[Number(select.value)];
+ const source=`../../../apple-music-clone/reference/originals/high-resolution/${id}.webp`;
+ document.getElementById('source').src=source;document.getElementById('overlay').src=source;
+ document.getElementById('application').src=`${app}-${mode.value==='mobile'?'mobile':'desktop'}-viewport.png`;
+ document.getElementById('comparison').className=`comparison ${mode.value}`;
+ document.getElementById('app-heading').textContent=`Courses · ${mode.value==='mobile'?'390px mobile':'1440px desktop'} · ${label}`;
+ document.getElementById('live').href=`http://127.0.0.1:3100${route}`;
+ document.getElementById('path').textContent=`Source: apple-music-clone/reference/originals/high-resolution/${id}.webp | Route: ${route}`;
+}
+select.addEventListener('change',update);mode.addEventListener('change',update);update();
+</script></body></html>

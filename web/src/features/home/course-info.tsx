@@ -2,6 +2,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import Image from "next/image";
+import Link from "next/link";
 import { Check, X } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SampleCourse } from "./fixtures";
@@ -85,11 +86,15 @@ export function CourseInfo({
                 ))}
               </ul>
               <p className="preview-limitation">
-                This is fictional course information. Lessons, enrollment, and
-                purchases are not available in this Home preview.
+                This is fictional course information. Open the full course page
+                to explore its sample curriculum and lesson player. Enrollment
+                and purchases remain unavailable.
               </p>
+              <Link className="primary-button" href={`/courses/${course.id}`}>
+                View course & curriculum
+              </Link>
               <Dialog.Close asChild>
-                <button className="primary-button" type="button">
+                <button className="secondary-button" type="button">
                   Back to browsing
                 </button>
               </Dialog.Close>

@@ -1,0 +1,17 @@
+
+Running 12 tests using 1 worker
+
+  ok  1 [desktop] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (1.8s)
+  ok  2 [desktop] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (1.3s)
+  ok  3 [desktop] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (1.7s)
+  ok  4 [desktop] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (1.2s)
+  ok  5 [desktop] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (2.2s)
+  ok  6 [desktop] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (1.3s)
+  ok  7 [mobile] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (1.6s)
+  ok  8 [mobile] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (1.1s)
+  ok  9 [mobile] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (1.7s)
+  ok 10 [mobile] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (979ms)
+  ok 11 [mobile] › tests\flows.spec.ts:283:5 › native sample playback, transcript seeking, captions, speed and progress work (1.6s)
+  ok 12 [mobile] › tests\flows.spec.ts:546:5 › stored player position survives metadata that is ready before hydration (1.2s)
+
+  12 passed (28.0s)

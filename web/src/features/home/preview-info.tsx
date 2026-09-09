@@ -21,7 +21,7 @@ export function PreviewInfo({ sample }: { sample: SampleView }) {
         <Dialog.Content className="dialog-content">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="eyebrow">COURSES / UI-001</p>
+              <p className="eyebrow">COURSES / UI PREVIEW</p>
               <Dialog.Title>A first look, not a live marketplace.</Dialog.Title>
             </div>
             <Dialog.Close asChild>
@@ -36,13 +36,10 @@ export function PreviewInfo({ sample }: { sample: SampleView }) {
           </div>
           <Dialog.Description>
             Courses, creator names, USD prices and progress are fictional
-            samples. No accounts, purchases or learning progress are created or
-            saved.
+            samples. No real accounts, purchases or enrollments are created. Preview saves, notes, lists and player positions stay only in this browser tab.
           </Dialog.Description>
           <p>
-            Browse subjects and open course information without leaving Home.
-            Course-detail pages, lessons, enrollment, Search, Library, and
-            account features are not available in this preview.
+            Browse, search, course pages, creators, sample lessons, Library and account-interface states are implemented. Real authentication, enrollment, payments and support submission are not connected.
           </p>
           <div className="preview-states">
             <h3>Review a Home state</h3>

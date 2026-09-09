@@ -1,0 +1,4 @@
+Generating route types...
+✓ Types generated successfully
+
+$ next typegen && tsc --noEmit

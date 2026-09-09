@@ -15,3 +15,5 @@ export default async function Home({ searchParams }: PageProps<"/">) {
     />
   );
 }
+
+export const metadata = { title: "Home" };

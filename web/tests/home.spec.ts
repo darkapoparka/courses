@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
-const evidence = path.resolve("../docs/evidence/ui-001-home-content");
+const evidence = path.resolve("../docs/evidence/ui-platform-expansion/home");
 async function imagesReady(page: Page) {
   await expect(page.locator(".editorial-card").first()).toBeVisible();
   await page.evaluate(() => {
@@ -85,8 +85,8 @@ test("visitor and returning learner render with local images and no runtime erro
     }),
   ).toBe(true);
   await expect(
-    page.getByRole("button", { name: /Resume/ }).first(),
-  ).toBeDisabled();
+    page.getByRole("link", { name: /Resume/ }).first(),
+  ).toHaveAttribute("href", /\/learn\/.+sample=learner/);
   await expect(page.getByRole("progressbar")).toHaveCount(2);
   await imagesReady(page);
   // The hash targets main, below the mobile header, with CSS scroll padding.
@@ -127,12 +127,16 @@ test("only implemented destinations are active and sample content is explicit", 
   page,
 }) => {
   await page.goto("/");
-  for (const name of ["Search", "Library", "You"]) {
+  for (const [name, href] of [
+    ["Search", "/search"],
+    ["Browse", "/browse"],
+    ["You", "/settings"],
+  ]) {
     await expect(
-      page.getByRole("button", {
-        name: `${name}: unavailable in this preview`,
-      }),
-    ).toBeDisabled();
+      page
+        .getByRole("link", { name, exact: true, includeHidden: true })
+        .first(),
+    ).toHaveAttribute("href", href);
   }
   const hrefs = await page
     .locator("a[href]")
@@ -140,14 +144,17 @@ test("only implemented destinations are active and sample content is explicit", 
       links.map((link) => link.getAttribute("href") ?? ""),
     );
   expect(
-    hrefs.every(
-      (href) =>
-        href.startsWith("#") ||
-        href === "/" ||
-        href.startsWith("/?") ||
-        href.startsWith("/#"),
-    ),
+    hrefs.every((href) => href.startsWith("#") || href.startsWith("/")),
   ).toBe(true);
+  const paths = new Set(
+    hrefs
+      .filter((href) => !href.startsWith("#"))
+      .map((href) => href.split(/[?#]/)[0]),
+  );
+  for (const route of paths) {
+    const response = await page.request.get(route || "/");
+    expect(response.status(), route).toBeLessThan(400);
+  }
   await expect(
     page.getByText(
       "All courses, creators and prices shown are fictional samples.",
@@ -383,7 +390,7 @@ test("an unimplemented URL has honest not-found handling and a working Home retu
   const response = await page.goto("/not-an-implemented-page");
   expect(response?.status()).toBe(404);
   await expect(
-    page.getByRole("heading", { name: "Only Home, for now." }),
+    page.getByRole("heading", { name: "This page is not available." }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Back to Home", exact: true }).click();
   await expect(
@@ -564,7 +571,7 @@ test("free sample information is not enrollment or fake persistence", async ({
   const dialog = page.getByRole("dialog");
   await expect(dialog.getByText("Free", { exact: true })).toBeVisible();
   await expect(
-    dialog.getByText(/Lessons, enrollment, and purchases are not available/),
+    dialog.getByText(/Enrollment and purchases remain unavailable/),
   ).toBeVisible();
   await expect(
     dialog.getByRole("button", { name: /buy|enroll|play lesson/i }),

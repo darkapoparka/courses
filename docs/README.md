@@ -21,6 +21,7 @@ Baseline revised 2026-09-08 after the higher-resolution/reference-category updat
 | [features.md](features.md) | Milestones, feature acceptance, deferred scope |
 | [reference-audit.md](reference-audit.md) | Actual repo findings, new archive coverage, inspection limits |
 | [reference-review/ledger.md](reference-review/ledger.md) | Exact image inspection evidence; not a guessed catalog |
+| [reference-review/flow-coverage.md](reference-review/flow-coverage.md) | Expanded source-flow to implemented-route mapping, with explicit non-goals/provider boundaries; JSON companion preserves all 218 steps |
 | [design-system.md](design-system.md) | Visual hierarchy, components, mobile and asset rules |
 | [screens-and-flows.md](screens-and-flows.md) | Routes, states, actions, complete critical journeys |
 | [tech-stack.md](tech-stack.md) | Baseline tools, alternatives, dependency policy |

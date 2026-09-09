@@ -1,0 +1,6 @@
+# Earlier local captures and failing diagnostic runs remain on the computer.
+/*-initial.png
+/browser-first-run.txt
+/browser-second-run.txt
+/browser-focused.txt
+/browser-hydration-race.txt

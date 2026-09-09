@@ -1,0 +1,2138 @@
+{
+  "date": "2026-09-09",
+  "manifest_sha256": "9ed8276f76298ac19000f9b4f77d4115bdcf06523be97664bc44252a1a4ace1e",
+  "coverage_kind": "route/interaction-family mapping, NOT 159 individually recreated or pixel-certified screens",
+  "flows": [
+    {
+      "number": 1,
+      "id": "43dfc8c6-15e2-45bc-a706-c12abd7de475",
+      "name": "Onboarding",
+      "status": "UI PREVIEW",
+      "route": "/auth/sign-in",
+      "implementation": "Email-shaped input, sample-code entry/confirmation/error/expiry. No account creation.",
+      "ordered_source_ids": [
+        "3731221f-497f-40a3-b00a-30abfe3766da",
+        "ee751367-0aad-4762-b7c3-52724efe5656",
+        "bdc56e10-b108-4247-85a8-749f706e94bb",
+        "4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01",
+        "cd34d1ac-4edf-48aa-80f8-28565046d465",
+        "eebd5ffb-0edf-4662-a583-a6c7c73d38e5",
+        "269160a4-3232-492b-ab92-2a96787ab821",
+        "99af3033-b3bc-489e-951d-9d68077d5a1f",
+        "dfce44a2-c4ac-4b22-a64f-cde6b71cc43f",
+        "51c79ae2-62e0-48d2-9a1c-df11a23d39e5"
+      ]
+    },
+    {
+      "number": 2,
+      "id": "32937ec7-7be8-411a-bb39-cc45872aba7d",
+      "name": "Starting a trial",
+      "status": "BUSINESS BOUNDARY",
+      "route": "/courses/useful-ai",
+      "implementation": "Offer dialog explicitly prevents checkout/enrollment. A global music trial is not a course product.",
+      "ordered_source_ids": [
+        "51c79ae2-62e0-48d2-9a1c-df11a23d39e5",
+        "b74d25cb-3c3c-4a08-8bfe-5c8e638d7958",
+        "94b9d90d-6271-4bba-980e-2017a998c026",
+        "a728c2af-43c0-4fdf-b7d1-975a9dc05720",
+        "06ea37ef-2485-4219-b244-9d56516c2c42",
+        "5175a910-7c9f-45f8-8867-9c5969209cfe",
+        "ecb33359-6b42-4866-861e-e6c733c095ed",
+        "bf099ae2-46b1-444a-99d0-ea3967c8ab70",
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "a917d88f-d15a-4f53-92d3-1daecf59d05f"
+      ]
+    },
+    {
+      "number": 3,
+      "id": "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369",
+      "name": "New",
+      "status": "UI PREVIEW",
+      "route": "/new",
+      "implementation": "Landscape editorials, compact rows and square discovery shelves.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "4f611a9e-b39b-4ee5-a6b7-fa10fad5f093",
+        "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
+        "8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f",
+        "706de500-7231-4d8d-9820-89fac6c8aaac"
+      ]
+    },
+    {
+      "number": 4,
+      "id": "d5d60236-db94-4644-87ca-1a15c4055ce4",
+      "name": "Chart detail",
+      "status": "COURSE ADAPTATION",
+      "route": "/collections/a-little-every-day",
+      "implementation": "Curated collection/detail and ordered content, without fabricated popularity charts.",
+      "ordered_source_ids": [
+        "4f611a9e-b39b-4ee5-a6b7-fa10fad5f093",
+        "8a234785-f0b4-4200-8f3f-2eecf2b77708"
+      ]
+    },
+    {
+      "number": 5,
+      "id": "4139fb15-eaed-4380-b6f3-4ef0e84894a6",
+      "name": "Listening to songs",
+      "status": "UI PREVIEW",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Actual native local-video playback, pause, seeking and browser-tab position retention.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "11803c64-693e-4f2d-8c3e-576691601b2b",
+        "c98f8b54-6f64-4fca-883c-fac90f73b848",
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "9fbb38e1-269a-431e-8f51-deb9bea70744",
+        "afd02fa6-814c-4e4e-80fe-1e9ba2c6428a",
+        "d83e96ba-2976-4612-9441-f941d67b6f31",
+        "ad689c37-d388-40c5-b490-ddf9eb7a9a49"
+      ]
+    },
+    {
+      "number": 6,
+      "id": "0bb078b9-1b3e-434e-9b25-df043ae8fc07",
+      "name": "Enabling shuffle",
+      "status": "INTENTIONAL NON-GOAL",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "No lesson shuffle. Curriculum remains ordered; user learning lists can be reordered separately.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "cf59e554-de37-4e4e-b41f-c5821582c72b"
+      ]
+    },
+    {
+      "number": 7,
+      "id": "aa772c0f-f3d7-40fc-b548-2e574f6d9cc7",
+      "name": "Repeating a song",
+      "status": "UI PREVIEW",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Repeat sample toggles the actual native video loop property.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "a229e38a-189e-417d-89a2-937c80ccb3b5"
+      ]
+    },
+    {
+      "number": 8,
+      "id": "b6295ef8-843f-42e9-8f44-dbe5d7e033be",
+      "name": "Expanding a song",
+      "status": "COURSE ADAPTATION",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Focused media workspace and native fullscreen affordance; no persistent music mini-player.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "6ac70c34-9db0-4ca6-9a2d-c6ca902eb663",
+        "c939c9b8-e195-4e43-92a6-b845d0b99243"
+      ]
+    },
+    {
+      "number": 9,
+      "id": "2765d26d-3631-438f-960a-1caf170c782b",
+      "name": "Favoriting a song",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "Save/unsave in this browser tab, distinct from enrolled access.",
+      "ordered_source_ids": [
+        "c939c9b8-e195-4e43-92a6-b845d0b99243",
+        "b3f29b6f-5884-493c-bbc2-54f25620d5fb"
+      ]
+    },
+    {
+      "number": 10,
+      "id": "80cc296e-795b-4570-8f29-53c61cf769e6",
+      "name": "Adding to a library",
+      "status": "COURSE ADAPTATION",
+      "route": "/library",
+      "implementation": "Fixture owned library and actual tab-only Saved are separate. No fake enrollment grant.",
+      "ordered_source_ids": [
+        "b3f29b6f-5884-493c-bbc2-54f25620d5fb",
+        "ac05c6b8-9970-422b-bbc1-3aaff880946c",
+        "96711b04-1b3e-4b9d-acbc-f84a3ee05b47"
+      ]
+    },
+    {
+      "number": 11,
+      "id": "6652f3e8-a23d-414c-8536-7bcc3c4bb958",
+      "name": "Adding to a playlist",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "More menu adds a sample course to a browser-tab learning list.",
+      "ordered_source_ids": [
+        "ac05c6b8-9970-422b-bbc1-3aaff880946c",
+        "0c6da10e-2903-4869-aea9-34ae60cc5c20",
+        "55ae9e4c-a54e-4a75-a0cd-676023a17aea",
+        "67446c83-fa8a-4824-905f-eefca9bf82b6",
+        "3c1805b6-47bd-43d5-a5c3-8f6109e7ae97",
+        "a4d30e7d-ea87-4cbe-a591-d51ab9ac879a"
+      ]
+    },
+    {
+      "number": 12,
+      "id": "ef26cd71-905b-4fb3-b624-ba0be2e845b2",
+      "name": "Song credits",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "More > About this sample explains fictional content and asset attribution.",
+      "ordered_source_ids": [
+        "ac05c6b8-9970-422b-bbc1-3aaff880946c",
+        "6337700d-b701-48e5-8701-01c933605073",
+        "2278b1d0-6539-48bf-b131-f94dd838a6fe"
+      ]
+    },
+    {
+      "number": 13,
+      "id": "a8cd9bcd-cd66-499e-93e7-907433763506",
+      "name": "Hiding lyrics",
+      "status": "COURSE ADAPTATION",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Switch study tabs away from Transcript; keep media context. No karaoke rendering.",
+      "ordered_source_ids": [
+        "b3f29b6f-5884-493c-bbc2-54f25620d5fb",
+        "06a34864-602c-4163-b552-1bf12d426aba"
+      ]
+    },
+    {
+      "number": 14,
+      "id": "bc0ba8f1-0294-4933-96f7-9835bba143e2",
+      "name": "Showing lyrics",
+      "status": "UI PREVIEW",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Readable transcript, active cue and click-to-seek.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "ee8db412-71b0-49a8-a1ab-5d6685153abe"
+      ]
+    },
+    {
+      "number": 15,
+      "id": "e0a0f93e-3575-41a5-90ba-fe446162010d",
+      "name": "Song queue",
+      "status": "COURSE ADAPTATION",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Curriculum/up-next side panel with current lesson and next/previous links.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "8f029018-9c70-4715-9012-88a8a9d106b2"
+      ]
+    },
+    {
+      "number": 16,
+      "id": "7f504621-7ddd-4d7a-ba2e-a0f0b772d39c",
+      "name": "Clearing song queue",
+      "status": "INTENTIONAL NON-GOAL",
+      "route": "/collections/a-little-every-day",
+      "implementation": "A purchased curriculum cannot be cleared. User learning lists support removal and confirmed deletion.",
+      "ordered_source_ids": [
+        "8f029018-9c70-4715-9012-88a8a9d106b2",
+        "de48a956-6060-4086-b8ed-26e80ec6ac3e"
+      ]
+    },
+    {
+      "number": 17,
+      "id": "fc3dbfae-b353-4d61-84f3-3b2373ad36ac",
+      "name": "Enabling autoplay",
+      "status": "INTENTIONAL NON-GOAL",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Manual next lesson and repeat are implemented; continuous automatic cross-route playback is not.",
+      "ordered_source_ids": [
+        "8f029018-9c70-4715-9012-88a8a9d106b2",
+        "4811dde3-bebc-4792-a524-f0137e2e4753"
+      ]
+    },
+    {
+      "number": 18,
+      "id": "47b2a149-a483-4ea5-82bb-59b9ddf0b1a0",
+      "name": "Adjusting volume",
+      "status": "NATIVE CONTROL",
+      "route": "/learn/useful-ai/lesson-1?sample=learner",
+      "implementation": "Native browser volume control. The original sample is silent, so audible-volume behavior is not verified.",
+      "ordered_source_ids": [
+        "1f9e170c-8798-46de-90ea-d5236c7f15be",
+        "e4dad439-32c1-4a28-954c-1d945b9e37e8",
+        "cbbdc344-c1ba-4774-b90b-c70e276dec6d",
+        "95ae6a8f-cc7b-4594-8ec6-05e1936ad1a1"
+      ]
+    },
+    {
+      "number": 19,
+      "id": "fbe1a3cc-5840-4b31-a5ae-4511d0ee14ee",
+      "name": "Album detail",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "Square cover, adjacent identity/offer/actions and ordered curriculum; visitor/learner/completed/unavailable states.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "b620e4ab-d6dc-47c9-b704-6cd45cbd714c",
+        "ffd1356a-86ec-4185-a19a-d48bf888d67a",
+        "eb489e8d-0b65-4bfc-9da8-450ec3db1a53"
+      ]
+    },
+    {
+      "number": 20,
+      "id": "91b7c60d-d7ee-4737-b5f7-8431a9f39d50",
+      "name": "Album description",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "More about this course dialog with description, outcomes and prerequisites.",
+      "ordered_source_ids": [
+        "b620e4ab-d6dc-47c9-b704-6cd45cbd714c",
+        "32515da3-7507-463f-baad-a257cfed078b",
+        "9b43cccb-8b12-499d-aee1-d43b8cc57461"
+      ]
+    },
+    {
+      "number": 21,
+      "id": "1319943e-72db-4385-8080-e258a9f5d0e9",
+      "name": "Share an album",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "Share dialog with a local preview URL and clear loopback limitations.",
+      "ordered_source_ids": [
+        "b620e4ab-d6dc-47c9-b704-6cd45cbd714c",
+        "56c2e39a-126a-4ac8-a51c-2b5a98b0a40f"
+      ]
+    },
+    {
+      "number": 22,
+      "id": "8c9a97bc-d121-4241-af43-20bf5970493a",
+      "name": "Copying an album link",
+      "status": "UI PREVIEW",
+      "route": "/courses/useful-ai",
+      "implementation": "Clipboard copy with permission-failure fallback. Link display never pretends to send a message.",
+      "ordered_source_ids": [
+        "b620e4ab-d6dc-47c9-b704-6cd45cbd714c",
+        "ef86b595-0980-4f78-ad2b-87a350374fca",
+        "eca1baa1-540d-458d-b00d-5847cd40ba27"
+      ]
+    },
+    {
+      "number": 23,
+      "id": "98bde04b-574d-4d4d-8954-1a43d29ecfbf",
+      "name": "Artist detail",
+      "status": "UI PREVIEW",
+      "route": "/creators/maya-chen",
+      "implementation": "Image-led creator identity, description, featured course and preview/course shelves.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "484851bf-bc23-4088-8a34-4078c4d6b4ff",
+        "57f7c08e-12df-4c12-8102-1755d2c5ef5a",
+        "edae3407-e738-4e2d-ad7e-07f016effc56",
+        "c9a554f4-59ef-4e05-b61b-f3eefabc0bbe",
+        "0c042c32-f6d8-48b2-b2b0-0e43106fd67c"
+      ]
+    },
+    {
+      "number": 24,
+      "id": "138a3f56-707c-41f9-afd7-9d86c90ba1e8",
+      "name": "Nearby concerts",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/events",
+      "implementation": "Event/location family is demonstrated with conspicuously fictional workshops, not live-class availability.",
+      "ordered_source_ids": [
+        "484851bf-bc23-4088-8a34-4078c4d6b4ff",
+        "9105a602-1d41-4e20-a694-fc62c1bbda0d",
+        "653efa95-356a-48a7-8f38-9f6fd10e2006"
+      ]
+    },
+    {
+      "number": 25,
+      "id": "bb755884-0f2e-41e7-ab4c-03c7aa28ee33",
+      "name": "Marking a song as suggest less",
+      "status": "UI PREVIEW",
+      "route": "/for-you",
+      "implementation": "Explicit subject choices, More > Show less, and restore hidden suggestions. No recommendation service.",
+      "ordered_source_ids": [
+        "484851bf-bc23-4088-8a34-4078c4d6b4ff",
+        "bc773ae9-a55f-495b-a49f-d5b683feee73",
+        "f24fda77-5050-411c-8071-906043dcea9c"
+      ]
+    },
+    {
+      "number": 26,
+      "id": "d3879ab4-e6e9-46eb-b078-cec1b294f793",
+      "name": "Watching a music video",
+      "status": "UI PREVIEW",
+      "route": "/previews",
+      "implementation": "Video-shaped preview gallery leading to the actual original local sample player.",
+      "ordered_source_ids": [
+        "edae3407-e738-4e2d-ad7e-07f016effc56",
+        "898ca766-3133-4e02-a186-00d62d3804e4",
+        "a4afd6e6-eddb-4263-b7eb-5be73f8f2b03"
+      ]
+    },
+    {
+      "number": 27,
+      "id": "6c5d545e-5b48-4b43-9a90-395bd71187fa",
+      "name": "Search",
+      "status": "UI PREVIEW",
+      "route": "/search",
+      "implementation": "Search input, categories, recent queries, remove/clear and reset states.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "035569a0-e8da-454e-8bfd-83e7eacfecc5",
+        "812ba627-9cf5-4fb2-a508-1fedce206994",
+        "5b3ec96a-2ba2-4798-b03e-07e82e3bc7a7"
+      ]
+    },
+    {
+      "number": 28,
+      "id": "638262c8-b0c0-4153-a1c8-a2e66be66dc4",
+      "name": "Searching Apple Music",
+      "status": "UI PREVIEW",
+      "route": "/search?q=Maya",
+      "implementation": "URL-driven course/creator results, subject/level/price/sort filters and empty results.",
+      "ordered_source_ids": [
+        "035569a0-e8da-454e-8bfd-83e7eacfecc5",
+        "4b515439-fcaf-45bc-895f-89fa234fc881",
+        "e70094e3-980e-4ba7-a454-e8dd6ce55ae4",
+        "bbb92581-a59e-46ef-add7-3dd0e625eb27"
+      ]
+    },
+    {
+      "number": 29,
+      "id": "95cd6e33-1de9-46f8-a007-be65ab577836",
+      "name": "Concerts",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/events",
+      "implementation": "Event-discovery layout, locations, dates, categories and empty filter state.",
+      "ordered_source_ids": [
+        "035569a0-e8da-454e-8bfd-83e7eacfecc5",
+        "a0809fad-42f4-4829-a68f-fc496d89a6e5",
+        "70566e85-0ab4-4f53-9ca6-7c3e5cb12d3f"
+      ]
+    },
+    {
+      "number": 30,
+      "id": "1406ebf4-2544-4eff-90f9-ea37773d6d42",
+      "name": "Concert detail",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/events/a-better-brief",
+      "implementation": "Date badge, circular image, event details, booking boundary and related events.",
+      "ordered_source_ids": [
+        "70566e85-0ab4-4f53-9ca6-7c3e5cb12d3f",
+        "dcafd99e-94e3-42a1-be31-e02f7e015ecc",
+        "4f237528-396a-471b-be14-5ff7ffd1aa3f"
+      ]
+    },
+    {
+      "number": 31,
+      "id": "97c2ae4a-3689-4489-bc94-16e48580e150",
+      "name": "Setting a location",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/events",
+      "implementation": "Explicit sample-location selection. No geolocation permission or real location service.",
+      "ordered_source_ids": [
+        "a0809fad-42f4-4829-a68f-fc496d89a6e5",
+        "bd89b0a1-f1ab-499d-8feb-9d0bcbae9f57",
+        "1cd4d25b-8b27-40f0-ab65-bf82892a4a98",
+        "f78d223e-9ba1-4898-b5bd-93390d4da1cc",
+        "84b9db6f-94ea-4a0e-8e3b-e0a8c63cc0ba"
+      ]
+    },
+    {
+      "number": 32,
+      "id": "4dd6b284-c5d5-4357-8fa1-2496485d2812",
+      "name": "Filtering concerts",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/events?location=Online&month=Sep",
+      "implementation": "Real URL filters over fictional events; clear/reset/no matches.",
+      "ordered_source_ids": [
+        "84b9db6f-94ea-4a0e-8e3b-e0a8c63cc0ba",
+        "e1069ba9-2687-468c-bdb9-b81733b7be0f",
+        "b896bf23-466c-42f0-9298-dbbb6756bd10",
+        "e1f20d4a-7783-48e3-913e-23727f90aa1f",
+        "83bba8fd-64eb-427b-82eb-1c1c9b954748",
+        "99ffee15-7ca3-4cfe-9a32-274237dffb0b",
+        "d6b9a1a7-e7fe-44d4-bdc1-8fb7ee990c8f"
+      ]
+    },
+    {
+      "number": 33,
+      "id": "d303f5a7-69b1-42ff-8b87-4250905a8699",
+      "name": "Replay monthly",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/recap",
+      "implementation": "Monthly tabs, explicitly illustrative activity values and course/milestone shelves.",
+      "ordered_source_ids": [
+        "035569a0-e8da-454e-8bfd-83e7eacfecc5",
+        "f3fc07c5-f37c-4cbd-a025-1af76704f538",
+        "3fed6760-dab0-4f29-ae4a-1a25bb23a40a",
+        "b67b8895-5002-495a-912b-3709aaa4724d",
+        "18225175-b422-4fbb-8371-eae08bb6c4a8",
+        "b0caf02f-21b6-4334-9304-ac9f62defebc"
+      ]
+    },
+    {
+      "number": 34,
+      "id": "7cb9228f-4d98-49e2-b668-77c6e51d86d7",
+      "name": "Milestone detail",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/recap/first-step",
+      "implementation": "Original milestone medallion and detail layout; explicitly not earned or a credential.",
+      "ordered_source_ids": [
+        "18225175-b422-4fbb-8371-eae08bb6c4a8",
+        "cc18744f-ee47-4062-9927-c85c292c25af",
+        "b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e"
+      ]
+    },
+    {
+      "number": 35,
+      "id": "bc2a77fc-07c8-459b-b64b-f3bae1a60a21",
+      "name": "Home",
+      "status": "UI PREVIEW",
+      "route": "/",
+      "implementation": "Existing photo-led Home preserved; navigation now opens real implemented course destinations.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "aefa8502-aec3-486a-b4f5-5075590500f1",
+        "a917d88f-d15a-4f53-92d3-1daecf59d05f",
+        "2f5da478-5817-4e12-99bd-b2df0355f896",
+        "d5173715-ea54-4801-837c-2a40ec9df2af",
+        "42098642-4b2d-429d-8fd9-9afc2711c1ed"
+      ]
+    },
+    {
+      "number": 36,
+      "id": "e7c28ffc-abd2-4f81-846c-6b309d41e1d1",
+      "name": "Radio",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/channels",
+      "implementation": "Subject-channel tiles, session rows and preview shelves; not a live-radio product.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "4cb8f3aa-e45c-4482-b47b-7bc395aa4f14",
+        "0920d819-fa2a-4b93-a0c0-d91db1cb1a50"
+      ]
+    },
+    {
+      "number": 37,
+      "id": "868aa817-22dc-447a-97d3-de84aafcca6d",
+      "name": "Listening to a live radio",
+      "status": "BUSINESS BOUNDARY",
+      "route": "/preview/channels/ai-coding",
+      "implementation": "Channel preview opens an on-demand original clip, not a fake live broadcast.",
+      "ordered_source_ids": [
+        "4cb8f3aa-e45c-4482-b47b-7bc395aa4f14",
+        "a9992e55-7e7f-4219-95d3-e081b1a8377b",
+        "47a07865-7602-4a16-adcd-0d9ec67db543",
+        "7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3"
+      ]
+    },
+    {
+      "number": 38,
+      "id": "4239264b-2fff-40af-a562-9106180ebcbd",
+      "name": "Live radio schedule",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/channels/ai-coding",
+      "implementation": "Day selector and actual changing sample schedule; all availability explicitly fictional.",
+      "ordered_source_ids": [
+        "a9992e55-7e7f-4219-95d3-e081b1a8377b",
+        "37575452-9dfc-4d5d-a581-cbbcd78b67aa",
+        "f49fce21-d9a7-4c97-9e2e-bae95924e5d4"
+      ]
+    },
+    {
+      "number": 39,
+      "id": "af293a1e-77d4-4034-8676-44090fae71e4",
+      "name": "Recently added",
+      "status": "UI PREVIEW",
+      "route": "/library",
+      "implementation": "Populated/empty sample library, list/grid, sort and search.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "bdc69b59-1062-43ee-91da-589de56512b6",
+        "e757eb0f-2d7c-48e6-a37f-54ce600c0a8f"
+      ]
+    },
+    {
+      "number": 40,
+      "id": "9decd1cd-8fdb-4848-aa6c-d98eb08ef505",
+      "name": "Artists",
+      "status": "UI PREVIEW",
+      "route": "/creators",
+      "implementation": "Creator identity grid and detail navigation; fictional identities, no invented credentials.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "0df0d2a2-72b6-428f-a93a-a0cc9da20569",
+        "610af644-8f7a-48a3-9b5e-c88f959beb43"
+      ]
+    },
+    {
+      "number": 41,
+      "id": "2797b86f-bd5c-4a8e-be3c-2e8202c766af",
+      "name": "Albums",
+      "status": "COURSE ADAPTATION",
+      "route": "/library",
+      "implementation": "Square course-cover library and detail, not music albums.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "5d3db7ca-e68a-4678-9eb5-b0da5c7d7568"
+      ]
+    },
+    {
+      "number": 42,
+      "id": "0e305ee9-ae20-48bc-9b8c-edd096ab1c43",
+      "name": "Songs",
+      "status": "COURSE ADAPTATION",
+      "route": "/library/lessons",
+      "implementation": "Compact striped lesson table with course, creator, duration and current destinations.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "92589389-e185-401c-a395-c646b801a0c4"
+      ]
+    },
+    {
+      "number": 43,
+      "id": "c454fe86-d3e1-4078-8722-f7d4af01037f",
+      "name": "Sorting songs",
+      "status": "UI PREVIEW",
+      "route": "/library/lessons",
+      "implementation": "Keyboard-accessible sort menu and URL order; course/title/duration choices.",
+      "ordered_source_ids": [
+        "92589389-e185-401c-a395-c646b801a0c4",
+        "09b3600e-624d-4fd9-a3dd-625f6c086a37",
+        "1d016f0f-5c51-4ddc-a3e4-f1c75dbee729"
+      ]
+    },
+    {
+      "number": 44,
+      "id": "22c4db47-3002-4ee6-9883-4a0837eca562",
+      "name": "Pinning a song",
+      "status": "UI PREVIEW",
+      "route": "/library/lessons?pinned=1",
+      "implementation": "Pin/unpin and empty/populated tab-only pinned lesson view.",
+      "ordered_source_ids": [
+        "92589389-e185-401c-a395-c646b801a0c4",
+        "e9bee76d-7158-4521-8c6e-8e79268b39ae",
+        "3884ff64-732a-4b00-81ee-059746090eec",
+        "06be9f09-22fe-45fc-93b8-a49214c9f5f5"
+      ]
+    },
+    {
+      "number": 45,
+      "id": "51ec8869-6ee3-4fc1-9b9a-05c48bdbfd45",
+      "name": "Music videos",
+      "status": "UI PREVIEW",
+      "route": "/previews",
+      "implementation": "Landscape video-thumbnail library with sample-subject filter.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "4e857921-f588-4920-ad53-634f36389674"
+      ]
+    },
+    {
+      "number": 46,
+      "id": "ee643f9f-dbde-430d-bf46-cbd3627c5de6",
+      "name": "Made for you",
+      "status": "UI PREVIEW",
+      "route": "/for-you",
+      "implementation": "Empty state and explicit-interest course selection, independently from owned/saved courses.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "0b0e3fbf-2dd5-4323-b83d-dc5f65e50b31",
+        "e379e3fe-9298-433a-938a-7cb3b195028b"
+      ]
+    },
+    {
+      "number": 47,
+      "id": "b49a8505-ff7a-4a1a-af48-8301491719f1",
+      "name": "All playlists",
+      "status": "UI PREVIEW",
+      "route": "/collections",
+      "implementation": "Learning-list mosaic grid, new-list dialog and empty list.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "8a2a4241-7833-471f-b5e4-72f89d71412b"
+      ]
+    },
+    {
+      "number": 48,
+      "id": "c12bd09a-66e6-4d9c-ab7d-3ca34c92bc60",
+      "name": "Playlist detail",
+      "status": "UI PREVIEW",
+      "route": "/collections/a-little-every-day",
+      "implementation": "List title/description, course rows, edit, reorder, remove and confirmed delete.",
+      "ordered_source_ids": [
+        "8a2a4241-7833-471f-b5e4-72f89d71412b",
+        "a573d1ab-e4c7-4f59-beb8-f2e171ba1530"
+      ]
+    },
+    {
+      "number": 49,
+      "id": "14785972-7783-40df-93c3-3f3afc6b1e0a",
+      "name": "Adding a suggested song",
+      "status": "UI PREVIEW",
+      "route": "/collections/a-little-every-day",
+      "implementation": "Add suggested sample course; updates list membership in this tab only.",
+      "ordered_source_ids": [
+        "a573d1ab-e4c7-4f59-beb8-f2e171ba1530",
+        "5044abe5-979b-464c-bf96-8c5c99c1b24b"
+      ]
+    },
+    {
+      "number": 50,
+      "id": "6f857f3f-5b9c-4cef-9939-ed3680a60ab0",
+      "name": "Favorite songs",
+      "status": "COURSE ADAPTATION",
+      "route": "/library?tab=saved",
+      "implementation": "Saved courses are bookmarks, not favorites-based paid access.",
+      "ordered_source_ids": [
+        "a917d88f-d15a-4f53-92d3-1daecf59d05f",
+        "bde65d33-8e43-4796-b2c4-c702cb16eb78"
+      ]
+    },
+    {
+      "number": 51,
+      "id": "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5",
+      "name": "Editing library menus",
+      "status": "UI PREVIEW",
+      "route": "/library",
+      "implementation": "Library navigation Edit/Done, checkboxes and reversible tab-only visibility preferences.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "f2e44e3b-cb93-4607-a0bf-6e38aa56019d",
+        "ffc18eb8-5cbb-4e01-b066-867308585f5f",
+        "3728aa07-f749-4edd-8c9f-f2f606649f04",
+        "e5e8383f-21d7-4eea-873e-25874adfa906"
+      ]
+    },
+    {
+      "number": 52,
+      "id": "079e1da7-2e77-4dac-9eb7-a20626b5ca3c",
+      "name": "Logging out",
+      "status": "BUSINESS BOUNDARY",
+      "route": "/settings",
+      "implementation": "Return to visitor preview; no real session exists to revoke. Not advertised as an actual sign-out.",
+      "ordered_source_ids": [
+        "e72be564-1f7a-4448-9568-f239af3233ed",
+        "fc5d84bd-aeee-420d-aef0-7c1681d8f1c2",
+        "3731221f-497f-40a3-b00a-30abfe3766da"
+      ]
+    },
+    {
+      "number": 53,
+      "id": "c4422161-4551-4e68-b3e3-8b3de312ce41",
+      "name": "Settings",
+      "status": "UI PREVIEW",
+      "route": "/settings",
+      "implementation": "Account-summary/access/preferences sections, profile-edit dialog, caption preference and purchase empty state.",
+      "ordered_source_ids": [
+        "fc5d84bd-aeee-420d-aef0-7c1681d8f1c2",
+        "481cd568-59d9-47ab-88fc-ec20f843d9c1",
+        "1e5b4763-6664-4fc0-871d-3b7c9a03853e",
+        "01f96377-a362-452d-9045-449e0916609f",
+        "44101453-7009-49f7-bde3-406e3193e96a"
+      ]
+    },
+    {
+      "number": 54,
+      "id": "d1a98fb1-2e3a-41b1-91f5-1b2eb488f022",
+      "name": "Connected accounts",
+      "status": "BUSINESS BOUNDARY",
+      "route": "/settings",
+      "implementation": "Connected-accounts dialog explains no real accounts; provider linking is disabled.",
+      "ordered_source_ids": [
+        "1e5b4763-6664-4fc0-871d-3b7c9a03853e",
+        "b2e0f231-51e2-4227-921f-82d567937b6b"
+      ]
+    },
+    {
+      "number": 55,
+      "id": "29245bc1-9616-4afa-b783-abf1ccacd1e9",
+      "name": "Turning on content restrictions",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/content",
+      "implementation": "Public sample-code entry, confirmation/error, switch and result filter. Not parental controls or security.",
+      "ordered_source_ids": [
+        "01f96377-a362-452d-9045-449e0916609f",
+        "f99d9583-5836-47c5-ae0a-a26ffaf0d1b8",
+        "0da4882b-707f-4cbd-aba1-034f3e9f2a90",
+        "8b9e8598-7025-46c7-91ef-d1b9b1d3af55",
+        "0260ef9f-bfb7-406b-90c0-1f43c378b826",
+        "5b34ad72-fdad-47f1-8505-e24df0d9019c",
+        "7437b956-e1fb-4be4-a43c-7299cda8c1e6",
+        "6436de36-bec0-483d-b9a5-5bb9793c211e"
+      ]
+    },
+    {
+      "number": 56,
+      "id": "16a876bc-5edd-4699-8876-45ff324e659f",
+      "name": "Canceling a trial",
+      "status": "BUSINESS BOUNDARY",
+      "route": "/settings/purchases",
+      "implementation": "No subscription/trial exists to cancel. No fake cancellation, refund, or payment success.",
+      "ordered_source_ids": [
+        "44101453-7009-49f7-bde3-406e3193e96a",
+        "c0997fe5-7f01-4d42-9b12-1c7f284f8046",
+        "fd1c0c71-8411-48fb-9d7d-537cf52224a2",
+        "03157020-edc1-453b-8d8a-8aa44d31ed81",
+        "603983c7-b9be-401e-8547-9c469ee313c0"
+      ]
+    },
+    {
+      "number": 57,
+      "id": "59b6cb8b-cd12-4aca-b581-d3fc04c9240e",
+      "name": "Changing language",
+      "status": "ISOLATED STUDY",
+      "route": "/preview/language",
+      "implementation": "Language selection dialog switches this study between English and Simplified Chinese with real query navigation.",
+      "ordered_source_ids": [
+        "481cd568-59d9-47ab-88fc-ec20f843d9c1",
+        "50fe374b-43b5-403d-962e-b072bf58d5e1",
+        "f4a8b5dc-6d28-4e7e-ad51-423e571073de",
+        "468b0465-74be-480a-b303-cbbafc496c73",
+        "be864051-c59b-4676-a3c4-643fc136616d"
+      ]
+    },
+    {
+      "number": 58,
+      "id": "f5a37141-a3f4-4bda-a06f-db2e11008d00",
+      "name": "Logging in",
+      "status": "UI PREVIEW",
+      "route": "/auth/sign-in",
+      "implementation": "Email/code interface and recovery; explicit no email, no verified identity, no session, no entitlement.",
+      "ordered_source_ids": [
+        "3731221f-497f-40a3-b00a-30abfe3766da",
+        "3131018d-35b8-4527-a6fe-384fbe950fe7",
+        "417f6129-8919-4535-985c-b43888ec8930",
+        "6aa4a9d7-6cc9-4320-b237-5db6293b95de",
+        "4e65c7c6-1268-4720-9509-6acfb97dd34f",
+        "97de6907-6131-4688-ab0d-34e81e99e379",
+        "e027fe6d-4556-4638-9b51-12b4970cd85d"
+      ]
+    }
+  ],
+  "screens": [
+    {
+      "id": "3731221f-497f-40a3-b00a-30abfe3766da",
+      "path": "apple-music-clone/reference/originals/high-resolution/3731221f-497f-40a3-b00a-30abfe3766da.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475",
+        "079e1da7-2e77-4dac-9eb7-a20626b5ca3c",
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "ee751367-0aad-4762-b7c3-52724efe5656",
+      "path": "apple-music-clone/reference/originals/high-resolution/ee751367-0aad-4762-b7c3-52724efe5656.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "bdc56e10-b108-4247-85a8-749f706e94bb",
+      "path": "apple-music-clone/reference/originals/high-resolution/bdc56e10-b108-4247-85a8-749f706e94bb.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01",
+      "path": "apple-music-clone/reference/originals/high-resolution/4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "cd34d1ac-4edf-48aa-80f8-28565046d465",
+      "path": "apple-music-clone/reference/originals/high-resolution/cd34d1ac-4edf-48aa-80f8-28565046d465.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "eebd5ffb-0edf-4662-a583-a6c7c73d38e5",
+      "path": "apple-music-clone/reference/originals/high-resolution/eebd5ffb-0edf-4662-a583-a6c7c73d38e5.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "269160a4-3232-492b-ab92-2a96787ab821",
+      "path": "apple-music-clone/reference/originals/high-resolution/269160a4-3232-492b-ab92-2a96787ab821.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "99af3033-b3bc-489e-951d-9d68077d5a1f",
+      "path": "apple-music-clone/reference/originals/high-resolution/99af3033-b3bc-489e-951d-9d68077d5a1f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "dfce44a2-c4ac-4b22-a64f-cde6b71cc43f",
+      "path": "apple-music-clone/reference/originals/high-resolution/dfce44a2-c4ac-4b22-a64f-cde6b71cc43f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475"
+      ]
+    },
+    {
+      "id": "51c79ae2-62e0-48d2-9a1c-df11a23d39e5",
+      "path": "apple-music-clone/reference/originals/high-resolution/51c79ae2-62e0-48d2-9a1c-df11a23d39e5.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "43dfc8c6-15e2-45bc-a706-c12abd7de475",
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "b74d25cb-3c3c-4a08-8bfe-5c8e638d7958",
+      "path": "apple-music-clone/reference/originals/high-resolution/b74d25cb-3c3c-4a08-8bfe-5c8e638d7958.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "94b9d90d-6271-4bba-980e-2017a998c026",
+      "path": "apple-music-clone/reference/originals/high-resolution/94b9d90d-6271-4bba-980e-2017a998c026.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "a728c2af-43c0-4fdf-b7d1-975a9dc05720",
+      "path": "apple-music-clone/reference/originals/high-resolution/a728c2af-43c0-4fdf-b7d1-975a9dc05720.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "06ea37ef-2485-4219-b244-9d56516c2c42",
+      "path": "apple-music-clone/reference/originals/high-resolution/06ea37ef-2485-4219-b244-9d56516c2c42.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "5175a910-7c9f-45f8-8867-9c5969209cfe",
+      "path": "apple-music-clone/reference/originals/high-resolution/5175a910-7c9f-45f8-8867-9c5969209cfe.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "ecb33359-6b42-4866-861e-e6c733c095ed",
+      "path": "apple-music-clone/reference/originals/high-resolution/ecb33359-6b42-4866-861e-e6c733c095ed.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "bf099ae2-46b1-444a-99d0-ea3967c8ab70",
+      "path": "apple-music-clone/reference/originals/high-resolution/bf099ae2-46b1-444a-99d0-ea3967c8ab70.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d"
+      ]
+    },
+    {
+      "id": "e72be564-1f7a-4448-9568-f239af3233ed",
+      "path": "apple-music-clone/reference/originals/high-resolution/e72be564-1f7a-4448-9568-f239af3233ed.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d",
+        "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369",
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6",
+        "fbe1a3cc-5840-4b31-a5ae-4511d0ee14ee",
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf",
+        "6c5d545e-5b48-4b43-9a90-395bd71187fa",
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21",
+        "e7c28ffc-abd2-4f81-846c-6b309d41e1d1",
+        "af293a1e-77d4-4034-8676-44090fae71e4",
+        "9decd1cd-8fdb-4848-aa6c-d98eb08ef505",
+        "2797b86f-bd5c-4a8e-be3c-2e8202c766af",
+        "0e305ee9-ae20-48bc-9b8c-edd096ab1c43",
+        "51ec8869-6ee3-4fc1-9b9a-05c48bdbfd45",
+        "ee643f9f-dbde-430d-bf46-cbd3627c5de6",
+        "b49a8505-ff7a-4a1a-af48-8301491719f1",
+        "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5",
+        "079e1da7-2e77-4dac-9eb7-a20626b5ca3c"
+      ]
+    },
+    {
+      "id": "a917d88f-d15a-4f53-92d3-1daecf59d05f",
+      "path": "apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "32937ec7-7be8-411a-bb39-cc45872aba7d",
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21",
+        "6f857f3f-5b9c-4cef-9939-ed3680a60ab0"
+      ]
+    },
+    {
+      "id": "4f611a9e-b39b-4ee5-a6b7-fa10fad5f093",
+      "path": "apple-music-clone/reference/originals/high-resolution/4f611a9e-b39b-4ee5-a6b7-fa10fad5f093.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369",
+        "d5d60236-db94-4644-87ca-1a15c4055ce4"
+      ]
+    },
+    {
+      "id": "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
+      "path": "apple-music-clone/reference/originals/high-resolution/54b01eab-e635-4f54-882b-4bc62e7a2a4c.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369"
+      ]
+    },
+    {
+      "id": "8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f",
+      "path": "apple-music-clone/reference/originals/high-resolution/8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369"
+      ]
+    },
+    {
+      "id": "706de500-7231-4d8d-9820-89fac6c8aaac",
+      "path": "apple-music-clone/reference/originals/high-resolution/706de500-7231-4d8d-9820-89fac6c8aaac.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc4b3fa8-4327-4e1a-8d67-a1b88ce4e369"
+      ]
+    },
+    {
+      "id": "8a234785-f0b4-4200-8f3f-2eecf2b77708",
+      "path": "apple-music-clone/reference/originals/high-resolution/8a234785-f0b4-4200-8f3f-2eecf2b77708.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d5d60236-db94-4644-87ca-1a15c4055ce4"
+      ]
+    },
+    {
+      "id": "11803c64-693e-4f2d-8c3e-576691601b2b",
+      "path": "apple-music-clone/reference/originals/high-resolution/11803c64-693e-4f2d-8c3e-576691601b2b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "c98f8b54-6f64-4fca-883c-fac90f73b848",
+      "path": "apple-music-clone/reference/originals/high-resolution/c98f8b54-6f64-4fca-883c-fac90f73b848.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "1f9e170c-8798-46de-90ea-d5236c7f15be",
+      "path": "apple-music-clone/reference/originals/high-resolution/1f9e170c-8798-46de-90ea-d5236c7f15be.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6",
+        "0bb078b9-1b3e-434e-9b25-df043ae8fc07",
+        "aa772c0f-f3d7-40fc-b548-2e574f6d9cc7",
+        "b6295ef8-843f-42e9-8f44-dbe5d7e033be",
+        "bc0ba8f1-0294-4933-96f7-9835bba143e2",
+        "e0a0f93e-3575-41a5-90ba-fe446162010d",
+        "47b2a149-a483-4ea5-82bb-59b9ddf0b1a0"
+      ]
+    },
+    {
+      "id": "9fbb38e1-269a-431e-8f51-deb9bea70744",
+      "path": "apple-music-clone/reference/originals/high-resolution/9fbb38e1-269a-431e-8f51-deb9bea70744.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "afd02fa6-814c-4e4e-80fe-1e9ba2c6428a",
+      "path": "apple-music-clone/reference/originals/high-resolution/afd02fa6-814c-4e4e-80fe-1e9ba2c6428a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "d83e96ba-2976-4612-9441-f941d67b6f31",
+      "path": "apple-music-clone/reference/originals/high-resolution/d83e96ba-2976-4612-9441-f941d67b6f31.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "ad689c37-d388-40c5-b490-ddf9eb7a9a49",
+      "path": "apple-music-clone/reference/originals/high-resolution/ad689c37-d388-40c5-b490-ddf9eb7a9a49.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4139fb15-eaed-4380-b6f3-4ef0e84894a6"
+      ]
+    },
+    {
+      "id": "cf59e554-de37-4e4e-b41f-c5821582c72b",
+      "path": "apple-music-clone/reference/originals/high-resolution/cf59e554-de37-4e4e-b41f-c5821582c72b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "0bb078b9-1b3e-434e-9b25-df043ae8fc07"
+      ]
+    },
+    {
+      "id": "a229e38a-189e-417d-89a2-937c80ccb3b5",
+      "path": "apple-music-clone/reference/originals/high-resolution/a229e38a-189e-417d-89a2-937c80ccb3b5.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "aa772c0f-f3d7-40fc-b548-2e574f6d9cc7"
+      ]
+    },
+    {
+      "id": "6ac70c34-9db0-4ca6-9a2d-c6ca902eb663",
+      "path": "apple-music-clone/reference/originals/high-resolution/6ac70c34-9db0-4ca6-9a2d-c6ca902eb663.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "b6295ef8-843f-42e9-8f44-dbe5d7e033be"
+      ]
+    },
+    {
+      "id": "c939c9b8-e195-4e43-92a6-b845d0b99243",
+      "path": "apple-music-clone/reference/originals/high-resolution/c939c9b8-e195-4e43-92a6-b845d0b99243.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "b6295ef8-843f-42e9-8f44-dbe5d7e033be",
+        "2765d26d-3631-438f-960a-1caf170c782b"
+      ]
+    },
+    {
+      "id": "b3f29b6f-5884-493c-bbc2-54f25620d5fb",
+      "path": "apple-music-clone/reference/originals/high-resolution/b3f29b6f-5884-493c-bbc2-54f25620d5fb.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "2765d26d-3631-438f-960a-1caf170c782b",
+        "80cc296e-795b-4570-8f29-53c61cf769e6",
+        "a8cd9bcd-cd66-499e-93e7-907433763506"
+      ]
+    },
+    {
+      "id": "ac05c6b8-9970-422b-bbc1-3aaff880946c",
+      "path": "apple-music-clone/reference/originals/high-resolution/ac05c6b8-9970-422b-bbc1-3aaff880946c.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "80cc296e-795b-4570-8f29-53c61cf769e6",
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958",
+        "ef26cd71-905b-4fb3-b624-ba0be2e845b2"
+      ]
+    },
+    {
+      "id": "96711b04-1b3e-4b9d-acbc-f84a3ee05b47",
+      "path": "apple-music-clone/reference/originals/high-resolution/96711b04-1b3e-4b9d-acbc-f84a3ee05b47.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "80cc296e-795b-4570-8f29-53c61cf769e6"
+      ]
+    },
+    {
+      "id": "0c6da10e-2903-4869-aea9-34ae60cc5c20",
+      "path": "apple-music-clone/reference/originals/high-resolution/0c6da10e-2903-4869-aea9-34ae60cc5c20.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958"
+      ]
+    },
+    {
+      "id": "55ae9e4c-a54e-4a75-a0cd-676023a17aea",
+      "path": "apple-music-clone/reference/originals/high-resolution/55ae9e4c-a54e-4a75-a0cd-676023a17aea.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958"
+      ]
+    },
+    {
+      "id": "67446c83-fa8a-4824-905f-eefca9bf82b6",
+      "path": "apple-music-clone/reference/originals/high-resolution/67446c83-fa8a-4824-905f-eefca9bf82b6.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958"
+      ]
+    },
+    {
+      "id": "3c1805b6-47bd-43d5-a5c3-8f6109e7ae97",
+      "path": "apple-music-clone/reference/originals/high-resolution/3c1805b6-47bd-43d5-a5c3-8f6109e7ae97.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958"
+      ]
+    },
+    {
+      "id": "a4d30e7d-ea87-4cbe-a591-d51ab9ac879a",
+      "path": "apple-music-clone/reference/originals/high-resolution/a4d30e7d-ea87-4cbe-a591-d51ab9ac879a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6652f3e8-a23d-414c-8536-7bcc3c4bb958"
+      ]
+    },
+    {
+      "id": "6337700d-b701-48e5-8701-01c933605073",
+      "path": "apple-music-clone/reference/originals/high-resolution/6337700d-b701-48e5-8701-01c933605073.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "ef26cd71-905b-4fb3-b624-ba0be2e845b2"
+      ]
+    },
+    {
+      "id": "2278b1d0-6539-48bf-b131-f94dd838a6fe",
+      "path": "apple-music-clone/reference/originals/high-resolution/2278b1d0-6539-48bf-b131-f94dd838a6fe.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "ef26cd71-905b-4fb3-b624-ba0be2e845b2"
+      ]
+    },
+    {
+      "id": "06a34864-602c-4163-b552-1bf12d426aba",
+      "path": "apple-music-clone/reference/originals/high-resolution/06a34864-602c-4163-b552-1bf12d426aba.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "a8cd9bcd-cd66-499e-93e7-907433763506"
+      ]
+    },
+    {
+      "id": "ee8db412-71b0-49a8-a1ab-5d6685153abe",
+      "path": "apple-music-clone/reference/originals/high-resolution/ee8db412-71b0-49a8-a1ab-5d6685153abe.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc0ba8f1-0294-4933-96f7-9835bba143e2"
+      ]
+    },
+    {
+      "id": "8f029018-9c70-4715-9012-88a8a9d106b2",
+      "path": "apple-music-clone/reference/originals/high-resolution/8f029018-9c70-4715-9012-88a8a9d106b2.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "e0a0f93e-3575-41a5-90ba-fe446162010d",
+        "7f504621-7ddd-4d7a-ba2e-a0f0b772d39c",
+        "fc3dbfae-b353-4d61-84f3-3b2373ad36ac"
+      ]
+    },
+    {
+      "id": "de48a956-6060-4086-b8ed-26e80ec6ac3e",
+      "path": "apple-music-clone/reference/originals/high-resolution/de48a956-6060-4086-b8ed-26e80ec6ac3e.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "7f504621-7ddd-4d7a-ba2e-a0f0b772d39c"
+      ]
+    },
+    {
+      "id": "4811dde3-bebc-4792-a524-f0137e2e4753",
+      "path": "apple-music-clone/reference/originals/high-resolution/4811dde3-bebc-4792-a524-f0137e2e4753.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "fc3dbfae-b353-4d61-84f3-3b2373ad36ac"
+      ]
+    },
+    {
+      "id": "e4dad439-32c1-4a28-954c-1d945b9e37e8",
+      "path": "apple-music-clone/reference/originals/high-resolution/e4dad439-32c1-4a28-954c-1d945b9e37e8.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "47b2a149-a483-4ea5-82bb-59b9ddf0b1a0"
+      ]
+    },
+    {
+      "id": "cbbdc344-c1ba-4774-b90b-c70e276dec6d",
+      "path": "apple-music-clone/reference/originals/high-resolution/cbbdc344-c1ba-4774-b90b-c70e276dec6d.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "47b2a149-a483-4ea5-82bb-59b9ddf0b1a0"
+      ]
+    },
+    {
+      "id": "95ae6a8f-cc7b-4594-8ec6-05e1936ad1a1",
+      "path": "apple-music-clone/reference/originals/high-resolution/95ae6a8f-cc7b-4594-8ec6-05e1936ad1a1.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "47b2a149-a483-4ea5-82bb-59b9ddf0b1a0"
+      ]
+    },
+    {
+      "id": "b620e4ab-d6dc-47c9-b704-6cd45cbd714c",
+      "path": "apple-music-clone/reference/originals/high-resolution/b620e4ab-d6dc-47c9-b704-6cd45cbd714c.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "fbe1a3cc-5840-4b31-a5ae-4511d0ee14ee",
+        "91b7c60d-d7ee-4737-b5f7-8431a9f39d50",
+        "1319943e-72db-4385-8080-e258a9f5d0e9",
+        "8c9a97bc-d121-4241-af43-20bf5970493a"
+      ]
+    },
+    {
+      "id": "ffd1356a-86ec-4185-a19a-d48bf888d67a",
+      "path": "apple-music-clone/reference/originals/high-resolution/ffd1356a-86ec-4185-a19a-d48bf888d67a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "fbe1a3cc-5840-4b31-a5ae-4511d0ee14ee"
+      ]
+    },
+    {
+      "id": "eb489e8d-0b65-4bfc-9da8-450ec3db1a53",
+      "path": "apple-music-clone/reference/originals/high-resolution/eb489e8d-0b65-4bfc-9da8-450ec3db1a53.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "fbe1a3cc-5840-4b31-a5ae-4511d0ee14ee"
+      ]
+    },
+    {
+      "id": "32515da3-7507-463f-baad-a257cfed078b",
+      "path": "apple-music-clone/reference/originals/high-resolution/32515da3-7507-463f-baad-a257cfed078b.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "91b7c60d-d7ee-4737-b5f7-8431a9f39d50"
+      ]
+    },
+    {
+      "id": "9b43cccb-8b12-499d-aee1-d43b8cc57461",
+      "path": "apple-music-clone/reference/originals/high-resolution/9b43cccb-8b12-499d-aee1-d43b8cc57461.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "91b7c60d-d7ee-4737-b5f7-8431a9f39d50"
+      ]
+    },
+    {
+      "id": "56c2e39a-126a-4ac8-a51c-2b5a98b0a40f",
+      "path": "apple-music-clone/reference/originals/high-resolution/56c2e39a-126a-4ac8-a51c-2b5a98b0a40f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "1319943e-72db-4385-8080-e258a9f5d0e9"
+      ]
+    },
+    {
+      "id": "ef86b595-0980-4f78-ad2b-87a350374fca",
+      "path": "apple-music-clone/reference/originals/high-resolution/ef86b595-0980-4f78-ad2b-87a350374fca.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "8c9a97bc-d121-4241-af43-20bf5970493a"
+      ]
+    },
+    {
+      "id": "eca1baa1-540d-458d-b00d-5847cd40ba27",
+      "path": "apple-music-clone/reference/originals/high-resolution/eca1baa1-540d-458d-b00d-5847cd40ba27.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "8c9a97bc-d121-4241-af43-20bf5970493a"
+      ]
+    },
+    {
+      "id": "484851bf-bc23-4088-8a34-4078c4d6b4ff",
+      "path": "apple-music-clone/reference/originals/high-resolution/484851bf-bc23-4088-8a34-4078c4d6b4ff.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf",
+        "138a3f56-707c-41f9-afd7-9d86c90ba1e8",
+        "bb755884-0f2e-41e7-ab4c-03c7aa28ee33"
+      ]
+    },
+    {
+      "id": "57f7c08e-12df-4c12-8102-1755d2c5ef5a",
+      "path": "apple-music-clone/reference/originals/high-resolution/57f7c08e-12df-4c12-8102-1755d2c5ef5a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf"
+      ]
+    },
+    {
+      "id": "edae3407-e738-4e2d-ad7e-07f016effc56",
+      "path": "apple-music-clone/reference/originals/high-resolution/edae3407-e738-4e2d-ad7e-07f016effc56.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf",
+        "d3879ab4-e6e9-46eb-b078-cec1b294f793"
+      ]
+    },
+    {
+      "id": "c9a554f4-59ef-4e05-b61b-f3eefabc0bbe",
+      "path": "apple-music-clone/reference/originals/high-resolution/c9a554f4-59ef-4e05-b61b-f3eefabc0bbe.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf"
+      ]
+    },
+    {
+      "id": "0c042c32-f6d8-48b2-b2b0-0e43106fd67c",
+      "path": "apple-music-clone/reference/originals/high-resolution/0c042c32-f6d8-48b2-b2b0-0e43106fd67c.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "98bde04b-574d-4d4d-8954-1a43d29ecfbf"
+      ]
+    },
+    {
+      "id": "9105a602-1d41-4e20-a694-fc62c1bbda0d",
+      "path": "apple-music-clone/reference/originals/high-resolution/9105a602-1d41-4e20-a694-fc62c1bbda0d.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "138a3f56-707c-41f9-afd7-9d86c90ba1e8"
+      ]
+    },
+    {
+      "id": "653efa95-356a-48a7-8f38-9f6fd10e2006",
+      "path": "apple-music-clone/reference/originals/high-resolution/653efa95-356a-48a7-8f38-9f6fd10e2006.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "138a3f56-707c-41f9-afd7-9d86c90ba1e8"
+      ]
+    },
+    {
+      "id": "bc773ae9-a55f-495b-a49f-d5b683feee73",
+      "path": "apple-music-clone/reference/originals/high-resolution/bc773ae9-a55f-495b-a49f-d5b683feee73.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "bb755884-0f2e-41e7-ab4c-03c7aa28ee33"
+      ]
+    },
+    {
+      "id": "f24fda77-5050-411c-8071-906043dcea9c",
+      "path": "apple-music-clone/reference/originals/high-resolution/f24fda77-5050-411c-8071-906043dcea9c.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bb755884-0f2e-41e7-ab4c-03c7aa28ee33"
+      ]
+    },
+    {
+      "id": "898ca766-3133-4e02-a186-00d62d3804e4",
+      "path": "apple-music-clone/reference/originals/high-resolution/898ca766-3133-4e02-a186-00d62d3804e4.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d3879ab4-e6e9-46eb-b078-cec1b294f793"
+      ]
+    },
+    {
+      "id": "a4afd6e6-eddb-4263-b7eb-5be73f8f2b03",
+      "path": "apple-music-clone/reference/originals/high-resolution/a4afd6e6-eddb-4263-b7eb-5be73f8f2b03.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "d3879ab4-e6e9-46eb-b078-cec1b294f793"
+      ]
+    },
+    {
+      "id": "035569a0-e8da-454e-8bfd-83e7eacfecc5",
+      "path": "apple-music-clone/reference/originals/high-resolution/035569a0-e8da-454e-8bfd-83e7eacfecc5.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "6c5d545e-5b48-4b43-9a90-395bd71187fa",
+        "638262c8-b0c0-4153-a1c8-a2e66be66dc4",
+        "95cd6e33-1de9-46f8-a007-be65ab577836",
+        "d303f5a7-69b1-42ff-8b87-4250905a8699"
+      ]
+    },
+    {
+      "id": "812ba627-9cf5-4fb2-a508-1fedce206994",
+      "path": "apple-music-clone/reference/originals/high-resolution/812ba627-9cf5-4fb2-a508-1fedce206994.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6c5d545e-5b48-4b43-9a90-395bd71187fa"
+      ]
+    },
+    {
+      "id": "5b3ec96a-2ba2-4798-b03e-07e82e3bc7a7",
+      "path": "apple-music-clone/reference/originals/high-resolution/5b3ec96a-2ba2-4798-b03e-07e82e3bc7a7.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6c5d545e-5b48-4b43-9a90-395bd71187fa"
+      ]
+    },
+    {
+      "id": "4b515439-fcaf-45bc-895f-89fa234fc881",
+      "path": "apple-music-clone/reference/originals/high-resolution/4b515439-fcaf-45bc-895f-89fa234fc881.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "638262c8-b0c0-4153-a1c8-a2e66be66dc4"
+      ]
+    },
+    {
+      "id": "e70094e3-980e-4ba7-a454-e8dd6ce55ae4",
+      "path": "apple-music-clone/reference/originals/high-resolution/e70094e3-980e-4ba7-a454-e8dd6ce55ae4.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "638262c8-b0c0-4153-a1c8-a2e66be66dc4"
+      ]
+    },
+    {
+      "id": "bbb92581-a59e-46ef-add7-3dd0e625eb27",
+      "path": "apple-music-clone/reference/originals/high-resolution/bbb92581-a59e-46ef-add7-3dd0e625eb27.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "638262c8-b0c0-4153-a1c8-a2e66be66dc4"
+      ]
+    },
+    {
+      "id": "a0809fad-42f4-4829-a68f-fc496d89a6e5",
+      "path": "apple-music-clone/reference/originals/high-resolution/a0809fad-42f4-4829-a68f-fc496d89a6e5.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "95cd6e33-1de9-46f8-a007-be65ab577836",
+        "97c2ae4a-3689-4489-bc94-16e48580e150"
+      ]
+    },
+    {
+      "id": "70566e85-0ab4-4f53-9ca6-7c3e5cb12d3f",
+      "path": "apple-music-clone/reference/originals/high-resolution/70566e85-0ab4-4f53-9ca6-7c3e5cb12d3f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "95cd6e33-1de9-46f8-a007-be65ab577836",
+        "1406ebf4-2544-4eff-90f9-ea37773d6d42"
+      ]
+    },
+    {
+      "id": "dcafd99e-94e3-42a1-be31-e02f7e015ecc",
+      "path": "apple-music-clone/reference/originals/high-resolution/dcafd99e-94e3-42a1-be31-e02f7e015ecc.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "1406ebf4-2544-4eff-90f9-ea37773d6d42"
+      ]
+    },
+    {
+      "id": "4f237528-396a-471b-be14-5ff7ffd1aa3f",
+      "path": "apple-music-clone/reference/originals/high-resolution/4f237528-396a-471b-be14-5ff7ffd1aa3f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "1406ebf4-2544-4eff-90f9-ea37773d6d42"
+      ]
+    },
+    {
+      "id": "bd89b0a1-f1ab-499d-8feb-9d0bcbae9f57",
+      "path": "apple-music-clone/reference/originals/high-resolution/bd89b0a1-f1ab-499d-8feb-9d0bcbae9f57.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "97c2ae4a-3689-4489-bc94-16e48580e150"
+      ]
+    },
+    {
+      "id": "1cd4d25b-8b27-40f0-ab65-bf82892a4a98",
+      "path": "apple-music-clone/reference/originals/high-resolution/1cd4d25b-8b27-40f0-ab65-bf82892a4a98.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "97c2ae4a-3689-4489-bc94-16e48580e150"
+      ]
+    },
+    {
+      "id": "f78d223e-9ba1-4898-b5bd-93390d4da1cc",
+      "path": "apple-music-clone/reference/originals/high-resolution/f78d223e-9ba1-4898-b5bd-93390d4da1cc.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "97c2ae4a-3689-4489-bc94-16e48580e150"
+      ]
+    },
+    {
+      "id": "84b9db6f-94ea-4a0e-8e3b-e0a8c63cc0ba",
+      "path": "apple-music-clone/reference/originals/high-resolution/84b9db6f-94ea-4a0e-8e3b-e0a8c63cc0ba.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "97c2ae4a-3689-4489-bc94-16e48580e150",
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "e1069ba9-2687-468c-bdb9-b81733b7be0f",
+      "path": "apple-music-clone/reference/originals/high-resolution/e1069ba9-2687-468c-bdb9-b81733b7be0f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "b896bf23-466c-42f0-9298-dbbb6756bd10",
+      "path": "apple-music-clone/reference/originals/high-resolution/b896bf23-466c-42f0-9298-dbbb6756bd10.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "e1f20d4a-7783-48e3-913e-23727f90aa1f",
+      "path": "apple-music-clone/reference/originals/high-resolution/e1f20d4a-7783-48e3-913e-23727f90aa1f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "83bba8fd-64eb-427b-82eb-1c1c9b954748",
+      "path": "apple-music-clone/reference/originals/high-resolution/83bba8fd-64eb-427b-82eb-1c1c9b954748.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "99ffee15-7ca3-4cfe-9a32-274237dffb0b",
+      "path": "apple-music-clone/reference/originals/high-resolution/99ffee15-7ca3-4cfe-9a32-274237dffb0b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "d6b9a1a7-e7fe-44d4-bdc1-8fb7ee990c8f",
+      "path": "apple-music-clone/reference/originals/high-resolution/d6b9a1a7-e7fe-44d4-bdc1-8fb7ee990c8f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4dd6b284-c5d5-4357-8fa1-2496485d2812"
+      ]
+    },
+    {
+      "id": "f3fc07c5-f37c-4cbd-a025-1af76704f538",
+      "path": "apple-music-clone/reference/originals/high-resolution/f3fc07c5-f37c-4cbd-a025-1af76704f538.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d303f5a7-69b1-42ff-8b87-4250905a8699"
+      ]
+    },
+    {
+      "id": "3fed6760-dab0-4f29-ae4a-1a25bb23a40a",
+      "path": "apple-music-clone/reference/originals/high-resolution/3fed6760-dab0-4f29-ae4a-1a25bb23a40a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d303f5a7-69b1-42ff-8b87-4250905a8699"
+      ]
+    },
+    {
+      "id": "b67b8895-5002-495a-912b-3709aaa4724d",
+      "path": "apple-music-clone/reference/originals/high-resolution/b67b8895-5002-495a-912b-3709aaa4724d.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d303f5a7-69b1-42ff-8b87-4250905a8699"
+      ]
+    },
+    {
+      "id": "18225175-b422-4fbb-8371-eae08bb6c4a8",
+      "path": "apple-music-clone/reference/originals/high-resolution/18225175-b422-4fbb-8371-eae08bb6c4a8.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "d303f5a7-69b1-42ff-8b87-4250905a8699",
+        "7cb9228f-4d98-49e2-b668-77c6e51d86d7"
+      ]
+    },
+    {
+      "id": "b0caf02f-21b6-4334-9304-ac9f62defebc",
+      "path": "apple-music-clone/reference/originals/high-resolution/b0caf02f-21b6-4334-9304-ac9f62defebc.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d303f5a7-69b1-42ff-8b87-4250905a8699"
+      ]
+    },
+    {
+      "id": "cc18744f-ee47-4062-9927-c85c292c25af",
+      "path": "apple-music-clone/reference/originals/high-resolution/cc18744f-ee47-4062-9927-c85c292c25af.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "7cb9228f-4d98-49e2-b668-77c6e51d86d7"
+      ]
+    },
+    {
+      "id": "b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e",
+      "path": "apple-music-clone/reference/originals/high-resolution/b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "7cb9228f-4d98-49e2-b668-77c6e51d86d7"
+      ]
+    },
+    {
+      "id": "aefa8502-aec3-486a-b4f5-5075590500f1",
+      "path": "apple-music-clone/reference/originals/high-resolution/aefa8502-aec3-486a-b4f5-5075590500f1.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21"
+      ]
+    },
+    {
+      "id": "2f5da478-5817-4e12-99bd-b2df0355f896",
+      "path": "apple-music-clone/reference/originals/high-resolution/2f5da478-5817-4e12-99bd-b2df0355f896.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21"
+      ]
+    },
+    {
+      "id": "d5173715-ea54-4801-837c-2a40ec9df2af",
+      "path": "apple-music-clone/reference/originals/high-resolution/d5173715-ea54-4801-837c-2a40ec9df2af.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21"
+      ]
+    },
+    {
+      "id": "42098642-4b2d-429d-8fd9-9afc2711c1ed",
+      "path": "apple-music-clone/reference/originals/high-resolution/42098642-4b2d-429d-8fd9-9afc2711c1ed.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "bc2a77fc-07c8-459b-b64b-f3bae1a60a21"
+      ]
+    },
+    {
+      "id": "4cb8f3aa-e45c-4482-b47b-7bc395aa4f14",
+      "path": "apple-music-clone/reference/originals/high-resolution/4cb8f3aa-e45c-4482-b47b-7bc395aa4f14.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "e7c28ffc-abd2-4f81-846c-6b309d41e1d1",
+        "868aa817-22dc-447a-97d3-de84aafcca6d"
+      ]
+    },
+    {
+      "id": "0920d819-fa2a-4b93-a0c0-d91db1cb1a50",
+      "path": "apple-music-clone/reference/originals/high-resolution/0920d819-fa2a-4b93-a0c0-d91db1cb1a50.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "e7c28ffc-abd2-4f81-846c-6b309d41e1d1"
+      ]
+    },
+    {
+      "id": "a9992e55-7e7f-4219-95d3-e081b1a8377b",
+      "path": "apple-music-clone/reference/originals/high-resolution/a9992e55-7e7f-4219-95d3-e081b1a8377b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "868aa817-22dc-447a-97d3-de84aafcca6d",
+        "4239264b-2fff-40af-a562-9106180ebcbd"
+      ]
+    },
+    {
+      "id": "47a07865-7602-4a16-adcd-0d9ec67db543",
+      "path": "apple-music-clone/reference/originals/high-resolution/47a07865-7602-4a16-adcd-0d9ec67db543.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "868aa817-22dc-447a-97d3-de84aafcca6d"
+      ]
+    },
+    {
+      "id": "7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3",
+      "path": "apple-music-clone/reference/originals/high-resolution/7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "868aa817-22dc-447a-97d3-de84aafcca6d"
+      ]
+    },
+    {
+      "id": "37575452-9dfc-4d5d-a581-cbbcd78b67aa",
+      "path": "apple-music-clone/reference/originals/high-resolution/37575452-9dfc-4d5d-a581-cbbcd78b67aa.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "4239264b-2fff-40af-a562-9106180ebcbd"
+      ]
+    },
+    {
+      "id": "f49fce21-d9a7-4c97-9e2e-bae95924e5d4",
+      "path": "apple-music-clone/reference/originals/high-resolution/f49fce21-d9a7-4c97-9e2e-bae95924e5d4.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "4239264b-2fff-40af-a562-9106180ebcbd"
+      ]
+    },
+    {
+      "id": "bdc69b59-1062-43ee-91da-589de56512b6",
+      "path": "apple-music-clone/reference/originals/high-resolution/bdc69b59-1062-43ee-91da-589de56512b6.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "af293a1e-77d4-4034-8676-44090fae71e4"
+      ]
+    },
+    {
+      "id": "e757eb0f-2d7c-48e6-a37f-54ce600c0a8f",
+      "path": "apple-music-clone/reference/originals/high-resolution/e757eb0f-2d7c-48e6-a37f-54ce600c0a8f.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "af293a1e-77d4-4034-8676-44090fae71e4"
+      ]
+    },
+    {
+      "id": "0df0d2a2-72b6-428f-a93a-a0cc9da20569",
+      "path": "apple-music-clone/reference/originals/high-resolution/0df0d2a2-72b6-428f-a93a-a0cc9da20569.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "9decd1cd-8fdb-4848-aa6c-d98eb08ef505"
+      ]
+    },
+    {
+      "id": "610af644-8f7a-48a3-9b5e-c88f959beb43",
+      "path": "apple-music-clone/reference/originals/high-resolution/610af644-8f7a-48a3-9b5e-c88f959beb43.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "9decd1cd-8fdb-4848-aa6c-d98eb08ef505"
+      ]
+    },
+    {
+      "id": "5d3db7ca-e68a-4678-9eb5-b0da5c7d7568",
+      "path": "apple-music-clone/reference/originals/high-resolution/5d3db7ca-e68a-4678-9eb5-b0da5c7d7568.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "2797b86f-bd5c-4a8e-be3c-2e8202c766af"
+      ]
+    },
+    {
+      "id": "92589389-e185-401c-a395-c646b801a0c4",
+      "path": "apple-music-clone/reference/originals/high-resolution/92589389-e185-401c-a395-c646b801a0c4.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "0e305ee9-ae20-48bc-9b8c-edd096ab1c43",
+        "c454fe86-d3e1-4078-8722-f7d4af01037f",
+        "22c4db47-3002-4ee6-9883-4a0837eca562"
+      ]
+    },
+    {
+      "id": "09b3600e-624d-4fd9-a3dd-625f6c086a37",
+      "path": "apple-music-clone/reference/originals/high-resolution/09b3600e-624d-4fd9-a3dd-625f6c086a37.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "c454fe86-d3e1-4078-8722-f7d4af01037f"
+      ]
+    },
+    {
+      "id": "1d016f0f-5c51-4ddc-a3e4-f1c75dbee729",
+      "path": "apple-music-clone/reference/originals/high-resolution/1d016f0f-5c51-4ddc-a3e4-f1c75dbee729.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "c454fe86-d3e1-4078-8722-f7d4af01037f"
+      ]
+    },
+    {
+      "id": "e9bee76d-7158-4521-8c6e-8e79268b39ae",
+      "path": "apple-music-clone/reference/originals/high-resolution/e9bee76d-7158-4521-8c6e-8e79268b39ae.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "22c4db47-3002-4ee6-9883-4a0837eca562"
+      ]
+    },
+    {
+      "id": "3884ff64-732a-4b00-81ee-059746090eec",
+      "path": "apple-music-clone/reference/originals/high-resolution/3884ff64-732a-4b00-81ee-059746090eec.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "22c4db47-3002-4ee6-9883-4a0837eca562"
+      ]
+    },
+    {
+      "id": "06be9f09-22fe-45fc-93b8-a49214c9f5f5",
+      "path": "apple-music-clone/reference/originals/high-resolution/06be9f09-22fe-45fc-93b8-a49214c9f5f5.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "22c4db47-3002-4ee6-9883-4a0837eca562"
+      ]
+    },
+    {
+      "id": "4e857921-f588-4920-ad53-634f36389674",
+      "path": "apple-music-clone/reference/originals/high-resolution/4e857921-f588-4920-ad53-634f36389674.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "51ec8869-6ee3-4fc1-9b9a-05c48bdbfd45"
+      ]
+    },
+    {
+      "id": "0b0e3fbf-2dd5-4323-b83d-dc5f65e50b31",
+      "path": "apple-music-clone/reference/originals/high-resolution/0b0e3fbf-2dd5-4323-b83d-dc5f65e50b31.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "ee643f9f-dbde-430d-bf46-cbd3627c5de6"
+      ]
+    },
+    {
+      "id": "e379e3fe-9298-433a-938a-7cb3b195028b",
+      "path": "apple-music-clone/reference/originals/high-resolution/e379e3fe-9298-433a-938a-7cb3b195028b.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "ee643f9f-dbde-430d-bf46-cbd3627c5de6"
+      ]
+    },
+    {
+      "id": "8a2a4241-7833-471f-b5e4-72f89d71412b",
+      "path": "apple-music-clone/reference/originals/high-resolution/8a2a4241-7833-471f-b5e4-72f89d71412b.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "b49a8505-ff7a-4a1a-af48-8301491719f1",
+        "c12bd09a-66e6-4d9c-ab7d-3ca34c92bc60"
+      ]
+    },
+    {
+      "id": "a573d1ab-e4c7-4f59-beb8-f2e171ba1530",
+      "path": "apple-music-clone/reference/originals/high-resolution/a573d1ab-e4c7-4f59-beb8-f2e171ba1530.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "c12bd09a-66e6-4d9c-ab7d-3ca34c92bc60",
+        "14785972-7783-40df-93c3-3f3afc6b1e0a"
+      ]
+    },
+    {
+      "id": "5044abe5-979b-464c-bf96-8c5c99c1b24b",
+      "path": "apple-music-clone/reference/originals/high-resolution/5044abe5-979b-464c-bf96-8c5c99c1b24b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "14785972-7783-40df-93c3-3f3afc6b1e0a"
+      ]
+    },
+    {
+      "id": "bde65d33-8e43-4796-b2c4-c702cb16eb78",
+      "path": "apple-music-clone/reference/originals/high-resolution/bde65d33-8e43-4796-b2c4-c702cb16eb78.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "6f857f3f-5b9c-4cef-9939-ed3680a60ab0"
+      ]
+    },
+    {
+      "id": "f2e44e3b-cb93-4607-a0bf-6e38aa56019d",
+      "path": "apple-music-clone/reference/originals/high-resolution/f2e44e3b-cb93-4607-a0bf-6e38aa56019d.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5"
+      ]
+    },
+    {
+      "id": "ffc18eb8-5cbb-4e01-b066-867308585f5f",
+      "path": "apple-music-clone/reference/originals/high-resolution/ffc18eb8-5cbb-4e01-b066-867308585f5f.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5"
+      ]
+    },
+    {
+      "id": "3728aa07-f749-4edd-8c9f-f2f606649f04",
+      "path": "apple-music-clone/reference/originals/high-resolution/3728aa07-f749-4edd-8c9f-f2f606649f04.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5"
+      ]
+    },
+    {
+      "id": "e5e8383f-21d7-4eea-873e-25874adfa906",
+      "path": "apple-music-clone/reference/originals/high-resolution/e5e8383f-21d7-4eea-873e-25874adfa906.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "8db5f5fe-ae48-475f-a56c-7dc89ca59ac5"
+      ]
+    },
+    {
+      "id": "fc5d84bd-aeee-420d-aef0-7c1681d8f1c2",
+      "path": "apple-music-clone/reference/originals/high-resolution/fc5d84bd-aeee-420d-aef0-7c1681d8f1c2.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "079e1da7-2e77-4dac-9eb7-a20626b5ca3c",
+        "c4422161-4551-4e68-b3e3-8b3de312ce41"
+      ]
+    },
+    {
+      "id": "481cd568-59d9-47ab-88fc-ec20f843d9c1",
+      "path": "apple-music-clone/reference/originals/high-resolution/481cd568-59d9-47ab-88fc-ec20f843d9c1.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "c4422161-4551-4e68-b3e3-8b3de312ce41",
+        "59b6cb8b-cd12-4aca-b581-d3fc04c9240e"
+      ]
+    },
+    {
+      "id": "1e5b4763-6664-4fc0-871d-3b7c9a03853e",
+      "path": "apple-music-clone/reference/originals/high-resolution/1e5b4763-6664-4fc0-871d-3b7c9a03853e.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "c4422161-4551-4e68-b3e3-8b3de312ce41",
+        "d1a98fb1-2e3a-41b1-91f5-1b2eb488f022"
+      ]
+    },
+    {
+      "id": "01f96377-a362-452d-9045-449e0916609f",
+      "path": "apple-music-clone/reference/originals/high-resolution/01f96377-a362-452d-9045-449e0916609f.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "c4422161-4551-4e68-b3e3-8b3de312ce41",
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "44101453-7009-49f7-bde3-406e3193e96a",
+      "path": "apple-music-clone/reference/originals/high-resolution/44101453-7009-49f7-bde3-406e3193e96a.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "c4422161-4551-4e68-b3e3-8b3de312ce41",
+        "16a876bc-5edd-4699-8876-45ff324e659f"
+      ]
+    },
+    {
+      "id": "b2e0f231-51e2-4227-921f-82d567937b6b",
+      "path": "apple-music-clone/reference/originals/high-resolution/b2e0f231-51e2-4227-921f-82d567937b6b.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "d1a98fb1-2e3a-41b1-91f5-1b2eb488f022"
+      ]
+    },
+    {
+      "id": "f99d9583-5836-47c5-ae0a-a26ffaf0d1b8",
+      "path": "apple-music-clone/reference/originals/high-resolution/f99d9583-5836-47c5-ae0a-a26ffaf0d1b8.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "0da4882b-707f-4cbd-aba1-034f3e9f2a90",
+      "path": "apple-music-clone/reference/originals/high-resolution/0da4882b-707f-4cbd-aba1-034f3e9f2a90.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "8b9e8598-7025-46c7-91ef-d1b9b1d3af55",
+      "path": "apple-music-clone/reference/originals/high-resolution/8b9e8598-7025-46c7-91ef-d1b9b1d3af55.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "0260ef9f-bfb7-406b-90c0-1f43c378b826",
+      "path": "apple-music-clone/reference/originals/high-resolution/0260ef9f-bfb7-406b-90c0-1f43c378b826.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "5b34ad72-fdad-47f1-8505-e24df0d9019c",
+      "path": "apple-music-clone/reference/originals/high-resolution/5b34ad72-fdad-47f1-8505-e24df0d9019c.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "7437b956-e1fb-4be4-a43c-7299cda8c1e6",
+      "path": "apple-music-clone/reference/originals/high-resolution/7437b956-e1fb-4be4-a43c-7299cda8c1e6.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "6436de36-bec0-483d-b9a5-5bb9793c211e",
+      "path": "apple-music-clone/reference/originals/high-resolution/6436de36-bec0-483d-b9a5-5bb9793c211e.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "29245bc1-9616-4afa-b783-abf1ccacd1e9"
+      ]
+    },
+    {
+      "id": "c0997fe5-7f01-4d42-9b12-1c7f284f8046",
+      "path": "apple-music-clone/reference/originals/high-resolution/c0997fe5-7f01-4d42-9b12-1c7f284f8046.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "16a876bc-5edd-4699-8876-45ff324e659f"
+      ]
+    },
+    {
+      "id": "fd1c0c71-8411-48fb-9d7d-537cf52224a2",
+      "path": "apple-music-clone/reference/originals/high-resolution/fd1c0c71-8411-48fb-9d7d-537cf52224a2.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "16a876bc-5edd-4699-8876-45ff324e659f"
+      ]
+    },
+    {
+      "id": "03157020-edc1-453b-8d8a-8aa44d31ed81",
+      "path": "apple-music-clone/reference/originals/high-resolution/03157020-edc1-453b-8d8a-8aa44d31ed81.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "16a876bc-5edd-4699-8876-45ff324e659f"
+      ]
+    },
+    {
+      "id": "603983c7-b9be-401e-8547-9c469ee313c0",
+      "path": "apple-music-clone/reference/originals/high-resolution/603983c7-b9be-401e-8547-9c469ee313c0.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "16a876bc-5edd-4699-8876-45ff324e659f"
+      ]
+    },
+    {
+      "id": "50fe374b-43b5-403d-962e-b072bf58d5e1",
+      "path": "apple-music-clone/reference/originals/high-resolution/50fe374b-43b5-403d-962e-b072bf58d5e1.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "59b6cb8b-cd12-4aca-b581-d3fc04c9240e"
+      ]
+    },
+    {
+      "id": "f4a8b5dc-6d28-4e7e-ad51-423e571073de",
+      "path": "apple-music-clone/reference/originals/high-resolution/f4a8b5dc-6d28-4e7e-ad51-423e571073de.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "59b6cb8b-cd12-4aca-b581-d3fc04c9240e"
+      ]
+    },
+    {
+      "id": "468b0465-74be-480a-b303-cbbafc496c73",
+      "path": "apple-music-clone/reference/originals/high-resolution/468b0465-74be-480a-b303-cbbafc496c73.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "59b6cb8b-cd12-4aca-b581-d3fc04c9240e"
+      ]
+    },
+    {
+      "id": "be864051-c59b-4676-a3c4-643fc136616d",
+      "path": "apple-music-clone/reference/originals/high-resolution/be864051-c59b-4676-a3c4-643fc136616d.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "59b6cb8b-cd12-4aca-b581-d3fc04c9240e"
+      ]
+    },
+    {
+      "id": "3131018d-35b8-4527-a6fe-384fbe950fe7",
+      "path": "apple-music-clone/reference/originals/high-resolution/3131018d-35b8-4527-a6fe-384fbe950fe7.webp",
+      "visually_inspected_this_expansion": true,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "417f6129-8919-4535-985c-b43888ec8930",
+      "path": "apple-music-clone/reference/originals/high-resolution/417f6129-8919-4535-985c-b43888ec8930.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "6aa4a9d7-6cc9-4320-b237-5db6293b95de",
+      "path": "apple-music-clone/reference/originals/high-resolution/6aa4a9d7-6cc9-4320-b237-5db6293b95de.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "4e65c7c6-1268-4720-9509-6acfb97dd34f",
+      "path": "apple-music-clone/reference/originals/high-resolution/4e65c7c6-1268-4720-9509-6acfb97dd34f.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "97de6907-6131-4688-ab0d-34e81e99e379",
+      "path": "apple-music-clone/reference/originals/high-resolution/97de6907-6131-4688-ab0d-34e81e99e379.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    },
+    {
+      "id": "e027fe6d-4556-4638-9b51-12b4970cd85d",
+      "path": "apple-music-clone/reference/originals/high-resolution/e027fe6d-4556-4638-9b51-12b4970cd85d.webp",
+      "visually_inspected_this_expansion": false,
+      "flows": [
+        "f5a37141-a3f4-4bda-a06f-db2e11008d00"
+      ]
+    }
+  ]
+}

@@ -61,3 +61,11 @@ A future change records date, evidence/owner, problem, selected option, rejected
 ## 2026-09-09 - bounded implementation assignment
 
 The owner explicitly adopted D-01/D-03/D-04 and the staged architecture and assigned only BOOT-001, the relevant REF-002, and UI-001. Work is local on `astra/implementation`; provider accounts, live data, commerce, deployment and the rest of M0 are not authorized by that assignment. The Home/mobile direction is implemented for review, not owner-approved. Package compatibility choices and actual verification are recorded in `tasks.md`. The later reconnect request continues this same scope.
+
+## 2026-09-09 — expanded reference UI assignment
+
+The owner explicitly asked to continue beyond Home into all UI/UX flow and screen families. This authorizes frontend preview work for UI-002/UI-003/UI-004 and corresponding shared interface states. It supersedes the first-slice stop boundary, not the prohibition on real payments, deployment, provider provisioning or false persistence/authentication claims.
+
+Course-facing families use real routes within the existing `web/` app. Music-specific event/channel/recap/content-restriction/language families are isolated under `/preview/` as explicitly fictional layout studies. They are not adoption of live classes, radio, memberships, gamification or parental-control security into the product roadmap. Global music trials, real subscription cancellation, shuffled/cleared curriculum and continuous cross-route autoplay are not silently implemented as course behavior. The exact 58-flow mapping records each distinction.
+
+The M0 preview now uses small tab-only `sessionStorage` values for saves, lists, pins, interests, notes, profile display and sample player state. Every surface labels this limitation and handles blocked storage. These values never establish identity, enrollment or authorization; M1/M2 backend tasks remain separate. Only a used Radix dropdown-menu primitive was added; the application remains one Next app with Server Components by default, local Client Component boundaries and no backend SDK or general state framework.
