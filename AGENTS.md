@@ -16,6 +16,10 @@ The owner explicitly assigned clone-first implementation: reproduce the saved Ap
 
 Read `docs/README.md`, the relevant row/evidence in `docs/tasks.md`, and documents needed for the assigned behavior. `docs/platform.md` owns the eventual course product; `docs/architecture.md` owns its proposed implementation; `docs/decisions.md` owns decisions. Do not create another PRD, backlog, or competing planning folder. The course bootstrap and product backlog remain deferred while this clone-first assignment is active.
 
+## Screen and flow progress
+
+`docs/tasks.md` is the live clone checklist: one `UI-<source prefix>` and `MATCH-<source prefix>` pair per saved screenshot, and one `FLOW-<flow prefix>` item per recorded journey. Update these existing items as work lands; do not reset checked work or create another backlog. UI means coded/rendering, MATCH requires reviewed source-versus-render evidence, and FLOW requires the real complete interaction sequence. Run `node apple-music-clone/scripts/check-task-coverage.mjs` from the repository root to check coverage and print the three counts. The frozen `reference/screen-status.md` and its generator are historical acquisition records, not the live implementation tracker.
+
 ## Engineering defaults
 
 Preserve the existing Next.js/React/TypeScript versions and lockfile for the reference app unless a demonstrated defect requires a deliberate change. Use version-matched official docs and generated Next.js instructions. Never guess current APIs, versions, or CLI flags. Keep one app and focused feature functions rather than introducing another framework or speculative infrastructure.
