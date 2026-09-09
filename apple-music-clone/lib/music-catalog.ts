@@ -1,6 +1,6 @@
 import archive from "../reference/originals/flow-screen-map.json";
 
-/** The archive owns identity. Prefixes below are human-reviewed, unique anchors,
+/** The archive owns identity. Prefixes below are unique anchors,
  * not array indices, inferred categories, or a modulo fallback. */
 export const sourceIds = [...new Set(archive.flows.flatMap((flow) => flow.steps.map((step) => step.screenId)))];
 export function sourceId(prefix: string): string {
@@ -63,23 +63,30 @@ export const libraryTracks: Track[] = libraryRows.map(([title, artist, album, du
   id: i === 5 ? "album-2" : `library-${i}`, title, artist, album, duration,
   art: i === 5 ? albumArt : crop("92589389", 286, 66 + i * 42, 34, 34),
 }));
-/** Direct transcription of the 15 visible cards in source 8a234785. */
-const chartRows: [string, string, boolean?][] = [
-  ["stupid song", "Olivia Rodrigo"], ["I Knew It, I Knew You", "Taylor Swift"],
-  ["hate that i made you love me", "Ariana Grande"], ["Spend Dat", "Yung Miami", true],
-  ["Billie Jean", "Michael Jackson"], ["Shabang", "Drake", true],
-  ["Mexico Honey", "Kacey Musgraves", true], ["Amazing Shape", "Drake, Popcaan", true],
-  ["Lush Life", "Zara Larsson"], ["White Keys", "Dominic Fike"],
-  ["YUKON", "Justin Bieber"], ["Raindance", "Dave, Tems"],
-  ["Dracula", "Tame Impala"], ["What You Saying", "Lil Uzi Vert", true],
-  ["Dracula (JENNIE Remix)", "Tame Impala, JENNIE", true],
+/** Visible rows in the frozen chart detail. Unknown/unavailable duration is null-like 0. */
+const chartRows: [string, string, string, string, number, boolean?, boolean?][] = [
+  ["album-1", "drop dead", "Olivia Rodrigo", albumTitle, 224],
+  ["album-2", "stupid song", "Olivia Rodrigo", albumTitle, 209],
+  ["chart-2", "End of Beginning", "Djo", "DECIDE", 159],
+  ["chart-3", "Iris", "The Goo Goo Dolls", "Dizzy Up the Girl", 289],
+  ["chart-4", "Opalite", "Taylor Swift", "The Life of a Showgirl", 235],
+  ["chart-5", "Golden", "HUNTR/X, EJAE, AUDREY NUNA, REI AMI, KPop Demon Hunters Cast", "KPop Demon Hunters (Soundtrack from the Netflix Film)", 194],
+  ["library-4", "So Easy (To Fall In Love)", "Olivia Dean", "The Art of Loving", 169],
+  ["chart-7", "Man I Need", "Olivia Dean", "The Art of Loving", 184],
+  ["chart-8", "The Fate of Ophelia", "Taylor Swift", "The Life of a Showgirl", 226],
+  ["chart-9", "Love Me Not", "Ravyn Lenae", "Bird’s Eye", 213],
+  ["chart-10", "WHERE IS MY HUSBAND!", "RAYE", "WHERE IS MY HUSBAND! - Single", 197],
+  ["chart-11", "DAISIES", "Justin Bieber", "SWAG", 176],
+  ["chart-12", "Kiss It Better", "Rihanna", "ANTI (Deluxe)", 0, true, true],
+  ["chart-13", "What's Up?", "4 Non Blondes", "Bigger, Better, Faster, More!", 295],
+  ["chart-14", "Die On This Hill", "SIENNA SPIRO", "Die On This Hill - Single", 217],
 ];
-export const chartTracks: Track[] = chartRows.map(([title, artist, explicit], i) => ({
-  id: i === 0 ? "album-2" : i < 12 ? `viral-${i}` : `chart-${i}`,
-  title, artist, album: i === 0 ? albumTitle : title, duration: i === 0 ? 209 : 0, explicit,
-  art: crop("8a234785", 286 + (i % 5) * 227, 101 + Math.floor(i / 5) * 274, 207, 207),
+export const chartTracks: Track[] = chartRows.map(([id, title, artist, album, duration, explicit, unavailable], i) => ({
+  id, title, artist, album, duration, explicit, unavailable,
+  art: crop("8a234785", 293, 132 + i * 51.45, 37, 37),
 }));
-export const allTracks = [...new Map([...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
+const searchTrack: Track = { id: "search-olivia", title: "Olivia", artist: "One Direction", album: "Made In The A.M.", duration: 0, art: crop("e70094e3", 676, 248, 86, 86) };
+export const allTracks = [...new Map([searchTrack, ...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
 export function trackById(id: string) { return allTracks.find((track) => track.id === id); }
 export function formatTime(value: number) {
   const seconds = Math.max(0, Math.floor(Number.isFinite(value) ? value : 0));

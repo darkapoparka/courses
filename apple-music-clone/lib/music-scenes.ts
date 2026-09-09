@@ -6,6 +6,7 @@ export type Overlay = "signin" | "signup" | "verify" | "payment" | "article" | "
 export type Menu = "track" | "album" | "profile" | "sort" | "share" | "location" | "genres" | "station" | null;
 export type Scene = {
   page: Page;
+  checkout?: boolean;
   source?: string;
   guest?: boolean;
   namedProfile?: boolean;
@@ -60,13 +61,13 @@ const definitions: Record<string, Scene> = {
   "269160a4": { ...base, guest: true, overlay: "signup", formStep: 1, filled: true },
   "99af3033": { ...base, guest: true, overlay: "verify" },
   "dfce44a2": { ...base, guest: true, overlay: "verify", filled: true },
-  "51c79ae2": { ...base, guest: true, overlay: "payment" },
-  "b74d25cb": { ...base, guest: true, overlay: "payment", filled: true },
-  "94b9d90d": { ...base, guest: true, overlay: "payment", formStep: 1 },
-  "a728c2af": { ...base, guest: true, overlay: "payment", formStep: 1, filled: true },
-  "06ea37ef": { ...base, guest: true, overlay: "payment", formStep: 1, filled: true, scrollOffset: 50 },
-  "5175a910": { ...base, guest: true, overlay: "payment", formStep: 2 },
-  "ecb33359": { ...base, guest: true, overlay: "payment", formStep: 2, scrollOffset: 60 },
+  "51c79ae2": { ...base, checkout: true, guest: true, overlay: "payment" },
+  "b74d25cb": { ...base, checkout: true, guest: true, overlay: "payment", filled: true },
+  "94b9d90d": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 1 },
+  "a728c2af": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 1, filled: true },
+  "06ea37ef": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 1, filled: true, scrollOffset: 50 },
+  "5175a910": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2 },
+  "ecb33359": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2, scrollOffset: 60 },
   "bf099ae2": { ...base, guest: true, overlay: "payment", formStep: 3 },
   "e72be564": base,
   "a917d88f": { page: "home", namedProfile: true },
@@ -207,8 +208,8 @@ const definitions: Record<string, Scene> = {
   "3131018d": { ...base, guest: true, overlay: "signin" },
   "417f6129": { ...base, guest: true, overlay: "signin", filled: true },
   "6aa4a9d7": { ...base, guest: true, overlay: "verify", formStep: 1 },
-  "4e65c7c6": { ...base, guest: true, overlay: "verify", formStep: 1, filled: true },
-  "97de6907": { ...base, guest: true, overlay: "verify", formStep: 2 },
+  "4e65c7c6": { ...base, guest: true, overlay: "verify", formStep: 2, filled: false },
+  "97de6907": { ...base, guest: true, overlay: "verify", formStep: 2, filled: true },
   "e027fe6d": { ...base, namedProfile: true },
 };
 export const screenScenes: Readonly<Record<string, Scene>> = Object.fromEntries(

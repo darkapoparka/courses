@@ -5,13 +5,13 @@ import { allTracks, libraryTracks, trackById, viralTracks, type Track } from "..
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
-export type LibraryState = { version: 1; favourites: string[]; favouriteArtists: string[]; discouraged: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean };
+export type LibraryState = { version: 1; favourites: string[]; favouriteArtists: string[]; discouraged: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean; musicRating: "Clean" | "Explicit"; tvRating: string; movieRating: string };
 const known = new Set(allTracks.map((track) => track.id));
 const knownArtists = new Set(allTracks.flatMap(track => track.artist.split(", ")));
 const initialLibrary: LibraryState = {
   version: 1, favouriteArtists: [], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "album-2", "library-7"], pinned: [],
   playlists: [{ id: "emotional", name: "Emotional Songs", description: "", tracks: ["album-2", "album-3", "library-3"], public: false }],
-  hiddenNav: [], locale: "en", restrictions: false, cancelled: false,
+  hiddenNav: [], locale: "en", restrictions: false, cancelled: false, musicRating: "Clean", tvRating: "G", movieRating: "G",
 };
 function strings(value: unknown): string[] { return Array.isArray(value) ? [...new Set(value.filter((item): item is string => typeof item === "string" && known.has(item)))].slice(0, 500) : []; }
 export function readLibrary(value: unknown): LibraryState | null {
@@ -25,7 +25,7 @@ export function readLibrary(value: unknown): LibraryState | null {
       return [{ id: p.id.slice(0, 80), name: p.name.slice(0, 100), description: typeof p.description === "string" ? p.description.slice(0, 1000) : "", tracks: strings(p.tracks), public: p.public === true }];
     }) : [],
     hiddenNav: Array.isArray(row.hiddenNav) ? row.hiddenNav.filter((v): v is string => typeof v === "string" && ["library", "artists", "albums", "songs", "videos", "made-for-you"].includes(v)) : [],
-    locale: row.locale === "zh" ? "zh" : "en", restrictions: row.restrictions === true, cancelled: row.cancelled === true };
+    locale: row.locale === "zh" ? "zh" : "en", restrictions: row.restrictions === true, cancelled: row.cancelled === true, musicRating: row.musicRating === "Explicit" ? "Explicit" : "Clean", tvRating: typeof row.tvRating === "string" && ["G","PG","PG13","M18"].includes(row.tvRating) ? row.tvRating : "G", movieRating: typeof row.movieRating === "string" && ["G","PG","PG13","NC16","M18","R21"].includes(row.movieRating) ? row.movieRating : "G" };
 }
 const toggle = (items: string[], id: string) => items.includes(id) ? items.filter((value) => value !== id) : [...items, id];
 export type Controller = {
@@ -109,6 +109,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const play = useCallback((target: Track | string, remember = true) => {
     const id = typeof target === "string" ? target : target.id;
     const track = trackById(id);
+    if (track?.explicit && library.restrictions && library.musicRating === "Clean") { notify("This track is excluded by the local clean-content setting."); return; }
     if (track?.unavailable) { notify("This track is unavailable in the saved catalog."); return; }
     const element = audio.current;
     if (remember && activeId && activeId !== id) history.current = [...history.current, activeId].slice(-100);
@@ -117,7 +118,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     if (!element || !local) { setRealPlaying(false); patch({ overlay: "media", menu: null }); return; }
     element.src = local.url; element.volume = volume; element.muted = muted; setMediaName(local.name);
     void element.play().catch(() => notify("Playback could not start. Try another supported audio file."));
-  }, [muted, volume, notify, patch, activeId]);
+  }, [muted, volume, notify, patch, activeId, library.restrictions, library.musicRating]);
   const togglePlayback = useCallback(() => {
     if (realPlaying) { audio.current?.pause(); return; }
     play(activeId ?? "album-2");
@@ -142,14 +143,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
       setRealPlaying(false);
       if (queue.length) skip(1);
       else if (scene.autoplay) {
-        const next = allTracks.find(track => track.id !== activeId && !track.unavailable && !library.discouraged.includes(track.id) && (!library.restrictions || !track.explicit));
+        const next = allTracks.find(track => track.id !== activeId && !track.unavailable && !library.discouraged.includes(track.id) && (!library.restrictions || library.musicRating === "Explicit" || !track.explicit));
         if (next) play(next);
       }
     };
     element.addEventListener("timeupdate", time); element.addEventListener("durationchange", time);
     element.addEventListener("play", started); element.addEventListener("pause", stopped); element.addEventListener("error", failed); element.addEventListener("ended", ended);
     return () => { element.removeEventListener("timeupdate", time); element.removeEventListener("durationchange", time); element.removeEventListener("play", started); element.removeEventListener("pause", stopped); element.removeEventListener("error", failed); element.removeEventListener("ended", ended); };
-  }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions]);
+  }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions, library.musicRating]);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
       if (event.target instanceof Element && event.target.closest("input, textarea, select, button, a, dialog, [contenteditable=true]")) return;

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./reference-fidelity.css";
+import "./capture-layout.css";
+import "./capture-auth.css";
+import "./capture-content.css";
 
 export const metadata: Metadata = {
   title: "Apple Music — Reference Prototype",

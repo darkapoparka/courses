@@ -6,10 +6,14 @@ import { videoArt, trackById } from "../lib/music-catalog";
 import { sourcePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
 import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
-import { AlbumView, ArtistView, CategoryView, ChartView, HomeView, LibraryView, NewView, RadioView, ScheduleView, SearchView } from "./music-browse";
-import { ConcertsView, ConcertView, ConnectedView, CreditsView, MilestonesView, NearbyView, ReplayView, SettingsView, SubscriptionView } from "./music-secondary";
+import { AlbumView, ArtistView, CategoryView, LibraryView, RadioView } from "./music-browse";
+import { ConcertsView, ConcertView, CreditsView, MilestonesView, NearbyView, ReplayView } from "./music-secondary";
 import { ExpandedPlayer, Player, PlayerPanel } from "./music-player";
-import { MusicDialogs } from "./music-dialogs";
+import { SettingsView, ConnectedView, SubscriptionView } from "./music-account";
+import { ChartView, ScheduleView } from "./music-chart-schedule";
+import { SearchView } from "./music-search";
+import { NewView, HomeView } from "./music-discovery";
+import { MusicOverlays } from "./music-overlays";
 import { MusicMenus } from "./music-menus";
 
 const libraryItems: [string, string, GlyphName, string][] = [
@@ -19,6 +23,7 @@ const libraryItems: [string, string, GlyphName, string][] = [
 ];
 function Content() {
   const { scene } = useMusic();
+  if (scene.checkout) return <div className="checkout-background" />;
   switch (scene.page) {
     case "new": return <NewView />;
     case "home": return <HomeView />;
@@ -66,15 +71,16 @@ function MusicShell() {
   useEffect(() => {
     const element = main.current; if (!element) return;
     const frame = requestAnimationFrame(() => {
+      if (m.scene.page === "settings" || m.scene.page === "connected" || m.scene.page === "subscription") return;
       if (m.scene.scroll) {
         const target = document.getElementById(m.scene.scroll);
-        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - (m.scene.source?.startsWith("812ba627") ? 47 : 24) });
+        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - (m.scene.source?.startsWith("812ba627") ? 47 : m.scene.scroll === "coming-soon" ? 113 : m.scene.scroll === "essentials" ? 32 : 24) });
       } else if (m.scene.source) element.scrollTo({ top: 0 });
     });
     return () => cancelAnimationFrame(frame);
   }, [m.scene.source, m.scene.scroll, m.scene.page]);
   const navigation = (page: string, label: string, icon: GlyphName) => <button type="button" key={page} className="sidebar-row" aria-current={activePage === page ? "page" : undefined} onClick={() => go(page)}><Glyph name={icon} size={17} /><span>{label}</span></button>;
-  return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""}`} data-scene={m.scene.page} data-source={m.scene.source}>
+  return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""} ${m.scene.checkout ? "checkout-stage" : ""}`} data-scene={m.scene.page} data-source={m.scene.source}>
     <a className="skip-link" href="#music-main">Skip to content</a>
     <header className="mobile-header"><IconButton icon="queue" label="Open navigation" aria-expanded={mobileNav} aria-controls="music-sidebar" onClick={() => setMobileNav(!mobileNav)} /><button type="button" className="brand" onClick={() => go("new")}><Glyph name="apple" size={25} />Music</button><IconButton icon="person" label="Account" onClick={event => m.scene.guest ? m.patch({ overlay: "signin" }) : m.openMenu("profile", event)} /></header>
     {mobileNav && <button type="button" className="mobile-nav-backdrop" aria-label="Close navigation" onClick={() => setMobileNav(false)} />}
@@ -90,13 +96,13 @@ function MusicShell() {
           {m.library.pinned.length > 0 && <><div className="sidebar-section-label"><span>Pinned</span></div>{m.library.pinned.map(id => <button type="button" className="sidebar-row" key={id} onClick={() => m.play(id)}><Glyph name="pin" size={16} /><span>{trackById(id)?.title ?? "Pinned song"}</span></button>)}</>}
         </>}
       </div>
-      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><Glyph name="external" size={12} /><span>Open in Music</span><Glyph name="chevron" size={11} /></a>{m.scene.guest ? <button type="button" className="sidebar-signin" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person" size={13} />Sign In</button> : <button type="button" className="profile-button" onClick={event => m.openMenu("profile", event)} aria-label="Account menu"><span className="profile-avatar"><Glyph name="person" size={18} /></span>{m.scene.namedProfile && <span>SmithAlex</span>}</button>}</div>
+      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><Glyph name="external" size={12} /><span>Open in Music</span><Glyph name="chevron" size={11} /></a>{m.scene.guest && !m.scene.checkout ? <button type="button" className="sidebar-signin" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person" size={13} />Sign In</button> : <button type="button" className="profile-button" onClick={event => m.openMenu("profile", event)} aria-label="Account menu"><span className="profile-avatar"><Glyph name="person" size={18} /></span>{m.scene.namedProfile && <span>SmithAlex</span>}</button>}</div>
     </aside>
     <main id="music-main" ref={main} className="music-main" tabIndex={-1}><Content /></main>
     {!m.scene.expanded && !m.scene.video && <><Player /><PlayerPanel /></>}
-    {m.scene.guest && !m.scene.expanded && !m.scene.video && <div className="trial-banner"><div><strong>Get over 100 million songs free for 1 month.</strong><small>Local reference preview. No payment or subscription will be created.</small></div><button type="button" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}>Try It Free</button></div>}
+    {m.scene.guest && !m.scene.checkout && !m.scene.expanded && !m.scene.video && <div className="trial-banner"><div><strong>Get over 100 million songs free for 1 month.</strong><small>Local reference preview. No payment or subscription will be created.</small></div><button type="button" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}>Try It Free</button></div>}
     {m.scene.expanded && <ExpandedPlayer />}{m.scene.video && <VideoPlayer />}
-    {m.scene.overlay && <MusicDialogs key={m.scene.overlay} />}<MusicMenus />
+    {m.scene.overlay && <MusicOverlays key={m.scene.overlay} />}<MusicMenus />
     <div className={`music-toast ${m.message ? "visible" : ""}`} role="status" aria-live="polite">{m.message}</div>
   </div>;
 }
