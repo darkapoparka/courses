@@ -17,10 +17,10 @@
 .library-page > .content-footer { margin: auto 0 0; padding-left:var(--page-left); padding-right:var(--page-right); }
 .library-page > .library-grid { padding-bottom:30px; }
 .library-page > .empty-state { flex:1; min-height:0; padding-bottom:38px; }
-.chart-page > h1 { display:flex; gap:11px; align-items:center; }
+.chart-page > h1 { display:flex; gap:6px; align-items:center; }
 .chart-page > .chart-table { margin-top:30px; }
 .chart-table { font-size:13px; }
-.chart-table .track-table-head, .chart-table .track-table-row { grid-template-columns:36.4% 25.8% minmax(0,1fr) 47px 31px; padding:0 6px; }
+.chart-table .track-table-head, .chart-table .track-table-row { grid-template-columns:35.5% 25.8% minmax(0,1fr) 47px 31px; padding:0 6px; }
 .chart-table .track-table-head { height:28px; border-bottom:1px solid #e5e5e7; font-size:12px; }
 .chart-table .track-table-head > span { border-right:1px solid #e6e6e9; height:15px; line-height:15px; padding-left:14px; }
 .chart-table .track-table-head > span:first-child { padding-left:1px; }
@@ -30,7 +30,7 @@
 .chart-table .track-name { position:relative; }
 .chart-table .favourite-marker { position:absolute; left:-30px; width:23px; top:10px; margin:0; }
 .chart-table .table-art { width:38px; height:38px; margin-right:12px; }
-.chart-table .table-text-link { padding-left:14px; font-size:13px; }
+.chart-table .table-text-link { display:block; width:100%; max-width:100%; padding-left:14px; font-size:13px; }
 .chart-table .track-time { font-size:12px; }
 .chart-table .table-song-title { font-size:13px; }
 .schedule-page > h1 { font-size:17px; line-height:24px; display:flex; gap:0; align-items:center; transform:none; letter-spacing:-.2px; }

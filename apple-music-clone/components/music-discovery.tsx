@@ -15,7 +15,7 @@ const listening: Card[] = [
   ["Ariana Grande’s Eternal Sunshine Tour Set List", "Apple Music Pop"],
   ["Michael Jackson Essentials", "Apple Music Pop"], ["i-dle Essentials", "Apple Music K-Pop"],
 ].map(([title, subtitle], i) => ({ id: `listening-${i}`, title: title!, subtitle, destination: `category:${title}`, art: crop("8b03c9d0", 286 + i * 227, 66, 208, 208) }));
-const daily: Card[] = ["Singapore", "Global", "Taiwan", "USA", "United Kingdom"].map((city, i) => ({ id: `top-100-${i}`, title: `Top 100: ${city}`, subtitle: "Apple Music", destination: "chart", art: crop("8b03c9d0", 286 + i * 227, 397, 208, 208) }));
+const daily: Card[] = ["Singapore", "Global", "Taiwan", "USA", "UK"].map((city, i) => ({ id: `top-100-${i}`, title: `Top 100: ${city}`, subtitle: "Apple Music", destination: "chart", art: crop("8b03c9d0", 286 + i * 227, 397, 208, 208) }));
 const coming: Card[] = [
   ["The Real Me", "Future"], ["Lost Weekend", "Phoebe Bridgers"], ["Don’t Look Down", "Rod Wave"], ["BARAJA BENDITA", "Becky G"], ["Pylon", "beabadoobee"],
 ].map(([title, subtitle], i) => ({ id: `coming-${i}`, title: title!, subtitle, destination: `category:${title}`, art: crop("706de500", 286 + i * 227, 149, 208, 208) }));
@@ -25,8 +25,8 @@ const homePicks: Card[] = [...topPicks,
   { id: "discovery", title: "Discovery Station", art: crop("d5173715", 1138, 135, 264, 353), destination: "station:discovery" },
 ];
 
-function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean }) {
-  return <Rail label={label} className={className} initialIndex={initialIndex}>{cards.map(card => <CardTile key={card.id} card={card} poster={poster} />)}</Rail>;
+function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artOverlays }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artOverlays?: Partial<Record<number, Artwork>> }) {
+  return <Rail label={label} className={className} initialIndex={initialIndex}>{cards.map((card, index) => <CardTile key={card.id} card={card} poster={poster} artOverlay={artOverlays?.[index]} />)}</Rail>;
 }
 function CityCard({ city, index }: { city: string; index: number }) {
   const m = useMusic();
@@ -38,16 +38,28 @@ export function NewView() {
   const legacy = finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom";
   const queue = m.scene.catalog === "queue";
   const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : card) : legacyFeatures;
-  const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [features[0]!, performanceFeature, ...features.slice(1)] : features;
+  const source = m.scene.source?.slice(0, 8);
+  const currentFeatures = source === "4f611a9e"
+    ? features.map((card, index) => index < 2 ? { ...card, art: crop("4f611a9e", index === 0 ? 286 : 854, 167, 548, 314) } : card)
+    : features;
+  const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [currentFeatures[0]!, performanceFeature, ...currentFeatures.slice(1)] : currentFeatures;
   const initialIndex = !legacy && !queue && m.scene.hero === "alpha" ? 4 : 0;
   const songs = m.library.locale === "zh" ? localizedSongs : finalLogin ? finalLoginSongs : queue ? queueSongs : legacy ? legacySongs : viralTracks;
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
+  const longToyStoryTitle = source === "4f611a9e" || source === "54b01eab";
+  const visibleSongs = !zh && !legacy && !queue && longToyStoryTitle ? visible.map(track => track.id === "viral-1" ? { ...track, title: `I Knew It, I Knew You (From "Toy Story 5")` } : track) : visible;
+  const newThisWeek = [9, 4, 1, 5, 7].map(index => libraryCovers[index]!);
+  const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d"].includes(source) ? source : undefined;
+  const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = releaseStripSource ? {
+    0: crop(releaseStripSource, 286, 840, 208, 63),
+    4: crop(releaseStripSource, 1194, 840, 208, 63),
+  } : undefined;
   return <div className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"}><h1>{zh ? "新发现" : "New"}</h1>
     <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex}>{featureCards.map(card => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} /></button></article>)}</Rail>
-    <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visible.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue} />)}</div></Rail></Section>
-    <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={libraryCovers.filter((_, i) => [9, 4, 1, 5, 7].includes(i))} label="New releases" /></Section>
-    <Section title={zh ? "大家都在听…" : "Everyone’s Listening To…"} id="essentials"><Cards cards={listening} label="Everyone’s listening" /></Section>
+    <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} />)}</div></Rail></Section>
+    <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={newThisWeek} label="New releases" artOverlays={releaseArtOverlays} /></Section>
+    <Section title={zh ? "大家都在听…" : "Everyone’s Listening To…"} id="essentials" onMore={() => m.go(`category:${zh ? "大家都在听" : "Everyone’s Listening To"}`)}><Cards cards={listening} label="Everyone’s listening" /></Section>
     <Section title={zh ? "每日百强榜" : "Daily Top 100"} id="daily-top" onMore={() => m.go("chart")}><Cards cards={daily} label="Daily Top 100" /></Section>
     <Section title={zh ? "城市排行榜" : "City Charts"} id="city-charts" onMore={() => m.go("category:City Charts")}><Rail label="City Charts" className="square-rail">{["London", "New York City", "Seoul", "Tokyo", "Miami"].map((city, index) => <CityCard city={city} index={index} key={city} />)}</Rail></Section>
     <Section title={zh ? "即将推出" : "Coming Soon"} id="coming-soon" onMore={() => m.go("category:Coming Soon")}><Cards cards={coming} label="Coming soon" /></Section>

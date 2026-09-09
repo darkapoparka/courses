@@ -19,6 +19,19 @@
 .sidebar-row[aria-current="page"] { color: #b40022; }
 .open-music { height: 45px; }
 .profile-button { font-size: 14px; }
+.open-music-icon { width:16px; height:16px; display:grid; place-items:center; border:1px solid currentColor; border-radius:4px; flex:none; }
+.open-music-icon > svg { width:11px; height:11px; }
+.open-music > svg:last-child { width:9px; height:9px; }
+.music-app[data-source^="f2e44e3b"] .library-section-label > button { opacity:1; color:#222; }
+.chart-page > .chart-table .favourite-marker { display:flex; }
+.chart-page > .chart-table .favourite-marker svg { fill:currentColor; }
+.guest-session .sidebar-footer { flex-basis:103px; }
+.guest-session .floating-player.is-idle .player-utilities { flex-basis:59px; }
+@media (min-width:1181px) {
+  .trial-banner { padding-left:29px; padding-right:28px; }
+  .trial-banner > button { width:120px; height:32px; padding:0; }
+}
+
 .search-toolbar { position: sticky; top: 13px; z-index: 21; }
 .search-page .music-section h2 { font-size: 17px; line-height: 27px; }
 .search-page .recent-searches { margin-top: 6px; }
@@ -94,3 +107,35 @@
 .category-portrait { display: block; width: 100%; mask-image: linear-gradient(#000 85%, transparent); }
 .category-caption { position: absolute; left: 12px; right: 10px; bottom: 12px; color: #fff; font-size: 14px; font-weight: 500; line-height: 18px; text-align: left; }
 .unknown-artist-art { display: grid; place-items: center; width: 280px; height: 280px; color: #ffffff80; }
+
+/* The Alpha feature capture uses a viewport-wide horizontal scrollport behind
+ * the translucent navigation surface. Keep the rail as real scrollable DOM;
+ * only the scrollport geometry changes for this recorded state. */
+@media (min-width: 1181px) {
+  .music-app[data-source^="54b01eab"] .capture-discovery > .feature-rail {
+    margin-left: calc(-1 * (var(--sidebar) + var(--page-left)));
+  }
+  .music-app[data-source^="54b01eab"] .capture-discovery > .feature-rail .music-rail {
+    padding-left: calc(var(--sidebar) + var(--page-left));
+  }
+  .music-app[data-source^="54b01eab"] .music-sidebar {
+    background: rgb(248 248 250 / 82%);
+    backdrop-filter: blur(24px) saturate(1.1);
+    -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  }
+}
+@media (min-width: 1181px) {
+  .music-app[data-source^="54b01eab"] .music-main { left: 0; }
+  .music-app[data-source^="54b01eab"] .page-content { padding-left: calc(var(--sidebar) + var(--page-left)); }
+}
+
+.reference-art-strip {
+  position:absolute;
+  z-index:1;
+  left:0; right:0; top:0;
+  display:block;
+  overflow:hidden;
+  pointer-events:none;
+  border-radius:inherit;
+}
+.reference-art-strip > .music-art { width:100%; }

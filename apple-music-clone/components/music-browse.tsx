@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import { albumArt, albumTitle, albumTracks, allTracks, chartTracks, artistHero, categories, crop, emotionalArt, favouriteArt, features, formatTime, libraryCovers, libraryTracks, radioStations, recentlyPlayed, sourArt, topPicks, viralTracks, type Card, type Track } from "../lib/music-catalog";
+import { albumArt, albumTitle, albumTracks, allTracks, chartTracks, artistHero, categories, crop, emotionalArt, favouriteArt, features, formatTime, libraryCovers, libraryTracks, radioStations, recentlyPlayed, sourArt, topPicks, viralTracks, type Artwork, type Card, type Track } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
 import { Art, EmptyState, Footer, Glyph, IconButton, Section } from "./music-primitives";
 import { Rail } from "./music-rail";
@@ -15,11 +15,11 @@ export function SongRow({ track, showTime = false, trailing, showFavourite = fal
     {trailing ?? <IconButton icon="more" label={`More actions for ${track.title}`} onClick={(event) => m.openMenu("track", event, track.id)} />}
   </div>;
 }
-export function CardTile({ card, poster = false }: { card: Card; poster?: boolean }) {
+export function CardTile({ card, poster = false, artOverlay }: { card: Card; poster?: boolean; artOverlay?: Artwork }) {
   const { go } = useMusic();
   const destination = card.destination.includes(":") || !["album", "artist"].includes(card.destination) ? card.destination : `${card.destination}:${card.id}`;
   const artwork = card.portrait || card.plain ? <span className="category-preview" style={{ backgroundColor: card.background }}>{card.portrait && <span className="category-portrait"><Art art={card.portrait} label={card.title} /></span>}<span className="category-caption">{card.title}</span></span> : <Art art={card.art} label={card.title} />;
-  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{card.title}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
+  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}{artOverlay && <span className="reference-art-strip" aria-hidden="true"><Art art={artOverlay} label="" /></span>}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{card.title}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
 }
 function CardRail({ cards, label, poster = false }: { cards: Card[]; label: string; poster?: boolean }) { return <Rail label={label} className={poster ? "poster-rail" : "square-rail"}>{cards.map(card => <CardTile key={card.id} card={card} poster={poster} />)}</Rail>; }
 

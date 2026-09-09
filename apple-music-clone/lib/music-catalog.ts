@@ -145,8 +145,8 @@ export const features: Card[] = [
   { id: "paradise", kicker: "NEW ALBUM", title: "No Sleep In Paradise", subtitle: "Naomi Sharon", art: crop("e72be564", 854, 167, 548, 314), destination: "album" },
   { id: "superbloom", kicker: "ESSENTIAL ALBUM", title: "Superbloom", subtitle: "Apple Music Pop", art: crop("cf59e554", 286, 167, 548, 314), destination: "album" },
   { id: "anniversaries", kicker: "ESSENTIAL ALBUM", title: "Doja Cat created a world in her own image on Planet Her.", subtitle: "", art: crop("cf59e554", 854, 167, 548, 314), destination: "album" },
-  { id: "alpha", kicker: "LISTEN NOW", title: "Alpha Women", subtitle: "Apple Music", art: crop("54b01eab", 286, 167, 548, 314), destination: "chart" },
-  { id: "viral", kicker: "TOP PLAYLIST", title: "Viral Chart", subtitle: "Shazam", art: crop("54b01eab", 854, 167, 548, 314), destination: "chart" },
+  { id: "alpha", kicker: "UPDATED PLAYLIST", title: "Alpha Women", subtitle: "Alpha Women", art: crop("54b01eab", 286, 167, 548, 314), destination: "chart" },
+  { id: "viral", kicker: "NEW PLAYLIST", title: "Viral Chart", subtitle: "Shazam", art: crop("54b01eab", 854, 167, 548, 314), destination: "chart" },
 ];
 export const topPicks: Card[] = [
   { id: "love", title: "Love", subtitle: "Mood for You", art: crop("a917d88f", 286, 135, 264, 353), destination: "playlist" },

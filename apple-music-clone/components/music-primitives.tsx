@@ -6,10 +6,11 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "link" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail";
+export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "external-arrow": return <svg {...common}><path d="M6 18 18 6M10 6h8v8" /></svg>;
     case "link": return <svg {...common}><path d="m9 15 6-6M8 16l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M16 8l1-1a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1) scale(.9)" /></svg>;
     case "code": return <svg {...common}><path d="m7 6-5 6 5 6M17 6l5 6-5 6M14 3l-4 18" /></svg>;
     case "info": return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M12 10v7M11 7h2" /></svg>;
@@ -45,6 +46,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "headphones": return <svg {...common}><path d="M4 14v-3a8 8 0 0 1 16 0v3" /><rect x="3" y="12" width="5" height="9" rx="2" /><rect x="16" y="12" width="5" height="9" rx="2" /></svg>;
     case "expand": return <svg {...common}><path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6" /></svg>;
     case "mail": return <svg {...common}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 5 10 8L22 5M2 20l7-9m13 9-7-9" /></svg>;
+    case "made-for-you": return <svg {...common}><rect x="3" y="2.5" width="18" height="19" rx="2" /><circle cx="12" cy="8.5" r="2.6" /><path d="M7.1 17.3c.5-2.7 2.2-4.2 4.9-4.2s4.4 1.5 4.9 4.2" /></svg>;
     case "muted": return <svg {...common}><path d="M3 9h4l5-5v16l-5-5H3V9Z" /><path d="m16 9 6 6m0-6-6 6" /></svg>;
     default: return <Icon name={(name === "person" ? "user" : name) as IconName} size={size} />;
   }

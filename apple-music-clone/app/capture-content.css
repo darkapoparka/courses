@@ -10,8 +10,8 @@
 }
 .capture-discovery .music-section { margin-top:42px; }
 .capture-discovery #essentials { margin-top:66px; }
-.capture-discovery #daily-top { margin-top:62px; }
-.capture-discovery #city-charts { margin-top:66px; }
+.capture-discovery #daily-top { margin-top:35px; }
+.capture-discovery #city-charts { margin-top:36px; }
 .capture-discovery #coming-soon { margin-top:36px; }
 .capture-discovery .media-card .card-title { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; line-height:16px; min-height:16px; }
 .capture-discovery #essentials .media-card { min-height:258px; }
@@ -19,8 +19,8 @@
 .city-art { display:block; position:relative; width:100%; aspect-ratio:1; background:#f6f5f2; }
 .city-art > .city-upper { position:absolute; top:0; width:100%; }
 .city-art > .city-lower { position:absolute; bottom:0; width:100%; }
-.capture-discovery #more-to-explore { margin-top:63px; }
-.capture-discovery .explore-grid { margin-top:34px; row-gap:23px; }
+.capture-discovery #more-to-explore { margin-top:36px; }
+.capture-discovery .explore-grid { margin-top:23px; row-gap:23px; }
 .capture-discovery > .content-footer { margin-top:42px; }
 .capture-home .home-page > .music-section { margin-top:34px; }
 .capture-home .music-section + .music-section { margin-top:50px; }
