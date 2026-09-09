@@ -4,8 +4,6 @@ on:
   push:
     branches: ['astra/course-platform-plan']
     paths: ['apple-music-clone/**', '.github/workflows/reference-parity.yml']
-  pull_request:
-    paths: ['apple-music-clone/**', '.github/workflows/reference-parity.yml']
   workflow_dispatch:
 
 permissions:
@@ -20,16 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
       - name: Validate the frozen reference corpus
         run: node apple-music-clone/scripts/check-reference-archive.mjs
       - name: Preserve the exact comparison baseline and integrity results
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: reference-baseline-${{ github.sha }}
           path: apple-music-clone/.parity-evidence/
+          include-hidden-files: true # This exact directory contains only generated reference evidence.
           retention-days: 3
           compression-level: 0
           if-no-files-found: error
