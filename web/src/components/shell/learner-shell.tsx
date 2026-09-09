@@ -7,15 +7,26 @@ import {
   UserRound,
   LayoutGrid,
   Bookmark,
+  Code2,
+  Dumbbell,
+  BriefcaseBusiness,
+  CircleDollarSign,
+  Palette,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
-const mobileDestinations = [
+const futureDestinations = [
   { label: "Search", icon: Search },
   { label: "Library", icon: LibraryBig },
   { label: "You", icon: UserRound },
 ];
-
+const topics = [
+  { id: "ai-coding", label: "AI & coding", icon: Code2 },
+  { id: "fitness", label: "Fitness", icon: Dumbbell },
+  { id: "business", label: "Business", icon: BriefcaseBusiness },
+  { id: "finance", label: "Finance education", icon: CircleDollarSign },
+  { id: "creative", label: "Creative skills", icon: Palette },
+];
 export function LearnerShell({ children }: { children: ReactNode }) {
   return (
     <>
@@ -41,17 +52,13 @@ export function LearnerShell({ children }: { children: ReactNode }) {
             <Home aria-hidden="true" />
             <span>Home</span>
           </Link>
-          <button
-            className="nav-item future"
-            disabled
-            aria-label="Browse: unavailable in this preview"
-          >
+          <Link href="/#topics" className="nav-item">
             <LayoutGrid aria-hidden="true" />
             <span>Browse</span>
-            <small>Soon</small>
-          </button>
+            <small>On Home</small>
+          </Link>
         </nav>
-        <nav aria-label="Library navigation" className="rail-library">
+        <nav aria-label="Library navigation" className="rail-group">
           <p className="rail-label">Library</p>
           <button
             className="nav-item future"
@@ -72,8 +79,22 @@ export function LearnerShell({ children }: { children: ReactNode }) {
             <small>Soon</small>
           </button>
         </nav>
+        <nav
+          className="rail-group rail-topics"
+          aria-label="Explore subjects on Home"
+        >
+          <p className="rail-label">Explore on Home</p>
+          {topics.map(({ id, label, icon: Icon }) => (
+            <Link key={id} href={`/#${id}`} className="nav-item">
+              <Icon aria-hidden="true" />
+              <span>{label}</span>
+            </Link>
+          ))}
+        </nav>
         <div className="rail-bottom">
-          <p className="preview-label">Design preview · Sample data</p>
+          <Link className="preview-label" href="/#preview-options">
+            Sample catalog · Preview options
+          </Link>
           <button
             className="nav-item future account-item"
             disabled
@@ -90,7 +111,9 @@ export function LearnerShell({ children }: { children: ReactNode }) {
           <BookOpen aria-hidden="true" />
           Courses
         </Link>
-        <span className="preview-label">Design preview · Sample data</span>
+        <Link className="preview-label" href="/#preview-options">
+          Sample catalog
+        </Link>
       </header>
       <main id="main-content" tabIndex={-1} className="main-content">
         {children}
@@ -100,7 +123,7 @@ export function LearnerShell({ children }: { children: ReactNode }) {
           <Home aria-hidden="true" />
           <span>Home</span>
         </Link>
-        {mobileDestinations.map(({ label, icon: Icon }) => (
+        {futureDestinations.map(({ label, icon: Icon }) => (
           <button
             type="button"
             className="dock-item"

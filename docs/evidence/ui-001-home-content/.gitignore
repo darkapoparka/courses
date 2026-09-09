@@ -1,0 +1,2 @@
+# Keep the first in-progress capture locally, not as a review baseline.
+/desktop-first.png

@@ -1,0 +1,8 @@
+[90msrc/app/globals.css[39m 209ms (unchanged)
+[90msrc/components/shell/learner-shell.tsx[39m 95ms (unchanged)
+[90msrc/features/home/course-card.tsx[39m 11ms (unchanged)
+[90msrc/features/home/course-info.tsx[39m 17ms (unchanged)
+[90msrc/features/home/home-view.tsx[39m 38ms (unchanged)
+[90msrc/features/home/preview-info.tsx[39m 6ms (unchanged)
+[90msrc/features/home/fixtures.ts[39m 27ms (unchanged)
+tests/home.spec.ts 134ms

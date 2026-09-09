@@ -1,0 +1,54 @@
+$ playwright test
+
+Running 32 tests using 1 worker
+
+  ok  1 [desktop] › tests\home.spec.ts:42:5 › visitor and returning learner render with local images and no runtime errors (2.5s)
+  ok  2 [desktop] › tests\home.spec.ts:126:5 › only implemented destinations are active and sample content is explicit (747ms)
+  ok  3 [desktop] › tests\home.spec.ts:158:5 › shelf works with buttons and keyboard, without page overflow (958ms)
+  ok  4 [desktop] › tests\home.spec.ts:186:5 › preview dialog traps focus, closes with Escape and restores focus (1.7s)
+[WebServer] ⨯ Error: UI-001 simulated Home load failure
+[WebServer]     at E (J:\courses\web\.next\server\chunks\ssr\_19vj9sj._.js:3:23859) {
+[WebServer]   digest: '1937566236'
+[WebServer] }
+[WebServer] ⨯ Error: UI-001 simulated Home load failure
+[WebServer]     at E (J:\courses\web\.next\server\chunks\ssr\_19vj9sj._.js:3:23859) {
+[WebServer]   digest: '1189881939'
+[WebServer] }
+  ok  5 [desktop] › tests\home.spec.ts:211:5 › empty catalog and simulated error recover honestly (890ms)
+  ok  6 [desktop] › tests\home.spec.ts:245:5 › loading skeleton streams before the populated Home (2.7s)
+  ok  7 [desktop] › tests\home.spec.ts:259:5 › Home has no automated accessibility violations and keyboard focus is visible (3.3s)
+  ok  8 [desktop] › tests\home.spec.ts:293:5 › 320px, tablet, wide desktop and reduced motion remain usable (825ms)
+  ok  9 [desktop] › tests\home.spec.ts:312:5 › reference-shaped shelves retain their proportions and editorial scrolling works (1.2s)
+  ok 10 [desktop] › tests\home.spec.ts:380:5 › an unimplemented URL has honest not-found handling and a working Home return (926ms)
+  ok 11 [desktop] › tests\home.spec.ts:394:5 › reference header stays quiet and preview controls remain reachable (914ms)
+  ok 12 [desktop] › tests\home.spec.ts:428:5 › desktop shelf controls reveal on keyboard focus; mobile keeps them visible (1.1s)
+  ok 13 [desktop] › tests\home.spec.ts:461:5 › editorial collections and topic cards navigate to real Home shelves (1.2s)
+  ok 14 [desktop] › tests\home.spec.ts:511:5 › Home course information shows useful sample facts with keyboard dismissal (2.8s)
+  ok 15 [desktop] › tests\home.spec.ts:552:5 › free sample information is not enrollment or fake persistence (1.4s)
+  ok 16 [desktop] › tests\home.spec.ts:578:5 › course information remains scrollable and dismissible at 320px (863ms)
+  ok 17 [mobile] › tests\home.spec.ts:42:5 › visitor and returning learner render with local images and no runtime errors (1.7s)
+  ok 18 [mobile] › tests\home.spec.ts:126:5 › only implemented destinations are active and sample content is explicit (636ms)
+  ok 19 [mobile] › tests\home.spec.ts:158:5 › shelf works with buttons and keyboard, without page overflow (708ms)
+  ok 20 [mobile] › tests\home.spec.ts:186:5 › preview dialog traps focus, closes with Escape and restores focus (1.4s)
+[WebServer] ⨯ Error: UI-001 simulated Home load failure
+[WebServer]     at E (J:\courses\web\.next\server\chunks\ssr\_19vj9sj._.js:3:23859) {
+[WebServer]   digest: '1937566236'
+[WebServer] }
+[WebServer] ⨯ Error: UI-001 simulated Home load failure
+[WebServer]     at E (J:\courses\web\.next\server\chunks\ssr\_19vj9sj._.js:3:23859) {
+[WebServer]   digest: '1189881939'
+[WebServer] }
+  ok 21 [mobile] › tests\home.spec.ts:211:5 › empty catalog and simulated error recover honestly (1.0s)
+  ok 22 [mobile] › tests\home.spec.ts:245:5 › loading skeleton streams before the populated Home (2.8s)
+  ok 23 [mobile] › tests\home.spec.ts:259:5 › Home has no automated accessibility violations and keyboard focus is visible (3.0s)
+  ok 24 [mobile] › tests\home.spec.ts:293:5 › 320px, tablet, wide desktop and reduced motion remain usable (862ms)
+  ok 25 [mobile] › tests\home.spec.ts:312:5 › reference-shaped shelves retain their proportions and editorial scrolling works (947ms)
+  ok 26 [mobile] › tests\home.spec.ts:380:5 › an unimplemented URL has honest not-found handling and a working Home return (426ms)
+  ok 27 [mobile] › tests\home.spec.ts:394:5 › reference header stays quiet and preview controls remain reachable (731ms)
+  ok 28 [mobile] › tests\home.spec.ts:428:5 › desktop shelf controls reveal on keyboard focus; mobile keeps them visible (516ms)
+  ok 29 [mobile] › tests\home.spec.ts:461:5 › editorial collections and topic cards navigate to real Home shelves (1.1s)
+  ok 30 [mobile] › tests\home.spec.ts:511:5 › Home course information shows useful sample facts with keyboard dismissal (1.6s)
+  ok 31 [mobile] › tests\home.spec.ts:552:5 › free sample information is not enrollment or fake persistence (775ms)
+  ok 32 [mobile] › tests\home.spec.ts:578:5 › course information remains scrollable and dismissible at 320px (668ms)
+
+  32 passed (48.1s)

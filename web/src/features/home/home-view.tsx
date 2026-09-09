@@ -1,58 +1,121 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, Compass, Play } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUp,
+  BookOpen,
+  Compass,
+  Info,
+  Play,
+} from "lucide-react";
 import { ContentShelf } from "@/components/ui/content-shelf";
 import {
   courses,
   learningSamples,
   shortCourses,
-  type SampleCourse,
+  starterIds,
+  subjects,
   type SampleView,
 } from "./fixtures";
+import { CourseCard } from "./course-card";
+import { CourseInfo } from "./course-info";
 import { PreviewInfo } from "./preview-info";
 
-function CourseCard({ course }: { course: SampleCourse }) {
+const picks = [
+  {
+    subject: "ai-coding",
+    artwork: "abstract.webp",
+    theme: "ai",
+    cover: "Everyday\nAI",
+    label: "AI & CODING",
+    title: "Make the possibilities practical.",
+    description: "Learn the tools. Make something useful.",
+  },
+  {
+    subject: "fitness",
+    artwork: "motion.webp",
+    theme: "fitness",
+    cover: "",
+    label: "FITNESS",
+    title: "A stronger everyday.",
+    description: "Start with good form. Find your own rhythm.",
+  },
+  {
+    subject: "business",
+    artwork: "cafe.webp",
+    theme: "business",
+    cover: "Start\nsomething.",
+    label: "BUSINESS",
+    title: "An idea is a beginning.",
+    description: "Turn your next what-if into a first step.",
+  },
+  {
+    subject: "creative",
+    artwork: "camera.webp",
+    theme: "creative",
+    cover: "Look\ncloser.",
+    label: "CREATIVE SKILLS",
+    title: "See things a little differently.",
+    description: "Find your eye for light, color, and composition.",
+  },
+  {
+    subject: "finance",
+    artwork: "finance.webp",
+    theme: "finance",
+    cover: "",
+    label: "FINANCE EDUCATION",
+    title: "A clearer view of money.",
+    description: "Learn the fundamentals. Leave the hype behind.",
+  },
+];
+function FeaturedPicks() {
   return (
-    <article className="course-card">
-      <div className="course-art">
-        <Image
-          src={`/artwork/${course.artwork}`}
-          alt=""
-          fill
-          sizes="(max-width: 767px) 172px, 210px"
-        />
-        {course.id === "strength" && (
-          <div className="photo-cover-title">
-            <strong>
-              Strength,
-              <br />
-              for life.
-            </strong>
-          </div>
-        )}
-        {course.id === "perspective" && (
-          <div className="photo-cover-title">
-            <strong>
-              Look
-              <br />
-              again.
-            </strong>
-          </div>
-        )}
-      </div>
-      <h3 title={course.title}>{course.title}</h3>
-      <p
-        className="course-byline"
-        title={`${course.creator} · ${course.level} · ${course.duration}`}
-      >
-        <span>{course.creator}</span>
-        <span aria-hidden="true"> · </span>
-        <span>{course.duration}</span>
-      </p>
-    </article>
+    <section
+      id="featured"
+      className="home-section featured-section"
+      aria-label="Top Picks for You"
+    >
+      <ContentShelf title="Top Picks for You" variant="editorial">
+        {picks.map((pick, index) => (
+          <li key={pick.subject}>
+            <Link
+              className={`editorial-card editorial-${pick.theme}`}
+              href={`#${pick.subject}`}
+              aria-label={`Explore ${subjects.find((subject) => subject.id === pick.subject)?.label} courses on Home`}
+            >
+              <Image
+                src={`/covers/${pick.artwork}`}
+                alt=""
+                fill
+                sizes="(max-width: 767px) 280px, 265px"
+                preload={index < 2}
+              />
+              <span className="editorial-brand" aria-hidden="true">
+                <BookOpen size={14} />
+                Courses
+              </span>
+              {pick.cover && (
+                <span className="editorial-cover-type" aria-hidden="true">
+                  {pick.cover}
+                </span>
+              )}
+              <span className="editorial-caption">
+                <span className="editorial-label">{pick.label}</span>
+                <strong>{pick.title}</strong>
+                <span className="editorial-description">
+                  {pick.description}
+                </span>
+              </span>
+              <span className="editorial-arrow" aria-hidden="true">
+                <ArrowRight size={18} />
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ContentShelf>
+    </section>
   );
 }
-
 function ContinueLearning() {
   return (
     <section
@@ -64,165 +127,128 @@ function ContinueLearning() {
         <span className="section-note">Sample progress</span>
       </div>
       <ul className="continue-grid">
-        {learningSamples.map((course) => (
-          <li key={course.title}>
-            <article className="continue-card">
-              <div className="continue-art">
+        {learningSamples.map((learning) => {
+          const course = courses.find((item) => item.id === learning.courseId);
+          if (!course) return null;
+          return (
+            <li key={course.id}>
+              <article className="continue-card">
+                <div className="continue-art">
+                  <Image
+                    src={`/covers/${course.artwork}`}
+                    alt=""
+                    fill
+                    sizes="(max-width: 767px) 76px, 112px"
+                  />
+                </div>
+                <div className="continue-details">
+                  <p className="eyebrow">{learning.lesson}</p>
+                  <h3>{learning.nextLesson}</h3>
+                  <p className="creator-name">{course.title}</p>
+                  <progress
+                    max={100}
+                    value={learning.progress}
+                    aria-label={`${course.title}: sample completion`}
+                  >
+                    {learning.progress}%
+                  </progress>
+                  <span className="progress-label">
+                    {learning.remaining}{" "}
+                    <span>· {learning.progress}% complete</span>
+                  </span>
+                </div>
+                <button
+                  className="resume-button"
+                  type="button"
+                  disabled
+                  aria-label={`Resume ${course.title}: unavailable in preview`}
+                >
+                  <Play size={18} aria-hidden="true" />
+                  <span>Soon</span>
+                </button>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="continue-note">
+        Your place, all in one place. Lessons are unavailable in this preview.
+      </p>
+    </section>
+  );
+}
+function ShortCourses() {
+  return (
+    <section
+      id="short-courses"
+      className="home-section"
+      aria-labelledby="short-heading"
+    >
+      <div className="section-heading">
+        <h2 id="short-heading">A little learning goes a long way</h2>
+        <span className="section-note">Under an hour</span>
+      </div>
+      <ul className="short-course-list">
+        {shortCourses.map((course) => (
+          <li key={course.id}>
+            <CourseInfo className="short-course-trigger" course={course}>
+              <span className="short-art">
                 <Image
-                  src={`/artwork/${course.artwork}`}
+                  src={`/covers/${course.artwork}`}
                   alt=""
                   fill
-                  sizes="72px"
+                  sizes="52px"
                 />
-              </div>
-              <div className="continue-details">
-                <h3>{course.nextLesson}</h3>
-                <p className="creator-name">{course.title}</p>
-                <p className="course-meta">
-                  {course.lesson}
-                  <span aria-hidden="true"> · </span>
-                  {course.remaining}
-                </p>
-                <progress
-                  max={100}
-                  value={course.progress}
-                  aria-label={`${course.title}: sample completion`}
-                >
-                  {course.progress}%
-                </progress>
-                <span className="progress-label">
-                  {course.progress}% complete
+              </span>
+              <span className="short-copy">
+                <span className="short-title">{course.title}</span>
+                <span className="creator-name">
+                  {course.creator} · {course.duration}
                 </span>
-              </div>
-              <button
-                className="resume-button"
-                type="button"
-                disabled
-                aria-label={`Resume ${course.title}: unavailable in preview`}
-              >
-                <Play aria-hidden="true" />
-                <span>Soon</span>
-              </button>
-            </article>
+              </span>
+              <Info size={17} aria-hidden="true" />
+            </CourseInfo>
           </li>
         ))}
       </ul>
     </section>
   );
 }
-
-const picks = [
-  {
-    artwork: "editorial-curiosity.svg",
-    theme: "curiosity",
-    cover: (
-      <>
-        Everyday
-        <br />
-        AI.
-      </>
-    ),
-    label: "Everyday AI",
-    title: "Small skills. New possibilities.",
-    description: "A thoughtful introduction to a changing world.",
-  },
-  {
-    artwork: "strength.jpg",
-    theme: "strength",
-    cover: (
-      <>
-        Strength,
-        <br />
-        for life.
-      </>
-    ),
-    label: "Start with the foundations",
-    title: "Make room for movement",
-    description: "Good form and everyday fitness, at your own pace.",
-  },
-  {
-    artwork: "editorial-begin.svg",
-    theme: "begin",
-    cover: (
-      <>
-        Start
-        <br />
-        something.
-      </>
-    ),
-    label: "From idea to action",
-    title: "Your next chapter",
-    description: "Put that idea to work. Build a small business.",
-  },
-  {
-    artwork: "perspective.jpg",
-    theme: "perspective",
-    cover: (
-      <>
-        Look
-        <br />
-        again.
-      </>
-    ),
-    label: "See things differently",
-    title: "A little creative curiosity",
-    description: "Find a fresh perspective in the everyday.",
-  },
-  {
-    artwork: "editorial-money.svg",
-    theme: "money",
-    cover: (
-      <>
-        Money,
-        <br />
-        made clear.
-      </>
-    ),
-    label: "Build your understanding",
-    title: "Money, made clearer",
-    description: "Learn the fundamentals. Leave the hype behind.",
-  },
-];
-
-function FeaturedPicks() {
+function Topics() {
   return (
     <section
-      id="featured"
-      className="home-section featured-section"
-      aria-label="Top Picks for You"
+      id="topics"
+      className="home-section"
+      aria-labelledby="topics-heading"
     >
-      <ContentShelf title="Top Picks for You" variant="editorial">
-        {picks.map((pick, index) => (
-          <li key={pick.theme}>
-            <article className={`editorial-card editorial-${pick.theme}`}>
+      <div className="section-heading">
+        <h2 id="topics-heading">Follow your curiosity</h2>
+        <span className="section-note">Explore subjects</span>
+      </div>
+      <ul className="topic-grid">
+        {subjects.map((subject) => (
+          <li key={subject.id}>
+            <Link
+              href={`#${subject.id}`}
+              className={`topic-card topic-${subject.id}`}
+            >
               <Image
-                src={`/artwork/${pick.artwork}`}
+                src={`/covers/${subject.artwork}`}
                 alt=""
                 fill
-                sizes="(max-width: 767px) 280px, 265px"
-                preload={index === 0}
+                sizes="(max-width: 767px) 50vw, 220px"
               />
-              <span className="editorial-brand" aria-hidden="true">
-                Courses
+              <span>
+                {subject.label}
+                <ArrowRight size={18} aria-hidden="true" />
               </span>
-              {pick.cover && (
-                <div className="editorial-cover-type" aria-hidden="true">
-                  {pick.cover}
-                </div>
-              )}
-              <div className="editorial-caption">
-                <p>{pick.label}</p>
-                <h3>{pick.title}</h3>
-                <p className="editorial-description">{pick.description}</p>
-              </div>
-            </article>
+            </Link>
           </li>
         ))}
-      </ContentShelf>
+      </ul>
     </section>
   );
 }
-
 export function HomeView({
   sample,
   empty,
@@ -252,8 +278,8 @@ export function HomeView({
           <p className="eyebrow">EMPTY CATALOG SAMPLE</p>
           <h2 id="empty-heading">Room for your next discovery.</h2>
           <p>
-            There are no courses to show in this sample state. Come back for a
-            fresh selection, or restore the preview catalog.
+            There are no courses to show in this sample state. Restore the
+            sample selection to continue exploring.
           </p>
           <Link className="primary-button" href={`/?sample=${sample}`}>
             Restore sample courses
@@ -269,54 +295,44 @@ export function HomeView({
             aria-label="Start from scratch"
           >
             <ContentShelf title="Start from scratch">
-              {courses.map((course) => (
-                <li key={course.id}>
-                  <CourseCard course={course} />
-                </li>
-              ))}
+              {starterIds.map((id) => {
+                const course = courses.find((item) => item.id === id);
+                return course ? (
+                  <li key={id}>
+                    <CourseCard course={course} />
+                  </li>
+                ) : null;
+              })}
             </ContentShelf>
           </section>
-          <section
-            id="short-courses"
-            className="home-section"
-            aria-labelledby="short-heading"
-          >
-            <div className="section-heading">
-              <h2 id="short-heading">Learn something in under an hour</h2>
-            </div>
-            <ul className="short-course-list">
-              {shortCourses.map((course) => (
-                <li key={course.title}>
-                  <article className="short-course">
-                    <div className="short-art">
-                      <Image
-                        src={`/artwork/${course.artwork}`}
-                        alt=""
-                        fill
-                        sizes="56px"
-                      />
-                    </div>
-                    <div>
-                      <h3>{course.title}</h3>
-                      <p className="creator-name">
-                        {course.creator}
-                        <span aria-hidden="true"> · </span>
-                        {course.duration}
-                      </p>
-                    </div>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <ShortCourses />
+          <Topics />
+          {subjects.map((subject) => (
+            <section
+              id={subject.id}
+              className="home-section subject-section"
+              key={subject.id}
+              aria-label={subject.heading}
+            >
+              <ContentShelf title={subject.heading}>
+                {courses
+                  .filter((course) => course.subject === subject.id)
+                  .map((course) => (
+                    <li key={course.id}>
+                      <CourseCard course={course} />
+                    </li>
+                  ))}
+              </ContentShelf>
+            </section>
+          ))}
         </>
       )}
       <footer id="preview-options" className="home-footer">
         <div>
           <p>All courses, creators and prices shown are fictional samples.</p>
           <p>
-            Course pages, lessons and destinations marked Soon are unavailable
-            in this Home-only preview.
+            Course information opens on Home. Lessons, enrollment, Search,
+            Library, and account features are unavailable.
           </p>
         </div>
         <div className="sample-controls">

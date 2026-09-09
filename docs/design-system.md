@@ -53,7 +53,7 @@ Check actual contrast and focus visibility; color alone cannot communicate selec
 
 | Component | Contract |
 | --- | --- |
-| CourseCard | Artwork, title, creator, one useful metadata line; real link and separate accessible save action, no nested interactive controls |
+| CourseCard | Artwork, title, creator, effort/level, and price when useful. In UI-001, the artwork button opens sample course information on Home; future detail links/save behavior belong to their assigned tasks. No nested interactive controls. |
 | ContentShelf | Heading and meaningful destination, responsive list, keyboard access; intentional horizontal shelf without whole-page overflow |
 | Curriculum / LessonRow | Ordered module/lesson identity, duration/type, preview/lock/completion and current selection; no shuffle or learner-side destructive reorder |
 | CourseAction | State-specific primary action based on server access/payment truth in integrated stages |
@@ -94,3 +94,13 @@ Ordinary desktop course captions occupy two compact lines: complete title in the
 Preview state controls live in the footer, leaving the Home heading uncluttered. Desktop shelf controls sit at the artwork edges, appear on hover or keyboard focus and hide at disabled ends; mobile/coarse-pointer controls remain visible. Enabled controls still accept the first pointer interaction, are reachable by keyboard, and respect reduced motion. These are behavior requirements, not permission to hide a working action from touch users.
 
 The local reference comparison and disclosed region measurements are in `evidence/ui-001-fidelity/`. They show an improvement over b731fff, not a zero-difference whole-image result or owner approval. Do not restore the previous marketing-banner composition or treat the old screenshot sets as the current baseline.
+
+## Current UI-001 course-content pass — 2026-09-09
+
+The latest Home preserves the portrait/square shelf composition but replaces the active placeholder posters with credited, locally served photographs and course-cover typography. The first editorial can use display type; other imagery should remain legible and varied rather than repeating the same slogan treatment. Keep ordinary course captions outside the cover. Title, creator, effort/level and explicitly labeled sample price make the cards useful for learning decisions; this metadata intentionally uses more vertical space than an album caption.
+
+Editorial collections and subject tiles are links to implemented Home shelves. Browse and the five subject rail entries are active only as Home anchors. Course-cover and short-course buttons open a named, dismissible information dialog with fictional outcomes and facts. This is a Home disclosure, not the completed course-detail route or curriculum/preview workflow. Use the existing Radix Dialog for focus/Escape/return behavior; do not fake an enrollment or playback action.
+
+Continue learning stays first for the returning sample, with honest lesson-unavailable copy. The preview options remain in the footer, with access from the rail and mobile header. Labels for unimplemented Search/Library/account actions remain visible; no dead links or fake success. Keep the 390px dock clear of final content and the information dialog scrollable at 320px.
+
+Current styles are consolidated in `web/src/app/globals.css`, with artwork provenance in `web/public/covers/README.md`. `docs/evidence/ui-001-home-content/` supersedes prior captures for review. The previous pixel-region refinement notes are historical, not a requirement to strip useful course information or a claim of current pixel identity. New source-derived geometry tests coexist with actual subject navigation, card disclosure, keyboard and accessibility checks.

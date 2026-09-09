@@ -54,7 +54,7 @@ export function ContentShelf({
     <>
       <div className="section-heading">
         <h2 id={`${id}-heading`}>{title}</h2>
-        <div className="shelf-controls" aria-label={`${title} controls`}>
+        <div className="shelf-controls" role="group" aria-label={`${title} controls`}>
           <button
             className="icon-button"
             type="button"

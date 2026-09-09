@@ -40,8 +40,9 @@ export function PreviewInfo({ sample }: { sample: SampleView }) {
             saved.
           </Dialog.Description>
           <p>
-            Home is the only available destination. Course details, lessons,
-            search, your library and account will follow in separate slices.
+            Browse subjects and open course information without leaving Home.
+            Course-detail pages, lessons, enrollment, Search, Library, and
+            account features are not available in this preview.
           </p>
           <div className="preview-states">
             <h3>Review a Home state</h3>
@@ -63,9 +64,10 @@ export function PreviewInfo({ sample }: { sample: SampleView }) {
             </a>
           </div>
           <p className="asset-note">
-            Original illustrated covers for this preview. Photography: Ivan
-            Pergasi and Ricardo Gomez Angel / Unsplash. Pictured subjects are
-            not the fictional instructors.
+            Photography is licensed via Unsplash. Exact photographer credits and
+            source links are recorded with the local assets. People pictured are
+            not the fictional instructors and do not endorse these sample
+            courses.
           </p>
         </Dialog.Content>
       </Dialog.Portal>

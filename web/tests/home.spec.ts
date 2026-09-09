@@ -2,18 +2,34 @@ import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
-const evidence = path.resolve("../docs/evidence/ui-001-fidelity");
+const evidence = path.resolve("../docs/evidence/ui-001-home-content");
 async function imagesReady(page: Page) {
-  // Document load can precede streamed Home content.
   await expect(page.locator(".editorial-card").first()).toBeVisible();
-  await page.evaluate(async () => {
-    await Promise.all(
-      [...document.images].map((image) => {
-        image.loading = "eager";
-        return image.decode();
-      }),
-    );
+  await page.evaluate(() => {
+    for (const image of document.images) image.loading = "eager";
   });
+  await expect
+    .poll(
+      () =>
+        page
+          .locator("img")
+          .evaluateAll((images) =>
+            images
+              .filter(
+                (image) =>
+                  !(image instanceof HTMLImageElement) ||
+                  !image.complete ||
+                  image.naturalWidth === 0,
+              )
+              .map((image) => image.getAttribute("src")),
+          ),
+      {
+        timeout: 20_000,
+        message: "Every local image should load successfully",
+      },
+    )
+    .toEqual([]);
+  await page.evaluate(() => document.fonts.ready);
 }
 async function noOverflow(page: Page) {
   expect(
@@ -73,6 +89,24 @@ test("visitor and returning learner render with local images and no runtime erro
   ).toBeDisabled();
   await expect(page.getByRole("progressbar")).toHaveCount(2);
   await imagesReady(page);
+  // The hash targets main, below the mobile header, with CSS scroll padding.
+  // Verify that navigation settles at that real target before normalizing the capture.
+  await expect
+    .poll(() =>
+      page.locator("#main-content").evaluate((element) => {
+        const padding =
+          parseFloat(
+            getComputedStyle(document.documentElement).scrollPaddingTop,
+          ) || 0;
+        const target = Math.max(
+          0,
+          element.getBoundingClientRect().top + scrollY - padding,
+        );
+        return Math.abs(scrollY - target);
+      }),
+    )
+    .toBeLessThan(2);
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
   await noOverflow(page);
   await page.screenshot({
     path: path.join(evidence, `learner-${info.project.name}.png`),
@@ -371,8 +405,12 @@ test("reference header stays quiet and preview controls remain reachable", async
   if (info.project.name === "desktop") {
     const heading = await page.locator("#short-heading").boundingBox();
     expect(heading).not.toBeNull();
-    // VIS-07 third-shelf heading region begins around y=860 after normalization.
-    expect(Math.abs((heading?.y ?? 0) - 860)).toBeLessThan(2);
+    // Course metadata adds useful information beyond the music two-line caption.
+    // Keep the compact discovery rows after the main course shelf.
+    expect(heading?.y).toBeGreaterThan(780);
+    await expect(
+      page.locator("#short-courses .short-course-trigger"),
+    ).toHaveCount(6);
     await expect(page.locator(".desktop-rail")).toHaveCSS(
       "background-color",
       "rgb(249, 249, 251)",
@@ -418,4 +456,145 @@ test("desktop shelf controls reveal on keyboard focus; mobile keeps them visible
   await page.screenshot({
     path: path.join(evidence, `shelf-keyboard-${info.project.name}.png`),
   });
+});
+
+test("editorial collections and topic cards navigate to real Home shelves", async ({
+  page,
+}) => {
+  await page.goto("/");
+  for (const [subject, label] of [
+    ["ai-coding", "AI & coding"],
+    ["fitness", "Fitness"],
+    ["business", "Business"],
+    ["creative", "Creative skills"],
+    ["finance", "Finance education"],
+  ]) {
+    await page
+      .getByRole("link", {
+        name: `Explore ${label} courses on Home`,
+        exact: true,
+      })
+      .click();
+    await expect(page).toHaveURL(new RegExp(`#${subject}$`));
+    await expect(page.locator(`#${subject} .course-card`)).toHaveCount(4);
+    // Native anchors stop at the document end. The last shelf must be fully
+    // reachable, not padded with a blank viewport just to force top alignment.
+    await expect
+      .poll(() =>
+        page.locator(`#${subject}`).evaluate((element) => {
+          const top = element.getBoundingClientRect().top;
+          const maximumScroll =
+            document.documentElement.scrollHeight - innerHeight;
+          const atDocumentEnd = Math.abs(scrollY - maximumScroll) < 2;
+          const dock = document.querySelector(".mobile-dock");
+          const dockHeight = dock ? dock.getBoundingClientRect().height : 0;
+          return (
+            top >= 0 &&
+            (top < 100 ||
+              (atDocumentEnd && top < innerHeight - dockHeight - 60))
+          );
+        }),
+      )
+      .toBe(true);
+    await expect(page.locator(`#${subject} h2`)).toBeInViewport();
+  }
+  await page
+    .locator("#topics")
+    .getByRole("link", { name: "Creative skills", exact: true })
+    .click();
+  await expect(page).toHaveURL(/#creative$/);
+  await expect(page.locator("#creative h2")).toHaveText(
+    "See what you can make",
+  );
+});
+
+test("Home course information shows useful sample facts with keyboard dismissal", async ({
+  page,
+}, info) => {
+  await page.goto("/");
+  const trigger = page.locator("#essentials").getByRole("button", {
+    name: "Course information: Everyday AI, thoughtfully applied",
+    exact: true,
+  });
+  await trigger.click();
+  const dialog = page.getByRole("dialog");
+  await expect(
+    dialog.getByRole("heading", {
+      name: "Everyday AI, thoughtfully applied",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(dialog.getByText("$49 USD", { exact: true })).toBeVisible();
+  await expect(dialog.getByText("12 lessons", { exact: true })).toBeVisible();
+  await expect(dialog.getByText(/fictional creator/)).toBeVisible();
+  await expect(dialog.locator(".course-outcomes li")).toHaveCount(2);
+  await expect(
+    dialog.getByRole("button", { name: "Close course information" }),
+  ).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(
+    dialog.getByRole("button", { name: "Back to browsing" }),
+  ).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(
+    dialog.getByRole("button", { name: "Close course information" }),
+  ).toBeFocused();
+  await page.screenshot({
+    path: path.join(evidence, `course-info-${info.project.name}.png`),
+  });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  await page.keyboard.press("Escape");
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+  await noOverflow(page);
+});
+
+test("free sample information is not enrollment or fake persistence", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await page
+    .locator("#short-courses")
+    .getByRole("button", {
+      name: "Course information: A better brief, a better AI answer",
+      exact: true,
+    })
+    .click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.getByText("Free", { exact: true })).toBeVisible();
+  await expect(
+    dialog.getByText(/Lessons, enrollment, and purchases are not available/),
+  ).toBeVisible();
+  await expect(
+    dialog.getByRole("button", { name: /buy|enroll|play lesson/i }),
+  ).toHaveCount(0);
+  await dialog.getByRole("button", { name: "Back to browsing" }).click();
+  await expect(dialog).toHaveCount(0);
+  expect(await context.cookies()).toEqual([]);
+  expect(await page.evaluate(() => localStorage.length)).toBe(0);
+});
+
+test("course information remains scrollable and dismissible at 320px", async ({
+  page,
+}, info) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto("/");
+  await page
+    .locator("#essentials")
+    .getByRole("button", {
+      name: "Course information: Photography: a different way to see",
+      exact: true,
+    })
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page
+    .getByRole("button", { name: "Back to browsing" })
+    .scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: path.join(evidence, `course-info-320-${info.project.name}.png`),
+  });
+  await page.getByRole("button", { name: "Back to browsing" }).click();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await noOverflow(page);
 });
