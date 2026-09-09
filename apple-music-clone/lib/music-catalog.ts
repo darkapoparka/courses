@@ -20,7 +20,7 @@ export type Track = {
   id: string; title: string; artist: string; album: string; duration: number;
   art: Artwork; explicit?: boolean; unavailable?: boolean;
 };
-export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string };
+export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string; background?: string; portrait?: Artwork; plain?: boolean };
 export const albumTitle = "you seem pretty sad for a girl so in love";
 export const albumArt = crop("b620e4ab", 286, 42, 256, 256);
 export const sourArt = crop("e757eb0f", 514, 305, 207, 207);
@@ -46,7 +46,7 @@ const viralRows: [string, string, boolean?][] = [
 ];
 export const viralTracks: Track[] = viralRows.map(([title, artist, explicit], i) => ({
   id: i === 0 ? "album-2" : `viral-${i}`, title, artist, album: i === 0 ? albumTitle : title,
-  duration: i === 0 ? 209 : 180 + i * 7, explicit,
+  duration: i === 0 ? 209 : 0, explicit,
   art: i === 0 ? albumArt : crop("e72be564", [286, 665, 1043][Math.floor(i / 4)]!, 564 + (i % 4) * 52.3, 37, 37),
 }));
 const libraryRows: [string, string, string, number][] = [
@@ -63,7 +63,23 @@ export const libraryTracks: Track[] = libraryRows.map(([title, artist, album, du
   id: i === 5 ? "album-2" : `library-${i}`, title, artist, album, duration,
   art: i === 5 ? albumArt : crop("92589389", 286, 66 + i * 42, 34, 34),
 }));
-export const allTracks = [...new Map([...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
+/** Direct transcription of the 15 visible cards in source 8a234785. */
+const chartRows: [string, string, boolean?][] = [
+  ["stupid song", "Olivia Rodrigo"], ["I Knew It, I Knew You", "Taylor Swift"],
+  ["hate that i made you love me", "Ariana Grande"], ["Spend Dat", "Yung Miami", true],
+  ["Billie Jean", "Michael Jackson"], ["Shabang", "Drake", true],
+  ["Mexico Honey", "Kacey Musgraves", true], ["Amazing Shape", "Drake, Popcaan", true],
+  ["Lush Life", "Zara Larsson"], ["White Keys", "Dominic Fike"],
+  ["YUKON", "Justin Bieber"], ["Raindance", "Dave, Tems"],
+  ["Dracula", "Tame Impala"], ["What You Saying", "Lil Uzi Vert", true],
+  ["Dracula (JENNIE Remix)", "Tame Impala, JENNIE", true],
+];
+export const chartTracks: Track[] = chartRows.map(([title, artist, explicit], i) => ({
+  id: i === 0 ? "album-2" : i < 12 ? `viral-${i}` : `chart-${i}`,
+  title, artist, album: i === 0 ? albumTitle : title, duration: i === 0 ? 209 : 0, explicit,
+  art: crop("8a234785", 286 + (i % 5) * 227, 101 + Math.floor(i / 5) * 274, 207, 207),
+}));
+export const allTracks = [...new Map([...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
 export function trackById(id: string) { return allTracks.find((track) => track.id === id); }
 export function formatTime(value: number) {
   const seconds = Math.max(0, Math.floor(Number.isFinite(value) ? value : 0));
@@ -95,8 +111,22 @@ const categoryNames = ["Apple Music Radio", "Concerts", "Apple Music Live", "K-P
 export const categories: Card[] = categoryNames.map((title, i) => ({
   id: `category-${i}`, title,
   destination: i === 1 ? "concerts" : i === 6 ? "replay" : i === 7 ? "chart" : i < 3 ? "radio" : `category:${title}`,
-  art: crop("035569a0", 286 + (i % 4) * 284, 246 + Math.floor(i / 4) * 168, 264, 147),
+  art: crop("035569a0", 286 + (i % 4) * 284, 246 + Math.floor(i / 4) * 168, 264, 148),
+  // The fourth row is covered by the captured floating player. Reuse only
+  // its unobscured portrait, not the player controls baked into the source.
+  ...(i >= 12 ? { portrait: crop("035569a0", 286 + (i % 4) * 284, 750, 264, 78), background: ["#007986", "#00812e", "#f44b7a", "#ff003a"][i % 4] } : {}),
 }));
+// These mood covers are only partially captured; preserve their named slots
+// without substituting unrelated album artwork. Their full artwork is unverified.
+categories.push(...["Feel Good", "Love", "Motivation", "Party"].map((title, i): Card => ({
+  id: `mood-${i}`, title, destination: `category:${title}`, plain: true,
+  background: ["#ead2bd", "#d9decf", "#cfb8c0", "#d39aaf"][i],
+  art: crop("812ba627", 286 + i * 284, 0, 264, 28),
+})));
+categories.push(...["Wellbeing", "Fitness", "Kids", "Music Videos", "Alternative", "Rock", "Dance", "Electronic", "Country", "Tamil", "Bollywood", "Jazz", "Mandopop"].map((title, i): Card => ({
+  id: `more-category-${i}`, title, destination: title === "Music Videos" ? "videos" : `category:${title}`,
+  art: crop("812ba627", 286 + (i % 4) * 284, 47 + Math.floor(i / 4) * 168, 264, 148),
+})));
 export const libraryCovers: Card[] = [
   ["Unknown Album", "Taylor Swift", "video"], ["Lover", "Taylor Swift", "album"],
   ["Unknown Album", "Sabrina Carpenter", "video"], ["Unknown Album", "Olivia Rodrigo", "video"],
@@ -111,7 +141,7 @@ export const radioStations: Card[] = ["1", "Hits", "Country", "Música Uno", "Cl
   id: `station-${i}`, title: `Apple Music ${name}`, destination: `station:${i}`,
   art: crop("4cb8f3aa", 286 + i * 190, 148, 169, 169),
 }));
-export const artistHero = crop("484851bf", 246, 0, 1190, 465);
+export const artistHero = crop("484851bf", 246, 0, 1190, 400);
 export const emotionalArt = crop("a573d1ab", 286, 42, 256, 256);
 export const favouriteArt = crop("bde65d33", 286, 42, 256, 256);
 export const videoArt = crop("a4afd6e6", 0, 40, 1440, 751);

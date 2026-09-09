@@ -9,6 +9,21 @@ export type GlyphName = IconName | "apple" | "new" | "recent" | "artist" | "albu
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "chevron": return <svg {...common}><path d="m9 5 7 7-7 7" /></svg>;
+    case "down": return <svg {...common}><path d="m5 9 7 7 7-7" /></svg>;
+    case "back": return <svg {...common}><path d="m15 5-7 7 7 7" /></svg>;
+    case "home": return <svg {...common}><path d="m3 10 9-7 9 7v11H3V10Z" /><path d="M9 21v-8h6v8" /></svg>;
+    case "recent": return <svg {...common}><path d="M3.5 7A9 9 0 1 1 3 16M3 3v5h5M12 6v6H8" /></svg>;
+    case "artist": return <svg {...common}><rect x="9" y="2" width="6" height="12" rx="3" transform="rotate(35 12 8)" /><path d="m8 12-6 8M9 15l-1 6M4 16l6 4" /></svg>;
+    case "albums": return <svg {...common}><path d="M7 2h10M5 5h14" /><rect x="4" y="8" width="16" height="14" rx="2" /></svg>;
+    case "song": return <svg {...common} fill="currentColor" stroke="none"><path d="M11 4v12.5a4 3.2 0 1 0 2 2.8V8l6-1V2Z" /></svg>;
+    case "video": return <svg {...common}><rect x="2" y="3" width="20" height="15" rx="2" /><path d="M8 22h8M12 18v4M11 8v6l5-1V6l-5 1M11 14c-4-1-4 3-1 2" /></svg>;
+    case "playlists": return <svg {...common}>{[3,10,17].flatMap(x=>[3,10,17].map(y=><rect key={`${x}-${y}`} x={x} y={y} width="4" height="4" rx=".8" />))}</svg>;
+    case "playlist": return <svg {...common}><path d="M3 5h10M3 9h10M3 13h7M3 17h6M17 6v13l5-1V4Z" /><ellipse cx="14.5" cy="19" rx="3" ry="2" fill="currentColor" /></svg>;
+    case "previous": return <svg {...common} fill="currentColor" stroke="none"><path d="M12 4v7L22 4v16l-10-7v7L1 12Z" /></svg>;
+    case "next": return <svg {...common} fill="currentColor" stroke="none"><path d="M12 4v7L2 4v16l10-7v7l11-8Z" /></svg>;
+    case "play": return <svg {...common} fill="currentColor" stroke="none"><path d="M6.7 3.7C6 3.2 5 3.7 5 4.6v14.8c0 .9 1 1.4 1.7.9l12-7.4a1 1 0 0 0 0-1.8Z" /></svg>;
+    case "pause": return <svg {...common} fill="currentColor" stroke="none"><rect x="5" y="3" width="5" height="18" rx="1.2" /><rect x="14" y="3" width="5" height="18" rx="1.2" /></svg>;
     case "apple": return <svg {...common} fill="currentColor" stroke="none"><path d="M16.5 2c.2 2-1.2 4-3.5 4-.2-1.8 1.5-3.7 3.5-4ZM19.5 7.7c-3 2-2.8 5.9.3 7.6-1 2.6-2.6 5.9-4.7 5.9-1.3 0-1.8-.9-3.5-.9-1.8 0-2.3.9-3.6.9-2.3 0-5.2-4.5-5.2-8.6 0-3.7 2.2-6.2 4.8-6.2 1.5 0 2.8 1 4 1 1.1 0 2.8-1.1 4.3-1.1 1.5 0 2.7.5 3.6 1.4Z" /></svg>;
     case "new": return <svg {...common}>{[[4,4],[14,4],[4,14],[14,14]].map(([x,y])=><rect key={`${x}-${y}`} x={x} y={y} width="6" height="6" rx="1" />)}</svg>;
     case "star": return <svg {...common}><path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" /></svg>;
@@ -22,10 +37,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "expand": return <svg {...common}><path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6" /></svg>;
     case "mail": return <svg {...common}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 5 10 8L22 5M2 20l7-9m13 9-7-9" /></svg>;
     case "muted": return <svg {...common}><path d="M3 9h4l5-5v16l-5-5H3V9Z" /><path d="m16 9 6 6m0-6-6 6" /></svg>;
-    default: {
-      const aliases: Partial<Record<GlyphName, IconName>> = { recent: "clock", artist: "user", albums: "disc", song: "music", person: "user", playlists: "playlist", down: "chevron", back: "arrow-left" };
-      return <Icon name={aliases[name] ?? name as IconName} size={size} />;
-    }
+    default: return <Icon name={(name === "person" ? "user" : name) as IconName} size={size} />;
   }
 }
 /** Artwork regions only; never use a whole application screen as its interface. */

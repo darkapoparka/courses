@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Scene } from "../lib/music-scenes";
-import { videoArt } from "../lib/music-catalog";
+import { videoArt, trackById } from "../lib/music-catalog";
+import { sourcePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
 import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
 import { AlbumView, ArtistView, CategoryView, ChartView, HomeView, LibraryView, NewView, RadioView, ScheduleView, SearchView } from "./music-browse";
@@ -58,18 +59,21 @@ function MusicShell() {
   const main = useRef<HTMLElement>(null);
   const [mobileNav, setMobileNav] = useState(false);
   const zh = m.library.locale === "zh";
+  const [fixturePlaylists] = useState(() => !m.scene.source || sourcePlaylistNavigation.has(m.scene.source));
+  const showPlaylists = fixturePlaylists || m.library.playlists.length > 1;
+  const activePage = ["album", "artist", "chart", "credits"].includes(m.scene.page) ? "new" : ["concerts", "concert", "nearby", "replay", "milestones", "milestone", "category"].includes(m.scene.page) ? "search" : m.scene.page === "schedule" ? "radio" : m.scene.page;
   const go = (destination: string) => { m.go(destination); setMobileNav(false); };
   useEffect(() => {
     const element = main.current; if (!element) return;
     const frame = requestAnimationFrame(() => {
       if (m.scene.scroll) {
         const target = document.getElementById(m.scene.scroll);
-        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - 24 });
+        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - (m.scene.source?.startsWith("812ba627") ? 47 : 24) });
       } else if (m.scene.source) element.scrollTo({ top: 0 });
     });
     return () => cancelAnimationFrame(frame);
   }, [m.scene.source, m.scene.scroll, m.scene.page]);
-  const navigation = (page: string, label: string, icon: GlyphName, nested = false) => <button type="button" key={page} className={`sidebar-row ${nested ? "nested-row" : ""}`} aria-current={m.scene.page === page ? "page" : undefined} onClick={() => go(page)}><Glyph name={icon} size={17} /><span>{label}</span></button>;
+  const navigation = (page: string, label: string, icon: GlyphName) => <button type="button" key={page} className="sidebar-row" aria-current={activePage === page ? "page" : undefined} onClick={() => go(page)}><Glyph name={icon} size={17} /><span>{label}</span></button>;
   return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""}`} data-scene={m.scene.page} data-source={m.scene.source}>
     <a className="skip-link" href="#music-main">Skip to content</a>
     <header className="mobile-header"><IconButton icon="queue" label="Open navigation" aria-expanded={mobileNav} aria-controls="music-sidebar" onClick={() => setMobileNav(!mobileNav)} /><button type="button" className="brand" onClick={() => go("new")}><Glyph name="apple" size={25} />Music</button><IconButton icon="person" label="Account" onClick={event => m.scene.guest ? m.patch({ overlay: "signin" }) : m.openMenu("profile", event)} /></header>
@@ -82,11 +86,11 @@ function MusicShell() {
           <div className="sidebar-section-label"><span>{zh ? "资料库" : "Library"}</span><button type="button" onClick={() => m.patch({ editingNav: !m.scene.editingNav })}>{m.scene.editingNav ? "Done" : "Edit"}</button></div>
           <nav aria-label="Music library">{libraryItems.map(([page, label, icon, chinese]) => m.scene.editingNav ? <label className="sidebar-row editable-row" key={page}><input type="checkbox" aria-label={`Show ${label}`} checked={!m.library.hiddenNav.includes(page)} onChange={() => m.setLibrary(data => ({ ...data, hiddenNav: data.hiddenNav.includes(page) ? data.hiddenNav.filter(id => id !== page) : [...data.hiddenNav, page] }))} /><Glyph name={icon} size={17} /><span>{zh ? chinese : label}</span></label> : !m.library.hiddenNav.includes(page) ? navigation(page, zh ? chinese : label, icon) : null)}</nav>
           <div className="sidebar-section-label"><span>{zh ? "播放列表" : "Playlists"}</span><IconButton icon="plus" label="Create playlist" onClick={() => m.patch({ overlay: "new-playlist" })} /></div>
-          <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{m.scene.namedProfile && <>{navigation("favourites", zh ? "喜爱的歌曲" : "Favourite Songs", "playlist")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><Glyph name="playlist" size={17} /><span>{playlist.name}</span></button>)}</>}</nav>
-          {m.library.pinned.length > 0 && <><div className="sidebar-section-label"><span>Pinned</span></div>{m.library.pinned.map(id => <button type="button" className="sidebar-row" key={id} onClick={() => m.play(id)}><Glyph name="pin" size={16} /><span>{id === "album-2" ? "stupid song" : "Pinned song"}</span></button>)}</>}
+          <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{showPlaylists && <>{navigation("favourites", zh ? "喜爱的歌曲" : "Favourite Songs", "playlist")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><Glyph name="playlist" size={17} /><span>{playlist.name}</span></button>)}</>}</nav>
+          {m.library.pinned.length > 0 && <><div className="sidebar-section-label"><span>Pinned</span></div>{m.library.pinned.map(id => <button type="button" className="sidebar-row" key={id} onClick={() => m.play(id)}><Glyph name="pin" size={16} /><span>{trackById(id)?.title ?? "Pinned song"}</span></button>)}</>}
         </>}
       </div>
-      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><Glyph name="external" size={12} /><span>Open in Music</span><Glyph name="chevron" size={11} /></a>{m.scene.guest ? <button type="button" className="sidebar-signin" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person" size={13} />Sign In</button> : <button type="button" className="profile-button" onClick={event => m.openMenu("profile", event)} aria-label="Account menu"><span className="profile-avatar"><Glyph name="person" size={18} /></span>{m.scene.namedProfile && <span>Smith Alex</span>}</button>}</div>
+      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><Glyph name="external" size={12} /><span>Open in Music</span><Glyph name="chevron" size={11} /></a>{m.scene.guest ? <button type="button" className="sidebar-signin" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person" size={13} />Sign In</button> : <button type="button" className="profile-button" onClick={event => m.openMenu("profile", event)} aria-label="Account menu"><span className="profile-avatar"><Glyph name="person" size={18} /></span>{m.scene.namedProfile && <span>SmithAlex</span>}</button>}</div>
     </aside>
     <main id="music-main" ref={main} className="music-main" tabIndex={-1}><Content /></main>
     {!m.scene.expanded && !m.scene.video && <><Player /><PlayerPanel /></>}

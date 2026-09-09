@@ -5,10 +5,11 @@ import { allTracks, libraryTracks, trackById, viralTracks, type Track } from "..
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
-export type LibraryState = { version: 1; favourites: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean };
+export type LibraryState = { version: 1; favourites: string[]; favouriteArtists: string[]; discouraged: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean };
 const known = new Set(allTracks.map((track) => track.id));
+const knownArtists = new Set(allTracks.flatMap(track => track.artist.split(", ")));
 const initialLibrary: LibraryState = {
-  version: 1, songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "album-2", "library-7"], pinned: [],
+  version: 1, favouriteArtists: [], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "album-2", "library-7"], pinned: [],
   playlists: [{ id: "emotional", name: "Emotional Songs", description: "", tracks: ["album-2", "album-3", "library-3"], public: false }],
   hiddenNav: [], locale: "en", restrictions: false, cancelled: false,
 };
@@ -16,7 +17,7 @@ function strings(value: unknown): string[] { return Array.isArray(value) ? [...n
 export function readLibrary(value: unknown): LibraryState | null {
   if (!value || typeof value !== "object" || !("version" in value) || value.version !== 1) return null;
   const row = value as Record<string, unknown>;
-  return { version: 1, songs: strings(row.songs), favourites: strings(row.favourites), pinned: strings(row.pinned),
+  return { version: 1, favouriteArtists: Array.isArray(row.favouriteArtists) ? row.favouriteArtists.filter((name): name is string => typeof name === "string" && knownArtists.has(name)) : [], discouraged: strings(row.discouraged), songs: strings(row.songs), favourites: strings(row.favourites), pinned: strings(row.pinned),
     playlists: Array.isArray(row.playlists) ? row.playlists.slice(0, 100).flatMap((item: unknown) => {
       if (!item || typeof item !== "object") return [];
       const p = item as Record<string, unknown>;
@@ -37,6 +38,7 @@ export type Controller = {
   queue: string[]; setQueue: Dispatch<SetStateAction<string[]>>;
   play: (track: Track | string) => void; togglePlayback: () => void; skip: (direction: number) => void;
   audio: RefObject<HTMLAudioElement | null>; loadMedia: (file: File) => Promise<void>; mediaName: string;
+  favouriteArtist: (name: string) => void; suggestLess: (id: string) => void;
   favourite: (id: string) => void; addToLibrary: (id: string) => void; pin: (id: string) => void;
   openMenu: (menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => void;
   menuTrack: Track; menuPosition: { x: number; y: number } | null;
@@ -70,13 +72,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const messageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const audio = useRef<HTMLAudioElement>(null);
   const media = useRef(new Map<string, { url: string; name: string }>());
+  const history = useRef<string[]>([]);
   const storageWarning = useRef(false);
   const notify = useCallback((text: string) => { if (messageTimer.current) clearTimeout(messageTimer.current); setMessage(text); messageTimer.current = setTimeout(() => setMessage(""), 4500); }, []);
   const patch = useCallback((changes: Partial<Scene>) => setScene((current) => ({ ...current, source: undefined, scroll: undefined, ...changes })), []);
 
   useEffect(() => {
     if (!referenceSession.current) {
-      try { const raw = localStorage.getItem("music-reference-library-v1"); const parsed = raw ? readLibrary(JSON.parse(raw)) : null; if (parsed) setLibrary(parsed); } catch { /* Invalid or blocked storage never prevents the app rendering. */ }
+      try { const raw = localStorage.getItem("music-reference-library-v1"); const parsed = raw ? readLibrary(JSON.parse(raw)) : null; if (parsed) setLibrary(parsed); } catch { /* Invalid or blocked storage never prevents rendering. */ }
     }
     setHydrated(true);
     return () => { if (messageTimer.current) clearTimeout(messageTimer.current); for (const item of media.current.values()) URL.revokeObjectURL(item.url); };
@@ -103,26 +106,31 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     window.history.pushState({}, "", sceneUrl(next));
     document.getElementById("music-main")?.scrollTo({ top: 0 });
   }, [scene.guest, patch, notify]);
-  const play = useCallback((target: Track | string) => {
+  const play = useCallback((target: Track | string, remember = true) => {
     const id = typeof target === "string" ? target : target.id;
     const track = trackById(id);
     if (track?.unavailable) { notify("This track is unavailable in the saved catalog."); return; }
     const element = audio.current;
+    if (remember && activeId && activeId !== id) history.current = [...history.current, activeId].slice(-100);
     element?.pause(); setActiveId(id); setSnapshot(false); updateElapsed(0); updateDuration(0);
     const local = media.current.get(id);
     if (!element || !local) { setRealPlaying(false); patch({ overlay: "media", menu: null }); return; }
     element.src = local.url; element.volume = volume; element.muted = muted; setMediaName(local.name);
     void element.play().catch(() => notify("Playback could not start. Try another supported audio file."));
-  }, [muted, volume, notify, patch]);
+  }, [muted, volume, notify, patch, activeId]);
   const togglePlayback = useCallback(() => {
     if (realPlaying) { audio.current?.pause(); return; }
     play(activeId ?? "album-2");
   }, [realPlaying, activeId, play]);
   const skip = useCallback((direction: number) => {
-    const ids = [activeId ?? "album-2", ...queue];
-    const index = direction < 0 ? ids.length - 1 : shuffle ? 1 + Math.floor(Math.random() * Math.max(1, queue.length)) : 1;
-    const id = ids[index];
-    if (id) { setQueue((current) => [...current.filter((value) => value !== id), ...(activeId ? [activeId] : [])]); play(id); }
+    if (direction < 0) {
+      const previous = history.current.pop();
+      if (previous) { setQueue(current => [...(activeId ? [activeId] : []), ...current.filter(id => id !== previous && id !== activeId)]); play(previous, false); }
+      else if (audio.current?.src) { audio.current.currentTime = 0; updateElapsed(0); }
+      return;
+    }
+    const next = queue[shuffle ? Math.floor(Math.random() * queue.length) : 0];
+    if (next) { setQueue(current => current.filter(id => id !== next)); play(next); }
   }, [activeId, queue, shuffle, play]);
   useEffect(() => {
     const element = audio.current; if (!element) return;
@@ -130,11 +138,18 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     const started = () => { setRealPlaying(true); setSnapshot(false); };
     const stopped = () => setRealPlaying(false);
     const failed = () => { setRealPlaying(false); notify("This media could not be decoded. Choose another local file."); };
-    const ended = () => { setRealPlaying(false); if (queue.length) skip(1); };
+    const ended = () => {
+      setRealPlaying(false);
+      if (queue.length) skip(1);
+      else if (scene.autoplay) {
+        const next = allTracks.find(track => track.id !== activeId && !track.unavailable && !library.discouraged.includes(track.id) && (!library.restrictions || !track.explicit));
+        if (next) play(next);
+      }
+    };
     element.addEventListener("timeupdate", time); element.addEventListener("durationchange", time);
     element.addEventListener("play", started); element.addEventListener("pause", stopped); element.addEventListener("error", failed); element.addEventListener("ended", ended);
     return () => { element.removeEventListener("timeupdate", time); element.removeEventListener("durationchange", time); element.removeEventListener("play", started); element.removeEventListener("pause", stopped); element.removeEventListener("error", failed); element.removeEventListener("ended", ended); };
-  }, [notify, queue.length, skip]);
+  }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions]);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
       if (event.target instanceof Element && event.target.closest("input, textarea, select, button, a, dialog, [contenteditable=true]")) return;
@@ -161,6 +176,8 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     else setMenuPosition(null);
     patch({ menu, overlay: null });
   }, [patch]);
+  const favouriteArtist = (name: string) => { if (!knownArtists.has(name)) { notify("This artist is not in the saved catalog."); return; } setLibrary(current => ({ ...current, favouriteArtists: toggle(current.favouriteArtists, name) })); };
+  const suggestLess = (id: string) => { if (!known.has(id)) return; setLibrary(current => ({ ...current, discouraged: toggle(current.discouraged, id) })); notify(library.discouraged.includes(id) ? "Song restored to local recommendations." : "This song is hidden from local recommendations."); };
   const favourite = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, favourites: toggle(current.favourites, id) })); };
   const addToLibrary = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, songs: toggle(current.songs, id) })); };
   const pin = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, pinned: toggle(current.pinned, id) })); };
@@ -168,6 +185,6 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     elapsed, duration, setElapsed: (time) => { if (audio.current && duration > 0) { audio.current.currentTime = Math.max(0, Math.min(duration, time)); updateElapsed(audio.current.currentTime); } },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
     shuffle, setShuffle, repeat, setRepeat, queue, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
-    favourite, addToLibrary, pin, openMenu, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
+    favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
   return <Context.Provider value={value}><audio ref={audio} preload="metadata" /><div data-reference-ready={hydrated ? "true" : "false"}>{children}</div></Context.Provider>;
 }
