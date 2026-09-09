@@ -1,3 +1,5 @@
+import type { Artwork } from "./music-catalog";
+import { playerReference } from "./player-reference";
 import { canonicalFlows, findFlow, sourceId, sourceIds, trackById } from "./music-catalog";
 
 export const pages = ["new", "home", "search", "album", "artist", "chart", "radio", "schedule", "concerts", "concert", "nearby", "replay", "milestones", "milestone", "library", "artists", "albums", "songs", "videos", "made-for-you", "playlists", "playlist", "favourites", "credits", "settings", "connected", "subscription", "category"] as const;
@@ -10,7 +12,10 @@ export type Scene = {
   source?: string;
   guest?: boolean;
   namedProfile?: boolean;
-  hero?: "default" | "superbloom" | "alpha";
+  hero?: "default" | "superbloom" | "alpha" | "listening";
+  catalog?: "legacy" | "queue";
+  elapsed?: number; lyricIndex?: number; playerArt?: Artwork;
+  librarySeed?: "empty" | "song" | "playlist"; queuePreset?: boolean;
   scroll?: string;
   scrollOffset?: number;
   overlay?: Overlay;
@@ -42,6 +47,7 @@ export type Scene = {
   hiddenNav?: string[];
   location?: string;
   dateRange?: string;
+  dateStart?: string; dateEnd?: string;
   genre?: string;
   month?: string;
   cancelled?: boolean;
@@ -122,7 +128,7 @@ const definitions: Record<string, Scene> = {
   "c9a554f4": { page: "artist", namedProfile: true, scroll: "nearby-concerts" },
   "0c042c32": { page: "artist", namedProfile: true, scroll: "about-artist" },
   "9105a602": { page: "nearby", namedProfile: true },
-  "653efa95": { page: "nearby", namedProfile: true, scroll: "more-concerts" },
+  "653efa95": { page: "nearby", namedProfile: true, scrollOffset: 372 },
   "bc773ae9": { page: "artist", namedProfile: true, menu: "artist" },
   "f24fda77": { page: "artist", namedProfile: true, menu: "artist", filled: true },
   "898ca766": { page: "artist", namedProfile: true, scroll: "music-videos" },
@@ -136,7 +142,7 @@ const definitions: Record<string, Scene> = {
   "a0809fad": { page: "concerts", namedProfile: true },
   "70566e85": { page: "concerts", namedProfile: true, scroll: "nashville" },
   "dcafd99e": { page: "concert", namedProfile: true },
-  "4f237528": { page: "concert", namedProfile: true, scroll: "more-concerts" },
+  "4f237528": { page: "concert", namedProfile: true, scrollOffset: 214 },
   "bd89b0a1": { page: "concerts", namedProfile: true, menu: "location" },
   "1cd4d25b": { page: "concerts", namedProfile: true, menu: "location", location: "Singapore" },
   "f78d223e": { page: "concerts", namedProfile: true, menu: "location", location: "chicago" },
@@ -144,9 +150,9 @@ const definitions: Record<string, Scene> = {
   "e1069ba9": { page: "concerts", namedProfile: true, location: "Chicago, IL", overlay: "dates" },
   "b896bf23": { page: "concerts", namedProfile: true, location: "Chicago, IL", overlay: "dates", formStep: 1 },
   "e1f20d4a": { page: "concerts", namedProfile: true, location: "Chicago, IL", overlay: "dates", formStep: 1, filled: true },
-  "83bba8fd": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1–12" },
-  "99ffee15": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1–12", menu: "genres" },
-  "d6b9a1a7": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1–12", genre: "Alternative" },
+  "83bba8fd": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1 - Jul 12" },
+  "99ffee15": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1 - Jul 12", menu: "genres" },
+  "d6b9a1a7": { page: "concerts", namedProfile: true, location: "Chicago, IL", dateRange: "Jul 1 - Jul 12", genre: "R&B/Soul" },
   "f3fc07c5": { page: "replay", namedProfile: true, month: "Jul", empty: true },
   "3fed6760": { page: "replay", namedProfile: true, month: "May" },
   "b67b8895": { page: "replay", namedProfile: true, month: "May", scroll: "top-albums" },
@@ -216,7 +222,7 @@ const definitions: Record<string, Scene> = {
   "e027fe6d": { ...base, namedProfile: true },
 };
 export const screenScenes: Readonly<Record<string, Scene>> = Object.fromEntries(
-  Object.entries(definitions).map(([prefix, scene]) => { const source = sourceId(prefix); return [source, { ...scene, source }]; }),
+  Object.entries(definitions).map(([prefix, scene]) => { const source = sourceId(prefix); return [source, { ...scene, ...playerReference[prefix], source }]; }),
 );
 export function screenScene(id: string): Scene | null { return screenScenes[id] ?? null; }
 export function isPage(value: string): value is Page { return (pages as readonly string[]).includes(value); }
@@ -242,6 +248,7 @@ export function sceneFromUrl(url: URL): Scene | null {
   return { page, namedProfile: true, guest: url.searchParams.get("guest") === "1", query: url.searchParams.get("q") ?? undefined,
     scope: url.searchParams.get("scope") === "library" ? "library" : "catalog",
     category: url.searchParams.get("category") ?? undefined,
+    month: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"].includes(url.searchParams.get("month") ?? "") ? url.searchParams.get("month")! : undefined,
     expanded: view === "lyrics", lyrics: view === "lyrics", track: view === "lyrics" ? "album-2" : track ?? undefined, sortField,
     sort: url.searchParams.get("order") === "descending" ? "descending" : "ascending", selectedArtist: url.searchParams.get("artist") ?? undefined };
 }
@@ -251,6 +258,7 @@ export function sceneUrl(scene: Scene): string {
   if (scene.query) query.set("q", scene.query);
   if (scene.scope === "library") query.set("scope", "library");
   if (scene.category) query.set("category", scene.category);
+  if (scene.month) query.set("month", scene.month);
   if (scene.track && trackById(scene.track)) query.set("track", scene.track);
   if (scene.sortField) query.set("sortBy", scene.sortField);
   if (scene.sort) query.set("order", scene.sort);

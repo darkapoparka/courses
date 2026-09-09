@@ -1,6 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useMusic } from "./music-context";
+import { localizedPicks, localizedRecents, localizedFeatures, localizedSongs, finalLoginSongs, homeAdditions } from "../lib/localized-discovery";
+import styles from "./music-discovery-fixes.module.css";
+import { legacyFeatures, legacySongs, liveFeatures, performanceFeature, queueSongs } from "../lib/discovery-variants";
 import { Art, Footer, Glyph, IconButton, Section } from "./music-primitives";
 import { Rail } from "./music-rail";
 import { CardTile, SongRow } from "./music-browse";
@@ -30,14 +34,19 @@ function CityCard({ city, index }: { city: string; index: number }) {
 }
 export function NewView() {
   const m = useMusic();
-  const initialIndex = m.scene.hero === "superbloom" ? 2 : m.scene.hero === "alpha" ? 4 : 0;
-  const songs = m.scene.hero === "superbloom" ? chartTracks.slice(0, 12) : viralTracks;
+  const [finalLogin] = useState(() => m.scene.source?.startsWith("e027fe6d"));
+  const legacy = finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom";
+  const queue = m.scene.catalog === "queue";
+  const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : card) : legacyFeatures;
+  const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [features[0]!, performanceFeature, ...features.slice(1)] : features;
+  const initialIndex = !legacy && !queue && m.scene.hero === "alpha" ? 4 : 0;
+  const songs = m.library.locale === "zh" ? localizedSongs : finalLogin ? finalLoginSongs : queue ? queueSongs : legacy ? legacySongs : viralTracks;
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
-  return <div className="page-content new-page capture-discovery"><h1>{zh ? "新发现" : "New"}</h1>
-    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex}>{features.map(card => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} /></button></article>)}</Rail>
-    <Section title={zh ? "收藏这些热门歌曲" : "☆ Favourite These Viral Hits"} onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visible.map(track => <SongRow key={track.id} track={track} />)}</div></Rail></Section>
-    <Section title={zh ? "本周新作" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={libraryCovers.filter((_, i) => [9, 4, 1, 5, 7].includes(i))} label="New releases" /></Section>
+  return <div className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"}><h1>{zh ? "新发现" : "New"}</h1>
+    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex}>{featureCards.map(card => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} /></button></article>)}</Rail>
+    <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visible.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue} />)}</div></Rail></Section>
+    <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={libraryCovers.filter((_, i) => [9, 4, 1, 5, 7].includes(i))} label="New releases" /></Section>
     <Section title={zh ? "大家都在听…" : "Everyone’s Listening To…"} id="essentials"><Cards cards={listening} label="Everyone’s listening" /></Section>
     <Section title={zh ? "每日百强榜" : "Daily Top 100"} id="daily-top" onMore={() => m.go("chart")}><Cards cards={daily} label="Daily Top 100" /></Section>
     <Section title={zh ? "城市排行榜" : "City Charts"} id="city-charts" onMore={() => m.go("category:City Charts")}><Rail label="City Charts" className="square-rail">{["London", "New York City", "Seoul", "Tokyo", "Miami"].map((city, index) => <CityCard city={city} index={index} key={city} />)}</Rail></Section>
@@ -47,7 +56,8 @@ export function NewView() {
 }
 export function HomeView() {
   const m = useMusic();
+  const [hideConcerts,setHideConcerts] = useState(false);
   const zh = m.library.locale === "zh";
   if (m.scene.guest) return <div className="membership-home capture-membership"><div className="brand"><Glyph name="apple" />Music</div><h1>Discover new music<br />every day.</h1><div className="membership-note"><Glyph name="song" size={280} /></div><p>Get playlists and albums inspired by the artists and genres you’re streaming.</p><button type="button" className="pill white" onClick={() => m.patch({ overlay: "signin" })}>Try It Free</button><Footer /></div>;
-  return <div className="page-content home-page capture-home"><h1>{zh ? "主页" : "Home"}</h1><Section title={zh ? "为你精选" : "Top Picks for You"}><Cards cards={homePicks} label="Top picks" className="poster-rail" poster initialIndex={m.scene.hero === "alpha" ? 3 : 0} /></Section><Section title={zh ? "最近播放" : "Recently Played"} onMore={() => m.go("library")}><Cards cards={recentlyPlayed} label="Recently played" /></Section><Section title="Pop" onMore={() => m.go("category:Pop")}><Cards cards={libraryCovers.filter((_, i) => i > 3 && i !== 8)} label="Pop" /></Section><Section title={zh ? "加入资料库" : "Add to Your Library"} id="add-library" onMore={() => m.go("library")}><Cards cards={[...libraryCovers].reverse()} label="Albums for your library" /></Section><Section title="Concerts"><div className="concert-callout"><Glyph name="ticket" size={32} /><div><strong>Find Concerts Nearby</strong><p>Upcoming shows of interest to you.</p></div><button type="button" onClick={() => m.go("concerts")}>Set Location</button></div></Section><Footer /></div>;
+  return <div className="page-content home-page capture-home"><h1>{zh ? "主页" : "Home"}</h1><Section title={zh ? "专属精选推荐" : "Top Picks for You"}><Cards cards={zh ? localizedPicks : homePicks} label="Top picks" className="poster-rail" poster initialIndex={m.scene.hero === "alpha" ? 3 : 0} /></Section><Section title={zh ? "最近播放" : "Recently Played"} onMore={() => m.go("library")}><Cards cards={zh ? localizedRecents : recentlyPlayed} label="Recently played" /></Section><Section title={zh ? "运动健身" : "Pop"} onMore={() => m.go(zh ? "category:Fitness" : "category:Pop")}><Cards cards={libraryCovers.filter((_, i) => i > 3 && i !== 8)} label="Pop" /></Section><Section title={zh ? "加入资料库" : "Add to Your Library"} id="add-library" onMore={() => m.go("library")}><p className={styles.additionsDescription}>The best recent albums we love.</p><Cards cards={homeAdditions} label="Albums for your library" /></Section>{!hideConcerts && <Section title="Concerts"><div className={styles.concertCard}><div><span><Glyph name="ticket" size={28} /></span><div><h3>Find Concerts Nearby</h3><p>Upcoming shows will appear here.</p></div></div><IconButton icon="close" label="Dismiss concert suggestion" onClick={() => setHideConcerts(true)} /><button type="button" className={styles.setLocation} onClick={() => m.go("concerts")}>Set Location</button></div></Section>}<Footer /></div>;
 }

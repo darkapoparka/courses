@@ -164,7 +164,7 @@ async def queue(page, context):
     await expect(page.get_by_role('complementary', name='Up Next queue')).to_be_visible()
     await page.get_by_role('button', name='Clear', exact=True).click()
     await expect(page.get_by_text('No upcoming songs', exact=True)).to_be_visible()
-    await page.get_by_role('button', name='Close player panel').click()
+    await page.get_by_role('button', name='Up Next', exact=True).click()
     await page.get_by_role('button', name='More actions for stupid song', exact=True).click()
     await page.get_by_role('menuitem', name='Play Next', exact=True).click()
     await page.get_by_role('button', name='Up Next', exact=True).click()
@@ -262,6 +262,8 @@ async def cancellation(page, context):
 async def local_media(page, context):
     await ready(page)
     await page.get_by_role('button', name='Play stupid song', exact=True).click()
+    assert await page.evaluate("document.querySelector('audio').paused"), 'UI preview must not claim real streaming'
+    await page.keyboard.press('Shift+M')
     await expect(page.get_by_role('dialog', name='Play local media')).to_be_visible()
     audio = io.BytesIO()
     with wave.open(audio, 'wb') as output:

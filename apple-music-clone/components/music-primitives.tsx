@@ -33,7 +33,10 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "apple": return <svg {...common} fill="currentColor" stroke="none"><path d="M16.5 2c.2 2-1.2 4-3.5 4-.2-1.8 1.5-3.7 3.5-4ZM19.5 7.7c-3 2-2.8 5.9.3 7.6-1 2.6-2.6 5.9-4.7 5.9-1.3 0-1.8-.9-3.5-.9-1.8 0-2.3.9-3.6.9-2.3 0-5.2-4.5-5.2-8.6 0-3.7 2.2-6.2 4.8-6.2 1.5 0 2.8 1 4 1 1.1 0 2.8-1.1 4.3-1.1 1.5 0 2.7.5 3.6 1.4Z" /></svg>;
     case "new": return <svg {...common}>{[[4,4],[14,4],[4,14],[14,14]].map(([x,y])=><rect key={`${x}-${y}`} x={x} y={y} width="6" height="6" rx="1" />)}</svg>;
     case "star": return <svg {...common}><path d="m12 2.5 3 6.2 6.8 1-4.9 4.8 1.2 6.8-6.1-3.2-6.1 3.2 1.2-6.8-4.9-4.8 6.8-1Z" /></svg>;
-    case "lyrics": return <svg {...common}><path d="M5 3h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" /><path d="M8 8v3M12 8v3M16 8v3M10 14h4" /></svg>;
+    case "lyrics": return <svg {...common}><path d="M5 3h14a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H9l-5 3v-3a3 3 0 0 1-2-3V6a3 3 0 0 1 3-3Z" /><path d="M7 8h4v4H7V8Zm6 0h4v4h-4V8Zm-2 4-3 3m9-3-3 3" /></svg>;
+    case "queue": return <svg {...common}><path d="M7 5h15M7 12h15M7 19h15" /><circle cx="2" cy="5" r=".8" fill="currentColor" /><circle cx="2" cy="12" r=".8" fill="currentColor" /><circle cx="2" cy="19" r=".8" fill="currentColor" /></svg>;
+    case "repeat": return <svg {...common}><path d="M19 8H7a4 4 0 0 0-4 4M16 5l3 3-3 3M5 16h12a4 4 0 0 0 4-4M8 13l-3 3 3 3" /></svg>;
+    case "volume": return <svg {...common}><path d="M3 9h4l5-5v16l-5-5H3V9Z" fill="currentColor" stroke="none" /><path d="M16 8a6 6 0 0 1 0 8M19 4a11 11 0 0 1 0 16" /></svg>;
     case "plus": return <svg {...common}><path d="M12 4v16M4 12h16" /></svg>;
     case "share": return <svg {...common}><path d="M8 9H5v12h14V9h-3M12 15V2M8 6l4-4 4 4" /></svg>;
     case "sort": return <svg {...common}><path d="M7 3v18M3 7l4-4 4 4M17 21V3M13 17l4 4 4-4" /></svg>;
@@ -49,12 +52,14 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
 const tallerSources = new Set(["ffc18eb8", "3728aa07", "fc5d84bd", "3fed6760", "18225175", "f3fc07c5", "b67b8895", "e379e3fe", "cc18744f", "b5d31893", "b0caf02f", "aefa8502"]);
 
 /** Artwork regions only. Coordinates are in the original 1440px canvas; high
- * resolution variants scale content by 2.1, but their acquisition footer does
+ * resolution is opt-in because animation frames can differ. High-resolution
+ * variants scale content by 2.1, but their acquisition footer does
  * not scale. Use the decoded source height, never a guessed 1023px canvas. */
-export function Art({ art, label, className = "" }: { art: Artwork; label: string; className?: string }) {
-  const sourceHeight = (tallerSources.has(art.source.slice(0, 8)) ? 2018 : 2016) / 2.1;
+export function Art({ art, label, className = "", resolution = "standard" }: { art: Artwork; label: string; className?: string; resolution?: "standard" | "high" }) {
+  const tall = tallerSources.has(art.source.slice(0, 8));
+  const sourceHeight = resolution === "high" ? (tall ? 2018 : 2016) / 2.1 : tall ? 1024 : 1023;
   const style: CSSProperties = { aspectRatio: `${art.width} / ${art.height}`,
-    backgroundImage: `url("/reference-assets/${art.source}?resolution=high")`,
+    backgroundImage: `url("/reference-assets/${art.source}${resolution === "high" ? "?resolution=high" : ""}")`,
     backgroundSize: `${1440 / art.width * 100}% ${sourceHeight / art.height * 100}%`,
     backgroundPosition: `${art.width === 1440 ? 0 : art.x / (1440 - art.width) * 100}% ${art.y / (sourceHeight - art.height) * 100}%` };
   return <span className={`music-art ${className}`} style={style} role="img" aria-label={label} data-art-source={art.source} />;

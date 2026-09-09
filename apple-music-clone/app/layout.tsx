@@ -5,6 +5,8 @@ import "./capture-layout.css";
 import "./capture-auth.css";
 import "./capture-content.css";
 import "./library-fidelity.css";
+import "./player-fidelity.css";
+import "./concert-fidelity.css";
 
 export const metadata: Metadata = {
   title: "Apple Music — Reference Prototype",

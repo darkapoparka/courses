@@ -6,8 +6,13 @@ import { videoArt, trackById } from "../lib/music-catalog";
 import { sourcePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
 import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
-import { AlbumView, ArtistView, CategoryView, RadioView } from "./music-browse";
-import { ConcertsView, ConcertView, CreditsView, MilestonesView, NearbyView, ReplayView } from "./music-secondary";
+import { CategoryView } from "./music-browse";
+import { AlbumView } from "./music-album";
+import { RadioView } from "./music-radio";
+import { ArtistView } from "./music-artist";
+import { CreditsView } from "./music-credits";
+import { MilestonesView, ReplayView } from "./music-replay";
+import { ConcertsView, ConcertView, NearbyView } from "./music-concerts";
 import { ExpandedPlayer, Player, PlayerPanel } from "./music-player";
 import { SettingsView, ConnectedView, SubscriptionView } from "./music-account";
 import { ChartView, ScheduleView } from "./music-chart-schedule";
@@ -60,7 +65,7 @@ function VideoPlayer() {
     void element.play().catch(() => m.notify("Press Play to start the local video."));
     return () => element.pause();
   }, [source, m.audio, m.notify]);
-  return <div className="video-player" aria-label="Video player"><IconButton icon="close" label="Close video" className="video-close" onClick={() => m.patch({ video: false })} />{source ? <video ref={video} controls playsInline aria-label="Local video playback" /> : <><Art art={videoArt} label="Saved video artwork" /><button type="button" className="video-play" onClick={() => m.patch({ overlay: "media" })}><Glyph name="play" size={30} /><span>Choose local media to play</span></button><div className="video-caption"><strong>begged (Lyric Video)</strong><p>Olivia Rodrigo</p><small>Saved frame · no recording is bundled</small></div></>}</div>;
+  return <div className="video-player" aria-label="Video player"><IconButton icon="close" label="Close video" className="video-close" onClick={() => m.patch({ video: false })} />{source ? <video ref={video} controls playsInline aria-label="Local video playback" /> : <><Art art={m.activeId === "album-video" && m.active ? m.active.art : videoArt} label="Saved video artwork" /><button type="button" className="video-play" onClick={() => m.patch({ overlay: "media" })}><Glyph name="play" size={30} /><span>Choose local media to play</span></button><div className="video-caption"><strong>{m.activeId === "album-video" && m.active ? m.active.title : "begged (Lyric Video)"}</strong><p>Olivia Rodrigo</p><small>Saved frame · no recording is bundled</small></div></>}</div>;
 }
 function MusicShell() {
   const m = useMusic();
@@ -68,16 +73,18 @@ function MusicShell() {
   const [mobileNav, setMobileNav] = useState(false);
   const zh = m.library.locale === "zh";
   const [fixturePlaylists] = useState(() => !m.scene.source || sourcePlaylistNavigation.has(m.scene.source));
-  const showPlaylists = fixturePlaylists || m.library.playlists.length > 1;
-  const activePage = ["album", "artist", "chart", "credits"].includes(m.scene.page) ? "new" : ["concerts", "concert", "nearby", "replay", "milestones", "milestone", "category"].includes(m.scene.page) ? "search" : m.scene.page === "schedule" ? "radio" : m.scene.page;
+  const [initialPlaylistCount] = useState(m.library.playlists.length);
+  const showPlaylists = fixturePlaylists || m.library.playlists.length > initialPlaylistCount;
+  const activePage = ["album", "artist", "chart", "credits", "nearby"].includes(m.scene.page) ? "new" : ["concerts", "concert", "nearby", "replay", "milestones", "milestone", "category"].includes(m.scene.page) ? "search" : m.scene.page === "schedule" ? "radio" : m.scene.page;
   const go = (destination: string) => { m.go(destination); setMobileNav(false); };
   useEffect(() => {
     const element = main.current; if (!element) return;
     const frame = requestAnimationFrame(() => {
       if (m.scene.page === "settings" || m.scene.page === "connected" || m.scene.page === "subscription") return;
-      if (m.scene.scroll) {
+      if (m.scene.scrollOffset && !m.scene.overlay && ["concert", "nearby"].includes(m.scene.page)) { element.scrollTo({ top: m.scene.scrollOffset }); }
+      else if (m.scene.scroll) {
         const target = document.getElementById(m.scene.scroll);
-        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - (m.scene.source?.startsWith("812ba627") ? 47 : m.scene.scroll === "coming-soon" ? 113 : m.scene.scroll === "essentials" ? 32 : 24) });
+        if (target) element.scrollTo({ top: element.scrollTop + target.getBoundingClientRect().top - element.getBoundingClientRect().top - (target.dataset.referenceTop && window.innerWidth > 1180 ? Number(target.dataset.referenceTop) : (m.scene.source?.startsWith("812ba627") ? 47 : m.scene.scroll === "add-library" ? 170 : m.scene.scroll === "nashville" ? 30 : m.scene.scroll === "coming-soon" ? 113 : m.scene.scroll === "essentials" ? 32 : 24)) });
       } else if (m.scene.source) element.scrollTo({ top: 0 });
     });
     return () => cancelAnimationFrame(frame);

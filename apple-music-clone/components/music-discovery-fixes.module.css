@@ -1,0 +1,8 @@
+.additionsDescription { font-size: 14px; line-height: 20px; color: #777; }
+.concertCard { background: #f3f3f3; border-radius: 24px; padding: 16px; position: relative; margin-top: 15px; }
+.concertCard > div { display: flex; gap: 12px; align-items: center; }
+.concertCard > div > span { width: 53px; height: 53px; background: linear-gradient(#ff7893,#ff173e); display: grid; place-items: center; border-radius: 50%; color: white; }
+.concertCard h3 { font-size: 16px; line-height: 21px; font-weight: 500; }
+.concertCard p { color: #777; font-size: 14px; line-height: 20px; }
+.concertCard > :global(.icon-button) { position: absolute; right: 17px; top: 17px; width: 27px; height: 27px; background: #e6e6e6; }
+.setLocation { display: flex; align-items: center; justify-content: center; width: 100%; height: 44px; border-radius: 24px; background: #f9e5e9; color: red; font-weight: 600; font-size: 13px; margin-top: 23px; }

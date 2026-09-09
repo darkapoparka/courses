@@ -1,0 +1,169 @@
+/* Frozen concert collection: reusable DOM cards, filters, lists and calendar. */
+.faithful-concerts { padding-top:88px; }
+.faithful-concerts.location-selected { padding-top:26px; }
+.faithful-concerts > h1 { transform:none; }
+.faithful-concerts .concert-filters { position:relative; margin-top:15px; gap:11px; }
+.faithful-concerts .concert-filters .pill { min-height:35px; padding:7px 14px; font-size:14px; font-weight:600; }
+.faithful-concerts .concert-filters .pill:disabled { opacity:.36; }
+.concert-city-input { border:2px solid #d60025; border-radius:22px; padding:0 12px; width:152px; height:35px; display:flex; gap:5px; align-items:center; color:#d60025; }
+.concert-city-input input { outline:none; border:0; min-width:0; width:100%; background:transparent; font-size:14px; font-weight:600; padding:0; color:#111; }
+.concert-city-results { position:absolute; z-index:50; left:0; top:54px; width:262px; max-height:306px; overflow:auto; background:#fff; border-radius:24px; padding:17px 18px 10px; box-shadow:0 11px 26px #0005; }
+.concert-city-results h3 { color:#555; font-size:10px; line-height:15px; margin:0 0 9px; }
+.concert-city-results > p { font-size:12px; color:#777; padding:6px 0; }
+.concert-city-results > button { display:flex; align-items:center; gap:10px; text-align:left; width:100%; min-height:39px; font-size:12px; line-height:16px; }
+.concert-city-results button small { display:block; color:#777; font-size:12px; }
+.concert-city-results button svg { width:12px; color:#777; }
+.concert-city-results button:hover, .concert-city-results button:focus-visible { background:#f2f2f5; }
+.concert-genre-menu { position:absolute; z-index:50; top:54px; left:260px; width:167px; padding:9px 13px 9px 8px; border-radius:24px; background:#fff; box-shadow:0 11px 26px #0005; }
+.concert-genre-menu > button { display:flex; gap:6px; align-items:center; width:100%; height:22px; font-size:12px; text-align:left; }
+.concert-genre-menu > button > span { display:block; width:22px; flex:none; }
+.concert-genre-menu > button:first-child { border-bottom:1px solid #ddd; margin-bottom:4px; }
+.concert-genre-menu > button:hover, .concert-genre-menu > button:focus-visible { background:#eee; }
+.faithful-concerts .discover-concerts { margin:31px 0 57px; }
+.faithful-concerts .discover-concerts .music-badge { width:66px; height:66px; border-radius:50%; margin-bottom:17px; }
+.faithful-concerts .discover-concerts h2 { font-size:17px; line-height:22px; }
+.faithful-concerts .discover-concerts p { font-size:14px; line-height:20px; margin-top:3px; }
+.faithful-concerts > .music-section { margin-top:42px; }
+.faithful-concerts .discover-concerts + .music-section { margin-top:0; }
+.faithful-concerts.location-selected > .music-section:first-of-type { margin-top:29px; }
+.event-card .card-art-button { position:relative; box-shadow:0 5px 9px #0002; }
+.concert-date-badge { width:38px; height:38px; border-radius:5px; background:#f3f2f6; border:1px solid #dddde2; display:flex; flex-direction:column; align-items:center; justify-content:center; flex:none; color:#000; overflow:hidden; }
+.concert-date-badge > small { color:#c40026; font-size:10px; font-weight:500; line-height:11px; }
+.concert-date-badge > strong { font-size:24px; font-weight:400; letter-spacing:-1px; line-height:24px; }
+.event-card .concert-date-badge { position:absolute; top:8px; left:8px; width:30px; height:31px; border-radius:4px; }
+.event-card .concert-date-badge > small { font-size:7px; line-height:9px; }
+.event-card .concert-date-badge > strong { font-size:18px; line-height:18px; letter-spacing:-.5px; }
+.event-caption { margin-top:5px; font-size:12px; line-height:15px; }
+.event-caption > button { display:block; width:100%; text-align:left; }
+.event-caption p { color:#777; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.event-poster .concert-date-badge { width:37px; height:38px; }
+.event-poster .concert-date-badge > small { font-size:10px; line-height:11px; }
+.event-poster .concert-date-badge > strong { font-size:24px; line-height:24px; }
+.faithful-concerts.location-selected > .music-section + .music-section { margin-top:50px; }
+.faithful-concerts.location-selected .rail-wrap { margin-top:10px; }
+.faithful-concerts.location-selected .events-rail { margin-top:21px; }
+.event-row-grid { display:grid; grid-template-rows:repeat(3,112px); grid-auto-flow:column; grid-auto-columns:calc((100% - 20px)/2); column-gap:20px; width:100%; }
+.event-row { display:flex; align-items:center; position:relative; gap:15px; padding-bottom:10px; min-width:0; }
+.event-row-art { position:relative; width:92px; height:92px; flex:none; }
+.event-row-art > .music-art { border-radius:50%; width:92px; height:92px; }
+.event-row-art .concert-date-badge { position:absolute; right:-5px; bottom:-5px; width:30px; height:33px; }
+.event-row-art .concert-date-badge small { font-size:8px; }
+.event-row-art .concert-date-badge strong { font-size:19px; line-height:20px; }
+.event-row-copy { min-width:0; flex:1; text-align:left; }
+.event-row-copy strong { display:block; font-size:14px; line-height:20px; font-weight:400; }
+.event-row-copy span { display:block; color:#777; font-size:12px; line-height:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.event-row > .icon-button { width:28px; height:28px; }
+.event-row > .icon-button svg { width:16px; }
+.event-row::after { content:""; position:absolute; left:114px; right:0; bottom:0; height:1px; background:#e9e9ed; }
+.music-dialog.concert-dates-dialog { width:358px; height:592px; padding:20px 8px 0; border-radius:11px; background:rgb(244 244 246 / 82%); backdrop-filter:blur(24px); overflow:hidden; }
+.music-dialog.concert-dates-dialog h2 { font-size:17px; line-height:24px; margin:0; letter-spacing:0; }
+.concert-dates-dialog .dialog-close { width:38px; height:38px; left:16px; top:16px; background:#b7b7ba44; }
+.concert-dates-dialog .dialog-close svg { width:26px; height:26px; }
+.date-clear { position:absolute; top:15px; right:15px; background:#f5f5f6cc; padding:9px 14px; border-radius:23px; font-size:14px; font-weight:600; }
+.date-quick-pills { margin-top:30px; padding:0 9px; display:flex; gap:10px 12px; flex-wrap:wrap; }
+.date-quick-pills > button { height:36px; border-radius:23px; background:#f5f5f68f; padding:7px 14px; font-size:14px; line-height:20px; font-weight:600; }
+.concert-calendar-heading { display:flex; justify-content:space-between; align-items:center; padding:0 11px; margin-top:24px; height:40px; }
+.concert-calendar-heading > button { display:flex; gap:5px; align-items:center; font-size:16px; font-weight:600; }
+.concert-calendar-heading svg { color:#c00025; }
+.concert-calendar-heading > span { display:flex; gap:19px; }
+.concert-calendar-heading .icon-button { width:30px; height:35px; }
+.concert-calendar { display:grid; grid-template-columns:repeat(7,1fr); grid-template-rows:25px repeat(5,46.5px); padding:0 14px; margin-top:6px; }
+.concert-calendar .calendar-weekday { text-align:center; color:#73737b; font-size:12px; line-height:20px; }
+.concert-calendar > button { position:relative; align-self:center; height:40px; font-size:18px; line-height:24px; font-weight:500; }
+.concert-calendar > button:disabled { opacity:.1; }
+.concert-calendar > button[aria-pressed="true"] { color:#fff; background:#d60025; }
+.concert-calendar > button[data-start="true"] { border-radius:50% 0 0 50%; }
+.concert-calendar > button[data-end="true"] { border-radius:0 50% 50% 0; }
+.concert-calendar > button[data-start="true"][data-end="true"] { border-radius:50%; }
+.concert-calendar > button[data-today="true"]::before { content:""; position:absolute; width:39px; height:39px; border:1px solid #888; border-radius:50%; inset:0; margin:auto; pointer-events:none; }
+.concert-dates-dialog footer { position:absolute; left:8px; right:8px; bottom:0; height:101px; border-top:1px solid #bfc0c2; padding:28px 18px 25px; }
+.concert-dates-dialog footer button { background:#d60025; color:white; height:46px; border-radius:30px; width:100%; font-size:16px; font-weight:600; }
+.concert-dates-dialog footer button:disabled { opacity:.4; }
+.concert-month-picker { display:grid; grid-template-columns:repeat(2,1fr); padding:12px 20px; gap:8px; }
+.concert-month-picker button { min-height:36px; border-radius:8px; background:#fff8; }
+.faithful-nearby { padding-top:37px; padding-bottom:0; }
+.faithful-nearby > header { display:flex; align-items:center; gap:16px; }
+.faithful-nearby > header > .music-art { width:108px; height:108px; border-radius:50%; box-shadow:0 5px 10px #0001; }
+.faithful-nearby > header p { font-size:13px; line-height:20px; color:#666; font-weight:600; }
+.faithful-nearby > header h1 { font-size:25px; line-height:30px; letter-spacing:-.6px; }
+.faithful-nearby > .music-section { margin-top:27px; }
+.faithful-nearby > .music-section + .music-section { margin-top:40px; }
+.tour-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; margin-top:14px; }
+.tour-row { min-height:57px; display:flex; align-items:center; gap:14px; text-align:left; position:relative; width:100%; }
+.tour-row > span:not(.concert-date-badge) { flex:1; min-width:0; }
+.tour-row > span > strong { display:block; font-size:13px; line-height:17px; font-weight:400; }
+.tour-row > span > small { display:block; font-size:12px; line-height:17px; color:#777; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tour-row .concert-date-badge > strong { font-size:25px; line-height:25px; }
+.tour-row .concert-date-badge > small { font-size:10px; line-height:11px; color:#c40026; }
+.tour-row > svg { color:#777; margin-right:2px; }
+.tour-row::after { content:""; position:absolute; height:1px; background:#e7e7ea; left:52px; right:0; bottom:0; }
+.faithful-nearby > .content-footer { margin-top:46px; }
+.music-app[data-scene="concert"] { background:#a7a9a5; }
+.music-app[data-scene="concert"] .music-sidebar { background:#555654; color:#fff; box-shadow:none; }
+.music-app[data-scene="concert"] .sidebar-row[aria-current="page"] { background:#ffffff15; color:#fff; }
+.music-app[data-scene="concert"] .sidebar-section-label { color:#eee; }
+.music-app[data-scene="concert"] .sidebar-footer { border-color:transparent; }
+.music-app[data-scene="concert"] .floating-player { background:#45464299; border-color:transparent; color:#ddd; }
+.music-app[data-scene="concert"] .floating-player .now-playing > svg { color:#c0c1c0; }
+.music-app[data-scene="concert"] .floating-player .icon-button { color:#c4c5c4; }
+.faithful-concert-detail { color:#fff; min-height:100%; background:radial-gradient(ellipse at 50% 35%,#a39f94,transparent 65%),linear-gradient(110deg,#a9aba5,#abadab); }
+.concert-detail-body { width:681px; max-width:calc(100% - 60px); margin:auto; padding:107px 0 0; }
+.concert-portrait { position:relative; width:138px; height:138px; margin:auto; }
+.concert-portrait .music-art { width:138px; height:138px; border-radius:50%; }
+.concert-portrait .concert-date-badge { position:absolute; right:-4px; bottom:-4px; }
+.dark-date { background:#121212; border-color:#484848; color:#fff; }
+.concert-detail-body > h1 { text-align:center; font-size:24px; line-height:30px; margin-top:23px; letter-spacing:-.3px; }
+.concert-detail-actions { display:flex; gap:10px; margin-top:32px; }
+.concert-detail-actions > a, .concert-detail-actions > button { min-width:0; flex:1; display:flex; justify-content:center; align-items:center; gap:5px; height:45px; border-radius:30px; background:#70726b35; box-shadow:0 3px 5px #00000007; font-size:15px; font-weight:600; }
+.concert-venue { margin-top:31px; border-radius:23px; padding:0 20px; background:#71736c33; }
+.concert-venue > div { display:flex; align-items:center; justify-content:space-between; height:77px; }
+.concert-venue > div + div { border-top:1px solid #c4c5bd33; }
+.concert-venue strong { display:block; font-size:15px; line-height:20px; font-weight:500; }
+.concert-venue small { display:block; font-size:13px; line-height:17px; }
+.concert-venue .icon-button { width:31px; height:31px; background:#ffffff25; }
+.bandsintown-credit { text-align:center; font-size:12px; line-height:17px; margin-top:5px; }
+.concert-detail-body .music-section { margin-top:31px; }
+.concert-detail-body .section-link svg { color:white; }
+.concert-detail-body .tour-list { margin-top:12px; }
+.concert-detail-body .tour-row { min-height:52.5px; }
+.concert-detail-body .tour-row::after { background:#cacbc61a; }
+.concert-detail-body .tour-row > svg, .concert-detail-body .tour-row > span:not(.concert-date-badge) > small { color:#fff; }
+.concert-detail-body .tour-row > span:not(.concert-date-badge) > strong { opacity:.85; }
+.concert-share { position:fixed; right:23px; top:18px; width:38px; height:38px; background:#ffffff24; z-index:1; }
+.concert-share > svg { width:24px; height:24px; }
+.faithful-concert-detail > .content-footer { margin:38px 0 0; padding:18px 38px 83px 40px; color:#e1e1de; background:#ffffff0a; border:0; }
+.faithful-concert-detail > .content-footer p, .faithful-concert-detail > .content-footer .footer-region, .faithful-concert-detail > .content-footer a { color:inherit; }
+@media(max-width:1180px) {
+ .event-row-grid { grid-auto-columns:75%; }
+ .concert-detail-body { max-width:calc(100% - 40px); }
+ .concert-genre-menu { left:210px; }
+}
+@media(max-width:640px) {
+ .faithful-concerts, .faithful-concerts.location-selected { padding-top:23px; }
+ .faithful-concerts .concert-filters { gap:8px; }
+ .faithful-concerts .concert-filters .pill { padding:7px 11px; font-size:12px; }
+ .concert-city-input { width:142px; }
+ .concert-genre-menu { left:auto; right:0; max-height:calc(100dvh - 230px); overflow:auto; }
+ .concert-city-results { max-width:calc(100vw - 40px); }
+ .event-row-grid { grid-auto-columns:100%; }
+ .event-row { gap:12px; }
+ .event-row-art, .event-row-art > .music-art { width:76px; height:76px; }
+ .event-row-copy strong { font-size:13px; }
+ .event-row-copy span { font-size:11px; }
+ .event-row::after { left:90px; }
+ .music-dialog.concert-dates-dialog { max-height:calc(100dvh - 24px); width:min(358px,calc(100vw - 24px)); }
+ .concert-calendar { padding:0 8px; }
+ .date-quick-pills { gap:8px; padding:0 6px; }
+ .date-quick-pills button { padding:7px 12px; }
+ .tour-grid { grid-template-columns:1fr; }
+ .faithful-nearby > header > .music-art { width:85px; height:85px; }
+ .faithful-nearby > header h1 { font-size:24px; }
+ .concert-detail-body { padding-top:55px; }
+ .concert-detail-actions { gap:8px; }
+ .concert-detail-actions > a, .concert-detail-actions > button { font-size:13px; }
+ .concert-venue { padding:0 15px; }
+ .concert-venue strong { font-size:13px; }
+ .concert-venue small { font-size:11px; }
+ .concert-share { top:64px; right:15px; }
+ .music-app[data-scene="concert"] .mobile-header { background:#575954; color:white; }
+}

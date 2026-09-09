@@ -1,4 +1,5 @@
 import archive from "../reference/originals/flow-screen-map.json";
+import { replayAlbums, replaySongSeeds } from "./replay-data";
 
 /** The archive owns identity. Prefixes below are unique anchors,
  * not array indices, inferred categories, or a modulo fallback. */
@@ -109,7 +110,7 @@ const queueRows: [string, string, number][] = [
   ["In The Dark", "Selena Gomez", 185], ["MILLION DOLLAR BABY", "Tommy Richman", 155],
 ];
 export const capturedQueue: Track[] = queueRows.map(([title, artist, duration], i) => ({
-  id: `queue-${i}`, title, artist, album: title, duration, art: crop("8f029018",1174,60+i*52.3,38,38),
+  id: ["library-4", "chart-7", "chart-4", "chart-11", "viral-1", "chart-5", "viral-10"][i] ?? `queue-${i}`, title, artist, album: title, duration, art: crop("8f029018",1174,60+i*52.3,38,38),
 }));
 export const additionalViral: Track[] = [
   { id: "august", title: "august", artist: "Taylor Swift", album: "folklore", duration: 0, art: crop("8f029018",286,534,38,38) },
@@ -121,7 +122,18 @@ export const autoplayTracks: Track[] = [
   { id: "autoplay-2", title: "ORANGE SODA", artist: "Baby Keem", album: "ORANGE SODA", duration: 129, art: crop("4811dde3",1174,851,38,38) },
 ];
 
-export const allTracks = [...new Map([searchTrack, ...capturedQueue, ...additionalViral, ...autoplayTracks, ...playlistTracks, ...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
+const queueDurations = new Map(capturedQueue.map(track => [track.id, track.duration]));
+export const replayTracks: Track[] = replaySongSeeds.map(seed => ({
+  id: `replay-${seed.rank}`, title: seed.title, artist: seed.artist,
+  album: seed.album !== null ? replayAlbums[seed.album].title : seed.title,
+  duration: 0, explicit: seed.explicit,
+  art: seed.rank === 1 ? crop("b67b8895", 513, 213, 207, 208)
+    : crop("b67b8895", 286 + Math.floor((seed.rank - 1) / 4) * 378.5,
+      8 + (((seed.rank - 1) % 4) - 1) * 52.3, 38, 38),
+}));
+
+export const albumVideoTrack: Track = { id: "album-video", title: albumTitle, artist: "Olivia Rodrigo", album: albumTitle, duration: 20, art: crop("eb489e8d", 664, 69, 359, 202) };
+export const allTracks = [...new Map([albumVideoTrack, ...replayTracks, searchTrack, ...capturedQueue, ...additionalViral, ...autoplayTracks, ...playlistTracks, ...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, { ...track, duration: track.duration || queueDurations.get(track.id) || 0 }])).values()];
 export function trackById(id: string) { return allTracks.find((track) => track.id === id); }
 export function formatTime(value: number) {
   const seconds = Math.max(0, Math.floor(Number.isFinite(value) ? value : 0));
@@ -169,6 +181,14 @@ categories.push(...["Wellbeing", "Fitness", "Kids", "Music Videos", "Alternative
   id: `more-category-${i}`, title, destination: title === "Music Videos" ? "videos" : `category:${title}`,
   art: crop("812ba627", 286 + (i % 4) * 284, 47 + Math.floor(i / 4) * 168, 264, 148),
 })));
+export const zhCategories: Card[] = [
+  ["电台", "radio"], ["另类音乐", "category:另类音乐"], ["R&B", "category:R&B"], ["演唱会", "concerts"],
+  ["Apple Music Live", "radio"], ["K-Pop", "category:K-Pop"], ["日系摇滚", "category:日系摇滚"], ["嘻哈/说唱", "category:嘻哈/说唱"],
+  ["月度音乐回忆", "replay"], ["排行榜", "chart"], ["唱歌", "category:唱歌"], ["泰国流行", "category:泰国流行"],
+  ["泰语音乐", "category:泰语音乐"], ["印尼音乐", "category:印尼音乐"], ["马来西亚音乐", "category:马来西亚音乐"], ["菲律宾流行音乐", "category:菲律宾流行音乐"],
+].map(([title, destination], index) => ({ id: `zh-category-${index}`, title: title!, destination: destination!,
+  art: crop("f4a8b5dc", 286 + (index % 4) * 284, 245 + Math.floor(index / 4) * 168, 264, 148) }));
+
 export const libraryCovers: Card[] = [
   ["Unknown Album", "Taylor Swift", "video"], ["Lover", "Taylor Swift", "album"],
   ["Unknown Album", "Billie Eilish", "video"], ["Unknown Album", "Olivia Rodrigo", "video"],
@@ -182,8 +202,15 @@ export const libraryCovers: Card[] = [
 }));
 export const radioStations: Card[] = ["1", "Hits", "Country", "Música Uno", "Club", "Chill"].map((name, i) => ({
   id: `station-${i}`, title: `Apple Music ${name}`, destination: `station:${i}`,
-  art: crop("4cb8f3aa", 286 + i * 190, 148, 169, 169),
+  art: crop("4cb8f3aa", 286 + i * 189.4, 148, 169, 169),
 }));
+radioStations.push(...["Pop", "K-Pop", "Chill", "Hits", "Piano"].map((name, index): Card => ({
+  id: `station-${6 + index}`, title: `${name} Station`, subtitle: name === "Piano" ? "Piano Station" : `Apple Music ${name}`,
+  destination: `station:${6 + index}`, art: crop("0920d819", 286 + index * 227, 64, 208, 209),
+})), ...["Mandopop", "C-Pop", "K-Pop", "Classical", "Cantopop"].map((name, index): Card => ({
+  id: `station-${11 + index}`, title: `${name} Station`, subtitle: `Apple Music ${name}`,
+  destination: `station:${11 + index}`, art: crop("0920d819", 286 + index * 227, 380, 208, 209),
+})));
 export const artistHero = crop("484851bf", 246, 0, 1190, 400);
 export const emotionalArt = crop("a573d1ab", 286, 42, 256, 256);
 export const favouriteArt = crop("bde65d33", 286, 42, 256, 256);

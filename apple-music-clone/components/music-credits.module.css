@@ -1,0 +1,57 @@
+.page { position: relative; padding: 56px var(--page-right) 0 var(--page-left); }
+.header { display: grid; grid-template-columns: 286px minmax(0,1fr); align-items: center; gap: 32px; height: 286px; margin-bottom: 38px; }
+.cover { width: 286px; height: 286px; border-radius: 10px; box-shadow: 0 8px 16px #002f321a; }
+.header h1 { font-size: 25px; line-height: 33px; letter-spacing: -.5px; }
+.header p { font-size: 11px; line-height: 16px; letter-spacing: .1px; color: #666; }
+.play { display: flex; align-items: center; justify-content: center; gap: 4px; height: 27px; width: 95px; color: #bd0021; background: #f2f2f2; font-size: 12px; font-weight: 600; border-radius: 5px; margin-top: 10px; }
+.actions { position: absolute; display: flex; gap: 10px; right: var(--page-right); top: 14px; }
+.actions button { width: 27px; height: 27px; background: #eee; color: #a5001d; }
+.actions button[aria-pressed="true"] { background: #cc0024; color: white; }
+.section { display: grid; grid-template-columns: 282px minmax(0,1fr); column-gap: 32px; border-top: 1px solid #eaeaec; padding-top: 15px; }
+.section h2 { color: #747474; font-size: 17px; line-height: 23px; font-weight: 600; letter-spacing: -.25px; }
+.lyrics { height: 167px; padding-top: 10px; }
+.lyrics h2 { padding-top: 4px; }
+.lyrics p { font-size: 20px; line-height: 34px; font-weight: 700; letter-spacing: -.45px; }
+.lyrics button { display: flex; align-items: center; gap: 4px; font-size: 13px; line-height: 20px; color: #bf0023; margin-top: 2px; }
+.performers { height: 230px; }
+.writers { height: 142px; }
+.production { height: 286px; }
+.people { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); column-gap: 32px; align-content: start; row-gap: 14px; }
+.person { display: flex; align-items: flex-start; gap: 10px; min-width: 0; min-height: 58px; }
+.person > :global(.music-art), .initials { width: 44px; height: 44px; flex: none; border-radius: 50%; }
+.initials { display: grid; place-items: center; color: white; background: linear-gradient(#a9aeb9,#8c909a); font-size: 20px; font-weight: 500; border: 1px solid #999da5; }
+.person > div { flex: 1; min-width: 0; padding-top: 5px; min-height: 58px; border-bottom: 1px solid #ededee; }
+.person strong { display: block; font-size: 13px; line-height: 19px; font-weight: 400; }
+.person div > span { display: block; color: #7e7e82; font-size: 12px; line-height: 14px; }
+.performers .person, .performers .person > div { min-height: 74px; }
+.performers .people { row-gap: 15px; }
+.person:nth-last-child(-n+3) > div { border: 0; }
+.more { margin: 0 calc(-1 * var(--page-right)) 0 calc(-1 * var(--page-left)); min-height: 342px; padding: 39px var(--page-right) 29px var(--page-left); background: #f2f2f2; }
+.more h2 { font-size: 17px; line-height: 22px; }
+.more h2 button { display: flex; align-items: center; gap: 4px; }
+.more h2 svg { color: #888; }
+.more :global(.rail-wrap) { margin-top: 10px; }
+.related { flex: 0 0 calc((100% - 80px)/5); min-width: 0; }
+.relatedArt { display: block; width: 100%; border-radius: 7px; overflow: hidden; box-shadow: 0 3px 8px #0001; }
+.relatedTitle { display: block; text-align: left; font-size: 12px; line-height: 14px; margin-top: 5px; }
+.page > :global(.content-footer) { margin-top: 0; }
+.unavailable { color: #777; font-size: 14px; line-height: 23px; margin-bottom: 60px; }
+@media (max-width: 1180px) {
+  .header { grid-template-columns: 240px minmax(0,1fr); height: 240px; }
+  .cover { width: 240px; height: 240px; }
+  .section { grid-template-columns: 200px minmax(0,1fr); gap: 25px; }
+  .people { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 15px; }
+  .performers, .production { height: auto; padding-bottom: 55px; }
+  .lyrics { height: auto; padding-bottom: 45px; }
+  .related { flex-basis: calc((100% - 60px)/4); }
+}
+@media (max-width: 640px) {
+  .page { padding-top: 55px; }
+  .header { grid-template-columns: 110px minmax(0,1fr); height: auto; gap: 18px; margin-bottom: 25px; }
+  .cover { width: 110px; height: 110px; }
+  .header h1 { font-size: 22px; line-height: 29px; }
+  .section { grid-template-columns: 1fr; gap: 15px; height: auto; padding: 22px 0 35px; }
+  .people { grid-template-columns: 1fr; }
+  .lyrics p { font-size: 18px; line-height: 29px; }
+  .related { flex-basis: calc((100% - 14px)/2); }
+}

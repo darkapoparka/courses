@@ -37,7 +37,7 @@ export function MusicMenus() {
     const height = flyout.current.offsetHeight;
     setFlyoutPosition({ x: rect.right + width < innerWidth - 8 ? rect.right + 1 : Math.max(8, rect.left - width - 1), y: Math.max(8, Math.min(rect.top, innerHeight - height - 8)) });
   }, [submenu, position]);
-  if (!kind) return null;
+  if (!kind || (m.scene.page === "concerts" && (kind === "location" || kind === "genres"))) return null;
   const track = m.menuTrack;
   const artist = kind === "artist" ? m.menuTarget : track.artist;
   const ids = kind === "artist" ? allTracks.filter(t => t.artist === artist).map(t => t.id) : kind === "album" && m.scene.page === "playlist" ? m.library.playlists.find(p => p.id === (m.scene.category ?? "emotional"))?.tracks ?? [] : kind === "album" ? allTracks.filter(t => t.album === (m.scene.category ?? albumTitle)).map(t => t.id) : [track.id];
@@ -73,7 +73,7 @@ export function MusicMenus() {
   } else if (kind === "track" && m.scene.page === "songs") {
     content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "next", () => queueAction(true))}{action("Play Last", "queue", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
-    content = <>{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "next", () => queueAction(true))}{action("Play Last", "queue", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{kind !== "track" && action("Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
+    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "next", () => queueAction(true))}{action("Play Last", "queue", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{kind !== "track" && action("Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
   }
   const keyboard = (event: KeyboardEvent<HTMLDivElement>, child = false) => {
     if (event.key === "Escape") { event.preventDefault(); close(); return; }

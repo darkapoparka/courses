@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type Dispatch, type MouseEvent, type ReactNode, type RefObject, type SetStateAction } from "react";
-import { allTracks, libraryTracks, trackById, viralTracks, type Track } from "../lib/music-catalog";
+import { allTracks, capturedQueue, libraryTracks, trackById, viralTracks, type Track } from "../lib/music-catalog";
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
@@ -56,20 +56,22 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const [scene, setScene] = useState(initialScene);
   const referenceSession = useRef(Boolean(initialScene.source));
   const [library, setLibrary] = useState<LibraryState>(() => ({ ...initialLibrary,
-    songs: initialScene.empty && initialScene.page === "library" ? [] : [...initialLibrary.songs],
-    favourites: [...initialLibrary.favourites], playlists: initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),
+    favouriteArtists: initialScene.source && initialScene.page === "artist" ? [] : [...initialLibrary.favouriteArtists],
+    songs: initialScene.librarySeed === "song" ? ["album-2"] : initialScene.librarySeed || initialScene.empty && initialScene.page === "library" ? [] : [...initialLibrary.songs],
+    favourites: initialScene.favourite === false ? initialLibrary.favourites.filter(id => id !== "album-2") : [...initialLibrary.favourites], playlists: initialScene.librarySeed === "empty" || initialScene.librarySeed === "song" ? [] : initialScene.librarySeed === "playlist" ? [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2"], public: true }] : initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),
     pinned: initialScene.pinned ? ["album-2"] : [], hiddenNav: initialScene.hiddenNav ?? [], locale: initialScene.locale ?? "en", restrictions: initialScene.restrictions ?? false, cancelled: initialScene.cancelled ?? false }));
   const [hydrated, setHydrated] = useState(false);
   const [activeId, setActiveId] = useState(initialScene.track);
   const [realPlaying, setRealPlaying] = useState(false);
   const [snapshot, setSnapshot] = useState(Boolean(initialScene.snapshotPlaying));
-  const [elapsed, updateElapsed] = useState(0);
+  const [elapsed, updateElapsed] = useState(initialScene.elapsed ?? 0);
+  const [demoRunning, setDemoRunning] = useState(false);
   const [duration, updateDuration] = useState(0);
-  const [volume, updateVolume] = useState(initialScene.volume ?? .7);
+  const [volume, updateVolume] = useState(initialScene.volume ?? .5);
   const [muted, updateMuted] = useState(false);
   const [shuffle, setShuffle] = useState(Boolean(initialScene.shuffle));
   const [repeat, setRepeat] = useState(Boolean(initialScene.repeat));
-  const [queue, setQueue] = useState<string[]>(initialScene.queueEmpty ? [] : viralTracks.slice(1).map((track) => track.id));
+  const [queue, setQueue] = useState<string[]>(initialScene.queueEmpty ? [] : (initialScene.queuePreset ? capturedQueue : viralTracks.slice(1)).map((track) => track.id));
   const [menuTrackId, setMenuTrackId] = useState(initialScene.page === "artist" || initialScene.menu === "artist" ? "Olivia Rodrigo" : initialScene.track ?? "album-2");
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null);
   const [message, setMessage] = useState("");
@@ -79,6 +81,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const media = useRef(new Map<string, { url: string; name: string }>());
   const history = useRef<string[]>([]);
   const storageWarning = useRef(false);
+  const previewNoticeShown = useRef(false);
   const notify = useCallback((text: string) => { if (messageTimer.current) clearTimeout(messageTimer.current); setMessage(text); messageTimer.current = setTimeout(() => setMessage(""), 4500); }, []);
   const patch = useCallback((changes: Partial<Scene>) => setScene((current) => ({ ...current, source: undefined, scroll: undefined, ...changes })), []);
   useEffect(() => {
@@ -107,7 +110,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const go = useCallback((destination: string) => {
     const [kind, ...rest] = destination.split(":");
     if (kind === "video") { patch({ video: true, overlay: null, menu: null }); return; }
-    if (kind === "station") { setActiveId(destination); patch({ page: "radio", overlay: "media", menu: null }); return; }
+    if (kind === "station") { audio.current?.pause(); setActiveId(destination.replace(":", "-")); setSnapshot(true); setDemoRunning(false); patch({ page: "radio", overlay: null, menu: null }); notify("Silent radio UI preview. Press Shift+M to open your own local media."); return; }
     if (!kind || !isPage(kind)) { notify("That destination is not included in the saved reference collection."); return; }
     const next: Scene = { page: kind, namedProfile: true, guest: scene.guest, category: rest.join(":") || undefined };
     setScene(next);
@@ -121,32 +124,53 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     if (track?.unavailable) { notify("This track is unavailable in the saved catalog."); return; }
     const element = audio.current;
     if (remember && activeId && activeId !== id) history.current = [...history.current, activeId].slice(-100);
-    element?.pause(); setActiveId(id); setSnapshot(false); updateElapsed(0); updateDuration(0);
+    element?.pause(); setDemoRunning(false); setActiveId(id); setSnapshot(false); updateElapsed(0); updateDuration(0);
     const local = media.current.get(id);
-    if (!element || !local) { setRealPlaying(false); patch({ overlay: "media", menu: null }); return; }
+    if (!element || !local) {
+      setRealPlaying(false); setSnapshot(true); setDemoRunning(true);
+      patch({ overlay: null, menu: null, lyricIndex: undefined, playerArt: undefined });
+      if (!referenceSession.current && !previewNoticeShown.current) {
+        previewNoticeShown.current = true;
+        notify("Silent UI playback preview. Press Shift+M to play a file you own; nothing is streamed or uploaded.");
+      }
+      return;
+    }
     element.src = local.url; element.volume = volume; element.muted = muted; setMediaName(local.name);
     void element.play().catch(() => notify("Playback could not start. Try another supported audio file."));
   }, [muted, volume, notify, patch, activeId, library.restrictions, library.musicRating]);
   const togglePlayback = useCallback(() => {
     const element = audio.current;
-    if (realPlaying || snapshot) { element?.pause(); setSnapshot(false); return; }
+    if (realPlaying || snapshot) { element?.pause(); setSnapshot(false); setDemoRunning(false); return; }
     const local = activeId ? media.current.get(activeId) : undefined;
     if (element && local && element.getAttribute("src") === local.url) {
       void element.play().catch(() => notify("Playback could not resume. Try the Play button again."));
       return;
     }
+    if (activeId && !local) { patch({ lyricIndex: undefined }); setSnapshot(true); setDemoRunning(true); return; }
     play(activeId ?? "album-2");
   }, [realPlaying, snapshot, activeId, play, notify]);
   const skip = useCallback((direction: number) => {
     if (direction < 0) {
       const previous = history.current.pop();
       if (previous) { setQueue(current => [...(activeId ? [activeId] : []), ...current.filter(id => id !== previous && id !== activeId)]); play(previous, false); }
-      else if (audio.current?.src) { audio.current.currentTime = 0; updateElapsed(0); }
+      else { if (audio.current?.src && media.current.has(activeId ?? "")) audio.current.currentTime = 0; updateElapsed(0); }
       return;
     }
     const next = queue[shuffle ? Math.floor(Math.random() * queue.length) : 0];
     if (next) { setQueue(current => current.filter(id => id !== next)); play(next); }
   }, [activeId, queue, shuffle, play]);
+  const displayDuration = duration || (activeId === "album-2" ? 210 : trackById(activeId ?? "")?.duration ?? 0);
+  useEffect(() => {
+    if (!demoRunning || !displayDuration) return;
+    const timer = window.setInterval(() => updateElapsed(value => Math.min(displayDuration, value + 0.25)), 250);
+    return () => window.clearInterval(timer);
+  }, [demoRunning, displayDuration]);
+  useEffect(() => {
+    if (!demoRunning || !displayDuration || elapsed < displayDuration) return;
+    if (repeat) { updateElapsed(0); return; }
+    setDemoRunning(false); setSnapshot(false);
+    if (queue.length) skip(1);
+  }, [demoRunning, elapsed, displayDuration, repeat, queue.length, skip]);
   useEffect(() => {
     const element = audio.current; if (!element) return;
     const time = () => { updateElapsed(element.currentTime); updateDuration(Number.isFinite(element.duration) ? element.duration : 0); };
@@ -167,10 +191,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions, library.musicRating]);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
-      if (event.target instanceof Element && event.target.closest("input, textarea, select, button, a, dialog, [contenteditable=true]")) return;
+      const element = event.target instanceof Element ? event.target : null;
+      if (event.key === "Escape" && !document.querySelector("dialog[open]")) { patch({ expanded: false, panel: null, menu: null, video: false }); return; }
+      if (!element?.closest("input, textarea, select, [contenteditable=true]") && event.shiftKey) {
+        if (event.key.toLowerCase() === "r") { event.preventDefault(); patch({ overlay: "reference" }); return; }
+        if (event.key.toLowerCase() === "m") { event.preventDefault(); patch({ overlay: "media" }); return; }
+      }
+      if (element?.closest("input, textarea, select, button, a, dialog, [contenteditable=true]")) return;
       if (event.code === "Space") { event.preventDefault(); togglePlayback(); }
-      if (event.key === "Escape") patch({ expanded: false, panel: null, menu: null, video: false });
-      if (event.key.toLowerCase() === "r" && event.shiftKey) patch({ overlay: "reference" });
     };
     window.addEventListener("keydown", keyboard); return () => window.removeEventListener("keydown", keyboard);
   }, [togglePlayback, patch]);
@@ -181,7 +209,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     if (!element) throw new Error("The media player is not ready.");
     const previous = media.current.get(id); if (previous) URL.revokeObjectURL(previous.url);
     const url = URL.createObjectURL(file); media.current.set(id, { url, name: file.name });
-    setActiveId(id); setMediaName(file.name); setSnapshot(false); element.src = url;
+    setActiveId(id); setMediaName(file.name); setDemoRunning(false); setSnapshot(false); element.src = url;
     try { await element.play(); patch({ overlay: null }); }
     catch { throw new Error("The browser could not play this file. Try MP3, WAV, or another supported format."); }
   }, [activeId, patch]);
@@ -197,7 +225,11 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const addToLibrary = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, songs: toggle(current.songs, id) })); };
   const pin = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, pinned: toggle(current.pinned, id) })); };
   const value: Controller = { scene, patch, go, library, setLibrary, active: activeId ? trackById(activeId) : undefined, activeId, playing: realPlaying || snapshot, snapshot,
-    elapsed, duration, setElapsed: (time) => { if (audio.current && duration > 0) { audio.current.currentTime = Math.max(0, Math.min(duration, time)); updateElapsed(audio.current.currentTime); } },
+    elapsed, duration: displayDuration, setElapsed: (time) => {
+      const next = Math.max(0, Math.min(displayDuration, time));
+      if (audio.current && duration > 0 && media.current.has(activeId ?? "")) audio.current.currentTime = next;
+      updateElapsed(next); patch({ lyricIndex: undefined });
+    },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
     shuffle, setShuffle, repeat, setRepeat, queue, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
     favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTarget: menuTrackId, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
