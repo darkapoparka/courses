@@ -34,7 +34,7 @@ function Volume({ expanded = false }: { expanded?: boolean }) {
 export function Player() {
   const m = useMusic();
   const station = m.activeId?.startsWith("station") ? radioStations.find(item => item.id === m.activeId) : undefined;
-  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."}>
+  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."}>
     <Transport />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
       {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? station?.art ?? albumArt} label={m.active?.album ?? station?.title ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? station?.title}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? "Live Radio" : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}

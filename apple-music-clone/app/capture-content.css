@@ -26,6 +26,11 @@
 .capture-home .music-section + .music-section { margin-top:50px; }
 .capture-home .media-card .card-title { font-size:13px; line-height:17px; }
 .capture-home .media-card > p { font-size:12px; line-height:17px; }
+.capture-home > .music-section:nth-of-type(3) { margin-top:35px; }
+.capture-home #add-library { margin-top:34px; }
+.capture-home #add-library .card-title { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; min-height:17px; }
+.capture-home #add-library + .music-section { margin-top:33px; }
+.capture-home > .content-footer { margin-top:21px; }
 @media (max-width:640px) {
  .capture-discovery #essentials, .capture-discovery #daily-top, .capture-discovery #city-charts, .capture-discovery #more-to-explore { margin-top:38px; }
  .capture-discovery #essentials .media-card { min-height:0; }

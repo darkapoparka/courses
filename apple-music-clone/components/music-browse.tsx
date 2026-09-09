@@ -15,11 +15,12 @@ export function SongRow({ track, showTime = false, trailing, showFavourite = fal
     {trailing ?? <IconButton icon="more" label={`More actions for ${track.title}`} onClick={(event) => m.openMenu("track", event, track.id)} />}
   </div>;
 }
-export function CardTile({ card, poster = false, artOverlay }: { card: Card; poster?: boolean; artOverlay?: Artwork }) {
+export function CardTile({ card, poster = false, artOverlay, artOverlayPosition = "top" }: { card: Card; poster?: boolean; artOverlay?: Artwork; artOverlayPosition?: "top" | "bottom" }) {
   const { go } = useMusic();
   const destination = card.destination.includes(":") || !["album", "artist"].includes(card.destination) ? card.destination : `${card.destination}:${card.id}`;
+  const appleMusicHits = card.id === "hits" || card.title === "Apple Music Hits";
   const artwork = card.portrait || card.plain ? <span className="category-preview" style={{ backgroundColor: card.background }}>{card.portrait && <span className="category-portrait"><Art art={card.portrait} label={card.title} /></span>}<span className="category-caption">{card.title}</span></span> : <Art art={card.art} label={card.title} />;
-  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}{artOverlay && <span className="reference-art-strip" aria-hidden="true"><Art art={artOverlay} label="" /></span>}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{card.title}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
+  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}{artOverlay && <span className={`reference-art-strip reference-art-strip-${artOverlayPosition}`} aria-hidden="true"><Art art={artOverlay} label="" /></span>}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{appleMusicHits ? <><Glyph name="apple" size={11} />Music Hits</> : card.title}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
 }
 function CardRail({ cards, label, poster = false }: { cards: Card[]; label: string; poster?: boolean }) { return <Rail label={label} className={poster ? "poster-rail" : "square-rail"}>{cards.map(card => <CardTile key={card.id} card={card} poster={poster} />)}</Rail>; }
 

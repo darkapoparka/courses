@@ -157,9 +157,9 @@ export const topPicks: Card[] = [
 export const recentlyPlayed: Card[] = [
   ["hits", "Apple Music Hits", "Live Station", "radio"],
   ["joseph", "Live at Apple Music Radio", "Joseph Lawrence", "radio"],
-  ["parris", "Takeover: Parris Goebel (DJ Mix)", "Apple Music Dance", "radio"],
-  ["pop", "Pop", "Pop Station", "radio"],
-  ["pheelz", "Pheelz Radio Takeover", "Pheelz", "radio"],
+  ["parris", "Takeover: Parris Goebel (DJ Mix)", "Parris Goebel", "radio"],
+  ["pop", "Pop Station", "Apple Music Pop", "radio"],
+  ["pheelz", "Pheelz", "Radio Takeover", "radio"],
 ].map(([id, title, subtitle, destination], i) => ({ id: id!, title: title!, subtitle, destination: destination!, art: crop("a917d88f", 286 + i * 227, 572, 207, 207) }));
 const categoryNames = ["Apple Music Radio", "Concerts", "Apple Music Live", "K-Pop", "J-Rock", "Hip-Hop/Rap", "Replay Monthly", "Charts", "Sing", "T-Pop", "Thai Music", "Indonesian Music", "Malaysian Music", "Mandopop", "Pop", "Spatial Audio"];
 export const categories: Card[] = categoryNames.map((title, i) => ({
