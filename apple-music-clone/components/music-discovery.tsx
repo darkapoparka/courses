@@ -1,7 +1,8 @@
 "use client";
 
 import { useMusic } from "./music-context";
-import { Art, Footer, Glyph, IconButton, Rail, Section } from "./music-primitives";
+import { Art, Footer, Glyph, IconButton, Section } from "./music-primitives";
+import { Rail } from "./music-rail";
 import { CardTile, SongRow } from "./music-browse";
 import { categories, chartTracks, crop, features, libraryCovers, recentlyPlayed, topPicks, viralTracks, type Artwork, type Card } from "../lib/music-catalog";
 

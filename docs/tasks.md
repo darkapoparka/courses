@@ -1,5 +1,38 @@
 # Tasks — one bounded slice at a time
 
+## Active owner assignment — Apple Music reference implementation
+
+The current owner request supersedes the planning-only mode below. Work in
+`apple-music-clone/` on `astra/course-platform-plan`, using the existing worktree
+`J:\courses-astra-preview`; do not replace the separate `astra/implementation`
+checkout, change `main`, or start course adaptation. The frozen reference subtree
+remains read-only. The product backlog below is retained, not implicitly accepted.
+
+- **Sidebar/rail containment: fixed.** Main content had been expanded to the whole
+  viewport, and negative rail margins plus scroll snapping painted cards under the
+  sidebar. Restore the content scrollport, correct first-item snap alignment, and
+  use real boundary-aware previous/next controls.
+- **Library/playlist flow reconstruction: implemented, undergoing comparison.**
+  Dedicated Recently Added, Albums, Artists, Songs, Music Videos, Made for You,
+  Emotional Songs and Favourite Songs surfaces replace generic substitutes. The
+  three-song Emotional Songs state and the four-song state after adding vampire
+  use the recorded track data, suggestion replacement, timings and counts.
+- **Menus and creation: implemented.** Source-specific track/album/artist menus,
+  keyboard-navigable nested playlist flyout, 296x246 creation dialog, empty-name
+  validation, local creation and suggestion insertion. Actual owned-file playback
+  now resumes at its previous position instead of starting over.
+- **Verification is not acceptance.** A working-tree diagnostic rendered 159
+  desktop and 5 responsive states, checked 218 flow URLs and passed 15 of 16
+  behavior journeys. The remaining assertion used an accessibility locator for a
+  correctly hidden disabled Previous button; the assertion is corrected. These
+  are working-tree results, not evidence for the starting commit. Full visual
+  1:1 acceptance remains open; do not infer it from render counts.
+
+The dev server is local-only on 127.0.0.1:3000. Account/payment interactions remain
+explicit local previews; no Apple credentials, real charges or streaming service
+are connected. Reference media and proprietary fonts must not be redistributed.
+
+
 Updated 2026-09-09. Current mode: reference inspection and documentation. No application task is implemented by this revision. An explicit implementation assignment authorizes its normal edits/checks, not the entire backlog.
 
 Statuses: DOCUMENTED, PARTIAL, READY, TODO, BLOCKED_DECISION, IMPLEMENTED, VERIFIED, OWNER_APPROVED. READY means specified and ready to assign, not executed. Update actual evidence here; do not create a second TODO file.

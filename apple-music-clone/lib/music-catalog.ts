@@ -20,7 +20,7 @@ export type Track = {
   id: string; title: string; artist: string; album: string; duration: number;
   art: Artwork; explicit?: boolean; unavailable?: boolean;
 };
-export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string; background?: string; portrait?: Artwork; plain?: boolean };
+export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string; background?: string; portrait?: Artwork; plain?: boolean; explicit?: boolean; year?: string };
 export const albumTitle = "you seem pretty sad for a girl so in love";
 export const albumArt = crop("b620e4ab", 286, 42, 256, 256);
 export const sourArt = crop("e757eb0f", 514, 305, 207, 207);
@@ -86,7 +86,42 @@ export const chartTracks: Track[] = chartRows.map(([id, title, artist, album, du
   art: crop("8a234785", 293, 132 + i * 51.45, 37, 37),
 }));
 const searchTrack: Track = { id: "search-olivia", title: "Olivia", artist: "One Direction", album: "Made In The A.M.", duration: 0, art: crop("e70094e3", 676, 248, 86, 86) };
-export const allTracks = [...new Map([searchTrack, ...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
+/** The library flows have clean versions and suggestions not present in the
+ * album's restricted track list. Keep those identities separate. */
+export const playlistTracks: Track[] = [
+  { id: "playlist-cure", title: "the cure", artist: "Olivia Rodrigo", album: albumTitle, duration: 297, art: crop("a573d1ab", 293, 425, 38, 38) },
+  { id: "drivers-license", title: "drivers license", artist: "Olivia Rodrigo", album: "SOUR (Video Version)", duration: 242, art: crop("a573d1ab", 293, 477, 38, 38) },
+  { id: "vampire", title: "vampire", artist: "Olivia Rodrigo", album: "GUTS (spilled)", duration: 219, art: crop("5044abe5", 293, 528, 38, 38) },
+  { id: "style-tv", title: "Style (Taylor's Version)", artist: "Taylor Swift", album: "1989 (Taylor's Version)", duration: 0, art: crop("a573d1ab", 305, 759, 38, 38) },
+  { id: "bad-guy", title: "bad guy", artist: "Billie Eilish", album: "WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?", duration: 0, art: crop("a573d1ab", 305, 811, 38, 38) },
+  { id: "survive", title: "Survive", artist: "Lewis Capaldi", album: "Survive", duration: 0, art: crop("a573d1ab", 853, 707, 38, 38) },
+  { id: "as-it-was", title: "As It Was", artist: "Harry Styles", album: "Harry’s House", duration: 0, art: crop("a573d1ab", 853, 811, 38, 22) },
+  { id: "dont-start-now", title: "Don't Start Now", artist: "Dua Lipa", album: "Future Nostalgia", duration: 0, art: crop("5044abe5", 853, 811, 38, 22) },
+];
+export const suggestionOrder = ["library-2", "style-tv", "bad-guy", "survive", "vampire", "as-it-was", "dont-start-now"];
+
+const queueRows: [string, string, number][] = [
+  ["So Easy (To Fall In Love)", "Olivia Dean", 169], ["Man I Need", "Olivia Dean", 184],
+  ["Opalite", "Taylor Swift", 235], ["DAISIES", "Justin Bieber", 176],
+  ["I Knew It, I Knew You", "Taylor Swift", 178], ["Golden", "HUNTR/X, EJAE, AUDREY NUNA", 194],
+  ["YUKON", "Justin Bieber", 163], ["Beauty and a Beat (feat. Nicki Minaj)", "Justin Bieber", 227],
+  ["Shape of a Woman", "Lady Gaga", 209], ["Purple Rain", "Prince & The Revolution", 521],
+  ["In The Dark", "Selena Gomez", 185], ["MILLION DOLLAR BABY", "Tommy Richman", 155],
+];
+export const capturedQueue: Track[] = queueRows.map(([title, artist, duration], i) => ({
+  id: `queue-${i}`, title, artist, album: title, duration, art: crop("8f029018",1174,60+i*52.3,38,38),
+}));
+export const additionalViral: Track[] = [
+  { id: "august", title: "august", artist: "Taylor Swift", album: "folklore", duration: 0, art: crop("8f029018",286,534,38,38) },
+  { id: "elizabeth-taylor", title: "Elizabeth Taylor", artist: "Taylor Swift", album: "The Life of a Showgirl", duration: 0, art: crop("8f029018",286,639,38,38) },
+];
+export const autoplayTracks: Track[] = [
+  { id: "autoplay-0", title: "Bunker/Preroll", artist: "mynameisntjmack & To…", album: "Bunker/Preroll", duration: 120, art: crop("4811dde3",1174,747,38,38) },
+  { id: "autoplay-1", title: "Money Trees (feat. Jay …)", artist: "Kendrick Lamar", album: "Money Trees", duration: 386, art: crop("4811dde3",1174,799,38,38) },
+  { id: "autoplay-2", title: "ORANGE SODA", artist: "Baby Keem", album: "ORANGE SODA", duration: 129, art: crop("4811dde3",1174,851,38,38) },
+];
+
+export const allTracks = [...new Map([searchTrack, ...capturedQueue, ...additionalViral, ...autoplayTracks, ...playlistTracks, ...chartTracks, ...viralTracks, ...libraryTracks, ...albumTracks].map((track) => [track.id, track])).values()];
 export function trackById(id: string) { return allTracks.find((track) => track.id === id); }
 export function formatTime(value: number) {
   const seconds = Math.max(0, Math.floor(Number.isFinite(value) ? value : 0));
@@ -136,13 +171,14 @@ categories.push(...["Wellbeing", "Fitness", "Kids", "Music Videos", "Alternative
 })));
 export const libraryCovers: Card[] = [
   ["Unknown Album", "Taylor Swift", "video"], ["Lover", "Taylor Swift", "album"],
-  ["Unknown Album", "Sabrina Carpenter", "video"], ["Unknown Album", "Olivia Rodrigo", "video"],
+  ["Unknown Album", "Billie Eilish", "video"], ["Unknown Album", "Olivia Rodrigo", "video"],
   ["eternal sunshine", "Ariana Grande", "album"], ["HIT ME HARD AND SOFT", "Billie Eilish", "album"],
   ["SOUR (Video Version)", "Olivia Rodrigo", "album"], ["The Art of Loving", "Olivia Dean", "album"],
   ["Emotional Songs", "Alex Smith", "playlist"], [albumTitle, "Olivia Rodrigo", "album"],
 ].map(([title, subtitle, destination], i) => ({
   id: `cover-${i}`, title: title!, subtitle, destination: destination!,
-  art: crop("e757eb0f", 286 + (i % 5) * 227, 31 + Math.floor(i / 5) * 274, 207, 207),
+  art: crop("e757eb0f", 286 + (i % 5) * 227, 30 + Math.floor(i / 5) * 274, 208, 208),
+  explicit: i === 4 || i === 9, year: ({1: "2019", 4: "2024", 5: "2024", 6: "2021", 7: "2025", 9: "2026"} as Record<number, string>)[i],
 }));
 export const radioStations: Card[] = ["1", "Hits", "Country", "Música Uno", "Club", "Chill"].map((name, i) => ({
   id: `station-${i}`, title: `Apple Music ${name}`, destination: `station:${i}`,

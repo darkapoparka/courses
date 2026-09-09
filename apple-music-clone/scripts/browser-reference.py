@@ -14,6 +14,7 @@ import re
 import struct
 import wave
 from playwright.async_api import async_playwright, expect
+from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog
 
 APP = Path(__file__).resolve().parents[1]
 OUT = APP / '.parity-evidence/browser'
@@ -304,7 +305,7 @@ async def main():
     OUT.mkdir(parents=True, exist_ok=True)
     result = {'commit': os.environ.get('GITHUB_SHA'), 'note': 'Rendering/functional coverage, not visual-parity acceptance.', 'screens': [], 'tests': [], 'flowRoutes': []}
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch()
+        browser = await playwright.chromium.launch(**({"executable_path": os.environ["REFERENCE_BROWSER_EXECUTABLE"]} if os.environ.get("REFERENCE_BROWSER_EXECUTABLE") else {}))
         result['browser'] = browser.version
         request = await playwright.request.new_context()
         result['flowRoutes'] = await flow_routes(request)
@@ -317,6 +318,7 @@ async def main():
         for prefix in ['e72be564', 'a917d88f', 'b620e4ab', '035569a0', '3131018d']:
             result['screens'].append(await bounded_capture(source(prefix), 390, 844))
         cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
+        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog)]
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))
         result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))

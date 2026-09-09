@@ -1,9 +1,9 @@
-import { canonicalFlows, findFlow, sourceId, sourceIds } from "./music-catalog";
+import { canonicalFlows, findFlow, sourceId, sourceIds, trackById } from "./music-catalog";
 
 export const pages = ["new", "home", "search", "album", "artist", "chart", "radio", "schedule", "concerts", "concert", "nearby", "replay", "milestones", "milestone", "library", "artists", "albums", "songs", "videos", "made-for-you", "playlists", "playlist", "favourites", "credits", "settings", "connected", "subscription", "category"] as const;
 export type Page = (typeof pages)[number];
 export type Overlay = "signin" | "signup" | "verify" | "payment" | "article" | "new-playlist" | "dates" | "passcode" | "cancel-trial" | "cancelled" | "media" | "reference" | null;
-export type Menu = "track" | "album" | "profile" | "sort" | "share" | "location" | "genres" | "station" | null;
+export type Menu = "artist" | "track" | "album" | "profile" | "sort" | "share" | "location" | "genres" | "station" | null;
 export type Scene = {
   page: Page;
   checkout?: boolean;
@@ -24,6 +24,7 @@ export type Scene = {
   track?: string;
   snapshotPlaying?: boolean;
   favourite?: boolean;
+  playlistSeed?: string[];
   shuffle?: boolean;
   repeat?: boolean;
   volumeOpen?: boolean;
@@ -34,6 +35,8 @@ export type Scene = {
   scope?: "catalog" | "library";
   selectedArtist?: string;
   sort?: "ascending" | "descending";
+  sortField?: "title" | "artist" | "album" | "duration" | "recent";
+  favouritesOnly?: boolean;
   pinned?: boolean;
   editingNav?: boolean;
   hiddenNav?: string[];
@@ -120,8 +123,8 @@ const definitions: Record<string, Scene> = {
   "0c042c32": { page: "artist", namedProfile: true, scroll: "about-artist" },
   "9105a602": { page: "nearby", namedProfile: true },
   "653efa95": { page: "nearby", namedProfile: true, scroll: "more-concerts" },
-  "bc773ae9": { page: "artist", namedProfile: true, menu: "track" },
-  "f24fda77": { page: "artist", namedProfile: true, menu: "track", filled: true },
+  "bc773ae9": { page: "artist", namedProfile: true, menu: "artist" },
+  "f24fda77": { page: "artist", namedProfile: true, menu: "artist", filled: true },
   "898ca766": { page: "artist", namedProfile: true, scroll: "music-videos" },
   "a4afd6e6": { page: "artist", namedProfile: true, video: true, snapshotPlaying: true },
   "035569a0": { page: "search", namedProfile: true },
@@ -229,13 +232,18 @@ export function sceneFromUrl(url: URL): Scene | null {
     return screen ? screenScene(screen.screenId) : null;
   }
   if (parts.length) return null;
+  const track = url.searchParams.get("track");
+  if (track && !trackById(track)) return null;
+  const rawSort = url.searchParams.get("sortBy");
+  const sortField = ["title", "artist", "album", "duration", "recent"].includes(rawSort ?? "") ? rawSort as Scene["sortField"] : undefined;
   const view = url.searchParams.get("view") ?? "new";
   const page = view === "lyrics" ? "new" : view === "marketing" ? "home" : isPage(view) ? view : null;
   if (!page) return null;
   return { page, namedProfile: true, guest: url.searchParams.get("guest") === "1", query: url.searchParams.get("q") ?? undefined,
     scope: url.searchParams.get("scope") === "library" ? "library" : "catalog",
     category: url.searchParams.get("category") ?? undefined,
-    expanded: view === "lyrics", lyrics: view === "lyrics", track: view === "lyrics" ? "album-2" : undefined };
+    expanded: view === "lyrics", lyrics: view === "lyrics", track: view === "lyrics" ? "album-2" : track ?? undefined, sortField,
+    sort: url.searchParams.get("order") === "descending" ? "descending" : "ascending", selectedArtist: url.searchParams.get("artist") ?? undefined };
 }
 export function sceneUrl(scene: Scene): string {
   const query = new URLSearchParams({ view: scene.page });
@@ -243,6 +251,10 @@ export function sceneUrl(scene: Scene): string {
   if (scene.query) query.set("q", scene.query);
   if (scene.scope === "library") query.set("scope", "library");
   if (scene.category) query.set("category", scene.category);
+  if (scene.track && trackById(scene.track)) query.set("track", scene.track);
+  if (scene.sortField) query.set("sortBy", scene.sortField);
+  if (scene.sort) query.set("order", scene.sort);
+  if (scene.selectedArtist) query.set("artist", scene.selectedArtist);
   return `/?${query}`;
 }
 export const referenceCoverage = {

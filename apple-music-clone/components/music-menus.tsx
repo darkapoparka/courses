@@ -1,74 +1,101 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, useState, type ReactNode, type KeyboardEvent } from "react";
+import { albumTitle, allTracks } from "../lib/music-catalog";
+import { sceneUrl } from "../lib/music-scenes";
 import { useMusic } from "./music-context";
 import { Glyph, type GlyphName } from "./music-primitives";
 
 export function MusicMenus() {
   const m = useMusic();
-  const menu = useRef<HTMLDivElement>(null);
-  const [submenu, setSubmenu] = useState("");
-  const [location, setLocation] = useState(m.scene.location ?? "");
   const kind = m.scene.menu;
-  useEffect(() => {
-    if (!kind) return;
-    setSubmenu("");
-    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const frame = requestAnimationFrame(() => menu.current?.querySelector<HTMLElement>("input, button")?.focus());
-    const close = (event: KeyboardEvent) => { if (event.key === "Escape") { event.preventDefault(); m.patch({ menu: null }); } };
-    window.addEventListener("keydown", close);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("keydown", close); previous?.focus(); };
-  }, [kind, m.patch]);
-  if (!kind) return null;
+  const menu = useRef<HTMLDivElement>(null);
+  const flyout = useRef<HTMLDivElement>(null);
+  const [submenu, setSubmenu] = useState(false);
+  const [location, setLocation] = useState(m.scene.location ?? "");
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
   const close = () => m.patch({ menu: null });
+  useLayoutEffect(() => {
+    if (!kind || !menu.current) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const captured = m.scene.source;
+    const fallback = kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: 276 } : kind === "profile" ? { x: 26, y: innerHeight - 136 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
+    const anchor = m.menuPosition ?? fallback;
+    const bounds = menu.current.getBoundingClientRect();
+    setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
+    setSubmenu(Boolean(captured?.startsWith("0c6da10e")));
+    menu.current.querySelector<HTMLElement>("input,button")?.focus({ preventScroll: true });
+    return () => previous?.focus({ preventScroll: true });
+  }, [kind, m.menuPosition]);
+  useLayoutEffect(() => {
+    if (!submenu || !flyout.current || !menu.current) return;
+    const trigger = menu.current.querySelector<HTMLElement>("[data-playlist-trigger]");
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    const width = flyout.current.offsetWidth;
+    const height = flyout.current.offsetHeight;
+    setFlyoutPosition({ x: rect.right + width < innerWidth - 8 ? rect.right + 1 : Math.max(8, rect.left - width - 1), y: Math.max(8, Math.min(rect.top, innerHeight - height - 8)) });
+  }, [submenu, position]);
+  if (!kind) return null;
   const track = m.menuTrack;
-  const action = (label: string, icon: GlyphName, run: () => void, options: { checked?: boolean; keep?: boolean; danger?: boolean } = {}) => <button type="button" role={options.checked === undefined ? "menuitem" : "menuitemcheckbox"} aria-checked={options.checked} className={options.danger ? "destructive" : ""} key={label} onClick={() => { run(); if (!options.keep) close(); }}><span>{label}</span><Glyph name={icon} size={15} /></button>;
-  const copyLink = async () => {
-    const url = new URL("/", window.location.origin);
-    url.searchParams.set("view", kind === "album" ? "album" : "album");
-    url.searchParams.set("track", track.id);
-    try { await navigator.clipboard.writeText(url.href); m.notify("Link copied."); }
-    catch { m.notify("The browser did not allow clipboard access. Copy the page address from your address bar."); }
+  const artist = kind === "artist" ? m.menuTarget : track.artist;
+  const ids = kind === "artist" ? allTracks.filter(t => t.artist === artist).map(t => t.id) : kind === "album" && m.scene.page === "playlist" ? m.library.playlists.find(p => p.id === (m.scene.category ?? "emotional"))?.tracks ?? [] : kind === "album" ? allTracks.filter(t => t.album === (m.scene.category ?? albumTitle)).map(t => t.id) : [track.id];
+  const inLibrary = ids.length > 0 && ids.every(id => m.library.songs.includes(id));
+  const addLibrary = () => m.setLibrary(data => ({ ...data, songs: inLibrary ? data.songs.filter(id => !ids.includes(id)) : [...new Set([...data.songs, ...ids])] }));
+  const favourite = kind === "artist" ? m.library.favouriteArtists.includes(artist) : m.library.favourites.includes(track.id);
+  const favouriteAction = () => kind === "artist" ? m.favouriteArtist(artist) : m.favourite(track.id);
+  const link = () => new URL(sceneUrl(kind === "artist" ? { page: "artist", category: artist } : kind === "station" ? { page: "radio" } : { page: "album", category: track.album, track: track.id }), window.location.origin).href;
+  const copy = async (embed = false) => {
+    try { await navigator.clipboard.writeText(embed ? `<iframe src="${link()}" title="Music reference preview" width="660" height="450"></iframe>` : link()); m.notify(embed ? "Embed code copied." : "Link copied."); }
+    catch { m.notify("Clipboard access was not allowed. Copy the page address from the address bar."); }
     close();
   };
+  const share = () => { if (navigator.share) void navigator.share({ title: kind === "artist" ? artist : track.title, url: link() }).catch(e => { if (e?.name !== "AbortError") m.notify("Sharing could not be opened."); }); else void copy(); };
+  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={label} onClick={() => { run(); close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && <Glyph name={icon} size={16} />}</button>;
+  const playlistAction = <button type="button" role="menuitem" data-playlist-trigger aria-haspopup="menu" aria-expanded={submenu} onMouseEnter={() => setSubmenu(true)} onClick={() => setSubmenu(true)} onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); setSubmenu(true); requestAnimationFrame(() => flyout.current?.querySelector<HTMLButtonElement>("button")?.focus()); } }}><span>Add to Playlist</span><Glyph name="playlist" size={16} /></button>;
+  const queueAction = (next: boolean) => m.setQueue(current => next ? [...ids, ...current.filter(id => !ids.includes(id))] : [...current.filter(id => !ids.includes(id)), ...ids]);
+  const stationAction = () => { m.setQueue(allTracks.filter(t => t.artist === artist && t.id !== track.id && !t.unavailable).map(t => t.id)); m.play(track); };
   let content: ReactNode;
-  if (kind === "location") {
-    const matches = ["Chicago, IL", "Singapore", "Austin, TX", "Nashville, TN", "New York, NY", "London, United Kingdom"].filter(city => city.toLowerCase().includes(location.toLowerCase()));
-    content = <><label className="menu-location-search"><Glyph name="search" size={15} /><input aria-label="Find a city" value={location} placeholder="Search city or postcode" onChange={event => setLocation(event.target.value)} /></label><p className="menu-caption">Locations in the reference preview</p>{matches.map(city => action(city, "location", () => m.patch({ location: city, dateRange: undefined, genre: undefined })))}{!matches.length && <p className="menu-caption">No saved locations match your search.</p>}</>;
-  } else if (kind === "genres") {
-    content = <>{["All Genres", "Alternative", "Country", "Dance", "Hip-Hop/Rap", "Pop", "R&B/Soul", "Rock"].map(genre => action(genre, m.scene.genre === genre ? "check" : "song", () => m.patch({ genre: genre === "All Genres" ? undefined : genre }), { checked: (m.scene.genre ?? "All Genres") === genre }))}</>;
-  } else if (kind === "sort") {
-    content = <>{action("Ascending", "sort", () => m.patch({ sort: "ascending" }), { checked: m.scene.sort !== "descending" })}{action("Descending", "sort", () => m.patch({ sort: "descending" }), { checked: m.scene.sort === "descending" })}</>;
+  if (kind === "sort") {
+    content = <>{action("Title", null, () => m.patch({ sortField: "title" }), m.scene.sortField !== "recent")}{action("Recently Added", null, () => m.patch({ sortField: "recent" }), m.scene.sortField === "recent")}<hr />{action("Ascending", null, () => m.patch({ sort: "ascending" }), m.scene.sort !== "descending")}{action("Descending", null, () => m.patch({ sort: "descending" }), m.scene.sort === "descending")}</>;
   } else if (kind === "profile") {
-    content = <>{action("Settings", "person", () => m.go("settings"))}{action("Reference screens and flows", "new", () => m.patch({ overlay: "reference", menu: null }), { keep: true })}<hr />{action("Sign Out", "external", () => { m.patch({ guest: true, namedProfile: false }); m.notify("Signed out of the local preview. No Apple account was connected."); })}</>;
+    content = <>{action("Settings", null, () => m.go("settings"))}{action("Sign Out", null, () => { m.audio.current?.pause(); m.patch({ guest: true, namedProfile: false }); })}</>;
+  } else if (kind === "location") {
+    const matches = ["Chicago, IL", "Singapore", "Austin, TX", "Nashville, TN", "New York, NY", "London, United Kingdom"].filter(city => city.toLowerCase().includes(location.toLowerCase()));
+    content = <><label className="menu-location-search"><Glyph name="search" size={15} /><input aria-label="Find a city" value={location} placeholder="Search city or postcode" onChange={event => setLocation(event.target.value)} /></label>{matches.map(city => action(city, "location", () => m.patch({ location: city, dateRange: undefined, genre: undefined })))}{!matches.length && <p className="menu-caption">No saved locations match your search.</p>}</>;
+  } else if (kind === "genres") {
+    content = <>{["All Genres", "Alternative", "Country", "Dance", "Hip-Hop/Rap", "Pop", "R&B/Soul", "Rock"].map(genre => action(genre, null, () => m.patch({ genre: genre === "All Genres" ? undefined : genre }), (m.scene.genre ?? "All Genres") === genre))}</>;
   } else if (kind === "station") {
-    content = <>{action("Play", "play", () => m.go("station:1"), { keep: true })}{action("View Full Schedule", "calendar", () => m.go("schedule"))}{action("Copy Link", "share", () => { void copyLink(); })}</>;
-  } else if (kind === "share" || submenu === "share") {
-    content = <>{action("Copy Link", "share", () => { void copyLink(); })}{action("Share…", "external", () => {
-      const data = { title: track.title, url: window.location.href };
-      if (navigator.share) void navigator.share(data).catch(error => { if (!(error instanceof DOMException && error.name === "AbortError")) m.notify("Sharing could not be opened. Use Copy Link instead."); });
-      else void copyLink();
-    })}</>;
-  } else if (submenu === "playlist") {
-    content = <>{action("‹ Back", "back", () => setSubmenu(""), { keep: true })}{m.library.playlists.map(playlist => action(playlist.name, "playlist", () => {
-      m.setLibrary(data => ({ ...data, playlists: data.playlists.map(item => item.id === playlist.id ? { ...item, tracks: [...new Set([...item.tracks, track.id])] } : item) }));
-      m.notify(`Added to ${playlist.name}.`);
-    }))}<hr />{action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null }), { keep: true })}</>;
+    content = <>{action("Play", "play", () => m.go("station:1"))}{action("View Full Schedule", "calendar", () => m.go("schedule"))}{action("Copy Link", "link", () => { void copy(); })}</>;
+  } else if (kind === "share") {
+    content = <>{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
+  } else if (kind === "track" && m.scene.page === "songs") {
+    content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "next", () => queueAction(true))}{action("Play Last", "queue", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
-    content = <>{action(m.library.favourites.includes(track.id) ? "Undo Favourite" : "Favourite", "star", () => m.favourite(track.id))}{action(m.library.songs.includes(track.id) ? "Remove from Library" : "Add to Library", m.library.songs.includes(track.id) ? "close" : "plus", () => m.addToLibrary(track.id))}{action("Add to Playlist", "chevron", () => setSubmenu("playlist"), { keep: true })}{action(m.library.pinned.includes(track.id) ? "Unpin" : "Pin", "pin", () => m.pin(track.id))}<hr />{action("Play Next", "next", () => { m.setQueue(ids => [track.id, ...ids.filter(id => id !== track.id)]); m.notify("Added to play next."); })}{action("Play Last", "queue", () => { m.setQueue(ids => [...ids.filter(id => id !== track.id), track.id]); m.notify("Added to the end of the queue."); })}<hr />{action("Go to Album", "albums", () => m.go("album"))}{action("Go to Artist", "artist", () => m.go(`artist:${track.artist}`))}{action("View Credits", "song", () => m.go("credits"))}{action("Share", "chevron", () => setSubmenu("share"), { keep: true })}</>;
+    content = <>{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "next", () => queueAction(true))}{action("Play Last", "queue", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{kind !== "track" && action("Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
   }
-  const fallback = kind === "profile" ? { left: 22, bottom: 66 } : kind === "location" || kind === "genres" ? { left: 286, top: m.scene.location ? 128 : 186 } : kind === "sort" ? { right: 20, top: 39 } : m.scene.expanded ? { left: "min(580px, calc(100vw - 240px))", top: "min(460px, calc(100dvh - 420px))" } : { right: 44, top: 60 };
-  return <div className="menu-layer"><button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} /><div ref={menu} className={`context-menu menu-${kind}`} role="menu" aria-label={`${kind} actions`} style={m.menuPosition ? { left: m.menuPosition.x, top: m.menuPosition.y } : fallback} onKeyDown={event => {
+  const keyboard = (event: KeyboardEvent<HTMLDivElement>, child = false) => {
+    if (event.key === "Escape") { event.preventDefault(); close(); return; }
+    if (event.key === "ArrowLeft" && child) { event.preventDefault(); setSubmenu(false); menu.current?.querySelector<HTMLElement>("[data-playlist-trigger]")?.focus(); return; }
     if (event.target instanceof HTMLInputElement) return;
-    const items = Array.from(menu.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? []);
+    if (event.key === "Tab") { close(); return; }
+    const host = child ? flyout.current : menu.current;
+    const items = Array.from(host?.querySelectorAll<HTMLButtonElement>(":scope > button:not(:disabled)") ?? []);
+    if (!items.length) return;
     const current = items.indexOf(document.activeElement as HTMLButtonElement);
-    let next = current;
-    if (event.key === "ArrowDown") next = (current + 1) % items.length;
-    else if (event.key === "ArrowUp") next = (current - 1 + items.length) % items.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = items.length - 1;
-    else if (event.key === "Tab") { close(); return; }
-    else return;
-    event.preventDefault(); items[next]?.focus();
-  }}>{content}</div></div>;
+    const index = event.key === "ArrowDown" ? (current + 1) % items.length : event.key === "ArrowUp" ? (current - 1 + items.length) % items.length : event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : -1;
+    if (index >= 0) { event.preventDefault(); items[index]?.focus(); }
+  };
+  return <div className="menu-layer">
+    <button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} />
+    <div ref={menu} className={`context-menu faithful-menu menu-${kind}`} role="menu" aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
+    {submenu && <div ref={flyout} className="context-menu faithful-menu playlist-flyout" role="menu" aria-label="Add to playlist" style={{ left: flyoutPosition.x, top: flyoutPosition.y }} onKeyDown={event => keyboard(event, true)}>
+      {action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null, playlistSeed: ids }))}
+      {m.library.playlists.map(playlist => action(playlist.name, null, () => {
+        m.setLibrary(data => ({ ...data, playlists: data.playlists.map(p => p.id === playlist.id ? { ...p, tracks: [...new Set([...p.tracks, ...ids])] } : p) }));
+        m.notify(`Added to ${playlist.name}.`);
+      }))}
+    </div>}
+  </div>;
 }

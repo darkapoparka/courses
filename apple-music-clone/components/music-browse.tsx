@@ -3,13 +3,14 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { albumArt, albumTitle, albumTracks, allTracks, chartTracks, artistHero, categories, crop, emotionalArt, favouriteArt, features, formatTime, libraryCovers, libraryTracks, radioStations, recentlyPlayed, sourArt, topPicks, viralTracks, type Card, type Track } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
-import { Art, EmptyState, Footer, Glyph, IconButton, Rail, Section } from "./music-primitives";
+import { Art, EmptyState, Footer, Glyph, IconButton, Section } from "./music-primitives";
+import { Rail } from "./music-rail";
 
-export function SongRow({ track, showTime = false, trailing }: { track: Track; showTime?: boolean; trailing?: ReactNode }) {
+export function SongRow({ track, showTime = false, trailing, showFavourite = false }: { track: Track; showTime?: boolean; trailing?: ReactNode; showFavourite?: boolean }) {
   const m = useMusic();
   return <div className="song-row" data-active={m.activeId === track.id && m.playing}>
     <button type="button" className="song-art-button" aria-label={`Play ${track.title}`} onClick={() => m.play(track)}><Art art={track.art} label={track.album} /><span className="art-play"><Glyph name={m.activeId === track.id && m.playing ? "pause" : "play"} /></span></button>
-    <div className="song-copy"><button className="song-title" type="button" onClick={() => m.play(track)}>{track.title}{track.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button><button className="song-artist" type="button" onClick={() => m.go(`artist:${track.artist}`)}>{track.artist}</button></div>
+    <div className="song-copy"><button className="song-title" type="button" onClick={() => m.play(track)}>{track.title}{showFavourite && m.library.favourites.includes(track.id) && <span className="small-star" aria-label="Favourite">★</span>}{track.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button><button className="song-artist" type="button" onClick={() => m.go(`artist:${track.artist}`)}>{track.artist}</button></div>
     {showTime && <span className="duration">{track.duration ? formatTime(track.duration) : "—"}</span>}
     {trailing ?? <IconButton icon="more" label={`More actions for ${track.title}`} onClick={(event) => m.openMenu("track", event, track.id)} />}
   </div>;
@@ -18,7 +19,7 @@ export function CardTile({ card, poster = false }: { card: Card; poster?: boolea
   const { go } = useMusic();
   const destination = card.destination.includes(":") || !["album", "artist"].includes(card.destination) ? card.destination : `${card.destination}:${card.id}`;
   const artwork = card.portrait || card.plain ? <span className="category-preview" style={{ backgroundColor: card.background }}>{card.portrait && <span className="category-portrait"><Art art={card.portrait} label={card.title} /></span>}<span className="category-caption">{card.title}</span></span> : <Art art={card.art} label={card.title} />;
-  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{card.title}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
+  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{card.title}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
 }
 function CardRail({ cards, label, poster = false }: { cards: Card[]; label: string; poster?: boolean }) { return <Rail label={label} className={poster ? "poster-rail" : "square-rail"}>{cards.map(card => <CardTile key={card.id} card={card} poster={poster} />)}</Rail>; }
 

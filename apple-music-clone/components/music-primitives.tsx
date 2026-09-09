@@ -6,10 +6,15 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail";
+export type GlyphName = IconName | "link" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "link": return <svg {...common}><path d="m9 15 6-6M8 16l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M16 8l1-1a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1) scale(.9)" /></svg>;
+    case "code": return <svg {...common}><path d="m7 6-5 6 5 6M17 6l5 6-5 6M14 3l-4 18" /></svg>;
+    case "info": return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M12 10v7M11 7h2" /></svg>;
+    case "thumb-down": return <svg {...common}><path d="M9 14h-4a2 2 0 0 1-2-2l2-8h12v11l-4 6h-2l1-7H9ZM17 4h4v10h-4" /></svg>;
+    case "favourites": return <svg {...common}><rect x="3" y="2" width="18" height="20" rx="2" /><path d="m12 5 1.7 3.7 4 .5-2.9 2.8.7 4-3.5-1.8-3.5 1.8.7-4-2.9-2.8 4-.5Z" /></svg>;
     case "chevron": return <svg {...common}><path d="m9 5 7 7-7 7" /></svg>;
     case "down": return <svg {...common}><path d="m5 9 7 7 7-7" /></svg>;
     case "back": return <svg {...common}><path d="m15 5-7 7 7 7" /></svg>;
@@ -60,20 +65,6 @@ export function IconButton({ icon, label, className = "", ...props }: ButtonHTML
 export function Section({ title, children, onMore, id, className = "" }: { title: string; children: ReactNode; onMore?: () => void; id?: string; className?: string }) {
   return <section className={`music-section ${className}`} id={id} aria-label={title}><h2>{onMore ? <button type="button" className="section-link" onClick={onMore}>{title}<Glyph name="chevron" size={15} /></button> : title}</h2>{children}</section>;
 }
-export function Rail({ children, className = "", label, initialIndex = 0 }: { children: ReactNode; className?: string; label: string; initialIndex?: number }) {
-  const rail = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      const host = rail.current;
-      const first = host?.firstElementChild as HTMLElement | null;
-      const selected = host?.children[initialIndex] as HTMLElement | undefined;
-      if (host && first && selected) host.scrollLeft = selected.offsetLeft - first.offsetLeft;
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [initialIndex]);
-  const move = (direction: number) => rail.current?.scrollBy({ left: direction * rail.current.clientWidth * .82, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-  return <div className={`rail-wrap ${className}`}><div ref={rail} className="music-rail" role="region" aria-label={label} tabIndex={0}>{children}</div><div className="rail-arrows"><IconButton icon="back" label={`Previous ${label}`} onClick={() => move(-1)} /><IconButton icon="chevron" label={`Next ${label}`} onClick={() => move(1)} /></div></div>;
-}
 export function EmptyState({ icon = "song", title, description, action, onAction }: { icon?: GlyphName; title?: string; description?: string; action?: string; onAction?: () => void }) {
   return <div className="empty-state"><Glyph name={icon} size={62} />{title && <h2>{title}</h2>}{description && <p>{description}</p>}{action && <button className="pill primary" type="button" onClick={onAction}>{action}</button>}</div>;
 }
@@ -91,7 +82,7 @@ export function Dialog({ title, children, onClose, className = "", hideClose = f
     if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
   }}>{!hideClose && <IconButton icon="close" label="Close dialog" className="dialog-close" onClick={onClose} />}{children}</dialog>;
 }
-export function Footer() {
+export function Footer({ compact = false }: { compact?: boolean } = {}) {
   const m = useMusic();
   const links = [
     ["Internet Service Terms", "https://www.apple.com/legal/internet-services/itunes/"],
@@ -100,5 +91,5 @@ export function Footer() {
     ["Support", "https://support.apple.com/music"],
     ["Feedback", "https://www.apple.com/feedback/apple-music/"],
   ];
-  return <footer className="content-footer"><div className="footer-region"><span>Singapore</span><button type="button" onClick={() => m.setLibrary(data => ({ ...data, locale: data.locale === "en" ? "zh" : "en" }))}>{m.library.locale === "en" ? "简体中文" : "English"}</button></div><p>Copyright © 2026 Apple Inc. All rights reserved.</p><nav aria-label="Reference legal links">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</nav><span className="sr-only">Local reference preview, not affiliated with Apple. These links open official Apple pages; no account or billing service is connected here.</span></footer>;
+  return <footer className={`content-footer ${compact ? "compact-footer" : ""}`}><div className="footer-region"><span>Singapore</span><button type="button" onClick={() => m.setLibrary(data => ({ ...data, locale: data.locale === "en" ? "zh" : "en" }))}>{m.library.locale === "en" ? "简体中文" : "English"}</button></div><p>Copyright © 2026 Apple Inc. All rights reserved.</p><nav aria-label="Reference legal links">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</nav><span className="sr-only">Local reference preview, not affiliated with Apple. These links open official Apple pages; no account or billing service is connected here.</span></footer>;
 }

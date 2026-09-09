@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { albumArt, albumTitle, crop, libraryCovers, libraryTracks } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
-import { Art, Footer, Glyph, IconButton, Rail, Section } from "./music-primitives";
+import { Art, Footer, Glyph, IconButton, Section } from "./music-primitives";
+import { Rail } from "./music-rail";
 import { CardTile, SongRow } from "./music-browse";
 
 const cities = ["Austin", "Nashville", "Chicago", "Miami"];

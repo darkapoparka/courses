@@ -6,7 +6,7 @@ import { videoArt, trackById } from "../lib/music-catalog";
 import { sourcePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
 import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
-import { AlbumView, ArtistView, CategoryView, LibraryView, RadioView } from "./music-browse";
+import { AlbumView, ArtistView, CategoryView, RadioView } from "./music-browse";
 import { ConcertsView, ConcertView, CreditsView, MilestonesView, NearbyView, ReplayView } from "./music-secondary";
 import { ExpandedPlayer, Player, PlayerPanel } from "./music-player";
 import { SettingsView, ConnectedView, SubscriptionView } from "./music-account";
@@ -15,6 +15,8 @@ import { SearchView } from "./music-search";
 import { NewView, HomeView } from "./music-discovery";
 import { MusicOverlays } from "./music-overlays";
 import { MusicMenus } from "./music-menus";
+import { LibraryView } from "./music-library";
+import { PlaylistView } from "./music-playlist";
 
 const libraryItems: [string, string, GlyphName, string][] = [
   ["library", "Recently Added", "recent", "最近添加"], ["artists", "Artists", "artist", "艺人"],
@@ -28,7 +30,8 @@ function Content() {
     case "new": return <NewView />;
     case "home": return <HomeView />;
     case "search": return <SearchView />;
-    case "album": case "playlist": case "favourites": return <AlbumView />;
+    case "album": return <AlbumView />;
+    case "playlist": case "favourites": return <PlaylistView />;
     case "artist": return <ArtistView />;
     case "chart": return <ChartView />;
     case "radio": return <RadioView />;
@@ -91,8 +94,8 @@ function MusicShell() {
         {!m.scene.guest && <>
           <div className="sidebar-section-label"><span>{zh ? "资料库" : "Library"}</span><button type="button" onClick={() => m.patch({ editingNav: !m.scene.editingNav })}>{m.scene.editingNav ? "Done" : "Edit"}</button></div>
           <nav aria-label="Music library">{libraryItems.map(([page, label, icon, chinese]) => m.scene.editingNav ? <label className="sidebar-row editable-row" key={page}><input type="checkbox" aria-label={`Show ${label}`} checked={!m.library.hiddenNav.includes(page)} onChange={() => m.setLibrary(data => ({ ...data, hiddenNav: data.hiddenNav.includes(page) ? data.hiddenNav.filter(id => id !== page) : [...data.hiddenNav, page] }))} /><Glyph name={icon} size={17} /><span>{zh ? chinese : label}</span></label> : !m.library.hiddenNav.includes(page) ? navigation(page, zh ? chinese : label, icon) : null)}</nav>
-          <div className="sidebar-section-label"><span>{zh ? "播放列表" : "Playlists"}</span><IconButton icon="plus" label="Create playlist" onClick={() => m.patch({ overlay: "new-playlist" })} /></div>
-          <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{showPlaylists && <>{navigation("favourites", zh ? "喜爱的歌曲" : "Favourite Songs", "playlist")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><Glyph name="playlist" size={17} /><span>{playlist.name}</span></button>)}</>}</nav>
+          <div className="sidebar-section-label"><span>{zh ? "播放列表" : "Playlists"}</span><IconButton icon="plus" label="Create playlist" onClick={() => m.patch({ overlay: "new-playlist", playlistSeed: [] })} /></div>
+          <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{showPlaylists && <>{navigation("favourites", zh ? "喜爱的歌曲" : "Favourite Songs", "favourites")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><Glyph name="playlist" size={17} /><span>{playlist.name}</span></button>)}</>}</nav>
           {m.library.pinned.length > 0 && <><div className="sidebar-section-label"><span>Pinned</span></div>{m.library.pinned.map(id => <button type="button" className="sidebar-row" key={id} onClick={() => m.play(id)}><Glyph name="pin" size={16} /><span>{trackById(id)?.title ?? "Pinned song"}</span></button>)}</>}
         </>}
       </div>

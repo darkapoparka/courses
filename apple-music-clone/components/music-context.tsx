@@ -9,8 +9,8 @@ export type LibraryState = { version: 1; favourites: string[]; favouriteArtists:
 const known = new Set(allTracks.map((track) => track.id));
 const knownArtists = new Set(allTracks.flatMap(track => track.artist.split(", ")));
 const initialLibrary: LibraryState = {
-  version: 1, favouriteArtists: [], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "album-2", "library-7"], pinned: [],
-  playlists: [{ id: "emotional", name: "Emotional Songs", description: "", tracks: ["album-2", "album-3", "library-3"], public: false }],
+  version: 1, favouriteArtists: ["Billie Eilish", "Olivia Rodrigo"], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "library-7", "album-2"], pinned: [],
+  playlists: [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2", "playlist-cure", "drivers-license"], public: false }],
   hiddenNav: [], locale: "en", restrictions: false, cancelled: false, musicRating: "Clean", tvRating: "G", movieRating: "G",
 };
 function strings(value: unknown): string[] { return Array.isArray(value) ? [...new Set(value.filter((item): item is string => typeof item === "string" && known.has(item)))].slice(0, 500) : []; }
@@ -22,6 +22,11 @@ export function readLibrary(value: unknown): LibraryState | null {
       if (!item || typeof item !== "object") return [];
       const p = item as Record<string, unknown>;
       if (typeof p.id !== "string" || typeof p.name !== "string" || !p.name.trim()) return [];
+      // Upgrade only the untouched, incorrect seed shipped by the old prototype.
+      // User-created/edited playlists are deliberately not rewritten.
+      if (p.id === "emotional" && p.name === "Emotional Songs" && p.description === "" && Array.isArray(p.tracks) && p.tracks.join("|") === "album-2|album-3|library-3") {
+        return [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2", "playlist-cure", "drivers-license"], public: p.public === true }];
+      }
       return [{ id: p.id.slice(0, 80), name: p.name.slice(0, 100), description: typeof p.description === "string" ? p.description.slice(0, 1000) : "", tracks: strings(p.tracks), public: p.public === true }];
     }) : [],
     hiddenNav: Array.isArray(row.hiddenNav) ? row.hiddenNav.filter((v): v is string => typeof v === "string" && ["library", "artists", "albums", "songs", "videos", "made-for-you"].includes(v)) : [],
@@ -41,7 +46,7 @@ export type Controller = {
   favouriteArtist: (name: string) => void; suggestLess: (id: string) => void;
   favourite: (id: string) => void; addToLibrary: (id: string) => void; pin: (id: string) => void;
   openMenu: (menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => void;
-  menuTrack: Track; menuPosition: { x: number; y: number } | null;
+  menuTarget: string; menuTrack: Track; menuPosition: { x: number; y: number } | null;
   message: string; notify: (message: string) => void;
 };
 const Context = createContext<Controller | null>(null);
@@ -52,7 +57,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const referenceSession = useRef(Boolean(initialScene.source));
   const [library, setLibrary] = useState<LibraryState>(() => ({ ...initialLibrary,
     songs: initialScene.empty && initialScene.page === "library" ? [] : [...initialLibrary.songs],
-    favourites: [...initialLibrary.favourites], playlists: initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["viral-5"] : [])] })),
+    favourites: [...initialLibrary.favourites], playlists: initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),
     pinned: initialScene.pinned ? ["album-2"] : [], hiddenNav: initialScene.hiddenNav ?? [], locale: initialScene.locale ?? "en", restrictions: initialScene.restrictions ?? false, cancelled: initialScene.cancelled ?? false }));
   const [hydrated, setHydrated] = useState(false);
   const [activeId, setActiveId] = useState(initialScene.track);
@@ -65,7 +70,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const [shuffle, setShuffle] = useState(Boolean(initialScene.shuffle));
   const [repeat, setRepeat] = useState(Boolean(initialScene.repeat));
   const [queue, setQueue] = useState<string[]>(initialScene.queueEmpty ? [] : viralTracks.slice(1).map((track) => track.id));
-  const [menuTrackId, setMenuTrackId] = useState(initialScene.track ?? "album-2");
+  const [menuTrackId, setMenuTrackId] = useState(initialScene.page === "artist" || initialScene.menu === "artist" ? "Olivia Rodrigo" : initialScene.track ?? "album-2");
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null);
   const [message, setMessage] = useState("");
   const [mediaName, setMediaName] = useState("");
@@ -76,6 +81,9 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const storageWarning = useRef(false);
   const notify = useCallback((text: string) => { if (messageTimer.current) clearTimeout(messageTimer.current); setMessage(text); messageTimer.current = setTimeout(() => setMessage(""), 4500); }, []);
   const patch = useCallback((changes: Partial<Scene>) => setScene((current) => ({ ...current, source: undefined, scroll: undefined, ...changes })), []);
+  useEffect(() => {
+    if (window.location.pathname === "/") window.history.replaceState(window.history.state, "", sceneUrl(scene));
+  }, [scene.page, scene.query, scene.scope, scene.sort, scene.sortField, scene.selectedArtist]);
 
   useEffect(() => {
     if (!referenceSession.current) {
@@ -120,9 +128,15 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     void element.play().catch(() => notify("Playback could not start. Try another supported audio file."));
   }, [muted, volume, notify, patch, activeId, library.restrictions, library.musicRating]);
   const togglePlayback = useCallback(() => {
-    if (realPlaying) { audio.current?.pause(); return; }
+    const element = audio.current;
+    if (realPlaying || snapshot) { element?.pause(); setSnapshot(false); return; }
+    const local = activeId ? media.current.get(activeId) : undefined;
+    if (element && local && element.getAttribute("src") === local.url) {
+      void element.play().catch(() => notify("Playback could not resume. Try the Play button again."));
+      return;
+    }
     play(activeId ?? "album-2");
-  }, [realPlaying, activeId, play]);
+  }, [realPlaying, snapshot, activeId, play, notify]);
   const skip = useCallback((direction: number) => {
     if (direction < 0) {
       const previous = history.current.pop();
@@ -173,7 +187,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [activeId, patch]);
   const openMenu = useCallback((menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => {
     if (id) setMenuTrackId(id);
-    if (event) { const r = event.currentTarget.getBoundingClientRect(); setMenuPosition({ x: Math.max(8, Math.min(r.right - 218, window.innerWidth - 226)), y: Math.max(8, Math.min(r.bottom + 5, window.innerHeight - 340)) }); }
+    if (event) { const r = event.currentTarget.getBoundingClientRect(); setMenuPosition({ x: Math.max(8, Math.min(r.right - 176, window.innerWidth - 184)), y: Math.max(8, Math.min(r.bottom + 5, window.innerHeight - 340)) }); }
     else setMenuPosition(null);
     patch({ menu, overlay: null });
   }, [patch]);
@@ -186,6 +200,6 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     elapsed, duration, setElapsed: (time) => { if (audio.current && duration > 0) { audio.current.currentTime = Math.max(0, Math.min(duration, time)); updateElapsed(audio.current.currentTime); } },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
     shuffle, setShuffle, repeat, setRepeat, queue, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
-    favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
+    favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTarget: menuTrackId, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
   return <Context.Provider value={value}><audio ref={audio} preload="metadata" /><div data-reference-ready={hydrated ? "true" : "false"}>{children}</div></Context.Provider>;
 }

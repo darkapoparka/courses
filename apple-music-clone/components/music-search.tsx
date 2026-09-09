@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { albumArt, albumTitle, allTracks, categories, crop, libraryCovers, libraryTracks, type Artwork } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
-import { Art, EmptyState, Footer, Glyph, IconButton, Rail, Section } from "./music-primitives";
+import { Art, EmptyState, Footer, Glyph, IconButton, Section } from "./music-primitives";
+import { Rail } from "./music-rail";
 import { CardTile, SongRow } from "./music-browse";
 
 const artists = ["Olivia Rodrigo", "Olivia Dean", "Olivia Ong", "OLIVIA", "OLIVIA", "Olivia Belli", "Olivia O’Brien", "Olivia Newton-John"].map((name, i) => ({ id: `artist-${i}`, name, art: crop("e70094e3", [286, 428, 570, 712, 854, 996, 1138, 1280][i]!, 422, 122, 122) }));

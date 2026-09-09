@@ -1,12 +1,12 @@
-/* Independently scrolling rails can continue under the frosted navigation.
- * Their cards retain the same content-width calculations and real hit targets. */
+/* The content scrollport must never extend into the navigation column.
+ * Horizontal collections can bleed into their own page gutters, not the sidebar.
+ * scroll-padding keeps the first snap target at the content inset, not x=0. */
+.music-main { padding-left:0; overflow-x:hidden; isolation:isolate; }
 @media (min-width:1181px) {
-  .music-main { left:0; padding-left:var(--sidebar); }
-  .page-content .rail-wrap { margin-left:calc(-1 * (var(--sidebar) + var(--page-left))); }
-  .page-content .music-rail { padding-left:calc(var(--sidebar) + var(--page-left)); padding-right:var(--page-right); }
-  .music-sidebar { background:rgb(248 248 250 / 91%); backdrop-filter:blur(22px) saturate(.9); -webkit-backdrop-filter:blur(22px) saturate(.9); }
-  .rail-arrows { left:calc(var(--sidebar) + var(--page-left) - 20px); }
-  .with-player-panel .music-main { padding-left:var(--sidebar); }
+  .music-main { left:var(--sidebar); }
+  .page-content .rail-wrap { margin-left:calc(-1 * var(--page-left)); margin-right:calc(-1 * var(--page-right)); }
+  .page-content .music-rail { position:relative; padding-left:var(--page-left); padding-right:var(--page-right); scroll-padding-left:var(--page-left); scroll-padding-right:var(--page-right); }
+  .rail-arrows { left:calc(var(--page-left) - 20px); right:2px; }
 }
 .capture-discovery .music-section { margin-top:42px; }
 .capture-discovery #essentials { margin-top:66px; }
