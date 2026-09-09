@@ -39,19 +39,25 @@ jobs:
         run: npx --yes pnpm@10.11.0 typecheck
       - name: Compile the reference preview
         run: npx --yes pnpm@10.11.0 build
-      - name: Preserve an isolated, secret-free browser inspection workspace
-        if: always()
+      - name: Install pinned browser tooling
+        run: |
+          python3 -m venv /tmp/reference-browser
+          /tmp/reference-browser/bin/pip install playwright==1.62.0
+          /tmp/reference-browser/bin/python -m playwright install --with-deps chromium
+      - name: Render every saved state and exercise real controls
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p .parity-evidence
-          printf '{"commit":"%s","purpose":"local reference comparison; not a deployment"}\n' "$GITHUB_SHA" > .parity-evidence/candidate.json
-          if [ -d node_modules ]; then
-            files=(AGENTS.md app components lib scripts node_modules package.json pnpm-lock.yaml tsconfig.json next.config.ts postcss.config.mjs next-env.d.ts reference/originals/flow-screen-map.json reference/originals/*.webp reference/originals/high-resolution/*.webp)
-            if [ -d .next ]; then files+=(.next); fi
-            tar --exclude='node_modules/.cache' --exclude='.next/cache' --exclude='.next/standalone' -czf .parity-evidence/reference-workspace.tgz "${files[@]}"
-          fi
-      - name: Preserve exact candidate and comparison inputs
+          mkdir -p .parity-evidence/browser
+          REFERENCE_PREVIEW=1 HOSTNAME=127.0.0.1 PORT=3000 node node_modules/next/dist/bin/next start > .parity-evidence/server.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 60); do
+            if curl --silent --fail http://127.0.0.1:3000/ > /dev/null; then break; fi
+            sleep 1
+          done
+          /tmp/reference-browser/bin/python scripts/browser-reference.py
+      - name: Preserve exact candidate and comparison evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
