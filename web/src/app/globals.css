@@ -1033,3 +1033,243 @@ progress::-moz-progress-bar {
     scroll-behavior: auto !important;
   }
 }
+
+/* Measured VIS-07 finish: sampled surfaces and compact outside captions. */
+:root {
+  --surface: #f9f9fb;
+  --surface-selected: #efeef1;
+  --text: #202020;
+}
+.desktop-rail {
+  box-shadow: 0 8px 28px #0000000a;
+}
+.page-heading {
+  min-height: 44px;
+}
+.course-card h3 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.course-byline {
+  margin-top: 1px;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.course-art {
+  margin-bottom: 4px;
+  box-shadow: 0 4px 6px #00000012;
+}
+.editorial-card {
+  box-shadow: 0 9px 12px -3px #00000029;
+}
+.editorial-card::after {
+  inset: 58% 0 0;
+  background: linear-gradient(0deg, #0009, transparent);
+}
+.editorial-caption {
+  inset: auto 15px 15px;
+}
+.editorial-caption h3 {
+  font-size: 13px;
+  line-height: 15px;
+  margin-bottom: 3px;
+}
+.editorial-description {
+  color: #f9f9fb;
+  font-size: 11px;
+  line-height: 14px;
+}
+.editorial-caption > p:first-child {
+  line-height: 14px;
+  margin-bottom: 1px;
+}
+.editorial-curiosity .editorial-cover-type,
+.editorial-begin .editorial-cover-type {
+  display: none;
+}
+.editorial-curiosity > img {
+  transform: scale(1.5);
+  transform-origin: center 45%;
+}
+.editorial-strength::before {
+  background: linear-gradient(180deg, #0004, transparent 40%);
+}
+.home-footer {
+  flex-wrap: wrap;
+}
+.home-footer > div:first-child {
+  flex: 1;
+  min-width: 200px;
+}
+.home-footer .sample-controls {
+  flex-shrink: 0;
+}
+.rail-bottom .preview-label {
+  display: block;
+}
+.preview-label:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .page-heading h1 {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0;
+    transform: translate(1px, -1px);
+  }
+  .shelf-controls {
+    left: 0;
+    right: auto;
+    width: calc(100% + var(--content-padding));
+    top: 113px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms;
+  }
+  .featured-section .shelf-controls {
+    top: 184px;
+  }
+  .shelf-controls .icon-button {
+    width: 34px;
+    height: 50px;
+    background: #f5f5f7f2;
+    border-radius: 20px;
+  }
+  .home-section:hover .shelf-controls,
+  .home-section:focus-within .shelf-controls {
+    opacity: 1;
+  }
+  .home-section:hover .shelf-controls button,
+  .home-section:focus-within .shelf-controls button {
+    pointer-events: auto;
+  }
+  .shelf-controls button:disabled {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+@media (hover: none) and (min-width: 768px) {
+  .shelf-controls {
+    opacity: 1;
+  }
+  .shelf-controls button:not(:disabled) {
+    pointer-events: auto;
+  }
+}
+@media (max-width: 767px) {
+  .course-card h3 {
+    font-size: 14px;
+    line-height: 19px;
+    white-space: normal;
+    overflow: visible;
+  }
+  .course-byline {
+    font-size: 12px;
+    line-height: 17px;
+    white-space: normal;
+  }
+  .editorial-caption h3 {
+    font-size: 15px;
+    line-height: 19px;
+  }
+  .editorial-description {
+    font-size: 13px;
+    line-height: 17px;
+  }
+  .editorial-caption > p:first-child {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .home-footer > div:first-child {
+    flex-basis: 100%;
+  }
+  .home-footer .sample-controls {
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shelf-controls {
+    transition: none;
+  }
+}
+
+/* Match the reference's 38px navigation rhythm without disabling keyboard access. */
+.desktop-rail {
+  padding-inline: 10px;
+}
+.rail-nav {
+  gap: 4px;
+}
+.nav-item {
+  min-height: 34px;
+  padding-inline: 8px;
+  gap: 8px;
+  font-size: 13px;
+}
+.nav-item.future {
+  color: var(--text);
+}
+.rail-label {
+  margin-inline: 8px;
+}
+.editorial-description {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.1px;
+}
+@media (min-width: 768px) {
+  .home-section:not(.featured-section) {
+    margin-bottom: 45px;
+  }
+}
+@media (max-width: 767px) {
+  .editorial-description {
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 0;
+  }
+}
+
+.editorial-curiosity > img {
+  transform: scale(1.18);
+  transform-origin: center bottom;
+}
+@media (min-width: 768px) {
+  .section-heading h2 {
+    font-size: 15.5px;
+    line-height: 19.2px;
+    letter-spacing: 0.2px;
+    transform: translate(1px, 2px);
+  }
+  .course-shelf {
+    column-gap: 18px;
+  }
+  .shelf-controls {
+    padding-right: 8px;
+  }
+  .shelf-controls .icon-button {
+    width: 44px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Edge controls must receive the first pointer move as well as keyboard focus. */
+  .section-heading {
+    z-index: 3;
+  }
+  .shelf-controls button:not(:disabled) {
+    pointer-events: auto;
+  }
+}

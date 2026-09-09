@@ -87,3 +87,23 @@ The earlier portrait row began at y=141px, used 266px cards and 20px gaps, and d
 Screenshots: `docs/evidence/ui-001-final/comparison-viewport-desktop.png` is the actual app at 1440x904 for the normalized comparison. The same folder contains full-page and viewport visitor/learner captures at 1440x1000 and 390x844, plus scrolled mobile, dialog, focus, loading, empty and error captures. The full-page mobile screenshots retain the fixed dock at the captured viewport position; separately inspected scrolled viewports establish the actual visible content and bottom clearance.
 
 **Result:** selected layout anchors are source-aligned within the tested 1.5px tolerance. This is not a full-image pixel-diff pass and does not certify a 1:1 clone. Independent course artwork, licensed photos, course metadata, limited navigation, learner-only Continue rows, lack of a music player and the mobile adaptation remain explicit differences. Technical verification and exact source hashes are in the final evidence; owner visual approval is still pending.
+
+## Pixel-region refinement after b731fff — 2026-09-09
+
+Source reopened: `apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp` (VIS-07), SHA-256 `9df8b2cecbe453a0b53a833daf8929eb42e33927a74909fbe7f1fcbc2b07c6d9`. The original 3024×2016 image was normalized to 1440×960 with Lanczos; comparisons use the top 903px, excluding Mobbin's footer. This adds no reviewed identities and changes no archive bytes.
+
+Current refinement: desktop Home type 32px/40px, shelf type 15.5px/19.2px with calibrated letter spacing/offset, the same Arial system fallback, 38px navigation rhythm, sampled rail `#f9f9fb`, selected `#efeef1`, ink `#202020`. Portraits retain 265px width/19px gaps; square covers retain 209px width but use **18px desktop gaps**, correcting the previous row's accumulating drift. First five square starts are 285, 512, 739, 966 and 1193px. Compact two-line desktop captions retain complete accessible text; mobile titles wrap. The third shelf returns to the reference's approximate y=862 heading region.
+
+A plain Home header replaces the fixture-switch clutter; preview controls remain in the footer. Editorial shading is limited to caption legibility, and redundant large type is removed from two illustrative campaigns. Desktop edge arrows appear on hover/focus rather than permanently in heading rows; mobile/coarse-pointer arrows remain visible. These are rendered course components, not an image placed over the interface.
+
+| Shared region | Before mean absolute RGB error | After error | Scope |
+| --- | ---: | ---: | --- |
+| Home heading | 13.5037 | 7.4158 | 120×50px region |
+| Top Picks heading | 38.3283 | 14.4517 | 156×29px region |
+| Search/Home navigation | 15.6695 | 12.3150 | 90×68px region |
+| Rail surface and shadow | 1.8470 | 0.8870 | 275×110px region |
+| Empty white canvas | 0 | 0 | 330×76px region |
+
+Errors use 0–255 channel levels, not percentages. Exact rectangles and the reproducible calculation are in `docs/evidence/ui-001-fidelity/pixel-measurements.json` and `measure.py`. Do not generalize these selected regions into a whole-screen score. Fonts, icons and compression retain residual differences. Course artwork/branding/content, the unavailable destinations, absent music player and learner-only progress remain intentional differences; mobile still has no source-matched Apple baseline.
+
+Current app captures and logs are in `docs/evidence/ui-001-fidelity/`. The local `review.html` references the original for switch/overlay review at fitted or actual-pixel scale; it is not an app route and includes no duplicated source image. Desktop and mobile/scrolled app captures, plus the overlay itself, were visually inspected. See the task evidence for the actual 24-test run and fixes. Earlier measured sections above describe previous commits, not the latest screenshot set.

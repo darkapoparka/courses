@@ -40,12 +40,14 @@ function CourseCard({ course }: { course: SampleCourse }) {
           </div>
         )}
       </div>
-      <h3>{course.title}</h3>
-      <p className="creator-name">{course.creator}</p>
-      <p className="course-meta">
-        {course.duration}
+      <h3 title={course.title}>{course.title}</h3>
+      <p
+        className="course-byline"
+        title={`${course.creator} · ${course.level} · ${course.duration}`}
+      >
+        <span>{course.creator}</span>
         <span aria-hidden="true"> · </span>
-        {course.level}
+        <span>{course.duration}</span>
       </p>
     </article>
   );
@@ -120,7 +122,7 @@ const picks = [
         AI.
       </>
     ),
-    label: "A new perspective",
+    label: "Everyday AI",
     title: "Small skills. New possibilities.",
     description: "A thoughtful introduction to a changing world.",
   },
@@ -234,27 +236,6 @@ export function HomeView({
     <>
       <header className="page-heading">
         <h1>Home</h1>
-        <div className="sample-controls">
-          <div
-            className="sample-switch"
-            role="group"
-            aria-label="Sample view, not authentication"
-          >
-            <Link
-              href="/?sample=visitor"
-              aria-current={sample === "visitor" ? "true" : undefined}
-            >
-              Visitor
-            </Link>
-            <Link
-              href="/?sample=learner"
-              aria-current={sample === "learner" ? "true" : undefined}
-            >
-              Learner
-            </Link>
-          </div>
-          <PreviewInfo sample={sample} />
-        </div>
       </header>
       {slow && (
         <p className="state-notice" role="status">
@@ -330,13 +311,34 @@ export function HomeView({
           </section>
         </>
       )}
-      <footer className="home-footer">
+      <footer id="preview-options" className="home-footer">
         <div>
           <p>All courses, creators and prices shown are fictional samples.</p>
           <p>
             Course pages, lessons and destinations marked Soon are unavailable
             in this Home-only preview.
           </p>
+        </div>
+        <div className="sample-controls">
+          <div
+            className="sample-switch"
+            role="group"
+            aria-label="Sample view, not authentication"
+          >
+            <Link
+              href="/?sample=visitor#main-content"
+              aria-current={sample === "visitor" ? "true" : undefined}
+            >
+              Visitor
+            </Link>
+            <Link
+              href="/?sample=learner#main-content"
+              aria-current={sample === "learner" ? "true" : undefined}
+            >
+              Learner
+            </Link>
+          </div>
+          <PreviewInfo sample={sample} />
         </div>
         <a
           href="#main-content"

@@ -1,0 +1,4 @@
+# Local diagnostics; review.html references the preserved original without duplicating it.
+/comparison-overlay.png
+/pass-one-desktop.png
+/browser-tests-initial.txt

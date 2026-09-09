@@ -16,7 +16,7 @@ Open **http://127.0.0.1:3100** on the same computer. No environment file, Supaba
 
 ## Review the implemented slice
 
-Home is the only product destination. The Visitor/Learner switch changes an explicit URL fixture, not authentication. The information button explains limitations and opens sample loading, empty and failure states. Course pages, lessons, Search, Library and You are unavailable; there is no checkout, enrollment, saved progress or fake persistence.
+Home is the only product destination. The Visitor/Learner switch in the preview footer changes an explicit URL fixture, not authentication, and returns to the top of Home. The information button explains limitations and opens sample loading, empty and failure states. Course pages, lessons, Search, Library and You are unavailable; there is no checkout, enrollment, saved progress or fake persistence.
 
 - Visitor: `/?sample=visitor`
 - Returning learner: `/?sample=learner`
@@ -36,7 +36,7 @@ pnpm test:e2e
 
 The browser suite starts the **production build** on port 3101 and stops it afterward; port 3100 remains available for development. It covers 1440px desktop and 390px mobile Chromium, with additional 320/768/1920px, keyboard, reduced-motion, error/loading, navigation, direct 404 recovery and axe checks. Portrait/square aspect ratios and desktop source-derived geometry are checked as well. This is not a pixel-diff against proprietary artwork. Mobile emulation is not real-device Safari/Android acceptance. `pnpm build` must succeed before running the suite.
 
-Current screenshots are saved to `../docs/evidence/ui-001-final/`. Earlier `ui-001/` screenshots are superseded draft evidence, not the current visual direction. They are review evidence, not automatically accepted visual-regression baselines. Local test reports/traces are ignored by Git. No test uses a live backend.
+Current screenshots are saved to `../docs/evidence/ui-001-fidelity/`. Open `../docs/evidence/ui-001-fidelity/review.html` locally to switch between the actual Home and its saved reference, or inspect their overlay. The comparison artifact is not an application route. The previous `ui-001-final/` evidence remains unchanged. Earlier `ui-001/` screenshots are superseded draft evidence, not the current visual direction. They are review evidence, not automatically accepted visual-regression baselines. Local test reports/traces are ignored by Git. No test uses a live backend.
 
 ## Assets and boundaries
 
@@ -46,4 +46,4 @@ The scaffold was created with the official create-next-app CLI. Keep its generat
 
 Do not deploy this fixture application or activate payments without a separate assignment.
 
-If port 3101 is occupied, set `COURSES_TEST_PORT` to a free port. On this computer an unrelated service uses 3101; the final verification used 3117. In PowerShell: `$env:COURSES_TEST_PORT = "3117"; pnpm test:e2e`. The test server launches Next directly using the pnpm-selected Node runtime and never reuses an existing server. Do not terminate another session's server to free the default test port.
+If port 3101 is occupied, set `COURSES_TEST_PORT` to a free port. On this computer an unrelated service uses 3101; the latest fidelity verification used 3219. In PowerShell: `$env:COURSES_TEST_PORT = "3219"; pnpm test:e2e`. The test server launches Next directly using the pnpm-selected Node runtime and never reuses an existing server. Do not terminate another session's server to free the default test port.

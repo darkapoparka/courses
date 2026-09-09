@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Courses Home — local reference comparison</title>
+<style>
+body{margin:0;background:#e9e9ed;color:#202020;font:14px Arial,sans-serif}header{padding:20px 24px;background:white;border-bottom:1px solid #ccc}h1{font-size:22px;margin:0 0 8px}p{line-height:1.5;margin:8px 0}nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap}button,select{min-height:40px;padding:8px 14px;font:inherit}a{color:#0758a3}input[type=range]{width:240px}#scroll{overflow:auto;padding:24px}#frame{position:relative}#stage{position:absolute;inset:0 auto auto 0;width:1440px;height:903px;overflow:hidden;background:white;transform-origin:top left;box-shadow:0 4px 24px #0002}#stage img{position:absolute;left:0;top:0;width:1440px;max-width:none}#actual{height:903px}#source{height:960px;opacity:0;pointer-events:none}output{min-width:150px}footer{padding:0 24px 24px;color:#555}
+</style>
+<header>
+<h1>Home · source comparison</h1>
+<p>The saved Apple Music Home (VIS-07) and the actual Courses screen share a 1440 × 903 comparison area. The Mobbin footer is outside this area. This is a local review artifact, not an application route.</p>
+<nav aria-label="Comparison controls">
+<button id="courses">Courses</button><button id="reference">Reference</button><button id="overlay">Overlay</button>
+<label for="mix">Reference opacity</label><input id="mix" type="range" min="0" max="100" value="0"><output id="state">Courses only</output>
+<label for="scale">Scale</label><select id="scale"><option value="fit">Fit window</option><option value="1">100% · actual pixels</option><option value="2">200%</option></select>
+<a href="http://127.0.0.1:3100/" target="_blank" rel="noopener">Open running Home</a>
+</nav>
+</header>
+<div id="scroll"><div id="frame"><div id="stage">
+<img id="actual" src="desktop-reference-size.png" alt="Courses Home captured from the connected computer">
+<img id="source" src="../../../apple-music-clone/reference/originals/high-resolution/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp" alt="Saved Apple Music Home reference; attribution footer lies outside the comparison frame">
+</div></div></div>
+<footer><p>Artwork, brand, course metadata, available destinations, learner progress and the omitted music player are intentional differences. Pixel measurements cover only the explicitly listed common interface regions, not the whole page.</p><a href="pixel-measurements.json">Read the measured regions and results</a></footer>
+<script>
+const mix=document.getElementById('mix'), source=document.getElementById('source'), state=document.getElementById('state');
+function blend(value){mix.value=value;source.style.opacity=value/100;state.textContent=value==0?'Courses only':value==100?'Reference only':`Reference ${value}%`;}
+mix.addEventListener('input',()=>blend(mix.value));
+document.getElementById('courses').onclick=()=>blend(0);
+document.getElementById('reference').onclick=()=>blend(100);
+document.getElementById('overlay').onclick=()=>blend(50);
+const scale=document.getElementById('scale'), frame=document.getElementById('frame'), stage=document.getElementById('stage');
+function resize(){const zoom=scale.value==='fit'?Math.min(1,(innerWidth-48)/1440):Number(scale.value);stage.style.transform=`scale(${zoom})`;frame.style.width=`${1440*zoom}px`;frame.style.height=`${903*zoom}px`;}
+scale.onchange=resize;addEventListener('resize',resize);resize();
+</script>
+</html>

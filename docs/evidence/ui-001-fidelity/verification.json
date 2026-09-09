@@ -1,0 +1,51 @@
+{
+  "starting_commit": "b731fff9929ecacb1f6043ac0135ed388ef6e87d",
+  "scope": "UI-001 Home and learner-shell fidelity refinement",
+  "machine": "DESKTOP-LMGQO7V",
+  "repository": "J:/courses",
+  "checks": {
+    "typecheck": 0,
+    "lint": 0,
+    "production_build": 0,
+    "locked_install": 0,
+    "production_browser_tests": {
+      "exit": 0,
+      "passed": 24,
+      "port": 3219
+    }
+  },
+  "note": "Exit codes observed from the actual commands. Input hashes are a post-verification snapshot, not a claim of before/after build monitoring. Regional image differences remain nonzero.",
+  "sha256": {
+    "web\\next.config.ts": "0cd9abe51904af5c90ec98d66c3ea5b41cbde260ae8373f1cf7c25c1df99c684",
+    "web\\package.json": "fbf35e41aa4cc2be651bd0859a9907a099d92ad51e489d1c90ac83ecf8076589",
+    "web\\playwright.config.ts": "e415950a3930bbf132f3e730a67bb7fbf085be5c55cd98ab0886cbcf9dd238d6",
+    "web\\pnpm-lock.yaml": "08f9935342ad7b2d29cf4334a1590db5345aac277cb3f9636c5fcc43193fef01",
+    "web\\public\\artwork\\ai.svg": "9e8f554736b0a7563ba051d14569511efee0f4e796e8a208928f9fb2090de17e",
+    "web\\public\\artwork\\business.svg": "7b6ff984678aa64a9fdd880c28c36e08bb0b38308c134e5d9dd11ad0037e7214",
+    "web\\public\\artwork\\code.svg": "af4866a1fe3652486d0d0d3e922bdcbb2eaefe4fd93fd3c1b540d074210328c0",
+    "web\\public\\artwork\\editorial-ai.svg": "7ec534cc439a8ab2d1ea3045f1de7088e46ead904dbb6b50f82657a7a9a38adb",
+    "web\\public\\artwork\\editorial-begin.svg": "3d28dcc09cf065c67a4a14dcfa593245a875eb39426e375af85330604b746277",
+    "web\\public\\artwork\\editorial-curiosity.svg": "4d5c7797ce9ba3cc564890bc23705c96e58f1ee7d20cb6ecf55c07d4860191b5",
+    "web\\public\\artwork\\editorial-money.svg": "a477ebbcb976172f7cf7d592e4fb919799d3001c0f1c7117398edf80111f7a07",
+    "web\\public\\artwork\\money.svg": "40fc5189658e27962578efaf973ff730af7d9c9a67c2b0b38a1b0a08e22a7742",
+    "web\\public\\artwork\\movement.svg": "70f12de78d645cbab8ef19e791ceb007027a1ad4edccaa6cb1613222ad5b3cee",
+    "web\\public\\artwork\\perspective.jpg": "ccc496ab40c30b856f404be1431123f4d2bddc514364f92bb4dea812a51992ab",
+    "web\\public\\artwork\\README.md": "754778f4d23d48b508318b58d6ed3f85e522dfcc28fe672996399e80894304f0",
+    "web\\public\\artwork\\strength.jpg": "a4ec0dc3122d6e34f03384ae6e07efe0103aa985b490711d5ba023664dcf369b",
+    "web\\public\\artwork\\writing.svg": "a8a5e6543a9181e0eed0509ffc0c1e2b6288cb487b2043bd569f20cb6da8c1bf",
+    "web\\src\\app\\error.tsx": "861d76808feab35bb69cf2e8fc0440805eb416714739013ea0b1c11487a21fb4",
+    "web\\src\\app\\globals.css": "4b92f718a5bd6b351f01415d85fdafa3afd3e422b3ef7a3c768ee3027c5c0e3e",
+    "web\\src\\app\\icon.svg": "d4844bf2d7c87dc54979da2e10752e1d74be9c6d92a26bb6f76ff1bd7c4c03b2",
+    "web\\src\\app\\layout.tsx": "da29af927c52f88c2eb5841142ab75589359c96aa53b5f62e279ffe67dc791f6",
+    "web\\src\\app\\loading.tsx": "4f0ef121de3159f25fbbc9ebd6b2f0e6c223e94766591b7fae3f07e3edd5bcca",
+    "web\\src\\app\\not-found.tsx": "abe717955bf5e0e2c8afb75afe62005200ac96907ad072b332525a701bb61196",
+    "web\\src\\app\\page.tsx": "97062acc04fa9734b23c2fa738c6554baf1640fb0205bd6ec222183193a9a1ac",
+    "web\\src\\components\\shell\\learner-shell.tsx": "d3d7d6e104989b3aaffd105ce266e17e6039ad05e69c2e64f32b0874eff3cc34",
+    "web\\src\\components\\ui\\content-shelf.tsx": "c8d02ca67ed4a0622a00791ee7414b1ae64e9857501fb8cf2550f540a7aaddee",
+    "web\\src\\features\\home\\fixtures.ts": "bd8ad2cd9d361b09d152d26a33472b50ce1960c9390795fca23db092d8f7d11f",
+    "web\\src\\features\\home\\home-view.tsx": "2cfd9ab68194b7df1dac8fa9ef9a29b37595057acf5973d3e7910f68e9492aa8",
+    "web\\src\\features\\home\\preview-info.tsx": "2f16f28c434f5fed1fad2efcc60c325130b6df8280bea2c7f3f5f53477adf5e2",
+    "web\\tests\\home.spec.ts": "f1921e85d77942f509137d96fc3a0acf855322ed0e26c4ede169a108adcb5bcd",
+    "web\\tsconfig.json": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c"
+  }
+}

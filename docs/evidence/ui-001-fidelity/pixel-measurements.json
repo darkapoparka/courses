@@ -1,0 +1,93 @@
+{
+  "source": "apple-music-clone\\reference\\originals\\high-resolution\\a917d88f-d15a-4f53-92d3-1daecf59d05f.webp",
+  "source_sha256": "9df8b2cecbe453a0b53a833daf8929eb42e33927a74909fbe7f1fcbc2b07c6d9",
+  "normalization": "3024 x 2016 to 1440 x 960, Lanczos; app comparison is top 903 pixels",
+  "limitations": "Only listed common UI regions are scored. Not a whole-page fidelity percentage; artwork, branding, content, navigation availability, player, and mobile differ.",
+  "regions": {
+    "home_heading": {
+      "rectangle": [
+        282,
+        25,
+        402,
+        75
+      ],
+      "pixels": 6000,
+      "before": {
+        "mean_absolute_rgb_error_0_to_255": 13.5037,
+        "pixels_over_12_channel_levels_percent": 16.35
+      },
+      "after": {
+        "mean_absolute_rgb_error_0_to_255": 7.4158,
+        "pixels_over_12_channel_levels_percent": 13.233
+      }
+    },
+    "shared_shelf_heading": {
+      "rectangle": [
+        282,
+        103,
+        438,
+        132
+      ],
+      "pixels": 4524,
+      "before": {
+        "mean_absolute_rgb_error_0_to_255": 38.3283,
+        "pixels_over_12_channel_levels_percent": 28.161
+      },
+      "after": {
+        "mean_absolute_rgb_error_0_to_255": 14.4517,
+        "pixels_over_12_channel_levels_percent": 21.419
+      }
+    },
+    "shared_navigation": {
+      "rectangle": [
+        20,
+        80,
+        110,
+        148
+      ],
+      "pixels": 6120,
+      "before": {
+        "mean_absolute_rgb_error_0_to_255": 15.6695,
+        "pixels_over_12_channel_levels_percent": 17.173
+      },
+      "after": {
+        "mean_absolute_rgb_error_0_to_255": 12.315,
+        "pixels_over_12_channel_levels_percent": 15.033
+      }
+    },
+    "rail_surface_and_shadow": {
+      "rectangle": [
+        0,
+        670,
+        275,
+        780
+      ],
+      "pixels": 30250,
+      "before": {
+        "mean_absolute_rgb_error_0_to_255": 1.847,
+        "pixels_over_12_channel_levels_percent": 1.818
+      },
+      "after": {
+        "mean_absolute_rgb_error_0_to_255": 0.887,
+        "pixels_over_12_channel_levels_percent": 0.026
+      }
+    },
+    "canvas": {
+      "rectangle": [
+        850,
+        20,
+        1180,
+        96
+      ],
+      "pixels": 25080,
+      "before": {
+        "mean_absolute_rgb_error_0_to_255": 0.0,
+        "pixels_over_12_channel_levels_percent": 0.0
+      },
+      "after": {
+        "mean_absolute_rgb_error_0_to_255": 0.0,
+        "pixels_over_12_channel_levels_percent": 0.0
+      }
+    }
+  }
+}

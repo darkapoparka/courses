@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import path from "node:path";
 
-const evidence = path.resolve("../docs/evidence/ui-001-final");
+const evidence = path.resolve("../docs/evidence/ui-001-fidelity");
 async function imagesReady(page: Page) {
   // Document load can precede streamed Home content.
   await expect(page.locator(".editorial-card").first()).toBeVisible();
@@ -297,6 +297,14 @@ test("reference-shaped shelves retain their proportions and editorial scrolling 
     expect(Math.abs(cover.x - 285.7)).toBeLessThan(1.5);
     expect(Math.abs(cover.y - 571)).toBeLessThan(1.5);
     expect(Math.abs(cover.width - 209)).toBeLessThan(1.5);
+    const coverPositions = await page
+      .locator(".course-art")
+      .evaluateAll((items) =>
+        items
+          .slice(0, 5)
+          .map((item) => Math.round(item.getBoundingClientRect().x)),
+      );
+    expect(coverPositions).toEqual([285, 512, 739, 966, 1193]);
     const rail = await page.locator(".desktop-rail").boundingBox();
     expect(rail?.width).toBe(232);
   }
@@ -307,7 +315,12 @@ test("reference-shaped shelves retain their proportions and editorial scrolling 
     name: "Top Picks for You",
     exact: true,
   });
-  const next = page.getByRole("button", { name: "Next top picks for you" });
+  // The disabled end control intentionally leaves the accessibility tree on desktop.
+  // Include it here to assert its disabled DOM state, not to click a hidden control.
+  const next = page.getByRole("button", {
+    name: "Next top picks for you",
+    includeHidden: true,
+  });
   await expect(next).toBeEnabled();
   for (let step = 0; step < 6 && (await next.isEnabled()); step++) {
     const before = await shelf.evaluate((element) => element.scrollLeft);
@@ -317,6 +330,7 @@ test("reference-shaped shelves retain their proportions and editorial scrolling 
       .toBeGreaterThan(before);
   }
   await expect(next).toBeDisabled();
+  if (info.project.name === "desktop") await expect(next).not.toBeVisible();
   await noOverflow(page);
   await page.screenshot({
     path: path.join(evidence, `editorial-end-${info.project.name}.png`),
@@ -341,4 +355,67 @@ test("an unimplemented URL has honest not-found handling and a working Home retu
   await expect(
     page.getByRole("heading", { name: "Top Picks for You", exact: true }),
   ).toBeVisible();
+});
+
+test("reference header stays quiet and preview controls remain reachable", async ({
+  page,
+}, info) => {
+  await page.goto("/");
+  await imagesReady(page);
+  await expect(page.locator(".page-heading")).toHaveText("Home");
+  await expect(
+    page
+      .locator("#preview-options")
+      .getByRole("link", { name: "Learner", exact: true }),
+  ).toBeVisible();
+  if (info.project.name === "desktop") {
+    const heading = await page.locator("#short-heading").boundingBox();
+    expect(heading).not.toBeNull();
+    // VIS-07 third-shelf heading region begins around y=860 after normalization.
+    expect(Math.abs((heading?.y ?? 0) - 860)).toBeLessThan(2);
+    await expect(page.locator(".desktop-rail")).toHaveCSS(
+      "background-color",
+      "rgb(249, 249, 251)",
+    );
+    await expect(page.locator(".nav-item.active").first()).toHaveCSS(
+      "background-color",
+      "rgb(239, 238, 241)",
+    );
+  }
+  await page.getByRole("link", { name: "Learner", exact: true }).click();
+  await expect(page).toHaveURL(/sample=learner/);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(40);
+});
+
+test("desktop shelf controls reveal on keyboard focus; mobile keeps them visible", async ({
+  page,
+}, info) => {
+  await page.goto("/");
+  await imagesReady(page);
+  await page.mouse.move(0, 0);
+  const controls = page.locator("#featured .shelf-controls");
+  await expect(controls).toHaveCSS(
+    "opacity",
+    info.project.name === "desktop" ? "0" : "1",
+  );
+  const next = page.getByRole("button", { name: "Next top picks for you" });
+  await next.focus();
+  await expect(controls).toHaveCSS("opacity", "1");
+  const bounds = await next.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect((bounds?.x ?? 0) + (bounds?.width ?? 0)).toBeLessThanOrEqual(
+    page.viewportSize()?.width ?? 0,
+  );
+  await page.keyboard.press("Enter");
+  await expect
+    .poll(() =>
+      page
+        .locator(".editorial-shelf")
+        .evaluate((element) => element.scrollLeft),
+    )
+    .toBeGreaterThan(100);
+  await noOverflow(page);
+  await page.screenshot({
+    path: path.join(evidence, `shelf-keyboard-${info.project.name}.png`),
+  });
 });
