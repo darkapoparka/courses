@@ -95,7 +95,7 @@ export function ReplayView() {
   return <div className={`${styles.replay} ${!hasStats ? styles.empty : ""}`}>
     <div className={styles.ambient} aria-hidden="true" />
     <header ref={yearRegion} className={styles.header}><h1>{collection ? `Your Top ${collection === "year" ? "Songs of 2026" : collection.charAt(0).toUpperCase() + collection.slice(1)}` : "Replay"}</h1>
-      <div className={styles.headerActions}><button type="button" className={styles.yearButton} aria-expanded={yearOpen} aria-controls="replay-year-picker" onClick={() => setYearOpen(!yearOpen)}>2026<Glyph name="down" size={17} /></button><IconButton icon="share" label="Share Replay" onClick={() => void share("Replay")} /></div>
+      <div className={styles.headerActions}><button type="button" className={styles.yearButton} aria-expanded={yearOpen} aria-controls="replay-year-picker" onClick={() => setYearOpen(!yearOpen)}>2026<Glyph name="down" size={17} /></button>{hasStats && <IconButton icon="share" label="Share Replay" onClick={() => void share("Replay")} />}</div>
       {yearOpen && <div id="replay-year-picker" className={styles.yearMenu} role="menu"><button type="button" role="menuitemradio" aria-checked="true" onClick={() => setYearOpen(false)}>2026<Glyph name="check" size={14} /></button><span>Only 2026 is included in this capture.</span></div>}
     </header>
     {collection ? <button type="button" className={styles.backLink} onClick={() => visit()}>‹ Replay</button> : <div className={styles.months} role="tablist" aria-label="Replay month">

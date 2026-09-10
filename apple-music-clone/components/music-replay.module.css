@@ -101,3 +101,6 @@
   .awardDetail > h2 { margin-top: 65px; font-size: 22px; }
   .inProgress { margin-top: 35px; font-size: 15px; padding-bottom: 200px; }
 }
+
+.empty .monthPanel { display:flex; align-items:center; justify-content:center; }
+.empty .inProgress { margin:0; padding:0 0 54px; color:#1d1d1f; font-size:20px; line-height:28px; font-weight:600; }

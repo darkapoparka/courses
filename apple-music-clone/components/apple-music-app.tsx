@@ -78,7 +78,7 @@ function MusicShell() {
   const sourcePrefix = m.scene.source?.slice(0, 8);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const cancelledOffer = sourcePrefix === "603983c7" || (m.scene.page === "subscription" && m.scene.guest && (m.library.cancelled || m.scene.cancelled));
-  const activePage = ["481cd568", "1e5b4763"].includes(sourcePrefix ?? "") ? "radio" : ["settings", "connected", "subscription"].includes(m.scene.page) ? "new" : ["album", "artist", "chart", "credits", "nearby"].includes(m.scene.page) ? "new" : ["concerts", "concert", "nearby", "replay", "milestones", "milestone", "category"].includes(m.scene.page) ? "search" : m.scene.page === "schedule" ? "radio" : m.scene.page;
+  const activePage = ["481cd568", "1e5b4763"].includes(sourcePrefix ?? "") ? "radio" : ["settings", "connected", "subscription"].includes(m.scene.page) ? "new" : ["album", "artist", "chart", "credits", "nearby", "replay", "milestones", "milestone"].includes(m.scene.page) ? "new" : ["concerts", "concert", "nearby", "category"].includes(m.scene.page) ? "search" : m.scene.page === "schedule" ? "radio" : m.scene.page;
   const go = (destination: string) => { m.go(destination); setMobileNav(false); };
   useEffect(() => {
     const element = main.current; if (!element) return;
