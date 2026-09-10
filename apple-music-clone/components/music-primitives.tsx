@@ -100,12 +100,9 @@ export function Dialog({ title, children, onClose, className = "", hideClose = f
 }
 export function Footer({ compact = false }: { compact?: boolean } = {}) {
   const m = useMusic();
-  const links = [
-    ["Internet Service Terms", "https://www.apple.com/legal/internet-services/itunes/"],
-    ["Apple Music & Privacy", "https://www.apple.com/legal/privacy/data/en/apple-music/"],
-    ["Cookie Warning", "https://www.apple.com/legal/privacy/en-ww/cookies/"],
-    ["Support", "https://support.apple.com/music"],
-    ["Feedback", "https://www.apple.com/feedback/apple-music/"],
-  ];
-  return <footer className={`content-footer ${compact ? "compact-footer" : ""}`}><div className="footer-region"><span>Singapore</span><button type="button" onClick={() => m.setLibrary(data => ({ ...data, locale: data.locale === "en" ? "zh" : "en" }))}>{m.library.locale === "en" ? "简体中文" : "English"}</button></div><p>Copyright © 2026 Apple Inc. All rights reserved.</p><nav aria-label="Reference legal links">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</nav><span className="sr-only">Local reference preview, not affiliated with Apple. These links open official Apple pages; no account or billing service is connected here.</span></footer>;
+  const zh = m.library.locale === "zh";
+  const labels = zh ? ["互联网服务条款", "Apple Music 与隐私", "Cookie 警告", "支持", "反馈"] : ["Internet Service Terms", "Apple Music & Privacy", "Cookie Warning", "Support", "Feedback"];
+  const hrefs = ["https://www.apple.com/legal/internet-services/itunes/", "https://www.apple.com/legal/privacy/data/en/apple-music/", "https://www.apple.com/legal/privacy/en-ww/cookies/", "https://support.apple.com/music", "https://www.apple.com/feedback/apple-music/"];
+  const links = labels.map((label, index) => [label, hrefs[index]!] as const);
+  return <footer className={`content-footer ${compact ? "compact-footer" : ""}`}><div className="footer-region"><span>{zh ? "新加坡" : "Singapore"}</span><button type="button" onClick={() => m.setLibrary(data => ({ ...data, locale: data.locale === "en" ? "zh" : "en" }))}>{zh ? "English (UK)" : "简体中文"}</button></div><p>{zh ? "Copyright © 2026 Apple Inc. 保留所有权利。" : "Copyright © 2026 Apple Inc. All rights reserved."}</p><nav aria-label="Reference legal links">{links.map(([label, href]) => <a key={label} href={href} target="_blank" rel="noreferrer">{label}</a>)}</nav><span className="sr-only">Local reference preview, not affiliated with Apple. These links open official Apple pages; no account or billing service is connected here.</span></footer>;
 }

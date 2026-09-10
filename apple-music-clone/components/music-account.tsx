@@ -24,7 +24,7 @@ function AccountFrame({ children, heading = true }: { children: ReactNode; headi
       const id = m.scene.scroll;
       const section = id ? host.querySelector<HTMLElement>(`#${id}`) : null;
       if (section) {
-        const offset = id === "parental-controls" ? 24 : id === "subscriptions" ? 488 : 24;
+        const offset = id === "account-access" ? -10 : id === "parental-controls" ? 24 : id === "subscriptions" ? 525 : 24;
         host.scrollTop += section.getBoundingClientRect().top - host.getBoundingClientRect().top - offset;
       }
     });
@@ -42,8 +42,8 @@ export function SettingsView() {
   return <AccountFrame>
     <section className="account-section account-summary" id="account-summary"><h2>{zh ? "账户摘要" : "Account Summary"}</h2><div>
       <h3>{zh ? "Apple 账户" : "Apple Account"}</h3><p>{sourceProfile.email}</p><button type="button" className="text-accent" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}>{zh ? "编辑" : "Edit"}<Glyph name="external" size={12} /></button>
-      <div className="account-columns"><div><h3>{zh ? "付款类型" : "Payment Type"}</h3><p>Visa •••• 2193</p><button type="button" className="text-accent payment-link" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>{zh ? "管理付款方式" : <>Manage<br />Payments</>}</button></div><div><h3>{zh ? "账单寄送地址" : "Billing address"}</h3><p>{sourceProfile.name}</p><p>{sourceProfile.address}</p><p>{sourceProfile.postcode}</p></div><div><h3>{zh ? "国家/地区" : <>Country /<br />Region</>}</h3><p>{zh ? "新加坡" : "Singapore"}</p></div></div>
-      <h3>{zh ? "Apple 账户余额" : "Apple Account Balance"}</h3><p>S$ 0.00</p><button type="button" className="text-accent redeem-link" onClick={external}>{zh ? "兑换优惠代码" : "Redeem Promotional Code"}</button>
+      <div className="account-columns"><div><h3>{zh ? "付款类型" : "Payment Type"}</h3><p>Visa •••• 2193</p><button type="button" className="text-accent payment-link" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>{zh ? "管理付款方式" : <>Manage<br />Payments</>}</button></div><div><h3>{zh ? "账单寄送地址" : "Billing address"}</h3><p>{sourceProfile.name}</p><p>{sourceProfile.address}</p><p>{sourceProfile.postcode}</p></div><div><h3>{zh ? "国家或地区" : <>Country /<br />Region</>}</h3><p>{zh ? "新加坡" : "Singapore"}</p></div></div>
+      <h3>{zh ? "Apple 账户余额" : "Apple Account Balance"}</h3><p>S$ 0.00</p><button type="button" className="text-accent redeem-link" onClick={external}>{zh ? "兑换促销代码" : "Redeem Promotional Code"}</button>
     </div></section>
     <section className="account-section account-access" id="account-access"><h2>{zh ? "账户访问" : "Account Access"}</h2><div>
       <h3>{zh ? "网页版 Music、播客和 TV" : "Music, Podcasts and TV on the Web"}</h3><p>{zh ? "当你在网页浏览器中登录 Apple Music 时，也会自动登录网页版 Apple TV 和 Apple 播客。" : "When you sign in to Apple Music on a web browser, you are automatically signed in to Apple TV and Apple Podcasts. This allows you to play music, TV shows and podcasts on the web. You can sign out of all services and all browsers at any time."}</p><button type="button" className="text-accent" onClick={() => { m.patch({ guest: true, namedProfile: false }); m.notify("Signed out of this preview. No external browser sessions were changed."); }}>{zh ? "退出所有浏览器" : "Sign Out of All Browsers"}</button>
@@ -70,8 +70,8 @@ export function SubscriptionView() {
   const m = useMusic(); const cancelled = m.library.cancelled || m.scene.cancelled;
   return <AccountFrame><div className="account-back"><button type="button" className="text-accent" onClick={() => m.go("settings")}>‹ Back</button></div><section className={`subscription-details ${cancelled ? "cancelled" : ""}`}>
     <h2><span className="music-badge small"><Glyph name="music" size={29} /></span>Apple Music</h2><h3>Individual</h3>
-    {cancelled ? <><p className="text-accent">You have cancelled your subscription.</p><p>Your subscription expired on 15 July.</p><button type="button" className="account-action filled" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>Subscribe</button></> : <><strong>You have subscribed through a free offer.</strong><p>Starting 16 July, your subscription will continue until cancelled.</p></>}
-    <hr /><h3>Manage</h3><button type="button" className="account-action" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>See All Plans</button>
+    {cancelled ? <><p className="text-accent">You have cancelled your subscription.</p><p>Your subscription ended on 13 July.</p><button type="button" className="account-action filled" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>Subscribe</button></> : <><strong>You have subscribed through a free offer.</strong><p>Starting 25 July, plan renews for $10.98/month until cancelled.</p></>}
+    <hr />{!cancelled && <h3>Manage</h3>}<button type="button" className="account-action" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>See All Plans</button>
     {!cancelled && <><button type="button" className="account-action" onClick={() => m.patch({ overlay: "cancel-trial" })}>Cancel Free Trial</button><p>If you cancel, you will immediately lose access to your subscription.</p></>}
     <button type="button" className="text-accent subscription-privacy" onClick={() => m.notify("Local subscription preview only. No billing account or payment provider is connected.")}>About Subscriptions and Privacy</button>
   </section></AccountFrame>;

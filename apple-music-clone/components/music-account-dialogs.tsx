@@ -9,7 +9,7 @@ export function PasscodeDialog() {
   const m = useMusic();
   const step = m.scene.formStep ?? 0;
   const [digits, setDigits] = useState(m.scene.filled ? "1234" : "");
-  const [email, setEmail] = useState("alex@example.test");
+  const [email, setEmail] = useState("alexsmith@content-mobbin.com");
   const [error, setError] = useState("");
   const first = useRef("1234");
   const title = ["Set a passcode", "Re-enter your passcode", "Enter email address", "Passcode set"][Math.min(step, 3)]!;
@@ -23,7 +23,7 @@ export function PasscodeDialog() {
       if (digits !== first.current) { setError("The passcodes do not match. Try again."); return; }
       m.patch({ formStep: 2 });
     } else if (step === 2) {
-      if (!/^[^\s@]+@example\.test$/i.test(email)) { setError("Use an example.test address. No recovery email is sent by this preview."); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/i.test(email)) { setError("Enter a valid email address."); return; }
       m.setLibrary(data => ({ ...data, restrictions: true }));
       m.patch({ formStep: 3 });
     } else {
@@ -32,14 +32,14 @@ export function PasscodeDialog() {
       m.notify("Local content filter enabled. This is a UI preview, not a device-security passcode.");
     }
   };
-  return <Dialog title={title} onClose={close} className={`account-scoped-dialog passcode-reference-dialog ${step === 3 ? "passcode-success" : ""}`}>
+  return <Dialog title={title} onClose={close} className={`account-scoped-dialog passcode-reference-dialog passcode-step-${step} ${step === 3 ? "passcode-success" : ""}`}>
     <form onSubmit={submit}>
       <div className="passcode-body">
         {step === 3 && <svg className="passcode-success-icon" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" /><path d="m29 52 16 19 26-41" /></svg>}
         <h2>{title}</h2>
         {step === 0 && <p>This passcode will be required when changing restriction settings.</p>}
         {step < 2 && <CodeField label={step === 0 ? "Preview passcode" : "Confirm preview passcode"} value={digits} onChange={setDigits} length={4} masked />}
-        {step === 2 && <><p>Enter the email address to use if you forget your passcode.</p><label className="field-label"><span>Email</span><input type="email" aria-label="Preview recovery email" value={email} onChange={event => setEmail(event.target.value)} autoComplete="off" /></label><p className="field-help">A code will appear in this local preview; no recovery message is sent.</p></>}
+        {step === 2 && <><p>Enter the email address to use if you forget your passcode.</p><label className="field-label"><span>Email</span><input type="email" aria-label="Preview recovery email" value={email} onChange={event => setEmail(event.target.value)} autoComplete="off" /></label><p className="field-help">A child with access to this email account will be able to change your passcode.</p></>}
         {error && <p className="form-error" role="alert">{error}</p>}
         {step === 3 && <button type="submit" className="passcode-done">Done</button>}
         <p className="reference-disclosure">Local reference preview. No Apple account or device settings are changed.</p>

@@ -63,6 +63,7 @@
 .account-columns .payment-link { display:block; width:100%; text-align:center; line-height:25px; margin:0; }
 .account-summary .redeem-link { margin-top:38px; }
 .account-access .connected-heading { margin-top:26px; }
+.account-access { padding-bottom:81px; }
 .account-parental { padding-bottom:80px; }
 .account-parental .restriction-title { margin:38px 0 0; }
 .account-parental .restriction-switch { margin-top:3px; font-size:16px; gap:9px; line-height:22px; }
@@ -73,29 +74,29 @@
 .account-parental .rating-field { display:block; width:305px; max-width:100%; margin:52px 0 0; font-size:17px; line-height:22px; font-weight:600; }
 .account-parental .rating-field + .rating-field { margin-top:56px; }
 .account-parental .rating-field select { display:block; width:100%; height:54px; margin-top:1px; border:1px solid #96969a; border-radius:12px; padding:0 16px; font-size:16px; line-height:22px; font-weight:400; background:#fff; }
-.account-recovery { display:grid; grid-template-columns:1fr 1.3fr; gap:24px; margin:38px 0; }
+.account-recovery { display:grid; grid-template-columns:242px minmax(0,1fr); gap:24px; margin:38px 0; }
 .account-recovery h3, .account-recovery p, .account-recovery button { font-size:15px !important; line-height:22px !important; }
 .account-recovery + .restriction-title { margin-top:0; }
 .account-subscriptions { min-height:170px; }
 .account-frame > .content-footer { height:173px; flex:0 0 173px; margin:0; padding-left:46px; padding-right:38px; }
-.account-back { padding:12px 7px 23px; border-bottom:1px solid #dddde0; font-size:14px; }
+.account-back { padding:12px 7px 15px; border-bottom:1px solid #dddde0; font-size:14px; }
 .account-back > button { color:#f02b48; }
 .account-inner:has(.account-back) > h1 { border:0; padding-bottom:0; }
-.connected-account-view { padding-top:50px; }
+.connected-account-view { padding-top:31px; }
 .connected-account-view > h2 { font-size:24px; line-height:31px; }
 .connected-account-view > p { font-size:16px; line-height:25px; color:#777; margin-top:8px; }
 .connected-account-view > .connected-empty { min-height:66px; margin-top:63px; text-align:left; display:flex; align-items:center; padding:18px; border:1px solid #e1e1e4; background:#f7f7fa; border-radius:9px; color:#333; font-size:14px; }
 .subscription-details { padding-top:20px; }
-.subscription-details > h2 { display:flex; gap:14px; align-items:center; font-size:24px; line-height:32px; margin:0 0 30px; }
+.subscription-details > h2 { display:flex; gap:14px; align-items:center; font-size:24px; line-height:32px; margin:0 0 22px; }
 .subscription-details .music-badge { width:48px; height:48px; border-radius:11px; }
 .subscription-details > h3 { font-size:16px; line-height:24px; margin:0 0 16px; }
 .subscription-details > strong { display:block; font-size:16px; line-height:23px; font-weight:600; }
 .subscription-details > p { font-size:14px; line-height:22px; color:#838388; }
-.subscription-details hr { border:0; border-top:1px solid #dedee1; margin:27px 0 33px; }
+.subscription-details hr { border:0; border-top:1px solid #dedee1; margin:16px 0 30px; }
 .account-action { display:table; padding:7px 13px; border:1px solid #ed2948; color:#ed2948; border-radius:7px; font-size:13px; line-height:18px; margin:8px 0; }
 .account-action.filled { background:#ff1c42; color:#fff; border-color:transparent; }
 .subscription-privacy { font-size:14px; margin-top:28px; }
-.subscription-details.cancelled > h3 { margin-bottom:23px; }
+.subscription-details.cancelled > h3 { margin-bottom:8px; }
 .subscription-details.cancelled > .text-accent { color:#e82947; }
 
 /* Native top-layer dialogs preserve focus/inertness while matching the account iframe's backdrop. */
@@ -121,7 +122,7 @@
 .passcode-success .passcode-body { padding-top:56px; }
 .passcode-success-icon { width:98px; height:98px; margin:0 auto 24px; fill:none; stroke:#078700; stroke-width:5.5; stroke-linecap:round; stroke-linejoin:round; }
 .passcode-success .passcode-body h2 { margin:0; }
-.passcode-done { display:block; width:330px; max-width:100%; height:49px; border-radius:11px; background:#ff2042; color:#fff; font-size:16px; margin:62px auto 0; }
+.passcode-done { display:block; width:330px; max-width:100%; height:49px; border-radius:11px; background:#ff2042; color:#fff; font-size:16px; margin:56px auto 0; }
 .cancel-reference-dialog { width:762px; height:534px; padding:0; display:block; }
 .cancel-reference-dialog > .dialog-close { display:none; }
 .cancel-reference-dialog > svg { position:absolute; right:25px; top:27px; color:#c7c7cb; }
@@ -193,3 +194,10 @@
   .cancel-result-dialog h2 { font-size:18px; line-height:23px; }
 }
 
+
+.account-scoped-dialog:focus, .cancel-reference-dialog:focus, .cancel-result-dialog:focus { outline:none; }
+.account-scoped-dialog .reference-disclosure, .cancel-reference-dialog .reference-disclosure, .cancel-result-dialog .reference-disclosure { display:none; }
+.passcode-step-1 .code-field { margin-top:50px; }
+.cancel-result-dialog .dialog-primary { width:260px; }
+
+.passcode-step-2 .field-label > input { min-height:54px; height:54px; border-radius:12px; }
