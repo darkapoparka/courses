@@ -171,3 +171,6 @@
 
 .music-app[data-source^="5b3ec96a"] .capture-search > .empty-state { transform:translateY(17px); }
 .music-app[data-source^="5b3ec96a"] .capture-search > .empty-state > svg { width:31px; height:31px; }
+
+.editable-row input[type="checkbox"] { accent-color:var(--accent); width:13px; height:13px; }
+.music-app:has(.editable-row) .library-section-label > button { color:#222; font-weight:600; }

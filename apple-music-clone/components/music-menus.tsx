@@ -20,7 +20,7 @@ export function MusicMenus() {
     if (!kind || !menu.current) return;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const captured = m.scene.source;
-    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1208, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 26, y: innerHeight - 136 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
+    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1208, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
     const anchor = m.menuPosition ?? fallback;
     const bounds = menu.current.getBoundingClientRect();
     setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
@@ -63,7 +63,7 @@ export function MusicMenus() {
   if (kind === "sort") {
     content = <>{action("Title", null, () => m.patch({ sortField: "title" }), m.scene.sortField !== "recent")}{action("Recently Added", null, () => m.patch({ sortField: "recent" }), m.scene.sortField === "recent")}<hr />{action("Ascending", null, () => m.patch({ sort: "ascending" }), m.scene.sort !== "descending")}{action("Descending", null, () => m.patch({ sort: "descending" }), m.scene.sort === "descending")}</>;
   } else if (kind === "profile") {
-    content = <>{action("Settings", null, () => m.go("settings"))}{action("Sign Out", null, () => { m.audio.current?.pause(); m.patch({ guest: true, namedProfile: false }); })}</>;
+    content = <>{action("Help", "help", () => window.open("https://support.apple.com/music", "_blank", "noopener,noreferrer"))}{action("Settings", "settings", () => m.go("settings"))}{action("Transfer Music", "transfer", () => m.notify("Transfer Music is represented locally; no account transfer is performed."))}{action("Sign Out", null, () => { m.audio.current?.pause(); m.patch({ guest: true, namedProfile: false }); })}</>;
   } else if (kind === "location") {
     const matches = ["Chicago, IL", "Singapore", "Austin, TX", "Nashville, TN", "New York, NY", "London, United Kingdom"].filter(city => city.toLowerCase().includes(location.toLowerCase()));
     content = <><label className="menu-location-search"><Glyph name="search" size={15} /><input aria-label="Find a city" value={location} placeholder="Search city or postcode" onChange={event => setLocation(event.target.value)} /></label>{matches.map(city => action(city, "location", () => m.patch({ location: city, dateRange: undefined, genre: undefined })))}{!matches.length && <p className="menu-caption">No saved locations match your search.</p>}</>;
