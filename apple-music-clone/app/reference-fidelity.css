@@ -174,3 +174,5 @@
 
 .editable-row input[type="checkbox"] { accent-color:var(--accent); width:13px; height:13px; }
 .music-app:has(.editable-row) .library-section-label > button { color:#222; font-weight:600; }
+
+.guest-session .sidebar-signin { height:34px; margin-top:3px; }
