@@ -191,3 +191,7 @@
 .radio-transport .radio-stop svg { width:35px; height:35px; }
 .radio-reference .volume-expanded { margin-top:1px; }
 .radio-reference .volume-expanded input { background-color:#7696aa; }
+
+.player-live-badge { flex:none; min-width:33px; height:17px; padding:0 7px; display:grid; place-items:center; border-radius:9px; background:#66666c; color:#fff; font-size:9px; font-weight:600; line-height:17px; margin-right:2px; }
+.music-app[data-source^="47a07865"] .floating-player .play-toggle svg { width:17px; height:17px; }
+.music-app[data-source^="47a07865"] .floating-player .now-playing { padding-left:8px; }

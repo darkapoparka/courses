@@ -7,12 +7,12 @@ import { Art, Glyph, IconButton } from "./music-primitives";
 import { SongRow } from "./music-browse";
 import { Lyrics } from "./music-lyrics";
 
-function Transport({ large = false }: { large?: boolean }) {
+function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {
   const m = useMusic();
   return <div className={`transport ${large ? "transport-large" : ""}`}>
     <IconButton icon="shuffle" label="Shuffle" aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
     <IconButton icon="previous" label="Previous track" onClick={() => m.skip(-1)} />
-    <IconButton icon={m.playing ? "pause" : "play"} label={m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
+    <IconButton icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
     <IconButton icon="next" label="Next track" onClick={() => m.skip(1)} />
     <IconButton icon="repeat" label="Repeat" aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />
   </div>;
@@ -34,12 +34,16 @@ function Volume({ expanded = false }: { expanded?: boolean }) {
 export function Player() {
   const m = useMusic();
   const station = m.activeId?.startsWith("station") ? radioStations.find(item => item.id === m.activeId) : undefined;
+  const capturedLive = Boolean(station && m.scene.source?.startsWith("47a07865"));
+  const playerTitle = capturedLive ? "Gorgeous" : station?.title;
+  const playerSubtitle = capturedLive ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
+  const playerArt = capturedLive ? crop("47a07865",704,842,33,33) : station?.art;
   return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."}>
-    <Transport />
+    <Transport radioStop={capturedLive && m.playing} />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
-      {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? station?.art ?? albumArt} label={m.active?.album ?? station?.title ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? station?.title}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? "Live Radio" : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
+      {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? playerArt ?? albumArt} label={m.active?.album ?? playerTitle ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? playerTitle}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? playerSubtitle : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
     </button>
-    {m.activeId && m.scene.hero !== "listening" && <IconButton icon="more" label="More current song actions" className="player-track-menu" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId)} />}
+    {capturedLive && <span className="player-live-badge">LIVE</span>}{m.activeId && m.scene.hero !== "listening" && !capturedLive && <IconButton icon="more" label="More current song actions" className="player-track-menu" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId)} />}
     <div className="player-utilities">{!m.scene.guest && <IconButton icon="lyrics" label="Show lyrics" aria-pressed={m.scene.panel === "lyrics"} onClick={() => m.patch({ panel: m.scene.panel === "lyrics" ? null : "lyrics" })} />}<IconButton icon="queue" label="Up Next" aria-pressed={m.scene.panel === "queue"} onClick={() => m.patch({ panel: m.scene.panel === "queue" ? null : "queue" })} /><Volume /></div>
   </div>;
 }

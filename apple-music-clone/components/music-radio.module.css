@@ -23,3 +23,9 @@
   .explore button { min-height: 52px; }
   .page :global(.station-card .card-art-button) { border-radius: 14px; }
 }
+
+.page :global(.station-card[data-selected="true"] .card-play) { opacity:1; left:50%; right:auto; top:50%; bottom:auto; transform:translate(-50%,-50%); width:56px; height:56px; }
+.page :global(.station-card[data-selected="true"] > .icon-button) { opacity:1; width:31px; height:31px; right:5px; bottom:5px; color:#fff; background:#b5b5b599; backdrop-filter:blur(10px); }
+.page :global(.station-card[data-selected="true"] > .icon-button svg) { width:15px; }
+:global(.music-app[data-source^="a9992e55"]) .page :global(.station-card[data-selected="true"] .card-play) { background:#d90027; color:#fff; }
+:global(.music-app[data-source^="37575452"]) .page :global(.station-card[data-selected="true"] .card-play) { background:#acd1dc; color:#fff; }
