@@ -70,6 +70,12 @@ export function TourRow({ show, dark = false, compactTime = false }: { show: Con
 export function NearbyView() {
   return <div className="page-content faithful-nearby"><header><Art art={oliviaPortrait} label="Olivia Rodrigo"/><div><p>Upcoming Concerts</p><h1>Olivia Rodrigo</h1></div></header><Section title="Nearby Concerts"><div className="tour-grid">{oliviaTour.filter(show=>show.city==="Chicago").map(show=><TourRow key={show.id} show={show} compactTime/>)}</div></Section><Section title="All Upcoming Concerts" id="more-concerts"><div className="tour-grid">{oliviaTour.map(show=><TourRow key={show.id} show={show} compactTime/>)}</div></Section><Footer/></div>;
 }
+function ConcertFooter() {
+  const regions = ["United States","Español (México)","العربية","Русский","简体中文","Français (France)","한국어","Português (Brazil)","Tiếng Việt","繁體中文 (台灣)"];
+  const legal = ["Internet Service Terms","Apple Music & Privacy","Cookie Warning","Support","Feedback"];
+  return <footer className="concert-reference-footer"><nav className="concert-region-links" aria-label="Available regions and languages">{regions.map(label => <button type="button" key={label}>{label}</button>)}</nav><p>Copyright © 2026 Apple Inc. All rights reserved.</p><nav className="concert-legal-links" aria-label="Reference legal links">{legal.map(label => <button type="button" key={label}>{label}</button>)}</nav></footer>;
+}
+
 export function ConcertView() {
   const m=useMusic();
   const show=concertById(m.scene.category);
@@ -92,6 +98,6 @@ export function ConcertView() {
     <div className="concert-venue"><div><span><strong>{fullDate} · {weekday}</strong><small>{show.time.replace(/^7 PM$/,"7:00 PM")}</small></span><IconButton icon="calendar" label="Add reference concert to calendar" onClick={calendar}/></div><div><span><strong>{show.venue}</strong><small>{show.address ?? show.city}</small></span><a className="icon-button" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(show.address ?? `${show.venue} ${show.city}`)}`} target="_blank" rel="noreferrer" aria-label="Open venue map"><Glyph name="location" size={17}/></a></div></div>
     <p className="bandsintown-credit">Powered by Bandsintown</p>
     <Section title="More Upcoming Concerts" id="more-concerts" onMore={()=>m.go("nearby")}><div className="tour-list">{(show.artist==="Olivia Rodrigo"?oliviaTour:concertCatalog.filter(item=>item.artist===show.artist&&item.id!==show.id)).slice(0,5).map(item=><TourRow key={item.id} show={item} dark/>)}</div></Section>
-    </div><Footer/>
+    </div><ConcertFooter/>
   </div>;
 }

@@ -56,6 +56,7 @@
 .event-row > .icon-button svg { width:16px; }
 .event-row::after { content:""; position:absolute; left:114px; right:0; bottom:0; height:1px; background:#e9e9ed; }
 .music-dialog.concert-dates-dialog { width:358px; height:592px; padding:20px 8px 0; border-radius:11px; background:rgb(244 244 246 / 82%); backdrop-filter:blur(24px); overflow:hidden; }
+.music-dialog.concert-dates-dialog:focus { outline:none; }
 .music-dialog.concert-dates-dialog h2 { font-size:17px; line-height:24px; margin:0; letter-spacing:0; }
 .concert-dates-dialog .dialog-close { width:38px; height:38px; left:16px; top:16px; background:#b7b7ba44; }
 .concert-dates-dialog .dialog-close svg { width:26px; height:26px; }
@@ -106,7 +107,7 @@
 .music-app[data-scene="concert"] .floating-player { background:#45464299; border-color:transparent; color:#ddd; }
 .music-app[data-scene="concert"] .floating-player .now-playing > svg { color:#c0c1c0; }
 .music-app[data-scene="concert"] .floating-player .icon-button { color:#c4c5c4; }
-.faithful-concert-detail { color:#fff; min-height:100%; background:radial-gradient(ellipse at 50% 35%,#a39f94,transparent 65%),linear-gradient(110deg,#a9aba5,#abadab); }
+.faithful-concert-detail { color:#fff; min-height:100%; background:radial-gradient(ellipse at 50% 35%,#a9a59a,transparent 65%),linear-gradient(110deg,#afb1ab,#b4b6b4); }
 .concert-detail-body { width:681px; max-width:calc(100% - 60px); margin:auto; padding:107px 0 0; }
 .concert-portrait { position:relative; width:138px; height:138px; margin:auto; }
 .concert-portrait .music-art { width:138px; height:138px; border-radius:50%; }
@@ -131,8 +132,7 @@
 .concert-detail-body .tour-row > span:not(.concert-date-badge) > strong { opacity:.85; }
 .concert-share { position:fixed; right:23px; top:18px; width:38px; height:38px; background:#ffffff24; z-index:1; }
 .concert-share > svg { width:24px; height:24px; }
-.faithful-concert-detail > .content-footer { margin:38px 0 0; padding:18px 38px 83px 40px; color:#e1e1de; background:#ffffff0a; border:0; }
-.faithful-concert-detail > .content-footer p, .faithful-concert-detail > .content-footer .footer-region, .faithful-concert-detail > .content-footer a { color:inherit; }
+
 @media(max-width:1180px) {
  .event-row-grid { grid-auto-columns:75%; }
  .concert-detail-body { max-width:calc(100% - 40px); }
@@ -167,3 +167,10 @@
  .concert-share { top:64px; right:15px; }
  .music-app[data-scene="concert"] .mobile-header { background:#575954; color:white; }
 }
+
+.concert-reference-footer { margin-top:38px; min-height:173px; padding:18px 38px 70px 40px; background:rgb(255 255 255 / 47%); color:rgb(255 255 255 / 72%); font-size:10px; line-height:18px; }
+.concert-reference-footer nav { display:flex; align-items:center; flex-wrap:wrap; }
+.concert-reference-footer button { color:inherit; font-size:10px; line-height:18px; }
+.concert-region-links button + button,.concert-legal-links button + button { border-left:1px solid rgb(255 255 255 / 18%); margin-left:10px; padding-left:10px; }
+.concert-reference-footer > p { margin:16px 0 4px; color:rgb(255 255 255 / 66%); }
+.concert-legal-links { color:rgb(255 255 255 / 82%); }

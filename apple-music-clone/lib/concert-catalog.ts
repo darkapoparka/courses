@@ -18,7 +18,14 @@ const chicago = [
   ["Chris Brown", "Soldier Field", "2026-08-21", "7 PM", "Aug", "22"], ["Kanye West", "Soldier Field", "2026-09-03", "8 PM", "Sep", "4"],
   ["Olivia Rodrigo", "United Center", "2026-10-11", "7 PM", "Oct", "12"], ["Rod Wave", "United Center", "2026-10-31", "8:30 PM", "Nov", "1"],
 ].map(([artist,venue,date,time,month,day], i): Concert => ({ id:`chicago-${i}`,artist,venue,date,time,month,day:Number(day),city:"Chicago",address:i===2?"1901 W Madison St, Chicago IL":undefined,art:crop("70566e85",286+i*227,394,208,208) } as Concert));
-export const cityConcerts = [{ city:"Austin", shows:austin },{ city:"Nashville",shows:nashville },{ city:"Chicago",shows:chicago }];
+const miamiSeed: [string,string,string,string,string,number,Artwork][] = [
+  ["Don Toliver","Miami","2026-08-22","7 PM","Aug",23,crop("70566e85",740,61,208,208)],
+  ["Rod Wave","Miami","2026-11-14","8:30 PM","Nov",15,crop("70566e85",967,61,208,208)],
+  ["Olivia Rodrigo","Miami","2026-11-19","7 PM","Nov",20,crop("70566e85",740,394,208,208)],
+  ["Chris Brown","Miami","2026-12-03","7 PM","Dec",4,crop("70566e85",286,394,208,208)],
+];
+const miami: Concert[] = miamiSeed.map(([artist,venue,date,time,month,day,art],i)=>({id:`miami-${i}`,artist,venue,date,time,month,day,city:"Miami",art}));
+export const cityConcerts = [{ city:"Austin", shows:austin },{ city:"Nashville",shows:nashville },{ city:"Chicago",shows:chicago },{ city:"Miami",shows:miami }];
 const popularRows = [
   ["Noah Kahan","Wrigley Field","2026-07-14","6:30 PM","15"],
   ["Moneybagg Yo","The Pavilion at Wolf Lake Memorial Park","2026-07-15","5 PM","16"],
@@ -66,6 +73,6 @@ const tourRows: [string,string,string,number,string][] = [
 export const oliviaTour: Concert[] = tourRows.map(([city,venue,date,day,month],i) => ({ id:`olivia-${i}`,artist:"Olivia Rodrigo",city,venue,date,day,month,time:i===0?"12 PM":"7 PM",art:oliviaPortrait,address:city==="Chicago"?"1901 W Madison St, Chicago IL":undefined }));
 export const extraRanged: Concert[] = [{id:"evanescence",artist:"Evanescence",city:"Chicago",venue:"Credit Union 1 Amphitheatre",date:"2026-07-08",day:9,month:"Jul",time:"7 PM",art:crop("83bba8fd",853,740,92,92)}];
 export const extraSoul: Concert[] = [{id:"lou-astro",artist:"Lou Astro",city:"Chicago",venue:"Bookclub",date:"2026-07-03",day:4,month:"Jul",time:"11 PM",genre:"R&B/Soul",art:crop("d6b9a1a7",853,740,92,92)}];
-export const concertCatalog = [...austin,...nashville,...chicago,...popularConcerts,...rangedConcerts,...soulConcerts,...weeklyConcerts,...oliviaTour,...extraRanged,...extraSoul];
+export const concertCatalog = [...austin,...nashville,...chicago,...miami,...popularConcerts,...rangedConcerts,...soulConcerts,...weeklyConcerts,...oliviaTour,...extraRanged,...extraSoul];
 export function concertById(id?: string) { return concertCatalog.find(show => show.id === (!id || id === "Olivia Rodrigo" ? "chicago-2" : id)) ?? concertCatalog.find(show => show.artist === id); }
 export const concertGenres = ["All","Alternative","Blues","Christian","Classical","Country","Dance","Electronic","Hip-Hop/Rap","Holiday","Jazz","K-Pop","Children's Music","Latin","Metal","Pop","R&B/Soul","Reggae","Rock","Singer/Songwriter","Soundtrack","Worldwide"];
