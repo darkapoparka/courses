@@ -7,7 +7,11 @@
 .faithful-library .library-topbar { flex:none; height:35px; }
 .faithful-library.library-library .library-topbar { height:30px; }
 .faithful-library.library-albums .library-topbar { height:45px; }
-.faithful-library.library-made-for-you .library-topbar, .faithful-library.library-playlists .library-topbar { height:64px; }
+.faithful-library.library-made-for-you .library-topbar { height:64px; }
+.faithful-library.library-playlists .library-topbar { height:0; }
+
+.faithful-library.library-playlists { min-height:calc(100% + 163px); }
+.faithful-library.library-playlists > .library-grid { padding-top:9px; }
 .library-sort { position:absolute; top:7px; right:8px; display:flex; gap:8px; align-items:center; font-size:14px; color:#777; min-height:22px; }
 .library-made-for-you .library-sort, .library-playlists .library-sort { top:28px; right:38px; color:var(--accent); }
 .faithful-library .library-grid { row-gap:33px; padding-bottom:43px; }
