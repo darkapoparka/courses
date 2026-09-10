@@ -144,3 +144,50 @@
 .faithful-expanded .expanded-lyrics { mask-image:none; }
 .faithful-expanded .expanded-meta > div { margin-top:0; }
 .faithful-expanded .volume-expanded { margin-top:10px; }
+
+/* Recorded listening-flow chrome: active rows stay visibly active without hover. */
+.floating-player.has-track .transport .icon-button { color:#262629; }
+.capture-discovery .song-row[data-active="true"] .song-title { color:inherit; }
+.song-row[data-current="true"] .art-play { display:grid; }
+.playing-bars { display:flex; align-items:flex-end; justify-content:center; gap:2px; width:18px; height:18px; }
+.playing-bars i { display:block; width:2px; border-radius:2px; background:#fff; }
+.playing-bars i:nth-child(1) { height:7px; } .playing-bars i:nth-child(2) { height:13px; } .playing-bars i:nth-child(3) { height:9px; }
+.song-add { width:24px !important; height:28px; margin-right:-11px; color:#a90026 !important; }
+.song-add svg { width:16px !important; height:16px !important; }
+
+.loading-ring { width:14px; height:14px; border:2px solid #ffffff80; border-top-color:#fff; border-radius:50%; }
+
+/* Saved video state keeps source artwork separate from live, keyboard-usable controls. */
+.video-player:has(.video-reference-frame) { display:block; overflow:hidden; }
+.video-player:has(.video-reference-frame)::before { content:""; position:absolute; z-index:0; left:0; right:0; top:630px; bottom:47px; background:linear-gradient(transparent 0%,#5c4437 75%,#3d2e28 100%); }
+.video-reference-frame { position:absolute; z-index:1; top:40px; left:0; width:100% !important; height:auto; max-height:none !important; border-radius:0; }
+.video-poster-action { position:absolute; z-index:2; inset:40px 0 150px; width:100%; cursor:default; }
+.video-reference-controls { position:absolute; z-index:4; left:28px; right:28px; bottom:53px; height:62px; color:#fff; }
+.video-progress-row { display:grid; grid-template-columns:28px minmax(0,1fr) 37px; gap:6px; align-items:center; font-size:10px; line-height:12px; }
+.video-progress-row input,.video-volume-control input { appearance:none; -webkit-appearance:none; width:100%; height:2px; margin:0; padding:0; border:0; border-radius:2px; background:#20202099; }
+.video-progress-row input::-webkit-slider-thumb,.video-volume-control input::-webkit-slider-thumb { appearance:none; -webkit-appearance:none; width:9px; height:9px; border:0; border-radius:50%; background:#fff; }
+.video-progress-row input::-moz-range-thumb,.video-volume-control input::-moz-range-thumb { width:9px; height:9px; border:0; border-radius:50%; background:#fff; }
+.video-control-row { position:relative; height:42px; display:flex; align-items:flex-end; justify-content:space-between; }
+.video-volume-control { display:flex; align-items:center; gap:8px; width:58px; height:30px; }
+.video-center-controls { position:absolute; left:50%; bottom:0; transform:translateX(-50%); display:flex; align-items:center; gap:7px; }
+.video-center-controls .icon-button,.video-control-row > .icon-button { width:31px; height:31px; color:#fff; background:transparent; }
+.video-center-controls .icon-button svg { width:21px; height:21px; }
+.video-center-controls .icon-button:nth-child(2) svg { width:22px; height:22px; }
+.video-control-row > .icon-button { margin-left:auto; }
+.video-control-row > .icon-button svg { width:19px; height:19px; }
+.video-close { z-index:5; top:17px; left:17px; width:23px; height:23px; background:#d4d4d4; color:#1f1f1f; }
+.video-close svg { width:15px; height:15px; }
+
+/* The captured Apple Music Hits fullscreen state is a live programme, not a song player. */
+.faithful-expanded.radio-reference { background:linear-gradient(90deg,transparent 55%,rgba(2,8,20,.5) 100%),radial-gradient(ellipse 34% 36% at 28% 0%,#89610b 0%,#34461c 43%,transparent 76%),radial-gradient(ellipse 32% 42% at 70% 0%,#0b2d73 0%,#0a4d67 62%,transparent 100%),linear-gradient(180deg,#075261 0%,#0c5190 48%,#0d568c 100%); }
+.radio-reference .expanded-meta { margin-top:17px; }
+.radio-reference .expanded-meta strong { font-size:16px; line-height:21px; }
+.radio-reference .expanded-meta > div > button { color:#d4e1e8; font-size:16px; line-height:20px; }
+.radio-reference .radio-live-progress { display:flex; justify-content:space-between; align-items:center; border-top:3px solid #b8cbd7; padding-top:8px; margin-top:17px; color:#bdd0dd; font-size:9px; line-height:12px; letter-spacing:.2px; text-align:left; }
+.radio-transport { width:171px; height:50px; margin:2px auto 0; display:grid; grid-template-columns:repeat(3,57px); align-items:center; }
+.radio-transport .icon-button { width:57px; height:48px; color:#9fb1bc; }
+.radio-transport .icon-button svg { width:34px; height:34px; }
+.radio-transport .radio-stop { color:#fff; }
+.radio-transport .radio-stop svg { width:35px; height:35px; }
+.radio-reference .volume-expanded { margin-top:1px; }
+.radio-reference .volume-expanded input { background-color:#7696aa; }

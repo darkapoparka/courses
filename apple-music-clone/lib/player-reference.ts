@@ -4,8 +4,13 @@ import type { Scene } from "./music-scenes";
 /** The captured player states belong to several catalog snapshots. Keep their
  * data and progress explicit rather than guessing from ordinal source indexes. */
 export const playerReference: Record<string, Partial<Scene>> = {
-  "1f9e170c": { hero: "listening", elapsed: 0, favourite: false },
-  "9fbb38e1": { hero: "listening" }, "afd02fa6": { hero: "listening" },
+  "11803c64": { hero: "listening", favourite: false, librarySeed: "empty" },
+  "c98f8b54": { hero: "listening", favourite: false, librarySeed: "empty" },
+  "1f9e170c": { hero: "listening", elapsed: 0, favourite: false, librarySeed: "empty" },
+  "9fbb38e1": { hero: "listening", favourite: false, librarySeed: "empty" },
+  "afd02fa6": { hero: "listening", favourite: false, librarySeed: "empty" },
+  "d83e96ba": { hero: "listening", librarySeed: "empty" },
+  "ad689c37": { hero: "listening", librarySeed: "empty" },
   "cf59e554": { catalog: "legacy", elapsed: 0 },
   "a229e38a": { catalog: "legacy", elapsed: 0 },
   "6ac70c34": { hero: "listening", favourite: false },

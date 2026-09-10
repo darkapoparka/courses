@@ -27,6 +27,8 @@ export type Scene = {
   queueEmpty?: boolean;
   autoplay?: boolean;
   track?: string;
+  selectedTrack?: string;
+  loadingTrack?: string;
   snapshotPlaying?: boolean;
   favourite?: boolean;
   playlistSeed?: string[];
@@ -85,8 +87,8 @@ const definitions: Record<string, Scene> = {
   "8b03c9d0": { ...base, scroll: "essentials", namedProfile: true },
   "706de500": { ...base, scroll: "coming-soon", namedProfile: true },
   "8a234785": { page: "chart", namedProfile: true },
-  "11803c64": { ...base, track: "album-2", namedProfile: true },
-  "c98f8b54": { ...base, track: "album-2", namedProfile: true },
+  "11803c64": { ...base, selectedTrack: "album-2", namedProfile: true },
+  "c98f8b54": { ...base, track: "album-2", loadingTrack: "album-2", namedProfile: true },
   "1f9e170c": { ...base, track: "album-2", snapshotPlaying: true, namedProfile: true },
   "9fbb38e1": { ...base, track: "album-2", snapshotPlaying: true, namedProfile: true },
   "afd02fa6": { ...base, track: "album-2", snapshotPlaying: true, namedProfile: true },

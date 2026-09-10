@@ -39,27 +39,35 @@ export function Player() {
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
       {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? station?.art ?? albumArt} label={m.active?.album ?? station?.title ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? station?.title}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? "Live Radio" : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
     </button>
-    {m.activeId && <IconButton icon="more" label="More current song actions" className="player-track-menu" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId)} />}
+    {m.activeId && m.scene.hero !== "listening" && <IconButton icon="more" label="More current song actions" className="player-track-menu" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId)} />}
     <div className="player-utilities">{!m.scene.guest && <IconButton icon="lyrics" label="Show lyrics" aria-pressed={m.scene.panel === "lyrics"} onClick={() => m.patch({ panel: m.scene.panel === "lyrics" ? null : "lyrics" })} />}<IconButton icon="queue" label="Up Next" aria-pressed={m.scene.panel === "queue"} onClick={() => m.patch({ panel: m.scene.panel === "queue" ? null : "queue" })} /><Volume /></div>
   </div>;
+}
+
+function RadioTransport() {
+  const m = useMusic();
+  return <div className="radio-transport" aria-label="Live radio controls"><IconButton icon="previous" label="Previous station item" onClick={() => m.skip(-1)} /><IconButton icon="stop" label="Stop live radio" className="radio-stop" onClick={m.togglePlayback} /><IconButton icon="next" label="Next station item" onClick={() => m.skip(1)} /></div>;
 }
 export function ExpandedPlayer() {
   const m = useMusic();
   const station = m.activeId?.startsWith("station") ? radioStations.find(item => item.id === m.activeId) : undefined;
-  const art = m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
+  const radioReference = Boolean(station && m.scene.source?.startsWith("7bd2ef54"));
+  const stationTitle = radioReference ? "Gorgeous" : station?.title;
+  const stationSubtitle = radioReference ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
+  const art = radioReference ? crop("7bd2ef54",461,106,518,519) : m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
   const total = m.duration;
   const hasLyrics = Boolean(m.scene.lyrics && !station);
-  return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"}`} data-local-media={m.mediaName || undefined} aria-label="Expanded player">
+  return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} aria-label="Expanded player">
     <IconButton icon="close" label="Close expanded player" className="expanded-close" onClick={() => m.patch({ expanded: false })} />
     <div className="expanded-layout"><div className="expanded-left">
-      <Art art={art} label={m.active?.album ?? station?.title ?? albumTitle} />
-      <div className="expanded-meta"><div><strong>{m.active?.title ?? station?.title ?? "stupid song"}</strong><button type="button" onClick={() => m.go(station ? "radio" : `album:${m.active?.album ?? albumTitle}`)}>{station ? "Live Radio" : `${m.active?.artist ?? "Olivia Rodrigo"} — ${m.active?.album ?? albumTitle}`}</button></div>
+      <Art art={art} label={m.active?.album ?? stationTitle ?? albumTitle} />
+      <div className="expanded-meta"><div><strong>{m.active?.title ?? stationTitle ?? "stupid song"}</strong><button type="button" onClick={() => m.go(station ? "radio" : `album:${m.active?.album ?? albumTitle}`)}>{station ? stationSubtitle : `${m.active?.artist ?? "Olivia Rodrigo"} — ${m.active?.album ?? albumTitle}`}</button></div>
         {!station && <IconButton icon="star" label="Favourite current song" aria-pressed={m.library.favourites.includes(m.activeId ?? "album-2")} onClick={() => m.favourite(m.activeId ?? "album-2")} />}
-        <IconButton icon="more" label="More song actions" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId ?? "album-2")} />
+        {!radioReference && <IconButton icon="more" label="More song actions" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId ?? "album-2")} />}
       </div>
       {!station && <div className="seek-control"><input type="range" aria-label="Playback position" min="0" max={total || 1} step="0.1" value={Math.min(m.elapsed, total)} disabled={!total} style={{ backgroundSize: `${total ? m.elapsed / total * 100 : 0}% 100%` }} onChange={event => m.setElapsed(Number(event.target.value))} /><div><span>{formatTime(m.elapsed)}</span><span>-{formatTime(Math.max(0, total - m.elapsed))}</span></div></div>}
-      {station && <div className="live-progress"><span>LIVE</span></div>}
-      <Transport large /><Volume expanded />
+      {station && <div className={`live-progress ${radioReference ? "radio-live-progress" : ""}`}>{radioReference ? <><span>--:--</span><span>LIVE</span></> : <span>LIVE</span>}</div>}
+      {station ? <RadioTransport /> : <Transport large />}<Volume expanded />
     </div>{hasLyrics && <div className="expanded-lyrics"><Lyrics /></div>}</div>
     {!station && <IconButton icon="lyrics" label={hasLyrics ? "Hide lyrics" : "Show lyrics"} className="expanded-lyrics-toggle" aria-pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}
     <span className="sr-only">This is a local reference player. Without a user-owned file, transport controls preview UI state silently. Shift+M opens local media.</span>

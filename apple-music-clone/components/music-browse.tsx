@@ -6,12 +6,13 @@ import { useMusic } from "./music-context";
 import { Art, EmptyState, Footer, Glyph, IconButton, Section } from "./music-primitives";
 import { Rail } from "./music-rail";
 
-export function SongRow({ track, showTime = false, trailing, showFavourite = false }: { track: Track; showTime?: boolean; trailing?: ReactNode; showFavourite?: boolean }) {
-  const m = useMusic();
-  return <div className="song-row" data-active={m.activeId === track.id && m.playing}>
-    <button type="button" className="song-art-button" aria-label={`Play ${track.title}`} onClick={() => m.play(track)}><Art art={track.art} label={track.album} /><span className="art-play"><Glyph name={m.activeId === track.id && m.playing ? "pause" : "play"} /></span></button>
+export function SongRow({ track, showTime = false, trailing, showFavourite = false, showAdd = false }: { track: Track; showTime?: boolean; trailing?: ReactNode; showFavourite?: boolean; showAdd?: boolean }) {
+  const m = useMusic(); const current = m.activeId === track.id || m.scene.selectedTrack === track.id; const loading = m.scene.loadingTrack === track.id;
+  return <div className="song-row" data-current={current || undefined} data-active={current && m.playing || undefined}>
+    <button type="button" className="song-art-button" aria-label={`Play ${track.title}`} onClick={() => m.play(track)}><Art art={track.art} label={track.album} /><span className="art-play">{loading ? <span className="loading-ring" aria-hidden="true" /> : current && m.playing ? <span className="playing-bars" aria-hidden="true"><i /><i /><i /></span> : <Glyph name="play" />}</span></button>
     <div className="song-copy"><button className="song-title" type="button" onClick={() => m.play(track)}>{track.title}{showFavourite && m.library.favourites.includes(track.id) && <span className="small-star" aria-label="Favourite">★</span>}{track.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button><button className="song-artist" type="button" onClick={() => m.go(`artist:${track.artist}`)}>{track.artist}</button></div>
     {showTime && <span className="duration">{track.duration ? formatTime(track.duration) : "—"}</span>}
+    {showAdd && current && <IconButton icon="plus" label={`Add ${track.title} to Library`} className="song-add" onClick={() => m.addToLibrary(track.id)} />}
     {trailing ?? <IconButton icon="more" label={`More actions for ${track.title}`} onClick={(event) => m.openMenu("track", event, track.id)} />}
   </div>;
 }
