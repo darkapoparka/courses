@@ -12,5 +12,5 @@ export default async function FlowPage({ params, searchParams }: { params: Promi
   if (!step) notFound();
   const scene = screenScene(step.screenId);
   if (!scene) notFound();
-  return <AppleMusicApp key={`${flow.id}:${value}`} initialScene={scene} />;
+  return <AppleMusicApp key={`${flow.id}:${value}`} initialScene={{ ...scene, flow: flow.slug }} />;
 }

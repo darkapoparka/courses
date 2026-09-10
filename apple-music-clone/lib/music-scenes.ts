@@ -57,6 +57,7 @@ export type Scene = {
   locale?: "en" | "zh";
   category?: string;
   video?: boolean;
+  flow?: string;
 };
 const base: Scene = { page: "new" };
 const playing: Scene = { page: "new", namedProfile: true, hero: "superbloom", track: "album-2", snapshotPlaying: true };
@@ -237,7 +238,8 @@ export function sceneFromUrl(url: URL): Scene | null {
     if (!flow || !/^\d+$/.test(raw)) return null;
     const step = Number(raw);
     const screen = flow.steps[step];
-    return screen ? screenScene(screen.screenId) : null;
+    const scene = screen ? screenScene(screen.screenId) : null;
+    return scene ? { ...scene, flow: flow.slug } : null;
   }
   if (parts.length) return null;
   const track = url.searchParams.get("track");

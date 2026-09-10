@@ -6,14 +6,15 @@
 .capture-auth form { height:100%; position:relative; }
 .capture-auth h2 { font-size:29px; line-height:35px; font-weight:600; letter-spacing:-.75px; }
 .capture-auth .music-badge { width:61px; height:61px; margin:43px auto 16px; border-radius:14px; }
+.capture-auth .music-badge, .capture-checkout .music-badge { background:linear-gradient(#eb4e68, #e92c3a); }
 .dialog-apple { position:absolute; right:22px; top:23px; color:#c6c6c8; z-index:1; }
 .capture-auth .auth-subtitle { color:#69696c; font-size:17px; line-height:26px; text-align:center; margin-top:11px; }
 .auth-email form { padding:0 60px; display:flow-root; }
 .email-entry { display:block; width:458px; max-width:100%; height:54px; margin:24px auto 0; }
 .email-entry input { display:block; width:100%; height:100%; padding:12px 16px; border:1px solid #96969a; border-radius:10px; font-size:16px; outline-offset:1px; }
 .auth-privacy { width:458px; max-width:100%; margin:32px auto 0; text-align:center; color:#919194; font-size:11px; line-height:14px; }
-.privacy-mark { display:flex; justify-content:center; align-items:flex-end; height:27px; color:#d5234b; }
-.privacy-mark svg+svg { margin-left:-8px; opacity:.45; }
+.privacy-mark { display:grid; place-items:center; height:27px; color:#d5234b; }
+.privacy-mark svg { width:32px; height:24px; }
 .auth-privacy p { margin-top:15px; }
 .auth-privacy button { text-decoration:underline; color:#996370; }
 .auth-primary { display:block; width:304px; max-width:100%; height:42px; border-radius:7px; margin:17px auto 0; background:#ff173c; color:#fff; font-size:16px; line-height:22px; text-align:center; font-weight:400; }
@@ -132,3 +133,40 @@
   .capture-field input, .capture-field select { font-size:15px; }
 }
 
+
+/* Residual auth/trial capture alignment. */
+.capture-auth, .capture-checkout { outline:none; }
+.auth-email .auth-primary {
+  position:absolute;
+  left:50%;
+  bottom:19px;
+  margin:0;
+  transform:translateX(-50%);
+}
+.checkout-plan { padding:17px 12px; }
+.checkout-price { padding:20px 12px; }
+.checkout-summary > p { padding:19px 12px; }
+.checkout-street.with-address-menu { z-index:3; }
+.checkout-street.with-address-menu > input {
+  border:2px solid #0071c5;
+  padding-left:15px;
+}
+.address-suggestion {
+  position:absolute;
+  z-index:5;
+  left:0;
+  right:0;
+  top:53px;
+  height:43px;
+  padding:0 16px;
+  border:1px solid #0071c5;
+  border-top:0;
+  border-radius:0 0 9px 9px;
+  background:#fff;
+  text-align:left;
+  font-size:16px;
+}
+
+.capture-checkout h3.checkout-confirm-heading { margin-top:48px; }
+
+.capture-checkout h3.checkout-confirm-heading { margin-top:40px; }

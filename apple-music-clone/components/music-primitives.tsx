@@ -6,7 +6,7 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
+export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
@@ -24,6 +24,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "artist": return <svg {...common}><rect x="9" y="2" width="6" height="12" rx="3" transform="rotate(35 12 8)" /><path d="m8 12-6 8M9 15l-1 6M4 16l6 4" /></svg>;
     case "albums": return <svg {...common}><path d="M7 2h10M5 5h14" /><rect x="4" y="8" width="16" height="14" rx="2" /></svg>;
     case "song": return <svg {...common} fill="currentColor" stroke="none"><path d="M11 4v12.5a4 3.2 0 1 0 2 2.8V8l6-1V2Z" /></svg>;
+    case "apple-music": return <svg {...common} fill="currentColor" stroke="none"><path d="M9.2 5.3 19.4 3v11.1h-2V6.2L11.2 7.6v8.2h-2V5.3Z" /><ellipse cx="7.3" cy="17.5" rx="3.4" ry="2.45" transform="rotate(-12 7.3 17.5)" /><ellipse cx="17.4" cy="15.2" rx="3.4" ry="2.45" transform="rotate(-12 17.4 15.2)" /></svg>;
     case "video": return <svg {...common}><rect x="2" y="3" width="20" height="15" rx="2" /><path d="M8 22h8M12 18v4M11 8v6l5-1V6l-5 1M11 14c-4-1-4 3-1 2" /></svg>;
     case "playlists": return <svg {...common}>{[3,10,17].flatMap(x=>[3,10,17].map(y=><rect key={`${x}-${y}`} x={x} y={y} width="4" height="4" rx=".8" />))}</svg>;
     case "playlist": return <svg {...common}><path d="M3 5h10M3 9h10M3 13h7M3 17h6M17 6v13l5-1V4Z" /><ellipse cx="14.5" cy="19" rx="3" ry="2" fill="currentColor" /></svg>;
