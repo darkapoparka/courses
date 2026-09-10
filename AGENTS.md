@@ -4,7 +4,7 @@
 
 The owner explicitly assigned clone-first implementation: reproduce the saved Apple Music reference in a working app before adapting it to courses. This supersedes the earlier documentation-only/course-adaptation restriction below and in the planning documents.
 
-- Work only on `astra/course-platform-plan`; do not modify or merge into `main`, force-push, or create another implementation branch.
+- Work only on `main`. Do not create, switch to, or use feature/implementation branches for this project unless the owner explicitly reverses this rule. Never force-push.
 - Continue the existing Next.js application in `apple-music-clone/`. Its application components, routes, styles, and local test scripts may be edited for this assignment. Do not bootstrap a second frontend or start `web/` during the clone-first phase.
 - Preserve `apple-music-clone/reference/` byte-for-byte, including all original images, high-resolution variants, manifests, recordings, and historical QA. These saved files are comparison evidence, not proof of implementation.
 - Implement real DOM controls, navigation, scroll behavior, intermediate states, forms, menus and player UI. A full-screen screenshot with hotspots is not a working reconstruction. Do not substitute unrelated CSS-gradient artwork or assign screen variants by array position.

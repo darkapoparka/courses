@@ -4,14 +4,14 @@ The docs are ready to guide a bounded first implementation. Full remote visual r
 
 ## Branch and safety
 
-Use `astra/course-platform-plan`, which integrates the updated reference archive and the revised canonical docs. Before switching/pulling, inspect the local working tree and preserve unrelated work. Do not reset or force a branch. Confirm the actual latest remote commit and read root AGENTS. The documentation change itself did not authorize or perform application work.
+Use `main` only. The clone/reference history has been consolidated onto `main`; do not create, switch to, or use feature/implementation branches unless the owner explicitly reverses this policy. Before pulling, inspect the local working tree and preserve unrelated work. Do not reset or force-push. Confirm the actual latest remote commit and read root AGENTS.
 
 ## First implementation prompt
 
 Send the following when ready to authorize the initial slice:
 
 ```text
-Work in darkapoparka/courses using the latest astra/course-platform-plan branch. Inspect git status and preserve unrelated local changes before switching or pulling.
+Work in darkapoparka/courses on `main` only. Inspect git status and preserve unrelated local changes before pulling. Do not create or switch to a feature/implementation branch.
 
 I approve Next.js App Router + React + strict TypeScript, Tailwind with custom tokens/selected accessible primitives, and the staged architecture in these docs. Implement only BOOT-001 plus the relevant REF-002 and UI-001: the minimal new web/ scaffold and the learner shell/Home screen. Do not implement the full backlog.
 
@@ -25,7 +25,7 @@ Build the first course Home and shared learner shell using explicit public fixtu
 
 Run the actual typecheck, lint, build and browser checks appropriate to the slice. Capture desktop/mobile screenshots, inspect them, and record what passed or remains blocked. Update tasks and any intentionally changed contract. Commit only intended files and show me the local run command, screenshots, exact commit and remaining issues.
 
-Stop after this first slice for my visual review. Do not build further screens, provision services, deploy, merge to main, or activate payments.
+Stop after this first slice for my visual review. Do not build further screens, provision services, deploy, create/switch branches, or activate payments.
 ```
 
 This prompt explicitly adopts the engineering baseline for the named task. It does not approve final brand/assets, every visual proposal, commerce terms, or release. Normal local edits/checks within the slice do not require repeated permission requests.

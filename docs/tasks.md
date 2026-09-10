@@ -1,6 +1,6 @@
 # Apple Music clone — screen and flow checklist
 
-Checked this session at 2026-09-09T21:06:33+00:00. Active branch: `astra/course-platform-plan`.
+Checked this session at 2026-09-11. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
 
 Implementation checkpoint: `6dd47bf1975684ad5505b9a2e56da485a674239d`. The accumulated local application changes are saved in this commit, not merely described here.
 
