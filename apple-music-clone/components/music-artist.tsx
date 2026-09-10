@@ -48,10 +48,12 @@ function Heading({ title, onClick }: { title: string; onClick?: () => void }) {
 }
 function EntryCard({ entry, width = "five", continuation }: { entry: Entry; width?: "four" | "five"; continuation?: number }) {
   const m = useMusic();
+  const capturedHover = m.scene.source?.startsWith("898ca766") && entry.title === "Begged (Lyric Video)";
   return <article className={`${styles.entry} ${width === "four" ? styles.four : styles.five}`}>
     <button type="button" className={continuation !== undefined ? styles.stitchedVideo : styles.entryArt} aria-label={`Open ${entry.title}`} onClick={() => m.go(entry.destination)}>
       <Art resolution="standard" art={entry.art} label={entry.title} />
       {continuation !== undefined && <Art resolution="standard" art={crop("0c042c32", 286 + continuation * 284, 0, 264, 110)} label="" />}
+      {capturedHover && <span className={styles.captureHover} aria-hidden="true"><span><Glyph name="play" size={14} /></span><i>•••</i></span>}
     </button>
     <button type="button" className={styles.entryTitle} onClick={() => m.go(entry.destination)}>{entry.title}{entry.explicit && <span className="explicit">E</span>}</button>
     {entry.year && <span className={styles.entryMeta}>{entry.year}</span>}
@@ -67,16 +69,19 @@ export function ArtistView() {
   const topSongs = [albumTracks[1]!, albumTracks[0]!, albumTracks[7]!, albumTracks[2]!, albumTracks[3]!, albumTracks[4]!];
   const add = () => m.setLibrary(data => ({ ...data, songs: [...new Set([...data.songs, ...albumTracks.map(track => track.id)])] }));
   const added = albumTracks.every(track => m.library.songs.includes(track.id));
+  const heroFrame = m.scene.source?.startsWith("bc773ae9") ? crop("bc773ae9",247,0,1189,374)
+    : m.scene.source?.startsWith("f24fda77") ? crop("f24fda77",247,0,1189,374)
+    : crop("484851bf",247,0,1189,374);
   return <div className={styles.page}>
     <header className={styles.hero}>
-      <Art resolution="standard" art={crop("484851bf", 247, 0, 1189, 374)} label="Olivia Rodrigo artist artwork" className={styles.heroPhoto} />
+      <Art resolution="standard" art={heroFrame} label="Olivia Rodrigo artist artwork" className={styles.heroPhoto} />
       <div className={styles.heroBase}><Art resolution="standard" art={crop("484851bf", 247, 367, 1189, 7)} label="" /></div>
       <div className={styles.heroControls}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, "album-2")} /></div></div>
     </header>
     <div className={styles.body}>
       <div className={styles.overview}>
         <section><Heading title="Latest Release" /><div className={styles.latest}><button type="button" aria-label={`Open ${albumTitle}`} onClick={() => m.go("album")}><Art resolution="standard" art={crop("484851bf",286,534,157,158)} label={albumTitle} /></button><div><small>12 JUN 2026</small><button type="button" onClick={() => m.go("album")}>{albumTitle}</button><span>13 songs</span><button type="button" className={styles.add} onClick={add}><Glyph name={added ? "check" : "plus"} size={13} />{added ? "Added" : "Add"}</button></div></div></section>
-        <section><Heading title="Top Songs" onClick={() => m.go("chart")} /><div className={styles.topSongs}>{topSongs.map(track => <div key={track.id} className={styles.topSong}><button type="button" aria-label={`Play ${track.title}`} className={styles.topSongArt} onClick={() => m.play(track)}><Art resolution="standard" art={albumArt} label={albumTitle} /></button><div><button type="button" onClick={() => m.play(track)}>{track.title}</button><span>{albumTitle}</span></div><IconButton icon="more" label={`More actions for ${track.title}`} onClick={event => m.openMenu("track", event, track.id)} /></div>)}</div></section>
+        <section><Heading title="Top Songs" onClick={() => m.go("chart")} /><div className={styles.topSongs}>{topSongs.map(track => <div key={track.id} className={styles.topSong}><button type="button" aria-label={`Play ${track.title}`} className={styles.topSongArt} onClick={() => m.play(track)}><Art resolution="standard" art={albumArt} label={albumTitle} /></button><div><button type="button" onClick={() => m.play(track)}>{track.title}{m.scene.menu === "artist" && track.id === "album-2" && <i className={styles.songFavourite}>★</i>}</button><span>{albumTitle}</span></div><IconButton icon="more" label={`More actions for ${track.title}`} onClick={event => m.openMenu("track", event, track.id)} /></div>)}</div></section>
       </div>
       <section id="essential-albums" data-reference-top="24" className={styles.section}><Heading title="Essential Albums" /><div className={styles.essential}><EntryCard width="four" entry={{ title: "SOUR (Video Version)", year: "2021", destination: "album:SOUR (Video Version)", art: crop("57f7c08e",286,57,264,264) }} /></div></section>
       <section className={styles.section}><Heading title="Albums" /><Rail label="Olivia Rodrigo albums" className="square-rail">{albumEntries.map(entry => <EntryCard key={entry.title} entry={entry} />)}</Rail></section>

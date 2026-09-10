@@ -56,6 +56,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const [scene, setScene] = useState(initialScene);
   const referenceSession = useRef(Boolean(initialScene.source));
   const [library, setLibrary] = useState<LibraryState>(() => ({ ...initialLibrary,
+    discouraged: initialScene.page === "artist" && initialScene.filled ? allTracks.filter(track => track.artist.split(", ").includes("Olivia Rodrigo")).map(track => track.id) : [...initialLibrary.discouraged],
     favouriteArtists: initialScene.source && initialScene.page === "artist" ? [] : [...initialLibrary.favouriteArtists],
     songs: initialScene.librarySeed === "song" ? ["album-2"] : initialScene.librarySeed || initialScene.empty && initialScene.page === "library" ? [] : [...initialLibrary.songs],
     favourites: initialScene.favourite === false ? initialLibrary.favourites.filter(id => id !== "album-2") : [...initialLibrary.favourites], playlists: initialScene.librarySeed === "empty" || initialScene.librarySeed === "song" ? [] : initialScene.librarySeed === "playlist" ? [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2"], public: true }] : initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),

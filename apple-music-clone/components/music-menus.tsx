@@ -20,7 +20,7 @@ export function MusicMenus() {
     if (!kind || !menu.current) return;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const captured = m.scene.source;
-    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1208, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: 276 } : kind === "profile" ? { x: 26, y: innerHeight - 136 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
+    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1208, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 26, y: innerHeight - 136 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
     const anchor = m.menuPosition ?? fallback;
     const bounds = menu.current.getBoundingClientRect();
     setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
@@ -44,6 +44,7 @@ export function MusicMenus() {
   const inLibrary = ids.length > 0 && ids.every(id => m.library.songs.includes(id));
   const addLibrary = () => m.setLibrary(data => ({ ...data, songs: inLibrary ? data.songs.filter(id => !ids.includes(id)) : [...new Set([...data.songs, ...ids])] }));
   const favourite = kind === "artist" ? m.library.favouriteArtists.includes(artist) : m.library.favourites.includes(track.id);
+  const artistSuggestedLess = kind === "artist" && ids.length > 0 && ids.every(id => m.library.discouraged.includes(id));
   const favouriteAction = () => kind === "artist" ? m.favouriteArtist(artist) : m.favourite(track.id);
   const link = () => new URL(sceneUrl(kind === "artist" ? { page: "artist", category: artist } : kind === "station" ? { page: "radio" } : { page: "album", category: track.album, track: track.id }), window.location.origin).href;
   const copy = async (embed = false) => {
@@ -75,7 +76,7 @@ export function MusicMenus() {
   } else if (kind === "track" && m.scene.page === "songs") {
     content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
-    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{kind !== "track" && action("Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{m.scene.filled && kind === "album" ? action("Link Copied", null, () => {}) : action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
+    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{!(kind === "artist" && artistSuggestedLess) && action(favourite ? "Undo Favourite" : "Favourite", "star", favouriteAction)}{kind !== "track" && action(artistSuggestedLess ? "Undo Suggest Less" : "Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{m.scene.filled && kind === "album" ? action("Link Copied", null, () => {}) : action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
   }
   const keyboard = (event: KeyboardEvent<HTMLDivElement>, child = false) => {
     if (event.key === "Escape") { event.preventDefault(); close(); return; }
