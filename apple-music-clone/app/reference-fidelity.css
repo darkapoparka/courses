@@ -34,7 +34,7 @@
 
 .search-toolbar { position: sticky; top: 13px; z-index: 21; }
 .search-page .music-section h2 { font-size: 17px; line-height: 27px; }
-.search-page .recent-searches { margin-top: 6px; }
+.search-page .recent-searches { margin-top: 11px; }
 .search-page .recent-searches > button { background: #e1e1e3; border: 1px solid #d6d6da; }
 .search-page > .music-section + .music-section { margin-top: 40px; }
 .search-page .category-grid { margin-top: 9px; row-gap: 20px; }
@@ -168,3 +168,6 @@
 .music-app[data-source^="2f5da478"] .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; }
 .music-app[data-source^="d5173715"] .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; left:251px; }
 .music-app[data-source^="d5173715"] .capture-home > .music-section:first-of-type .rail-arrows .icon-button:last-child { visibility:hidden; }
+
+.music-app[data-source^="5b3ec96a"] .capture-search > .empty-state { transform:translateY(17px); }
+.music-app[data-source^="5b3ec96a"] .capture-search > .empty-state > svg { width:31px; height:31px; }
