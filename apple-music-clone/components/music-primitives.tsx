@@ -6,7 +6,7 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop";
+export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "person" | "playlists" | "star" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
@@ -50,6 +50,8 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "rewind-10": return <svg {...common}><path d="M8 5H3v5" /><path d="M4 9a8 8 0 1 1-.2 5" /><text x="8" y="15.5" fill="currentColor" stroke="none" fontSize="8" fontWeight="600">10</text></svg>;
     case "forward-10": return <svg {...common}><path d="M16 5h5v5" /><path d="M20 9a8 8 0 1 0 .2 5" /><text x="8" y="15.5" fill="currentColor" stroke="none" fontSize="8" fontWeight="600">10</text></svg>;
     case "stop": return <svg {...common} fill="currentColor" stroke="none"><rect x="1" y="1" width="22" height="22" rx="2" /></svg>;
+    case "play-next": return <svg {...common}><path d="M3 6h12M3 11h10M3 16h8" /><path d="M18 4v13M15 7l3-3 3 3" /></svg>;
+    case "play-last": return <svg {...common}><path d="M3 6h8M3 11h10M3 16h12" /><path d="M18 4v13M15 14l3 3 3-3" /></svg>;
     case "muted": return <svg {...common}><path d="M3 9h4l5-5v16l-5-5H3V9Z" /><path d="m16 9 6 6m0-6-6 6" /></svg>;
     default: return <Icon name={(name === "person" ? "user" : name) as IconName} size={size} />;
   }
@@ -83,7 +85,7 @@ export function Dialog({ title, children, onClose, className = "", hideClose = f
   useEffect(() => {
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const element = dialog.current;
-    if (element && !element.open) element.showModal();
+    if (element && !element.open) { element.showModal(); element.focus({ preventScroll: true }); }
     return () => { element?.close(); previous?.focus(); };
   }, []);
   return <dialog ref={dialog} className={`music-dialog ${className}`} aria-label={title} onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => {

@@ -165,3 +165,20 @@
 .profile-button { gap:7px; }
 .sidebar-footer { flex-basis:94px; }
 .open-music > svg:last-child { width:9px; height:9px; }
+
+/* Captured macOS-style share sheet recreated as live menu rows. */
+.faithful-menu.system-share-menu { width:218px; min-height:310px; padding:0 8px 7px; border-radius:14px; background:rgb(250 247 246 / 96%); box-shadow:0 12px 35px #00000026; }
+.system-share-url { min-height:61px; display:flex; align-items:flex-start; gap:9px; padding:10px 2px 8px; border-bottom:1px solid #d8d4d2; color:#4b4847; }
+.system-share-url > svg { margin-top:4px; color:#777; }
+.system-share-url strong { display:block; min-width:0; font-size:12px; line-height:14px; font-weight:600; overflow:hidden; }
+.faithful-menu.system-share-menu > .system-share-action { min-height:21.5px; height:21.5px; padding:1px 2px; border:0; border-radius:4px; justify-content:flex-start; gap:7px; font-size:12px; line-height:18px; }
+.system-share-action > svg { width:15px; height:15px; color:#6f6f73; order:0; }
+.system-share-action > span { flex:1; order:1; }
+.faithful-menu.system-share-menu hr { margin:3px 0; border-color:#d8d4d2; }
+
+.system-share-menu .system-share-action:nth-of-type(2) > svg,.system-share-menu .system-share-action:nth-of-type(3) > svg { color:#168cff; }
+.system-share-menu .system-share-action:nth-of-type(4) > svg { color:#19b54a; }
+.system-share-menu .system-share-action:nth-of-type(5) > svg { color:#d6ad00; }
+.system-share-menu .system-share-action:nth-of-type(6) > svg { color:#e14b67; }
+.system-share-menu .system-share-action:nth-of-type(7) > svg { color:#3b8de8; }
+.music-app[data-source^="eca1baa1"] .menu-album > button:nth-last-of-type(2) { background:#dedede; }

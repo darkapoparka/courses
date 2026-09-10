@@ -44,7 +44,8 @@
 .page > :global(.content-footer) { margin: 0; padding-left: var(--page-left); padding-right: var(--page-right); }
 .article:global(.music-dialog) { width: 658px; height: 752px; max-height: calc(100dvh - 40px); padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .article:global(.music-dialog)::backdrop { background: #0007; }
-.article :global(.dialog-close) { left: 11px; top: 10px; width: 31px; height: 28px; background: transparent; border-radius: 0; }
+.article:global(.music-dialog):focus { outline: none; }
+.article :global(.dialog-close) { z-index:3; left: 11px; top: 10px; width: 31px; height: 28px; background: transparent; border-radius: 0; }
 .article :global(.dialog-close) svg { width: 25px; height: 25px; }
 .articleHeader { flex: 0 0 119px; padding: 50px 29px 21px; background: white; position: relative; z-index: 1; }
 .articleHeader h2 { text-align: left; font-size: 25px; line-height: 30px; letter-spacing: -.4px; font-weight: 700; }
