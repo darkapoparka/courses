@@ -80,7 +80,7 @@
 .faithful-expanded .expanded-close svg { width:28px; height:28px; stroke-width:1.6; }
 .faithful-expanded .expanded-lyrics-toggle { width:30px; height:30px; right:18px; bottom:19px; color:#c0d7e4; background:transparent; }
 .faithful-expanded .expanded-lyrics-toggle > svg { width:29px; height:29px; }
-.faithful-expanded .expanded-lyrics { position:fixed; inset:0 10% 0 50%; width:auto; max-height:none; padding:0; font-size:36px; }
+.faithful-expanded .expanded-lyrics { position:fixed; inset:0 10% 0 50%; width:auto; height:100dvh; max-height:none; overflow:hidden; padding:0; font-size:36px; }
 .lyric-viewport { position:relative; height:100%; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; mask-image:linear-gradient(transparent,#000 9%,#000 76%,transparent 91%); }
 .lyric-viewport ol { list-style:none; margin:0; padding:348px 0 380px; }
 .lyric-viewport li { font-size:36px; line-height:48px; letter-spacing:-.75px; font-weight:700; margin-bottom:46px; opacity:1; transition:filter .25s,color .25s,opacity .25s; }
@@ -138,7 +138,7 @@
 }
 .feature-caption > button { white-space:normal; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; max-height:44px; }
 .faithful-panel .song-title { font-size:13px; }
-.faithful-panel { background:rgb(255 255 255 / 75%); backdrop-filter:blur(35px) saturate(1.1); }
+.faithful-panel { background:rgb(255 255 255 / 55%); backdrop-filter:blur(15px) saturate(1.1); }
 .faithful-expanded .expanded-lyrics-toggle svg, .player-utilities .icon-button[aria-label="Show lyrics"] svg { fill:none; }
 .faithful-expanded .lyric-viewport li[aria-current="true"] { opacity:1; filter:none; }
 .faithful-expanded .expanded-lyrics { mask-image:none; }
@@ -179,7 +179,9 @@
 .video-close svg { width:15px; height:15px; }
 
 /* The captured Apple Music Hits fullscreen state is a live programme, not a song player. */
-.faithful-expanded.radio-reference { background:linear-gradient(90deg,transparent 55%,rgba(2,8,20,.5) 100%),radial-gradient(ellipse 34% 36% at 28% 0%,#89610b 0%,#34461c 43%,transparent 76%),radial-gradient(ellipse 32% 42% at 70% 0%,#0b2d73 0%,#0a4d67 62%,transparent 100%),linear-gradient(180deg,#075261 0%,#0c5190 48%,#0d568c 100%); }
+.faithful-expanded.radio-reference { background:linear-gradient(90deg,transparent 68%,rgba(3,8,15,.55) 100%),radial-gradient(ellipse 44% 44% at 25% 7%,#6a3b0d 0%,#3d4b1a 48%,transparent 90%),radial-gradient(ellipse 27% 47% at 91% 8%,#5a3d0d 0%,#3a3212 48%,transparent 90%),radial-gradient(ellipse 30% 38% at 70% 2%,#0b2d73 0%,#0a4d67 60%,transparent 100%),linear-gradient(180deg,rgba(5,18,45,.75) 0%,rgba(5,18,45,0) 45%),linear-gradient(90deg,#0e4e88 0%,#0b477f 62%,#0a1820 100%); }
+.radio-reference-backdrop { position:absolute; inset:-20%; width:140%; height:140%; filter:blur(110px) saturate(.9) brightness(.35); opacity:.10; mix-blend-mode:multiply; transform:scale(1.08); pointer-events:none; }
+.radio-reference .expanded-layout { z-index:1; }
 .radio-reference .expanded-meta { margin-top:17px; }
 .radio-reference .expanded-meta strong { font-size:16px; line-height:21px; }
 .radio-reference .expanded-meta > div > button { color:#d4e1e8; font-size:16px; line-height:20px; }
@@ -195,3 +197,20 @@
 .player-live-badge { flex:none; min-width:33px; height:17px; padding:0 7px; display:grid; place-items:center; border-radius:9px; background:#66666c; color:#fff; font-size:9px; font-weight:600; line-height:17px; margin-right:2px; }
 .music-app[data-source^="47a07865"] .floating-player .play-toggle svg { width:17px; height:17px; }
 .music-app[data-source^="47a07865"] .floating-player .now-playing { padding-left:8px; }
+
+/* Source-specific frozen fullscreen ambience; captured frames vary by playback moment. */
+.music-app[data-source^="0c6da10e"] .faithful-expanded {
+  background:radial-gradient(ellipse 42% 65% at 55% 40%,#5b4037 0%,transparent 100%),linear-gradient(110deg,#24576d,#285166);
+}
+.music-app[data-source^="b3f29b6f"] .faithful-expanded {
+  background:radial-gradient(ellipse 40% 64% at 55% 34%,#51443e 0%,transparent 100%),linear-gradient(110deg,#28576b,#2d5664);
+}
+.music-app[data-source^="ac05c6b8"] .faithful-expanded {
+  background:radial-gradient(ellipse 40% 64% at 64% 40%,#354e53 0%,transparent 100%),linear-gradient(110deg,#265369,#2d5968);
+}
+.music-app[data-source^="96711b04"] .faithful-expanded {
+  background:radial-gradient(ellipse 35% 60% at 48% 20%,#53402f 0%,transparent 100%),linear-gradient(110deg,#255468,#2a4f59);
+}
+.music-app[data-source^="a4d30e7d"] .faithful-expanded {
+  background:radial-gradient(ellipse 35% 40% at 48% 0%,#584438 0%,transparent 100%),linear-gradient(110deg,#18475e,#1e5466);
+}

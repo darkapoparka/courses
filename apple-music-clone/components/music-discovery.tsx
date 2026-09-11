@@ -54,10 +54,13 @@ export function NewView() {
   const visibleSongs = !zh && !legacy && !queue && longToyStoryTitle ? visible.map(track => track.id === "viral-1" ? { ...track, title: `I Knew It, I Knew You (From "Toy Story 5")` } : track) : visible;
   const newThisWeek = [9, 4, 1, 5, 7].map(index => libraryCovers[index]!);
   const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d"].includes(source) ? source : undefined;
-  const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = releaseStripSource ? {
-    0: crop(releaseStripSource, 286, 840, 208, 63),
-    4: crop(releaseStripSource, 1194, 840, 208, 63),
-  } : undefined;
+  const panelReleaseSource = source && ["ee8db412", "8f029018", "de48a956", "4811dde3"].includes(source) ? source : undefined;
+  const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource
+    ? Object.fromEntries([286, 499, 712, 925, 1138].map((x, index) => [index, crop(panelReleaseSource, x, 759, 193, 144)]))
+    : releaseStripSource ? {
+      0: crop(releaseStripSource, 286, 840, 208, 63),
+      4: crop(releaseStripSource, 1194, 840, 208, 63),
+    } : undefined;
   return <div className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"}><h1>{zh ? "新发现" : "New"}</h1>
     <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex}>{featureCards.map(card => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} /></button></article>)}</Rail>
     <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} showAdd={!legacy && !queue && m.scene.hero === "listening"} />)}</div></Rail></Section>

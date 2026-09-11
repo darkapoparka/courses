@@ -13,7 +13,7 @@ export const playerReference: Record<string, Partial<Scene>> = {
   "ad689c37": { hero: "listening", librarySeed: "empty" },
   "cf59e554": { catalog: "legacy", elapsed: 0 },
   "a229e38a": { catalog: "legacy", elapsed: 0 },
-  "6ac70c34": { hero: "listening", favourite: false },
+  "6ac70c34": { favourite: false },
   "c939c9b8": { elapsed: 11, lyricIndex: 0, favourite: false, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
   "b3f29b6f": { elapsed: 54, lyricIndex: 11, librarySeed: "empty", playerArt: crop("b3f29b6f",144,134,461,462) },
   "ac05c6b8": { elapsed: 73, lyricIndex: 15, librarySeed: "empty", playerArt: crop("ac05c6b8",144,134,461,462) },

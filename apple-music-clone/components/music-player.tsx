@@ -62,6 +62,7 @@ export function ExpandedPlayer() {
   const total = m.duration;
   const hasLyrics = Boolean(m.scene.lyrics && !station);
   return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} aria-label="Expanded player">
+    {radioReference && <Art art={art} label="" className="radio-reference-backdrop" />}
     <IconButton icon="close" label="Close expanded player" className="expanded-close" onClick={() => m.patch({ expanded: false })} />
     <div className="expanded-layout"><div className="expanded-left">
       <Art art={art} label={m.active?.album ?? stationTitle ?? albumTitle} />
