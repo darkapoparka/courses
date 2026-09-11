@@ -32,7 +32,7 @@ python -m venv .qa\audit-venv
 
 ## Capture and compare a fresh candidate
 
-Use explicit UTF-8 for every text-file read and write on Windows. Do not let a default codepage corrupt fixture text or selectors. The npm Python aliases require the QA environment on PATH; the explicit commands below need no activation.
+Use explicit UTF-8 for every text-file read and write on Windows. When piping Python source through PowerShell, also set `$OutputEncoding=[System.Text.UTF8Encoding]::new($false)` and `$env:PYTHONUTF8='1'`, or keep the piped source ASCII with Unicode escapes; file encodings alone do not protect literal characters in stdin. Do not let a default codepage corrupt fixture text or selectors. The npm Python aliases require the QA environment on PATH; the explicit commands below need no activation.
 
 ```powershell
 npm run qa:archive

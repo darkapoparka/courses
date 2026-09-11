@@ -13,6 +13,7 @@ Finish the existing Apple Music clone to true 1:1 screen and interaction fidelit
 | [Development runbook](development.md) | Reproducible setup, capture, comparison, testing, and checkpoint commands |
 | [Tasks](tasks.md) | The single 159-screen / 58-flow completion checklist; UI, MATCH, and FLOW are separate |
 | [Current audit](reference-audit.md) | Findings, verified scope, residuals, and historical audit context |
+| [Latest diagnostics](reference-review/latest-metrics.json) | Hash-identified measurements for every saved screen; not a second acceptance checklist |
 | [Source review ledger](reference-review/ledger.md) | Dated source observations, not automatic implementation acceptance |
 | [Decisions](decisions.md) | Current owner direction followed by historical decisions |
 
