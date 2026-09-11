@@ -1228,7 +1228,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 ### Fidelity checkpoint - 2026-09-11
 
-- Active branch policy is `main` only. Current uncommitted fidelity work is based on pushed commit `e166f5b` and must be preserved until the next coherent checkpoint is committed and pushed. `apple-music-clone/.qa/` remains local-only QA scratch space.
+- Active branch policy is `main` only. The fidelity batch based on `e166f5b` was checkpointed as `94486db36446c8717e50ccaaff014bdb02054511` after the fresh complete regression passed. `apple-music-clone/.qa/` remains local-only QA scratch space and is not part of the checkpoint.
 - Implementation/render coverage is complete: 159/159 saved desktop UI states render and all 218 recorded route states resolve. A fresh complete canonical browser suite after the latest fidelity refinements passed 164 rendered states (159 desktop + 5 mobile samples), 218/218 route states, 16/16 interaction journeys and 0 failures.
 - A fresh real-browser hydration check passed on the current source: the root app loaded in Chromium, clicking `Radio` changed the live heading to `Radio`, and the navigation control became `aria-current="page"`.
 - Latest canonical difficult-state results: `ee8db412` 12.28% / MAE 8.96; `54b01eab` 11.41% / MAE 7.33; `4811dde3` 11.11%; `d5173715` 10.84% / MAE ~7.80; `8f029018` 10.67%; `8b03c9d0` ~10.18%; `6ac70c34` ~10.04%; `ffc18eb8` ~10.04%; `3728aa07` ~10.03%; `bc773ae9` 9.82%; `898ca766` 9.81%; `32515da3` 9.57%; `7bd2ef54` 9.44% / MAE 6.64; `9b43cccb` 9.28%; `de48a956` 9.10%; `f24fda77` 8.77%; `06a34864` ~4.52%; `c939c9b8` ~4.19%.

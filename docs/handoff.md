@@ -4,7 +4,7 @@
 
 Work only on `main`. Do not create, checkout, switch to, or work on any other branch unless the owner explicitly reverses this policy. Preserve the current working tree before any Git operation that could replace files. Never reset, discard, or stash-and-forget the active fidelity batch. `apple-music-clone/.qa/` is local QA scratch space and must never be committed.
 
-The active clone lives at `J:\courses-astra-preview\apple-music-clone`. The last pushed baseline before the current fidelity batch is `e166f5b` (`fix(reference): tighten player and radio capture states`). The large fidelity batch on top of that commit is intentional and coherent. `next-env.d.ts` may contain Next-generated path noise; restore it before committing unless the change is proven intentional.
+The active clone lives at `J:\courses-astra-preview\apple-music-clone`. The preserved fidelity batch based on `e166f5b` (`fix(reference): tighten player and radio capture states`) was checkpointed on `main` as `94486db36446c8717e50ccaaff014bdb02054511` (`fix(reference): refine high-residual capture fidelity`) after the complete regression passed. `next-env.d.ts` has no intentional change in that checkpoint. `.qa/` remains untracked.
 
 ## Current implementation checkpoint — 2026-09-11
 
@@ -59,7 +59,7 @@ The 2026-09-11 checkpoint reran the complete browser/reference suite, all 218 ro
 
 ## Immediate continuation
 
-1. Make a coherent fidelity checkpoint commit directly on `main` and push it to `origin/main`; record the actual checkpoint hash here in a follow-up documentation commit.
+1. Fidelity batch checkpoint `94486db36446c8717e50ccaaff014bdb02054511` is the measured source checkpoint on `main`; keep it available on `origin/main`.
 2. Keep `.qa/` untracked and continue immediately into the highest residual references, preferring shared structural/state causes over arbitrary pixel painting.
 3. Exercise all 58 recorded flows end-to-end and only then check individual `FLOW-*` boxes with evidence. Check `MATCH-*` only after exact visual acceptance of each reference.
 4. Completion requires genuine 159/159 MATCH and 58/58 FLOW acceptance, not merely 159 rendered states and 218 resolvable route snapshots.
