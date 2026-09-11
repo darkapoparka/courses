@@ -1,5 +1,13 @@
 # Decision register
 
+## Current owner direction ? 2026-09-12
+
+The active assignment supersedes the older course-first recommendations below: finish the existing Apple Music clone to true 1:1 visual and interaction fidelity, then adapt it into a courses/community product only after acceptance and explicit owner authorization. Work only on `main` in `apple-music-clone/`; preserve existing work and the complete reference archive. Do not scaffold `web/`, merge the historical course implementation, introduce services, or change product semantics during clone finalization.
+
+`docs/tasks.md` remains the single checklist. UI implementation, automated verification, exact visual acceptance, complete recorded-flow verification, and owner approval are distinct. Follow `AGENTS.md`, the current handoff, and the development runbook. The recommendations and adaptation mappings below are retained historical planning, not permission to start the later phase.
+
+## Historical decisions and recommendations
+
 Revised 2026-09-08. Confirmed owner direction and recommended implementation defaults are different. No production vendor/account/market approval is implied.
 
 ## Owner direction

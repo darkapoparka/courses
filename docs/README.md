@@ -1,47 +1,27 @@
 # Documentation map
 
-Baseline revised 2026-09-08 after the higher-resolution/reference-category update. These are build specifications, not implementation or visual-approval claims. The latest explicit owner instruction controls scope.
+## Current assignment
 
-## Read for the next task, not every file every time
+Finish the existing Apple Music clone to true 1:1 screen and interaction fidelity. Only then, with owner approval, adapt it into a courses/community product. Work only on `main`; the working app is `apple-music-clone/`, not a new `web/` scaffold.
 
-| Work | Read |
+## Read in this order
+
+| Document | Authority and purpose |
 | --- | --- |
-| First local session | Root AGENTS, platform, architecture, tasks, handoff |
-| Scaffold / ordinary frontend code | Tech stack, coding standards, development, assigned task |
-| UI adaptation | Reference audit, design system, screens and flows, relevant original images |
-| Database / permissions | Data model, security and trust, architecture |
-| Checkout / video | Commerce and video, data model, security and trust |
-| Verification / release | Quality and operations, current feature acceptance, decisions |
+| [Root agent contract](../AGENTS.md) | Branch, preservation, phase boundaries, and honest acceptance rules |
+| [Handoff](handoff.md) | Actual source checkpoint, running server, evidence, and next work |
+| [Development runbook](development.md) | Reproducible setup, capture, comparison, testing, and checkpoint commands |
+| [Tasks](tasks.md) | The single 159-screen / 58-flow completion checklist; UI, MATCH, and FLOW are separate |
+| [Current audit](reference-audit.md) | Findings, verified scope, residuals, and historical audit context |
+| [Source review ledger](reference-review/ledger.md) | Dated source observations, not automatic implementation acceptance |
+| [Decisions](decisions.md) | Current owner direction followed by historical decisions |
 
-## Canonical files
+The source archive and acquisition reports are under `apple-music-clone/reference/`. Preserve them byte-for-byte. Current implementation status belongs in the active documents above, not rewritten acquisition-era reports.
 
-| File | Owns |
-| --- | --- |
-| [platform.md](platform.md) | Purpose, audience, positioning, business boundaries |
-| [features.md](features.md) | Milestones, feature acceptance, deferred scope |
-| [reference-audit.md](reference-audit.md) | Actual repo findings, new archive coverage, inspection limits |
-| [reference-review/ledger.md](reference-review/ledger.md) | Exact image inspection evidence; not a guessed catalog |
-| [design-system.md](design-system.md) | Visual hierarchy, components, mobile and asset rules |
-| [screens-and-flows.md](screens-and-flows.md) | Routes, states, actions, complete critical journeys |
-| [tech-stack.md](tech-stack.md) | Baseline tools, alternatives, dependency policy |
-| [architecture.md](architecture.md) | App boundaries, data flow, caching, minimal infrastructure |
-| [coding-standards.md](coding-standards.md) | Concrete Next.js, React, TypeScript, SQL, and UI conventions |
-| [development.md](development.md) | Bootstrap, commands, environment stages, secrets and fixtures |
-| [data-model.md](data-model.md) | Phase-specific tables, constraints, access and state invariants |
-| [commerce-and-video.md](commerce-and-video.md) | Paid fulfillment, retries, refunds, ingest and playback |
-| [security-and-trust.md](security-and-trust.md) | Permission matrix, abuse/privacy/content controls and launch review |
-| [quality-and-operations.md](quality-and-operations.md) | Tests, evidence, failure recovery, costs, deployment gates |
-| [tasks.md](tasks.md) | Single execution backlog and completion evidence |
-| [decisions.md](decisions.md) | Confirmed direction, recommended defaults, open approvals and changes |
-| [handoff.md](handoff.md) | Exact first implementation prompt and stop conditions |
-| [research.md](research.md) | Dated primary sources and revalidation limits |
+## Deferred courses/community phase
 
-Do not duplicate platform into another PRD or tasks into another TODO document. Actual migrations/types, manifests/lockfiles, and tested code become implementation truth; update the owning specification when intentionally changing its contract.
+The platform, architecture, data, authoring, media, commerce, security, and component specifications in this folder are retained planning material. They do not authorize course copy, a second app, new providers, production infrastructure, subscriptions, or deployment during clone finalization. Read them only for an explicitly assigned later-phase task.
 
-## Precedence and status
+## Avoid status drift
 
-Owner instruction → root AGENTS scope → recorded owner decisions → relevant specification → task execution. A task does not silently override a contract. A proposed default may be adopted by the owner assigning the handoff that explicitly names it; agents should record that instruction rather than demand separate approval of every line.
-
-`READY` means a bounded task is specified, not executed. `REVIEWED` requires the stated evidence. `IMPLEMENTED` requires code. `VERIFIED` requires actual checks. `APPROVED` requires owner evidence. Documents and acquisition manifests do not automatically advance any other status.
-
-The first scaffold needs a stack choice and an implementation assignment, not every legal decision or all 159 screen reviews. The first UI slice needs its relevant references, not all future mockups. Live commerce needs the actual commercial, security, provider, and operational gates.
+Do not create another task list or call all implemented routes "done." Update `tasks.md` with reviewed evidence, `reference-audit.md` with findings, and `handoff.md` with the actual tested checkpoint. Keep local screenshots and experiments in ignored `.parity-evidence/` and `.qa/` directories; retain their source/candidate hashes and reproduction commands.

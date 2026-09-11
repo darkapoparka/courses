@@ -16,3 +16,4 @@ __pycache__/
 *.pyc
 apple-music-clone/reference/originals/browser-bundles.json
 apple-music-clone/.parity-evidence/
+apple-music-clone/.qa/

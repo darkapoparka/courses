@@ -10,16 +10,18 @@ import io
 import json
 import os
 from pathlib import Path
+from hashlib import sha256
+from qa_identity import candidate_identity, reference_viewport
 import re
 import struct
 import wave
 from playwright.async_api import async_playwright, expect
-from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog
+from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry
 
 APP = Path(__file__).resolve().parents[1]
-OUT = APP / '.parity-evidence/browser'
+OUT = Path(os.environ.get('REFERENCE_OUTPUT', APP / '.parity-evidence/browser')).resolve()
 BASE = os.environ.get('REFERENCE_URL', 'http://127.0.0.1:3000')
-ARCHIVE = json.loads((APP / 'reference/originals/flow-screen-map.json').read_text())
+ARCHIVE = json.loads((APP / 'reference/originals/flow-screen-map.json').read_text(encoding='utf-8'))
 IDS = list(dict.fromkeys(step['screenId'] for flow in ARCHIVE['flows'] for step in flow['steps']))
 BOXES = ['.music-sidebar', '.music-main', 'h1', '.feature-card .music-art', '.poster-card .music-art', '.song-art-button', '.floating-player', 'dialog[open]', '.album-header > .music-art', '.album-information', '.library-topbar', '.category-grid', '.account-scroll', '.account-inner', '.content-footer', '.capture-result', '.code-field', '.auth-primary']
 
@@ -38,15 +40,17 @@ async def ready(page, path='/'):
     await page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
 
 
-async def capture(browser, sid, width=1440, height=903):
-    context = await browser.new_context(viewport={'width': width, 'height': height}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce')
+async def capture(browser, sid, width=1440, height=None):
+    height = height if height is not None else reference_viewport(sid)['height']
+    context = await browser.new_context(viewport={'width': width, 'height': height}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
     page = await context.new_page()
     page.set_default_timeout(8000)
     errors, failures, bad_responses = [], [], []
     page.on('pageerror', lambda error: errors.append(str(error)))
+    page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
     page.on('requestfailed', lambda request: failures.append(request.url))
     page.on('response', lambda response: bad_responses.append({'url': response.url, 'status': response.status}) if response.status >= 400 else None)
-    row = {'screen': sid, 'width': width, 'height': height}
+    row = {'screen': sid, 'width': width, 'height': height, 'deviceScaleFactor': 1}
     try:
         await ready(page, '/screen/' + sid)
         row['boxes'] = await page.evaluate('''selectors => Object.fromEntries(selectors.map(selector => {
@@ -56,7 +60,12 @@ async def capture(browser, sid, width=1440, height=903):
         row['overflow'] = await page.evaluate('''() => ({document: document.documentElement.scrollWidth > innerWidth,
           main: document.querySelector('main').scrollWidth > document.querySelector('main').clientWidth + 1})''')
         row['scene'] = await page.locator('.music-app').get_attribute('data-scene')
+        assert await page.locator('.music-app').get_attribute('data-source') == sid
         row['artworkCount'] = await page.locator('[data-art-source]').count()
+        row['fontFamily'] = await page.locator('body').evaluate('(element) => getComputedStyle(element).fontFamily')
+        row['deviceScaleFactor'] = await page.evaluate('window.devicePixelRatio')
+        assert row['deviceScaleFactor'] == 1
+        assert await page.locator('main > *').count() > 0, 'Main content is empty'
         assert not errors, str(errors)
         assert not failures, str(failures)
         assert not bad_responses, str(bad_responses)
@@ -66,6 +75,8 @@ async def capture(browser, sid, width=1440, height=903):
         row.update(status='fail', error=str(error))
     try:
         await page.screenshot(path=str(OUT / f'{sid}-{width}.png'), animations='disabled')
+        row['renderSha256'] = sha256((OUT / f'{sid}-{width}.png').read_bytes()).hexdigest()
+        assert not errors and not failures and not bad_responses, 'Late browser/resource error'
     except Exception as error:
         row.update(status='fail', screenshotError=str(error))
     row.update(errors=errors, failedRequests=failures, badResponses=bad_responses)
@@ -88,11 +99,12 @@ async def flow_routes(request):
 
 
 async def run_case(browser, name, callback, mobile=False):
-    context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, reduced_motion='reduce')
+    context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
     page = await context.new_page()
     page.set_default_timeout(8000)
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
+    page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
     result = {'test': name}
     try:
         await callback(page, context)
@@ -101,7 +113,11 @@ async def run_case(browser, name, callback, mobile=False):
     except Exception as error:
         result.update(status='fail', error=str(error))
     result['errors'] = errors
-    await page.screenshot(path=str(OUT / f'test-{name}.png'), animations='disabled')
+    try:
+        await page.screenshot(path=str(OUT / f'test-{name}.png'), animations='disabled')
+        assert not errors, str(errors)
+    except Exception as error:
+        result.update(status='fail', screenshotError=str(error))
     print('TEST', name, result['status'], result.get('error', ''), flush=True)
     await context.close()
     return result
@@ -304,28 +320,40 @@ async def strict_routes(page, context):
 
 
 async def main():
+    if not OUT.is_relative_to((APP / '.parity-evidence').resolve()):
+        raise ValueError('REFERENCE_OUTPUT must be inside .parity-evidence, never the archive.')
     OUT.mkdir(parents=True, exist_ok=True)
-    result = {'commit': os.environ.get('GITHUB_SHA'), 'note': 'Rendering/functional coverage, not visual-parity acceptance.', 'screens': [], 'tests': [], 'flowRoutes': []}
+    if any(OUT.iterdir()):
+        raise ValueError(f'Use a fresh REFERENCE_OUTPUT; refusing to overwrite evidence: {OUT}')
+    concurrency = int(os.environ.get('REFERENCE_CONCURRENCY', '1' if os.name == 'nt' else '3'))
+    if not 1 <= concurrency <= 4:
+        raise ValueError('REFERENCE_CONCURRENCY must be between 1 and 4.')
+    identity = candidate_identity()
+    result = {'candidate': identity, 'baseUrl': BASE, 'locale': 'en-SG', 'timezone': 'Asia/Singapore', 'commit': identity['commit'], 'note': 'Rendering/functional coverage, not visual-parity acceptance.', 'screens': [], 'tests': [], 'flowRoutes': []}
     async with async_playwright() as playwright:
         browser = await playwright.chromium.launch(**({"executable_path": os.environ["REFERENCE_BROWSER_EXECUTABLE"]} if os.environ.get("REFERENCE_BROWSER_EXECUTABLE") else {}))
         result['browser'] = browser.version
+        result['concurrency'] = concurrency
         request = await playwright.request.new_context()
         result['flowRoutes'] = await flow_routes(request)
         await request.dispose()
-        semaphore = asyncio.Semaphore(3)
-        async def bounded_capture(sid, width=1440, height=903):
+        semaphore = asyncio.Semaphore(concurrency)
+        async def bounded_capture(sid, width=1440, height=None):
             async with semaphore:
                 return await capture(browser, sid, width, height)
         result['screens'] = await asyncio.gather(*(bounded_capture(sid) for sid in IDS))
         for prefix in ['e72be564', 'a917d88f', 'b620e4ab', '035569a0', '3131018d']:
             result['screens'].append(await bounded_capture(source(prefix), 390, 844))
         cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
-        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog)]
+        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry)]
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))
         result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))
         await browser.close()
-    (OUT / 'results.json').write_text(json.dumps(result, indent=2))
+    result['candidateAfter'] = candidate_identity()
+    if any(result['candidateAfter'][key] != identity[key] for key in ('implementationSha256', 'toolingSha256')):
+        result['tests'].append({'test': 'candidate-stability', 'status': 'fail', 'error': 'Application or QA source changed during capture; evidence is mixed.'})
+    (OUT / 'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     failures = [row for row in [*result['screens'], *result['tests'], *result['flowRoutes']] if row['status'] != 'pass']
     print(f"Rendered {len(result['screens'])} states; checked {len(result['flowRoutes'])} flow routes; ran {len(result['tests'])} journeys; {len(failures)} failures.", flush=True)
     if failures:

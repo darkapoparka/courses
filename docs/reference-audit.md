@@ -1,60 +1,39 @@
-# Repository and visual-reference audit
+# Apple Music clone audit — current findings
 
-Updated 2026-09-09. Archive baseline: `849594d4a0cb9a6befc6474019d3bf6e9601740e`. Earlier planning head: `ef0140d7a050210ee1ab889c4dd88bea3ed535e7`. This revision preserves the updated archive unchanged and replaces the broader draft plan with staged build specifications.
+Updated: 2026-09-12. This is the active implementation audit, replacing the older prototype/acquisition assessment. Dated source observations remain in `reference-review/ledger.md`; historical decisions and earlier audits remain in Git history. The frozen `apple-music-clone/reference/` archive is unchanged.
 
-## New reference material
+## Phase and repository findings
 
-| Material | Coverage | Interpretation |
-| --- | ---: | --- |
-| Unique screen identities | 159 | The high-resolution upload is not another 159 unique screens |
-| Original variants | 159 at 1440px width | Preserved alongside the new variants |
-| High-resolution variants | 159 at 3024px width | Manifest: 147 at 3024×2016; 12 at 3024×2018 |
-| UI-element categories | 29 categories / 53 memberships | Full-screen references, not editable components or isolated crops |
-| Flow sequences | 58 / 218 ordered steps | These steps reference the same 159 distinct screen identities |
-| Motion assets | 5 screen animations + 8 flow recordings | Full motion playback was not reviewed in this session |
+The required order is **true 1:1 Apple Music clone, then separately authorized courses/community adaptation**. Work only on `main`. The active application is `apple-music-clone/`.
 
-The updated originals README, COMPLETENESS, high-resolution manifest, UI-elements manifest and flow-screen map were read. A read-only metadata calculation independently counted 159 high-resolution entries, 58 flow records, 218 steps and 159 distinct step IDs. The 29/53 category figures and image-size/hash coverage are recorded by the acquisition manifest; this session did not independently rehash all media.
+The audit began at local source commit `6ecfb4a`, one commit ahead of `origin/main` (`fac8109`), following fidelity batch `94486db` and the earlier screen-family refinements. That local work was preserved. The old course-plan branch is already in main's ancestry. An additional historical course-implementation branch was inspected read-only and left untouched; it is not the active clone and must not be merged into this phase.
 
-The srcset advertises 3840w, while decoded widths recorded by the acquisition check are 3024px. Use actual file dimensions, not the advertised label. Source footers/watermarks remain intact and are not application UI.
+The GitHub default branch is `main`, but the verification workflow still targeted the abandoned course-plan branch. Its latest observed old-branch run, `34529162992`, failed three outdated auth checks. The workflow has been revised for `main`, active documentation changes, read-only task coverage, pinned QA tools, browser checks, and a complete comparison gallery. Green CI is explicitly not acceptance.
 
-## What was actually viewed
+Root/app README and agent instructions, the documentation map, and the development runbook contained contradictory paused/prototype/course-first directions. Active entry points now agree on the clone-first phase and point to the same checklist and evidence workflow. The old inventory alias is read-only; acquisition reports must not be regenerated.
 
-**17 distinct source screens were visually inspected: 16 high-resolution originals and one standard-resolution original.** The images were rendered through the connected image reader at a readable display scale. Coverage includes logged-out and signed-in discovery, Home, album detail, artist detail, category search and query results, empty and populated library, table/pin state, expanded lyrics, video playback, queue, context menu and email sign-in. Exact paths, states and adaptations are in [the ledger](reference-review/ledger.md).
+## Audit coverage and evidence
 
-This supersedes the earlier blocked/one-image-only audit. It is still a representative pattern review, not a claim to have viewed all 159 originals or tested every control. The 58 flow names and ordered IDs were inspected as metadata; selected corresponding still states were viewed. None of the 13 recordings was watched in full. No native-mobile Apple references, full app runtime, browser interaction or course-design approval are established by these image reads.
+The frozen corpus contains 159 unique screens, 58 flows, 218 ordered steps, and 13 available motion assets. The implementation inventory remains 159/159; this is not visual or flow acceptance. The complete baseline suite passed 164 renders, 218 route checks, and 16 interaction regressions before this batch.
 
-The standard-resolution billing image `06ea37ef-2485-4219-b244-9d56516c2c42.webp` was also independently fetched into memory, fully decoded with Pillow and hash-checked: 26,056 bytes, 1440×1023, Git blob `5ca1ab76686b8f24639182538a05932810bec3f6`, SHA-256 `0fa40975d506bacdc335c0d8d95fa1bfa017394b83c05b5df2d7da5114a03b0b`. Other visual reads are not being presented as independent bulk hash verification.
+A fresh full-corpus comparison exposed a capture-contract error: 147 standard originals have a 903px application viewport, while 12 have 904px. The runner had forced all of them to 903px. Captures now derive their exact viewport from the preserved original and exclude only the 120px acquisition footer. Comparisons reject missing, tampered, or wrong-size images rather than resizing or skipping them.
 
-## Findings that change the course UI
+Canonical output records source/render hashes, implementation and QA identities, viewport, browser, operating system, computed font family, geometry, overflow, and browser/resource failures. Separate output directories preserve baselines and failed attempts. The comparator ranks every screen and generates source/render/difference views, but never ticks MATCH or FLOW.
 
-**The references are states, not 159 separate page templates.** The guest New screen has a reduced sidebar and trial banner; the signed-in New screen has library destinations. Our visitor and learner shells should differ by actual access, not by rendering fake private content. We do not need Apple's global-subscription banner in a one-time-course marketplace.
+The first stricter candidate passed all 17 then-registered interaction tests but retained one failed CSS request (`ERR_NO_BUFFER_SPACE`) on `54b01eab`. That run was not promoted to acceptance. Windows capture now defaults to serial execution, records concurrency, and preserves failed runs. Explicit UTF-8 edits also prevent the selector corruption caught in an intermediate harness run. Final candidate results belong in `handoff.md` and the latest metrics checkpoint.
 
-**The detail page is a strong course starting point.** A square cover, adjacent title/creator/description and compact actions lead directly into a legible ordered list. Preserve that hierarchy. Replace music metadata with outcome, level, language, effort and explicit access/price; track rows become modules/lessons with preview/lock/completion. A black primary Play button in the reference is also a reminder not to turn every control into a bright accent button.
+## Source fixes made during this audit
 
-**Library empty and populated states are genuinely different.** The empty reference offers one clear browse action. The populated reference uses cover grids with captions, not a generic statistics dashboard. Our library adds resume/progress while separating enrolled courses from bookmarks.
+The video timeline was hard-coded at `0:06`, its slider was read-only, seek buttons changed unrelated audio state, and its fullscreen control opened a media picker. `music-video-player.tsx` now owns a bounded silent-preview transport: seek, back/forward ten seconds, elapsed/remaining time, play/pause, volume, actual browser fullscreen, and local-file playback. Keyboard focus is contained and restored to the opener; the background is inert while the video is open. A real artist-page entry test covers these controls, not only the canonical video fixture.
 
-**Playback and study require deliberate adaptation.** The expanded lyrics screen has media left and large blurred text right; use the split idea, but not karaoke blur or giant transcript type. The video screen provides an unobstructed playback surface and seek controls. The queue demonstrates a secondary right panel; our curriculum must not expose meaningless Clear queue or Shuffle actions. The reference's floating player sometimes overlaps content: preserve its restraint, not accidental obstruction.
+The lyrics-panel discovery rail rendered fractional-width artwork and a 20px gap where the source uses 406×233px cards and an 18px gap. The desktop legacy-panel rule now uses whole-pixel widths and the source gutter. Its regression verifies both the saved state and closing/reopening the panel through live controls after the source ID is cleared. The focused `ee8db412` comparison improved from 11.15% to 10.56% of pixels exceeding a 20-channel-value difference; MAE improved from 8.18 to 7.72. This is a diagnostic improvement, not a MATCH decision.
 
-**Creator identity is more than an avatar card.** The artist reference has a large identity header followed by latest release and content shelves. Adapt to real expertise and courses, but reduce the header on mobile so learners can evaluate actual instruction promptly. Do not infer video motion from a still or invent creator credentials.
+## Visual review and remaining priorities
 
-**Search has meaningful states.** Browse categories, recent items and typed-query results are separate layouts. Search remains visible above the results. Our result types are Courses and Creators; library-only search and recents persistence are not automatic launch features merely because Apple has them.
+Full-size source/render inspection of the lyrics side panel still shows inactive-line blur/fade and line-spacing differences, sidebar/footer alignment differences, and player typography/glass/glyph discrepancies. The saved video frame and controls were also inspected. The all-screen numerical comparison is comprehensive; readable manual visual review of every screen and every motion asset is not yet complete.
 
-## Concrete problems with the old prototype
+Prioritize semantic state/content and geometry before tint-only tuning. The baseline's largest residuals include the lyrics panel, Home/sidebar underlay, queue/autoplay, lower New shelves, and sidebar edit states. Use `latest-metrics.json` once a verified candidate is recorded, and the local gallery for full source/render/difference inspection. Inspect whole screens before narrowing to a crop; shared shell changes must be followed by a full-corpus regression.
 
-The source uses `fallbackVariants[index % fallbackVariants.length]`, combines many views in an approximately 46 KB client component, and invents tone/gradient artwork in `Art`. Those are prototype shortcuts, not production architecture or visual evidence.
+Complete real-control journeys remain a separate workstream. Verify every recorded intermediate state and available motion asset, not just the final screen or fixture routes. Source-specific art/scroll variants must remain coherent when source IDs are cleared by user actions. No MATCH or FLOW boxes were checked merely because this audit added tests or produced similarity scores.
 
-Direct inspection confirms incorrect explicit mappings too: `06be9f09…` is a Songs table with a pinned item, not an artist page; `a917d88f…` is Home, not concerts; `484851bf…` is artist detail, not simply a loading screen. Do not use `lib/reference.ts` as the source-to-course mapping authority. Its three hardcoded flows are also distinct from the complete 58-flow acquisition archive.
-
-The new product should not bulk-import the old scene switcher, fixtures, assets, dependency lockfile or generated music routes. The archive remains preserved for evidence and visual reference; the active application starts in `web/` only when assigned.
-
-## How an implementation task uses this audit
-
-Read the relevant ledger rows and open the linked originals locally, then implement the course-specific family from [screens and flows](screens-and-flows.md). Record the actual viewport, chosen token values, course screenshot, applicable error/access states and intentional differences. Related high-resolution source files are already present; no repeated acquisition is needed.
-
-Full catalog review is not a prerequisite for the scaffold or first Home slice. Source-selection evidence exists for the main families now; local review verifies the exact state/measurement needed for the current UI change. Creator authoring, publication, commercial access and moderation still require course-specific design rather than an invented claim that Apple supplied them.
-
-## Preservation and limits
-
-Keep original bytes/watermarks, manifests and historical QA untouched. Do not expand source redistribution, change repo visibility, or copy source art/proprietary fonts into production. Use independent branding and licensed/consented content. Possession of a reference is not a production-use license.
-
-No product application, migration, provider account, payment or deployment was created by this work. Architecture and course layouts are recommendations; actual implementation, accessibility, performance and usability remain tasks with their own evidence.
+The acceptance boundary remains 159 genuinely reviewed MATCH entries, 58 complete FLOW entries, and explicit owner authorization before courses/community adaptation. Current numerical diagnostics and the final test checkpoint are evidence of progress, not a claim that this boundary has been reached.

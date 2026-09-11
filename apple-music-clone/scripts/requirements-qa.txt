@@ -1,0 +1,7 @@
+# Isolated QA tooling; does not change the application's locked dependencies.
+playwright==1.62.0
+Pillow==12.1.1
+numpy==2.4.5
+greenlet==3.5.5
+pyee==13.0.1
+typing_extensions==4.16.0

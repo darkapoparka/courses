@@ -39,3 +39,10 @@ console.log(`Exact visual matches signed off: ${matched}/${screenIds.length}`);
 console.log(`Full recorded flows signed off: ${flows}/${archive.flows.length}`);
 console.log(`Ordered steps indexed: ${archive.flows.reduce((n,flow) => n + flow.steps.length,0)}`);
 console.log('Inventory is complete. This validator does not establish visual or interaction acceptance.');
+
+if (process.argv.includes('--require-complete')) {
+  assert.equal(ui, screenIds.length, 'Phase gate: implementation inventory is incomplete');
+  assert.equal(matched, screenIds.length, 'Phase gate: every screen needs documented visual acceptance');
+  assert.equal(flows, archive.flows.length, 'Phase gate: every recorded flow needs real-control acceptance');
+  console.log('Checklist gate satisfied. Owner authorization is still required before course adaptation.');
+}

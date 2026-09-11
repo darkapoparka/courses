@@ -1,21 +1,28 @@
-# Courses
+# Courses — Apple Music reference clone first
 
-An independent course marketplace and learning app, using Apple Music Web as a visual reference.
+The active application is `apple-music-clone/`. The current assignment is a true 1:1 working reconstruction of the saved Apple Music reference, **before** adapting it into a courses/community product. Work only on `main`.
 
-**Current state:** reference archive acquired; build specifications revised; product application not scaffolded by this work. Architecture recommendations are not a claim of a tested or launched platform.
+Start with [AGENTS.md](AGENTS.md), [the current handoff](docs/handoff.md), [the development runbook](docs/development.md), and [the single screen/flow checklist](docs/tasks.md).
 
-Start with [AGENTS.md](AGENTS.md), the [documentation map](docs/README.md), and the [local build handoff](docs/handoff.md). The plan is one Next.js app under `web/`, added only when an implementation task is assigned.
+## Acceptance target
 
-## References
+The frozen archive contains 159 unique screen identities, 58 recorded flows with 218 ordered steps, standard/high-resolution image variants, and 13 available motion assets. These counts describe reference coverage, not acceptance.
 
-The archive is in `apple-music-clone/reference/originals/`. Open [screens and flows](apple-music-clone/reference/originals/index.html) or [UI-element categories](apple-music-clone/reference/originals/ui-elements.html) locally.
+All screen states have implementations. Exact visual matches and complete real-control flow verification remain separate gates. No percentage of resolving routes proves 1:1 fidelity. Course adaptation must wait for genuine 159/159 MATCH, 58/58 FLOW, and owner approval.
 
-The current acquisition report records 159 screen IDs at both 1440px and 3024px, 29 UI-element category mappings, 58 flows with 218 steps, and 13 animations/recordings. Categories and flows reuse those screen identities; they are not additional unique product screens. See [archive completeness](apple-music-clone/reference/originals/COMPLETENESS.md) and [our inspection evidence](docs/reference-audit.md).
+## Local preview
 
-The old implementation is unapproved and frozen. Its arbitrary screen mappings and placeholder artwork are not the course design specification. Preserve it and the reference archive; neither belongs in the production application.
+From `apple-music-clone/`, use the existing locked dependencies and run:
 
-## Build sequence
+```powershell
+$env:REFERENCE_PREVIEW='1'
+npm run dev -- --hostname 127.0.0.1 --port 6431
+```
 
-First: a small fixture-backed course UI for review, requiring no external credentials. Second: one real free-course journey with identity, authoring, access, and progress. Third: verified sandbox commerce and a controlled paid pilot. Community expansion, subscriptions, native apps, AI tutors, and generalized infrastructure come later, only when assigned.
+Open `http://127.0.0.1:6431/` and verify the actual browser. Do not assume an existing server on port 3000 belongs to this project. See the runbook for isolated browser tooling, comparison commands, and production-build checks.
 
-[Tasks](docs/tasks.md) defines the exact order and acceptance criteria. [Decisions](docs/decisions.md) separates engineering recommendations from unresolved commercial or visual approval. There is no requirement to reproduce every Apple screen before starting the first course slice.
+## Reference and future product boundaries
+
+Saved evidence lives in `apple-music-clone/reference/originals/`; the local reference index is `index.html`. Preserve the entire `reference/` tree byte-for-byte, including historical QA. Current status belongs in `docs/tasks.md`, `docs/reference-audit.md`, and `docs/handoff.md`.
+
+Account, payment, subscription, and media behavior are local previews, not live Apple integrations. No deployment or production asset redistribution is authorized. The course plans under `docs/` are retained for the later phase; do not scaffold `web/` or replace music semantics before clone acceptance.

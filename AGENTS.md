@@ -1,41 +1,44 @@
 # Courses — agent contract
 
-## Current owner assignment — 2026-09-09
+## Active phase: Apple Music fidelity
 
-The owner explicitly assigned clone-first implementation: reproduce the saved Apple Music reference in a working app before adapting it to courses. This supersedes the earlier documentation-only/course-adaptation restriction below and in the planning documents.
+The owner's assignment is a working true 1:1 clone of every saved Apple Music screen and flow. Course/community adaptation starts only after clone acceptance and a separate explicit assignment. Historical course plans are deferred specifications, not instructions to create another app.
 
-- Work only on `main`. Do not create, switch to, or use feature/implementation branches for this project unless the owner explicitly reverses this rule. Never force-push.
-- Continue the existing Next.js application in `apple-music-clone/`. Its application components, routes, styles, and local test scripts may be edited for this assignment. Do not bootstrap a second frontend or start `web/` during the clone-first phase.
-- Preserve `apple-music-clone/reference/` byte-for-byte, including all original images, high-resolution variants, manifests, recordings, and historical QA. These saved files are comparison evidence, not proof of implementation.
-- Implement real DOM controls, navigation, scroll behavior, intermediate states, forms, menus and player UI. A full-screen screenshot with hotspots is not a working reconstruction. Do not substitute unrelated CSS-gradient artwork or assign screen variants by array position.
-- Local rendering, focused tests, and repeatable reference/browser checks are authorized. Keep implementation, metadata validation, browser verification, visual comparison, and owner approval separate.
-- This is a reference preview, not an Apple-connected service. Never collect or submit real Apple credentials or payment data, claim a real subscription/payment succeeded, or claim copyrighted recordings are playable without a media source. Fixture behavior must be explicit in the reference controls/documentation.
-- Do not deploy to Production, change visibility, provision paid services, or redistribute proprietary fonts. Serve archived artwork only in local/explicit non-production reference preview; do not put the source archive in a production public directory.
+- Work only on `main`. Preserve existing work, avoid destructive Git operations, and never force-push or create/switch branches.
+- Continue `apple-music-clone/` in `J:\courses-astra-preview`. Do not scaffold `web/`, replace the frontend, or upgrade the stack instead of fixing fidelity.
+- Preserve `apple-music-clone/reference/` byte-for-byte. Images, variants, manifests, recordings, and historical QA are immutable comparison evidence.
+- Implement real DOM controls, navigation, forms, menus, playback UI, scroll positions, and intermediate states. No screenshot-as-page, hotspots, arbitrary mappings, or dead controls.
+- Keep preview authentication, payment, and playback local and explicit. No real credentials, payment submissions, subscriptions, or copyrighted streaming.
+- Do not deploy to production, change visibility, provision paid services, or redistribute proprietary fonts or source assets.
 
 ## Canonical documents
 
-Read `docs/README.md`, the relevant row/evidence in `docs/tasks.md`, and documents needed for the assigned behavior. `docs/platform.md` owns the eventual course product; `docs/architecture.md` owns its proposed implementation; `docs/decisions.md` owns decisions. Do not create another PRD, backlog, or competing planning folder. The course bootstrap and product backlog remain deferred while this clone-first assignment is active.
+Start with this file, `docs/handoff.md`, `docs/development.md`, and the relevant `docs/tasks.md` rows. Preserve and follow the app's generated Next.js instructions. `docs/reference-audit.md` owns current audit findings; `docs/reference-review/ledger.md` preserves source observations.
 
-## Screen and flow progress
+`docs/tasks.md` is the only completion checklist: 159 UI entries, 159 MATCH entries, and 58 FLOW entries. Do not create a competing backlog. Archive acquisition reports are historical; the course-product specifications remain deferred.
 
-`docs/tasks.md` is the live clone checklist: one `UI-<source prefix>` and `MATCH-<source prefix>` pair per saved screenshot, and one `FLOW-<flow prefix>` item per recorded journey. Update these existing items as work lands; do not reset checked work or create another backlog. UI means coded/rendering, MATCH requires reviewed source-versus-render evidence, and FLOW requires the real complete interaction sequence. Run `node apple-music-clone/scripts/check-task-coverage.mjs` from the repository root to check coverage and print the three counts. The frozen `reference/screen-status.md` and its generator are historical acquisition records, not the live implementation tracker.
+## Session and implementation loop
 
-## Engineering defaults
+1. Inspect branch, status, staged/unstaged diffs, HEAD, remotes, and incoming/outgoing commits. Preserve unrelated changes; fetch does not authorize replacing the working tree.
+2. Identify the clone's listening process and command line. Port 3000 may belong to another project. Default clone port is 6431 on loopback. Never terminate another app to claim a port.
+3. Verify browser hydration, a real navigation click, the rendered screenshot, and browser errors. A listener, HTTP 200, or route count is not working behavior.
+4. Open exact saved originals at readable size and read the full flow sequence. Fix wrong state/content, geometry, typography, cropping and interactions before low-impact color tuning.
+5. Save a baseline with candidate/environment identity. Make a small source change, repeat the capture, compare, and inspect the diff. Validate actual computed styles when bundling may change CSS.
+6. Reach the same state through real UI actions. Do not fix only `/screen/<id>` while live navigation loses the state. Do not use forced clicks, DOM-injected state, or URL jumps as flow evidence.
+7. Run focused regressions, then the complete suite after shared changes. Re-rank every reference; do not declare progress from selected improved crops while other states regress.
+8. Update the owning task/audit with exact evidence, review the staged diff, and checkpoint coherent tested changes on `main`. Keep `.qa/` and `.parity-evidence/` local and uncommitted.
 
-Preserve the existing Next.js/React/TypeScript versions and lockfile for the reference app unless a demonstrated defect requires a deliberate change. Use version-matched official docs and generated Next.js instructions. Never guess current APIs, versions, or CLI flags. Keep one app and focused feature functions rather than introducing another framework or speculative infrastructure.
+## Evidence and acceptance
 
-Inspect branch, working tree, code, dependencies, and acceptance criteria before editing. Preserve unrelated changes and nested generated AGENTS. Implement complete behaviors with useful failure states, not dead controls or fake-success handlers. Authorize server-side resources and mutations when backend work is actually assigned; the reference-preview state is not production authentication or authorization.
+- **UI**: implemented and rendered. It is not a visual match.
+- **MATCH**: exact reference/viewport/state compared, residuals inspected at readable scale, and no unresolved visible discrepancy. Record source/candidate hashes, crop, browser, reviewer, and evidence location. Numerical similarity alone never grants approval.
+- **FLOW**: one continuous real-control journey through every recorded step, including intermediate forms, menus, scroll and resulting state. Starting at a fixture is allowed; jumping between fixture URLs is only route coverage.
+- Responsive checks prove usability, not parity with nonexistent mobile originals. Review the 13 available motion assets where applicable; still screenshots do not verify timing.
+- Exclude only documented acquisition footers from comparison; preserve original bytes. Never mask product regions, loosen metrics, or tick boxes to manufacture completion.
+- Keep implementation, automated checks, visual review, complete-flow verification, and owner acceptance separate. Course adaptation remains blocked until all 159 MATCH and 58 FLOW entries are genuinely accepted and the owner approves the transition.
 
-## UI and reference protocol
+## Engineering and handoff
 
-Open the relevant saved originals at readable size before choosing layout, typography, spacing, or artwork crops. Record exact source identities and measurements separately from proposed adaptation. Do not infer screen mappings from array indexes, copy a Mobbin footer into application UI, or claim all references were viewed when they were not.
+Retain locked versions and read version-matched official/generated framework documentation. Prefer small shared fixes and existing components over framework rewrites, broad refactors, speculative services, or additional apps. New scripts must be reproducible outside one machine's scratch directory and fail honestly.
 
-Use the frozen `reference/originals/flow-screen-map.json` for all 58 flow sequences and 218 steps. A known source without an implemented state must not silently display an unrelated page. Preserve the archive's unknown/unreviewed states honestly until their corresponding behavior is implemented.
-
-Compare browser renders against originals at the correct reference viewport and exclude acquisition footers from application measurements. The saved sources are desktop references; responsive behavior must work but must not be described as matching nonexistent native-mobile originals.
-
-After changes, review the diff, run available checks, and record exact evidence in `docs/tasks.md`. Never claim tests, playback, visuals, provider integration, or approvals that have not been observed. No new planning/handoff documents in place of application work.
-
-## Handoff
-
-Report the actual commit, changed behavior, tests/browser comparisons performed, and remaining unverified states. Do not claim 1:1 completion from route counts or metadata checks. Production and course adaptation require their own explicit assignments after clone acceptance.
+Before ending, report the actual commit/push state, verified server URL, changed behavior, checks performed, comparison results, and concrete remaining blockers. Never claim tests, visual reviews, integrations, or approvals that were not observed. Keep `docs/handoff.md` current; documentation is not a substitute for implementation.

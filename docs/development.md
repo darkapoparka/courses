@@ -1,73 +1,83 @@
-# Development and environment contract
+# Clone development and verification runbook
 
-No commands in this file have been executed for the new application. They describe the approved future workflow. The archive does not need installation to inspect references.
+## Scope and preflight
 
-## Bootstrap once, in the right directory
+The active app is `J:\courses-astra-preview\apple-music-clone`. Work only on `main`. Preserve existing changes and the complete `reference/` archive. Do not scaffold `web/`, adapt course copy, or provision services during clone finalization.
 
-At BOOT-001: inspect the current branch and working tree. Keep unrelated local changes. Read the handoff and confirm the Next baseline named in the implementation assignment. Resolve a supported stable `create-next-app` release, inspect its `--help`, and use its official CLI to create `web/` with TypeScript, App Router, `src/`, Tailwind, ESLint and pnpm. Do not handwrite a fake framework scaffold or run the CLI over `apple-music-clone/`.
+Inspect `git branch --show-current`, `git status --short`, staged/unstaged diffs, HEAD, and `git log --oneline origin/main..main`. Fetching `origin main` is allowed; do not automatically pull, reset, clean, stash, or replace someone else's work. Record the starting commit.
 
-Use a supported Node LTS, currently Node 24 in the reviewed release table, and a pinned pnpm version [R08](research.md). Record the exact installed Next/React/TypeScript/Tailwind versions, Node patch, package manager and CLI command in the task evidence. The archived package pins are observations, not a lockfile to reuse.
+Use the installed locked application dependencies. Only when missing, reproduce the existing install with `npx --yes pnpm@10.11.0 install --frozen-lockfile`. Read relevant version-matched guides in `node_modules/next/dist/docs/` before framework changes.
 
-One active application means no root workspace/Turborepo setup by default. Run app commands from `web/`. Preserve framework-generated agent files; add an entry pointing to the root project rules outside generated markers.
+## Start the correct server
 
-## Stages and credentials
+Inspect the listener and its process command line first. Port 3000 may belong to another repository. Do not terminate another application to free a port. The local clone uses loopback port 6431:
 
-| Stage | What runs | Required configuration |
-| --- | --- | --- |
-| M0 UI | Explicit public fixtures and licensed sample media | None from Supabase, Stripe or Mux |
-| M1 data/auth | Local Supabase or deliberately selected nonproduction project | Supabase URL and publishable key; private admin key only for restricted operations that exist |
-| M1 video integration | Mux test/development assets and verified callbacks | Server-side API/signing/webhook credentials scoped to the test environment |
-| M2 checkout | Stripe sandbox + Connect test account + webhook forwarding | Server secret and endpoint signing secret; never live credentials |
-| Production | Reviewed supported configuration only | Separate database/auth/media/payment credentials, exact domains, email delivery, support and budget setup |
-
-Do not create a generalized runtime adapter framework for fixture/live mode. M0 routes explicitly import fixtures and label the UI as a design preview. When a feature gains a live query, replace that import deliberately; tests may still pass explicit fixtures to views. Missing live configuration must fail clearly, never fall back to fictional data or fake success.
-
-All preview/fixture deployments are non-indexable and non-commercial. A successful `next build` does not make the fixture app production-ready. Remove demo data/claims from release routes and verify the live configuration before release approval.
-
-## Environment names at integration time
-
-Create `web/.env.example` with descriptions, empty/example values, and stage requirements. No real key is committed or pasted into documentation.
-
-| Variable | Exposure / purpose |
-| --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Browser-visible project endpoint |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Browser-visible publishable credential; requires proper grants/RLS |
-| `SUPABASE_SECRET_KEY` | Server-only restricted administrative paths; use the project's actual supported key type |
-| `STRIPE_SECRET_KEY` | Server-only, sandbox during development |
-| `STRIPE_WEBHOOK_SECRET` | Server-only, specific webhook endpoint/environment |
-| `MUX_TOKEN_ID`, `MUX_TOKEN_SECRET` | Server-side media API credentials |
-| `MUX_WEBHOOK_SECRET` | Server-only callback verification |
-| `MUX_SIGNING_KEY_ID`, `MUX_SIGNING_PRIVATE_KEY` | Server-only signed-playback credentials |
-| `APP_URL` | Validated canonical app origin for safe server-generated callbacks/links |
-
-These are proposed application variable names, not a claim every SDK reads them automatically. Read/configure them explicitly and validate at the integration boundary. Do not import a module that demands every future provider secret just to render a public fixture page. Hosting encryption/multiline key formatting and callback URLs must be tested, not guessed.
-
-## Local database and test data
-
-At DB-001, use the official Supabase CLI and its local container prerequisites [R15](research.md). Inspect the installed command help for initialization, start, migration creation/reset and type generation. Run from `web/` so one `supabase/` directory owns the schema.
-
-Use deterministic fictional seed users: learner A, learner B, creator A, creator B and operator; courses in different workspaces; public preview, free and paid/locked lessons; pending/fulfilled/refunded orders when M2 exists. Seed privileged fixtures through test setup, never an application endpoint that lets any user self-assign roles.
-
-A destructive local reset is allowed only against the identified disposable local test database and after checking its URL/context. Never reset/pull/overwrite production data to fix a development issue.
-
-## Command contract after scaffold
-
-BOOT-001 adds and verifies actual package scripts. Until then the following are intended script names, not existing commands:
-
-```sh
-cd web
-pnpm dev
-pnpm typecheck
-pnpm lint
-pnpm build
+```powershell
+Set-Location 'J:\courses-astra-preview\apple-music-clone'
+$env:REFERENCE_PREVIEW='1'
+npm run dev -- --hostname 127.0.0.1 --port 6431
 ```
 
-The test-owning tasks add `pnpm test` and `pnpm test:e2e` when tests exist. Do not use a removed `next lint` convention; configure the installed ESLint tool directly according to current Next guidance. Do not add pass-with-no-tests flags and describe them as coverage.
+Open `http://127.0.0.1:6431/` in the browser. Verify hydration, real navigation, the screenshot, browser errors, and asset requests. A running process or HTTP 200 is not sufficient. Keep the dev server running for the owner when handing off.
 
-Use a locked install in CI. Browser tests should start the app deterministically and never depend on live providers. Integration tests target local/staging disposable data. Provider-specific sandbox exercises remain separate documented checks.
+## Isolated QA tools
 
-## Failure handling and release isolation
+Do not install browser tooling into the application or modify the app lockfile for QA. From the app directory:
 
-Keep raw provider secrets, access tokens, paid transcripts and private note text out of logs. Use safe correlation IDs. If a callback fails, inspect signature, raw body, environment, account mapping and provider event status before changing business logic.
+```powershell
+python -m venv .qa\audit-venv
+.qa\audit-venv\Scripts\python.exe -m pip install -r scripts/requirements-qa.txt
+.qa\audit-venv\Scripts\python.exe -m playwright install chromium
+```
 
-Deploy `web/` only. Preview environments must not contact live checkout/payout endpoints or production auth/data. A cloud connector being connected is not consent to create resources or publish an application. See [quality and operations](quality-and-operations.md) for the release checklist.
+## Capture and compare a fresh candidate
+
+Use explicit UTF-8 for every text-file read and write on Windows. Do not let a default codepage corrupt fixture text or selectors. The npm Python aliases require the QA environment on PATH; the explicit commands below need no activation.
+
+```powershell
+npm run qa:archive
+npm run qa:coverage
+npm run typecheck
+npm run build
+.qa\audit-venv\Scripts\python.exe -m unittest discover -s scripts -p test_qa_tools.py
+$run = Get-Date -Format 'yyyyMMdd-HHmmss'
+$env:REFERENCE_URL='http://127.0.0.1:6431'
+$env:REFERENCE_OUTPUT=Join-Path (Get-Location) ".parity-evidence/$run/browser"
+.qa\audit-venv\Scripts\python.exe scripts/browser-reference.py
+.qa\audit-venv\Scripts\python.exe scripts/compare-reference.py --input $env:REFERENCE_OUTPUT --output ".parity-evidence/$run/comparison"
+```
+
+For before/after diagnostics, add `--baseline <prior-comparison/metrics.json>` to the comparison command. Keep the same browser, operating system, scale, and capture conditions. Open the generated `index.html` locally and inspect the actual source, render, and amplified differences at readable size. Never substitute a low pixel-error score for a visual review.
+
+The runner covers 159 canonical desktop states, five narrow-width smoke states, every one of the 218 recorded route steps, and explicit interaction regressions. It records browser/source identity, resource and console failures, geometry, overflow, and screenshot hashes. Source changes during a run invalidate that candidate. It refuses to overwrite an evidence directory.
+
+The standard archive contains **147 application viewports at 1440×903 and 12 at 1440×904**. Only the 120px acquisition footer is excluded. Original bytes stay unchanged. Never resize a mismatched candidate, silently skip a missing capture, mask product content, or use the high-resolution image's dimensions as a different layout target.
+
+`qa:coverage` and the legacy `inventory:screen-status` alias are read-only. Do not run the historical `generate-screen-status.mjs` writer against the frozen archive. `qa:acceptance` deliberately fails until every MATCH and FLOW entry is accepted; even then, owner approval is needed before adapting the product.
+
+## Find the active code before editing
+
+The `Content` switch in `components/apple-music-app.tsx` is authoritative. Some legacy modules export similarly named, unused page implementations; do not fix an inactive view.
+
+| Surface | Active owner |
+| --- | --- |
+| New / Home | `music-discovery.tsx`, discovery catalogs, and imported fidelity styles |
+| Album / Artist | `music-album.tsx` / `music-artist.tsx`, not the similarly named exports in `music-browse.tsx` |
+| Search / Library / Playlist | `music-search.tsx`, `music-library.tsx`, `music-playlist.tsx` |
+| Player / Lyrics / Video | `music-player.tsx`, `music-lyrics.tsx`, `music-video-player.tsx` |
+| Radio / Schedule | `music-radio.tsx`, `music-chart-schedule.tsx` |
+| Replay / Concerts | `music-replay.tsx`, `music-concerts.tsx` |
+| Account / Authentication | `music-account.tsx`, `music-account-dialogs.tsx`, `music-auth.tsx` |
+| Shared state / reference fixtures | `music-context.tsx`, `lib/music-scenes.ts`, and the relevant catalog |
+
+Inspect the imported CSS and actual computed styles before adding overrides. Prefer fixing incorrect artwork, viewport, scroll, semantic state or layout over fitting new per-screen gradients. A fixture-only source-ID adjustment must not break the same state reached through live controls.
+
+## Review, checkpoint, and hand off
+
+For a chosen family, read every recorded step, capture the unchanged baseline, implement a bounded fix, inspect before/after evidence, and perform the complete journey with real controls. Fixture URL stepping, forced clicks, injected application state, and successful screenshots are not FLOW acceptance. Review available motion assets where timing matters; still-image and responsive smoke results do not prove motion or mobile reference fidelity.
+
+After shared changes, rerun the whole corpus and check both improvements and regressions. Record exact state IDs, source/candidate hashes, viewport, browser, reviewer, residuals, and evidence location in the owning task/audit. Check `git diff` for accidental archive edits, stale document claims, secret material, scratch files, and generated `next-env.d.ts` dev/build path churn. Stage explicit files, commit on `main`, and push normally when the checkpoint is verified. Never force-push.
+
+CI validates `main` changes, locked dependencies, types/build, the task inventory, browser behavior, and a full comparison gallery. Its green status means those checks passed, not that 159 visual reviews or 58 complete flow sign-offs happened. Update `docs/handoff.md` with the tested source commit, actual server URL, evidence commands, and concrete remaining gaps.
+
+Course/community environments and service integrations remain deferred to a separately authorized phase; this runbook does not bootstrap them.

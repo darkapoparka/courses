@@ -1,3 +1,3 @@
 @AGENTS.md
 
-Use the root agent contract and `docs/README.md`. This file is an entry point, not a second specification. The archived prototype's generated framework instructions do not authorize resuming the Apple Music clone.
+Follow the root agent contract. Active work is the Apple Music 1:1 clone in `apple-music-clone/`, on `main` only. Read `docs/handoff.md`, `docs/development.md`, and the relevant `docs/tasks.md` rows. Course/community adaptation is deferred until clone acceptance; do not create another app.

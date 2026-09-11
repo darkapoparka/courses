@@ -1,5 +1,7 @@
 # Visual inspection ledger
 
+> Historical source-inspection notes from 2026-09-09, not current clone acceptance. The Course adaptation column is deferred planning and does not authorize removing or adapting Apple Music behavior during the active 1:1 phase. Current audit findings live in `../reference-audit.md`; all acceptance entries live in `../tasks.md`. Preserve the observations below as dated evidence.
+
 Reviewed 2026-09-09 by Astra against archive commit `849594d4a0cb9a6befc6474019d3bf6e9601740e`. **17 distinct originals viewed: 16 high-resolution and one standard-resolution.** These are readable still-image observations, not owner approval, pixel-perfect implementation, or verified interactive behavior. High-resolution files were opened through the image reader; the viewer may scale their 3024px source width for display.
 
 ## Actual source-to-product mappings

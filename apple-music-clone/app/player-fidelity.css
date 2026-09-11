@@ -236,3 +236,14 @@
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport li { font-size:23px; line-height:28px; margin-bottom:27px; }
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="1"] { opacity:.55; }
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="2"], .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="3"] { opacity:.30; }
+
+/* The legacy discovery capture uses an 18px gutter and whole-pixel artwork in
+   the narrow player-panel layout. Keep this rule on live semantic state, not
+   only on a saved source ID. The unrounded declaration is an older-UA fallback. */
+@media (min-width:1181px) {
+  .with-player-panel .capture-discovery[data-catalog="legacy"] .feature-rail .music-rail { gap:18px; }
+  .with-player-panel .capture-discovery[data-catalog="legacy"] .feature-card {
+    flex-basis:calc((100% - 18px) / 2);
+    flex-basis:round(down, (100% - 18px) / 2, 1px);
+  }
+}

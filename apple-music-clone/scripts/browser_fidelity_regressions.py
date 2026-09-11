@@ -6,7 +6,7 @@ from playwright.async_api import expect
 
 BASE = os.environ.get('REFERENCE_URL', 'http://127.0.0.1:3000')
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = json.loads((ROOT / 'reference/originals/flow-screen-map.json').read_text())
+ARCHIVE = json.loads((ROOT / 'reference/originals/flow-screen-map.json').read_text(encoding='utf-8'))
 IDS = {s['screenId'] for f in ARCHIVE['flows'] for s in f['steps']}
 
 def source(prefix):
@@ -86,3 +86,70 @@ async def menu_flyout_and_dialog(page, context):
     await page.get_by_role('button', name='Create', exact=True).click()
     await page.get_by_role('navigation', name='Playlists', exact=True).get_by_role('button', name='Fidelity test', exact=True).click()
     assert await page.locator('.track-table .table-song-title').all_text_contents() == ['stupid song']
+
+
+async def video_transport_and_focus(page, context):
+    await ready(page, '/screen/' + source('a4afd6e6'))
+    slider = page.get_by_role('slider', name='Video position', exact=True)
+    await expect(slider).to_have_value('6')
+    await page.get_by_role('button', name='Pause video', exact=True).click()
+    await slider.fill('40')
+    await expect(page.get_by_label('Elapsed video time', exact=True)).to_have_text('0:40')
+    await page.get_by_role('button', name='Forward 10 seconds', exact=True).click()
+    await expect(slider).to_have_value('50')
+    await page.get_by_role('button', name='Back 10 seconds', exact=True).click()
+    await expect(slider).to_have_value('40')
+    await slider.fill('2')
+    await page.get_by_role('button', name='Back 10 seconds', exact=True).click()
+    await expect(slider).to_have_value('0')
+    await slider.fill('223')
+    await page.get_by_role('button', name='Forward 10 seconds', exact=True).click()
+    await expect(slider).to_have_value('224')
+    await page.get_by_role('slider', name='Video volume', exact=True).fill('0.25')
+    await expect(page.get_by_role('slider', name='Video volume', exact=True)).to_have_value('0.25')
+    assert await page.evaluate("document.querySelector('audio').paused"), 'Silent video controls must not start unrelated audio.'
+    await page.get_by_role('button', name='Toggle video fullscreen', exact=True).click()
+    await page.wait_for_function("document.fullscreenElement?.classList.contains('video-player')")
+    await page.get_by_role('button', name='Toggle video fullscreen', exact=True).click()
+    await page.wait_for_function('document.fullscreenElement === null')
+
+    # Independently enter through a real artist-page control, not fixture jumps.
+    await ready(page, '/screen/' + source('edae3407'))
+    opener = page.get_by_role('button', name='Open Begged (Lyric Video)', exact=True)
+    await opener.click()
+    await expect(page.get_by_role('dialog', name='Video player', exact=True)).to_be_visible()
+    assert await page.locator('.music-main').evaluate('(element) => element.inert')
+    await page.get_by_role('button', name='Pause video', exact=True).click()
+    await slider.fill('10')
+    await page.get_by_role('button', name='Play video', exact=True).click()
+    await expect(slider).not_to_have_value('10')
+    await page.get_by_role('button', name='Pause video', exact=True).click()
+    stopped = await slider.input_value()
+    await page.wait_for_timeout(350)  # Verify the transport stays paused over a timer tick.
+    await expect(slider).to_have_value(stopped)
+    await page.get_by_role('button', name='Close video', exact=True).focus()
+    await page.keyboard.press('Shift+Tab')
+    await expect(page.get_by_role('button', name='Toggle video fullscreen', exact=True)).to_be_focused()
+    await page.keyboard.press('Escape')
+    await expect(page.get_by_role('dialog', name='Video player', exact=True)).to_have_count(0)
+    assert not await page.locator('.music-main').evaluate('(element) => element.inert')
+    await expect(opener).to_be_focused()
+
+
+async def lyrics_panel_rail_geometry(page, context):
+    await ready(page, '/screen/' + source('ee8db412'))
+
+    async def check_geometry():
+        await page.locator('.with-player-panel').wait_for()
+        boxes = await page.locator('.feature-card .music-art').evaluate_all('(elements) => elements.slice(0, 2).map(element => element.getBoundingClientRect().toJSON())')
+        assert len(boxes) == 2
+        assert abs(boxes[0]['x'] - 286) < .01 and abs(boxes[0]['width'] - 406) < .01, boxes
+        assert abs(boxes[0]['height'] - 233) < .01 and abs(boxes[1]['x'] - 710) < .01, boxes
+
+    await check_geometry()
+    toggle = page.get_by_role('button', name='Show lyrics', exact=True)
+    await toggle.click()
+    await expect(toggle).to_have_attribute('aria-pressed', 'false')
+    await toggle.click()
+    await expect(toggle).to_have_attribute('aria-pressed', 'true')
+    await check_geometry()  # Still correct after fixture source identity is cleared.

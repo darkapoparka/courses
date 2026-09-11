@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Scene } from "../lib/music-scenes";
-import { videoArt, trackById } from "../lib/music-catalog";
+import { trackById } from "../lib/music-catalog";
 import { sourcePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
+import { VideoPlayer } from "./music-video-player";
 import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
 import { CategoryView } from "./music-browse";
 import { AlbumView } from "./music-album";
@@ -53,19 +54,6 @@ function Content() {
     case "credits": return <CreditsView />;
     case "category": return <CategoryView />;
   }
-}
-function VideoPlayer() {
-  const m = useMusic(); const video = useRef<HTMLVideoElement>(null);
-  const source = m.audio.current?.getAttribute("src") || undefined;
-  useEffect(() => {
-    const element = video.current;
-    if (!element || !source) return;
-    m.audio.current?.pause();
-    element.src = source;
-    void element.play().catch(() => m.notify("Press Play to start the local video."));
-    return () => element.pause();
-  }, [source, m.audio, m.notify]);
-  return <div className="video-player" aria-label="Video player"><IconButton icon="close" label="Close video" className="video-close" onClick={() => m.patch({ video: false })} />{source ? <video ref={video} controls playsInline aria-label="Local video playback" /> : <><Art art={m.activeId === "album-video" && m.active ? m.active.art : videoArt} label="Begged lyric video frame" className="video-reference-frame" /><button type="button" className="video-poster-action" aria-label="Choose local media to play" onClick={() => m.patch({ overlay: "media" })}><span className="sr-only">Choose local media to play</span></button><div className="video-reference-controls" aria-label="Video controls"><div className="video-progress-row"><span>0:06</span><input type="range" aria-label="Video position" min="0" max="224" value="6" readOnly /><span>-3:38</span></div><div className="video-control-row"><label className="video-volume-control"><Glyph name="volume" size={12} /><input type="range" aria-label="Video volume" min="0" max="1" step="0.01" value={m.volume} onChange={event => m.setVolume(Number(event.target.value))} /></label><div className="video-center-controls"><IconButton icon="rewind-10" label="Back 10 seconds" onClick={() => m.setElapsed(Math.max(0, m.elapsed - 10))} /><IconButton icon={m.playing ? "pause" : "play"} label={m.playing ? "Pause video" : "Play video"} onClick={m.togglePlayback} /><IconButton icon="forward-10" label="Forward 10 seconds" onClick={() => m.setElapsed(m.elapsed + 10)} /></div><IconButton icon="expand" label="Choose local media for fullscreen playback" onClick={() => m.patch({ overlay: "media" })} /></div></div></>}</div>;
 }
 function MusicShell() {
   const m = useMusic();

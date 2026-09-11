@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "inventory:screen-status": "node scripts/generate-screen-status.mjs"
+    "inventory:screen-status": "node scripts/check-task-coverage.mjs",
+    "qa:archive": "node scripts/check-reference-archive.mjs",
+    "qa:coverage": "node scripts/check-task-coverage.mjs",
+    "qa:browser": "python scripts/browser-reference.py",
+    "qa:visual": "python scripts/compare-reference.py",
+    "qa:acceptance": "node scripts/check-task-coverage.mjs --require-complete",
+    "qa:tools": "python -m unittest discover -s scripts -p test_qa_tools.py"
   },
   "dependencies": {
     "next": "16.3.4",
