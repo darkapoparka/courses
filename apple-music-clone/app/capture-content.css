@@ -54,7 +54,7 @@
 .capture-search .recent-searches { overflow-x:auto; scrollbar-width:none; }
 .capture-search .recent-searches > button { height:67px; }
 .capture-search .music-section h2 { font-size:17px; line-height:22px; }
-.capture-search .category-grid { margin-top:10px; }
+.capture-search .category-grid { margin-top:12px; }
 .capture-search .clear-recents { top:0; }
 .capture-search .search-field { background:rgb(255 255 255 / 93%); box-shadow:0 8px 27px #00000012,0 0 0 1px #ededf078; }
 .capture-search .search-field:focus-within { box-shadow:0 0 0 4px rgb(190 91 104 / 78%),0 8px 27px #00000012; }
@@ -98,3 +98,7 @@
  .capture-search .music-section + .music-section { margin-top:32px; }
  .chart-table .track-table-row > div[role="cell"]:not(.track-name) { display:none; }
 }
+
+.music-app[data-source^="4b515439"] .capture-suggestions { background:rgb(248 247 248 / 75%); backdrop-filter:blur(36px) saturate(1.08); -webkit-backdrop-filter:blur(36px) saturate(1.08); }
+
+.music-app[data-source^="e70094e3"] .capture-search > .music-section:nth-of-type(3) .rail-wrap { margin-top:8px; }

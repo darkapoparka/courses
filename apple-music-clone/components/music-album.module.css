@@ -51,7 +51,7 @@
 .articleHeader h2 { text-align: left; font-size: 25px; line-height: 30px; letter-spacing: -.4px; font-weight: 700; }
 .articleHeader p { font-size: 13px; line-height: 17px; color: #777; }
 .articleBody { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 29px 39px; scrollbar-width: none; }
-.articleBody p { font-size: 15px; line-height: 21px; margin: 0 0 21px; }
+.articleBody p { font-size: 15px; line-height: 21px; letter-spacing:-.15px; margin: 0 0 21px; }
 .articleBody p:last-child { margin-bottom: 0; }
 .articleBody strong { font-weight: 600; }
 /* Keep a closed native dialog out of the rendered layout. */

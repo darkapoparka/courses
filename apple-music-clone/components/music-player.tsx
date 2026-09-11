@@ -38,7 +38,8 @@ export function Player() {
   const playerTitle = capturedLive ? "Gorgeous" : station?.title;
   const playerSubtitle = capturedLive ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
   const playerArt = capturedLive ? crop("47a07865",704,842,33,33) : station?.art;
-  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."}>
+  const editingPlayerStyle = ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
+  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
     <Transport radioStop={capturedLive && m.playing} />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
       {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? playerArt ?? albumArt} label={m.active?.album ?? playerTitle ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? playerTitle}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? playerSubtitle : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
@@ -82,7 +83,8 @@ export function PlayerPanel() {
   const m = useMusic();
   if (!m.scene.panel) return null;
   const queue = m.queue.flatMap(id => { const track = trackById(id); return track ? [track] : []; });
-  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"}>
+  const panelStyle = m.scene.source?.startsWith("ee8db412") ? { backgroundColor: "rgb(255 255 255 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
+  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} style={panelStyle}>
     <IconButton icon="close" label="Close player panel" className="panel-keyboard-close" onClick={() => m.patch({ panel: null })} />
     {m.scene.panel === "lyrics" ? <Lyrics panel /> : <>
       <header><h2>Up next</h2>{queue.length > 0 && <button type="button" className="text-accent" onClick={() => m.setQueue([])}>Clear</button>}<button type="button" className="autoplay-toggle" aria-label="Autoplay" aria-pressed={Boolean(m.scene.autoplay)} onClick={() => m.patch({ autoplay: !m.scene.autoplay })}>∞</button></header>

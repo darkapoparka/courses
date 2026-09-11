@@ -72,10 +72,13 @@ export function ArtistView() {
   const heroFrame = m.scene.source?.startsWith("bc773ae9") ? crop("bc773ae9",247,0,1189,374)
     : m.scene.source?.startsWith("f24fda77") ? crop("f24fda77",247,0,1189,374)
     : crop("484851bf",247,0,1189,374);
+  const heroBaseFrame = m.scene.source?.startsWith("bc773ae9") ? crop("bc773ae9",247,367,1189,7)
+    : m.scene.source?.startsWith("f24fda77") ? crop("f24fda77",247,367,1189,7)
+    : crop("484851bf",247,367,1189,7);
   return <div className={styles.page}>
     <header className={styles.hero}>
       <Art resolution="standard" art={heroFrame} label="Olivia Rodrigo artist artwork" className={styles.heroPhoto} />
-      <div className={styles.heroBase}><Art resolution="standard" art={crop("484851bf", 247, 367, 1189, 7)} label="" /></div>
+      <div className={styles.heroBase}><Art resolution="standard" art={heroBaseFrame} label="" /></div>
       <div className={styles.heroControls}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, "album-2")} /></div></div>
     </header>
     <div className={styles.body}>
@@ -85,13 +88,13 @@ export function ArtistView() {
       </div>
       <section id="essential-albums" data-reference-top="24" className={styles.section}><Heading title="Essential Albums" /><div className={styles.essential}><EntryCard width="four" entry={{ title: "SOUR (Video Version)", year: "2021", destination: "album:SOUR (Video Version)", art: crop("57f7c08e",286,57,264,264) }} /></div></section>
       <section className={styles.section}><Heading title="Albums" /><Rail label="Olivia Rodrigo albums" className="square-rail">{albumEntries.map(entry => <EntryCard key={entry.title} entry={entry} />)}</Rail></section>
-      <section id="music-videos" data-reference-top="39" className={styles.section}><Heading title="Music Videos" onClick={() => m.go("videos")} /><Rail label="Olivia Rodrigo music videos" className="poster-rail">{videoEntries.map(entry => <EntryCard key={entry.title} entry={entry} width="four" />)}</Rail></section>
+      <section id="music-videos" data-reference-top="38" className={styles.section}><Heading title="Music Videos" onClick={() => m.go("videos")} /><Rail label="Olivia Rodrigo music videos" className="poster-rail">{videoEntries.map(entry => <EntryCard key={entry.title} entry={entry} width="four" />)}</Rail></section>
       <section className={styles.section}><Heading title="Artist Playlists" /><Rail label="Artist playlists" className="poster-rail">{artistPlaylists.map(entry => <EntryCard key={entry.title} entry={entry} width="four" />)}</Rail></section>
-      <section className={styles.section}><Heading title="Singles & EPs" onClick={() => m.go("category:Olivia Rodrigo Singles & EPs")} /><Rail label="Captured singles artwork" className="square-rail">{[0,1,2,3,4].map(index => <button type="button" className={`${styles.entry} ${styles.five} ${styles.partialSingle}`} key={index} aria-label={`Open single ${index + 1} from the captured collection`} onClick={() => m.go("category:Olivia Rodrigo Singles & EPs")}><Art resolution="standard" art={crop("edae3407", 286 + index * 227, 716, 207, 117)} label="Captured single artwork" /></button>)}</Rail></section>
+      <section className={styles.section}><Heading title="Singles & EPs" onClick={() => m.go("category:Olivia Rodrigo Singles & EPs")} /><Rail label="Captured singles artwork" className="square-rail">{[0,1,2,3,4].map(index => { const edge = index === 0 || index === 4; return <button type="button" className={`${styles.entry} ${styles.five} ${styles.partialSingle} ${styles[`single${index}`]}`} key={index} aria-label={`Open single ${index + 1} from the captured collection`} onClick={() => m.go("category:Olivia Rodrigo Singles & EPs")}><Art resolution="standard" className={edge ? styles.fullSingleArt : ""} art={crop("edae3407", 286 + index * 227, 716, 207, edge ? 187 : 117)} label="Captured single artwork" /></button>; })}</Rail></section>
       <section id="nearby-concerts" data-reference-top="32" className={styles.section}><Heading title="Nearby Concerts" /><div className={styles.tourGrid}>{oliviaTour.filter(show => show.city === "Chicago").slice(0,2).map(show => <TourRow key={show.id} show={show} compactTime />)}</div></section>
       <section className={styles.section}><Heading title="All Upcoming Concerts" onClick={() => m.go("nearby")} /><div className={styles.tourGrid}>{oliviaTour.slice(0,8).map(show => <TourRow key={show.id} show={show} compactTime />)}</div></section>
-      <section className={styles.section}><Heading title="More To Hear" onClick={() => m.go("radio")} /><Rail label="More to hear from Olivia Rodrigo" className="square-rail">{moreToHear.map(entry => <EntryCard key={entry.title} entry={entry} />)}</Rail></section>
-      <section className={styles.section}><Heading title="More To See" /><Rail label="More to see from Olivia Rodrigo" className="poster-rail">{moreToSee.map((entry,index) => <EntryCard key={entry.title} entry={entry} width="four" continuation={index} />)}</Rail></section>
+      <section id="more-to-hear" className={styles.section}><Heading title="More To Hear" onClick={() => m.go("radio")} /><Rail label="More to hear from Olivia Rodrigo" className="square-rail">{moreToHear.map(entry => <EntryCard key={entry.title} entry={entry} />)}</Rail></section>
+      <section id="more-to-see" className={styles.section}><Heading title="More To See" /><Rail label="More to see from Olivia Rodrigo" className="poster-rail">{moreToSee.map((entry,index) => <EntryCard key={entry.title} entry={entry} width="four" continuation={index} />)}</Rail></section>
     </div>
     <section id="about-artist" data-reference-top="186" className={styles.about}>
       <Heading title="About Olivia Rodrigo" />

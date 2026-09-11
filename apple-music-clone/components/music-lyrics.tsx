@@ -13,7 +13,7 @@ export function Lyrics({ panel = false }: { panel?: boolean }) {
     const element = viewport.current;
     const selected = element?.querySelector<HTMLElement>("[aria-current='true']");
     if (!element || !selected) return;
-    const target = panel ? 188 : (active === 0 ? 348 : 326) * Math.min(1, element.clientHeight / 903);
+    const target = panel ? (m.scene.source?.startsWith("ee8db412") ? 165 : 188) : (active === 0 ? 348 : 326) * Math.min(1, element.clientHeight / 903);
     element.scrollTop += selected.getBoundingClientRect().top - element.getBoundingClientRect().top - target;
   }, [active, panel, supported]);
   if (!supported) return <div className="lyrics-unavailable">Lyrics are not included for this recording in the saved reference.</div>;
@@ -21,7 +21,7 @@ export function Lyrics({ panel = false }: { panel?: boolean }) {
     <ol>{capturedLyrics.map((line, index) => {
       const distance = Math.abs(index - active);
       const anchor = lyricAnchors.find(item => item.index === index);
-      return <li key={`${index}-${line}`} data-distance={Math.min(3, distance)} aria-current={index === active ? "true" : undefined}>
+      return <li key={`${index}-${line}`} data-distance={Math.min(3, distance)} data-before={index < active || undefined} data-after={index > active || undefined} aria-current={index === active ? "true" : undefined}>
         <button type="button" onClick={() => anchor ? m.setElapsed(anchor.time) : m.patch({ lyricIndex: index })}>{line}</button>
         {index === 20 && active === 20 && <small>dream of you</small>}
       </li>;

@@ -176,3 +176,12 @@
 .music-app:has(.editable-row) .library-section-label > button { color:#222; font-weight:600; }
 
 .guest-session .sidebar-signin { height:34px; margin-top:3px; }
+
+@media(min-width:1181px) {
+ .music-app[data-source^="e70094e3"] .square-rail .music-rail { gap:19px; }
+ .music-app[data-source^="e70094e3"] .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
+ .music-app:is([data-source^="4cb8f3aa"],[data-source^="a9992e55"],[data-source^="47a07865"],[data-source^="37575452"]) .radio-page .square-rail .music-rail { gap:19px; }
+ .music-app:is([data-source^="4cb8f3aa"],[data-source^="a9992e55"],[data-source^="47a07865"],[data-source^="37575452"]) .radio-page .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
+}
+
+.music-app[data-source^='54b01eab'] .music-sidebar { background-image:radial-gradient(ellipse 125% 28% at 55% 27%,rgba(255,20,240,.46) 0%,transparent 86%),radial-gradient(ellipse 130% 22% at 50% 8%,rgba(255,255,255,.46) 0%,transparent 86%),radial-gradient(ellipse 115% 42% at 60% 34%,rgba(255,20,245,.15) 0%,rgba(255,45,240,.0825) 55%,transparent 88%); }

@@ -3,8 +3,8 @@
   padding: 34px var(--page-right) 0 var(--page-left); isolation: isolate;
 }
 .ambient {
-  position: absolute; z-index: -1; top: -65px; right: 0;
-  width: min(750px, 100%); height: 410px; pointer-events: none; filter: blur(39px);
+  position: absolute; z-index: -1; top: -80px; right: 0;
+  width: min(660px, 100%); height: 340px; pointer-events: none; filter: blur(34px);
   background: radial-gradient(ellipse at 75% 35%, #ff921c 0%, #ffb329 22%, #ffd48380 43%, transparent 68%);
 }
 .header { display: flex; align-items: center; justify-content: space-between; min-height: 41px; position: relative; }
