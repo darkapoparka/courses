@@ -233,5 +233,6 @@
 .music-app[data-source^='c939c9b8'] .faithful-expanded { background:radial-gradient(ellipse 28% 28% at 62% 86%,rgba(78,62,54,.56) 0%,transparent 84%),radial-gradient(ellipse 38% 38% at 65% 79%,rgba(24,32,36,.12) 0%,transparent 84%),radial-gradient(ellipse 38% 45% at 52% 19%,rgba(105,62,43,.38) 0%,transparent 84%),radial-gradient(ellipse 21% 40% at 55% 31%,#774733 0%,#474340 52%,transparent 100%),radial-gradient(ellipse 40% 70% at 4% 90%,#2b5b68,transparent),linear-gradient(110deg,#194358,#23475a); }
 
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport { mask-image:linear-gradient(transparent,#000 6%,#000 80%,transparent); }
+.music-app[data-source^="ee8db412"] .panel-lyric-viewport li { font-size:23px; line-height:28px; margin-bottom:27px; }
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="1"] { opacity:.55; }
 .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="2"], .music-app[data-source^="ee8db412"] .panel-lyric-viewport li[data-distance="3"] { opacity:.30; }

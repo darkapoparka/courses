@@ -52,7 +52,11 @@ export function NewView() {
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
   const longToyStoryTitle = source === "4f611a9e" || source === "54b01eab";
-  const visibleSongs = !zh && !legacy && !queue && longToyStoryTitle ? visible.map(track => track.id === "viral-1" ? { ...track, title: `I Knew It, I Knew You (From "Toy Story 5")` } : track) : visible;
+  const capturedSongOrder = ["6ac70c34", "cf59e554", "a229e38a"].includes(source ?? "")
+    ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "library-4", "chart-10", "chart-11"]
+    : source === "ee8db412" ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "chart-10", "chart-11"] : undefined;
+  const capturedPanelSongs = capturedSongOrder ? capturedSongOrder.flatMap(id => [...legacySongs, ...chartTracks].find(track => track.id === id) ?? []) : visible;
+  const visibleSongs = !zh && !legacy && !queue && longToyStoryTitle ? capturedPanelSongs.map(track => track.id === "viral-1" ? { ...track, title: `I Knew It, I Knew You (From "Toy Story 5")` } : track) : capturedPanelSongs;
   const newThisWeek = [9, 4, 1, 5, 7].map(index => libraryCovers[index]!);
   const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : undefined;
   const panelReleaseSource = source && ["ee8db412", "8f029018", "de48a956", "4811dde3"].includes(source) ? source : undefined;

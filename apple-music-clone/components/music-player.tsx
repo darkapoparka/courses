@@ -38,7 +38,10 @@ export function Player() {
   const playerTitle = capturedLive ? "Gorgeous" : station?.title;
   const playerSubtitle = capturedLive ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
   const playerArt = capturedLive ? crop("47a07865",704,842,33,33) : station?.art;
-  const editingPlayerStyle = ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
+  const editingPlayerStyle = ["ee8db412", "8f029018", "de48a956", "4811dde3"].some(prefix => m.scene.source?.startsWith(prefix))
+    ? { background: "rgb(249 249 251 / 38%)", backdropFilter: "blur(24px) saturate(1.4)", WebkitBackdropFilter: "blur(24px) saturate(1.4)" }
+    : m.scene.source?.startsWith("54b01eab") ? { background: "rgb(249 249 251 / 84%)", backdropFilter: "blur(18px) saturate(1)", WebkitBackdropFilter: "blur(18px) saturate(1)" }
+    : ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
   return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
     <Transport radioStop={capturedLive && m.playing} />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
