@@ -153,3 +153,27 @@ async def lyrics_panel_rail_geometry(page, context):
     await toggle.click()
     await expect(toggle).to_have_attribute('aria-pressed', 'true')
     await check_geometry()  # Still correct after fixture source identity is cleared.
+
+
+async def article_scroll_state(page, context):
+    # Cold production opens must wait until the dialog has a scrollable layout.
+    for _ in range(3):
+        await ready(page, '/screen/' + source('9b43cccb'))
+        body = page.get_by_label('Album editorial notes', exact=True)
+        await expect(body).to_be_visible()
+        box = await body.evaluate('(element) => ({top: element.scrollTop, max: element.scrollHeight - element.clientHeight})')
+        assert box['max'] > 200 and abs(box['top'] - box['max']) < 1, box
+
+    await ready(page, '/screen/' + source('b620e4ab'))
+    await page.get_by_role('button', name='MORE', exact=True).click()
+    body = page.get_by_label('Album editorial notes', exact=True)
+    await expect(body).to_be_visible()
+    assert await body.evaluate('(element) => element.scrollTop') == 0
+    await body.focus()
+    await page.keyboard.press('Control+End')
+    await page.wait_for_function('''() => {
+      const element = document.querySelector('[aria-label="Album editorial notes"]');
+      return element && element.scrollTop > 200 && Math.abs(element.scrollTop - (element.scrollHeight - element.clientHeight)) < 1;
+    }''')
+    await page.keyboard.press('Escape')
+    await expect(body).to_have_count(0)

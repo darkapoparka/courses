@@ -12,9 +12,20 @@ export function AlbumArticle() {
   const scroll = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     if (!m.scene.scrollOffset) return;
-    const frame = requestAnimationFrame(() => {
-      if (scroll.current) scroll.current.scrollTop = scroll.current.scrollHeight;
-    });
+    // In production this layout effect can run before Dialog's showModal effect.
+    // A hidden dialog has no scrollable layout; wait for its actual open state,
+    // rather than relying on Strict Mode's extra development effect cycle.
+    let frame = 0;
+    const applyScroll = () => {
+      const element = scroll.current;
+      if (!element) return;
+      if (!element.closest("dialog")?.open || !element.clientHeight) {
+        frame = requestAnimationFrame(applyScroll);
+        return;
+      }
+      element.scrollTop = element.scrollHeight;
+    };
+    frame = requestAnimationFrame(applyScroll);
     return () => cancelAnimationFrame(frame);
   }, [m.scene.scrollOffset]);
   return <Dialog title="About this album" className={styles.article} onClose={() => m.patch({ overlay: null })}>

@@ -16,7 +16,7 @@ import re
 import struct
 import wave
 from playwright.async_api import async_playwright, expect
-from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry
+from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry, article_scroll_state
 
 APP = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get('REFERENCE_OUTPUT', APP / '.parity-evidence/browser')).resolve()
@@ -345,7 +345,7 @@ async def main():
         for prefix in ['e72be564', 'a917d88f', 'b620e4ab', '035569a0', '3131018d']:
             result['screens'].append(await bounded_capture(source(prefix), 390, 844))
         cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
-        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry)]
+        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry), ("article-scroll-state", article_scroll_state)]
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))
         result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))

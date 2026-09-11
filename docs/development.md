@@ -81,3 +81,9 @@ After shared changes, rerun the whole corpus and check both improvements and reg
 CI validates `main` changes, locked dependencies, types/build, the task inventory, browser behavior, and a full comparison gallery. Its green status means those checks passed, not that 159 visual reviews or 58 complete flow sign-offs happened. Update `docs/handoff.md` with the tested source commit, actual server URL, evidence commands, and concrete remaining gaps.
 
 Course/community environments and service integrations remain deferred to a separately authorized phase; this runbook does not bootstrap them.
+
+## Production-mode visual checks are required
+
+Do not verify only `next dev`. This audit found a native-dialog scroll race that appeared in production despite green development captures. After the optimized build, use a separate, verified loopback production server and run the same full browser suite against its `REFERENCE_URL`; preserve the development preview for the owner. The existing CI does this against its isolated production server. Compare every source state afterward: render success alone did not catch the wrong article scroll position.
+
+The current local/CI `next start` audit path emits a standalone-output advisory even though the measured routes and browser checks run. This is a preview-only setup, not a production deployment approval; any deployment work must use the framework's documented standalone entry point and static-asset packaging.

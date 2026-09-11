@@ -37,3 +37,9 @@ Prioritize semantic state/content and geometry before tint-only tuning. The base
 Complete real-control journeys remain a separate workstream. Verify every recorded intermediate state and available motion asset, not just the final screen or fixture routes. Source-specific art/scroll variants must remain coherent when source IDs are cleared by user actions. No MATCH or FLOW boxes were checked merely because this audit added tests or produced similarity scores.
 
 The acceptance boundary remains 159 genuinely reviewed MATCH entries, 58 complete FLOW entries, and explicit owner authorization before courses/community adaptation. Current numerical diagnostics and the final test checkpoint are evidence of progress, not a claim that this boundary has been reached.
+
+## Production-only state defect found by full comparison
+
+The first complete production-mode run passed 164 captures, 218 routes, and 18 behavioral tests, but its full comparison revealed `9b43cccb` was at the top of the album article instead of the recorded bottom position. Its pixel residual worsened by 1.50 percentage points despite every existing render test being green. The source and candidate were opened at full size to verify the wrong state.
+
+`AlbumArticle` attempted to scroll during a layout effect before the native dialog's `showModal()` effect made it measurable. Development Strict Mode had obscured that ordering dependency. The initialization now waits for an open, laid-out dialog before applying the recorded scroll. A new regression checks three cold production opens, then enters through the album's real MORE control, scrolls with the keyboard, and closes with Escape. It passes alongside the video and lyrics-layout production regressions. This adds a nineteenth behavioral regression without pretending that nineteen tests equal the 58 complete recorded flows.
