@@ -39,7 +39,10 @@ input[type="range"] { accent-color: var(--text); cursor: pointer; }
 .skip-link { position: fixed; left: 18px; top: -80px; z-index: 500; background: #fff; border: 1px solid var(--accent); padding: 12px; border-radius: 8px; }
 .skip-link:focus { top: 12px; }
 .music-app { width: 100%; height: 100dvh; background: #fff; }
-.music-main { position: fixed; inset: 0 0 0 var(--sidebar); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #dadade transparent; }
+/* Keep the reference scrollport width on platforms with non-overlay scrollbars.
+ * Scrolling remains native for pointer, touch and keyboard input. */
+.music-main { position: fixed; inset: 0 0 0 var(--sidebar); overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.music-main::-webkit-scrollbar { display: none; }
 .guest-session .music-main { bottom: 68px; }
 .page-content { padding: 26px var(--page-right) 110px var(--page-left); }
 .music-art { display: block; width: 100%; flex: none; background-repeat: no-repeat; background-color: #f2f2f5; overflow: hidden; }

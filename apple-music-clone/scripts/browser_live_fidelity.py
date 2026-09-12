@@ -201,7 +201,7 @@ async def home_rail_artwork_persistence(page, context):
     await page.get_by_role('button', name='Volume', exact=True).click()
     assert await page.locator('.music-app').get_attribute('data-source') is None
     await expect(new_music.locator('[data-art-source]')).to_have_attribute('data-art-source', source('d5173715'))
-    assert 'blur(16px)' in await page.locator('.music-sidebar').evaluate('(e)=>getComputedStyle(e).backdropFilter')
+    assert await page.locator('.music-sidebar').evaluate('(e)=>getComputedStyle(e).backdropFilter') == 'blur(18px) saturate(1.6)'
     await page.keyboard.press('Escape')
     await page.get_by_role('button', name='Previous Top picks', exact=True).click()
     await expect(page.locator('.capture-home')).not_to_have_attribute('data-home-scrolled', 'true')

@@ -21,6 +21,7 @@ from browser_library_flows import CASES as LIBRARY_FLOW_CASES
 from browser_library_controls import CASES as LIBRARY_CONTROL_CASES
 from browser_panel_controls import CASES as PANEL_CONTROL_CASES
 from browser_sidebar_material import CASES as SIDEBAR_MATERIAL_CASES
+from browser_home_controls import CASES as HOME_CONTROL_CASES
 from qa_browser_fonts import platform_fonts
 from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry, article_scroll_state
 
@@ -359,6 +360,7 @@ async def main():
         cases += LIBRARY_CONTROL_CASES
         cases += PANEL_CONTROL_CASES
         cases += SIDEBAR_MATERIAL_CASES
+        cases += HOME_CONTROL_CASES
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))
         result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))

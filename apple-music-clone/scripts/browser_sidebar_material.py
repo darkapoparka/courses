@@ -95,6 +95,14 @@ async def home_underlay_scroll(page, context):
     pane = page.locator('.music-sidebar')
     await expect(home).to_have_attribute('data-home-underlay', 'true')
     before = await pane.evaluate('(e)=>getComputedStyle(e).background')
+    assert await pane.evaluate('(e)=>getComputedStyle(e).backgroundImage') == 'none'
+    assert await pane.evaluate('(e)=>getComputedStyle(e).backdropFilter') == 'blur(18px) saturate(1.6)'
+    art = page.locator('[data-card-id=alex] [data-art-frame=forward]')
+    await expect(art).to_have_count(1)
+    assert await art.locator('path').nth(1).get_attribute('d') == 'M0 0 264 176.5 0 353 142 176.5Z'
+    assert await art.locator('svg image').count() == 0, 'Station art must not embed captured UI'
+    handle = page.get_by_role('button', name='Previous Top picks', exact=True)
+    assert await handle.evaluate('(e)=>getComputedStyle(e).backdropFilter') == 'blur(12px) saturate(1.1)'
     await record(page, 'home-sidebar-scroll', 'd5173715', 'Advance Top picks through the real carousel')
     await page.mouse.move(1100, 650)
     await page.mouse.wheel(0, 950)

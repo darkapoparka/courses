@@ -171,8 +171,10 @@
 .guest-session[data-scene="home"] .sidebar-footer { flex-basis:94px; }
 .guest-session[data-scene="home"] .floating-player { bottom:16px; }
 .music-app[data-source^="2f5da478"] .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; }
-.music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; left:253px; }
-.music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows .icon-button:last-child { visibility:hidden; }
+/* Remaining cards, not a captured scroll flag, own the carousel boundaries.
+ * The expanded desktop gutter is positioned in the desktop rule below. */
+.music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; }
+.music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows .icon-button:last-child:disabled { visibility:hidden; }
 
 .music-app[data-source^="5b3ec96a"] .capture-search > .empty-state { transform:translateY(17px); }
 .music-app[data-source^="5b3ec96a"] .capture-search > .empty-state > svg { width:31px; height:31px; }
@@ -212,9 +214,10 @@
 @media(min-width:1181px) {
  .music-app:has(.capture-home[data-home-underlay]) .music-sidebar {
   background:rgb(243 243 247 / 50%);
-  background-image:radial-gradient(ellipse 38% 38% at 92% 40%,rgba(255,125,70,.09) 0%,transparent 84%),radial-gradient(ellipse 75% 24% at 72% 31%,rgba(255,220,70,.50) 0%,transparent 84%),radial-gradient(ellipse 55% 28% at 0% 34%,rgba(255,85,145,.30) 0%,transparent 84%),radial-gradient(ellipse 100% 18% at 42% 49%,rgba(255,205,75,.22) 0%,transparent 86%),radial-gradient(ellipse 105% 22% at 50% 40%,rgba(255,145,55,.16) 0%,transparent 86%),radial-gradient(ellipse 110% 18% at 45% 18%,rgba(255,205,90,.16) 0%,transparent 86%);
-  -webkit-backdrop-filter:blur(16px) saturate(1);
-  backdrop-filter:blur(16px) saturate(1);
+  /* The forward station artwork supplies colour through the actual glass. */
+  background-image:none;
+  -webkit-backdrop-filter:blur(18px) saturate(1.6);
+  backdrop-filter:blur(18px) saturate(1.6);
  }
 }
 
@@ -226,4 +229,14 @@
 
 @media (min-width:1181px) {
  .capture-discovery:lang(en) > h1 { font-size:33px; transform:translateY(4px); }
+}
+
+/* Sample neighbouring artwork where a handle straddles a card edge. */
+@media (min-width:1181px) {
+ .capture-home[data-home-underlay] .poster-rail .rail-arrows button,
+ .capture-discovery[data-feature-underlay] .feature-rail .rail-arrows button {
+  background:rgb(255 255 255 / 38%); color:rgb(29 29 31 / 66%);
+  -webkit-backdrop-filter:blur(12px) saturate(1.1);
+  backdrop-filter:blur(12px) saturate(1.1);
+ }
 }

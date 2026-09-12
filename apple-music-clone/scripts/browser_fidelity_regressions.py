@@ -27,6 +27,25 @@ async def sidebar_and_rails(page, context):
         rail = page.locator('.feature-rail .music-rail')
         assert main and first and first['x'] >= main['x'], (width, main, first)
         assert await rail.evaluate('(e)=>e.scrollLeft') == 0, width
+        scrollport = await page.locator('main').evaluate('(e)=>({width:e.getBoundingClientRect().width, client:e.clientWidth})')
+        assert abs(scrollport['width'] - scrollport['client']) < 1, (width, scrollport)
+        if width == 1440:
+            art = await page.locator('.feature-card .music-art').first.bounding_box()
+            assert art and art['width'] == 548 and art['height'] == 314, art
+        # Hiding the platform scrollbar must not disable native keyboard/scroll access.
+        await page.keyboard.press('Tab')
+        await expect(page.get_by_role('link', name='Skip to content', exact=True)).to_be_focused()
+        await page.keyboard.press('Enter')
+        await expect(page.locator('main')).to_be_focused()
+        await page.keyboard.press('PageDown')
+        await page.wait_for_function('document.querySelector("main").scrollTop > 0')
+        await page.keyboard.press('Control+Home')
+        await page.wait_for_function('document.querySelector("main").scrollTop === 0')
+        await page.mouse.move(width - 80, min(height - 120, 500))
+        await page.mouse.wheel(0, 260)
+        await page.wait_for_function('document.querySelector("main").scrollTop > 0')
+        await page.keyboard.press('Control+Home')
+        await page.wait_for_function('document.querySelector("main").scrollTop === 0')
         if width > 640:
             sidebar = await page.locator('.music-sidebar').bounding_box()
             assert sidebar and main['x'] >= sidebar['x'] + sidebar['width'], (width, main, sidebar)
