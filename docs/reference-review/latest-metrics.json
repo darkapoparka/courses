@@ -1,39 +1,19 @@
 {
   "candidate": {
-    "toolingSha256": "96c4f6e3aecc5f5fbe05b77632f7be6b70a263f6c88649735d9179b371658af8",
-    "commit": "51087ec7791924b53a3fa7084aa7f0b4e3e59619",
+    "toolingSha256": "90d4bbed39b006c0329b9778e969ac011e3181e7d072cbdc3ed00f3de4bac34f",
+    "commit": "05ee6ecaf7e51419f19906b702cc60de9a6fb08b",
     "branch": "main",
-    "implementationSha256": "14145d001a229ef8ba51a95d49a675ff569c8597872ca515c3bf133e4faea1d1",
-    "workingTree": "M apple-music-clone/app/capture-layout.css\n M apple-music-clone/app/library-fidelity.css\n M apple-music-clone/app/player-fidelity.css\n M apple-music-clone/components/apple-music-app.tsx\n M apple-music-clone/components/music-album.module.css\n M apple-music-clone/components/music-album.tsx\n M apple-music-clone/components/music-chart-schedule.tsx\n M apple-music-clone/components/music-context.tsx\n M apple-music-clone/components/music-lyrics.tsx\n M apple-music-clone/components/music-player.tsx\n M apple-music-clone/lib/discovery-variants.ts\n M apple-music-clone/lib/music-catalog.ts\n M apple-music-clone/lib/music-scenes.ts\n M apple-music-clone/scripts/browser-reference.py\n M apple-music-clone/scripts/browser_live_fidelity.py\n?? apple-music-clone/scripts/browser_library_flows.py\n?? apple-music-clone/scripts/browser_panel_controls.py\n?? apple-music-clone/scripts/qa_browser_fonts.py",
-    "capturedAt": "2026-09-12T04:30:36.241584+00:00",
+    "implementationSha256": "a69870d6f1255be4c935c9329af8b77693612e6bab77ba30b0385252d86079ee",
+    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/apple-music-app.tsx\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/components/music-rail.tsx\n M apple-music-clone/scripts/browser-reference.py\n M docs/handoff.md\n M docs/reference-review/latest-metrics.json\n M docs/tasks.md\n?? apple-music-clone/components/use-rail-underlay.ts\n?? apple-music-clone/scripts/browser_sidebar_material.py\n?? docs/reference-review/2026-09-12-library-controls.md",
+    "capturedAt": "2026-09-12T07:14:32.028514+00:00",
     "platform": "Windows-11-10.0.26200-SP0",
     "python": "3.13.1"
   },
   "browser": "151.0.7922.34",
-  "baseUrl": "http://127.0.0.1:6433",
+  "baseUrl": "http://127.0.0.1:6432",
   "note": "Pixel diagnostics, not visual acceptance. Inspect geometry, copy, artwork and live behavior. No product masks or resizing.",
   "functionalFailures": [],
   "screens": [
-    {
-      "screen": "8f029018-9c70-4715-9012-88a8a9d106b2",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "a0c85982987b15f268c584f93251e2cd8aece1a29064193fc0549fe308393119",
-      "renderSha256": "2de2b6a8560ffc6804553e968e08033afdf088196ab7423ec22b45ad4e2915f5",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.6443713855051065,
-      "over20Percent": 10.132813461301833,
-      "deltaMae": -1.2709827837250316,
-      "deltaOver20Percent": -1.0995754891103733
-    },
     {
       "screen": "ee8db412-71b0-49a8-a1ab-5d6685153abe",
       "viewport": {
@@ -41,7 +21,7 @@
         "height": 903
       },
       "sourceSha256": "c2f413d8474c7be3690b4b1ce56e92194018ee10f18e99ca5a19564116473432",
-      "renderSha256": "f4b4821338ef0a3029f4b695256e809fa926b8313a042ca3819eee7bded05084",
+      "renderSha256": "a5655117d7920bde44322614fc525eeb6473b95a366dc25ec80aac4d6e5d3955",
       "crop": [
         0,
         0,
@@ -49,10 +29,30 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.276024619580821,
-      "over20Percent": 10.132813461301833,
-      "deltaMae": -0.6084863725852099,
-      "deltaOver20Percent": -1.3116002214839426
+      "mae": 7.295789241622575,
+      "over20Percent": 10.138350559862188,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "8f029018-9c70-4715-9012-88a8a9d106b2",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "a0c85982987b15f268c584f93251e2cd8aece1a29064193fc0549fe308393119",
+      "renderSha256": "5cc7d4e28366424f94f336d866c1b09a68da8a363ae4713d2d29fbb73f247a83",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.663704831631188,
+      "over20Percent": 10.134659160821952,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f",
@@ -61,7 +61,7 @@
         "height": 903
       },
       "sourceSha256": "14d29ef4e8939ffa46adb6e6084e40b5d14030e0bb67c4551a9ae2c8ed48113c",
-      "renderSha256": "556423b6d6fd5abb18c12e693493221d48275164c2c14cc39025aacfdbe207a7",
+      "renderSha256": "30fa514870ff681fce731701a6e738dcbd6609b9ba01de3152ec333dd3ebc7d4",
       "crop": [
         0,
         0,
@@ -69,8 +69,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.62784186456667,
-      "over20Percent": 10.098283499446291,
+      "mae": 8.597322966654362,
+      "over20Percent": 10.078057708871663,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -81,7 +81,7 @@
         "height": 903
       },
       "sourceSha256": "baadd94bd34eab32a5155123d46d8c3dc381a5f636df68a56d00e018530ccae3",
-      "renderSha256": "62813f07d81ec04255a512fa9335cde91eceb73b522022ccfb7c5f3b6cd5b9f0",
+      "renderSha256": "2695c0eb5e4c65da31a44c64512d73bd059f2770d611d21f08c7ab628624382e",
       "crop": [
         0,
         0,
@@ -89,28 +89,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.828282268979944,
-      "over20Percent": 9.949858496370124,
-      "deltaMae": -1.252917486977564,
-      "deltaOver20Percent": -1.2789928632951888
-    },
-    {
-      "screen": "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "34e39dea7642d15b47976525dd0418ec9f649800b448ebba3512f4b36f00177f",
-      "renderSha256": "0b01ea23c2bf9399691a257cde4390f3bb5258d0329bf5eec7af661e46931c7d",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 6.977231501989254,
-      "over20Percent": 9.885643533899348,
+      "mae": 7.8477377363520775,
+      "over20Percent": 9.951704195890244,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -121,7 +101,7 @@
         "height": 903
       },
       "sourceSha256": "7ed30b327a1a240ef9ce1c6437a1ae825598d6afc109f9d883ea978c6dfb93dd",
-      "renderSha256": "7c0668fe863f362449fc6a6459da8fe5a7567b8982bf8ade0f15c18d8f5cca83",
+      "renderSha256": "80c5d2947df834d8af20c55568494dca9f84d5a1ac6ff3364fc09cb74eca0d47",
       "crop": [
         0,
         0,
@@ -129,8 +109,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.0028075140478245,
-      "over20Percent": 9.78551433493294,
+      "mae": 7.02182462778393,
+      "over20Percent": 9.789128829826504,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -141,7 +121,7 @@
         "height": 903
       },
       "sourceSha256": "e8ea03ccdb245cb743805ff2479d822db646a10f818273cbca6d682b79749ca2",
-      "renderSha256": "eba7bca8ef3c2e3f972fbae68270e62cace66b2196cb44ecb2bac5966773ecec",
+      "renderSha256": "7e83e9be7c8d2401d367f70c1c46d7de301cff96c6785bd826cec2c47ee164d4",
       "crop": [
         0,
         0,
@@ -149,10 +129,30 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.2223063040892495,
-      "over20Percent": 9.721683893195522,
+      "mae": 7.194599790820721,
+      "over20Percent": 9.706379968007875,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "34e39dea7642d15b47976525dd0418ec9f649800b448ebba3512f4b36f00177f",
+      "renderSha256": "9963387602f9fc9304e0a6eda0dc742f557fc13515435b6e1e884fabccd4e551",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 6.850118945080186,
+      "over20Percent": 9.64031930601698,
+      "deltaMae": -0.10032453549895326,
+      "deltaOver20Percent": -0.2255598621877688
     },
     {
       "screen": "d6b9a1a7-e7fe-44d4-bdc1-8fb7ee990c8f",
@@ -161,7 +161,7 @@
         "height": 903
       },
       "sourceSha256": "c372694d21cb8e6985b56491ed591857a4ae278ac4c144cfe4e7aca86b9bd049",
-      "renderSha256": "8a08881ac0f72ec71f1d6cd18c53be3d5603bbc81d640ca4a617bb6812dee0b9",
+      "renderSha256": "b9a97cfd79fcdb313b5dca906d411b65d4be5383b0302b5cadf957793d45e1d9",
       "crop": [
         0,
         0,
@@ -169,8 +169,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 9.275989500020508,
-      "over20Percent": 9.565491571305525,
+      "mae": 9.244395994832042,
+      "over20Percent": 9.5463424387843,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -181,7 +181,7 @@
         "height": 903
       },
       "sourceSha256": "342f67f2a5b1528ba4330bd5530d6bc695a3a3cbede71eb362d06eda426d132a",
-      "renderSha256": "9e239fb816a988727a0c2c2f17c0417201155c2b82debb3908660ffca4ea14eb",
+      "renderSha256": "c58354ef1b150cbc5b2728a9e3244c086c79afcb3f32a867ed5f3f79ead912b6",
       "crop": [
         0,
         0,
@@ -189,10 +189,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 12.90780090029121,
-      "over20Percent": 9.503891349821583,
-      "deltaMae": -0.0008761945777457925,
-      "deltaOver20Percent": -0.001845699520117705
+      "mae": 12.894480845740535,
+      "over20Percent": 9.47912821459333,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3",
@@ -221,7 +221,7 @@
         "height": 903
       },
       "sourceSha256": "9c00d14393dbd57168c0e7de1d02e94ecbc6bd2b0b9d82abd9ecb04e54507fbd",
-      "renderSha256": "f5cd39bb8a0d3f68052217d21d069ceb66cf81a2e2725de83f9bde2413225253",
+      "renderSha256": "58cdb63e61bdc4de13c20e0c1106f86dfccaf317cf1e9f6d70345a178e1a3a95",
       "crop": [
         0,
         0,
@@ -229,8 +229,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.951002573725442,
-      "over20Percent": 9.406069275255321,
+      "mae": 7.970070444198351,
+      "over20Percent": 9.408684016242155,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -241,7 +241,7 @@
         "height": 903
       },
       "sourceSha256": "6fc5026e92383165dab3c09f17a98be3e0014e668ec2aef3f29ee406ce90bc48",
-      "renderSha256": "2516aae32f8d115d305140678c70d1ae747221c1aebe40dadd4bd2772dc80076",
+      "renderSha256": "eee82b295a003c91f3cfa835a1b3e4bb957a4dc5d1f058e146e4dc314a13774e",
       "crop": [
         0,
         0,
@@ -249,8 +249,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 9.71046332184898,
-      "over20Percent": 9.394533653254584,
+      "mae": 9.710097001763668,
+      "over20Percent": 9.372154546573151,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -261,7 +261,7 @@
         "height": 903
       },
       "sourceSha256": "fb2f1083edd3583a3836eb509d4041a77cbeabbeab94c7b838dd49c4234d7f16",
-      "renderSha256": "17bf938b9c9a32aa2ed18a5f2def83686c416bced9c0a2c531c03ca50dd421c7",
+      "renderSha256": "2616848f55a6c4ccae7b1297c66187ca0d87412098620dee8f88ebc5da34b03d",
       "crop": [
         0,
         0,
@@ -269,8 +269,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.585108281038513,
-      "over20Percent": 9.265334686846314,
+      "mae": 8.583619160411796,
+      "over20Percent": 9.235803494524426,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -281,7 +281,7 @@
         "height": 903
       },
       "sourceSha256": "077cfdfbd9352369fcbbf41d3d7c2b7484bbbfd00c5430bf249aa5c1ad955c1c",
-      "renderSha256": "6eef37a6d18976e92d61ed2617c7c5bfa305bebae3fb6911e536318be6935e60",
+      "renderSha256": "9c89a5e7773d4b99013fdaad60685afd4c713a75e8a5918303ac66710cb1f46c",
       "crop": [
         0,
         0,
@@ -289,10 +289,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 12.440438507444322,
-      "over20Percent": 9.213347483696321,
-      "deltaMae": -0.0008961896558794535,
-      "deltaOver20Percent": -0.0021533161068045814
+      "mae": 12.427165620770271,
+      "over20Percent": 9.187276977974653,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "a9992e55-7e7f-4219-95d3-e081b1a8377b",
@@ -301,7 +301,7 @@
         "height": 903
       },
       "sourceSha256": "78418c0722314dfeb1bdcdeddbb54b97cf55e6dd646bd884ef792cd24feb8169",
-      "renderSha256": "116edfceae20a202a6a03c3aa00ed0be72bd805ef39c6dcdfaac69a2aeb15c69",
+      "renderSha256": "e0e8b4372f038c7c4335289d04808a81c114beaf3572e29ce856606cdb198696",
       "crop": [
         0,
         0,
@@ -309,8 +309,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.638304161027029,
-      "over20Percent": 9.120908699397072,
+      "mae": 7.657432016734342,
+      "over20Percent": 9.123831056970593,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -321,7 +321,7 @@
         "height": 903
       },
       "sourceSha256": "1841f564421d304dd329ceaf862b29e9e48264ee199fd3d9a06ce4a81534946e",
-      "renderSha256": "8d774f40d5676e082b68da50410f1d39b62732b0c1a6ef8f909ee7e9b66530db",
+      "renderSha256": "3fa2815d3aa6186dbfe24465ec9d18633bd42862e7f4fe2248bc5a4d34439024",
       "crop": [
         0,
         0,
@@ -329,8 +329,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.805440712029859,
-      "over20Percent": 9.103989787129322,
+      "mae": 6.773808242073746,
+      "over20Percent": 9.084071613141381,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -341,7 +341,7 @@
         "height": 903
       },
       "sourceSha256": "4c07236e9bbedb7b6c5247f8a465b1c261d9bbf405f10d3e8d983c96bfa9b8cb",
-      "renderSha256": "b65a83a29c22d2bd08ceab903f8d4993ef2a2269da2f41359a3e1d3552192aa6",
+      "renderSha256": "2584219c0c634b415f0b0df60ac043ccfe9f11cfa167841c3c7230b85e0ef73e",
       "crop": [
         0,
         0,
@@ -349,8 +349,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.243929955703211,
-      "over20Percent": 9.03369939707149,
+      "mae": 7.218045558016488,
+      "over20Percent": 9.016780484803741,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -361,7 +361,7 @@
         "height": 903
       },
       "sourceSha256": "63b11443ee0d61bd07be01b3b33f235b9d5481d197eaf923ed07ec8ce6720a71",
-      "renderSha256": "c4ca7591944839de20963be2162a0467990ae2b1d437c75266347cebad620a82",
+      "renderSha256": "9428dfc4898b6fb180a3a61ea75755217a4016f8adc58f20fd5df424b3b94b55",
       "crop": [
         0,
         0,
@@ -369,8 +369,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.33835671219392,
-      "over20Percent": 8.9906330749354,
+      "mae": 8.35786062917846,
+      "over20Percent": 8.99493970714901,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -381,7 +381,7 @@
         "height": 904
       },
       "sourceSha256": "89598ef68ff4808573e42b28b39939edf3577b07c18f2e6d67e10eb29f3f79b0",
-      "renderSha256": "68679e6fa44e59a7f8b3bdbf46cb85f89756afef95fd3fb0f2b1390be10029c3",
+      "renderSha256": "2be3e3e6b3f24cc20f32b82448f427ee1628405e4dd527f45082f534be3203c2",
       "crop": [
         0,
         0,
@@ -389,8 +389,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.287816238528352,
-      "over20Percent": 8.903638151425762,
+      "mae": 8.39017381596198,
+      "over20Percent": 8.960176991150442,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -401,7 +401,7 @@
         "height": 904
       },
       "sourceSha256": "39ba2931bc1be5e8685c7526c78024c112dd15e3fba36da810c3bdd0e030d1da",
-      "renderSha256": "03b03763c17d86fc8bbfd3a0ac00d3ffe0eda06cb6a78c86db711d6ff62f0282",
+      "renderSha256": "7639e76642112b7a4f1d3eab2590553b1ed7e58cfa16f82904b5b47028cbec02",
       "crop": [
         0,
         0,
@@ -409,8 +409,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.278692949033104,
-      "over20Percent": 8.890041175024582,
+      "mae": 8.376852107915438,
+      "over20Percent": 8.94542772861357,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -421,7 +421,7 @@
         "height": 903
       },
       "sourceSha256": "411433acc31bbcbbb1049c8f722c749bd2056c08191462d5c55950b5c32b6a41",
-      "renderSha256": "791a02d9a69ef726df0f0980cc69f1cfda7266e6264a74e8edf5caacadf8a172",
+      "renderSha256": "edca99dc196e59752164f8fc8bc0decfc8dd539141cfcaf03021e8cfefa0983c",
       "crop": [
         0,
         0,
@@ -429,10 +429,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.798129691152947,
-      "over20Percent": 8.81490709979082,
-      "deltaMae": -1.1603984660186208,
-      "deltaOver20Percent": -0.8540205487879895
+      "mae": 6.818300879783438,
+      "over20Percent": 8.81829088224437,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "6ac70c34-9db0-4ca6-9a2d-c6ca902eb663",
@@ -441,7 +441,7 @@
         "height": 903
       },
       "sourceSha256": "e10ba4ed0f3ae00feacc27a6f7a74b8aef20462cff92e95a3b556db921aca522",
-      "renderSha256": "6b8925352f8662f5299dc4c920a1e53dffb57aa7253e09fbe2c158503c74b689",
+      "renderSha256": "d8a2330a4494eab26d54a8c38ab7563ddd82156ce8eb01469ca51aceeca431d9",
       "crop": [
         0,
         0,
@@ -449,8 +449,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 9.237917076822116,
-      "over20Percent": 8.79106681432263,
+      "mae": 9.206533263606907,
+      "over20Percent": 8.77276362741479,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -461,7 +461,7 @@
         "height": 903
       },
       "sourceSha256": "882d250a0a745b173f326652a8343f1a34cae662636f4f946d471ab91a68399e",
-      "renderSha256": "9d9918269454385d141d592a6a22f640ff07e6436adf13b42760d0f1c5e72352",
+      "renderSha256": "2a682d9a5298ce73c6ae45361727d9d64875c4ac67f761f9331d614f08f8cf38",
       "crop": [
         0,
         0,
@@ -469,8 +469,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.357163877609613,
-      "over20Percent": 8.765073212747632,
+      "mae": 8.354926735982938,
+      "over20Percent": 8.731158484065462,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -481,7 +481,7 @@
         "height": 903
       },
       "sourceSha256": "ebccd729554bca7a7eb4fef1d029fb74d5ab03e54619120cffcd69a018413d7b",
-      "renderSha256": "95484d66dec3f6908fb6d4627a1b51a1d96146e3c7c00ee9fd2624e7477ce90c",
+      "renderSha256": "6df72e93c6ce45055fd790b166f3e0a65c97e4a3db25c2f912f771dd6ed66710",
       "crop": [
         0,
         0,
@@ -489,8 +489,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.621422675443993,
-      "over20Percent": 8.745924080226406,
+      "mae": 8.59191429801895,
+      "over20Percent": 8.730466346745416,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -501,7 +501,7 @@
         "height": 903
       },
       "sourceSha256": "e5541f6c7b5691fb9f2635dc5d3c91afe14ba9d53aa86697d6590f3772526299",
-      "renderSha256": "16009900d1b95df145e4b004cc401bd336d449d113887aec54202e31ff8e6d77",
+      "renderSha256": "f330c2376ec7697ba82eaa653e31b7939922116b4a6f579b055decda913813c9",
       "crop": [
         0,
         0,
@@ -509,8 +509,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.484481255895985,
-      "over20Percent": 8.67840223944875,
+      "mae": 6.504610403592962,
+      "over20Percent": 8.683477913129076,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -521,7 +521,7 @@
         "height": 903
       },
       "sourceSha256": "4dfaf206347ea95a63b1c516635a5039bd39e9708ea83782fd5bf12c6278533a",
-      "renderSha256": "e7440934130f7e85947671aa82428c75cfafb53d26d0631240c26f56d0eb9787",
+      "renderSha256": "58097e7290293133f04efdc7ae4dd9c3b1ae0db185c80a260837a6164091be28",
       "crop": [
         0,
         0,
@@ -529,8 +529,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.491225493211927,
-      "over20Percent": 8.472529838808908,
+      "mae": 7.510622769779746,
+      "over20Percent": 8.47645195028916,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -541,7 +541,7 @@
         "height": 903
       },
       "sourceSha256": "a302e07f5b345cbcfcc18fc0e6fa3d5e7684aeb7e1653c564ce24546b78c24b8",
-      "renderSha256": "34b4cdf13bfe02d3a36b99536ea6a6d009df19d1f9a7a1aa53bd348beeabd4bc",
+      "renderSha256": "3338cac5e47eba914e57f423bf2fa3126702b0c3c48f0f3a37b583f7e2e8e377",
       "crop": [
         0,
         0,
@@ -549,8 +549,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 10.307744760264141,
-      "over20Percent": 8.470068906115417,
+      "mae": 10.28567121939215,
+      "over20Percent": 8.451688815060908,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -561,7 +561,7 @@
         "height": 903
       },
       "sourceSha256": "b2a5fbacf29efefd979968103cbddeef906a63e977d2a949f466b8dc494b04ac",
-      "renderSha256": "a7deffb28fc45c5dfd5b2257787eea23e553eded3c5c8c873b647288e9cba6e9",
+      "renderSha256": "d8cb099c64ee0cb87706c583731942b1a1fb523d6e06c051f5fbf95c509b6b58",
       "crop": [
         0,
         0,
@@ -569,8 +569,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.312367212173414,
-      "over20Percent": 8.39078073089701,
+      "mae": 7.332124143800501,
+      "over20Percent": 8.394395225790575,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -581,7 +581,7 @@
         "height": 903
       },
       "sourceSha256": "643e2070cca2c420e9c58b116e020c00a8942a0e92f7c7d6babbcfc120f39e00",
-      "renderSha256": "846624f1792164b8aec0a8d0de2345331e44378539acf20b37e031c4a090fb75",
+      "renderSha256": "69b63f8301e9f6454ad932b4ae6b8619bb989ea457d632b19067382a4b5ee369",
       "crop": [
         0,
         0,
@@ -589,8 +589,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.3814266231901895,
-      "over20Percent": 8.384474590869939,
+      "mae": 7.401424008449203,
+      "over20Percent": 8.387473852590132,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -601,7 +601,7 @@
         "height": 903
       },
       "sourceSha256": "701daa402f67edf019dc56e0e1ec5ecad0cb3baa3d8007bb40dc6f90b6d46583",
-      "renderSha256": "03af90d13b0f45b15e890d199f7aa541ee33e5150eabf009cd749074ab95032c",
+      "renderSha256": "e76d910ee53f480532946508b86b6bec53a7170e1873e773c93668e54b6a5aa7",
       "crop": [
         0,
         0,
@@ -609,8 +609,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.419319603379681,
-      "over20Percent": 8.382167466469792,
+      "mae": 7.439316988638694,
+      "over20Percent": 8.385166728189985,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -621,7 +621,7 @@
         "height": 903
       },
       "sourceSha256": "32bc4f61ff463f44c6adb29fb62328f61016dba88e1a25b03e22a71754a8bb1c",
-      "renderSha256": "2f2ade28c93ced1c72fe18cc9ca8e2dbddeeaaa7b8b4f922609bc5fe8c8f39ae",
+      "renderSha256": "d7e47dfeecf0c76f96e004b926512d1229e52b9f27a1d3e7e059498d50b98120",
       "crop": [
         0,
         0,
@@ -629,88 +629,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.960579959804766,
-      "over20Percent": 8.321259382305895,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "eb489e8d-0b65-4bfc-9da8-450ec3db1a53",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "4c1ee592fe4ea84babfcd40dc4c1dd9a70329bd0fe424568f0805161a3e19cdc",
-      "renderSha256": "d8d06512d35c544107bdaf2e800c80bc9f69970a4ec1dd3cedbcceda1d4e575f",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.051000266601042,
-      "over20Percent": 8.201135105204873,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "afd02fa6-814c-4e4e-80fe-1e9ba2c6428a",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "2ef414e423437348f3f40feffa7c196caa5208da5e7c5a62e2c0186e68e68949",
-      "renderSha256": "3350975d02f474527ae5ddc33fd363e74fd0532de5c3290f7aa8508aa4697365",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.11132131577868,
-      "over20Percent": 8.185908084163898,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "99ffee15-7ca3-4cfe-9a32-274237dffb0b",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "522990d450c51a94da7e7759bdc9e83cf5ac3220c0d348cfdc797656d511bdd0",
-      "renderSha256": "7910480cbdc4642f4e873ceebce924b7db5d8b912ea3c4c6d1b38e5ffc9e265b",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 9.256862669701817,
-      "over20Percent": 8.171450104589638,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "9fbb38e1-269a-431e-8f51-deb9bea70744",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "eced0feb66169637e68925751a117524120ea7fb38af2e21de31b2211332bc71",
-      "renderSha256": "3350975d02f474527ae5ddc33fd363e74fd0532de5c3290f7aa8508aa4697365",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.146742083999836,
-      "over20Percent": 8.166758951642672,
+      "mae": 7.96146897174029,
+      "over20Percent": 8.299495508797834,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -721,7 +641,7 @@
         "height": 904
       },
       "sourceSha256": "cff06aed45eea798c7a79d05fc40c536b9ed21eb8ebfb7e6695ea3b9f697f9de",
-      "renderSha256": "2aa43b1b86489704c46ffeff6df7e864bd2c9f27d5fb929c7b3dfe205af09d0d",
+      "renderSha256": "8385c8787a4faea93499ea3f50c820e43cac0e04a900d89c83c576cb47b964ed",
       "crop": [
         0,
         0,
@@ -729,8 +649,88 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.7449394153556215,
-      "over20Percent": 8.158262659783677,
+      "mae": 5.837073398066208,
+      "over20Percent": 8.204277286135692,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "eb489e8d-0b65-4bfc-9da8-450ec3db1a53",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "4c1ee592fe4ea84babfcd40dc4c1dd9a70329bd0fe424568f0805161a3e19cdc",
+      "renderSha256": "1a069a45c759792ef5b31a33488dfaab80538e062037a7b3d57bf870077fb8ab",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.024783386653541,
+      "over20Percent": 8.180140273163529,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "afd02fa6-814c-4e4e-80fe-1e9ba2c6428a",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "2ef414e423437348f3f40feffa7c196caa5208da5e7c5a62e2c0186e68e68949",
+      "renderSha256": "628f3a10b0a1dd637a280aa3e93b56d8965454b04f0a8fec3c2a53733a24af52",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.079704226651901,
+      "over20Percent": 8.167143472376031,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "99ffee15-7ca3-4cfe-9a32-274237dffb0b",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "522990d450c51a94da7e7759bdc9e83cf5ac3220c0d348cfdc797656d511bdd0",
+      "renderSha256": "3f5e25cbaaff64d4aa373dd183abc3a06fbd3471b68021afa032cf5a4e4ba480",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 9.225439891718962,
+      "over20Percent": 8.153762150855174,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "9fbb38e1-269a-431e-8f51-deb9bea70744",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "eced0feb66169637e68925751a117524120ea7fb38af2e21de31b2211332bc71",
+      "renderSha256": "628f3a10b0a1dd637a280aa3e93b56d8965454b04f0a8fec3c2a53733a24af52",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.114353902629096,
+      "over20Percent": 8.148609573028178,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -741,7 +741,7 @@
         "height": 903
       },
       "sourceSha256": "83a11f93a5008bc488a75f0d6fad151955241319c88a8f029637aa34fd7a8398",
-      "renderSha256": "ba33e335deaef36d281bb0bdaeca0e6ba50eb8e83f881162cafaf0d2505c373c",
+      "renderSha256": "79a9b1517b07b662f9a5c239104e0ca8aff74dada42ebee5df0c9c96e0b409e6",
       "crop": [
         0,
         0,
@@ -749,8 +749,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.475707774496534,
-      "over20Percent": 8.151301218161683,
+      "mae": 6.471015083466634,
+      "over20Percent": 8.145917927894672,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -761,7 +761,7 @@
         "height": 903
       },
       "sourceSha256": "5bcd125b82b08658a08e239f445c5e295385a3b28d757adc96e30cfa6fc520b2",
-      "renderSha256": "3350975d02f474527ae5ddc33fd363e74fd0532de5c3290f7aa8508aa4697365",
+      "renderSha256": "628f3a10b0a1dd637a280aa3e93b56d8965454b04f0a8fec3c2a53733a24af52",
       "crop": [
         0,
         0,
@@ -769,8 +769,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.904518118616956,
-      "over20Percent": 8.111618678479143,
+      "mae": 6.872790800213281,
+      "over20Percent": 8.09354620401132,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -781,7 +781,7 @@
         "height": 903
       },
       "sourceSha256": "313c6fbab1f44103a6a43a270fea2e9e75e0eba6179ec2aaed16b6df973b79f2",
-      "renderSha256": "3f7659f4e6895738b62f1fd093c580cf4113d605a2b4748c1ec4e9b8b7b4c0ef",
+      "renderSha256": "f2fa9ea90cfcd78bade8808c33b2fe90ad53d44ae36aea514605f68a81b61b02",
       "crop": [
         0,
         0,
@@ -789,8 +789,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.069736680201797,
-      "over20Percent": 8.093930724744679,
+      "mae": 7.036828114105246,
+      "over20Percent": 8.07616586686354,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -801,7 +801,7 @@
         "height": 903
       },
       "sourceSha256": "8c6349622c604c227ef53d5923d13195b3df4fd9d5041013c8e50d6ee97fd039",
-      "renderSha256": "a526bd21d3a703d8ef67e3cf5dc34384c50ce3ec0a6ce3b1e1d81ef01b19b676",
+      "renderSha256": "65b429906f4327b5c5a9a78cc6365e244c782c8e44efac8a55090aeb9ceb4f8f",
       "crop": [
         0,
         0,
@@ -809,48 +809,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.9278892887904515,
-      "over20Percent": 8.079088224437061,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "d83e96ba-2976-4612-9441-f941d67b6f31",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "1da332f76fc1020765054a48d1efefdd7699b3e529fc4483e693774b6087e5bb",
-      "renderSha256": "4efc0d0799bbd6ded0a7dce29b467097661720571401dd07e692ae208803eaa4",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.092020938435667,
-      "over20Percent": 8.04317398794143,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "ad689c37-d388-40c5-b490-ddf9eb7a9a49",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "6c92d9f0de5aba19dcf5c76feeff56496b984de6450dab48901c85d3a33b181d",
-      "renderSha256": "a9639dd118d16269edfa1e72e9630477ffd98ec67e122e94a3c6b5229582e964",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.081038257249498,
-      "over20Percent": 8.038790451581148,
+      "mae": 6.895250912595873,
+      "over20Percent": 8.059785283622494,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -861,7 +821,7 @@
         "height": 903
       },
       "sourceSha256": "6a1ff34d5ef54fe9d0dcb94f2cf0a6b39c4ab4578b1e449f93096646b5e851f2",
-      "renderSha256": "d6390894a806a07865565b186f5624b53c38adcba877dead6c2cdbd5f913d221",
+      "renderSha256": "94617aa326584fcf9975afb314320b57d9761c5aed8ff17bbe79a580714c568f",
       "crop": [
         0,
         0,
@@ -869,8 +829,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.9390921721832575,
-      "over20Percent": 8.023409622246831,
+      "mae": 6.958895758992658,
+      "over20Percent": 8.026793404700381,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "d83e96ba-2976-4612-9441-f941d67b6f31",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "1da332f76fc1020765054a48d1efefdd7699b3e529fc4483e693774b6087e5bb",
+      "renderSha256": "c24c41c96e33a4077c12dbfd720ac6098a8e07c2cd2454670c7bb6b44350a5cf",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.061841444157336,
+      "over20Percent": 8.02479389688692,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -881,7 +861,7 @@
         "height": 903
       },
       "sourceSha256": "533712b31924517bfc2c781d8f21f969ccdbc306bd4675e9f9483ccba9c31110",
-      "renderSha256": "d6390894a806a07865565b186f5624b53c38adcba877dead6c2cdbd5f913d221",
+      "renderSha256": "94617aa326584fcf9975afb314320b57d9761c5aed8ff17bbe79a580714c568f",
       "crop": [
         0,
         0,
@@ -889,19 +869,19 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.807557370493417,
-      "over20Percent": 8.01948751076658,
+      "mae": 6.827314302120504,
+      "over20Percent": 8.023102005660144,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
     {
-      "screen": "83bba8fd-64eb-427b-82eb-1c1c9b954748",
+      "screen": "ad689c37-d388-40c5-b490-ddf9eb7a9a49",
       "viewport": {
         "width": 1440,
         "height": 903
       },
-      "sourceSha256": "7f52fe33b2c7ea8d2cceba9b32039bd0e2eb95e8edbd64d701b0476d281b3da6",
-      "renderSha256": "3e4ef78c0a8590cf2ef8e74e90d36d5b562c9c47d4d10f8f273f3277d70f518f",
+      "sourceSha256": "6c92d9f0de5aba19dcf5c76feeff56496b984de6450dab48901c85d3a33b181d",
+      "renderSha256": "e1865e8fde56ed05fd363e7bbd03c2bc51f702ce84826567a43f43b0f74122df",
       "crop": [
         0,
         0,
@@ -909,8 +889,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.741721268610803,
-      "over20Percent": 7.975344530577089,
+      "mae": 7.050809031622985,
+      "over20Percent": 8.020025839793282,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -921,7 +901,7 @@
         "height": 903
       },
       "sourceSha256": "563735e228756c9ca3cf077a5c24bf7a562ad1b8fb5158b0d8aaaab6369bc6eb",
-      "renderSha256": "c641c7fefcff6b8a5cbfaac521f269d22e4ee021f0871bc7ded0919c0da0eb1f",
+      "renderSha256": "ca4ef193c99956aae245d5c8e60e44cf178b5e3ef6367c40d138fc32d305e33f",
       "crop": [
         0,
         0,
@@ -929,19 +909,19 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.39447187359009,
-      "over20Percent": 7.963116771256306,
+      "mae": 7.413675608055453,
+      "over20Percent": 7.965885320536484,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
     {
-      "screen": "3c1805b6-47bd-43d5-a5c3-8f6109e7ae97",
+      "screen": "83bba8fd-64eb-427b-82eb-1c1c9b954748",
       "viewport": {
         "width": 1440,
         "height": 903
       },
-      "sourceSha256": "02841f8b600aba1a354dfc7050a538c94d0ce535d27e31ef777995063c7f093f",
-      "renderSha256": "f0ba6087136e41d68f2931b26f3931bbebf522b3100fa6c080eef6dba9747d03",
+      "sourceSha256": "7f52fe33b2c7ea8d2cceba9b32039bd0e2eb95e8edbd64d701b0476d281b3da6",
+      "renderSha256": "e345898fef7c0674c75f7575519c8bf1b934c440ab157fa0309815838d903a66",
       "crop": [
         0,
         0,
@@ -949,8 +929,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.413283653254583,
-      "over20Percent": 7.954811123415774,
+      "mae": 8.70907110044707,
+      "over20Percent": 7.957425864402609,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -961,7 +941,7 @@
         "height": 903
       },
       "sourceSha256": "d2c3f6f0e45c55cb1b335abb8ad7c4f3f7498855a00a5e446d096b14c40597f6",
-      "renderSha256": "bfbed11ef79a3385ace60040bfbc0896a4c5469b0933a659642d6d21df3b4788",
+      "renderSha256": "b7c5bfe7c0206193940c27e9e5cda884f1f3a44bb5d315c72ebf34aa6ceda775",
       "crop": [
         0,
         0,
@@ -969,8 +949,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.16947136089578,
-      "over20Percent": 7.940660760428202,
+      "mae": 6.145248861818629,
+      "over20Percent": 7.924741602067184,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "3c1805b6-47bd-43d5-a5c3-8f6109e7ae97",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "02841f8b600aba1a354dfc7050a538c94d0ce535d27e31ef777995063c7f093f",
+      "renderSha256": "1514f43e89c7d6378c37e80e54c351c38f13e30b163b0c5652893eacb83ece8e",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 8.412768908166194,
+      "over20Percent": 7.923280423280424,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -981,7 +981,7 @@
         "height": 903
       },
       "sourceSha256": "0caafda457d55f74951c173e8feb26638c547cc60fc35db42ff59156c29715a3",
-      "renderSha256": "8ce34639b99d7b28aa41395bad27e45ed185edb653db6ef470f619409343aa9a",
+      "renderSha256": "61078f6201687477b92016d5bce596e86a338614841288ebaaf0fce96b83499d",
       "crop": [
         0,
         0,
@@ -989,8 +989,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.611615858660432,
-      "over20Percent": 7.879291251384275,
+      "mae": 6.5799108424592925,
+      "over20Percent": 7.858757844222961,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1001,7 +1001,7 @@
         "height": 904
       },
       "sourceSha256": "e4c42f5ab9717a6fcce83c234c65aa074362d1771ff12dca5cc71af718a09d55",
-      "renderSha256": "186cff4e540bbb2427d64c5b65212f490770f0fdbb26e5b9f3559d437b447f92",
+      "renderSha256": "62e91f5fea3fd9014be063113da1ddd6ddc2390b4d64bfea48caeb790b64f7d2",
       "crop": [
         0,
         0,
@@ -1009,8 +1009,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.313452812602425,
-      "over20Percent": 7.608314896755163,
+      "mae": 5.405805985742379,
+      "over20Percent": 7.653254056047197,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1021,7 +1021,7 @@
         "height": 903
       },
       "sourceSha256": "a1a4f77c0a27c8bac9cddee1566d9a9aae6a698b63985018ee16ae2bfc997c4b",
-      "renderSha256": "79b011239d050817f9ca788924a1188ed6581f94b9007243f69743ec76563e76",
+      "renderSha256": "14af2bf617c02c39532892747421426f56d9d5688ec307114b14c8314c89accb",
       "crop": [
         0,
         0,
@@ -1029,8 +1029,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 10.138572300151758,
-      "over20Percent": 7.564291866617448,
+      "mae": 10.126165866863541,
+      "over20Percent": 7.537913744309094,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1041,7 +1041,7 @@
         "height": 903
       },
       "sourceSha256": "0bff2b32a8c4ed85b74e31009af74ae4a947cc53c071fdef3312774959c758c5",
-      "renderSha256": "501c3ba0aae61c21d762524a2101af7612b61b7158b415a6355bf99c81dbc744",
+      "renderSha256": "4e29444917f6bc43715173962a90d25a40cb07634826316aeac6a4b0b664d233",
       "crop": [
         0,
         0,
@@ -1049,8 +1049,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 9.51012699438087,
-      "over20Percent": 7.549603174603174,
+      "mae": 9.49831477379927,
+      "over20Percent": 7.525532176694967,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1061,7 +1061,7 @@
         "height": 903
       },
       "sourceSha256": "96d0490fa33e7f25c4659d0a1dead16918fdeb803653fa006afe43973d643e63",
-      "renderSha256": "0011fb1f8257468482c9d3819352e4e73a4c958d3f0ad43a362d4bfa7c91899e",
+      "renderSha256": "b6684186a84db6eb136b143c5a86d894f0562a9ec12c87780b6f876319bd9f39",
       "crop": [
         0,
         0,
@@ -1069,28 +1069,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.188639975800829,
-      "over20Percent": 7.511766334440753,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "a4d30e7d-ea87-4cbe-a591-d51ab9ac879a",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "453b45a70a7a1fc0c8e8e49eee4c270ebea7c71f89a461543145398820d624f7",
-      "renderSha256": "4437eabaa9ce93894d453f238db5d6d0cf2c3e46c2de32ed15219fb0406b4b57",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 7.898061759156721,
-      "over20Percent": 7.4848498831056975,
+      "mae": 6.156948802346089,
+      "over20Percent": 7.490617694106066,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1101,7 +1081,7 @@
         "height": 903
       },
       "sourceSha256": "678dacc47d5bca9d1c4a6526026636134d10db36f2d24deaadc4e0d01d2e1de1",
-      "renderSha256": "153a7f9ac98dc8a71aff3c3e6f0ab039734b4708b2a3ab043932febfc2ac8572",
+      "renderSha256": "9120c44891c9138c4707a80ef7ae6abb9a6b60e9a0d3887d85cb1c8e92984335",
       "crop": [
         0,
         0,
@@ -1109,8 +1089,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.212994750010253,
-      "over20Percent": 7.484311554078996,
+      "mae": 8.181150537303639,
+      "over20Percent": 7.465470038144456,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "a4d30e7d-ea87-4cbe-a591-d51ab9ac879a",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "453b45a70a7a1fc0c8e8e49eee4c270ebea7c71f89a461543145398820d624f7",
+      "renderSha256": "355ff524d24dd7c5368ca812212e151bf05e1e3f8e8416ddead62fc2ff4cdf74",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 7.894729758828596,
+      "over20Percent": 7.4639319552110255,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1121,7 +1121,7 @@
         "height": 903
       },
       "sourceSha256": "f8b93765b7c5070f16aaf08e67d5317879f474b26430198407d87829f0950339",
-      "renderSha256": "b274f4685eb6ecfe0a4d216d0a644d8461337403d3df6db60b137ba52ee9500e",
+      "renderSha256": "1c62887ad3ecd79bce17cacca11ebbf49f4ef850d8ad4972755e4e32efcbce98",
       "crop": [
         0,
         0,
@@ -1129,8 +1129,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.5740281879332265,
-      "over20Percent": 7.468315491571305,
+      "mae": 6.5679694229112835,
+      "over20Percent": 7.455933923957179,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1141,7 +1141,7 @@
         "height": 903
       },
       "sourceSha256": "52e89b1895ad19b842c7bffb2c0f11c00b32bb3b8f85733552b99b98db4f8aaa",
-      "renderSha256": "d6e2025b4822c53a9032b035d7c74a6f3d32114ab0123a1953ce7c75ce8fe10a",
+      "renderSha256": "c16b8b9d3b727124c9fc76bbc82f7a02186e20215c813a165033b06415a418d5",
       "crop": [
         0,
         0,
@@ -1149,8 +1149,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.067654372257086,
-      "over20Percent": 7.361341823551126,
+      "mae": 6.035645071982281,
+      "over20Percent": 7.341423649563185,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1161,7 +1161,7 @@
         "height": 903
       },
       "sourceSha256": "74140c734b32317d3c6df0f2886dcf7a6ce0cf14c09d0a09796b3f8b8524fbfd",
-      "renderSha256": "20205c20df199ddfcd8faedd99f0c981fa09dfbca0589a98b0d8a7289f49e777",
+      "renderSha256": "8880a59d079eb187cef44a527eadd4261140cada5bec01f6b8360cf164f9b107",
       "crop": [
         0,
         0,
@@ -1169,28 +1169,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.774643933800911,
-      "over20Percent": 7.357112095484189,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "0920d819-fa2a-4b93-a0c0-d91db1cb1a50",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "7fb62746e29b71d3db4da21b92830e57a707675e9bf64d49fa579d1fb8bdcaea",
-      "renderSha256": "ec0196fcc5fe529e1323fd49ff9c14b9d1a6550bf8d04c980e4627525486d091",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 9.020120688240842,
-      "over20Percent": 7.3293496985357445,
+      "mae": 5.7428740617694105,
+      "over20Percent": 7.336424880029531,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1201,7 +1181,7 @@
         "height": 903
       },
       "sourceSha256": "0a86535163c200834637edc6bb43d895ba51a9adbe4d1acedcba655394fd9882",
-      "renderSha256": "e0960a8ffedcd0b7849bd605a6fe0db5593140f3a41b98b4bd6ee51e6b4221f5",
+      "renderSha256": "bfa49bd24cf073c5e5aea0ac166bea48a35ed5aa2e4ab361f4cb36ff054002f7",
       "crop": [
         0,
         0,
@@ -1209,8 +1189,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.514785334891924,
-      "over20Percent": 7.300741355973914,
+      "mae": 6.554213321848981,
+      "over20Percent": 7.312969115294697,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "0920d819-fa2a-4b93-a0c0-d91db1cb1a50",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "7fb62746e29b71d3db4da21b92830e57a707675e9bf64d49fa579d1fb8bdcaea",
+      "renderSha256": "c3abee8126efd38fc1d146ca2c666b8bcfb38992ee26ab01a076042c3afe28bb",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 8.993065296747467,
+      "over20Percent": 7.31166174480128,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1221,7 +1221,7 @@
         "height": 904
       },
       "sourceSha256": "3292a5aad4f430ebaf37d7a31d25f061b71d5888b24b868d972b77352d0af8cd",
-      "renderSha256": "478dfa8ca8abd2503ec36b6d0d1477a33eb5cfaed583cfbd26ebe9dac4e0fa6b",
+      "renderSha256": "d4eb640f2855fc3b9d08aa04fc9726971b2075fac793237fb7d41cda9d589cb2",
       "crop": [
         0,
         0,
@@ -1229,28 +1229,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.313243352589315,
-      "over20Percent": 7.218304449360866,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "e1069ba9-2687-468c-bdb9-b81733b7be0f",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "94a055d62015a43bbb50352665c717868c4fbe04061ebe5f88cd8a6e8b0bdbc3",
-      "renderSha256": "c46420e50b478f1741a369e745ef0674d6e4752e094e7a6836687b3ab417e86f",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 9.11658258479964,
-      "over20Percent": 7.174695459579181,
+      "mae": 5.325645536299574,
+      "over20Percent": 7.2232976892822025,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1261,7 +1241,7 @@
         "height": 904
       },
       "sourceSha256": "e87f1135e97a8f896869558407a9f4ff635539a0c1f759a840485dd73437fbb4",
-      "renderSha256": "c24c9dce3b5f328930aae81f626e937e549a873163bafc0c102c21847c75a261",
+      "renderSha256": "3d0bbce7953b2f03a9aaed51061b68d29eace662b61cdfce6e4c680681e34127",
       "crop": [
         0,
         0,
@@ -1269,8 +1249,28 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.413699401835464,
-      "over20Percent": 7.102922197640119,
+      "mae": 6.509290755080301,
+      "over20Percent": 7.151010939036381,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "e1069ba9-2687-468c-bdb9-b81733b7be0f",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "94a055d62015a43bbb50352665c717868c4fbe04061ebe5f88cd8a6e8b0bdbc3",
+      "renderSha256": "34c8f6a6deddc03bea0c8fa3ab5af58d102267916f191915ab0918f647252a01",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 9.10476216110906,
+      "over20Percent": 7.1507782699643165,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1281,7 +1281,7 @@
         "height": 903
       },
       "sourceSha256": "ae380387e28d490aef23870306b1b95b9fbbac08240f1464a5b87638061f4baf",
-      "renderSha256": "713cb40338077c93877ad9f5734a4c055db89d04821e03472bb01984889a3d62",
+      "renderSha256": "006dbf51275ddcd7396bbeabbc8fe12b328a58e9bede515edac9084a341a1fd5",
       "crop": [
         0,
         0,
@@ -1289,8 +1289,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.036818629260489,
-      "over20Percent": 7.066029900332225,
+      "mae": 6.009801689840449,
+      "over20Percent": 7.0485726590377755,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1301,7 +1301,7 @@
         "height": 903
       },
       "sourceSha256": "9728887cf3a6a023718c7690445e65cff7ef47976a84cd09a065809e6fe5f07f",
-      "renderSha256": "7506043e791a503249955605cc7f3c6c35949a582b486445455ff41523bcc77e",
+      "renderSha256": "129cae79b2ab31836ea86d3fa69502c145e1d6375df5a8f11ecbbd60eeea7dd2",
       "crop": [
         0,
         0,
@@ -1309,8 +1309,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.133456636315163,
-      "over20Percent": 7.033960871170174,
+      "mae": 6.152796234772979,
+      "over20Percent": 7.036037283130306,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1321,7 +1321,7 @@
         "height": 903
       },
       "sourceSha256": "595cf4db27c9db8692cd0d9afd3ba372393617b27367e0ed8cb921d9da6e3510",
-      "renderSha256": "bec4b7f4366f56624b6a0bd0c87e660279932fe63db2c3cd941ee8c80e4acf2e",
+      "renderSha256": "f33c10d9a779643f8e770b0b2e6ebc80c6a7130eca690df0060f9cb1d22610e6",
       "crop": [
         0,
         0,
@@ -1329,8 +1329,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.1682142344448545,
-      "over20Percent": 6.931063122923588,
+      "mae": 5.142620021738239,
+      "over20Percent": 6.914067306509167,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1341,7 +1341,7 @@
         "height": 903
       },
       "sourceSha256": "41ab03e9907e6a7157c9f04ec5a2e8b68e83013920c6951a5fe98a773d80bd1d",
-      "renderSha256": "866748145814b55f3c60b120c5bb2b03bba1df87f84e1248efe6a8244c4885fc",
+      "renderSha256": "11c5f6df472caf875942b442b0caa652aad33a4a950801cf461250421274e712",
       "crop": [
         0,
         0,
@@ -1349,8 +1349,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.589397481645544,
-      "over20Percent": 6.7807924203273044,
+      "mae": 5.610737869652598,
+      "over20Percent": 6.786790943767689,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1361,7 +1361,7 @@
         "height": 903
       },
       "sourceSha256": "c941c31d7e94716c0d572ce370d756c00fe37d665407e9bc30fadb0bd4298d92",
-      "renderSha256": "3d736b61b8327025bc61b4f2b035c04d9c687e2686f6827615493b7a4a33add3",
+      "renderSha256": "0c04b53b0b47d60d1fcc87b2f30e399a80c77cdb74fe7f7a548ade2e5e3a54d8",
       "crop": [
         0,
         0,
@@ -1369,8 +1369,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.864351082810385,
-      "over20Percent": 6.780100283007259,
+      "mae": 5.83869893564661,
+      "over20Percent": 6.766718961486403,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1381,7 +1381,7 @@
         "height": 903
       },
       "sourceSha256": "a76e7f75d85f3639aa185a215a9d829232fe69d8a4b5f68a4f334520f4b11b03",
-      "renderSha256": "7c8176c668324e162b17baea067f01c8d5875f51728dc6ab3435e73dabf72aa5",
+      "renderSha256": "ae168af165ee20d31036f67e9413114757eb321c1404b7e62fd2cba64531654c",
       "crop": [
         0,
         0,
@@ -1389,8 +1389,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.758198238382347,
-      "over20Percent": 6.772486772486773,
+      "mae": 5.72601769820762,
+      "over20Percent": 6.754568106312292,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1401,7 +1401,7 @@
         "height": 903
       },
       "sourceSha256": "8551463c0224cbba82c9e5e7df9e9672ff289908576ec880de60e04c148e0bc0",
-      "renderSha256": "ec0ddf043e8d796243c942c9a4cebbde4caa7fea184855d211fa9aa1ee3884e0",
+      "renderSha256": "74b550e59b76d545d58e50b5b8f35c692606ea08f42f30a4cf70648b275d247f",
       "crop": [
         0,
         0,
@@ -1409,8 +1409,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.457732455600673,
-      "over20Percent": 6.760335917312661,
+      "mae": 7.458173629055412,
+      "over20Percent": 6.7415713055247934,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1421,7 +1421,7 @@
         "height": 904
       },
       "sourceSha256": "36e0165b4bf39e1210e5eb437036c3b5cafc1e77ddd44a9c85e2296ef6ad284d",
-      "renderSha256": "cc6581e40da042d83b5ab0e5fc695adb9db72b990b88549b01a800e93cf5eb74",
+      "renderSha256": "992387b18c7a05b80ffbcceac046afe228a8cdf472e76b2f82ee2e0108081f0d",
       "crop": [
         0,
         0,
@@ -1429,8 +1429,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.930456971075057,
-      "over20Percent": 6.696856563421829,
+      "mae": 7.0227074627171415,
+      "over20Percent": 6.7409507128810215,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1441,7 +1441,7 @@
         "height": 903
       },
       "sourceSha256": "9c0065c440006d3503b279bbec92c0d8d7f09171ccb002ec213fcf8dd4077126",
-      "renderSha256": "a4c26c8e2598248ee152bdb256d8674730a167e940c92ac5f23e8b4e69ce91db",
+      "renderSha256": "efa72199333cebcfb6a86b89a5d3a21b6cd2b75d0865a26250532704dfea03db",
       "crop": [
         0,
         0,
@@ -1449,48 +1449,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.011162380542226,
-      "over20Percent": 6.6349052540913,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "ffd1356a-86ec-4185-a19a-d48bf888d67a",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "b015bf0810777e03d97b1d3871c7747df61cadd149e0df6dd69938fcb3d3edd1",
-      "renderSha256": "ba6fc25e5f0a3726cad9ff6cdae3f11b657ddec469b7fd044b5ec5a3520e5d1b",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 4.806386120339608,
-      "over20Percent": 6.592223452688568,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "4f611a9e-b39b-4ee5-a6b7-fa10fad5f093",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "3ce76f6fd3acba36c2f52af0654aac600a9a952c8f482d8d73e15edc2f819262",
-      "renderSha256": "6a58a802a89aadc388a240bcf5984058cff933b25ba5e83714fe0b6ebcae2d21",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 5.492677443501087,
-      "over20Percent": 6.5786883228743696,
+      "mae": 6.981362536401296,
+      "over20Percent": 6.616986587916821,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1501,7 +1461,7 @@
         "height": 904
       },
       "sourceSha256": "2a46be9717987e13decd7d4d75aefe12ddc0034725de35860212b2400165067a",
-      "renderSha256": "007a94b9cce1aa3ace511676d09e18acd17dc8a549e1e1763bb2052e79882906",
+      "renderSha256": "7e424d829178ddced84be21a887173c519d2da4c86aefea778d9ddef9716411b",
       "crop": [
         0,
         0,
@@ -1509,8 +1469,48 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.142873494346116,
-      "over20Percent": 6.57079646017699,
+      "mae": 5.233832913389053,
+      "over20Percent": 6.615735619469026,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "ffd1356a-86ec-4185-a19a-d48bf888d67a",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "b015bf0810777e03d97b1d3871c7747df61cadd149e0df6dd69938fcb3d3edd1",
+      "renderSha256": "0c7776c2077af581dd82d954eab9c4c29d5a7ea7097109cc1f8a34d1118e9777",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 4.776038462327222,
+      "over20Percent": 6.572535991140642,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "4f611a9e-b39b-4ee5-a6b7-fa10fad5f093",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "3ce76f6fd3acba36c2f52af0654aac600a9a952c8f482d8d73e15edc2f819262",
+      "renderSha256": "9ef5dfdba71cf7bce6096d4fcf26e9bba89f17003ce1f1504cc713edaa8bc28f",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 5.463263401829293,
+      "over20Percent": 6.5590777654731145,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1521,7 +1521,7 @@
         "height": 903
       },
       "sourceSha256": "2a12b48a73bfe755c995df9919d23b5f8fc5fced72f4b77bff4ee14c537dea84",
-      "renderSha256": "78c4c66d09f2139f10c77be10f8f70017537d436ddfc35b185278f9c35d354e8",
+      "renderSha256": "eccebf396b05d930ab348893e0bbd608b0a7cbbd5e6ce437e7ca48add27a19c0",
       "crop": [
         0,
         0,
@@ -1529,8 +1529,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.665023737746606,
-      "over20Percent": 6.517395717977113,
+      "mae": 6.66766103728313,
+      "over20Percent": 6.500938230589394,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1541,7 +1541,7 @@
         "height": 903
       },
       "sourceSha256": "31b109fbb20673e0cdbe443322d2ec2f0f58eea70fed9e140306f90b81ddf5ce",
-      "renderSha256": "a8ac4ab01a0ca6e5e1549d0133c722140ea204305bd6f51fbc9535d998374d3d",
+      "renderSha256": "5fcbfef6a5ce9a9230f18ac6d8cf127972390a48f963e849469841d7e496b715",
       "crop": [
         0,
         0,
@@ -1549,10 +1549,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.9921332184898075,
-      "over20Percent": 6.499784668389319,
-      "deltaMae": -0.0015796111726347206,
-      "deltaOver20Percent": -0.001153562200075342
+      "mae": 5.959803996964849,
+      "over20Percent": 6.47802079488126,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "417f6129-8919-4535-985c-b43888ec8930",
@@ -1561,7 +1561,7 @@
         "height": 903
       },
       "sourceSha256": "c8c49ed361a8617726d6be8d4ff0e9b2ca1b4e83b60cddeb8b0176a2af4417e4",
-      "renderSha256": "5ce5a5d235a41421965e303cb7c9e8e2db58c139adfa85906040bb2925af2ae2",
+      "renderSha256": "d3b83d0fa5adf803eed18f8ff012e07d41ab8f4d1f5e52e9590a979e1f788766",
       "crop": [
         0,
         0,
@@ -1569,8 +1569,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.8031051330954435,
-      "over20Percent": 6.38604343546204,
+      "mae": 5.785646610065215,
+      "over20Percent": 6.36712501538083,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1581,7 +1581,7 @@
         "height": 903
       },
       "sourceSha256": "323766fd199813095216a74f76209dea8fa17c00316f81284d8f5a084dcca597",
-      "renderSha256": "64f3403a8a04f56ab05f6638b38746ab13619f573eccbc25f51153d8bbd31696",
+      "renderSha256": "86806a922e558ae8debfba2cd24016faf052efaf2ee3fbf5d965f5de254e2d40",
       "crop": [
         0,
         0,
@@ -1589,8 +1589,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.950144836142898,
-      "over20Percent": 6.309523809523809,
+      "mae": 4.922665446454206,
+      "over20Percent": 6.291297526762643,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1601,7 +1601,7 @@
         "height": 903
       },
       "sourceSha256": "1ac5a6d8e51716015a3bbd04d40c9409be7fb5a40287860193a46f58b6011304",
-      "renderSha256": "a4f1e92f9676fe4eaa94aaa5ac1e444745a5b7707ea003fa8554c1ceeb59b68d",
+      "renderSha256": "a37a39adfcc58e9062a80078a1715b561a3031a4a9642db1ff9563c3923730c3",
       "crop": [
         0,
         0,
@@ -1609,8 +1609,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.561399501661129,
-      "over20Percent": 6.220314999384767,
+      "mae": 5.54395841023748,
+      "over20Percent": 6.200012304663467,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1621,7 +1621,7 @@
         "height": 903
       },
       "sourceSha256": "d02e67e045dc54dd53d77166168dfca0393563569ca987f0446266af8e41eeaa",
-      "renderSha256": "16c4f554ba18d0c0e542994c91cf273b3a8170d91f99e5de2b8cc5db30a115e3",
+      "renderSha256": "6e51edee4fb9e56ac3f2ec67ec80c80f612aae01ad7526c39d61194e98a23c94",
       "crop": [
         0,
         0,
@@ -1629,8 +1629,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.977981573766457,
-      "over20Percent": 6.048818752307125,
+      "mae": 4.727652167671548,
+      "over20Percent": 6.079811123415775,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1641,7 +1641,7 @@
         "height": 904
       },
       "sourceSha256": "9c415903de224d8bafa6b57703b84fe809979135419f1d52f2cb670a57bdddff",
-      "renderSha256": "bc6c209fd343721f7d8e4be5cb582be9389b252c052f276502ab7b747129e7f5",
+      "renderSha256": "cb928762c2a4ece6533dc8e8a7fcb8ea74ceeaca9ae4cd09fb00b4ae191d07bc",
       "crop": [
         0,
         0,
@@ -1649,8 +1649,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.547245524008522,
-      "over20Percent": 5.88764441986234,
+      "mae": 4.63847406588004,
+      "over20Percent": 5.931969026548672,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1661,7 +1661,7 @@
         "height": 903
       },
       "sourceSha256": "515f29dce9602fedbed1970d40ef895f642402be4356463388e4a49ba13294e7",
-      "renderSha256": "bb081d74fbdfc5a5fef10c5871661d6ed0177f6efdb21dd02798fa0d5e90f9bf",
+      "renderSha256": "0035d964daa997630ace9e34f77254c5a4a2841900d5429790e29ff1f90243e7",
       "crop": [
         0,
         0,
@@ -1669,8 +1669,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.224533448176859,
-      "over20Percent": 5.855635535868094,
+      "mae": 6.19452288667405,
+      "over20Percent": 5.836332595053525,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1681,7 +1681,7 @@
         "height": 903
       },
       "sourceSha256": "fae911d6c616ccbdc470b052e1d4c0f8de0fcb4352cd9f899a04d5f40a304b60",
-      "renderSha256": "c49e9b14f3d56e6e8a726dc8ddb7dbf8875490c189e3df4223e068ce5c61831f",
+      "renderSha256": "625a20676ff9d293588c30d3d0bc286bb8b9804aa74c0e6016db30b5e58df11b",
       "crop": [
         0,
         0,
@@ -1689,8 +1689,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.960500492186538,
-      "over20Percent": 5.820644149132521,
+      "mae": 5.979780361757106,
+      "over20Percent": 5.821720807185923,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1701,7 +1701,7 @@
         "height": 903
       },
       "sourceSha256": "76b2d97e6c787aed3c9ac784266ff6193eb85cc9d6536b012cfdddd08b1ec843",
-      "renderSha256": "012bcb3b5750d98f8b47c82301d778c3372866646e9359fbd39f06bb56673943",
+      "renderSha256": "d3b5c893ff3cce59e02cfbf630b807647adeea5f274aba45c66a350c3dab3fd3",
       "crop": [
         0,
         0,
@@ -1709,48 +1709,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 8.616769461876052,
-      "over20Percent": 5.798111234157745,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "269160a4-3232-492b-ab92-2a96787ab821",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "864df7833e9ce20d5ec96d606717760c0ff1fde36790349ee5155ebecb3415dd",
-      "renderSha256": "c54a586de1c6e813c17dfbcc1e59c76dd648d5c7d5842a8d6242ad5ef974aecf",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 5.406672203765227,
-      "over20Percent": 5.764350313768919,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "eebd5ffb-0edf-4662-a583-a6c7c73d38e5",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "37a7484e69ddf128486c062b0ff900afc6b8528e3d9226be0d9d1a6904da573c",
-      "renderSha256": "eb60227a0426123fe7bf4d9e307b83c0f45e03c85527b4258f6f035f39e79e50",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 5.347686979615275,
-      "over20Percent": 5.723591116032976,
+      "mae": 8.594649778516057,
+      "over20Percent": 5.780961609449982,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1761,7 +1721,7 @@
         "height": 904
       },
       "sourceSha256": "38396b49aaa6a116afda44c889e38523528b5c5c3541c819cfd9b033a8d0b67d",
-      "renderSha256": "1dbabc39817bcb99b30585be5778961a485abbeefb55ecb746dd1f2ee34ef449",
+      "renderSha256": "a7dae606370ee9112d1f2bec4e694c183d2b87e52f4480a473386a1c2ecb81b8",
       "crop": [
         0,
         0,
@@ -1769,8 +1729,48 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.649154734103573,
-      "over20Percent": 5.7001290560471976,
+      "mae": 4.741885601032449,
+      "over20Percent": 5.744146386430678,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "269160a4-3232-492b-ab92-2a96787ab821",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "864df7833e9ce20d5ec96d606717760c0ff1fde36790349ee5155ebecb3415dd",
+      "renderSha256": "09034978ce9e9e5310503f96fa36a662aefaf718f3a83962e91f6eb3f4f82302",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 5.389086019851524,
+      "over20Percent": 5.743816906607605,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "eebd5ffb-0edf-4662-a583-a6c7c73d38e5",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "37a7484e69ddf128486c062b0ff900afc6b8528e3d9226be0d9d1a6904da573c",
+      "renderSha256": "4cec494f71fc32031b0f0a45b1d47a298627b9bde1e3be6248dca7aaaaa52754",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 5.3301735982937535,
+      "over20Percent": 5.703365325458349,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1781,7 +1781,7 @@
         "height": 903
       },
       "sourceSha256": "f42f7c387f79c335637a0d32877e7a2d67a5b83a4888f45670ca3fe703895ec7",
-      "renderSha256": "41b9bab4dadb6dd5bc712ead639b5b20d54208747d63718036b6e4a33a62db4f",
+      "renderSha256": "e123d2d28ebbe7cfa04f3293761ae163cbfcd7f6f20183d0fe03573554fab736",
       "crop": [
         0,
         0,
@@ -1789,8 +1789,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.1750553709856035,
-      "over20Percent": 5.642687953734465,
+      "mae": 6.150278136663796,
+      "over20Percent": 5.624769287559985,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1801,7 +1801,7 @@
         "height": 903
       },
       "sourceSha256": "b81c67a766ae5cb50b0ba83003539db55d27f0a3197be33d6cbdb2b546e3c877",
-      "renderSha256": "c63b6ce6cfaea594bfd4d83d540c7ea925fddb28d8f7ea2ee5c749030b87ac06",
+      "renderSha256": "1e9d0cc934bb13fed7cf29479c69be20069e2d4e9117177b31b25ee4707bec69",
       "crop": [
         0,
         0,
@@ -1809,8 +1809,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.165842254214347,
-      "over20Percent": 5.616540543866125,
+      "mae": 6.136075478856487,
+      "over20Percent": 5.597314507198228,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1821,7 +1821,7 @@
         "height": 903
       },
       "sourceSha256": "0c27f977e326b3aff6c0e6a27b16c0185ddab1ea44ee6926d0512fa6a6453e35",
-      "renderSha256": "dd5baa5a8cdb5b40ba0dec5f457493451bf15081927ecb651dbbae8a4fabfa0e",
+      "renderSha256": "91210279a0d7ca26a1f819d3b2e9f65d9641c79ca7899ce7be75000d6945d56b",
       "crop": [
         0,
         0,
@@ -1829,8 +1829,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.488289549239162,
-      "over20Percent": 5.607312046265535,
+      "mae": 5.470755147450884,
+      "over20Percent": 5.587855297157622,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1841,7 +1841,7 @@
         "height": 903
       },
       "sourceSha256": "d7431703ec67cab0744c309e74e877c79aef8e9e454674eef04b00f6d03fed67",
-      "renderSha256": "11bb1ade5622174ac1e4844786dfdc9826dae765e861a149d2f8c5fa6e18e4d0",
+      "renderSha256": "3b5dcd699f8d00d22f61f822eae1ebf5cad5657d74bcd99f50827e5c218e7558",
       "crop": [
         0,
         0,
@@ -1849,8 +1849,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.103259966777409,
-      "over20Percent": 5.561246462409253,
+      "mae": 5.08582348960256,
+      "over20Percent": 5.541020671834626,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1861,7 +1861,7 @@
         "height": 903
       },
       "sourceSha256": "165a95cbc611537cf55f772cc0ab8c368fc1ffc32ee3190dbba144a602dd285d",
-      "renderSha256": "5980ba35da74dc3f7d1150653a12e4313138f060ee1cc361257b70a5d1e8dee5",
+      "renderSha256": "40671b8329eca5d84ff885086e7493f7c906da7d408786196d07d4bc4a12ea74",
       "crop": [
         0,
         0,
@@ -1869,8 +1869,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.2423547024322215,
-      "over20Percent": 5.423280423280423,
+      "mae": 5.22474698535745,
+      "over20Percent": 5.404362003199212,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1881,7 +1881,7 @@
         "height": 903
       },
       "sourceSha256": "66eeedf924f37d7f157d87dd5c5f7628ca914ca161f20a5f152da4ce68b388d9",
-      "renderSha256": "48260f45f1536fe569aafae5c261cabb3bd4a80328a559c1d5bbe00deca37555",
+      "renderSha256": "6ed2e79843ef9aefccba193ade74e060a0a0d8ff1acae524e2c1024cf9d7f4be",
       "crop": [
         0,
         0,
@@ -1889,8 +1889,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.173695192978139,
-      "over20Percent": 5.304078995939461,
+      "mae": 5.193105799598047,
+      "over20Percent": 5.308154915713055,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1901,7 +1901,7 @@
         "height": 903
       },
       "sourceSha256": "ef26813920e7415540f51d472169982a190a2b810cf58f2652ffa2ab001499ed",
-      "renderSha256": "8d2490a31965f0e18e590fad0283283eb2cde85e7fa97a546775670cb7346fd7",
+      "renderSha256": "afcc0a5ea637743b657d9f69fa521c915cceb5a1ee08b5b253101c3de9760740",
       "crop": [
         0,
         0,
@@ -1909,9 +1909,9 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.1472137627660883,
-      "over20Percent": 5.205103359173126,
-      "deltaMae": 0.0,
+      "mae": 2.1468015565399288,
+      "over20Percent": 5.203642180386367,
+      "deltaMae": -7.690414665084688e-07,
       "deltaOver20Percent": 0.0
     },
     {
@@ -1921,7 +1921,7 @@
         "height": 903
       },
       "sourceSha256": "eb89f5b5f92040b96447315d77b052c259b11cdd8bdbfc39a63e57539e0e4969",
-      "renderSha256": "85eb9f9d98272f839d57a0c64cbe010c31efbcdcaa6ddde4ac712e6216166272",
+      "renderSha256": "ba177ce2e626099497ae0c9e820af12f73cb8ae60a9a71ec401dda64c3f5119b",
       "crop": [
         0,
         0,
@@ -1929,8 +1929,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.9641090910955255,
-      "over20Percent": 5.165651531930602,
+      "mae": 4.9464152413764815,
+      "over20Percent": 5.146348591116033,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1941,7 +1941,7 @@
         "height": 903
       },
       "sourceSha256": "2d600e220f9cbf8b9a88f9ade20e6e90a4f63bef354930373d9afa2f1fc3dbf5",
-      "renderSha256": "1cadacb24e06acfab67cccb91e8c26593a6f3f67c540e14e4cbeca7e86799c52",
+      "renderSha256": "616217ff6b5d1750d3f2298902b31633b41609e042b4a3ec357161023adedd8d",
       "crop": [
         0,
         0,
@@ -1949,8 +1949,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.900064086788893,
-      "over20Percent": 5.138581272302202,
+      "mae": 5.918549792871499,
+      "over20Percent": 5.141811246462409,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1961,7 +1961,7 @@
         "height": 903
       },
       "sourceSha256": "5c669209c23ed59f0e6a9b8dd35ffc71eb3995867a5a6967e2df7c6b440d1b70",
-      "renderSha256": "756177a77be6d5f482341895737a56f8d9a655868b394943ffa4d1151037ff35",
+      "renderSha256": "8e7b40865d0866126ef3406b4fa1488fa9065586f54e0a2ffdcf35dec3f2f274",
       "crop": [
         0,
         0,
@@ -1969,8 +1969,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.8780743714367745,
-      "over20Percent": 5.113895041220622,
+      "mae": 4.860494852549116,
+      "over20Percent": 5.094976621139412,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -1981,7 +1981,7 @@
         "height": 903
       },
       "sourceSha256": "960c7d9be7c83085ae7f394798cb0dbeb0fb4c7b2252fd0eb6b671487c6f077a",
-      "renderSha256": "4671deede087ad9ed35f7c9dd19c7b4357c7139dc8383db24fd7c21e8d99f83e",
+      "renderSha256": "5f139bfb41bc814c3b76766f3e928e52cc698d9a0a4b54d8785f75074df04c15",
       "crop": [
         0,
         0,
@@ -1989,8 +1989,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.625121508551741,
-      "over20Percent": 5.112587670727206,
+      "mae": 4.6076255588368,
+      "over20Percent": 5.092669496739264,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2001,7 +2001,7 @@
         "height": 903
       },
       "sourceSha256": "5b61179f7aa21632b62e77c5fbd0afcd62a8be39cd6f2c766b5a78ed7145ca32",
-      "renderSha256": "3148c9f8a2515e0b13e6fde435d3f4bd26093d21be7788495e9604d9183771bf",
+      "renderSha256": "d92e34de45064e03e0bfd651fca819b1e07b4c61fa9e9f7754d4d297fba8d77d",
       "crop": [
         0,
         0,
@@ -2009,8 +2009,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.615151398630081,
-      "over20Percent": 5.100052294819736,
+      "mae": 4.597671342438784,
+      "over20Percent": 5.080441737418481,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2021,7 +2021,7 @@
         "height": 903
       },
       "sourceSha256": "ac5f7213583addcb531047f0350e3422d21f67e3ac2f062284f9ea6556b8c0bb",
-      "renderSha256": "f43ed2d3d6736ad1c2e8a3aeef1cf0a61bf298b04f9d9dbbf225a55dce0c24c0",
+      "renderSha256": "528c2ba777c58ce32482551ee6161eac845e6d1d34bb2511b99f1e8970d4f337",
       "crop": [
         0,
         0,
@@ -2029,10 +2029,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.178215106025184,
-      "over20Percent": 5.014765596160945,
-      "deltaMae": -0.0016185759402809197,
-      "deltaOver20Percent": -0.0013073704934170038
+      "mae": 5.14824068947131,
+      "over20Percent": 4.995231942906361,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "6aa4a9d7-6cc9-4320-b237-5db6293b95de",
@@ -2041,7 +2041,7 @@
         "height": 903
       },
       "sourceSha256": "a447e166e1a98bbc3109cf99179e41a8684487c5287a41d051c448c9653ecbe9",
-      "renderSha256": "d109771b6569f31f544db16a8a0a3e895249d2cc9908d8c9919adcb3a5c732e6",
+      "renderSha256": "49be3bf5398c19d60b3f3ed3f92419b622e5142ab29194215350dbd6000d68ed",
       "crop": [
         0,
         0,
@@ -2049,8 +2049,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.562145728230999,
-      "over20Percent": 4.8914113448997165,
+      "mae": 4.544621580328944,
+      "over20Percent": 4.872031499938477,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2061,7 +2061,7 @@
         "height": 903
       },
       "sourceSha256": "d4c70af056d30b6c5291cb0f4109e250da4b3a8497dfcdc8325b63e26ba431ab",
-      "renderSha256": "da6fa254a56339f5937f2dda691bf823d8ab2c35c1717a2863a2b61e395cb7d1",
+      "renderSha256": "8676148a37aa5c91424b631b12d4f42f7f83a0d11f1165fbdca97672a5145358",
       "crop": [
         0,
         0,
@@ -2069,8 +2069,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.613893246790534,
-      "over20Percent": 4.856573766457487,
+      "mae": 4.654842141421598,
+      "over20Percent": 4.870416512858373,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2081,7 +2081,7 @@
         "height": 903
       },
       "sourceSha256": "4f4f4013ade571206b744e1ebc931936831db5e2be206cd0d32d11813d1cd3a3",
-      "renderSha256": "57fc55e3813b84a94f91749480ecdfc671d3b77540cd8af2b8d75f79dc55c1ab",
+      "renderSha256": "dcf271958628a262d85279b5e4e8cd008fdf68a13aad068ea405596822b5b8ed",
       "crop": [
         0,
         0,
@@ -2089,10 +2089,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.500749302735737,
-      "over20Percent": 4.817198843361634,
-      "deltaMae": -0.5532315122431406,
-      "deltaOver20Percent": -0.6499938476682665
+      "mae": 4.519647984085968,
+      "over20Percent": 4.8198904884951395,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "3731221f-497f-40a3-b00a-30abfe3766da",
@@ -2101,7 +2101,7 @@
         "height": 903
       },
       "sourceSha256": "d066c557f8a724aa17fbadb401ab564a093ff0cc557762762280dfb4705dd7b9",
-      "renderSha256": "3e1e419cc42f9f690367a24b764dc12ca71e23e9f0655bc5464ee2d06b6030d3",
+      "renderSha256": "0545590bda074f2a86003d612e001d21f99285a6fedf33f3213091298577c583",
       "crop": [
         0,
         0,
@@ -2109,8 +2109,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.184825786473073,
-      "over20Percent": 4.708763996554694,
+      "mae": 5.14557416635905,
+      "over20Percent": 4.690307001353513,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2121,7 +2121,7 @@
         "height": 903
       },
       "sourceSha256": "423b23e85ae80d6425d03b94a8fd45e768a9a1fcc2ce32052334e540ea9eb030",
-      "renderSha256": "0df07d83be912a68af84e81a59dc505eff7e68051fcd934d2b2602cf7112c522",
+      "renderSha256": "50ac3fea8f712dc9d7904d412e5b9d1a76dd9d960a521cb89bc5379d7d9fe495",
       "crop": [
         0,
         0,
@@ -2129,8 +2129,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.095465987859399,
-      "over20Percent": 4.518580041835856,
+      "mae": 7.094781284606866,
+      "over20Percent": 4.49504737295435,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2141,7 +2141,7 @@
         "height": 903
       },
       "sourceSha256": "1ee6183660d8902c31d33cd77767f853a907f61c8fa6709de87bec4b78437ba1",
-      "renderSha256": "c7b2ed50431640d1431c91ab10a572ef06613facf4b8e00562e196bb715a7143",
+      "renderSha256": "fbb61fc933649c43a5a3d82371ac6f4af7491ea4983b0b2ee32d60e646a8df37",
       "crop": [
         0,
         0,
@@ -2149,8 +2149,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.32573289651778,
-      "over20Percent": 4.306170788728928,
+      "mae": 4.346941522086871,
+      "over20Percent": 4.310323612649194,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2161,7 +2161,7 @@
         "height": 903
       },
       "sourceSha256": "287c1d9ff850f5b5cc91ea3fae952032263badc5a5d4f7b2a5d95f7478cfbe0c",
-      "renderSha256": "2d73d634488bd5d5761e851ad6a25563bf440900c4b1901912a2265f426d867e",
+      "renderSha256": "0e687a9c3953b826b954e107790b076f249251f026d73ae60197dee2c45c7908",
       "crop": [
         0,
         0,
@@ -2169,8 +2169,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.011152895697469,
-      "over20Percent": 4.202734711455642,
+      "mae": 5.050621641852262,
+      "over20Percent": 4.213655100283007,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2181,7 +2181,7 @@
         "height": 903
       },
       "sourceSha256": "82d29beb0d737b673b4b0998d330e8510b04413a6a135a95c6e03ec86aaefa85",
-      "renderSha256": "a89fc4f32efc1cc0ff22f7e9364b470a381d0be08f567c3ce722d5d6cd99071d",
+      "renderSha256": "04b78d7d5c5c200ec8fec51e6afa839b0428edfdac52aabf674ae0e55686a06d",
       "crop": [
         0,
         0,
@@ -2189,8 +2189,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.51225339403634,
-      "over20Percent": 4.1942752553217675,
+      "mae": 5.511382582748862,
+      "over20Percent": 4.1733573274270945,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2201,7 +2201,7 @@
         "height": 903
       },
       "sourceSha256": "097a402f18a4c9cf9ecfc8a61e6368723934dcaad957e6e04c62d17f0dc426bc",
-      "renderSha256": "5f68ec4ca19ad96e49e10617d7b12cd12e2c6d1465b57c5791d9db87a3c6b12b",
+      "renderSha256": "aab5fca44c4e49630f06c6fbbd8fe8a7d87e862541ce311f9ce72506db1e666c",
       "crop": [
         0,
         0,
@@ -2209,8 +2209,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 12.848031510192364,
-      "over20Percent": 4.0803033099544725,
+      "mae": 12.836446669537755,
+      "over20Percent": 4.0593853820598005,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2221,7 +2221,7 @@
         "height": 903
       },
       "sourceSha256": "b87b2da029c76d649bfbf797b1b33e3e1b3f14d66045a2b347e4e311742a6d10",
-      "renderSha256": "083aff2598f2cba36206e3f3bf5e1db1533d6bb56fd2e34eeb137c47d80d9096",
+      "renderSha256": "0793b8503cdc54de75fa3fbb57a2557afdac466eeef6793146037a8be7e58c3d",
       "crop": [
         0,
         0,
@@ -2229,8 +2229,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.045287826586276,
-      "over20Percent": 3.925341454411222,
+      "mae": 4.066425187646118,
+      "over20Percent": 3.9295711824781594,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2241,7 +2241,7 @@
         "height": 903
       },
       "sourceSha256": "3314f4d0ff0ec9ecf1c4700bc583843279cf8cbdbe32017a400de94f322468e9",
-      "renderSha256": "cafabbd5e736686967aa179218cc53b9f2ec662c02eb9d4f366af2a1cc262db4",
+      "renderSha256": "0b717166f66847ed0ba3d064b87f70f3a20c825c5ba53c169d2908e5f4d9d5cb",
       "crop": [
         0,
         0,
@@ -2249,8 +2249,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.96732932406382,
-      "over20Percent": 3.9227267134243875,
+      "mae": 3.949825683934211,
+      "over20Percent": 3.9027316352897747,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2261,7 +2261,7 @@
         "height": 903
       },
       "sourceSha256": "4b3cdf25b3e0b13648f856bf6df30bbee66c02f42f459555972f0e67551c0e53",
-      "renderSha256": "babb0ae6b3e44b50f4dbeac58ac02166a145ce69dee94054e5836c13f902cefd",
+      "renderSha256": "17e75ccbe45c786af138e72903fe1a06f6085804c0acdf53f5270850bf493f21",
       "crop": [
         0,
         0,
@@ -2269,8 +2269,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.36990612567163,
-      "over20Percent": 3.8835055986218774,
+      "mae": 4.390203693449817,
+      "over20Percent": 3.885812723022025,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2281,7 +2281,7 @@
         "height": 903
       },
       "sourceSha256": "a5e2010a4a9e0446295636e34623590f80a4972810b5cc4daadb19fd5a63161e",
-      "renderSha256": "42dcf81cdcf9e0a4b83dac6e029d6486c1473126141d10822908c2b9d07a4d91",
+      "renderSha256": "2320323fd2638357b7d3ec4c5b70d6a802a9c26f69f0ba0545a832832d7b5dbf",
       "crop": [
         0,
         0,
@@ -2289,8 +2289,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.855804468643616,
-      "over20Percent": 3.882890365448505,
+      "mae": 3.8383346663385423,
+      "over20Percent": 3.863510520487265,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2301,7 +2301,7 @@
         "height": 903
       },
       "sourceSha256": "e0e185c4f8b40663ef37824489458f5be725578a96cf447e8418fd0c88b19e62",
-      "renderSha256": "b935fb462e2c738b07bb936c71215377f8d1b1fa15fdcf4728878cad8d0bda25",
+      "renderSha256": "919b2aa81262e85f64f78769d659c7c55d08c8922645a4ece733ff66e3fd9081",
       "crop": [
         0,
         0,
@@ -2309,8 +2309,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.8001394528526315,
-      "over20Percent": 3.8568198597268366,
+      "mae": 4.818609778105902,
+      "over20Percent": 3.859203888273656,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2321,7 +2321,7 @@
         "height": 903
       },
       "sourceSha256": "8a638f53e2dbd1ff9fb95290c34ffb0445669868d5156a69f1a23d9385827deb",
-      "renderSha256": "db6fb6ffd4ffa68b6004654df2950bc32865787b69d69e3bbe54cf6130809ca4",
+      "renderSha256": "7f5d4a4bb3f0caee43f94096b906c6c152ef7b6db79351bebc2c50afbda09b3e",
       "crop": [
         0,
         0,
@@ -2329,8 +2329,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.6427284565850457,
-      "over20Percent": 3.8289805586317214,
+      "mae": 3.6544888950412204,
+      "over20Percent": 3.8292112710717365,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2341,7 +2341,7 @@
         "height": 903
       },
       "sourceSha256": "717d1f34f9a3c7d7a52f4f9d31c1e805d5729e86fc5204ee15a7735c4fc7ac76",
-      "renderSha256": "00b0b874eb50e376bf90bddffe59c3c6723ac514f1793c3a19848f0e0952335f",
+      "renderSha256": "30b7abb3bd904823f87cebdb6e9be5b8dfbc9ee5e825baa0bdab2b9552dcb992",
       "crop": [
         0,
         0,
@@ -2349,8 +2349,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.37328349944629,
-      "over20Percent": 3.803986710963455,
+      "mae": 4.3327906464049875,
+      "over20Percent": 3.784453057708872,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2361,7 +2361,7 @@
         "height": 903
       },
       "sourceSha256": "470e9a1d0ceeb7722324c3dd41a5fd181618e5ecaff46194af59665165a6ff87",
-      "renderSha256": "3423453138475d3919f4f3ce4dc085e2ba45cc006ea3c02cdd6019d0f89b2881",
+      "renderSha256": "497f8ab1613133e9c2ac2d745be3ba16039583bee8e5fea96515c7a104a2962f",
       "crop": [
         0,
         0,
@@ -2369,8 +2369,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 9.867715382880112,
-      "over20Percent": 3.7209302325581395,
+      "mae": 9.8558818854846,
+      "over20Percent": 3.700012304663467,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2381,7 +2381,7 @@
         "height": 903
       },
       "sourceSha256": "e43c773f913c23092242c0598943651a1bff89a0980201457885b54ba85e94d8",
-      "renderSha256": "275c5bcad08e1e65ece7818ce36d2e011759f993ab20f12ca89ac7ec52cfe758",
+      "renderSha256": "f637667552a2ba7b818bf55f694389dcd97ea4e0455002c348ee295132e06892",
       "crop": [
         0,
         0,
@@ -2389,8 +2389,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.420618001722653,
-      "over20Percent": 3.6491786637135473,
+      "mae": 4.395045065829949,
+      "over20Percent": 3.631490709979082,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2401,7 +2401,7 @@
         "height": 903
       },
       "sourceSha256": "d48bac12690683a5776ec58255585200ac36f028280d7a3c8ac67062f9515ff8",
-      "renderSha256": "68aac1a0fce4fd71ef5a34025b89c8edfb8271b191550dfbfdcc0481975d324a",
+      "renderSha256": "215c6f464f7301dee22b0f42d3aed524c22e17097f488cf700bc9f24eb8f7812",
       "crop": [
         0,
         0,
@@ -2409,28 +2409,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.5710307206431238,
+      "mae": 3.5827619355235636,
       "over20Percent": 3.555047988187523,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "01f96377-a362-452d-9045-449e0916609f",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "c71e14ac7111903f6bf9ae443b493c87c1291cbac0fc486415f4804920cac15f",
-      "renderSha256": "14d14074853b49efb8e08aa84ff579a3cdb00783bb08f69d74007d8d3f2b2250",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 4.273528310979861,
-      "over20Percent": 3.553740617694106,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2441,7 +2421,7 @@
         "height": 903
       },
       "sourceSha256": "03a1295d45c6461d6a187bffb34346f6d1d2f4055e5039d2e84e64320442b870",
-      "renderSha256": "ecaf1fa5d4a8202f2a97e15c27facf1899f4c8713f9784ddc098f9fbc375d098",
+      "renderSha256": "39e0fca0a483214d6e5780e473dad2aa3f70a589a41142e259af240245eb2b80",
       "crop": [
         0,
         0,
@@ -2449,9 +2429,29 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.3834753496575205,
-      "over20Percent": 3.5515103974406297,
-      "deltaMae": -5.3832902668915494e-06,
+      "mae": 4.401952083589681,
+      "over20Percent": 3.5548941798941804,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "01f96377-a362-452d-9045-449e0916609f",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "c71e14ac7111903f6bf9ae443b493c87c1291cbac0fc486415f4804920cac15f",
+      "renderSha256": "215108b72ea65b687d6a86af8654fff179cafb8fc10b58713b916ea6a731e881",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 4.248081497887699,
+      "over20Percent": 3.535360526639596,
+      "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
     {
@@ -2461,7 +2461,7 @@
         "height": 903
       },
       "sourceSha256": "469209c39415a07e31a491d9f76b3b2b2533876d74ffa67901419fc47a6556d8",
-      "renderSha256": "b913ce69e45601192e285ab0e23d60c2f6743277051e359fb60fdca83575f5c5",
+      "renderSha256": "dacb3ff3ad3cdd47417f5c1be3cc0f9b07b16b06dccd1b5e3858efa2182e611d",
       "crop": [
         0,
         0,
@@ -2469,10 +2469,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.426356332800132,
-      "over20Percent": 3.5009074689307242,
-      "deltaMae": -0.0016093474426801535,
-      "deltaOver20Percent": -0.001230466346746173
+      "mae": 4.396447541118084,
+      "over20Percent": 3.482450473729543,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "6337700d-b701-48e5-8701-01c933605073",
@@ -2481,7 +2481,7 @@
         "height": 903
       },
       "sourceSha256": "d086604f2c1e4d9245faa3255ca21e3cac667d2a450568cadfe777915c729dc0",
-      "renderSha256": "bea948843f417bf38acd67970cc883d0f9fb9e3e3d68f91ce0730e19bac18f54",
+      "renderSha256": "22ddb73b802a58348ea75cff9e2b0a7e89b652652a794392a24454874f00c0f5",
       "crop": [
         0,
         0,
@@ -2489,8 +2489,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.098271194782822,
-      "over20Percent": 3.426156638365941,
+      "mae": 4.11856184118781,
+      "over20Percent": 3.4282330503260736,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2501,7 +2501,7 @@
         "height": 903
       },
       "sourceSha256": "719ba685d40876503c3b517af79b595cf125c8046afadb4b4bee466c5e79f0b9",
-      "renderSha256": "c35d2279b007e3635a2a25e74ca0eadbbc1030f04a0395ce2ca878020d7386b7",
+      "renderSha256": "61ae3f30c92471a385cf8881149e7d6a93f8c52f87137675059749ee6f82e540",
       "crop": [
         0,
         0,
@@ -2509,8 +2509,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.619025060497929,
-      "over20Percent": 3.3010335917312656,
+      "mae": 4.594225523973586,
+      "over20Percent": 3.2848837209302326,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2521,7 +2521,7 @@
         "height": 903
       },
       "sourceSha256": "bbabd7cd6b357435b02a74fdab4c393c1fb7bbb2687721c7e98ec8c9c9d788ea",
-      "renderSha256": "81f4d83b304f501c4f5bd21dc49a9a3558213255c7e9049892b2ef5b66bbedbe",
+      "renderSha256": "6fd089b645bde089e09112e28333f3f3701a7c9371e339201ea34bc3c440379b",
       "crop": [
         0,
         0,
@@ -2529,8 +2529,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.977858527131783,
-      "over20Percent": 3.243893810754276,
+      "mae": 3.9518764611787867,
+      "over20Percent": 3.2267441860465116,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2541,7 +2541,7 @@
         "height": 903
       },
       "sourceSha256": "6e8b4179b9949734839935ce56b81e0a873776eb88056ea9c2612d02c7f56284",
-      "renderSha256": "75f3fee23d609be47062b14ac770f1635722697d94161566d0a647d169bb85ca",
+      "renderSha256": "a7a01c911921945d4be7f3cc3c349f4ad6c2dfb7076e4a834db7b27d18cea6da",
       "crop": [
         0,
         0,
@@ -2549,48 +2549,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.6377171260407692,
-      "over20Percent": 3.0578626799557034,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "a728c2af-43c0-4fdf-b7d1-975a9dc05720",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "de479d9dba1e6d75e39bc6c32f0aa10ffdf122287ac04cf494e08309e9319ca7",
-      "renderSha256": "00548214546c2505ca244db7f8cff82976c41aa5451c8636beadf1811954abb6",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 4.090707415610517,
-      "over20Percent": 2.856066199089455,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "5b34ad72-fdad-47f1-8505-e24df0d9019c",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "86f42669191e5731c260a8c73afb4aea61bd21fd27dfe58a3d37852b8cd44950",
-      "renderSha256": "00071bbfd5f75af3ecd834ac66e32ccd7f77724e93b40850e473d47a6e6c1315",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 4.086464101144334,
-      "over20Percent": 2.819767441860465,
+      "mae": 3.608001107419712,
+      "over20Percent": 3.0384828349944626,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2601,7 +2561,7 @@
         "height": 904
       },
       "sourceSha256": "324758b55264155cc5d4a9439c8b1f4f140b30f2274d97e9cc327600822d565c",
-      "renderSha256": "784c8e49a5983f0ad753ef1adc0ba8d3fa037f64f1333042ce45c75b3ddc5da6",
+      "renderSha256": "c727bec4356ec281ba978d0c24d946671e8de76489c5b476e8c51a3a72355c80",
       "crop": [
         0,
         0,
@@ -2609,8 +2569,48 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.8942611029170764,
-      "over20Percent": 2.7966752704031466,
+      "mae": 3.0166070038511963,
+      "over20Percent": 2.8616642084562436,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "a728c2af-43c0-4fdf-b7d1-975a9dc05720",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "de479d9dba1e6d75e39bc6c32f0aa10ffdf122287ac04cf494e08309e9319ca7",
+      "renderSha256": "b3f6281ac58ce6b903cd14e798f1677c4f5ddb21898cdaf9d3e2890c1bad6132",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 4.073397061236209,
+      "over20Percent": 2.836532545834871,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "5b34ad72-fdad-47f1-8505-e24df0d9019c",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "86f42669191e5731c260a8c73afb4aea61bd21fd27dfe58a3d37852b8cd44950",
+      "renderSha256": "7273d22d232ed5a102d8f799ff9f915a53bcc39ecd074951719eec595dd8a22c",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 4.060494852549116,
+      "over20Percent": 2.802925433739387,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2621,7 +2621,7 @@
         "height": 903
       },
       "sourceSha256": "f3aedab17874f2a85aa08d16fdd6f82e145613aa8c60e7e5e91b5de55b7b8d00",
-      "renderSha256": "4e547459aa32798d505a921550f7c154f9b8a19d8070e61622bae19eb482f8d0",
+      "renderSha256": "ce62a0d94afeeb8b289028ee5850123268323a1c69d438d7f6f31fe5ded18cd1",
       "crop": [
         0,
         0,
@@ -2629,8 +2629,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.3663057298716215,
-      "over20Percent": 2.759320782576596,
+      "mae": 3.3406241027849557,
+      "over20Percent": 2.742094253722161,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2641,7 +2641,7 @@
         "height": 903
       },
       "sourceSha256": "e59cc05e55de935833d1f17560488a18afabd470c1e66c51fef67f6bc1b1883e",
-      "renderSha256": "aebdd21b1b65c2e185ee706131690e07a32be22cb63b5af61470c09e28b96ccd",
+      "renderSha256": "76634758c4338cb6cfe595dd56ffbc8df776352778ef945428e86743757968a2",
       "crop": [
         0,
         0,
@@ -2649,48 +2649,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.6690299310938848,
-      "over20Percent": 2.729020548787991,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "3884ff64-732a-4b00-81ee-059746090eec",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "7bc5a46030a0127f1e1ed37e7658fef1996c11105fafb328e3e5c0260fd5f696",
-      "renderSha256": "561ce266e6714524d319888aa864a1e3f4e8032c442800c10a2d3c335cae64de",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 3.3557383310774784,
-      "over20Percent": 2.6375046142488,
-      "deltaMae": -0.2820395492391614,
-      "deltaOver20Percent": -0.29446597760551274
-    },
-    {
-      "screen": "ecb33359-6b42-4866-861e-e6c733c095ed",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "2eb035bcc742ea48288302387424f91e1927bb7b4ce792e255a6cbb021e46616",
-      "renderSha256": "fbd2cc97df8c40d2451410c5bf77f4457c7928eb23729af2cba76a4a6a1fd8cf",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 3.5063161375661376,
-      "over20Percent": 2.633813215208564,
+      "mae": 3.6515509002912103,
+      "over20Percent": 2.7092561830933923,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2701,7 +2661,7 @@
         "height": 903
       },
       "sourceSha256": "afab08057d2ead7d296e23dbbeef84441b9186fede60c09b425b1e6baf877f1e",
-      "renderSha256": "71ba40dfb9df762bc83b23182542ba580606d513045c4b0bd4d251a2418605d5",
+      "renderSha256": "6ba46ca1cc29a3b1dfc1523b53f7d740ecc54de3e35c14b37009af5670c246c1",
       "crop": [
         0,
         0,
@@ -2709,8 +2669,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.922117632582749,
-      "over20Percent": 2.6249692383413312,
+      "mae": 2.9421262971166073,
+      "over20Percent": 2.626891842008121,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "ecb33359-6b42-4866-861e-e6c733c095ed",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "2eb035bcc742ea48288302387424f91e1927bb7b4ce792e255a6cbb021e46616",
+      "renderSha256": "ce3fe47b96dba6c08ed29d4554872d719dbe4d7bf9e6ac4101926b42448e75ee",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 3.488935544071203,
+      "over20Percent": 2.613049095607235,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2721,7 +2701,7 @@
         "height": 903
       },
       "sourceSha256": "0fa40975d506bacdc335c0d8d95fa1bfa017394b83c05b5df2d7da5114a03b0b",
-      "renderSha256": "1ca1ecc10b29f490bd949c939723f481e17f803374fcbd139b1a85352bdc866f",
+      "renderSha256": "4becd192719886165281ea528a6690c4ffeedd0ca10a86d6f4fca78f22701b88",
       "crop": [
         0,
         0,
@@ -2729,8 +2709,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.778884428448382,
-      "over20Percent": 2.590669988925803,
+      "mae": 3.7612377466059637,
+      "over20Percent": 2.5707518149378616,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "3884ff64-732a-4b00-81ee-059746090eec",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "7bc5a46030a0127f1e1ed37e7658fef1996c11105fafb328e3e5c0260fd5f696",
+      "renderSha256": "1d434ddae40ff70ebe46390b759f0b8975d3ee0545b31b1e7f5a19888fefb846",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 3.3710732742709486,
+      "over20Percent": 2.549833887043189,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2741,7 +2741,7 @@
         "height": 903
       },
       "sourceSha256": "3eee22d032069f99c66ef25cedb2490a1299256ffe35f49c37f20f0d02c0d8c2",
-      "renderSha256": "80580a1e73529f4ca988193cad90c33f4718b7d4b5820fdd0a962d087b0cccd3",
+      "renderSha256": "b37baed0ca6350dc16d7fee79af396dc2298f9e0551dee193ddb8b5b5279c32f",
       "crop": [
         0,
         0,
@@ -2749,8 +2749,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.4931506603502727,
-      "over20Percent": 2.538528977482466,
+      "mae": 3.466867642836635,
+      "over20Percent": 2.5221483942414173,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "bde65d33-8e43-4796-b2c4-c702cb16eb78",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "160aa21e4f07dd833decbe76fda1fa9ed5d6e5001c5d305c6f430ace7d0a4da1",
+      "renderSha256": "48522cb4c5c1a674c3b35254db5bcf12bb0148777bf08f9103546736565921b1",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 2.950800315819696,
+      "over20Percent": 2.4199427833148763,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2761,7 +2781,7 @@
         "height": 903
       },
       "sourceSha256": "1e8b12bee8acd03dc1817990029c710e3b5f05a4128bc28030eab01375c60427",
-      "renderSha256": "e5d00e28cb6720cae07a9ef8fa76cd84447832d3815183483d17809fe55891fc",
+      "renderSha256": "59b03f07fd48ad41136583cf6e74bef9d4955ede88b141afde4ea08979db04b8",
       "crop": [
         0,
         0,
@@ -2769,8 +2789,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.894282945736434,
-      "over20Percent": 2.436477174849268,
+      "mae": 3.876643441614372,
+      "over20Percent": 2.416097575981297,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2781,7 +2801,7 @@
         "height": 903
       },
       "sourceSha256": "6391a7d3272fe416bcb6775a2d3e7164577452c7f5673bebcaf0c501d26656dd",
-      "renderSha256": "3dd996b6fc28f38cc9e9a2a9c0e106197a00bc669b353bb81b549e02bed1dd47",
+      "renderSha256": "2c5eeeeb70aedbf9d864091e06f6eab5c2cc02255cb1390635e632a377327e04",
       "crop": [
         0,
         0,
@@ -2789,48 +2809,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.5231017493129895,
-      "over20Percent": 2.432170542635659,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "09b3600e-624d-4fd9-a3dd-625f6c086a37",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "df945cd8ca8340298b0722c7abb66ab8c380a4f40ee87be17e1c667b3fa58fde",
-      "renderSha256": "ce27bcfa75f6b086e448730c3dc447471d6130e52781a4638594caf73479a6b0",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 3.0141911221853084,
-      "over20Percent": 2.4314015011689434,
-      "deltaMae": -0.2906979307657602,
-      "deltaOver20Percent": -0.3071551618063242
-    },
-    {
-      "screen": "bde65d33-8e43-4796-b2c4-c702cb16eb78",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "160aa21e4f07dd833decbe76fda1fa9ed5d6e5001c5d305c6f430ace7d0a4da1",
-      "renderSha256": "e61038e26fde5b9a76327923d10037ceb9b35194b30a55d18a569d1c36307168",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 2.9326717013248023,
-      "over20Percent": 2.41625138427464,
+      "mae": 3.5057878060785037,
+      "over20Percent": 2.41140642303433,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2841,7 +2821,7 @@
         "height": 903
       },
       "sourceSha256": "35e9a7f8a10fe0b7ba22c83ac43a0379bad16702e46b04f2c2b193db559794e8",
-      "renderSha256": "214584c220b6fe29296b0f39ba86e96ee14bffa4c7d05c4def22b71a945db417",
+      "renderSha256": "1d49cf18f25110f71cdeb208d13f1240849be18dfc0e97aa064e7611f7e47ca2",
       "crop": [
         0,
         0,
@@ -2849,8 +2829,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.7885453837004226,
-      "over20Percent": 2.411021902300972,
+      "mae": 3.77079821377302,
+      "over20Percent": 2.3909499200196875,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2861,7 +2841,7 @@
         "height": 903
       },
       "sourceSha256": "16a508c65e5a670d099c235cc9f32867fa44db83e0ce7d6a57ca28a1fba28962",
-      "renderSha256": "5ebdab07085e4a331b83fb9372b690caf881f420ec88a8577d24af016697a7ab",
+      "renderSha256": "f4c9cafccb50328c80e5986aef88a8f32e1364437f78e90d3bcc304fe685df8d",
       "crop": [
         0,
         0,
@@ -2869,19 +2849,19 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.8264209322833356,
-      "over20Percent": 2.3674941552848527,
-      "deltaMae": -0.2976334030597596,
-      "deltaOver20Percent": -0.30976990279315864
+      "mae": 2.872907438169066,
+      "over20Percent": 2.38041405192568,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
-      "screen": "0da4882b-707f-4cbd-aba1-034f3e9f2a90",
+      "screen": "09b3600e-624d-4fd9-a3dd-625f6c086a37",
       "viewport": {
         "width": 1440,
         "height": 903
       },
-      "sourceSha256": "55a4f9f3f98a5b13c575a079d0229a274de9c157e261748417b984290c8b240a",
-      "renderSha256": "ad00283b6324ae031a95079b0680b16439146440d4f7d0faee23a4eb2be92f0b",
+      "sourceSha256": "df945cd8ca8340298b0722c7abb66ab8c380a4f40ee87be17e1c667b3fa58fde",
+      "renderSha256": "e3c265e84247a712e2c9de5d81d78b622db845f20b097e0ef6bfc082ae3c38e5",
       "crop": [
         0,
         0,
@@ -2889,8 +2869,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.6008808088265454,
-      "over20Percent": 2.3258121077888516,
+      "mae": 3.0601572433452278,
+      "over20Percent": 2.380183339485665,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2901,7 +2881,7 @@
         "height": 903
       },
       "sourceSha256": "0e683d4fe69a30f42ed64f7acf48be027b016675b6de3f4072779f16253b61fa",
-      "renderSha256": "b671be8965461bb820eaf00f1632b5ffcdd098d953e988e44d0e32b9318b5357",
+      "renderSha256": "d1b7550c755d606f63e45dc6833e952aabf4ebe5a40e4e8421ba626ee0c3e07e",
       "crop": [
         0,
         0,
@@ -2909,8 +2889,28 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.6525796214265207,
-      "over20Percent": 2.308431770641073,
+      "mae": 2.6717441347770805,
+      "over20Percent": 2.309354620401132,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "0da4882b-707f-4cbd-aba1-034f3e9f2a90",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "55a4f9f3f98a5b13c575a079d0229a274de9c157e261748417b984290c8b240a",
+      "renderSha256": "e55d32a62b063a68339a7d0f1e6d44860f1cebadc9735a7ade2f1b4ecbf32d0d",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 3.574819275255322,
+      "over20Percent": 2.3088931955211023,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2921,7 +2921,7 @@
         "height": 903
       },
       "sourceSha256": "92661bc9103b3302a61dc7b326c2d871c1bdb0bf6546ef2a281e1af33ac7dd4a",
-      "renderSha256": "d977bf31f30e0e699ff2de03453a6c98e87f5a0382a9428217c3c634f5803c74",
+      "renderSha256": "934a3b6951e357ddf06230745c6b1a400753cadddbdac91fb44dee9bd478ace5",
       "crop": [
         0,
         0,
@@ -2929,10 +2929,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.760612772240679,
-      "over20Percent": 2.3000492186538697,
-      "deltaMae": -0.29648368606701947,
-      "deltaOver20Percent": -0.29984926787252375
+      "mae": 2.776099472950248,
+      "over20Percent": 2.298741848160453,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "92589389-e185-401c-a395-c646b801a0c4",
@@ -2941,7 +2941,7 @@
         "height": 903
       },
       "sourceSha256": "44158e187fe9f58960a8cfdc5740f6f34de6d8cae7449c0bc90063db94c3197c",
-      "renderSha256": "d0ee3d11b8f4cc923985a2f067ab981d7950bd9f603b28aaad11442ef61f8be2",
+      "renderSha256": "dec9aecbd738e40e394d040eae7050dd17ecd8ac1706f7f554c0c12f12aa91b3",
       "crop": [
         0,
         0,
@@ -2949,28 +2949,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.7314612300561913,
-      "over20Percent": 2.272363725852098,
-      "deltaMae": -0.31099857470981496,
-      "deltaOver20Percent": -0.3076165866863545
-    },
-    {
-      "screen": "f99d9583-5836-47c5-ae0a-a26ffaf0d1b8",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "4010034ff8c2b4bb297bfe274539961aa2556bcec81ef9812cf89884d09b61b7",
-      "renderSha256": "8e9045b7216a6b2424478819121c867e339867db1d393325c7854a0e9338d488",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 3.5441557975472704,
-      "over20Percent": 2.271748492678725,
+      "mae": 2.7467161929371233,
+      "over20Percent": 2.2712870677986956,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -2981,7 +2961,7 @@
         "height": 903
       },
       "sourceSha256": "35d482a54cf330d0dfa3bc594e819ad5f5260b5800effd5ecc629619290c7037",
-      "renderSha256": "f94caad78782261dc60f2c037c8609e3f097f2df3aeb2c1fe3295215e3f9d189",
+      "renderSha256": "51ae8fa6d68c76580b53b56784f410f112b5830c69fefb578a19883e76faca30",
       "crop": [
         0,
         0,
@@ -2989,10 +2969,30 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.749016652311226,
-      "over20Percent": 2.2690568475452197,
-      "deltaMae": -0.3034706841392887,
-      "deltaOver20Percent": -0.30484803740617705
+      "mae": 2.7644910483573275,
+      "over20Percent": 2.268133997785161,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "f99d9583-5836-47c5-ae0a-a26ffaf0d1b8",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "4010034ff8c2b4bb297bfe274539961aa2556bcec81ef9812cf89884d09b61b7",
+      "renderSha256": "8d6e7396bd57a45bf128285b95ddfca0ec676c962b328e4107468d1b6830228f",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 3.51803735490751,
+      "over20Percent": 2.254752676264304,
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "bdc69b59-1062-43ee-91da-589de56512b6",
@@ -3001,7 +3001,7 @@
         "height": 903
       },
       "sourceSha256": "9f710964d5becab406863102e0cb3707b4234ac4454cf46351ab8a5317998229",
-      "renderSha256": "6f1320ccbda729958f2b3994119d1a9b0a38793d54a30dbc6d06fc8f625890c1",
+      "renderSha256": "5424b555b44ed120cebdd2a714d4d03c45342bea169a299d6cf1a508c733fb2e",
       "crop": [
         0,
         0,
@@ -3009,8 +3009,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.217953016693327,
-      "over20Percent": 2.242140396210164,
+      "mae": 3.1863959128009514,
+      "over20Percent": 2.223606496862311,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3021,7 +3021,7 @@
         "height": 903
       },
       "sourceSha256": "42c286125eb64d5ba649ed0701c6d8a0e5365bb529c9dffaffd78289a029b9dd",
-      "renderSha256": "7b049cd7e0205221aaa6241801bdcfaf07d35bc504270a08f22011a2ac97fe22",
+      "renderSha256": "ec5b7ebc56f06f6ebe5f5e4f4998ed7b88c4b3ce9ae3aecbeea1bc50553ca9f2",
       "crop": [
         0,
         0,
@@ -3029,8 +3029,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.3934616094499814,
-      "over20Percent": 2.1702350190722286,
+      "mae": 3.3675010766580535,
+      "over20Percent": 2.152700873631106,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3041,7 +3041,7 @@
         "height": 903
       },
       "sourceSha256": "7d0c2fcdf2ec99584d073039b65845662694e8093ae4cf3581d09766026c01c3",
-      "renderSha256": "6a17293d92c3e898f6262af02ed2eb70dddbd640f0e3e1f5a0d362bfeae5737d",
+      "renderSha256": "e8adc6163285b850a6a2c5e973652b57d938804326c7c4becaf2d66bba0a1712",
       "crop": [
         0,
         0,
@@ -3049,8 +3049,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.3199053566301626,
-      "over20Percent": 2.052956195398056,
+      "mae": 3.2941114494893564,
+      "over20Percent": 2.035883474836963,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3061,7 +3061,7 @@
         "height": 903
       },
       "sourceSha256": "ad047cf87c64a93e61721e3fd1ece80a573a482f01f895c206c175a684d6d10d",
-      "renderSha256": "2c0f47b51f5ef11d8b1c7a10231c783c0fe0ec4b391974d27bc9d90605d047cb",
+      "renderSha256": "a0d5251a8afc9802d7b0565cf29a81da8bc00cbb829396142247effd2b0a9773",
       "crop": [
         0,
         0,
@@ -3069,8 +3069,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 3.278688066527214,
-      "over20Percent": 2.010889627168697,
+      "mae": 3.252693183216439,
+      "over20Percent": 1.9937400024609326,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3081,7 +3081,7 @@
         "height": 903
       },
       "sourceSha256": "3eb997b47f7958fad7d1b259bb6b9348190bce1891c614b50985062743b7eaee",
-      "renderSha256": "b20777267df34250dcd3d6d695b5c13fbc04e50be3c7e26a4c4eab1b07e71e3a",
+      "renderSha256": "03915da5620a217d840cdba503c696c48d446289e6ccf9f95f68013e2baf6d58",
       "crop": [
         0,
         0,
@@ -3089,8 +3089,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.3005493519543907,
-      "over20Percent": 1.8725390673065092,
+      "mae": 2.319007885238505,
+      "over20Percent": 1.8731543004798819,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3101,7 +3101,7 @@
         "height": 903
       },
       "sourceSha256": "b1aa4913d1213763bd4048eb18c4106b01988abb5b130e1ecf6db7b72c592620",
-      "renderSha256": "65f8f48873df478d552b956f50b63cd957ca6df00d52cbbd6d18aa3a2fc1a879",
+      "renderSha256": "4427c84e962b48eb4c2058134dd3510b0c8cc96c58d825aa18c092cc7a556dea",
       "crop": [
         0,
         0,
@@ -3109,8 +3109,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.226860824002297,
-      "over20Percent": 1.718961486403347,
+      "mae": 2.2477731122595466,
+      "over20Percent": 1.7234988310569705,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3121,7 +3121,7 @@
         "height": 903
       },
       "sourceSha256": "d28183837ae3e4ed95c37c8a4fae255f338abf292bf5ae7abd32ee662d51d914",
-      "renderSha256": "45e04d48a5396005ef8342681c01563ae4f335261d7646bffdf56064dfa0d1c1",
+      "renderSha256": "d9ca52745a01234a59a59b5e47b9e4b785bec1e758dcad153c88b37b60e8b56a",
       "crop": [
         0,
         0,
@@ -3129,8 +3129,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.362384387432837,
-      "over20Percent": 1.6569767441860463,
+      "mae": 2.3306224621631597,
+      "over20Percent": 1.6384428448381936,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3141,7 +3141,7 @@
         "height": 904
       },
       "sourceSha256": "1d681240c92703ec658035b846375f46bea1ade92ec7c77848658bd0bf6ea8c5",
-      "renderSha256": "3bc698fff3ebb3ec37b7bac2bdbfd4231b7e10d1fd6fdee5a1403abbde6966e1",
+      "renderSha256": "142b6e5bc246c0e3c773583116e99cbd137ce2a5262ec5ada6e5020cd8aac623",
       "crop": [
         0,
         0,
@@ -3149,8 +3149,8 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.115136686742052,
-      "over20Percent": 1.4885232300884956,
+      "mae": 2.206838178056375,
+      "over20Percent": 1.5323101032448379,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3161,7 +3161,7 @@
         "height": 903
       },
       "sourceSha256": "3082fcc8e4c92113c0215ce40f891776b92a21c6e12decfa0afe9966d9a1f59d",
-      "renderSha256": "82906683409ad1c2a867aea86ff8d00fb0815119cfb8b923e04da46d47796834",
+      "renderSha256": "e5412ff60fdcda3164661b35baab50b3a6e7a5bf1499cf638ab0a2b3ea85dad2",
       "crop": [
         0,
         0,
@@ -3169,8 +3169,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 2.1104210245683115,
-      "over20Percent": 1.3853512981419958,
+      "mae": 2.083683759895,
+      "over20Percent": 1.3667404946474715,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
@@ -3181,7 +3181,7 @@
         "height": 903
       },
       "sourceSha256": "5e2ec0f8ceea49c57a90c514d03211d38c1181ae9dde4d490c708d6864b92ea8",
-      "renderSha256": "63e080df94ddd230995ae8a15ec33eeca5161cedf03d0f238cb3783754ade6b3",
+      "renderSha256": "25387358fcbfefc2ba9b534804b25fd1419c9bf5f762e82299d005ef8e9a0a55",
       "crop": [
         0,
         0,
@@ -3189,8 +3189,8 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 1.5440988884787334,
-      "over20Percent": 1.1735572782084411,
+      "mae": 1.5598142508510726,
+      "over20Percent": 1.1747877445551864,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     }

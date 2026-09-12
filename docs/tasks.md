@@ -2,7 +2,7 @@
 
 Checked this session at 2026-09-12. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
 
-Implementation checkpoint: `719113ea538ebe8253e63c26b10413c4bf3e8621`, preserving `b1b1247`, `51087ec`, the pending album/schedule batch and the earlier main history. See `handoff.md` for the exact verification checkpoint and `reference-audit.md` for findings. Course/community adaptation remains blocked until genuine clone acceptance and owner authorization.
+Implementation checkpoint: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, preserving `05ee6ec` and all earlier main work. The final production run covers 159 desktop states, 5 responsive samples, 218 route checks and 51 interaction regressions; these are not visual sign-offs. See `handoff.md` and `reference-audit.md` for identities and findings. Course/community adaptation remains blocked until genuine clone acceptance.
 
 ## Progress at a glance
 
@@ -21,7 +21,9 @@ Implementation checkpoint: `719113ea538ebe8253e63c26b10413c4bf3e8621`, preservin
 
 ## Current finalization evidence
 
-The latest inspected working-tree candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 48 interaction regressions with stable source identities; all 159 were compared. This is the combined sidebar, library-control and cover-integrity candidate, not acceptance or proof that a sidebar-only commit contains that whole batch. See [the sidebar review](reference-review/2026-09-12-sidebar.md) for the exact identity and mixed visual results.
+The live-sidebar candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 51 interaction regressions. The exact production blur is now asserted. All 159 comparisons completed: Alpha improved from 9.8659% to 9.6403% over-20 pixels; 158 over-20 results were unchanged and none worsened. Read [the live-sidebar review](reference-review/2026-09-12-sidebar-live.md) for 13 continuous observations, preserved failures and remaining defects. No MATCH/FLOW box was advanced.
+
+The preceding 05ee6ec combined candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 48 interaction regressions with stable source identities; all 159 were compared. This is the combined sidebar, library-control and cover-integrity candidate, not acceptance or proof that a sidebar-only commit contains that whole batch. See [the sidebar review](reference-review/2026-09-12-sidebar.md) for the exact identity and mixed visual results.
 
 The preceding `719113e` optimized-production checkpoint passed 159 desktop captures, 5 responsive samples, 218 route checks and 44 interaction regressions. All 159 states were compared: 16 improved, 143 were unchanged and none increased their over-threshold residual. The eight new library journeys are registered and exercised; first-fixture lyrics/queue entry still exposes substantial endpoint state differences. See [the bounded review](reference-review/2026-09-12-library-panels.md) and the updated owning rows below. No MATCH/FLOW box was advanced.
 
@@ -69,6 +71,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - `a30a9ee`: Real Volume/Account preservation, translucent selection, clickable carousel return, offscreen material and exact production blur verified. Original residual 9.6403%; live-from-New residual 10.6978%. Wrong/partial preceding artwork, glass distribution and typography remain. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Reference image](../apple-music-clone/reference/originals/54b01eab-e635-4f54-882b-4bc62e7a2a4c.webp) · [Open app state](http://127.0.0.1:6431/screen/54b01eab-e635-4f54-882b-4bc62e7a2a4c) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-8b03c9d0"></a>
@@ -93,6 +96,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-f2e44e3b — New — superbloom featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-f2e44e3b — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/f2e44e3b-cb93-4607-a0bf-6e38aa56019d.webp) · [Open app state](http://127.0.0.1:6431/screen/f2e44e3b-cb93-4607-a0bf-6e38aa56019d) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-be864051"></a>
@@ -263,6 +267,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-d5173715 — Home — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-d5173715 — Finish and verify the exact screenshot match.**
+  - `a30a9ee`: Authenticated Home carousel/vertical-return segment verifies material removal and restoration. Original residual remains 6.0798%; direct/live over-20 difference is 0%. This is not full Home-flow acceptance. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Reference image](../apple-music-clone/reference/originals/d5173715-ea54-4801-837c-2a40ec9df2af.webp) · [Open app state](http://127.0.0.1:6431/screen/d5173715-ea54-4801-837c-2a40ec9df2af) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-42098642"></a>
@@ -858,30 +863,35 @@ Check the exact card order, video aspect ratios, artist split view, sorting, emp
 
 - [x] **UI-09b3600e — Library songs — sort menu.** Coded UI; current browser render passed.
   - [ ] **MATCH-09b3600e — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/09b3600e-624d-4fd9-a3dd-625f6c086a37.webp) · [Open app state](http://127.0.0.1:6431/screen/09b3600e-624d-4fd9-a3dd-625f6c086a37) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-1d016f0f"></a>
 
 - [x] **UI-1d016f0f — Library songs — descending.** Coded UI; current browser render passed.
   - [ ] **MATCH-1d016f0f — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/1d016f0f-5c51-4ddc-a3e4-f1c75dbee729.webp) · [Open app state](http://127.0.0.1:6431/screen/1d016f0f-5c51-4ddc-a3e4-f1c75dbee729) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-e9bee76d"></a>
 
 - [x] **UI-e9bee76d — Library songs — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-e9bee76d — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/e9bee76d-7158-4521-8c6e-8e79268b39ae.webp) · [Open app state](http://127.0.0.1:6431/screen/e9bee76d-7158-4521-8c6e-8e79268b39ae) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-3884ff64"></a>
 
 - [x] **UI-3884ff64 — Library songs — track menu.** Coded UI; current browser render passed.
   - [ ] **MATCH-3884ff64 — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/3884ff64-732a-4b00-81ee-059746090eec.webp) · [Open app state](http://127.0.0.1:6431/screen/3884ff64-732a-4b00-81ee-059746090eec) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-06be9f09"></a>
 
 - [x] **UI-06be9f09 — Library songs — song pinned.** Coded UI; current browser render passed.
   - [ ] **MATCH-06be9f09 — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/06be9f09-22fe-45fc-93b8-a49214c9f5f5.webp) · [Open app state](http://127.0.0.1:6431/screen/06be9f09-22fe-45fc-93b8-a49214c9f5f5) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-4e857921"></a>
@@ -938,18 +948,21 @@ Check hidden navigation entries, pinned states, profile menu, sign-out and sideb
 
 - [x] **UI-ffc18eb8 — New — edit navigation, superbloom featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-ffc18eb8 — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/ffc18eb8-5cbb-4e01-b066-867308585f5f.webp) · [Open app state](http://127.0.0.1:6431/screen/ffc18eb8-5cbb-4e01-b066-867308585f5f) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-3728aa07"></a>
 
 - [x] **UI-3728aa07 — New — edit navigation, superbloom featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-3728aa07 — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/3728aa07-f749-4edd-8c9f-f2f606649f04.webp) · [Open app state](http://127.0.0.1:6431/screen/3728aa07-f749-4edd-8c9f-f2f606649f04) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-e5e8383f"></a>
 
 - [x] **UI-e5e8383f — New — superbloom featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-e5e8383f — Finish and verify the exact screenshot match.**
+  - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/e5e8383f-21d7-4eea-873e-25874adfa906.webp) · [Open app state](http://127.0.0.1:6431/screen/e5e8383f-21d7-4eea-873e-25874adfa906) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-fc5d84bd"></a>
@@ -1075,6 +1088,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/starting-a-trial?step=0). Sequence: [1: 51c79ae2](#screen-51c79ae2) → [2: b74d25cb](#screen-b74d25cb) → [3: 94b9d90d](#screen-94b9d90d) → [4: a728c2af](#screen-a728c2af) → [5: 06ea37ef](#screen-06ea37ef) → [6: 5175a910](#screen-5175a910) → [7: ecb33359](#screen-ecb33359) → [8: bf099ae2](#screen-bf099ae2) → [9: e72be564](#screen-e72be564) → [10: a917d88f](#screen-a917d88f)
 
 - [ ] **FLOW-bc4b3fa8 — 3. New (5 steps).** Complete and verify the recorded journey.
+  - `a30a9ee`: All five checkpoints traversed continuously from e72be564 through actual hover, carousel and wheel controls, then returned. Snapshot/artwork/profile differences remain; live Alpha differs from its direct fixture by 1.8698% over threshold. Do not replace session data behind a hover. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/new?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4f611a9e](#screen-4f611a9e) → [3: 54b01eab](#screen-54b01eab) → [4: 8b03c9d0](#screen-8b03c9d0) → [5: 706de500](#screen-706de500)
 
 - [ ] **FLOW-d5d60236 — 4. Chart detail (2 steps).** Complete and verify the recorded journey.
@@ -1177,6 +1191,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/milestone-detail?step=0). Sequence: [1: 18225175](#screen-18225175) → [2: cc18744f](#screen-cc18744f) → [3: b5d31893](#screen-b5d31893)
 
 - [ ] **FLOW-bc2a77fc — 35. Home (6 steps).** Complete and verify the recorded journey.
+  - `a30a9ee`: Only the authenticated a917d88f to d5173715 carousel/vertical-return segment was added here. The full six-step sequence and visual acceptance remain open. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/home?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: aefa8502](#screen-aefa8502) → [3: a917d88f](#screen-a917d88f) → [4: 2f5da478](#screen-2f5da478) → [5: d5173715](#screen-d5173715) → [6: 42098642](#screen-42098642)
 
 - [ ] **FLOW-e7c28ffc — 36. Radio (3 steps).** Complete and verify the recorded journey.
@@ -1205,9 +1220,11 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/songs?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 92589389](#screen-92589389)
 
 - [ ] **FLOW-c454fe86 — 43. Sorting songs (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 control review: All three stills are reached continuously with actual sorting and keyboard focus/escape checks. Live menu anchor corrected; font/shadow differences still prevent acceptance. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/sorting-songs?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: 09b3600e](#screen-09b3600e) → [3: 1d016f0f](#screen-1d016f0f)
 
 - [ ] **FLOW-22c4db47 — 44. Pinning a song (4 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 control review: All four stills are reached through actual hover, menu and Pin Song controls, with unpin/favourite isolation checked. Fractional live anchoring was corrected; original typography/icons/shadow remain imperfect. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/pinning-a-song?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: e9bee76d](#screen-e9bee76d) → [3: 3884ff64](#screen-3884ff64) → [4: 06be9f09](#screen-06be9f09)
 
 - [ ] **FLOW-51ec8869 — 45. Music videos (2 steps).** Complete and verify the recorded journey.
@@ -1234,6 +1251,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/favorite-songs?step=0). Sequence: [1: a917d88f](#screen-a917d88f) → [2: bde65d33](#screen-bde65d33)
 
 - [ ] **FLOW-8db5f5fe — 51. Editing library menus (5 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 control review: All five controls/checkpoints are exercised without fixture jumping. The original changes catalog/account/library snapshots after its first image; the live flow preserves its starting state. Later source/live residuals remain 34.39–34.86%, so this is NOT a complete visually verified flow. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/editing-library-menus?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: f2e44e3b](#screen-f2e44e3b) → [3: ffc18eb8](#screen-ffc18eb8) → [4: 3728aa07](#screen-3728aa07) → [5: e5e8383f](#screen-e5e8383f)
 
 - [ ] **FLOW-079e1da7 — 52. Logging out (3 steps).** Complete and verify the recorded journey.

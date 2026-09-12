@@ -1,8 +1,22 @@
 # Apple Music clone audit — current findings
 
-Updated 2026-09-12. Current verified implementation: `719113ea538ebe8253e63c26b10413c4bf3e8621`. Continue only on `main`. The frozen reference archive, pending implementation batch and earlier main history are preserved; courses/community adaptation remains blocked.
+Updated 2026-09-12. Current verified implementation: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, pushed on `main`. Earlier work and the frozen archive remain intact. Courses/community adaptation is still blocked.
 
-## Current implementation and verification
+## Current sidebar findings
+
+The Alpha sidebar lost its material and changed visible artwork/text after real controls cleared the fixture-routing hint. Material now follows actual carousel/visibility state; the selected row is translucent, the Previous button is outside the sidebar, and native snap padding fixes return navigation at 1264px. New/Home tinted material now leaves with its offscreen artwork. A production declaration-order bug was also corrected and is covered by an exact computed blur/saturation assertion.
+
+The final stable production run passed 159 desktop captures, 5 responsive samples, 218 route checks and 51 interaction regressions, zero failures. Typecheck, build, archive/coverage checks, five Python and nine Node tests passed. All 159 comparisons completed: Alpha's over-20 residual decreased from 9.8659% to 9.6403%; 158 over-20 results were unchanged and none worsened. GitHub run 34680539220 / job 103518256549 passed; the optional strict acceptance gate was skipped.
+
+Read `reference-review/2026-09-12-sidebar-live.md` for stable source hashes, the complete local gallery, 13 continuous observations, preserved failed attempts and relocated evidence storage. `handoff.md` has current server/source ownership; `reference-review/latest-metrics.json` is the image-free full-corpus report.
+
+Acceptance remains UI 159/159, MATCH 0/159 and complete recorded FLOW 0/58. Live New Alpha still differs from its direct fixture by 1.8698% over threshold. Wrong/partial artwork, synthetic glass distribution, typography/icons, arrow material, player details and older library/queue/lyrics entry discrepancies remain open. The added Home test is an authenticated carousel segment, not the complete recorded Home flow.
+
+## Earlier audit — historical checkpoint, not current source
+
+Updated 2026-09-12. Historical verified implementation: `719113ea538ebe8253e63c26b10413c4bf3e8621`. Continue only on `main`. The frozen reference archive, pending implementation batch and earlier main history are preserved; courses/community adaptation remains blocked.
+
+### Historical implementation and verification
 
 Eight library journeys are now registered and actually exercised. Stronger assertions exposed and fixed missing saved-playlist sidebar entries after real navigation. Songs follows the original eight rows and has refined compact-table geometry. Initial album hover is separate from saved favourites and yields to real pointer/keyboard input.
 
@@ -12,7 +26,7 @@ The final production run passed 159 desktop captures, 5 responsive samples, 218 
 
 Use `handoff.md` for current source/server identities and `reference-review/2026-09-12-library-panels.md` for measured results, preserved failures and review scope. `reference-review/latest-metrics.json` contains the final image-free full-corpus measurements. The audit below is historical, not the current checkpoint.
 
-## Current acceptance gaps
+### Historical acceptance gaps
 
 The 39 continuous-state captures include first-fixture entry into lyrics and queue. These reveal major catalog/library/queue differences from the saved endpoints despite established-panel checks passing: live residuals are approximately 36.58% and 34.69%, versus approximately 10.13% for the direct fixtures. Do not substitute one category for the other or silently replace session data behind a toggle to manufacture a match.
 
