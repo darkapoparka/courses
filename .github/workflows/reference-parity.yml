@@ -81,6 +81,9 @@ jobs:
           done
           curl --silent --show-error --fail http://127.0.0.1:3000/ > /dev/null
           /tmp/reference-browser/bin/python scripts/browser-reference.py
+      - name: Preserve provider-byte diagnostics on failure
+        if: failure()
+        run: node scripts/probe-cover-resources.mjs
       - name: Compare all 159 exact-size reference states
         run: /tmp/reference-browser/bin/python scripts/compare-reference.py --output .parity-evidence/comparison
       - name: Optional strict clone acceptance gate
@@ -96,6 +99,7 @@ jobs:
             apple-music-clone/.parity-evidence/comparison/
             apple-music-clone/.parity-evidence/archive-check.json
             apple-music-clone/.parity-evidence/server.log
+            apple-music-clone/.parity-evidence/provider-probe-*/
           include-hidden-files: true
           retention-days: 3
           compression-level: 0
