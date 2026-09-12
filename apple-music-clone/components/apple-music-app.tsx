@@ -91,7 +91,7 @@ function MusicShell() {
     <a className="skip-link" href="#music-main">Skip to content</a>
     <header className="mobile-header"><IconButton icon="queue" label="Open navigation" aria-expanded={mobileNav} aria-controls="music-sidebar" onClick={() => setMobileNav(!mobileNav)} /><button type="button" className="brand" onClick={() => go("new")}><Glyph name="apple" size={25} />Music</button><IconButton icon="person" label="Account" onClick={event => m.scene.guest ? m.patch({ overlay: "signin" }) : m.openMenu("profile", event)} /></header>
     {mobileNav && <button type="button" className="mobile-nav-backdrop" aria-label="Close navigation" onClick={() => setMobileNav(false)} />}
-    <aside id="music-sidebar" className={`music-sidebar ${mobileNav ? "mobile-open" : ""}`} aria-label="Main navigation" style={m.scene.source?.startsWith("54b01eab") ? { backdropFilter: "blur(18px) saturate(1.15)", WebkitBackdropFilter: "blur(18px) saturate(1.15)" } : undefined}>
+    <aside id="music-sidebar" className={`music-sidebar ${mobileNav ? "mobile-open" : ""}`} aria-label="Main navigation">
       <button type="button" className="brand sidebar-brand" onClick={() => go("new")} title="Apple Music reference preview"><Glyph name="apple" size={25} /><span>Music</span></button>
       <div className="sidebar-scroll">
         <nav aria-label="Browse music">{navigation("search", zh ? "搜索" : "Search", "search")}{navigation("home", zh ? "主页" : "Home", "home")}{navigation("new", zh ? "新发现" : "New", "new")}{navigation("radio", zh ? "广播" : "Radio", "radio")}</nav>

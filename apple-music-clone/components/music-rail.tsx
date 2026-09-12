@@ -48,8 +48,8 @@ export function Rail({ children, className = "", label, initialIndex = 0, onPosi
   return <div className={`rail-wrap ${className}`} data-rail={label}>
     <div id={id} ref={rail} className="music-rail" role="region" aria-label={label} tabIndex={0}>{children}</div>
     <div className="rail-arrows">
-      <IconButton icon={className.includes("poster-rail") ? "rail-back" : "back"} label={`Previous ${label}`} aria-controls={id} disabled={!edges.previous} onClick={() => move(-1)} />
-      <IconButton icon={className.includes("poster-rail") ? "rail-next" : "chevron"} label={`Next ${label}`} aria-controls={id} disabled={!edges.next} onClick={() => move(1)} />
+      <IconButton icon={(className.includes("poster-rail") || className.includes("feature-rail")) ? "rail-back" : "back"} label={`Previous ${label}`} aria-controls={id} disabled={!edges.previous} onClick={() => move(-1)} />
+      <IconButton icon={(className.includes("poster-rail") || className.includes("feature-rail")) ? "rail-next" : "chevron"} label={`Next ${label}`} aria-controls={id} disabled={!edges.next} onClick={() => move(1)} />
     </div>
   </div>;
 }

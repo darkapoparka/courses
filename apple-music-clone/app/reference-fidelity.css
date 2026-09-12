@@ -110,23 +110,28 @@
 
 /* The Alpha feature capture uses a viewport-wide horizontal scrollport behind
  * the translucent navigation surface. Keep the rail as real scrollable DOM;
- * only the scrollport geometry changes for this recorded state. */
+ * material follows the actual carousel position, including ordinary navigation. */
 @media (min-width: 1181px) {
-  .music-app[data-source^="54b01eab"] .capture-discovery > .feature-rail {
+  .music-app:has(.capture-discovery[data-feature-scrolled]) .capture-discovery > .feature-rail {
     margin-left: calc(-1 * (var(--sidebar) + var(--page-left)));
   }
-  .music-app[data-source^="54b01eab"] .capture-discovery > .feature-rail .music-rail {
+  .music-app:has(.capture-discovery[data-feature-scrolled]) .capture-discovery > .feature-rail .music-rail {
     padding-left: calc(var(--sidebar) + var(--page-left));
+    scroll-padding-left: calc(var(--sidebar) + var(--page-left));
   }
-  .music-app[data-source^="54b01eab"] .music-sidebar {
+  .music-app:has(.capture-discovery[data-feature-underlay]) .music-sidebar {
     background: rgb(248 248 250 / 82%);
-    backdrop-filter: blur(24px) saturate(1.1);
-    -webkit-backdrop-filter: blur(24px) saturate(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    backdrop-filter: blur(18px) saturate(1.15);
   }
+  .music-app:has(.capture-discovery[data-feature-underlay]) .sidebar-row[aria-current="page"] { background: rgb(255 255 255 / 8%); }
+  .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows { left: 253px; right: 6px; opacity: 1; }
+  .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows .icon-button { width: 26px; height: 50px; border-radius: 16px; background: #ffffffa6; box-shadow: none; }
+  .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows svg { width: 15px; height: 34px; }
 }
 @media (min-width: 1181px) {
-  .music-app[data-source^="54b01eab"] .music-main { left: 0; }
-  .music-app[data-source^="54b01eab"] .page-content { padding-left: calc(var(--sidebar) + var(--page-left)); }
+  .music-app:has(.capture-discovery[data-feature-scrolled]) .music-main { left: 0; }
+  .music-app:has(.capture-discovery[data-feature-scrolled]) .page-content { padding-left: calc(var(--sidebar) + var(--page-left)); }
 }
 
 .reference-art-strip {
@@ -158,7 +163,7 @@
   .music-app:has(.capture-home[data-home-scrolled]) .page-content { padding-left:calc(var(--sidebar) + var(--page-left)); }
   .music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .poster-rail { margin-left:calc(-1 * (var(--sidebar) + var(--page-left))); }
   .music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .poster-rail .music-rail { padding-left:calc(var(--sidebar) + var(--page-left)); scroll-padding-left:calc(var(--sidebar) + var(--page-left)); }
-  .music-app:has(.capture-home[data-home-scrolled]) .music-sidebar { background:rgb(248 248 250 / 82%); backdrop-filter:blur(24px) saturate(1.1); -webkit-backdrop-filter:blur(24px) saturate(1.1); }
+  .music-app:has(.capture-home[data-home-underlay]) .music-sidebar { background:rgb(248 248 250 / 82%); backdrop-filter:blur(24px) saturate(1.1); -webkit-backdrop-filter:blur(24px) saturate(1.1); }
 }
 
 .guest-session[data-scene="home"] .music-main { bottom:0; }
@@ -184,7 +189,7 @@
  .radio-page > .music-section .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
 }
 
-.music-app[data-source^='54b01eab'] .music-sidebar { background-image:radial-gradient(ellipse 120% 18% at 55% 30%,rgba(255,20,240,.46) 0%,transparent 86%),radial-gradient(ellipse 100% 20% at 58% 39%,rgba(245,15,230,.16) 0%,transparent 86%),radial-gradient(ellipse 115% 42% at 60% 34%,rgba(255,20,245,.10) 0%,rgba(255,45,240,.055) 55%,transparent 88%); }
+@media (min-width:1181px) { .music-app:has(.capture-discovery[data-feature-alpha][data-feature-underlay]) .music-sidebar { background-image:radial-gradient(ellipse 120% 18% at 55% 30%,rgba(255,20,240,.46) 0%,transparent 86%),radial-gradient(ellipse 100% 20% at 58% 39%,rgba(245,15,230,.16) 0%,transparent 86%),radial-gradient(ellipse 115% 42% at 60% 34%,rgba(255,20,245,.10) 0%,rgba(255,45,240,.055) 55%,transparent 88%); } }
 
 /* Home shelves retain the artwork's native pixel dimensions and let card
    shadows paint without changing the following section's flow position. */
@@ -201,11 +206,11 @@
  .capture-home .poster-rail .rail-arrows .icon-button { width:27px; height:50px; border-radius:16px; background:#ffffffa6; box-shadow:none; }
  .capture-home .poster-rail .rail-arrows .icon-button > svg { width:15px; height:34px; }
  .music-app:has(.capture-home[data-home-scrolled]) .poster-rail .rail-arrows { left:253px; }
- .music-app:has(.capture-home[data-home-scrolled]) .sidebar-row[aria-current="page"] { background:#ffffff24; }
+ .music-app:has(.capture-home[data-home-underlay]) .sidebar-row[aria-current="page"] { background:#ffffff24; }
 }
 
 @media(min-width:1181px) {
- .music-app:has(.capture-home[data-home-scrolled]) .music-sidebar {
+ .music-app:has(.capture-home[data-home-underlay]) .music-sidebar {
   background:rgb(243 243 247 / 50%);
   background-image:radial-gradient(ellipse 38% 38% at 92% 40%,rgba(255,125,70,.09) 0%,transparent 84%),radial-gradient(ellipse 75% 24% at 72% 31%,rgba(255,220,70,.50) 0%,transparent 84%),radial-gradient(ellipse 55% 28% at 0% 34%,rgba(255,85,145,.30) 0%,transparent 84%),radial-gradient(ellipse 100% 18% at 42% 49%,rgba(255,205,75,.22) 0%,transparent 86%),radial-gradient(ellipse 105% 22% at 50% 40%,rgba(255,145,55,.16) 0%,transparent 86%),radial-gradient(ellipse 110% 18% at 45% 18%,rgba(255,205,90,.16) 0%,transparent 86%);
   -webkit-backdrop-filter:blur(16px) saturate(1);

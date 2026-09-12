@@ -23,3 +23,7 @@ Register new browser modules in `scripts/browser-reference.py` before counting t
 Start a recorded journey at its first fixture, then use real controls. When an endpoint uses a different catalog/library snapshot, retain and report that discrepancy; do not replace live session state merely to manufacture the endpoint image. Compare continuous captures against both the saved original and the direct fixture.
 
 Journey evidence uses ordered, non-overwriting screenshot filenames and each original's exact application viewport. Read `steps.jsonl` for the image name, action, and hashes. The computed CSS font stack is not proof of the font actually rendered; the canonical captures also record Chromium platform-font usage without copying font files.
+
+Shared chrome must follow live component state, not the presence of `data-source`. After changing sidebar/rail material, exercise Volume, Account, Next, Previous and vertical scrolling from the first fixture, including return navigation and the existing six-width containment regression. Artwork leaving the viewport must not leave a painted tint behind.
+
+Check the exact computed blur/saturation in the optimized build, not only development or a `backdrop-filter != none` assertion. Keep the standard declaration after its prefixed counterpart when both are needed; this toolchain previously dropped the standard override in the reverse order. Retain failed checks as evidence and rerun the complete corpus after the correction.
