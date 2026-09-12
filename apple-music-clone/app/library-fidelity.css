@@ -164,14 +164,14 @@
 .playlist-create::backdrop { background:#0007; }
 .library-song-table .track-table-head > .sr-only { display:none; }
 .chart-table .track-table-head > .sr-only { display:none; }
-.profile-avatar { background:#c90028; border:none; color:#fff; }
-.profile-avatar > svg { width:19px; height:19px; }
+.profile-avatar { background:transparent; border:none; color:#bc0022; }
+.profile-avatar > svg { width:23px; height:23px; }
 .profile-button { gap:7px; }
 .sidebar-footer { flex-basis:94px; }
 .open-music > svg:last-child { width:9px; height:9px; }
 
 /* Captured macOS-style share sheet recreated as live menu rows. */
-.faithful-menu.system-share-menu { width:218px; min-height:310px; padding:0 8px 7px; border-radius:14px; background:rgb(250 247 246 / 96%); box-shadow:0 12px 35px #00000026; }
+.faithful-menu.system-share-menu { width:226px; min-height:310px; padding:0 8px 7px; border-radius:14px; background:rgb(250 247 246 / 96%); box-shadow:0 12px 35px #00000026; }
 .system-share-url { min-height:61px; display:flex; align-items:flex-start; gap:9px; padding:10px 2px 8px; border-bottom:1px solid #d8d4d2; color:#4b4847; }
 .system-share-url > svg { margin-top:4px; color:#777; }
 .system-share-url strong { display:block; min-width:0; font-size:12px; line-height:14px; font-weight:600; overflow:hidden; }
@@ -200,3 +200,13 @@
 .sidebar-pins .pinned-row { height:38px; min-height:38px; padding-left:17px; }
 .sidebar-pins .pinned-row .music-art { width:22px; height:22px; border-radius:3px; }
 .music-app[data-source^="e379e3fe"] .open-music { visibility:hidden; }
+
+.faithful-menu.menu-album:not(.system-share-menu) > button { line-height:17px; }
+.system-share-url { gap:8px; align-items:center; }
+.system-share-page { width:40px; height:40px; flex:none; background:#fff; display:grid; place-items:center; border-radius:4px; }
+.system-share-page > svg { width:20px; height:20px; }
+.system-share-url strong { overflow-wrap:anywhere; }
+
+/* Pointer-opened menus receive container focus without painting an arbitrary
+   selected row. Keyboard input moves focus into the real menu items. */
+.faithful-menu:focus { outline:none; }

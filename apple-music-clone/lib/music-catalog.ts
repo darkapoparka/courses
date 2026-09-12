@@ -1,3 +1,4 @@
+import type { CoverResourceId } from "./cover-resources";
 import archive from "../reference/originals/flow-screen-map.json";
 import { replayAlbums, replaySongSeeds } from "./replay-data";
 
@@ -9,7 +10,10 @@ export function sourceId(prefix: string): string {
   if (matches.length !== 1) throw new Error(`Ambiguous or missing reference identity: ${prefix}`);
   return matches[0]!;
 }
-export type Artwork = { source: string; x: number; y: number; width: number; height: number };
+export type Artwork = { source: string; x: number; y: number; width: number; height: number; canvasWidth?: number; canvasHeight?: number; displayRatio?: number; visibleMask?: string; partial?: boolean };
+export function coverArtwork(source: CoverResourceId): Artwork {
+  return { source, x: 0, y: 0, width: 600, height: 600, canvasWidth: 600, canvasHeight: 600 };
+}
 export function crop(prefix: string, x: number, y: number, width: number, height: number): Artwork {
   if (x < 0 || y < 0 || width <= 0 || height <= 0 || x + width > 1440 || y + height > 903) {
     throw new Error(`Artwork crop is outside the application image: ${prefix}`);

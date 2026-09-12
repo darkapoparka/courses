@@ -3,6 +3,7 @@ import { sourceId } from "./music-catalog";
 // Favourite Songs navigation presence is separate from profile-name visibility.
 // Source-specific entries; additions are checked against the original sidebar pixels.
 export const sourcePlaylistNavigation = new Set([
+  "a9992e55", "47a07865", "37575452",
   "cf59e554", "a229e38a", "ee8db412", "8f029018", "de48a956", "4811dde3", "e4dad439", "cbbdc344", "95ae6a8f", "6337700d", "2278b1d0",
   "8a234785", "01f96377", "0260ef9f", "035569a0", "06be9f09", "0920d819", "09b3600e",
   "0c042c32", "0da4882b", "0df0d2a2", "1d016f0f", "1e5b4763", "2f5da478",

@@ -63,6 +63,7 @@ async def capture(browser, sid, width=1440, height=None):
         row['scene'] = await page.locator('.music-app').get_attribute('data-scene')
         assert await page.locator('.music-app').get_attribute('data-source') == sid
         row['artworkCount'] = await page.locator('[data-art-source]').count()
+        row['partialArtworkCount'] = await page.locator('[data-art-partial=true]').count()
         row['fontFamily'] = await page.locator('body').evaluate('(element) => getComputedStyle(element).fontFamily')
         row['deviceScaleFactor'] = await page.evaluate('window.devicePixelRatio')
         assert row['deviceScaleFactor'] == 1

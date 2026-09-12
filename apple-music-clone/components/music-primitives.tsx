@@ -6,10 +6,13 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
+export type GlyphName = IconName | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "rail-back": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m8 4-5 12 5 12" strokeWidth="2.4" /></svg>;
+    case "rail-next": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m4 4 5 12-5 12" strokeWidth="2.4" /></svg>;
+    case "concert-tickets": return <svg {...common}><path d="m2 6 16-4 2 7L4 13Z" fill="currentColor" stroke="none" /><rect x="3" y="9" width="19" height="12" rx="1.5" /><path d="M6 12h4M6 15h3M6 18h3M16 12v6M16 13l3-.6" /><ellipse cx="14.5" cy="18.2" rx="1.5" ry="1" fill="currentColor" stroke="none" /><path d="M12 10v10" strokeDasharray="1 2" /></svg>;
     case "external-arrow": return <svg {...common}><path d="M6 18 18 6M10 6h8v8" /></svg>;
     case "link": return <svg {...common}><path d="m9 15 6-6M8 16l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M16 8l1-1a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1) scale(.9)" /></svg>;
     case "code": return <svg {...common}><path d="m7 6-5 6 5 6M17 6l5 6-5 6M14 3l-4 18" /></svg>;
@@ -69,12 +72,13 @@ const tallerSources = new Set(["ffc18eb8", "3728aa07", "fc5d84bd", "3fed6760", "
  * not scale. Use the decoded source height, never a guessed 1023px canvas. */
 export function Art({ art, label, className = "", resolution = "standard" }: { art: Artwork; label: string; className?: string; resolution?: "standard" | "high" }) {
   const tall = tallerSources.has(art.source.slice(0, 8));
-  const sourceHeight = resolution === "high" ? (tall ? 2018 : 2016) / 2.1 : tall ? 1024 : 1023;
-  const style: CSSProperties = { aspectRatio: `${art.width} / ${art.height}`,
+  const sourceWidth = art.canvasWidth ?? 1440;
+  const sourceHeight = art.canvasHeight ?? (resolution === "high" ? (tall ? 2018 : 2016) / 2.1 : tall ? 1024 : 1023);
+  const style: CSSProperties = { aspectRatio: art.displayRatio ?? `${art.width} / ${art.height}`, maskImage: art.visibleMask,
     backgroundImage: `url("/reference-assets/${art.source}${resolution === "high" ? "?resolution=high" : ""}")`,
-    backgroundSize: `${1440 / art.width * 100}% ${sourceHeight / art.height * 100}%`,
-    backgroundPosition: `${art.width === 1440 ? 0 : art.x / (1440 - art.width) * 100}% ${art.y / (sourceHeight - art.height) * 100}%` };
-  return <span className={`music-art ${className}`} style={style} role="img" aria-label={label} data-art-source={art.source} />;
+    backgroundSize: `${sourceWidth / art.width * 100}% ${sourceHeight / art.height * 100}%`,
+    backgroundPosition: `${art.width === sourceWidth ? 0 : art.x / (sourceWidth - art.width) * 100}% ${art.height === sourceHeight ? 0 : art.y / (sourceHeight - art.height) * 100}%` };
+  return <span className={`music-art ${className}`} style={style} role="img" aria-label={label} data-art-source={art.source} data-art-partial={art.partial || undefined} />;
 }
 export function IconButton({ icon, label, className = "", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { icon: GlyphName; label: string }) {
   return <button type="button" className={`icon-button ${className}`} aria-label={label} title={label} {...props}><Glyph name={icon} /></button>;

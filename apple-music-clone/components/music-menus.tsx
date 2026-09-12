@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState, type ReactNode, type KeyboardEvent }
 import { albumTitle, allTracks } from "../lib/music-catalog";
 import { sceneUrl } from "../lib/music-scenes";
 import { useMusic } from "./music-context";
+import { SystemShareIcon } from "./music-share-icons";
 import { Glyph, type GlyphName } from "./music-primitives";
 
 export function MusicMenus() {
@@ -21,15 +22,16 @@ export function MusicMenus() {
     if (!kind || !menu.current) return;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const captured = m.scene.source;
-    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1208, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
+    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1200, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
     const anchor = m.menuPosition ?? fallback;
     const bounds = menu.current.getBoundingClientRect();
     setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
     setSubmenu(Boolean(captured?.startsWith("0c6da10e")));
     setCopied(kind === "album" && m.scene.filled ? "link" : null);
-    menu.current.querySelector<HTMLElement>("input,button")?.focus({ preventScroll: true });
+    const focusTarget = menu.current.querySelector<HTMLElement>("input") ?? (m.menuKeyboard ? menu.current.querySelector<HTMLElement>("button") : menu.current);
+    focusTarget?.focus({ preventScroll: true });
     return () => previous?.focus({ preventScroll: true });
-  }, [kind, m.menuPosition]);
+  }, [kind, m.menuPosition, m.menuKeyboard]);
   useLayoutEffect(() => {
     if (!submenu || !flyout.current || !menu.current) return;
     const trigger = menu.current.querySelector<HTMLElement>("[data-playlist-trigger]");
@@ -56,7 +58,7 @@ export function MusicMenus() {
   };
   const share = () => { if (navigator.share) void navigator.share({ title: kind === "artist" ? artist : track.title, url: link() }).catch(e => { if (e?.name !== "AbortError") m.notify("Sharing could not be opened."); }); else void copy(); };
   const capturedSystemShare = kind === "share" && m.scene.page === "album";
-  const systemShareAction = (label: string, icon: GlyphName, run: () => void) => <button type="button" role="menuitem" className="system-share-action" key={label} onClick={() => { run(); close(); }}><Glyph name={icon} size={15} /><span>{label}</span></button>;
+  const systemShareAction = (label: string, icon: GlyphName, run: () => void) => <button type="button" role="menuitem" className="system-share-action" key={label} onClick={() => { run(); close(); }}><SystemShareIcon target={label} /><span>{label}</span></button>;
   // State labels change after mutation; stable keys retain keyboard focus.
   const actionKey = (label: string) => {
     const groups = [["Add to Library", "Delete from Library"], ["Favourite", "Undo Favourite"], ["Copy Link", "Link Copied"], ["Copy Embed Code", "Embed Code Copied"], ["Suggest Less", "Undo Suggest Less"]];
@@ -79,7 +81,7 @@ export function MusicMenus() {
   } else if (kind === "station") {
     content = <>{action("View Schedule", "calendar", () => m.go("schedule"))}{action("Share", "share", share)}{action(copied === "link" ? "Link Copied" : "Copy Link", copied === "link" ? null : "link", () => { void copy(); }, undefined, true)}</>;
   } else if (kind === "share") {
-    content = capturedSystemShare ? <><div className="system-share-url"><Glyph name="external" size={16} /><strong>https://music.apple.com/sg/album/you-seem-pretty-sad-for-a-girl-s…</strong></div>{systemShareAction("Add to Reading List", "link", () => m.notify("Reading List is a system share destination. No browser reading list was changed."))}{systemShareAction("AirDrop", "radio", share)}{systemShareAction("Mail", "mail", share)}{systemShareAction("Messages", "lyrics", share)}{systemShareAction("Notes", "playlist", () => m.notify("Share target previewed."))}{systemShareAction("Open in News", "external", share)}{systemShareAction("Reminders", "check", () => m.notify("Share target previewed."))}{systemShareAction("Freeform", "new", () => m.notify("Share target previewed."))}{systemShareAction("Journal", "info", () => m.notify("Share target previewed."))}<hr />{systemShareAction("Copy", "link", () => { void copy(); })}{systemShareAction("Edit Extensions…", "more", () => m.notify("System share extensions are managed by your browser or OS."))}</> : <>{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
+    content = capturedSystemShare ? <><div className="system-share-url"><span className="system-share-page"><SystemShareIcon target="Page" /></span><strong>https://music.apple.com/sg/album/you-seem-pretty-sad-for-a-girl-s…</strong></div>{systemShareAction("Add to Reading List", "link", () => m.notify("Reading List is a system share destination. No browser reading list was changed."))}{systemShareAction("AirDrop", "radio", share)}{systemShareAction("Mail", "mail", share)}{systemShareAction("Messages", "lyrics", share)}{systemShareAction("Notes", "playlist", () => m.notify("Share target previewed."))}{systemShareAction("Open in News", "external", share)}{systemShareAction("Reminders", "check", () => m.notify("Share target previewed."))}{systemShareAction("Freeform", "new", () => m.notify("Share target previewed."))}{systemShareAction("Journal", "info", () => m.notify("Share target previewed."))}<hr />{systemShareAction("Copy", "link", () => { void copy(); })}{systemShareAction("Edit Extensions…", "more", () => m.notify("System share extensions are managed by your browser or OS."))}</> : <>{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
   } else if (kind === "track" && m.scene.page === "songs") {
     content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
@@ -94,12 +96,12 @@ export function MusicMenus() {
     const items = Array.from(host?.querySelectorAll<HTMLButtonElement>(":scope > button:not(:disabled)") ?? []);
     if (!items.length) return;
     const current = items.indexOf(document.activeElement as HTMLButtonElement);
-    const index = event.key === "ArrowDown" ? (current + 1) % items.length : event.key === "ArrowUp" ? (current - 1 + items.length) % items.length : event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : -1;
+    const index = event.key === "ArrowDown" ? (current + 1) % items.length : event.key === "ArrowUp" ? (current < 0 ? items.length - 1 : (current - 1 + items.length) % items.length) : event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : -1;
     if (index >= 0) { event.preventDefault(); items[index]?.focus(); }
   };
   return <div className="menu-layer">
     <button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} />
-    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" data-copy-state={copied ?? undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
+    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" tabIndex={-1} data-copy-state={copied ?? undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
     {submenu && <div ref={flyout} className="context-menu faithful-menu playlist-flyout" role="menu" aria-label="Add to playlist" style={{ left: flyoutPosition.x, top: flyoutPosition.y }} onKeyDown={event => keyboard(event, true)}>
       {action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null, playlistSeed: ids }))}
       {m.library.playlists.map(playlist => action(playlist.name, null, () => {

@@ -1,0 +1,30 @@
+{
+  "cover-better-broken": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/0e/e3/b8/0ee3b8be-61bd-12e7-0b7c-72408ce888b0/26CRGIM55193.rgb.jpg/600x600bb.webp",
+    "sha256": "61236ff5ef439214387b9deea5ca441247bcd98a7b4ff571a08c09dfcd44f2d0",
+    "page": "https://music.apple.com/us/album/better-broken-extended-version/6780622287",
+    "observedIn": "ee8db412",
+    "bytes": 28714
+  },
+  "cover-simply-red-live": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bf/b5/39/bfb5397a-bd99-d57c-62f9-6707c036c338/820233052351.jpg/600x600bb.webp",
+    "sha256": "db7830157db243e19efccfbf820bf33c96464dde344efc5734b0737f7e63d923",
+    "page": "https://music.apple.com/us/album/holding-back-the-years-40-years-of-simply-red-live/1895643305",
+    "observedIn": "ee8db412",
+    "bytes": 42168
+  },
+  "cover-sting-night-watch": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/21/ab/d5/21abd58e-dbaf-f6dd-c879-58c5d080eba4/26UMGIM67445.rgb.jpg/600x600bb.webp",
+    "sha256": "0ae859a46d31d65f5e48c8cbbb28bd9f0b735b56850bc6928ed646c28b2946d9",
+    "page": "https://music.apple.com/us/album/the-night-watch-live-at-the-rijksmuseum/6778164569",
+    "observedIn": "8f029018",
+    "bytes": 25184
+  },
+  "cover-coachella-weekend-one": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/06/1c/73/061c7321-52c9-5532-4fb5-5d704e43e7a9/ticket.efkjkgmd.jpg/600x600bb.webp",
+    "sha256": "ad8eebb1dfd0959c2483df7ff50d0a1e8edb65ca9e5f1e9d4f4a7562a299dc04",
+    "page": "https://music.apple.com/us/album/swag-live-from-coachella-weekend-i/6783430401",
+    "observedIn": "8f029018",
+    "bytes": 25666
+  }
+}

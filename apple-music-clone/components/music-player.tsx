@@ -40,7 +40,7 @@ export function Player() {
   const playerTitle = broadcast?.title;
   const playerSubtitle = broadcast?.subtitle ?? "Live Radio";
   const playerArt = broadcast?.compactArt;
-  const editingPlayerStyle = ["ee8db412", "8f029018", "de48a956", "4811dde3"].some(prefix => m.scene.source?.startsWith(prefix))
+  const editingPlayerStyle = Boolean(m.scene.panel && (m.scene.catalog === "legacy" || m.scene.catalog === "queue"))
     ? { background: "rgb(249 249 251 / 38%)", backdropFilter: "blur(24px) saturate(1.4)", WebkitBackdropFilter: "blur(24px) saturate(1.4)" }
     : m.scene.source?.startsWith("54b01eab") ? { background: "rgb(249 249 251 / 84%)", backdropFilter: "blur(18px) saturate(1)", WebkitBackdropFilter: "blur(18px) saturate(1)" }
     : ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
@@ -89,8 +89,8 @@ export function PlayerPanel() {
   const m = useMusic();
   if (!m.scene.panel) return null;
   const queue = m.queue.flatMap(id => { const track = trackById(id); return track ? [track] : []; });
-  const panelStyle = m.scene.source?.startsWith("ee8db412") ? { backgroundColor: "rgb(255 255 255 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
-  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} style={panelStyle}>
+  const panelStyle = m.scene.panel === "lyrics" && m.scene.catalog === "legacy" ? { backgroundColor: "rgb(255 255 255 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
+  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} data-catalog={m.scene.catalog} style={panelStyle}>
     <IconButton icon="close" label="Close player panel" className="panel-keyboard-close" onClick={() => m.patch({ panel: null })} />
     {m.scene.panel === "lyrics" ? <Lyrics panel /> : <>
       <header><h2>Up next</h2>{queue.length > 0 && <button type="button" className="text-accent" onClick={() => m.setQueue([])}>Clear</button>}<button type="button" className="autoplay-toggle" aria-label="Autoplay" aria-pressed={Boolean(m.scene.autoplay)} onClick={() => m.patch({ autoplay: !m.scene.autoplay })}>∞</button></header>

@@ -4,8 +4,8 @@ import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react"
 import { IconButton } from "./music-primitives";
 
 /** Scroll within the content column; never move a parent or the sidebar. */
-export function Rail({ children, className = "", label, initialIndex = 0 }: {
-  children: ReactNode; className?: string; label: string; initialIndex?: number;
+export function Rail({ children, className = "", label, initialIndex = 0, onPositionChange }: {
+  children: ReactNode; className?: string; label: string; initialIndex?: number; onPositionChange?: (index: number) => void;
 }) {
   const id = useId();
   const rail = useRef<HTMLDivElement>(null);
@@ -17,6 +17,10 @@ export function Rail({ children, className = "", label, initialIndex = 0 }: {
     const selected = host.children[Math.max(0, initialIndex)] as HTMLElement | undefined;
     host.scrollLeft = first && selected ? selected.offsetLeft - first.offsetLeft : 0;
     const update = () => {
+      const first = host.firstElementChild as HTMLElement | null;
+      const second = host.children[1] as HTMLElement | undefined;
+      const stride = first && second ? second.offsetLeft - first.offsetLeft : 0;
+      if (stride > 0) onPositionChange?.(Math.round(host.scrollLeft / stride));
       const previous = host.scrollLeft > 1;
       const next = host.scrollLeft < host.scrollWidth - host.clientWidth - 1;
       setEdges(current => current.previous === previous && current.next === next ? current : { previous, next });
@@ -26,7 +30,7 @@ export function Rail({ children, className = "", label, initialIndex = 0 }: {
     observer.observe(host);
     host.addEventListener("scroll", update, { passive: true });
     return () => { observer.disconnect(); host.removeEventListener("scroll", update); };
-  }, [initialIndex]);
+  }, [initialIndex, onPositionChange]);
   const move = (direction: number) => {
     const host = rail.current;
     if (!host) return;
@@ -44,8 +48,8 @@ export function Rail({ children, className = "", label, initialIndex = 0 }: {
   return <div className={`rail-wrap ${className}`} data-rail={label}>
     <div id={id} ref={rail} className="music-rail" role="region" aria-label={label} tabIndex={0}>{children}</div>
     <div className="rail-arrows">
-      <IconButton icon="back" label={`Previous ${label}`} aria-controls={id} disabled={!edges.previous} onClick={() => move(-1)} />
-      <IconButton icon="chevron" label={`Next ${label}`} aria-controls={id} disabled={!edges.next} onClick={() => move(1)} />
+      <IconButton icon={className.includes("poster-rail") ? "rail-back" : "back"} label={`Previous ${label}`} aria-controls={id} disabled={!edges.previous} onClick={() => move(-1)} />
+      <IconButton icon={className.includes("poster-rail") ? "rail-next" : "chevron"} label={`Next ${label}`} aria-controls={id} disabled={!edges.next} onClick={() => move(1)} />
     </div>
   </div>;
 }

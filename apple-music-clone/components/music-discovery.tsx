@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useMusic } from "./music-context";
+import { partialPanelRelease } from "../lib/panel-release-art";
 import { localizedPicks, localizedRecents, localizedFeatures, localizedSongs, finalLoginSongs, homeAdditions } from "../lib/localized-discovery";
 import styles from "./music-discovery-fixes.module.css";
 import { legacyFeatures, legacySongs, liveFeatures, performanceFeature, queueSongs } from "../lib/discovery-variants";
 import { Art, Footer, Glyph, IconButton, Section } from "./music-primitives";
 import { Rail } from "./music-rail";
 import { CardTile, SongRow } from "./music-browse";
-import { categories, chartTracks, crop, features, libraryCovers, recentlyPlayed, topPicks, viralTracks, type Artwork, type Card } from "../lib/music-catalog";
+import { categories, chartTracks, coverArtwork, crop, features, libraryCovers, recentlyPlayed, topPicks, viralTracks, type Artwork, type Card } from "../lib/music-catalog";
 
 const listening: Card[] = [
   ["NMIXX Essentials", "Apple Music K-Pop"], ["Grasshopper Essentials", "Apple Music Cantopop"],
@@ -28,8 +29,8 @@ const homeTop100: Card[] = [
   ["Singapore", 0], ["Global", 1], ["USA", 3], ["UK", 4], ["South Korea", 4], ["Taiwan", 2],
 ].map(([city, artIndex], index) => ({ id: `home-top-100-${index}`, title: `Top 100: ${city}`, subtitle: "Apple Music", destination: "chart", art: crop("8b03c9d0", 286 + Number(artIndex) * 227, 397, 208, 208) }));
 
-function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artOverlays, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
-  return <Rail label={label} className={className} initialIndex={initialIndex}>{cards.map((card, index) => <CardTile key={card.id} card={card} poster={poster} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
+function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artOverlays, onPositionChange, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; onPositionChange?: (index: number) => void; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
+  return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={card.id} card={card} poster={poster} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
 }
 function CityCard({ city, index }: { city: string; index: number }) {
   const m = useMusic();
@@ -38,9 +39,9 @@ function CityCard({ city, index }: { city: string; index: number }) {
 export function NewView() {
   const m = useMusic();
   const [finalLogin] = useState(() => m.scene.source?.startsWith("e027fe6d"));
-  const legacy = finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom";
   const queue = m.scene.catalog === "queue";
-  const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : i === 2 && m.scene.source?.startsWith("ee8db412") ? { ...card, art: legacyFeatures[3]!.art } : card) : legacyFeatures;
+  const legacy = !queue && (finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom");
+  const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : i === 2 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[3]! : i === 3 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[2]! : card) : legacyFeatures;
   const source = m.scene.source?.slice(0, 8);
   const currentFeatures = ["4f611a9e", "fc5d84bd"].includes(source ?? "")
     ? features.map((card, index) => index < 2 ? { ...card, art: crop(source!, index === 0 ? 286 : 854, 167, 548, 314) } : card)
@@ -52,16 +53,25 @@ export function NewView() {
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
   const longToyStoryTitle = source === "4f611a9e" || source === "54b01eab";
-  const capturedSongOrder = ["6ac70c34", "cf59e554", "a229e38a"].includes(source ?? "")
+  const [capturedSongOrder] = useState(() => ["6ac70c34", "cf59e554", "a229e38a"].includes(source ?? "")
     ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "library-4", "chart-10", "chart-11"]
-    : source === "ee8db412" ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "chart-10", "chart-11"] : undefined;
+    : source === "ee8db412" ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "chart-10", "chart-11"] : undefined);
   const capturedPanelSongs = capturedSongOrder ? capturedSongOrder.flatMap(id => [...legacySongs, ...chartTracks].find(track => track.id === id) ?? []) : visible;
   const visibleSongs = !zh && !legacy && !queue && longToyStoryTitle ? capturedPanelSongs.map(track => track.id === "viral-1" ? { ...track, title: `I Knew It, I Knew You (From "Toy Story 5")` } : track) : capturedPanelSongs;
-  const newThisWeek = [9, 4, 1, 5, 7].map(index => libraryCovers[index]!);
+  const cleanReleases: Partial<Record<number, Card>> = legacy ? {
+    0: { id: "better-broken", title: "Better Broken (Extended Version)", subtitle: "Sarah McLachlan", destination: "category:Better Broken (Extended Version)", art: coverArtwork("cover-better-broken") },
+    3: { id: "simply-red-live", title: "Holding Back the Years (Live in Santiago)", subtitle: "Simply Red", destination: "category:Holding Back the Years (Live in Santiago)", art: coverArtwork("cover-simply-red-live") },
+  } : queue ? {
+    0: { id: "coachella-weekend-one", title: "SWAG LIVE FROM COACHELLA (Weekend I)", subtitle: "Justin Bieber", destination: "category:SWAG LIVE FROM COACHELLA (Weekend I)", art: coverArtwork("cover-coachella-weekend-one") },
+    2: { id: "sting-night-watch", title: "The Night Watch (Live at the Rijksmuseum)", subtitle: "Sting", destination: "category:The Night Watch (Live at the Rijksmuseum)", art: coverArtwork("cover-sting-night-watch") },
+  } : {};
+  const releaseEdition = m.scene.panel ? (queue ? "8f029018" : legacy ? "ee8db412" : undefined) : undefined;
+  const partialReleases = releaseEdition ? Object.fromEntries([9, 4, 1, 5, 7].flatMap((index, position) => cleanReleases[position] ? [] : [[position, partialPanelRelease(releaseEdition, position, libraryCovers[index]!)]])) : {};
+  const newThisWeek = [9, 4, 1, 5, 7].map((index, position) => cleanReleases[position] ?? partialReleases[position]?.card ?? libraryCovers[index]!);
   const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : undefined;
-  const panelReleaseSource = source && ["ee8db412", "8f029018", "de48a956", "4811dde3"].includes(source) ? source : undefined;
+  const panelReleaseSource = releaseEdition;
   const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource
-    ? Object.fromEntries([286, 499, 712, 925, 1138].map((x, index) => [index, crop(panelReleaseSource, x, 759, 193, 144)]))
+    ? Object.fromEntries(Object.entries(partialReleases).map(([index, value]) => [index, value.overlay]))
     : releaseStripSource ? {
       0: crop(releaseStripSource, 286, 840, 208, 63),
       4: crop(releaseStripSource, 1194, 840, 208, 63),
@@ -82,8 +92,19 @@ export function HomeView() {
   const [hideConcerts,setHideConcerts] = useState(false);
   const zh = m.library.locale === "zh";
   const source = m.scene.source?.slice(0, 8);
-  const topPickCards = zh ? localizedPicks : ["2f5da478", "d5173715"].includes(source ?? "") ? homePicks.map((card, index) => index === 2 ? { ...card, art: crop("2f5da478", 854, 135, 264, 353) } : card) : homePicks;
+  // Preserve the observed artwork edition through local overlays and controls.
+  const [homeFrame] = useState(() => m.scene.source?.slice(0, 8));
+  const [homeIndex, setHomeIndex] = useState(m.scene.hero === "alpha" ? 3 : 0);
+  const laterFrame = homeIndex > 0;
+  const topPickCards = zh ? localizedPicks : homePicks.map(card => {
+    if (card.id === "alex" && (laterFrame || homeFrame === "2f5da478")) return { ...card, art: crop("2f5da478", 854, 135, 264, 353) };
+    if (card.id === "new-music" && laterFrame) return { ...card, art: crop("d5173715", 286, 135, 264, 353) };
+    if (card.id === "new-music" && homeFrame === "2f5da478") return { ...card, art: crop("2f5da478", 1138, 135, 264, 353) };
+    return card;
+  });
+  const recentsSource = laterFrame ? "d5173715" : homeFrame === "2f5da478" ? "2f5da478" : "a917d88f";
+  const homeRecents = recentlyPlayed.map((card, index) => ({ ...card, art: crop(recentsSource, 286 + index * 227, 571, 208, 208), explicit: card.id === "parris" }));
   const homeTop100Overlays: Partial<Record<number, Artwork>> | undefined = source === "42098642" ? Object.fromEntries([286, 513, 740, 967, 1194].map((x, index) => [index, crop("42098642", x, 0, 208, 95)])) : undefined;
   if (m.scene.guest) return <div className="membership-home capture-membership"><div className="brand"><Glyph name="apple" />Music</div><h1>Discover new music<br />every day.</h1><Art art={crop("aefa8502", 246, 220, 1194, 450)} label="Apple Music discovery illustration" className="membership-hero-art" /><p>Get playlists and albums inspired by the artists and genres you’re listening to. 1 month free, then $10.99/month.</p><button type="button" className="pill white" onClick={() => m.patch({ overlay: "signin" })}>Try It Free</button></div>;
-  return <div className="page-content home-page capture-home"><h1>{zh ? "主页" : "Home"}</h1><Section title={zh ? "专属精选推荐" : "Top Picks for You"}><Cards cards={topPickCards} label="Top picks" className="poster-rail" poster initialIndex={m.scene.hero === "alpha" ? 3 : 0} /></Section><Section title={zh ? "最近播放" : "Recently Played"} onMore={() => m.go("library")}><Cards cards={zh ? localizedRecents : recentlyPlayed} label="Recently played" /></Section><Section title={zh ? "运动健身" : "Pop"} onMore={() => m.go(zh ? "category:Fitness" : "category:Pop")}><Cards cards={libraryCovers.filter((_, i) => i > 3 && i !== 8)} label="Pop" /></Section>{!zh && <Section title="Top 100" className="home-top-100" onMore={() => m.go("chart")}><Cards cards={homeTop100} label="Top 100" artOverlays={homeTop100Overlays} artOverlayPosition="bottom" /></Section>}<Section title={zh ? "加入资料库" : "Add to Your Library"} id="add-library" onMore={() => m.go("library")}><p className={styles.additionsDescription}>The best recent albums we love.</p><Cards cards={homeAdditions} label="Albums for your library" /></Section>{!hideConcerts && <Section title="Concerts"><div className={styles.concertCard}><div><span><Glyph name="ticket" size={28} /></span><div><h3>Find Concerts Nearby</h3><p>Upcoming shows will appear here.</p></div></div><IconButton icon="close" label="Dismiss concert suggestion" onClick={() => setHideConcerts(true)} /><button type="button" className={styles.setLocation} onClick={() => m.go("concerts")}>Set Location</button></div></Section>}<Footer /></div>;
+  return <div className="page-content home-page capture-home" data-home-scrolled={laterFrame || undefined}><h1>{zh ? "主页" : "Home"}</h1><Section title={zh ? "专属精选推荐" : "Top Picks for You"}><Cards cards={topPickCards} label="Top picks" className="poster-rail" poster initialIndex={m.scene.hero === "alpha" ? 3 : 0} onPositionChange={setHomeIndex} /></Section><Section title={zh ? "最近播放" : "Recently Played"} onMore={() => m.go("library")}><Cards cards={zh ? localizedRecents : homeRecents} label="Recently played" /></Section><Section title={zh ? "运动健身" : "Pop"} onMore={() => m.go(zh ? "category:Fitness" : "category:Pop")}><Cards cards={libraryCovers.filter((_, i) => i > 3 && i !== 8)} label="Pop" /></Section>{!zh && <Section title="Top 100" className="home-top-100" onMore={() => m.go("chart")}><Cards cards={homeTop100} label="Top 100" artOverlays={homeTop100Overlays} artOverlayPosition="bottom" /></Section>}<Section title={zh ? "加入资料库" : "Add to Your Library"} id="add-library"><p className={styles.additionsDescription}>The best recent albums we love.</p><Cards cards={homeAdditions} label="Albums for your library" /></Section>{!hideConcerts && <Section title="Concerts"><div className={styles.concertCard}><div><span><Glyph name="concert-tickets" size={30} /></span><div><h3>Find Concerts Nearby</h3><p>Upcoming shows will appear here.</p></div></div><IconButton icon="close" label="Dismiss concert suggestion" onClick={() => setHideConcerts(true)} /><button type="button" className={styles.setLocation} onClick={() => m.go("concerts")}>Set Location</button></div></Section>}<Footer /></div>;
 }

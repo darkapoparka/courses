@@ -20,4 +20,4 @@ export const finalLoginSongs = ["album-1","album-2","chart-2","chart-3","chart-4
 export const homeAdditions: Card[] = [
   ["you seem pretty sad for a girl so in love","Olivia Rodrigo","album"], ["ICEMAN","Drake","album:ICEMAN"],
   ["Dandelion","Ella Langley","album:Dandelion"], ["The Great Divide","Noah Kahan","album:The Great Divide"], ["Big Mama","Latto","album:Big Mama"],
-].map(([title,subtitle,destination],index) => ({ id:`home-add-${index}`,title:title!,subtitle,destination:destination!,art:crop("42098642",286+index*227,222,208,208) }));
+].map(([title,subtitle,destination],index) => ({ id:`home-add-${index}`,title:title!,subtitle,destination:destination!,explicit:[0,1,3,4].includes(index),art:crop("42098642",286+index*227,222,208,208) }));

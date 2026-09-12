@@ -46,7 +46,7 @@ export type Controller = {
   favouriteArtist: (name: string) => void; suggestLess: (id: string) => void;
   favourite: (id: string) => void; addToLibrary: (id: string) => void; pin: (id: string) => void;
   openMenu: (menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => void;
-  menuTarget: string; menuTrack: Track; menuPosition: { x: number; y: number } | null;
+  menuTarget: string; menuTrack: Track; menuKeyboard: boolean; menuPosition: { x: number; y: number } | null;
   message: string; notify: (message: string) => void;
 };
 const Context = createContext<Controller | null>(null);
@@ -75,6 +75,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const [queue, setQueue] = useState<string[]>(initialScene.queueEmpty ? [] : (initialScene.queuePreset ? capturedQueue : viralTracks.slice(1)).map((track) => track.id));
   const [menuTrackId, setMenuTrackId] = useState(initialScene.page === "artist" || initialScene.menu === "artist" ? "Olivia Rodrigo" : initialScene.track ?? "album-2");
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null);
+  const [menuKeyboard, setMenuKeyboard] = useState(false);
   const [message, setMessage] = useState("");
   const [mediaName, setMediaName] = useState("");
   const messageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -204,7 +205,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
       if (event.key === "Escape" && !document.querySelector("dialog[open]")) {
         if (document.querySelector(".menu-layer")) patch({ menu: null });
         else if (document.querySelector('.volume-control[data-open="true"]')) patch({ volumeOpen: false });
-        else patch({ expanded: false, panel: null, video: false });
+        else patch({ expanded: false, panel: null, video: false, volumeOpen: false });
         return;
       }
       if (!element?.closest("input, textarea, select, [contenteditable=true]") && event.shiftKey) {
@@ -229,12 +230,13 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [activeId, patch]);
   const openMenu = useCallback((menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => {
     if (id) setMenuTrackId(id);
+    setMenuKeyboard(event?.detail === 0);
     if (event) {
       const r = event.currentTarget.getBoundingClientRect();
       const stationCard = menu === "station" && event.currentTarget.closest(".station-card");
       const albumTools = (menu === "album" || menu === "share") && event.currentTarget.closest("[data-album-tools]");
       const anchor = stationCard ? { x: r.left + 10, y: r.top + 7 }
-        : albumTools && menu === "share" ? { x: innerWidth - 232, y: r.bottom - 1 }
+        : albumTools && menu === "share" ? { x: innerWidth - 240, y: r.bottom - 1 }
         : albumTools ? { x: r.right - 186, y: r.top + 14 }
         : { x: r.right - 176, y: r.bottom + 5 };
       setMenuPosition(anchor);
@@ -255,6 +257,6 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
     shuffle, setShuffle, repeat, setRepeat, queue, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
-    favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTarget: menuTrackId, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, message, notify };
+    favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTarget: menuTrackId, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, menuKeyboard, message, notify };
   return <Context.Provider value={value}><audio ref={audio} preload="metadata" /><div data-reference-ready={hydrated ? "true" : "false"}>{children}</div></Context.Provider>;
 }
