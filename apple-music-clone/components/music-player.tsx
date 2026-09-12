@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { albumArt, albumTitle, autoplayTracks, crop, formatTime, radioStations, trackById } from "../lib/music-catalog";
+import { albumArt, albumTitle, autoplayTracks, capturedQueue, crop, formatTime, radioStations, trackById } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
 import { Art, Glyph, IconButton } from "./music-primitives";
 import { SongRow } from "./music-browse";
@@ -88,8 +88,14 @@ export function ExpandedPlayer() {
 export function PlayerPanel() {
   const m = useMusic();
   if (!m.scene.panel) return null;
-  const queue = m.queue.flatMap(id => { const track = trackById(id); return track ? [track] : []; });
-  const panelStyle = m.scene.panel === "lyrics" && m.scene.catalog === "legacy" ? { backgroundColor: "rgb(255 255 255 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
+  const queue = m.queue.flatMap(id => {
+    const track = trackById(id);
+    const recorded = m.scene.queuePreset ? capturedQueue.find(item => item.id === id) : undefined;
+    // Keep track identity/library actions shared, but retain the observed queue
+    // edition, full title and credit line when this recorded queue is active.
+    return track ? [{ ...track, ...(recorded ? { title: recorded.title, artist: recorded.artist, art: recorded.art, duration: recorded.duration } : {}) }] : [];
+  });
+  const panelStyle = m.scene.panel === "lyrics" && m.scene.catalog === "legacy" ? { backgroundColor: "rgb(242 242 246 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
   return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} data-catalog={m.scene.catalog} style={panelStyle}>
     <IconButton icon="close" label="Close player panel" className="panel-keyboard-close" onClick={() => m.patch({ panel: null })} />
     {m.scene.panel === "lyrics" ? <Lyrics panel /> : <>

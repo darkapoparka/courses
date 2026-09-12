@@ -17,6 +17,9 @@ import struct
 import wave
 from playwright.async_api import async_playwright, expect
 from browser_live_fidelity import CASES as LIVE_FIDELITY_CASES
+from browser_library_flows import CASES as LIBRARY_FLOW_CASES
+from browser_panel_controls import CASES as PANEL_CONTROL_CASES
+from qa_browser_fonts import platform_fonts
 from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry, article_scroll_state
 
 APP = Path(__file__).resolve().parents[1]
@@ -65,6 +68,7 @@ async def capture(browser, sid, width=1440, height=None):
         row['artworkCount'] = await page.locator('[data-art-source]').count()
         row['partialArtworkCount'] = await page.locator('[data-art-partial=true]').count()
         row['fontFamily'] = await page.locator('body').evaluate('(element) => getComputedStyle(element).fontFamily')
+        row['platformFonts'] = await platform_fonts(page)
         row['deviceScaleFactor'] = await page.evaluate('window.devicePixelRatio')
         assert row['deviceScaleFactor'] == 1
         assert await page.locator('main > *').count() > 0, 'Main content is empty'
@@ -101,7 +105,7 @@ async def flow_routes(request):
 
 
 async def run_case(browser, name, callback, mobile=False):
-    context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
+    context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
     page = await context.new_page()
     page.set_default_timeout(8000)
     errors = []
@@ -349,6 +353,8 @@ async def main():
         cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
         cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry), ("article-scroll-state", article_scroll_state)]
         cases += LIVE_FIDELITY_CASES
+        cases += LIBRARY_FLOW_CASES
+        cases += PANEL_CONTROL_CASES
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))
         result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))
@@ -358,7 +364,7 @@ async def main():
         result['tests'].append({'test': 'candidate-stability', 'status': 'fail', 'error': 'Application or QA source changed during capture; evidence is mixed.'})
     (OUT / 'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     failures = [row for row in [*result['screens'], *result['tests'], *result['flowRoutes']] if row['status'] != 'pass']
-    print(f"Rendered {len(result['screens'])} states; checked {len(result['flowRoutes'])} flow routes; ran {len(result['tests'])} journeys; {len(failures)} failures.", flush=True)
+    print(f"Rendered {len(result['screens'])} states; checked {len(result['flowRoutes'])} flow routes; ran {len(result['tests'])} interaction regressions; {len(failures)} failures.", flush=True)
     if failures:
         raise SystemExit(1)
 

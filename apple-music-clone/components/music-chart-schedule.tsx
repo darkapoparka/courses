@@ -25,6 +25,6 @@ export function ScheduleView() {
   return <div className="page-content schedule-page short-page"><h1><Glyph name="apple" size={18} />Music Hits Schedule</h1><div className="schedule-grid">{Array.from({ length: 13 }, (_, i) => {
     const hour = (8 + i * 2) % 24;
     const time = `${String(hour).padStart(2, "0")}:00–${String((hour + 2) % 24).padStart(2, "0")}:00`;
-    return <article className="schedule-entry" key={i}><button type="button" className="schedule-art" onClick={() => m.go("station:1")} aria-label={`Listen at ${time}`}><Art art={crop("f49fce21", 286, 64, 92, 92)} label="Apple Music Hits" /></button><div><small className={i === 0 ? "text-accent" : ""}>{i === 0 ? "LIVE: " : ""}{time}</small><button type="button" onClick={() => m.go("station:1")}>Apple Music Hits</button><p>Songs you know and love.</p></div><IconButton icon="more" label={`Schedule options ${time} ${i}`} onClick={event => m.openMenu("station", event)} /></article>;
+    return <article className="schedule-entry" key={i}><button type="button" className="schedule-art" onClick={() => m.go("station:1")} aria-label={`Listen at ${time}`}><Art art={crop("f49fce21", 286, 63, 92, 92)} label="Apple Music Hits" /></button><div><small className={i === 0 ? "text-accent" : ""}>{i === 0 ? "LIVE · " : ""}{time}</small><button type="button" onClick={() => m.go("station:1")}>Apple Music Hits</button><p>Songs you know and love.</p></div><IconButton icon="more" label={`Schedule options ${time} ${i}`} onClick={event => m.openMenu("station", event)} /></article>;
   })}</div><Footer /></div>;
 }

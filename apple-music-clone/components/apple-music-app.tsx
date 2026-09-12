@@ -61,7 +61,11 @@ function MusicShell() {
   const main = useRef<HTMLElement>(null);
   const [mobileNav, setMobileNav] = useState(false);
   const zh = m.library.locale === "zh";
-  const [fixturePlaylists] = useState(() => !m.scene.source || sourcePlaylistNavigation.has(m.scene.source));
+  const [fixturePlaylists, revealPlaylists] = useState(() => !m.scene.source || sourcePlaylistNavigation.has(m.scene.source));
+  const [initialPage] = useState(m.scene.page);
+  // Preserve captured chrome through menus, but expose the actual library once
+  // the user navigates. A first-frame fixture must not hide saved playlists forever.
+  useEffect(() => { if (m.scene.page !== initialPage) revealPlaylists(true); }, [m.scene.page, initialPage]);
   const [initialPlaylistCount] = useState(m.library.playlists.length);
   const showPlaylists = fixturePlaylists || m.library.playlists.length > initialPlaylistCount;
   const sourcePrefix = m.scene.source?.slice(0, 8);

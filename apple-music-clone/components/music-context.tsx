@@ -230,7 +230,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [activeId, patch]);
   const openMenu = useCallback((menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => {
     if (id) setMenuTrackId(id);
-    setMenuKeyboard(event?.detail === 0);
+    setMenuKeyboard(event?.type === "click" && event.detail === 0);
     if (event) {
       const r = event.currentTarget.getBoundingClientRect();
       const stationCard = menu === "station" && event.currentTarget.closest(".station-card");

@@ -1,5 +1,5 @@
 /* Local, non-affiliated reference preview: player layout only. */
-:root { --panel:285px; }
+:root { --panel:286px; }
 .floating-player { gap:0; padding:0 13px; }
 .floating-player .transport { flex:0 0 145px; }
 .floating-player .now-playing { gap:8px; min-width:0; padding-left:15px; justify-content:flex-start; }
@@ -47,8 +47,11 @@
 .faithful-panel .autoplay-setting h3 { display:flex; gap:7px; align-items:center; font-size:16px; line-height:22px; }
 .faithful-panel .autoplay-setting h3 > span { font-size:23px; color:#666; }
 .faithful-panel .autoplay-setting p { font-size:11px; line-height:17px; color:#777; margin:0 0 6px; }
-.faithful-panel.queue-panel { padding-left:18px; background:rgb(255 255 255 / 54%); background-image:radial-gradient(ellipse 50% 17% at 96% 98%,rgba(120,78,62,.38) 0%,transparent 84%),radial-gradient(ellipse 70% 20% at 92% 91%,rgba(70,82,185,.14) 0%,transparent 84%),radial-gradient(ellipse 130% 24% at 50% 95%,rgba(85,82,88,.36) 0%,transparent 86%); backdrop-filter:blur(20px) saturate(1.3); }
+.faithful-panel.queue-panel { padding-left:19px; background:rgb(246 246 246 / 54%); background-image:radial-gradient(ellipse 50% 17% at 96% 98%,rgba(120,78,62,.38) 0%,transparent 84%),radial-gradient(ellipse 70% 20% at 92% 91%,rgba(70,82,185,.14) 0%,transparent 84%),radial-gradient(ellipse 130% 24% at 50% 95%,rgba(85,82,88,.36) 0%,transparent 86%); backdrop-filter:blur(20px) saturate(1.3); }
 .queue-panel .song-art-button { transform:translateY(-.65px); }
+.queue-panel .song-row { gap:11px; border-bottom-color:rgb(0 0 0 / 7%); }
+.queue-panel .song-artist, .queue-panel .duration { font-size:13px; }
+.queue-panel .song-row:last-child { border-bottom-color:transparent; }
 .queue-panel .autoplay-setting { transform:translateY(-3px); }
 .faithful-panel.lyrics-panel { padding:0 19px; overflow:hidden; }
 .faithful-expanded { background:radial-gradient(ellipse 21% 40% at 55% 31%,#774733 0%,#474340 52%,transparent 100%),radial-gradient(ellipse 40% 70% at 4% 90%,#2b5b68,transparent),linear-gradient(110deg,#194358,#23475a); }
@@ -94,7 +97,7 @@
 .lyric-viewport li[data-distance="3"] { filter:blur(2.6px); color:#c0d5e1; opacity:.16; }
 .lyric-viewport li small { display:block; font-size:16px; line-height:22px; margin-top:15px; letter-spacing:0; }
 .panel-lyric-viewport { mask-image:linear-gradient(transparent,#000 18%,#000 80%,transparent); }
-.panel-lyric-viewport ol { padding-top:5px; padding-bottom:500px; }
+.panel-lyric-viewport ol { padding-top:188px; padding-bottom:500px; }
 .panel-lyric-viewport li { font-size:22px; line-height:28px; letter-spacing:-.5px; margin-bottom:29px; }
 .panel-lyric-viewport li[aria-current="true"] { color:#29272a; }
 .panel-lyric-viewport li[data-distance="1"] { color:#464349; opacity:.65; filter:blur(1.3px); }
@@ -232,17 +235,25 @@
 .music-app[data-source^='67446c83'] .lyric-viewport li[data-before='true'] { opacity:0; }
 .music-app[data-source^='c939c9b8'] .faithful-expanded { background:radial-gradient(ellipse 28% 28% at 62% 86%,rgba(78,62,54,.56) 0%,transparent 84%),radial-gradient(ellipse 38% 38% at 65% 79%,rgba(24,32,36,.12) 0%,transparent 84%),radial-gradient(ellipse 38% 45% at 52% 19%,rgba(105,62,43,.38) 0%,transparent 84%),radial-gradient(ellipse 21% 40% at 55% 31%,#774733 0%,#474340 52%,transparent 100%),radial-gradient(ellipse 40% 70% at 4% 90%,#2b5b68,transparent),linear-gradient(110deg,#194358,#23475a); }
 
-.music-app:has(.player-panel[data-catalog="legacy"]) .panel-lyric-viewport { mask-image:linear-gradient(transparent,#000 6%,#000 80%,transparent); }
-.music-app:has(.player-panel[data-catalog="legacy"]) .panel-lyric-viewport li { font-size:23px; line-height:28px; margin-bottom:27px; }
-.music-app:has(.player-panel[data-catalog="legacy"]) .panel-lyric-viewport li[data-distance="1"] { opacity:.55; }
-.music-app:has(.player-panel[data-catalog="legacy"]) .panel-lyric-viewport li[data-distance="2"], .music-app:has(.player-panel[data-catalog="legacy"]) .panel-lyric-viewport li[data-distance="3"] { opacity:.30; }
+/* The panel fades by distance from the active lyric, rather than treating
+   every later verse as the same third neighbour. This survives seeking and
+   opening/closing the panel through the player controls. */
+.lyrics-panel[data-catalog="legacy"] { padding-left:18px; padding-right:21px; }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport { mask-image:linear-gradient(#000 0%,#000 75%,transparent 90%); }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport ol { padding-top:191px; }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport li { font-size:23px; line-height:27px; margin-bottom:25px; }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport li[data-before="true"] { margin-bottom:28px; opacity:.52; filter:blur(1.7px); }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport li[aria-current="true"] { margin-bottom:39px; }
+.lyrics-panel[data-catalog="legacy"] .panel-lyric-viewport li[data-after="true"] { opacity:clamp(.04,calc(.42 - var(--lyric-distance) * .06),.36); filter:blur(1.7px); }
 
 /* The legacy discovery capture uses an 18px gutter and whole-pixel artwork in
    the narrow player-panel layout. Keep this rule on live semantic state, not
    only on a saved source ID. The unrounded declaration is an older-UA fallback. */
 @media (min-width:1181px) {
-  .with-player-panel .capture-discovery[data-catalog="legacy"] .feature-rail .music-rail { gap:18px; }
-  .with-player-panel .capture-discovery[data-catalog="legacy"] .feature-card {
+  .with-player-panel .capture-discovery:is([data-catalog="legacy"],[data-catalog="queue"]) .feature-rail .music-rail { gap:18px; }
+  .with-player-panel .capture-discovery:is([data-catalog="legacy"],[data-catalog="queue"]) .viral-grid { column-gap:18px; grid-auto-columns:calc((100% - 18px) / 2); }
+  .with-player-panel .capture-discovery:is([data-catalog="legacy"],[data-catalog="queue"]) .song-rail { margin-top:10px; }
+  .with-player-panel .capture-discovery:is([data-catalog="legacy"],[data-catalog="queue"]) .feature-card {
     flex-basis:calc((100% - 18px) / 2);
     flex-basis:round(down, (100% - 18px) / 2, 1px);
   }

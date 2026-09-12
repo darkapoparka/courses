@@ -5,7 +5,7 @@ import os
 import re
 from pathlib import Path
 from playwright.async_api import expect
-from qa_identity import APP
+from qa_identity import APP, reference_viewport
 
 BASE = os.environ.get('REFERENCE_URL', 'http://127.0.0.1:3000')
 OUT = Path(os.environ.get('REFERENCE_OUTPUT', APP / '.parity-evidence/browser')) / 'journeys'
@@ -18,21 +18,27 @@ def source(prefix):
     return matches[0]
 
 async def start(page, prefix):
+    await page.set_viewport_size(reference_viewport(source(prefix)))
     response = await page.goto(BASE + '/screen/' + source(prefix), wait_until='networkidle')
     assert response and response.status == 200
     await page.locator('[data-reference-ready=true]').wait_for()
     await page.evaluate('document.fonts.ready')
 
-async def record(page, journey, prefix, action):
+async def record(page, journey, prefix, action, *, move_pointer=True):
     """Record an observed state; this does not grant visual acceptance."""
     path = OUT / journey
     path.mkdir(parents=True, exist_ok=True)
     await page.wait_for_load_state('networkidle')
-    await page.mouse.move(1439, 902)
     sid = source(prefix)
-    shot = path / f'{sid}.png'
+    assert page.viewport_size == reference_viewport(sid), (journey, sid, page.viewport_size)
+    if move_pointer:
+        await page.mouse.move(page.viewport_size['width'] - 1, page.viewport_size['height'] - 1)
+    log = path / 'steps.jsonl'
+    ordinal = len(log.read_text(encoding='utf-8').splitlines()) + 1 if log.exists() else 1
+    shot = path / f'{ordinal:02d}-{sid}.png'
+    assert not shot.exists(), f'Refusing to overwrite journey evidence: {shot}'
     await page.screenshot(path=str(shot), animations='disabled')
-    evidence = {'screen': sid, 'action': action, 'url': page.url,
+    evidence = {'ordinal': ordinal, 'screenshot': shot.name, 'screen': sid, 'action': action, 'url': page.url,
                 'viewport': page.viewport_size, 'renderSha256': sha256(shot.read_bytes()).hexdigest(),
                 'sourceSha256': sha256((APP / 'reference/originals' / f'{sid}.webp').read_bytes()).hexdigest()}
     with (path / 'steps.jsonl').open('a', encoding='utf-8') as output:
@@ -41,7 +47,8 @@ async def record(page, journey, prefix, action):
 async def album_copy_link(page, context):
     await context.grant_permissions(['clipboard-read', 'clipboard-write'])
     await start(page, 'b620e4ab')
-    await record(page, '8c9a97bc-copy-album-link', 'b620e4ab', 'Initial album detail')
+    await page.get_by_role('button', name='Favourite stupid song', exact=True).hover()
+    await record(page, '8c9a97bc-copy-album-link', 'b620e4ab', 'Initial album detail; hover the unsaved song star', move_pointer=False)
     await page.get_by_role('button', name='More actions for you seem pretty sad for a girl so in love', exact=True).click()
     menu = page.get_by_role('menu', name='album actions', exact=True)
     await expect(menu.get_by_role('menuitem', name='Favourite', exact=True)).to_be_visible()
@@ -59,7 +66,8 @@ async def album_copy_link(page, context):
 
 async def album_share_sheet(page, context):
     await start(page, 'b620e4ab')
-    await record(page, '1319943e-share-album', 'b620e4ab', 'Initial album detail')
+    await page.get_by_role('button', name='Favourite stupid song', exact=True).hover()
+    await record(page, '1319943e-share-album', 'b620e4ab', 'Initial album detail; hover the unsaved song star', move_pointer=False)
     opener = page.get_by_role('button', name='Share you seem pretty sad for a girl so in love', exact=True)
     await opener.click()
     menu = page.get_by_role('menu', name='share actions', exact=True)
@@ -85,6 +93,7 @@ async def radio_schedule(page, context):
     await menu.get_by_role('menuitem', name='View Schedule', exact=True).click()
     await expect(page.get_by_role('heading', name='Music Hits Schedule', exact=False)).to_be_visible()
     assert await page.locator('.schedule-entry').count() == 13
+    await expect(page.locator('.schedule-entry').first.locator('small')).to_have_text('LIVE · 08:00–10:00')
     await record(page, '4239264b-radio-schedule', 'f49fce21', 'Open full station schedule')
 
 async def radio_live_playback(page, context):

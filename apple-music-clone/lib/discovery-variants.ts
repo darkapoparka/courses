@@ -10,5 +10,10 @@ export const legacyFeatures = [
   { ...features[2]!, kicker: "UPDATED PLAYLIST" }, features[3]!, features[4]!, liveFeatures[1]!, features[5]!,
 ];
 export const legacySongs = ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-5", "library-4", "chart-7", "chart-8", "chart-9", "chart-10", "chart-11"].map(id => trackById(id)!);
-export const queueSongs = ["album-1", "august", "chart-8", "elizabeth-taylor", "viral-10", "chart-9", "album-2", "library-4", "chart-7", "chart-4", "chart-11", "viral-1"].map(id => trackById(id)!);
+export const queueSongs = ["album-1", "august", "chart-8", "elizabeth-taylor", "viral-10", "chart-9", "album-2", "library-4", "chart-7", "chart-4", "chart-11", "viral-1"].map(id => {
+  const track = trackById(id)!;
+  // The discovery shelf shows the black release, while the recorded queue
+  // separately shows the pink edition. Do not overwrite the shared catalog.
+  return id === "viral-10" ? { ...track, art: crop("8f029018",710,482,38,38) } : track;
+});
 

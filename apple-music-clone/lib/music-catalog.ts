@@ -108,7 +108,7 @@ export const suggestionOrder = ["library-2", "style-tv", "bad-guy", "survive", "
 const queueRows: [string, string, number][] = [
   ["So Easy (To Fall In Love)", "Olivia Dean", 169], ["Man I Need", "Olivia Dean", 184],
   ["Opalite", "Taylor Swift", 235], ["DAISIES", "Justin Bieber", 176],
-  ["I Knew It, I Knew You", "Taylor Swift", 178], ["Golden", "HUNTR/X, EJAE, AUDREY NUNA", 194],
+  ['I Knew It, I Knew You (From "Toy Story 5")', "Taylor Swift", 178], ["Golden", "HUNTR/X, EJAE, AUDREY NUNA", 194],
   ["YUKON", "Justin Bieber", 163], ["Beauty and a Beat (feat. Nicki Minaj)", "Justin Bieber", 227],
   ["Shape of a Woman", "Lady Gaga", 209], ["Purple Rain", "Prince & The Revolution", 521],
   ["In The Dark", "Selena Gomez", 185], ["MILLION DOLLAR BABY", "Tommy Richman", 155],

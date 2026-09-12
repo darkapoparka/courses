@@ -35,12 +35,12 @@
 .chart-table .table-song-title { font-size:13px; }
 .schedule-page > h1 { font-size:17px; line-height:24px; display:flex; gap:0; align-items:center; transform:none; letter-spacing:-.2px; }
 .schedule-page .schedule-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin:13px 0 32px; }
-.schedule-entry { display:flex; align-items:center; gap:20px; height:92px; min-height:92px; min-width:0; }
+.schedule-entry { display:flex; align-items:center; gap:19px; height:92px; min-height:92px; min-width:0; }
 .schedule-entry .schedule-art { display:block; width:92px; height:92px; min-height:0; flex:none; }
 .schedule-entry .music-art { width:92px; height:92px; border-radius:5px; }
 .schedule-entry > div { flex:1; min-width:0; }
-.schedule-entry small { display:block; font-size:11px; font-weight:500; line-height:16px; letter-spacing:.1px; }
-.schedule-entry > div > button { font-size:15px; line-height:20px; text-align:left; }
+.schedule-entry small { display:block; font-size:11px; font-weight:500; line-height:20px; letter-spacing:.1px; }
+.schedule-entry > div > button { display:block; font-size:14px; line-height:18px; text-align:left; }
 .schedule-entry p { font-size:12px; line-height:17px; color:#818186; white-space:nowrap; }
 .schedule-entry > .icon-button { flex:none; width:24px; height:28px; min-height:0; color:#bd0021; }
 .schedule-entry > .icon-button svg { width:14px; }
@@ -201,3 +201,10 @@
 .cancel-result-dialog .dialog-primary { width:260px; }
 
 .passcode-step-2 .field-label > input { min-height:54px; height:54px; border-radius:12px; }
+
+.schedule-entry small.text-accent { color:#b70024; font-weight:600; }
+@media(min-width:1181px) {
+ .schedule-page > h1 { font-size:16px; transform:translateY(3px); letter-spacing:0; }
+ .schedule-page > h1 > svg { width:14px; height:16px; }
+ .schedule-page .schedule-grid { grid-template-columns:repeat(3,minmax(0,round(down, (100% - 40px)/3, 1px))); row-gap:19.5px; }
+}

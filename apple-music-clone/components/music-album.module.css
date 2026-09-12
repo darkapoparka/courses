@@ -84,3 +84,10 @@
 .marker { position: absolute; left: -20px; top: 9px; width: 15px; height: 25px; display: flex; align-items: center; justify-content: center; color: #b80024; }
 .marker i { width: 5px; height: 5px; border-radius: 50%; background: #888; }
 .marker:focus-visible { outline-offset: 0; }
+
+/* The outline star in the initial album capture is a hovered favourite control,
+   not a saved favourite. Moving into a menu must restore the neutral marker. */
+.marker > svg { display:none; }
+.marker:is([aria-pressed="true"],[data-captured-hover="true"],:hover,:focus-visible) > svg { display:block; }
+.marker:is([aria-pressed="true"],[data-captured-hover="true"],:hover,:focus-visible) > i { display:none; }
+.marker[aria-pressed="true"] > svg { fill:currentColor; }
