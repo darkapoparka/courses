@@ -1,60 +1,35 @@
-# Platform — product requirements
+# Product direction — courses after the accepted clone
 
-Working name: Courses. Brand, operating entity, supported markets, prices, and commercial terms are not finalized. This revision specifies a small first product that can grow without building every eventual feature now.
+## Phase boundary
 
-## Product
+The current deliverable is the exact saved Apple Music frontend and its recorded interactions. This product brief is deferred until that clone is genuinely accepted and the owner explicitly authorizes adaptation. Evolve the existing application; do not create a new `web/` scaffold or introduce course copy during reference finalization.
 
-A marketplace where independent creators sell useful courses and learners discover, evaluate, buy, and continue them in one coherent library. The visual direction is Apple Music's content-first browsing and restrained application chrome, adapted to learning rather than copied as music functionality.
+## Intended product
 
-Support legitimate categories generically: fitness, AI/coding, business, finance/crypto education, and other skills. Do not build a separate workout tracker, IDE, trading system, or coaching platform for each category. A course's video, text, and files should be enough for the first release.
+Courses is a working name for an independent marketplace where creators teach useful subjects and learners discover, evaluate, buy and continue courses in one coherent library. Broad categories share the same teaching primitives: video, text, curriculum and resources. A fitness category does not imply building a workout tracker; coding does not imply an IDE; finance education does not imply custody or trading execution.
 
-## Four jobs
+The quality hypothesis is a content-first discovery and learning experience with trustworthy course information, strong visual execution and dependable access. Visual polish alone does not establish product-market fit or prove superiority to competitors. Test whether real learners can select a suitable course, understand the offer, start successfully and resume without support.
 
-| Person | Primary job | Product must make clear |
-| --- | --- | --- |
-| Visitor | Find and evaluate instruction | Outcome, teacher, prerequisites, curriculum, sample, language, level, effort, price, access terms |
-| Learner | Start and continue learning | Correct next lesson, resume position, progress, resources, private notes, contextual questions |
-| Creator | Publish and sell reliable instruction | Draft checklist, upload/processing, preview, review status, price, selling readiness, sales and questions |
-| Operator | Protect buyers and keep operations working | Publication review, reports, purchases/access, provider exceptions, reasons and audit |
+## People and jobs
 
-One person can learn and create. For the pilot, each creator workspace has one owner. Team invitations, granular creator roles, and multiple staff dashboards are deferred; multi-creator marketplace isolation is required now.
+Visitors need outcomes, teacher identity, prerequisites, curriculum, sample content, language, level, effort, price and access terms before buying. Learners need correct access, a useful owned-course library, reliable playback/reading, progress and resume. Creators need understandable draft/upload/review/pricing states and their own sales/questions. Operators need narrow publication, trust, support and access-recovery tools with attributable actions.
 
-## Differentiation hypothesis
+One person may learn and create. A creator workspace has one owner in the proposed pilot; team invitations and a general permission engine are deferred. Isolation between independent creators and learners is not deferred.
 
-Build a learning-first cross-creator experience: high-quality discovery, consistent previews, one library, good lesson navigation, and credible course information. Community should help people learn rather than replace their home with a noisy feed. Test that hypothesis with actual learners; visual polish alone is not proof of product-market fit or superiority.
+## Proposed first commercial model
 
-Do not claim competitors lack all course, payment, video, or community functions. Our advantage must be how well discovery and learning work together, the quality of creators, and dependable service. An exhaustive competitor study has not been completed in this revision.
+Start with curated creators, free enrollment and one-time purchases, one course from one seller per order. Save means bookmark, not enrollment or purchase. An authoritative source-specific grant gives access; a success URL, local flag or progress record does not.
 
-## First release model
+A course detail page should be useful rather than a generic long sales funnel: outcome/teacher, concise offer, meaningful curriculum and sample, then prerequisites, support and terms. The main action reflects actual access state. Do not invent testimonials, enrollment counts, professional credentials or earnings.
 
-Recommend free enrollment and one-time course purchases. One checkout contains one course from one seller. Save is a bookmark, not enrollment. A verified access grant permits learning; a checkout redirect, progress row, or local flag does not.
+Ordinary unlisting stops discovery/new sales while preserving valid existing access. Suspension is a separate safety/policy action with clear support/remedy handling. Advertise defined access terms, not an unexplained lifetime guarantee.
 
-Start with a curated creator pilot in two or three categories. The architecture supports more categories, but opening every seller and subject immediately is not a launch requirement. Suggested initial supply is a handful of committed creators and enough real courses to test discovery—not fabricated inventory or enrollment counts.
+## Staged delivery
 
-The public course page should feel like a purposeful course detail page, not a long generic sales funnel: outcome and teacher first, concise offer, strong curriculum, useful preview, then supporting detail. Different access states change the main action: Preview / Enroll free / Buy course / Start learning / Continue / Review lessons.
+After clone acceptance, first adapt and review a coherent fixture-backed course slice inside the existing app. Next complete one real free-course journey from creator draft through operator publication to learner enrollment, lesson access and resume. Only then add sandbox-proven paid commerce and a controlled live pilot after business/security/release approval. Private notes and contextual questions precede broad community features.
 
-## Ownership and updates
+Optional later work includes creator spaces, follows, reviews, teams, subscriptions, assessments, AI study tools, live/native/offline features and dedicated search. Each needs an actual user problem and a bounded assignment. Using Astra for development does not authorize adding AI features to the product.
 
-Advertise explicit access terms, not an undefined promise of lifetime access. Ordinary unlisting stops discovery and new sales while preserving valid buyer access. Safety suspension is a separate operator action with an explanation and support/refund process.
+## Decisions before live selling
 
-The pilot avoids a full versioned publishing system: creators edit drafts; submission locks the reviewed content; published content is locked against creator edits. Operators may approve bounded corrections using a version check and audit. Substantial replacement and self-service draft/live versioning are deferred until their update policy is designed. Unlisting must never unlock unsafe in-place editing of purchased material.
-
-## Milestones
-
-**M0 — UI review:** a small, functional fixture-backed discovery → course → lesson flow. No real identity, paid access, or backend claims. Its job is to validate the interface quickly.
-
-**M1 — free-course alpha:** real creator drafts, upload, operator review, public catalog, sign-in, enrollment, protected lessons, library, and progress. One complete journey before commerce.
-
-**M2 — controlled paid pilot:** sandbox-verified Connect/Checkout, access fulfillment, refund handling, support operations, private notes, and lesson questions. Production activation happens only after the launch gates; platform-wide community is not a dependency.
-
-**M3 — expansion:** selected features justified by pilot feedback, not an automatic bulk implementation list.
-
-## Explicit non-goals now
-
-No music reproduction, shuffle/radio/concerts, Apple billing clone, global subscription, multi-seller cart, affiliates, memberships, native app, offline paid video, live streaming infrastructure, open direct messages, gamified leaderboard, AI tutor, custom transcoding, or custom workflow engine. No crypto custody, trade execution, guaranteed-income offers, or medical outcome guarantees.
-
-## Success and unresolved business work
-
-Observe whether people can find a suitable course, explain what they are buying, start successfully, and resume without assistance. Measure purchase-to-first-lesson, return learning, completion signals, support/refund reasons, creator time to publish, and variable cost per active learner. Completion is activity, not certification of competence.
-
-Before live selling, resolve merchant/seller identity, entity and countries, tax/invoicing, fee and refund responsibilities, access duration, category/provider eligibility, asset rights, support ownership, and privacy. These block live commerce—not a local UI scaffold. See [decisions](decisions.md).
+Resolve branding, legal entity, supported markets, merchant and seller responsibilities, fees/taxes/refunds, access/update policy, provider/category eligibility, asset rights, privacy/retention/age policy, support ownership and recovery. These are release gates, not excuses to delay current clone repairs. [Decisions](decisions.md) owns their status.

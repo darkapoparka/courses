@@ -1,0 +1,47 @@
+name: Astra documentation contract (not clone acceptance)
+
+on:
+  push:
+    branches: ['astra-pro']
+    paths:
+      - 'AGENTS.md'
+      - 'CLAUDE.md'
+      - 'README.md'
+      - 'apple-music-clone/AGENTS.md'
+      - 'apple-music-clone/CLAUDE.md'
+      - 'apple-music-clone/README.md'
+      - 'docs/**'
+      - '.agents/**'
+      - 'scripts/check-astra-docs.py'
+      - 'scripts/test_astra_docs.py'
+      - '.github/workflows/astra-docs.yml'
+  pull_request:
+    branches: ['main', 'astra-pro']
+    paths: ['docs/**', '.agents/**', 'AGENTS.md', 'CLAUDE.md', 'README.md', 'apple-music-clone/AGENTS.md', 'apple-music-clone/CLAUDE.md', 'apple-music-clone/README.md', 'scripts/check-astra-docs.py', 'scripts/test_astra_docs.py', '.github/workflows/astra-docs.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astra-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  documentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # Existing repository pin, v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # Existing repository pin, v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Test the documentation validator
+        run: python3 -m unittest discover -s scripts -p test_astra_docs.py -v
+      - name: Check active documents, skill metadata and preserved Git trees
+        run: python3 scripts/check-astra-docs.py
+      - name: Check the existing single screen and flow inventory without accepting it
+        run: node apple-music-clone/scripts/check-task-coverage.mjs

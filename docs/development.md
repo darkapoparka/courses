@@ -1,28 +1,27 @@
 # Clone development and verification runbook
 
-## Scope and preflight
+## Preflight and ownership
 
-The active app is `J:\courses-astra-preview\apple-music-clone`. Work only on `main`. Preserve existing changes and the complete `reference/` archive. Do not scaffold `web/`, adapt course copy, or provision services during clone finalization.
+Read the root/app `AGENTS.md`, current handoff and owning task entries. The active app is `apple-music-clone/`; the existing Windows checkout is `J:\courses-astra-preview`. The owner-authorized target is `astra-pro`, but that dirty `main` checkout was not migrated. Follow [branch transition](astra/branch-transition.md), preserving all existing work.
 
-Inspect `git branch --show-current`, `git status --short`, staged/unstaged diffs, HEAD, and `git log --oneline origin/main..main`. Fetching `origin main` is allowed; do not automatically pull, reset, clean, stash, or replace someone else's work. Record the starting commit.
+Inspect branch, HEAD, staged/unstaged diffs, untracked files, worktrees, remotes and incoming/outgoing commits. Fetching is not permission to pull over someone else's work. Do not reset, clean, force-push, stash-and-forget, stage all files indiscriminately, or import the historical course implementation.
 
-Use the installed locked application dependencies. Only when missing, reproduce the existing install with `npx --yes pnpm@10.11.0 install --frozen-lockfile`. Read relevant version-matched guides in `node_modules/next/dist/docs/` before framework changes.
+Use existing locked dependencies. Only when missing, reproduce the install from the app directory with `npx --yes pnpm@10.11.0 install --frozen-lockfile`. Read relevant installed guides in `node_modules/next/dist/docs/` before framework changes. Do not upgrade packages for a visual repair or install QA packages into the application lockfile.
 
-## Start the correct server
+## Identify and start the correct preview
 
-Inspect the listener and its process command line first. Port 3000 may belong to another repository. Do not terminate another application to free a port. The local clone uses loopback port 6431:
+Check each listener's owner PID, command line and working directory. Port 3000 may belong to another project. The established clone preview is loopback 6431; do not terminate another app to take a port. From the correct active app checkout:
 
 ```powershell
-Set-Location 'J:\courses-astra-preview\apple-music-clone'
 $env:REFERENCE_PREVIEW='1'
 npm run dev -- --hostname 127.0.0.1 --port 6431
 ```
 
-Open `http://127.0.0.1:6431/` in the browser. Verify hydration, real navigation, the screenshot, browser errors, and asset requests. A running process or HTTP 200 is not sufficient. Keep the dev server running for the owner when handing off.
+Open `http://127.0.0.1:6431/`. Verify hydration, a real navigation action, the visible page, console errors and failed assets. HTTP 200 or a listener alone proves neither application health nor fidelity. For a separate worktree, choose a verified unused loopback port rather than replacing the owner's existing preview.
 
-## Isolated QA tools
+## Isolated QA environment
 
-Do not install browser tooling into the application or modify the app lockfile for QA. From the app directory:
+Only create this environment when it is not already available:
 
 ```powershell
 python -m venv .qa\audit-venv
@@ -30,9 +29,11 @@ python -m venv .qa\audit-venv
 .qa\audit-venv\Scripts\python.exe -m playwright install chromium
 ```
 
-## Capture and compare a fresh candidate
+Use explicit UTF-8 when reading/writing Windows text. Before piping Python source through PowerShell, set `$OutputEncoding=[System.Text.UTF8Encoding]::new($false)` and `$env:PYTHONUTF8='1'`, or use ASCII source with Unicode escapes. Do not corrupt fixture strings or selectors through stdin encoding.
 
-Use explicit UTF-8 for every text-file read and write on Windows. When piping Python source through PowerShell, also set `$OutputEncoding=[System.Text.UTF8Encoding]::new($false)` and `$env:PYTHONUTF8='1'`, or keep the piped source ASCII with Unicode escapes; file encodings alone do not protect literal characters in stdin. Do not let a default codepage corrupt fixture text or selectors. The npm Python aliases require the QA environment on PATH; the explicit commands below need no activation.
+## Source checks and fresh capture
+
+From the app directory, for a runtime candidate:
 
 ```powershell
 npm run qa:archive
@@ -40,6 +41,7 @@ npm run qa:coverage
 npm run typecheck
 npm run build
 .qa\audit-venv\Scripts\python.exe -m unittest discover -s scripts -p test_qa_tools.py
+node --test scripts/test_cover_integrity.mjs
 $run = Get-Date -Format 'yyyyMMdd-HHmmss'
 $env:REFERENCE_URL='http://127.0.0.1:6431'
 $env:REFERENCE_OUTPUT=Join-Path (Get-Location) ".parity-evidence/$run/browser"
@@ -47,55 +49,47 @@ $env:REFERENCE_OUTPUT=Join-Path (Get-Location) ".parity-evidence/$run/browser"
 .qa\audit-venv\Scripts\python.exe scripts/compare-reference.py --input $env:REFERENCE_OUTPUT --output ".parity-evidence/$run/comparison"
 ```
 
-For before/after diagnostics, add `--baseline <prior-comparison/metrics.json>` to the comparison command. Keep the same browser, operating system, scale, and capture conditions. Open the generated `index.html` locally and inspect the actual source, render, and amplified differences at readable size. Never substitute a low pixel-error score for a visual review.
+Use the actual verified server URL, not the example when auditing another listener. Npm's Python aliases require the QA environment on PATH; explicit executable paths avoid that ambiguity. For a baseline diagnostic, add `--baseline <prior-comparison/metrics.json>` to the comparison command. Keep the browser, OS, scale, viewport, content and capture conditions equivalent.
 
-The runner covers 159 canonical desktop states, five narrow-width smoke states, every one of the 218 recorded route steps, and explicit interaction regressions. It records browser/source identity, resource and console failures, geometry, overflow, and screenshot hashes. Source changes during a run invalidate that candidate. It refuses to overwrite an evidence directory.
+Never reuse an evidence output directory for a new candidate. The runner covers 159 desktop states, five responsive samples, 218 recorded route steps and registered interaction regressions. It records source/browser/resource identity and rejects source changes during a run. Windows defaults to serial capture; `REFERENCE_CONCURRENCY` supports 1 through 4 and is recorded. Do not increase concurrency to hide resource failures.
 
-The standard archive contains **147 application viewports at 1440×903 and 12 at 1440×904**. Only the 120px acquisition footer is excluded. Original bytes stay unchanged. Never resize a mismatched candidate, silently skip a missing capture, mask product content, or use the high-resolution image's dimensions as a different layout target.
+Open the resulting source/render/difference gallery at readable size. The standard originals contain 147 application viewports at 1440 by 903 and 12 at 1440 by 904. Only the documented 120px acquisition footer is excluded. Do not edit originals, resize candidates, skip hard states, mask product pixels or relax metrics to pass.
 
-`qa:coverage` and the legacy `inventory:screen-status` alias are read-only. Do not run the historical `generate-screen-status.mjs` writer against the frozen archive. `qa:acceptance` deliberately fails until every MATCH and FLOW entry is accepted; even then, owner approval is needed before adapting the product.
+## Production verification
 
-## Find the active code before editing
+Runtime-affecting changes must be checked against an optimized build, not only `next dev`. Preserve the owner's development preview. Start a separate positively identified clone audit listener on an unused loopback port and set `REFERENCE_URL` accordingly. Compare its command line and creation time with the build ID/time; replacing `.next/BUILD_ID` does not refresh an older process.
 
-The `Content` switch in `components/apple-music-app.tsx` is authoritative. Some legacy modules export similarly named, unused page implementations; do not fix an inactive view.
+Do not build simultaneously into a shared `.next` directory. The existing preview-only `next start` audit path has emitted a standalone-output advisory; it is not a production deployment recipe. Any future deployment must follow current documented standalone packaging and has a separate authorization gate.
 
-| Surface | Active owner |
+The app has had production-only dialog-scroll and compiled backdrop-style defects. Verify cold entry, layout/scroll state and exact computed values in production. A green render assertion may still capture the wrong state.
+
+## Find the active owner
+
+`components/apple-music-app.tsx` and its `Content` switch are authoritative. Trace imports before editing similarly named legacy exports.
+
+| Surface | Active modules |
 | --- | --- |
-| New / Home | `music-discovery.tsx`, discovery catalogs, and imported fidelity styles |
-| Album / Artist | `music-album.tsx` / `music-artist.tsx`, not the similarly named exports in `music-browse.tsx` |
+| New / Home | `music-discovery.tsx`, discovery catalogs and imported fidelity styles |
+| Album / Artist | `music-album.tsx` / `music-artist.tsx`, not legacy names in `music-browse.tsx` |
 | Search / Library / Playlist | `music-search.tsx`, `music-library.tsx`, `music-playlist.tsx` |
 | Player / Lyrics / Video | `music-player.tsx`, `music-lyrics.tsx`, `music-video-player.tsx` |
 | Radio / Schedule | `music-radio.tsx`, `music-chart-schedule.tsx` |
 | Replay / Concerts | `music-replay.tsx`, `music-concerts.tsx` |
 | Account / Authentication | `music-account.tsx`, `music-account-dialogs.tsx`, `music-auth.tsx` |
-| Shared state / reference fixtures | `music-context.tsx`, `lib/music-scenes.ts`, and the relevant catalog |
+| Shared state / fixtures | `music-context.tsx`, `lib/music-scenes.ts` and relevant catalogs |
 
-Inspect the imported CSS and actual computed styles before adding overrides. Prefer fixing incorrect artwork, viewport, scroll, semantic state or layout over fitting new per-screen gradients. A fixture-only source-ID adjustment must not break the same state reached through live controls.
+Fix semantic state/content, geometry and asset identity before adding per-screen color overrides. Inspect imported and computed CSS. Keep material and artwork behavior coherent when normal actions clear the fixture hint.
 
-## Review, checkpoint, and hand off
+## Continuous journeys and regression scope
 
-For a chosen family, read every recorded step, capture the unchanged baseline, implement a bounded fix, inspect before/after evidence, and perform the complete journey with real controls. Fixture URL stepping, forced clicks, injected application state, and successful screenshots are not FLOW acceptance. Review available motion assets where timing matters; still-image and responsive smoke results do not prove motion or mobile reference fidelity.
+Read the full recorded sequence. Begin at its allowed first fixture, then use real controls through every step, including forms, menus, scroll and return states. Forced clicks, injected state and URL jumps are diagnostics, not FLOW acceptance. Keep scenario discrepancies visible rather than replacing catalogs or account/library data behind unrelated actions.
 
-After shared changes, rerun the whole corpus and check both improvements and regressions. Record exact state IDs, source/candidate hashes, viewport, browser, reviewer, residuals, and evidence location in the owning task/audit. Check `git diff` for accidental archive edits, stale document claims, secret material, scratch files, and generated `next-env.d.ts` dev/build path churn. Stage explicit files, commit on `main`, and push normally when the checkpoint is verified. Never force-push.
+Register new suites in `scripts/browser-reference.py` and actually execute them. `browser_live_fidelity.start` selects the original viewport; `record` preserves ordinal image names and `steps.jsonl`. Do not overwrite a revisited state. Use `move_pointer=False` only to retain an intentional real hover. Keep actual `platformFonts` evidence separate from a CSS font-family declaration.
 
-CI validates `main` changes, locked dependencies, types/build, the task inventory, browser behavior, and a full comparison gallery. Its green status means those checks passed, not that 159 visual reviews or 58 complete flow sign-offs happened. Update `docs/handoff.md` with the tested source commit, actual server URL, evidence commands, and concrete remaining gaps.
+A focused component edit needs focused regressions; a shared shell/state/style change needs the whole corpus and review of both improvements and regressions. Documentation-only changes need document/skill/consistency checks, not fabricated runtime results. `qa:coverage` and `inventory:screen-status` are read-only; never run the historical archive-writing generator. `qa:acceptance` intentionally fails until every required MATCH and FLOW entry is accepted.
 
-Course/community environments and service integrations remain deferred to a separately authorized phase; this runbook does not bootstrap them.
+## Checkpoint and handoff
 
-## Production-mode visual checks are required
+Review explicit file diffs for archive changes, dirty work ownership, secrets, scratch output, stale claims and generated `next-env.d.ts` churn. Stage only the coherent reviewed batch, commit on the authorized branch and push normally when authorized. Preserve failed evidence. Update task evidence, audit findings and handoff without converting test counts into acceptance.
 
-Do not verify only `next dev`. This audit found a native-dialog scroll race that appeared in production despite green development captures. After the optimized build, use a separate, verified loopback production server and run the same full browser suite against its `REFERENCE_URL`; preserve the development preview for the owner. The existing CI does this against its isolated production server. Compare every source state afterward: render success alone did not catch the wrong article scroll position.
-
-The current local/CI `next start` audit path emits a standalone-output advisory even though the measured routes and browser checks run. This is a preview-only setup, not a production deployment approval; any deployment work must use the framework's documented standalone entry point and static-asset packaging.
-
-## Continuous-journey and font evidence
-
-The canonical runner imports `browser_library_flows.py` and `browser_panel_controls.py` alongside the existing suites. New tests must be registered and actually run before reporting coverage. The Songs original has eight rows; assertions must follow the frozen evidence rather than an invented row count.
-
-`browser_live_fidelity.start` selects the initial original's exact viewport. `record` refuses a mismatched viewport and writes an ordinal-prefixed image name recorded in `steps.jsonl`; revisiting a state must not overwrite its earlier screenshot. Use the `move_pointer=False` option only when deliberately preserving a real hovered control, such as the initial album outline star.
-
-Review the actual first-fixture entry to lyrics/queue separately from tests that reopen an already-established panel. A direct fixture can render correctly while the real journey still has the wrong catalog, queue, library, or playback state. Do not quietly mutate those values behind a panel toggle to manufacture a match. Preserve the discrepancy and identify the scenario/model work still required.
-
-`platformFonts` in each capture records Chromium's actual platform-font usage (family, PostScript name, custom-font flag, and glyph count). On the reviewed Windows candidate, the sampled Latin controls resolve to Arial; listing SF Pro in the CSS stack does not establish SF Pro rendering. Do not copy or distribute proprietary font files.
-
-Before a production audit, compare the build timestamp/ID with the listener's creation time and inspect its full command line. An older `next start` process is not fresh merely because `.next/BUILD_ID` changed. Start or restart only a positively identified clone audit listener, leaving the owner's development preview and unrelated port 3000 untouched.
+Confirm actual GitHub checks for the pushed SHA before saying CI passed. The existing reference workflow is scoped to `main`; the Astra docs workflow verifies documentation. Before the first application-code checkpoint on `astra-pro`, extend the reference workflow to that branch without weakening its checks, and verify the actual run. No current document promises unconfigured branch protection or automatic visual approval.

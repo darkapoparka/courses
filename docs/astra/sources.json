@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-12",
+  "scope": "Development-agent guidance for the clone-first Courses repository; not an exhaustive OpenAI mirror or installed-tool inventory.",
+  "upstream_skills": {
+    "repository": "openai/skills",
+    "ref_observed": "main",
+    "commit": "49f948faa9258a0c61caceaf225e179651397431",
+    "installed_by_this_revision": false
+  },
+  "sources": [
+    {"id":"OAI-01","title":"Latest-model guidance","url":"https://developers.openai.com/api/docs/guides/latest-model","status":"reviewed","reviewed_on":"2026-09-12","scope":"Model and migration guidance; refresh before actual configuration changes."},
+    {"id":"OAI-02","title":"Rethinking skills and prompts for GPT-6 Astra","url":"https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra","status":"reviewed","reviewed_on":"2026-09-12","published_on":"2026-09-11","scope":"Concise and narrowly scoped skills/instructions."},
+    {"id":"OAI-03","title":"Docs MCP","url":"https://developers.openai.com/learn/docs-mcp","status":"reviewed","reviewed_on":"2026-09-12","scope":"Read-only docs access and setup guidance; not installed."},
+    {"id":"OAI-04","title":"Custom instructions with AGENTS.md","url":"https://learn.chatgpt.com/docs/agent-configuration/agents-md","status":"reviewed","reviewed_on":"2026-09-12","scope":"Instruction scope/discovery and document structure."},
+    {"id":"OAI-05","title":"Build skills","url":"https://learn.chatgpt.com/docs/build-skills","status":"reviewed","reviewed_on":"2026-09-12","scope":"Repository .agents/skills layout, name and description metadata."},
+    {"id":"OAI-06","title":"Frontend prompting","url":"https://developers.openai.com/api/docs/guides/frontend-prompt","status":"reviewed","reviewed_on":"2026-09-12","scope":"GPT-5.5-framed frontend guidance; not an Astra-specific configuration or Apple design specification."},
+    {"id":"OAI-07","title":"Official openai-docs skill","url":"https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/openai-docs/SKILL.md","status":"reviewed","reviewed_on":"2026-09-12","scope":"Skill instructions reviewed; bundled scripts and fallback files not audited or executed."},
+    {"id":"OAI-08","title":"Official Playwright skill","url":"https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/playwright/SKILL.md","status":"partially_reviewed","reviewed_on":"2026-09-12","scope":"Lines 1-55, header/prerequisite/opening workflow only; no install or script audit.","git_blob":"77c01afb31aa602d0b002ae2438c2b67f0335fcb"},
+    {"id":"OAI-09","title":"Official GitHub CI skill","url":"https://github.com/openai/skills/blob/49f948faa9258a0c61caceaf225e179651397431/skills/.curated/gh-fix-ci/SKILL.md","status":"reviewed","reviewed_on":"2026-09-12","scope":"Skill instructions only; bundled inspection helper not audited or executed.","git_blob":"76bdeb6a7bff93cbe924c0652f1fd7a3c3ffc46c"},
+    {"id":"OAI-10","title":"OpenAI curated skill catalog","url":"https://github.com/openai/skills/tree/49f948faa9258a0c61caceaf225e179651397431/skills/.curated","status":"indexed","reviewed_on":"2026-09-12","scope":"Directory discovery only; not all entries reviewed or installed."}
+  ],
+  "project_skills": ["courses-reference-fidelity", "courses-recorded-flow", "courses-openai-guidance", "courses-handoff"],
+  "refresh_policy": "Reopen relevant official sources before volatile claims or actual migrations. Review diffs, preserve permissions and phase boundaries, and validate relevant local changes. No automatic update schedule is installed."
+}

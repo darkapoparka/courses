@@ -1,28 +1,30 @@
-# Courses — Apple Music reference clone first
+# Courses — Apple Music clone first, Astra-guided engineering
 
-The active application is `apple-music-clone/`. The current assignment is a true 1:1 working reconstruction of the saved Apple Music reference, **before** adapting it into a courses/community product. Work only on `main`.
+This repository has one active application: `apple-music-clone/`. First finish its saved Apple Music reference screens and recorded interactions to genuine 1:1 fidelity. After acceptance and the owner's explicit go-ahead, evolve that implementation into a course-selling and learning/community platform. A new model or documentation branch is not permission to skip the clone.
 
-Start with [AGENTS.md](AGENTS.md), [the current handoff](docs/handoff.md), [the development runbook](docs/development.md), and [the single screen/flow checklist](docs/tasks.md).
+## Start here
 
-## Acceptance target
+Read [the working contract](AGENTS.md), [current handoff](docs/handoff.md), [development runbook](docs/development.md), and the relevant entries in [the single acceptance checklist](docs/tasks.md). The [documentation map](docs/README.md) separates current implementation guidance from future product requirements. The [Astra guide](docs/astra/README.md) explains the source register, skills, and task prompts.
 
-The frozen archive contains 159 unique screen identities, 58 recorded flows with 218 ordered steps, standard/high-resolution image variants, and 13 available motion assets. These counts describe reference coverage, not acceptance.
+## Branch status
 
-All screen states have implementations. Exact visual matches and complete real-control flow verification remain separate gates. No percentage of resolving routes proves 1:1 fidelity. Course adaptation must wait for genuine 159/159 MATCH, 58/58 FLOW, and owner approval.
+`astra-pro` was created from `289c049cc3e198baa762cd89850f744e80e99ff2` on 2026-09-12 for this revision. The connected Windows checkout was not switched: it was on `main` with four modified and two untracked UI files when the remote connection ended. Those unpublished changes are not included merely because the new branch exists. Follow the [preserving transition procedure](docs/astra/branch-transition.md) before adopting it locally.
 
-## Local preview
+## Acceptance is not implementation coverage
 
-From `apple-music-clone/`, use the existing locked dependencies and run:
+The recorded checkpoint reports UI 159/159, MATCH 0/159 and complete FLOW 0/58. The archive contains 159 screen identities, 58 flows, 218 ordered steps and 13 available motion assets. These are separate coverage and acceptance dimensions, not a claim that the clone is finished. A documentation revision changes none of those approvals.
+
+## Preview
+
+From the existing app directory, with its locked dependencies installed:
 
 ```powershell
 $env:REFERENCE_PREVIEW='1'
 npm run dev -- --hostname 127.0.0.1 --port 6431
 ```
 
-Open `http://127.0.0.1:6431/` and verify the actual browser. Do not assume an existing server on port 3000 belongs to this project. See the runbook for isolated browser tooling, comparison commands, and production-build checks.
+Verify process ownership and the actual browser before using `http://127.0.0.1:6431/`. Port 3000 may belong to another application. The preview uses local account, payment and media behavior; no production deployment or Apple integration is authorized.
 
-## Reference and future product boundaries
+## Preservation
 
-Saved evidence lives in `apple-music-clone/reference/originals/`; the local reference index is `index.html`. Preserve the entire `reference/` tree byte-for-byte, including historical QA. Current status belongs in `docs/tasks.md`, `docs/reference-audit.md`, and `docs/handoff.md`.
-
-Account, payment, subscription, and media behavior are local previews, not live Apple integrations. No deployment or production asset redistribution is authorized. The course plans under `docs/` are retained for the later phase; do not scaffold `web/` or replace music semantics before clone acceptance.
+The original reference archive and dated review evidence remain unchanged. Pre-Astra documentation is retained in [history](docs/history/README.md). Production adaptation will require independent branding and licensed assets, not redistribution of Apple's source imagery or fonts.

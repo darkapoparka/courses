@@ -1,47 +1,30 @@
 # Technology baseline
 
-Revised 2026-09-08. Recommended engineering baseline for the next implementation assignment, not an installed stack or a claim of universal superiority. The handoff explicitly adopts this baseline when the owner assigns it.
+## Installed clone — repository observations
 
-## Choice
+At the inspected baseline, `apple-music-clone/package.json` specifies Next.js 16.3.4, React and React DOM 19.2.8, TypeScript 7.0.2, and Tailwind/PostCSS 4.3.3. `pnpm-lock.yaml` is the existing dependency authority. These are observed repository versions, not a claim that they are the latest or a new recommendation to install them elsewhere.
 
-**Next.js App Router + React + strict TypeScript**, **Tailwind with our own tokens and selected Radix primitives**, **Supabase Postgres/Auth/Storage**, **Mux Video**, **Stripe Connect + hosted Checkout**. One app under `web/`, supported Node LTS, pinned pnpm, one active lockfile. Vercel is the initial hosting recommendation, not an instruction to deploy.
+Preserve the existing combination during fidelity repairs. Use the locked install procedure in [development](development.md) only when needed. Read the framework-generated instructions and relevant version-matched `node_modules/next/dist/docs/` guides. Resolve unfamiliar APIs against the installed version, not examples recalled from an older release.
 
-Next is selected for this specific mix of public catalog pages, authenticated learning, creator authoring, and server-side transaction boundaries. It supplies server/client composition and server endpoints without requiring a separate backend framework [R01–R04](research.md). The visual quality comes from the design and implementation, not the framework name.
+QA remains isolated Python/Playwright plus the repository's Node checks. Do not change application dependencies just to take screenshots. The current package scripts, rather than an invented lint/test command, define available checks. No new OpenAI SDK, model setting, backend provider or design-system package is introduced by this revision.
 
-Svelte 5 with a current stable SvelteKit is a credible alternative; the same database/payment/media design can work there [R22](research.md). There is no need to benchmark or maintain two versions now. Choose once before the first application scaffold. The accidental Next prototype is not a reason to keep its code or an argument against Svelte.
+## Agent tooling
 
-The earlier broad comparison is preserved in Git history. Nuxt/Vue, React Router, Astro and Laravel are not additional applications to install. This revision prioritizes a concrete build path over repeatedly reopening the framework decision.
+The Git branch is named `astra-pro`. Branch naming does not select a ChatGPT model, grant Pro access or configure an API model. [Astra guidance](astra/README.md) separates project instructions, workflow skills, live documentation access and optional client configuration. Consult the current official model guide before any actual model/API migration.
 
-## Install by milestone
+Repository-local skills are instruction files under `.agents/skills/`. Their presence in Git does not prove that a particular client has loaded them; verify discovery in that client. Global settings, connectors and credentials are separate and must not be silently overwritten.
 
-| When | Add | Do not add yet |
+## Deferred product candidates
+
+| Area | Recommendation for later evaluation | Boundary |
 | --- | --- | --- |
-| BOOT / M0 | Official Next scaffold, React/TS, Tailwind, lint, a single icon family; only primitives used by the slice | Auth/payment/video SDKs, ORM, editor suite, global state, queue, analytics |
-| M1 data/auth | Supabase JS + current SSR package, SQL migrations/types, Zod for actual boundaries | Prisma/Drizzle, GraphQL, separate API service, realtime everywhere |
-| M1 media | Mux server SDK/player as needed; storage policies | Custom transcoder, video proxy server, DRM promises |
-| M2 commerce | Stripe server SDK and tested Connect/Checkout integration | Multi-seller cart, subscriptions, affiliates, internal wallet |
-| Verification | Focused unit tests, database/RLS tests, Playwright; accessibility checks | Empty test infrastructure pretending to be coverage |
+| Frontend | Continue the existing Next.js / React / TypeScript app | Preserve accepted visual work; no fresh `web/` scaffold |
+| Styling | Existing custom CSS/tokens, selected accessible primitives as needed | No generic theme or icon substitution during exact cloning |
+| Data / identity / files | Supabase Postgres, Auth and Storage | Not configured; requires current SDK/SSR/grants/RLS review |
+| Commerce | Stripe Connect and hosted Checkout | Business model, supported markets and test integration first |
+| Media | Managed ingest/playback such as Mux | Validate authorized upload, captions, private playback, cost and limits |
+| Hosting | Vercel as an initial candidate | No production deployment authorized |
 
-Use native/React forms and safe Markdown/plain text initially. A rich editor or form library is a task-level choice only when the actual editor needs it. One selected icon family may be Lucide; confirm its license/package at installation. No generic UI-kit visual theme.
+Revalidate compatibility, supported runtimes, security advisories, pricing and provider eligibility at the actual integration task. Retained vendor references are in [research](research.md); they are not refreshed facts merely because this file was rewritten.
 
-## Versions
-
-The official Next documentation showed 16.3.4 at this review. The Node release table identifies Node 24 as LTS; use a supported patched LTS, not merely the highest major [R04, R08](research.md). Resolve current compatible stable packages and security advisories again at bootstrap. Record exact versions in the manifest/lockfile and task evidence; do not pin fictional or prerelease numbers to look current.
-
-The archive lists Next 16.3.4, React 19.2.8, TypeScript 7.0.2 and Tailwind 4.3.3. Those are repository observations, not a tested combination or instructions to copy its lockfile. Respect the installed framework's generated version-matched docs and inspect CLI help.
-
-## Backend and infrastructure decisions
-
-Supabase consolidates relational data, identity and files. It does not eliminate server authorization, grants/RLS, or operational work. SQL migrations plus generated types are sufficient initially; an ORM is not required to make the architecture respectable.
-
-Use indexed Postgres catalog search before a separate search provider. No vector database, AI service, custom queue framework, or generalized job runner. Minimal payment/media webhooks and a reconciliation command are specified in [architecture](architecture.md). A managed queue is introduced only if the measured handler/recovery requirements demand it.
-
-Mux manages ingest and playback; its current direct-upload and signed-playback workflows are documented [R12–R13](research.md). Cloudflare Stream remains an alternative to price against actual pilot usage; no claim that either is always cheaper. Supabase Storage alone is not our adaptive video pipeline.
-
-Stripe Connect is for marketplace payments, not automatic outsourcing of merchant, tax, refund, or category responsibilities [R11, R18](research.md). Hosted Checkout avoids building a custom card form. Actual charge model and merchant identity are decisions before payment implementation/live selling.
-
-Choose one email provider and one monitoring provider only when integrating them. Provider receipts and in-app status avoid a custom transactional notification system initially; production auth email still needs configured delivery. Never provision a vendor simply because its connector exists.
-
-## Reconsider only for a concrete reason
-
-A dependency or architecture change records: current problem, simplest alternative, added operational cost, migration impact, and the affected task. 'Best practice' or 'future scale' alone is not evidence. No microservices, monorepo tooling, interface layers around every SDK, duplicated migration authorities, or hidden fixture-to-live fallback.
+No default requirement for an ORM, global client store, rich editor, queue framework, realtime feed, analytics SDK, vector database, custom transcoder, subscription engine or AI tutor. Record a concrete need, simplest alternative, operational cost and migration impact before adding one.

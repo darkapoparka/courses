@@ -1,59 +1,43 @@
 # Quality, evidence and operations
 
-Checks grow with the product. Do not run the archived prototype as a substitute for testing the new app. No application checks have been run by this docs-only revision.
+## Scope checks to the change
 
-## Layered checks
-
-| Change | Minimum evidence |
+| Change | Required evidence |
 | --- | --- |
-| Documentation | Internal paths/IDs/decisions consistent; no invented completion; diff restricted to intended docs/reference synchronization |
-| Scaffold | Actual version/CLI record, locked install, typecheck, lint, production build, local route smoke check |
-| UI | Type/lint/build, relevant browser interactions, desktop/mobile screenshots, keyboard/focus and overflow checks |
-| Data/auth | Migrations on disposable local DB, generated types, grants/RLS positive and cross-user/workspace negative tests |
-| Media | Owned upload, wrong-owner rejection, verified ready/failed state, private download/signing, expiry/refresh and browser playback |
-| Money | Sandbox buy/decline/cancel/delay, concurrent/duplicate/out-of-order events, rollback/replay, refunds and grant reconciliation |
-| Release | All required slices, production configuration/rights/policies/support, monitoring/limits, restore and rollback evidence |
+| Docs or skills | Correct paths/authority, valid metadata, preserved historical evidence, no invented completion; run the docs validator when available |
+| Local component behavior | Type/build checks as relevant, focused real-control regressions, source/candidate review for affected states |
+| Shared shell, styles or state | Stable full-corpus capture/comparison, dependent interaction regressions and review of improvements and regressions |
+| Runtime-sensitive layout | Fresh optimized-production checks, cold entry, computed output and process/build identity |
+| Future identity/data | Real-role positive and cross-user/workspace negative tests, migrations/constraints/grants/policies and protected payload checks |
+| Future payments/media | Provider sandbox, signatures, duplicate/concurrent/out-of-order events, rollback/recovery, authorization and expiry tests |
+| Release | Accepted scope, rights, actual configuration, security/privacy/support, recovery, budgets and explicit deployment approval |
 
-Unit tests cover pure access/state/price/progress helpers; integration tests cover actual database constraints/RLS/atomic operations; browser tests cover user journeys. Do not mock away the very authorization or payment state being tested. No arbitrary coverage percentage or snapshot count replaces the critical negative cases.
+Do not run unrelated suites to create ceremony, or omit full regression after a high-blast-radius change. Tests must assert the defect and its important boundaries; a helper file or mocked success is not evidence the behavior works.
 
-## Visual acceptance
+## Evidence contract
 
-Use deterministic fixture content, viewport, browser/OS, font availability, motion and loading conditions. Playwright visual comparisons depend on their rendering environment; compare stable baselines rather than screenshots from unrelated systems [R16](research.md).
+Record exact source IDs, source/candidate hashes, source commit plus dirty content identity when applicable, QA identity, viewport/crop, browser/OS/scale, actual font usage, actions, console/resource errors, reviewer and evidence location. Use fresh output directories, retain failed attempts and reject captures whose source changed mid-run.
 
-For each changed family save the source reference path, our course screenshot, viewport, relevant states, and intentional adaptation notes. First verify one screen before applying its components everywhere. Never update baselines solely to silence a regression. A screenshot route existing is not a fidelity check.
+Numerical residuals rank diagnosis, not acceptance. Review whole screens at readable size; inspect crops only in context. Do not overwrite baselines, resize mismatched candidates, mask product content, weaken thresholds or silently skip references. The originals remain byte-identical.
 
-Start with 390px mobile and 1440px desktop. Before pilot test 320px, tablet, wide desktop, zoom, long text, mobile keyboard/safe area and actual iOS Safari/Android Chrome. Desktop Chrome emulation alone is not proof of mobile media behavior. Check Back, deep links and refreshing a lesson route.
+A real-control FLOW needs every recorded step. Existing route checks, responsive samples and interaction-regression totals must be reported separately. An agent's review is not owner approval; a second pass by the same agent is not an independent reviewer. No automation is allowed to tick MATCH/FLOW solely from a score or green CI.
 
-## Accessibility
+## Current gates
 
-Target WCAG 2.2 AA and test actual content/controls, not only a component library claim [R14, R17](research.md). Keyboard navigation, visible focus, meaningful labels, dialog focus/return, error association, contrast, reduced motion, readable zoom and captions are required for the relevant surfaces. Automated checks supplement manual testing; they do not certify the whole product.
+`qa:archive` validates archive integrity; `qa:coverage` checks the single inventory; the browser/comparison tools generate evidence. `qa:acceptance` is intentionally strict and fails until the required review entries are complete. The owner then approves or rejects the phase transition. Current historical totals are in the handoff, not recertified by this document.
 
-## Critical acceptance scenarios
+The existing reference workflow currently targets `main`. The new documentation workflow targets `astra-pro` guidance changes. Before application implementation is checkpointed on `astra-pro`, enable the unchanged reference verification there and observe the run. A skipped, queued or unavailable check is not passed. No branch-protection policy is assumed.
 
-The first free journey: creator A drafts and uploads → operator approves → learner A discovers/enrolls → plays/reads/downloads → leaves/resumes. Learner B and creator B cannot use A's private records or draft media.
+## Accessibility and usability
 
-The paid journey: pending order → sandbox payment → verified fulfillment → active source grant → playback → confirmed refund → that grant revoked. A concurrent duplicate produces no duplicate grant/charge attempt; a delayed old paid event does not undo the refund. Dropped callbacks are repaired through replay/reconciliation. A forged success URL never grants access.
+Preserve semantic controls, labels, keyboard navigation, visible focus, dialog focus/return, errors, reduced-motion behavior and media controls in current clone work. Check containment at the existing responsive widths. Responsive smoke evidence is not mobile reference parity.
 
-Progress: rewind can lower resume position; an older write cannot undo completion; a conflict does not erase local notes. Publishing: no draft leak, no editing beneath review, no unlisting-to-edit bypass. Access: protected text/resources/transcripts are tested along with video.
+For the later course product, target WCAG 2.2 AA and verify composed behavior, content contrast, zoom, captions, mobile keyboards and actual mobile browsers. Automated checks supplement manual testing; neither a UI library nor this document certifies accessibility.
 
-## Operational minimum for the pilot
+## Deferred operations
 
-One named owner monitors failed payments/access, webhook errors, media failures, support and reports. Record safe correlation/event/order IDs, never secrets or private note content. Provider dashboards plus a small app exceptions view are sufficient; no custom observability platform or finance dashboard.
+Before real selling, designate an owner for access/payment failures, media processing, support and reports. Use safe correlation/event/order identifiers, not secrets or private note content in logs. Reconciliation reuses the same idempotent fulfillment rules; test retry/replay and downtime recovery. Do not repair incidents by blindly setting an `is_paid` flag or making private media public.
 
-Run the bounded payment/refund/access reconciliation command before launch and daily during the paid pilot. Record date/result and investigate discrepancies. Test callback replay after downtime. Automatic scheduling can be added to the same command later; it is not a job-framework project.
+Track actual upload/delivery/storage/payment/support costs and enforce quotas before open creator enrollment. Define database, media, private-file and provider-mapping recovery; test a nonproduction restore. A database backup alone is not a complete product restore. Do not assume an unverified vendor plan includes a feature.
 
-For a payment-without-access incident: inspect owner/order/provider context → confirm current provider state → run the idempotent reconcile function → verify grant and delivery → record support outcome. Never repair by blindly toggling an `is_paid` field. For media failure: verify ownership/provider state/captions, retry a draft safely or issue a reviewed correction; don't expose a paid asset publicly as a workaround.
-
-## Budgets and data recovery
-
-Track stored and delivered video minutes, upload quotas, processing failures, database/storage/egress and provider payment costs. Estimate contribution from actual revenue minus refunds, processor/platform charges, media/storage and support; do not publish a margin based on an unverified vendor price. Set alerts and hard upload limits before opening creator registration.
-
-Document database backup coverage and restore procedure; also document how private storage/media content and provider mappings recover, since database backup alone is not the full product. Perform a test restore in a nonproduction environment and record recovery gaps before live launch. Do not claim a provider tier includes a feature without checking the actual purchased plan.
-
-## Release and rollback
-
-Deploy `web/` only, excluding the archive and local evidence. Keep local, preview/staging and production credentials/data separate. Validate origin/callback configuration, private cache behavior, auth email, legal/support pages and actual course/asset rights. Fixture previews are non-indexable; release routes must use real data and no fake success paths.
-
-Use backward-compatible migrations where possible. An application rollback does not automatically undo database/provider state. Record migration compatibility, restore plan, rollout/rollback steps and known risks for the release. Do not run destructive down migrations against paid records as a routine rollback.
-
-The owner explicitly approves production deployment/live payments. A successful build, a nice mockup, or this documentation commit is not that approval.
+Release only independent licensed assets and real data. Keep preview/staging/production separate. Application rollback does not undo provider or database state; record compatibility and recovery steps. No live payment, production infrastructure or deployment is authorized by a documentation commit.

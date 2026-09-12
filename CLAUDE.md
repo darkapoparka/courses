@@ -1,3 +1,3 @@
 @AGENTS.md
 
-Follow the root agent contract. Active work is the Apple Music 1:1 clone in `apple-music-clone/`, on `main` only. Read `docs/handoff.md`, `docs/development.md`, and the relevant `docs/tasks.md` rows. Course/community adaptation is deferred until clone acceptance; do not create another app.
+Use the same branch, preservation, clone-first and evidence contract as every other agent. Start with `docs/handoff.md`; load only the task-relevant documents and skills. Do not maintain a second model-specific rulebook.
