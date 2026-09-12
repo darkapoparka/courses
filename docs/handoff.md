@@ -1,5 +1,10 @@
 # Apple Music clone — current handoff
 
+## Scoped sidebar correction - 2026-09-12
+
+See [the sidebar review](reference-review/2026-09-12-sidebar.md) for the retained geometry/symbol fixes, rejected global colour/type experiments, remaining glass/artwork defects, and the exact combined candidate verified by 48 interaction regressions and all 159 comparisons. The results are mixed (105 lower / 2 unchanged / 52 higher threshold residuals); no MATCH/FLOW acceptance was granted. The freshly verified audit listener was port 6432, PID 58112, build `VHc1Pa-LxOrZt4R7jL7Rt`; the older server descriptions below belong to the preceding checkpoint. Keep development preview 6431 running. Other concurrent main-branch work was preserved; do not replace it with the earlier implementation described below.
+
+
 Updated 2026-09-12. Continue only on `main` in `J:\courses-astra-preview\apple-music-clone`. Preserve the complete working tree and frozen `reference/` archive. The next phase is still a faithful Apple Music clone, not courses/community adaptation.
 
 ## Verified implementation checkpoint

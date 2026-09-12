@@ -30,6 +30,18 @@ async def sidebar_and_rails(page, context):
         if width > 640:
             sidebar = await page.locator('.music-sidebar').bounding_box()
             assert sidebar and main['x'] >= sidebar['x'] + sidebar['width'], (width, main, sidebar)
+            if width == 1440:
+                assert sidebar == {'x': 8, 'y': 8, 'width': 232, 'height': 887}, sidebar
+                navigation = page.get_by_role('navigation', name='Browse music', exact=True)
+                for name, y in [('Search', 76), ('Home', 114), ('New', 152), ('Radio', 190)]:
+                    row = navigation.get_by_role('button', name=name, exact=True)
+                    box = await row.bounding_box()
+                    assert box == {'x': 19, 'y': y, 'width': 209, 'height': 34}, (name, box)
+                    assert (await row.locator('svg').bounding_box())['width'] == 19
+                    assert (await row.locator('span').bounding_box())['x'] == 52
+                material = await page.locator('.music-sidebar').evaluate('(e)=>({filter:getComputedStyle(e).backdropFilter, image:getComputedStyle(e).backgroundImage})')
+                assert 'blur(16px)' in material['filter'], material
+                assert material['image'] == 'none', material
             await page.locator('.feature-rail').hover()
             await page.get_by_role('button', name='Next Featured music', exact=True).click()
             await expect(page.get_by_role('button', name='Previous Featured music', exact=True)).to_be_enabled()

@@ -63,16 +63,17 @@ input[type="range"] { accent-color: var(--text); cursor: pointer; }
 .explicit { display: inline-flex; font-family: Arial, sans-serif; font-size: 7px; font-weight: 700; color: #fff; background: #6e6e73; line-height: 10px; width: 9px; height: 10px; align-items: center; justify-content: center; border-radius: 2px; margin-left: 5px; vertical-align: middle; flex: none; }
 
 /* Fixed rounded navigation surface from the desktop reference. */
-.music-sidebar { position: fixed; z-index: 30; left: 8px; top: 8px; bottom: 8px; width: 232px; display: flex; flex-direction: column; border-radius: 22px; background: #fafafa; box-shadow: 0 4px 22px rgb(0 0 0 / 5%); overflow: hidden; }
+.music-sidebar { position: fixed; z-index: 30; left: 8px; top: 8px; bottom: 8px; width: 232px; display: flex; flex-direction: column; border-radius: 22px; background: #fafafa; -webkit-backdrop-filter: blur(16px) saturate(1.8); backdrop-filter: blur(16px) saturate(1.8); box-shadow: 0 4px 22px rgb(0 0 0 / 5%); overflow: hidden; }
 .guest-session .music-sidebar { bottom: 76px; }
 .sidebar-brand { flex: 0 0 60px; padding: 0 18px; align-self: flex-start; }
-.sidebar-scroll { flex: 1; padding: 10px 12px 18px 11px; min-height: 0; overflow-y: auto; scrollbar-width: none; }
+.sidebar-scroll { flex: 1; padding: 8px 12px 18px 11px; min-height: 0; overflow-y: auto; scrollbar-width: none; }
 .sidebar-scroll nav { display: flex; flex-direction: column; gap: 4px; }
 .sidebar-row { display: flex; align-items: center; gap: 8px; min-height: 34px; width: 100%; padding: 6px 8px; border-radius: 9px; font-size: 13.25px; letter-spacing: .15px; line-height: 18px; text-align: left; flex-shrink: 0; }
+.sidebar-row > svg { flex: none; margin-right: -2px; }
 .sidebar-row span { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .sidebar-row:hover { background: #eeeef0; }
 .sidebar-row[aria-current="page"] { background: #f0f0f0; color: #93001a; }
-.sidebar-section-label { display: flex; height: 26px; align-items: center; justify-content: space-between; padding: 0 7px; margin-top: 16px; color: #626269; font-size: 11px; line-height: 15px; }
+.sidebar-section-label { display: flex; height: 26px; align-items: center; justify-content: space-between; padding: 0 7px 0 8px; margin-top: 16px; color: #626269; font-size: 11px; line-height: 15px; }
 .sidebar-section-label > button { opacity: 0; color: var(--accent); font-size: 11px; }
 .sidebar-scroll:hover .sidebar-section-label > button, .sidebar-section-label > button:focus-visible, .sidebar-section-label:has(+ nav .editable-row) > button { opacity: 1; }
 .sidebar-section-label .icon-button { width: 22px; height: 22px; }

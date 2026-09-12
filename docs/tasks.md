@@ -21,7 +21,9 @@ Implementation checkpoint: `719113ea538ebe8253e63c26b10413c4bf3e8621`, preservin
 
 ## Current finalization evidence
 
-The latest optimized-production checkpoint passed 159 desktop captures, 5 responsive samples, 218 route checks and 44 interaction regressions. All 159 states were compared: 16 improved, 143 were unchanged and none increased their over-threshold residual. The eight new library journeys are registered and exercised; first-fixture lyrics/queue entry still exposes substantial endpoint state differences. See [the bounded review](reference-review/2026-09-12-library-panels.md) and the updated owning rows below. No MATCH/FLOW box was advanced.
+The latest inspected working-tree candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 48 interaction regressions with stable source identities; all 159 were compared. This is the combined sidebar, library-control and cover-integrity candidate, not acceptance or proof that a sidebar-only commit contains that whole batch. See [the sidebar review](reference-review/2026-09-12-sidebar.md) for the exact identity and mixed visual results.
+
+The preceding `719113e` optimized-production checkpoint passed 159 desktop captures, 5 responsive samples, 218 route checks and 44 interaction regressions. All 159 states were compared: 16 improved, 143 were unchanged and none increased their over-threshold residual. The eight new library journeys are registered and exercised; first-fixture lyrics/queue entry still exposes substantial endpoint state differences. See [the bounded review](reference-review/2026-09-12-library-panels.md) and the updated owning rows below. No MATCH/FLOW box was advanced.
 
 The audit now uses each original's exact 1440×903 or 1440×904 application viewport, hash-identified source/candidate files, fresh output directories, and an all-screen comparison gallery. Follow `development.md` for reproduction; numerical residuals do not check the acceptance boxes below.
 
@@ -35,6 +37,7 @@ Open the linked reference → edit the linked component → open the matching lo
 
 - [x] Restore the main content scrollport and keep carousel painting/hit targets out of the sidebar. Committed in `3b1f24e`; current desktop captures have no horizontal document/main overflow.
 - [ ] Finish the shared typography/icon/hover/focus comparison at the reference viewport; keep keyboard and responsive behavior working.
+  - 2026-09-12 bounded sidebar correction: restored measured row anchors and navigation symbols; production controls pass, but typography, glass and 904px alignment remain partial. The combined comparison has 105 lower / 2 unchanged / 52 higher threshold residuals. [Evidence and remaining defects](reference-review/2026-09-12-sidebar.md).
 
 ## Screen checklist
 
