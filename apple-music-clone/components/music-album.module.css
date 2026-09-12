@@ -1,7 +1,7 @@
 .page { position: relative; padding-top: 42px; }
 .header { display: grid; grid-template-columns: 256px minmax(0,1fr); column-gap: 33px; padding: 0 var(--page-right) 0 var(--page-left); min-height: 256px; }
 .header > :global(.music-art) { width: 256px; height: 256px; border-radius: 8px; box-shadow: 0 7px 13px #0001; }
-.info { min-width: 0; padding-top: 36px; }
+.info { min-width: 0; padding-top: 37px; }
 .info h1 { font-size: 25px; line-height: 33px; letter-spacing: -.7px; }
 .info h1 :global(.explicit) { width: 17px; height: 17px; font-size: 12px; line-height: 17px; margin-left: 10px; }
 .artist { color: #c80025; font-size: 24px; line-height: 29px; }
@@ -12,7 +12,7 @@
 .summary button { position: absolute; bottom: 0; right: 0; background: white; color: #333; font-size: 10px; font-weight: 600; }
 .actions { display: flex; align-items: center; gap: 9px; margin-top: 12px; }
 .actions > :global(.icon-button) { width: 34px; height: 34px; background: #f3f3f3; }
-.play { width: 125px; height: 34px; border-radius: 20px; background: #222; color: white; display: flex; align-items: center; justify-content: center; gap: 7px; font-weight: 600; font-size: 12px; }
+.play { width: 125px; height: 34px; border-radius: 20px; background: #000; color: white; display: flex; align-items: center; justify-content: center; gap: 7px; font-weight: 600; font-size: 13px; margin-left: 3px; }
 .tools { position: absolute; top: 7px; right: 8px; display: flex; border: 1px solid #e9e9e9; border-radius: 21px; padding: 0 2px; }
 .tools > :global(.icon-button) { width: 31px; height: 31px; }
 .tracks { margin: 39px var(--page-right) 0 var(--page-left); }

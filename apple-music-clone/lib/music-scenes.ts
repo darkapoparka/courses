@@ -14,6 +14,7 @@ export type Scene = {
   namedProfile?: boolean;
   hero?: "default" | "superbloom" | "alpha" | "listening";
   catalog?: "legacy" | "queue";
+  radioEdition?: "launch" | "hits";
   elapsed?: number; lyricIndex?: number; playerArt?: Artwork;
   librarySeed?: "empty" | "song" | "playlist"; queuePreset?: boolean;
   scroll?: string;
@@ -225,7 +226,7 @@ const definitions: Record<string, Scene> = {
   "e027fe6d": { ...base, namedProfile: true },
 };
 export const screenScenes: Readonly<Record<string, Scene>> = Object.fromEntries(
-  Object.entries(definitions).map(([prefix, scene]) => { const source = sourceId(prefix); return [source, { ...scene, ...playerReference[prefix], source }]; }),
+  Object.entries(definitions).map(([prefix, scene]) => { const source = sourceId(prefix); return [source, { ...scene, ...playerReference[prefix], ...(scene.page === "radio" ? { radioEdition: (["a9992e55", "47a07865", "37575452", "7bd2ef54"].includes(prefix) ? "hits" : "launch") as Scene["radioEdition"] } : {}), source }]; }),
 );
 export function screenScene(id: string): Scene | null { return screenScenes[id] ?? null; }
 export function isPage(value: string): value is Page { return (pages as readonly string[]).includes(value); }

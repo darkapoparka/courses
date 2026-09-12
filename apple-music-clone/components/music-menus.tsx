@@ -12,6 +12,7 @@ export function MusicMenus() {
   const menu = useRef<HTMLDivElement>(null);
   const flyout = useRef<HTMLDivElement>(null);
   const [submenu, setSubmenu] = useState(false);
+  const [copied, setCopied] = useState<"link" | "embed" | null>(m.scene.menu === "album" && m.scene.filled ? "link" : null);
   const [location, setLocation] = useState(m.scene.location ?? "");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
@@ -25,6 +26,7 @@ export function MusicMenus() {
     const bounds = menu.current.getBoundingClientRect();
     setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
     setSubmenu(Boolean(captured?.startsWith("0c6da10e")));
+    setCopied(kind === "album" && m.scene.filled ? "link" : null);
     menu.current.querySelector<HTMLElement>("input,button")?.focus({ preventScroll: true });
     return () => previous?.focus({ preventScroll: true });
   }, [kind, m.menuPosition]);
@@ -43,19 +45,24 @@ export function MusicMenus() {
   const ids = kind === "artist" ? allTracks.filter(t => t.artist === artist).map(t => t.id) : kind === "album" && m.scene.page === "playlist" ? m.library.playlists.find(p => p.id === (m.scene.category ?? "emotional"))?.tracks ?? [] : kind === "album" ? allTracks.filter(t => t.album === (m.scene.category ?? albumTitle)).map(t => t.id) : [track.id];
   const inLibrary = ids.length > 0 && ids.every(id => m.library.songs.includes(id));
   const addLibrary = () => m.setLibrary(data => ({ ...data, songs: inLibrary ? data.songs.filter(id => !ids.includes(id)) : [...new Set([...data.songs, ...ids])] }));
-  const favourite = kind === "artist" ? m.library.favouriteArtists.includes(artist) : m.library.favourites.includes(track.id);
+  const albumName = m.scene.category ?? albumTitle;
+  const favourite = kind === "album" && m.scene.page === "album" ? m.library.favouriteAlbums.includes(albumName) : kind === "artist" ? m.library.favouriteArtists.includes(artist) : m.library.favourites.includes(track.id);
   const artistSuggestedLess = kind === "artist" && ids.length > 0 && ids.every(id => m.library.discouraged.includes(id));
-  const favouriteAction = () => kind === "artist" ? m.favouriteArtist(artist) : m.favourite(track.id);
-  const link = () => new URL(sceneUrl(kind === "artist" ? { page: "artist", category: artist } : kind === "station" ? { page: "radio" } : { page: "album", category: track.album, track: track.id }), window.location.origin).href;
+  const favouriteAction = () => kind === "album" && m.scene.page === "album" ? m.setLibrary(data => ({ ...data, favouriteAlbums: favourite ? data.favouriteAlbums.filter(name => name !== albumName) : [...data.favouriteAlbums, albumName] })) : kind === "artist" ? m.favouriteArtist(artist) : m.favourite(track.id);
+  const link = () => new URL(sceneUrl(kind === "artist" ? { page: "artist", category: artist } : kind === "station" ? { page: "radio" } : kind === "album" || kind === "share" ? { page: "album", category: albumName } : { page: "album", category: track.album, track: track.id }), window.location.origin).href;
   const copy = async (embed = false) => {
-    try { await navigator.clipboard.writeText(embed ? `<iframe src="${link()}" title="Music reference preview" width="660" height="450"></iframe>` : link()); m.notify(embed ? "Embed code copied." : "Link copied."); }
+    try { await navigator.clipboard.writeText(embed ? `<iframe src="${link()}" title="Music reference preview" width="660" height="450"></iframe>` : link()); setCopied(embed ? "embed" : "link"); }
     catch { m.notify("Clipboard access was not allowed. Copy the page address from the address bar."); }
-    close();
   };
   const share = () => { if (navigator.share) void navigator.share({ title: kind === "artist" ? artist : track.title, url: link() }).catch(e => { if (e?.name !== "AbortError") m.notify("Sharing could not be opened."); }); else void copy(); };
-  const capturedSystemShare = kind === "share" && m.scene.source?.startsWith("56c2e39a");
+  const capturedSystemShare = kind === "share" && m.scene.page === "album";
   const systemShareAction = (label: string, icon: GlyphName, run: () => void) => <button type="button" role="menuitem" className="system-share-action" key={label} onClick={() => { run(); close(); }}><Glyph name={icon} size={15} /><span>{label}</span></button>;
-  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={label} onClick={() => { run(); close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && <Glyph name={icon} size={16} />}</button>;
+  // State labels change after mutation; stable keys retain keyboard focus.
+  const actionKey = (label: string) => {
+    const groups = [["Add to Library", "Delete from Library"], ["Favourite", "Undo Favourite"], ["Copy Link", "Link Copied"], ["Copy Embed Code", "Embed Code Copied"], ["Suggest Less", "Undo Suggest Less"]];
+    return groups.find(group => group.includes(label))?.[0] ?? label;
+  };
+  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean, keepOpen = false) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={actionKey(label)} onClick={() => { run(); if (!keepOpen) close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && <Glyph name={icon} size={16} />}</button>;
   const playlistAction = <button type="button" role="menuitem" data-playlist-trigger aria-haspopup="menu" aria-expanded={submenu} onMouseEnter={() => setSubmenu(true)} onClick={() => setSubmenu(true)} onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); setSubmenu(true); requestAnimationFrame(() => flyout.current?.querySelector<HTMLButtonElement>("button")?.focus()); } }}><span>Add to Playlist</span><Glyph name="playlist" size={16} /></button>;
   const queueAction = (next: boolean) => m.setQueue(current => next ? [...ids, ...current.filter(id => !ids.includes(id))] : [...current.filter(id => !ids.includes(id)), ...ids]);
   const stationAction = () => { m.setQueue(allTracks.filter(t => t.artist === artist && t.id !== track.id && !t.unavailable).map(t => t.id)); m.play(track); };
@@ -70,16 +77,16 @@ export function MusicMenus() {
   } else if (kind === "genres") {
     content = <>{["All Genres", "Alternative", "Country", "Dance", "Hip-Hop/Rap", "Pop", "R&B/Soul", "Rock"].map(genre => action(genre, null, () => m.patch({ genre: genre === "All Genres" ? undefined : genre }), (m.scene.genre ?? "All Genres") === genre))}</>;
   } else if (kind === "station") {
-    content = m.scene.source?.startsWith("37575452") ? <>{action("View Schedule", "calendar", () => m.go("schedule"))}{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}</> : <>{action("Play", "play", () => m.go("station:1"))}{action("View Full Schedule", "calendar", () => m.go("schedule"))}{action("Copy Link", "link", () => { void copy(); })}</>;
+    content = <>{action("View Schedule", "calendar", () => m.go("schedule"))}{action("Share", "share", share)}{action(copied === "link" ? "Link Copied" : "Copy Link", copied === "link" ? null : "link", () => { void copy(); }, undefined, true)}</>;
   } else if (kind === "share") {
-    content = capturedSystemShare ? <><div className="system-share-url"><Glyph name="external" size={16} /><strong>https://music.apple.com/sg/album/you-seem-pretty-sad-for-a-girl-s…</strong></div>{systemShareAction("Add to Reading List", "link", () => m.notify("Saved to this local preview."))}{systemShareAction("AirDrop", "radio", share)}{systemShareAction("Mail", "mail", share)}{systemShareAction("Messages", "lyrics", share)}{systemShareAction("Notes", "playlist", () => m.notify("Share target previewed."))}{systemShareAction("Open in News", "external", share)}{systemShareAction("Reminders", "check", () => m.notify("Share target previewed."))}{systemShareAction("Freeform", "new", () => m.notify("Share target previewed."))}{systemShareAction("Journal", "info", () => m.notify("Share target previewed."))}<hr />{systemShareAction("Copy", "link", () => { void copy(); })}{systemShareAction("Edit Extensions…", "more", () => m.notify("System share extensions are managed by your browser or OS."))}</> : <>{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
+    content = capturedSystemShare ? <><div className="system-share-url"><Glyph name="external" size={16} /><strong>https://music.apple.com/sg/album/you-seem-pretty-sad-for-a-girl-s…</strong></div>{systemShareAction("Add to Reading List", "link", () => m.notify("Reading List is a system share destination. No browser reading list was changed."))}{systemShareAction("AirDrop", "radio", share)}{systemShareAction("Mail", "mail", share)}{systemShareAction("Messages", "lyrics", share)}{systemShareAction("Notes", "playlist", () => m.notify("Share target previewed."))}{systemShareAction("Open in News", "external", share)}{systemShareAction("Reminders", "check", () => m.notify("Share target previewed."))}{systemShareAction("Freeform", "new", () => m.notify("Share target previewed."))}{systemShareAction("Journal", "info", () => m.notify("Share target previewed."))}<hr />{systemShareAction("Copy", "link", () => { void copy(); })}{systemShareAction("Edit Extensions…", "more", () => m.notify("System share extensions are managed by your browser or OS."))}</> : <>{action("Share", "share", share)}{action("Copy Link", "link", () => { void copy(); })}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
   } else if (kind === "track" && m.scene.page === "songs") {
     content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
-    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{!(kind === "artist" && artistSuggestedLess) && action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{kind !== "track" && action(artistSuggestedLess ? "Undo Suggest Less" : "Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess))}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{m.scene.filled && kind === "album" ? action("Link Copied", null, () => {}) : action("Copy Link", "link", () => { void copy(); })}{action("Copy Embed Code", "code", () => { void copy(true); })}</>;
+    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary, undefined, true)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{!(kind === "artist" && artistSuggestedLess) && action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{kind !== "track" && action(artistSuggestedLess ? "Undo Suggest Less" : "Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess), undefined, true)}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action(copied === "link" ? "Link Copied" : "Copy Link", copied === "link" ? null : "link", () => { void copy(); }, undefined, true)}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
   }
   const keyboard = (event: KeyboardEvent<HTMLDivElement>, child = false) => {
-    if (event.key === "Escape") { event.preventDefault(); close(); return; }
+    if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); if (child) { setSubmenu(false); menu.current?.querySelector<HTMLElement>("[data-playlist-trigger]")?.focus(); } else close(); return; }
     if (event.key === "ArrowLeft" && child) { event.preventDefault(); setSubmenu(false); menu.current?.querySelector<HTMLElement>("[data-playlist-trigger]")?.focus(); return; }
     if (event.target instanceof HTMLInputElement) return;
     if (event.key === "Tab") { close(); return; }
@@ -92,7 +99,7 @@ export function MusicMenus() {
   };
   return <div className="menu-layer">
     <button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} />
-    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
+    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" data-copy-state={copied ?? undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
     {submenu && <div ref={flyout} className="context-menu faithful-menu playlist-flyout" role="menu" aria-label="Add to playlist" style={{ left: flyoutPosition.x, top: flyoutPosition.y }} onKeyDown={event => keyboard(event, true)}>
       {action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null, playlistSeed: ids }))}
       {m.library.playlists.map(playlist => action(playlist.name, null, () => {

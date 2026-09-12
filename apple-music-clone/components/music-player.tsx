@@ -6,15 +6,16 @@ import { useMusic } from "./music-context";
 import { Art, Glyph, IconButton } from "./music-primitives";
 import { SongRow } from "./music-browse";
 import { Lyrics } from "./music-lyrics";
+import { stationPlayback } from "../lib/radio-reference";
 
 function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {
   const m = useMusic();
   return <div className={`transport ${large ? "transport-large" : ""}`}>
-    <IconButton icon="shuffle" label="Shuffle" aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
-    <IconButton icon="previous" label="Previous track" onClick={() => m.skip(-1)} />
+    <IconButton icon="shuffle" label="Shuffle" disabled={m.activeId?.startsWith("station")} aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
+    <IconButton icon="previous" label="Previous track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(-1)} />
     <IconButton icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
-    <IconButton icon="next" label="Next track" onClick={() => m.skip(1)} />
-    <IconButton icon="repeat" label="Repeat" aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />
+    <IconButton icon="next" label="Next track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(1)} />
+    <IconButton icon="repeat" label="Repeat" disabled={m.activeId?.startsWith("station")} aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />
   </div>;
 }
 function Volume({ expanded = false }: { expanded?: boolean }) {
@@ -34,15 +35,16 @@ function Volume({ expanded = false }: { expanded?: boolean }) {
 export function Player() {
   const m = useMusic();
   const station = m.activeId?.startsWith("station") ? radioStations.find(item => item.id === m.activeId) : undefined;
-  const capturedLive = Boolean(station && m.scene.source?.startsWith("47a07865"));
-  const playerTitle = capturedLive ? "Gorgeous" : station?.title;
-  const playerSubtitle = capturedLive ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
-  const playerArt = capturedLive ? crop("47a07865",704,842,33,33) : station?.art;
+  const broadcast = stationPlayback(m.activeId);
+  const capturedLive = Boolean(broadcast?.hasCapturedBroadcast);
+  const playerTitle = broadcast?.title;
+  const playerSubtitle = broadcast?.subtitle ?? "Live Radio";
+  const playerArt = broadcast?.compactArt;
   const editingPlayerStyle = ["ee8db412", "8f029018", "de48a956", "4811dde3"].some(prefix => m.scene.source?.startsWith(prefix))
     ? { background: "rgb(249 249 251 / 38%)", backdropFilter: "blur(24px) saturate(1.4)", WebkitBackdropFilter: "blur(24px) saturate(1.4)" }
     : m.scene.source?.startsWith("54b01eab") ? { background: "rgb(249 249 251 / 84%)", backdropFilter: "blur(18px) saturate(1)", WebkitBackdropFilter: "blur(18px) saturate(1)" }
     : ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
-  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
+  return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-station={Boolean(station) || undefined} data-radio={capturedLive || undefined} data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
     <Transport radioStop={capturedLive && m.playing} />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>
       {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? playerArt ?? albumArt} label={m.active?.album ?? playerTitle ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? playerTitle}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? playerSubtitle : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
@@ -54,15 +56,16 @@ export function Player() {
 
 function RadioTransport() {
   const m = useMusic();
-  return <div className="radio-transport" aria-label="Live radio controls"><IconButton icon="previous" label="Previous station item" onClick={() => m.skip(-1)} /><IconButton icon="stop" label="Stop live radio" className="radio-stop" onClick={m.togglePlayback} /><IconButton icon="next" label="Next station item" onClick={() => m.skip(1)} /></div>;
+  return <div className="radio-transport" aria-label="Live radio controls"><IconButton icon="previous" label="Previous station item" disabled /><IconButton icon={m.playing ? "stop" : "play"} label={m.playing ? "Stop live radio" : "Play live radio"} className="radio-stop" onClick={m.togglePlayback} /><IconButton icon="next" label="Next station item" disabled /></div>;
 }
 export function ExpandedPlayer() {
   const m = useMusic();
   const station = m.activeId?.startsWith("station") ? radioStations.find(item => item.id === m.activeId) : undefined;
-  const radioReference = Boolean(station && m.scene.source?.startsWith("7bd2ef54"));
-  const stationTitle = radioReference ? "Gorgeous" : station?.title;
-  const stationSubtitle = radioReference ? "Doja Cat — Vie — Apple Music Hits" : "Live Radio";
-  const art = radioReference ? crop("7bd2ef54",461,106,518,519) : m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
+  const broadcast = stationPlayback(m.activeId);
+  const radioReference = Boolean(broadcast?.hasCapturedBroadcast);
+  const stationTitle = broadcast?.title;
+  const stationSubtitle = broadcast?.subtitle ?? "Live Radio";
+  const art = radioReference && broadcast ? broadcast.expandedArt : m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
   const total = m.duration;
   const hasLyrics = Boolean(m.scene.lyrics && !station);
   return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} aria-label="Expanded player">

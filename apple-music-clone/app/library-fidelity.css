@@ -185,7 +185,7 @@
 .system-share-menu .system-share-action:nth-of-type(5) > svg { color:#d6ad00; }
 .system-share-menu .system-share-action:nth-of-type(6) > svg { color:#e14b67; }
 .system-share-menu .system-share-action:nth-of-type(7) > svg { color:#3b8de8; }
-.music-app[data-source^="eca1baa1"] .menu-album > button:nth-last-of-type(2) { background:#dedede; }
+.menu-album[data-copy-state="link"] > button:nth-last-of-type(2) { background:#dedede; }
 
 .library-song-table .favourite-marker svg { fill:currentColor; }
 .library-song-table .track-table-row { position:relative; }

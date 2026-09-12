@@ -1,15 +1,15 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type Dispatch, type MouseEvent, type ReactNode, type RefObject, type SetStateAction } from "react";
-import { allTracks, capturedQueue, libraryTracks, trackById, viralTracks, type Track } from "../lib/music-catalog";
+import { allTracks, capturedQueue, libraryTracks, radioStations, trackById, viralTracks, type Track } from "../lib/music-catalog";
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
-export type LibraryState = { version: 1; favourites: string[]; favouriteArtists: string[]; discouraged: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean; musicRating: "Clean" | "Explicit"; tvRating: string; movieRating: string };
+export type LibraryState = { version: 1; favourites: string[]; favouriteArtists: string[]; favouriteAlbums: string[]; discouraged: string[]; songs: string[]; pinned: string[]; playlists: Playlist[]; hiddenNav: string[]; locale: "en" | "zh"; restrictions: boolean; cancelled: boolean; musicRating: "Clean" | "Explicit"; tvRating: string; movieRating: string };
 const known = new Set(allTracks.map((track) => track.id));
 const knownArtists = new Set(allTracks.flatMap(track => track.artist.split(", ")));
 const initialLibrary: LibraryState = {
-  version: 1, favouriteArtists: ["Billie Eilish", "Olivia Rodrigo"], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "library-7", "album-2"], pinned: [],
+  version: 1, favouriteAlbums: [], favouriteArtists: ["Billie Eilish", "Olivia Rodrigo"], discouraged: [], songs: libraryTracks.map((track) => track.id), favourites: ["library-0", "library-2", "library-7", "album-2"], pinned: [],
   playlists: [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2", "playlist-cure", "drivers-license"], public: false }],
   hiddenNav: [], locale: "en", restrictions: false, cancelled: false, musicRating: "Clean", tvRating: "G", movieRating: "G",
 };
@@ -17,7 +17,7 @@ function strings(value: unknown): string[] { return Array.isArray(value) ? [...n
 export function readLibrary(value: unknown): LibraryState | null {
   if (!value || typeof value !== "object" || !("version" in value) || value.version !== 1) return null;
   const row = value as Record<string, unknown>;
-  return { version: 1, favouriteArtists: Array.isArray(row.favouriteArtists) ? row.favouriteArtists.filter((name): name is string => typeof name === "string" && knownArtists.has(name)) : [], discouraged: strings(row.discouraged), songs: strings(row.songs), favourites: strings(row.favourites), pinned: strings(row.pinned),
+  return { version: 1, favouriteAlbums: Array.isArray(row.favouriteAlbums) ? row.favouriteAlbums.filter((name): name is string => typeof name === "string" && allTracks.some(track => track.album === name)) : [], favouriteArtists: Array.isArray(row.favouriteArtists) ? row.favouriteArtists.filter((name): name is string => typeof name === "string" && knownArtists.has(name)) : [], discouraged: strings(row.discouraged), songs: strings(row.songs), favourites: strings(row.favourites), pinned: strings(row.pinned),
     playlists: Array.isArray(row.playlists) ? row.playlists.slice(0, 100).flatMap((item: unknown) => {
       if (!item || typeof item !== "object") return [];
       const p = item as Record<string, unknown>;
@@ -111,7 +111,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const go = useCallback((destination: string) => {
     const [kind, ...rest] = destination.split(":");
     if (kind === "video") { patch({ video: true, overlay: null, menu: null }); return; }
-    if (kind === "station") { audio.current?.pause(); setActiveId(destination.replace(":", "-")); setSnapshot(true); setDemoRunning(false); patch({ page: "radio", overlay: null, menu: null }); notify("Silent radio UI preview. Press Shift+M to open your own local media."); return; }
+    if (kind === "station") {
+      const id = destination.replace(":", "-");
+      if (!radioStations.some(station => station.id === id)) { notify("This station is not in the saved catalog."); return; }
+      audio.current?.pause(); setActiveId(id); setSnapshot(true); setDemoRunning(false);
+      patch({ page: "radio", selectedTrack: undefined, overlay: null, menu: null });
+      if (!referenceSession.current && !previewNoticeShown.current) { previewNoticeShown.current = true; notify("Silent radio UI preview. Press Shift+M to open your own local media."); }
+      return;
+    }
     if (!kind || !isPage(kind)) { notify("That destination is not included in the saved reference collection."); return; }
     const next: Scene = { page: kind, namedProfile: true, guest: scene.guest, category: rest.join(":") || undefined };
     setScene(next);
@@ -192,8 +199,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions, library.musicRating]);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
       const element = event.target instanceof Element ? event.target : null;
-      if (event.key === "Escape" && !document.querySelector("dialog[open]")) { patch({ expanded: false, panel: null, menu: null, video: false }); return; }
+      if (event.key === "Escape" && !document.querySelector("dialog[open]")) {
+        if (document.querySelector(".menu-layer")) patch({ menu: null });
+        else if (document.querySelector('.volume-control[data-open="true"]')) patch({ volumeOpen: false });
+        else patch({ expanded: false, panel: null, video: false });
+        return;
+      }
       if (!element?.closest("input, textarea, select, [contenteditable=true]") && event.shiftKey) {
         if (event.key.toLowerCase() === "r") { event.preventDefault(); patch({ overlay: "reference" }); return; }
         if (event.key.toLowerCase() === "m") { event.preventDefault(); patch({ overlay: "media" }); return; }
@@ -216,9 +229,18 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   }, [activeId, patch]);
   const openMenu = useCallback((menu: Menu, event?: MouseEvent<HTMLElement>, id?: string) => {
     if (id) setMenuTrackId(id);
-    if (event) { const r = event.currentTarget.getBoundingClientRect(); setMenuPosition({ x: Math.max(8, Math.min(r.right - 176, window.innerWidth - 184)), y: Math.max(8, Math.min(r.bottom + 5, window.innerHeight - 340)) }); }
+    if (event) {
+      const r = event.currentTarget.getBoundingClientRect();
+      const stationCard = menu === "station" && event.currentTarget.closest(".station-card");
+      const albumTools = (menu === "album" || menu === "share") && event.currentTarget.closest("[data-album-tools]");
+      const anchor = stationCard ? { x: r.left + 10, y: r.top + 7 }
+        : albumTools && menu === "share" ? { x: innerWidth - 232, y: r.bottom - 1 }
+        : albumTools ? { x: r.right - 186, y: r.top + 14 }
+        : { x: r.right - 176, y: r.bottom + 5 };
+      setMenuPosition(anchor);
+    }
     else setMenuPosition(null);
-    patch({ menu, overlay: null });
+    patch({ menu, overlay: null, ...(menu === "station" && id ? { selectedTrack: id } : {}) });
   }, [patch]);
   const favouriteArtist = (name: string) => { if (!knownArtists.has(name)) { notify("This artist is not in the saved catalog."); return; } setLibrary(current => ({ ...current, favouriteArtists: toggle(current.favouriteArtists, name) })); };
   const suggestLess = (id: string) => { if (!known.has(id)) return; setLibrary(current => ({ ...current, discouraged: toggle(current.discouraged, id) })); notify(library.discouraged.includes(id) ? "Song restored to local recommendations." : "This song is hidden from local recommendations."); };

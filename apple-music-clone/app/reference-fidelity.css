@@ -180,8 +180,8 @@
 @media(min-width:1181px) {
  .music-app[data-source^="e70094e3"] .square-rail .music-rail { gap:19px; }
  .music-app[data-source^="e70094e3"] .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
- .music-app:is([data-source^="4cb8f3aa"],[data-source^="a9992e55"],[data-source^="47a07865"],[data-source^="37575452"]) .radio-page .square-rail .music-rail { gap:19px; }
- .music-app:is([data-source^="4cb8f3aa"],[data-source^="a9992e55"],[data-source^="47a07865"],[data-source^="37575452"]) .radio-page .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
+ .radio-page > .music-section .square-rail .music-rail { gap:19px; }
+ .radio-page > .music-section .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
 }
 
 .music-app[data-source^='54b01eab'] .music-sidebar { background-image:radial-gradient(ellipse 120% 18% at 55% 30%,rgba(255,20,240,.46) 0%,transparent 86%),radial-gradient(ellipse 100% 20% at 58% 39%,rgba(245,15,230,.16) 0%,transparent 86%),radial-gradient(ellipse 115% 42% at 60% 34%,rgba(255,20,245,.10) 0%,rgba(255,45,240,.055) 55%,transparent 88%); }
