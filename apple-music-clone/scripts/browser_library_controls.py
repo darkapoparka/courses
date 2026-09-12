@@ -58,10 +58,18 @@ async def pinning(page, context):
     await expect(pins).to_have_count(0)
     await expect(row.get_by_role('button', name='Unfavourite stupid song', exact=True)).to_have_attribute('aria-pressed', 'true')
 
+async def player_material(page):
+    return await page.locator('.floating-player').evaluate('''e => {
+      const s = getComputedStyle(e);
+      return {background: s.backgroundColor, filter: s.backdropFilter};
+    }''')
+
+
 async def library_editor(page, context):
     journey = '8db5f5fe-edit-library-menus'
     await start(page, 'e72be564')
     await checkpoint(page, journey, 'e72be564', 'Initial New page')
+    initial_player = await player_material(page)
     # The archive changes catalog/account snapshots after the first still.
     # Preserve the live snapshot rather than manufacturing that discontinuity.
     catalog = await page.locator('.capture-discovery').inner_text()
@@ -75,14 +83,21 @@ async def library_editor(page, context):
     await label.get_by_role('button', name='Edit', exact=True).click()
     await expect(page.get_by_role('checkbox')).to_have_count(6)
     await checkpoint(page, journey, 'ffc18eb8', 'Enter library editing')
+    editing_player = await player_material(page)
+    assert editing_player == {'background': 'rgba(249, 249, 251, 0.5)', 'filter': 'blur(22px) saturate(1)'}, editing_player
+    await page.get_by_role('button', name='Volume', exact=True).click()
+    assert await player_material(page) == editing_player
+    await page.get_by_role('button', name='Volume', exact=True).click()
     hidden = ['Recently Added', 'Albums', 'Made for You']
     for name in hidden:
         await page.get_by_role('checkbox', name='Show ' + name, exact=True).uncheck()
     await checkpoint(page, journey, '3728aa07', 'Hide Recently Added, Albums and Made for You')
+    assert await player_material(page) == editing_player
     await label.get_by_role('button', name='Done', exact=True).click()
     navigation = page.get_by_role('navigation', name='Music library', exact=True)
     assert await navigation.get_by_role('button').all_text_contents() == ['Artists', 'Songs', 'Music Videos']
     await checkpoint(page, journey, 'e5e8383f', 'Finish library editing; retain the initial catalog/account snapshot')
+    assert await player_material(page) == initial_player
     assert await page.locator('.capture-discovery').inner_text() == catalog
     assert await page.get_by_role('navigation', name='Playlists', exact=True).inner_text() == playlists
     await label.hover()

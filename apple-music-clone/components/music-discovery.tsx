@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { StationArtwork } from "./station-artwork";
 import { useMusic } from "./music-context";
-import { partialPanelRelease } from "../lib/panel-release-art";
+import { partialDiscoveryRelease, partialPanelRelease, wideLegacyReleaseSource } from "../lib/panel-release-art";
 import { localizedPicks, localizedRecents, localizedFeatures, localizedSongs, finalLoginSongs, homeAdditions } from "../lib/localized-discovery";
 import styles from "./music-discovery-fixes.module.css";
 import { legacyFeatures, legacySongs, liveFeatures, performanceFeature, queueSongs } from "../lib/discovery-variants";
@@ -21,7 +21,7 @@ const listening: Card[] = [
 const daily: Card[] = ["Singapore", "Global", "Taiwan", "USA", "UK"].map((city, i) => ({ id: `top-100-${i}`, title: `Top 100: ${city}`, subtitle: "Apple Music", destination: "chart", art: crop("8b03c9d0", 286 + i * 227, 397, 208, 208) }));
 const coming: Card[] = [
   ["The Real Me", "Future"], ["Lost Weekend", "Phoebe Bridgers"], ["Don’t Look Down", "Rod Wave"], ["BARAJA BENDITA", "Becky G"], ["Pylon", "beabadoobee"],
-].map(([title, subtitle], i) => ({ id: `coming-${i}`, title: title!, subtitle, destination: `category:${title}`, art: crop("706de500", 286 + i * 227, 149, 208, 208) }));
+].map(([title, subtitle], i) => ({ id: `coming-${i}`, title: title!, subtitle, destination: `category:${title}`, explicit: i !== 1, art: crop("706de500", 286 + i * 227, 149, 208, 208) }));
 const homePicks: Card[] = [...topPicks,
   { id: "easy-hits", title: "Today’s Easy Hits", art: crop("d5173715", 570, 135, 264, 353), destination: "category:Today’s Easy Hits" },
   { id: "ravyn", title: "Ravyn Lenae & Similar Artists", art: crop("d5173715", 854, 135, 264, 353), destination: "artist:Ravyn Lenae" },
@@ -34,9 +34,11 @@ const homeTop100: Card[] = [
 function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artContents, artOverlays, onPositionChange, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artContents?: Partial<Record<string, ReactNode>>; onPositionChange?: (index: number) => void; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
   return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={card.id} card={card} poster={poster} artContent={artContents?.[card.id]} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
 }
+// London and Miami are outside the captured player: retain their full visible
+// 189px. Middle columns must stop at 119px rather than embed player controls.
 function CityCard({ city, index }: { city: string; index: number }) {
   const m = useMusic();
-  return <article className="media-card city-card"><button type="button" className="card-art-button" aria-label={`Top 25: ${city}`} onClick={() => m.go(`category:Top 25: ${city}`)}><span className="city-art"><Art art={crop("8b03c9d0", 286 + index * 227, 714, 208, 119)} label={`Top 25 ${city}`} className="city-upper" /><Art art={crop("706de500", 286 + index * 227, 0, 208, 39)} label="" className="city-lower" /></span></button><button type="button" className="card-title" onClick={() => m.go(`category:Top 25: ${city}`)}>Top 25: {city}</button><p>Apple Music</p></article>;
+  return <article className="media-card city-card"><button type="button" className="card-art-button" aria-label={`Top 25: ${city}`} onClick={() => m.go(`category:Top 25: ${city}`)}><span className="city-art" data-art-partial={index > 0 && index < 4 || undefined}><Art art={crop("8b03c9d0", 286 + index * 227, 714, 208, index === 0 || index === 4 ? 189 : 119)} label={`Top 25 ${city}`} className="city-upper" /><Art art={crop("706de500", 286 + index * 227, 0, 208, 39)} label="" className="city-lower" /></span></button><button type="button" className="card-title" onClick={() => m.go(`category:Top 25: ${city}`)}>Top 25: {city}</button><p>Apple Music</p></article>;
 }
 export function NewView() {
   const m = useMusic();
@@ -71,11 +73,12 @@ export function NewView() {
     2: { id: "sting-night-watch", title: "The Night Watch (Live at the Rijksmuseum)", subtitle: "Sting", destination: "category:The Night Watch (Live at the Rijksmuseum)", art: coverArtwork("cover-sting-night-watch") },
   } : {};
   const releaseEdition = m.scene.panel ? (queue ? "8f029018" : legacy ? "ee8db412" : undefined) : undefined;
-  const partialReleases = releaseEdition ? Object.fromEntries([9, 4, 1, 5, 7].flatMap((index, position) => cleanReleases[position] ? [] : [[position, partialPanelRelease(releaseEdition, position, libraryCovers[index]!)]])) : {};
+  const wideReleaseSource = !m.scene.panel && legacy && !zh ? wideLegacyReleaseSource(source) : undefined;
+  const partialReleases = releaseEdition || wideReleaseSource ? Object.fromEntries([9, 4, 1, 5, 7].flatMap((index, position) => cleanReleases[position] ? [] : [[position, releaseEdition ? partialPanelRelease(releaseEdition, position, libraryCovers[index]!) : partialDiscoveryRelease(wideReleaseSource!, position, libraryCovers[index]!)]])) : {};
   const newThisWeek = [9, 4, 1, 5, 7].map((index, position) => cleanReleases[position] ?? partialReleases[position]?.card ?? libraryCovers[index]!);
   const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : undefined;
   const panelReleaseSource = releaseEdition;
-  const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource
+  const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource || wideReleaseSource
     ? Object.fromEntries(Object.entries(partialReleases).map(([index, value]) => [index, value.overlay]))
     : releaseStripSource ? {
       0: crop(releaseStripSource, 286, 840, 208, 63),

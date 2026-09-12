@@ -40,10 +40,10 @@ export function Player() {
   const playerTitle = broadcast?.title;
   const playerSubtitle = broadcast?.subtitle ?? "Live Radio";
   const playerArt = broadcast?.compactArt;
+  // Glass follows open panels and the live navigation editor, not fixture IDs.
   const editingPlayerStyle = Boolean(m.scene.panel && (m.scene.catalog === "legacy" || m.scene.catalog === "queue"))
     ? { background: "rgb(249 249 251 / 38%)", backdropFilter: "blur(24px) saturate(1.4)", WebkitBackdropFilter: "blur(24px) saturate(1.4)" }
-    : m.scene.source?.startsWith("54b01eab") ? { background: "rgb(249 249 251 / 84%)", backdropFilter: "blur(18px) saturate(1)", WebkitBackdropFilter: "blur(18px) saturate(1)" }
-    : ["ffc18eb8", "3728aa07"].some(prefix => m.scene.source?.startsWith(prefix)) ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
+    : m.scene.editingNav ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
   return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-station={Boolean(station) || undefined} data-radio={capturedLive || undefined} data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
     <Transport radioStop={capturedLive && m.playing} />
     <button type="button" className="now-playing" disabled={!m.activeId} aria-label={m.active ? `Expand ${m.active.title}` : station ? `Expand ${station.title}` : "Expand player"} onClick={() => m.patch({ expanded: true, lyrics: !station })}>

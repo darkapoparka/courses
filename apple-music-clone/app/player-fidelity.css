@@ -261,3 +261,11 @@
 
 /* Broadcast transport is unavailable, not a shortcut into the song queue. */
 .floating-player[data-station="true"] .transport > button:disabled, .radio-transport > button:disabled { opacity:1; cursor:default; }
+
+/* The visible Alpha carousel state owns this glass, including real navigation.
+   Local controls may clear the acquisition route without changing the artwork. */
+.music-app:has(.capture-discovery[data-feature-alpha]) .floating-player {
+  background: rgb(249 249 251 / 84%);
+  -webkit-backdrop-filter: blur(18px) saturate(1);
+  backdrop-filter: blur(18px) saturate(1);
+}

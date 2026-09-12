@@ -240,3 +240,27 @@
   backdrop-filter:blur(12px) saturate(1.1);
  }
 }
+
+/* Five-column discovery shelves retain native 208px artwork and 19px gaps.
+ * The four-column player-panel layout has different recorded geometry. */
+@media (min-width:1181px) {
+ .music-app:not(.with-player-panel) .capture-discovery .square-rail .music-rail { gap:19px; }
+ .music-app:not(.with-player-panel) .capture-discovery .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
+ .music-app:not(.with-player-panel) .capture-discovery .square-rail .card-art-button { box-shadow:0 3px 6px #0000001c; }
+}
+
+/* Match the measured caption insets without moving the following source shelves. */
+@media (min-width:1181px) {
+ .music-app:not(.with-player-panel) .capture-discovery #essentials .card-title { margin-top:4px; }
+ .music-app:not(.with-player-panel) .capture-discovery :is(#essentials,#daily-top,#city-charts) h2 > button { transform:translateY(1px); }
+ .music-app:not(.with-player-panel) .capture-discovery #coming-soon .card-title { position:relative; margin-top:3px; padding-right:14px; }
+ .music-app:not(.with-player-panel) .capture-discovery #coming-soon .explicit { position:absolute; top:1px; right:0; width:10px; margin:0; }
+ .music-app:not(.with-player-panel) .capture-discovery #more-to-explore { margin-top:38px; }
+}
+
+/* Panel release cards use the separate recorded 193px / 19px four-column grid. */
+@media (min-width:1181px) {
+ .music-app.with-player-panel .capture-discovery #new-this-week .music-rail { gap:19px; }
+ .music-app.with-player-panel .capture-discovery #new-this-week .media-card { flex-basis:round(down,calc((100% - 57px)/4),1px); }
+ .music-app.with-player-panel .capture-discovery #new-this-week .card-art-button { box-shadow:0 3px 6px #0000001c; }
+}

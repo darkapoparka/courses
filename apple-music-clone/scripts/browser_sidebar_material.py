@@ -8,7 +8,9 @@ async def shell_state(page):
       const pane = document.querySelector('.music-sidebar');
       const rail = document.querySelector('[data-rail="Featured music"] .music-rail');
       const style = getComputedStyle(pane);
+      const player = getComputedStyle(document.querySelector('.floating-player'));
       return {background: style.background, filter: style.backdropFilter,
+        player: {background: player.backgroundColor, filter: player.backdropFilter},
         mainX: document.querySelector('main').getBoundingClientRect().x,
         railX: rail.getBoundingClientRect().x, scroll: rail.scrollLeft,
         artwork: [...document.querySelectorAll('main [data-art-source]')].map(e =>
@@ -22,6 +24,7 @@ async def alpha_controls(page, context):
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Initial Alpha fixture')
     before = await shell_state(page)
     assert before['mainX'] == 0 and before['filter'] == 'blur(18px) saturate(1.15)', before
+    assert before['player'] == {'background': 'rgba(249, 249, 251, 0.84)', 'filter': 'blur(18px) saturate(1)'}, before['player']
     selection = await page.locator('.sidebar-row[aria-current=page]').evaluate('(e)=>getComputedStyle(e).backgroundColor')
     assert selection.startswith('rgba('), selection
     arrow = await page.get_by_role('button', name='Previous Featured music', exact=True).bounding_box()
@@ -30,7 +33,7 @@ async def alpha_controls(page, context):
     await expect(page.locator('.music-app')).not_to_have_attribute('data-source')
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Open Volume using the player')
     after = await shell_state(page)
-    assert after == before, {'before': before, 'after': after}
+    assert after == before, {key: {'before': before[key], 'after': after[key]} for key in before if before[key] != after[key]}
     await page.get_by_role('button', name='Volume', exact=True).click()
     await page.get_by_role('button', name='Account menu', exact=True).click()
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Open account through the sidebar')
@@ -42,6 +45,7 @@ async def alpha_controls(page, context):
 
 async def discovery_carousel(page, context):
     await start(page, 'e72be564')
+    initial_player = (await shell_state(page))['player']
     await record(page, 'new-carousel-sidebar', 'e72be564', 'First recorded New state')
     next_page = page.get_by_role('button', name='Next Featured music', exact=True)
     await next_page.hover()
@@ -53,6 +57,7 @@ async def discovery_carousel(page, context):
     await expect(page.locator('[data-rail="Featured music"] .feature-card').nth(4)).to_be_in_viewport()
     await record(page, 'new-carousel-sidebar', '54b01eab', 'Advance the actual featured carousel twice; retain starting catalog/profile')
     before = await shell_state(page)
+    assert before['player'] == {'background': 'rgba(249, 249, 251, 0.84)', 'filter': 'blur(18px) saturate(1)'}, before['player']
     await page.get_by_role('button', name='Volume', exact=True).click()
     assert await shell_state(page) == before
     await page.get_by_role('button', name='Volume', exact=True).click()
@@ -76,7 +81,9 @@ async def discovery_carousel(page, context):
     await previous.click()
     await previous.click()
     await expect(page.locator('.capture-discovery')).not_to_have_attribute('data-feature-scrolled')
-    assert (await shell_state(page))['mainX'] == 246
+    returned = await shell_state(page)
+    assert returned['mainX'] == 246
+    assert returned['player'] == initial_player, returned['player']
     await record(page, 'new-carousel-sidebar', 'e72be564', 'Return with the two actual Previous controls')
     await page.get_by_role('navigation', name='Browse music', exact=True).get_by_role('button', name='Radio', exact=True).click()
     await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'radio')
