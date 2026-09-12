@@ -16,7 +16,7 @@ The GitHub workflow `Astra documentation contract (not clone acceptance)` runs t
 
 ## Main consolidation - 2026-09-12
 
-The current task changes branch ownership, merges the existing completed work and aligns contracts/CI with main. The other session's unfinished work is preserved separately until stable. Run the commands above, compare all checkbox lines and reference hashes against the recovery snapshots, and inspect final main ancestry and remote CI. [The transition record](branch-transition.md) owns exact source/recovery identities.
+The current task changes branch ownership, merges the existing completed work and aligns contracts/CI with main. The other session's unfinished work is preserved separately until stable. The nine documentation unit tests, contract validator (34 documents, 87 local link paths, four skills, ten source records), task coverage and handoff-skill structural check passed. All 378 checkbox lines and 577 original reference hashes are unchanged. The generated Next block and historical docs tree are intact. All source branch heads are ancestors of main; the history-only merge leaves the active tree unchanged. Both workflow trigger structures were checked and every original runtime verification step is retained. No new local app build/browser run was needed for this merge because runtime source is unchanged. Observe remote CI for the final pushed candidate separately. [The transition record](branch-transition.md) owns exact source/recovery identities.
 
 ## Historical local adoption checks - 2026-09-12
 

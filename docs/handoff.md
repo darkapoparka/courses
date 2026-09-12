@@ -4,7 +4,7 @@ Updated 2026-09-12 for `DOCS-MAIN-CONSOLIDATION`. The owner requested all comple
 
 ## Primary checkout
 
-**`J:\courses` -> `main` -> `apple-music-clone/`.** Integrate Astra checkpoint `eae1eff` (including GPT web `67a44c4`) with the newer main implementation `4c8840a` and evidence `e6a71f7`. The four older course-preview commits are retained in main's history without reactivating `web/`. See [the transition record](astra/branch-transition.md) for exact source heads, recovery directories and reconciliation.
+**`J:\courses` -> `main` -> `apple-music-clone/`.** Incorporates Astra checkpoint `eae1eff` (including GPT web `67a44c4`) with the newer main implementation `4c8840a` and evidence `e6a71f7`. The four older course-preview commits are retained in main's history without reactivating `web/`. See [the transition record](astra/branch-transition.md) for exact source heads, recovery directories and reconciliation.
 
 Future work may use bounded feature branches/worktrees; main is the shared baseline. The original preview directory remains on `codex/preview-preserved-20260912` with its evidence and unfinished edits protected. Another session was still editing its player/metadata files during consolidation. Do not overwrite or declare those changes verified from the earlier Home results; recheck their current status before transfer.
 
@@ -22,7 +22,9 @@ Observed preceding CI: [main e6a71f7](https://github.com/darkapoparka/courses/ac
 
 ## Consolidation verification
 
-Use [the documentation checks](astra/verification.md) and preserve the exact task checkbox lines, original reference bytes and generated Next.js instruction block. Record the final pushed SHA and its actual CI outcomes in the task report; configured or queued checks are not passes. The pre-consolidation snapshot is `J:\courses\.git\local-adoption\20260912-main\`.
+Passed locally: nine documentation unit tests, the contract validator (34 active documents, 87 local link paths, four skills, ten source records), task coverage, handoff-skill structural validation, and whitespace checks. All 378 task checkbox lines and 577 reference-file hashes are unchanged. The generated Next.js block and historical docs tree are intact; the runtime workflow retains every prior verification step. All four source branch heads are now ancestors of main. No application runtime source changed in this merge, so no new local build or visual acceptance is claimed.
+
+The integration commits are `30e5204` (Astra plus newer main) and `fb0059b` (historical course prototype ancestry). Record the final pushed SHA and actual CI outcomes in the task report; configured or queued checks are not passes. Recovery material is in `J:\courses\.git\local-adoption\20260912-main\`.
 
 ## Next bounded work
 
