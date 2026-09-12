@@ -1,11 +1,11 @@
 {
   "candidate": {
-    "toolingSha256": "90d4bbed39b006c0329b9778e969ac011e3181e7d072cbdc3ed00f3de4bac34f",
-    "commit": "05ee6ecaf7e51419f19906b702cc60de9a6fb08b",
+    "toolingSha256": "29dc8dda2899d4c3ccac70dfb37919e23063e115955ef67c4ad698a7e558a14f",
+    "commit": "289c049cc3e198baa762cd89850f744e80e99ff2",
     "branch": "main",
-    "implementationSha256": "a69870d6f1255be4c935c9329af8b77693612e6bab77ba30b0385252d86079ee",
-    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/apple-music-app.tsx\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/components/music-rail.tsx\n M apple-music-clone/scripts/browser-reference.py\n M docs/handoff.md\n M docs/reference-review/latest-metrics.json\n M docs/tasks.md\n?? apple-music-clone/components/use-rail-underlay.ts\n?? apple-music-clone/scripts/browser_sidebar_material.py\n?? docs/reference-review/2026-09-12-library-controls.md",
-    "capturedAt": "2026-09-12T07:14:32.028514+00:00",
+    "implementationSha256": "4ea0d14603e0a795f39bffdadb11ac099cc4215c419e848cfef424385dc4a700",
+    "workingTree": "M apple-music-clone/app/globals.css\n M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/music-browse.tsx\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/scripts/browser-reference.py\n M apple-music-clone/scripts/browser_fidelity_regressions.py\n M apple-music-clone/scripts/browser_live_fidelity.py\n M apple-music-clone/scripts/browser_sidebar_material.py\n?? apple-music-clone/components/station-artwork.module.css\n?? apple-music-clone/components/station-artwork.tsx\n?? apple-music-clone/scripts/browser_home_controls.py",
+    "capturedAt": "2026-09-12T17:16:12.674701+00:00",
     "platform": "Windows-11-10.0.26200-SP0",
     "python": "3.13.1"
   },
@@ -141,7 +141,7 @@
         "height": 903
       },
       "sourceSha256": "34e39dea7642d15b47976525dd0418ec9f649800b448ebba3512f4b36f00177f",
-      "renderSha256": "9963387602f9fc9304e0a6eda0dc742f557fc13515435b6e1e884fabccd4e551",
+      "renderSha256": "66afcd042273a8f9ac2e986a2a77b212c61292a876fdc2d8ccbc2ad42ba7d8fc",
       "crop": [
         0,
         0,
@@ -149,10 +149,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.850118945080186,
-      "over20Percent": 9.64031930601698,
-      "deltaMae": -0.10032453549895326,
-      "deltaOver20Percent": -0.2255598621877688
+      "mae": 6.839561800172265,
+      "over20Percent": 9.63885812723022,
+      "deltaMae": -0.010557144907920701,
+      "deltaOver20Percent": -0.001461178786760442
     },
     {
       "screen": "d6b9a1a7-e7fe-44d4-bdc1-8fb7ee990c8f",
@@ -1621,7 +1621,7 @@
         "height": 903
       },
       "sourceSha256": "d02e67e045dc54dd53d77166168dfca0393563569ca987f0446266af8e41eeaa",
-      "renderSha256": "6e51edee4fb9e56ac3f2ec67ec80c80f612aae01ad7526c39d61194e98a23c94",
+      "renderSha256": "89e9999b2eb42514071d4d0a0fb338c8ef6b2964ca831cc46e16dc0b3e8a8ac2",
       "crop": [
         0,
         0,
@@ -1629,10 +1629,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.727652167671548,
-      "over20Percent": 6.079811123415775,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
+      "mae": 4.473699550879783,
+      "over20Percent": 5.93630798572659,
+      "deltaMae": -0.2539526167917643,
+      "deltaOver20Percent": -0.14350313768918443
     },
     {
       "screen": "18225175-b422-4fbb-8371-eae08bb6c4a8",
@@ -1911,7 +1911,7 @@
       "excluded": "120px acquisition footer only",
       "mae": 2.1468015565399288,
       "over20Percent": 5.203642180386367,
-      "deltaMae": -7.690414665084688e-07,
+      "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
     },
     {

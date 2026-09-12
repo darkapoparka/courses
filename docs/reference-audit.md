@@ -1,8 +1,18 @@
 # Apple Music clone audit — current findings
 
-Updated 2026-09-12. Current verified implementation: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, pushed on `main`. Earlier work and the frozen archive remain intact. Courses/community adaptation is still blocked.
+Updated 2026-09-12. Current verified implementation: `4c8840a0870849e3d9ceedad963f97fe8cdcb8bc` on main. The frozen archive, prior history and pending work found on arrival were preserved.
 
-## Current sidebar findings
+## Current Home artwork and control findings
+
+The verified batch retains native scrollport width on Windows, renders the Home station's forward frame as art-only SVG beneath real glass, removes Home sidebar colour-compensation gradients and refines artwork-edge handle material. A reproduced 1024px regression hid Next before the final card and placed Previous over the second card; visibility/gutter CSS now follows actual boundaries and the desktop breakpoint. The new registered test traverses/returns at four widths.
+
+Fresh optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 52 regressions, zero failures. Typecheck, build, archive/coverage, five Python and nine Node tests passed. All 159 exact-size comparisons completed: two lower over-20 residuals, 157 unchanged, none higher. Home improved 6.079811%→5.936308%; Alpha's handle-only change improved 9.640319%→9.638858%. Application/QA identities remained stable.
+
+Read `reference-review/2026-09-12-home-artwork-controls.md` for exact identities, full-size source/render/difference observations, continuous controls, preserved failures and storage relocation. `handoff.md` owns current servers and continuation state; `reference-review/latest-metrics.json` is the exact image-free full-corpus report.
+
+Home's continuous scrolled state and its direct fixture agree exactly, but are not exact originals. Live New→Alpha is still 10.697290% different from its original and 1.875461% from its direct fixture. The wrong preceding Alpha artwork, glass/font/icon/player residuals and earlier library/lyrics/queue entry snapshot inconsistencies remain open. No full Home flow or visual sign-off is claimed. Acceptance remains UI 159/159, MATCH 0/159, FLOW 0/58.
+
+## Previous sidebar findings — a30a9ee (historical)
 
 The Alpha sidebar lost its material and changed visible artwork/text after real controls cleared the fixture-routing hint. Material now follows actual carousel/visibility state; the selected row is translucent, the Previous button is outside the sidebar, and native snap padding fixes return navigation at 1264px. New/Home tinted material now leaves with its offscreen artwork. A production declaration-order bug was also corrected and is covered by an exact computed blur/saturation assertion.
 
@@ -11,6 +21,7 @@ The final stable production run passed 159 desktop captures, 5 responsive sample
 Read `reference-review/2026-09-12-sidebar-live.md` for stable source hashes, the complete local gallery, 13 continuous observations, preserved failed attempts and relocated evidence storage. `handoff.md` has current server/source ownership; `reference-review/latest-metrics.json` is the image-free full-corpus report.
 
 Acceptance remains UI 159/159, MATCH 0/159 and complete recorded FLOW 0/58. Live New Alpha still differs from its direct fixture by 1.8698% over threshold. Wrong/partial artwork, synthetic glass distribution, typography/icons, arrow material, player details and older library/queue/lyrics entry discrepancies remain open. The added Home test is an authenticated carousel segment, not the complete recorded Home flow.
+
 
 ## Earlier audit — historical checkpoint, not current source
 

@@ -2,7 +2,7 @@
 
 Checked this session at 2026-09-12. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
 
-Implementation checkpoint: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, preserving `05ee6ec` and all earlier main work. The final production run covers 159 desktop states, 5 responsive samples, 218 route checks and 51 interaction regressions; these are not visual sign-offs. See `handoff.md` and `reference-audit.md` for identities and findings. Course/community adaptation remains blocked until genuine clone acceptance.
+Implementation checkpoint: `4c8840a0870849e3d9ceedad963f97fe8cdcb8bc`, preserving 289c049 and all earlier main work. Fresh production passed 159 desktop captures, 5 responsive samples, 218 route checks and 52 interaction regressions. These are not visual sign-offs. See handoff.md and the Home artwork/controls review. No courses/community adaptation.
 
 ## Progress at a glance
 
@@ -21,7 +21,9 @@ Implementation checkpoint: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, preservin
 
 ## Current finalization evidence
 
-The live-sidebar candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 51 interaction regressions. The exact production blur is now asserted. All 159 comparisons completed: Alpha improved from 9.8659% to 9.6403% over-20 pixels; 158 over-20 results were unchanged and none worsened. Read [the live-sidebar review](reference-review/2026-09-12-sidebar-live.md) for 13 continuous observations, preserved failures and remaining defects. No MATCH/FLOW box was advanced.
+The latest Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
+
+Historical preceding live-sidebar candidate: passed 159 desktop captures, 5 responsive samples, 218 route checks and 51 interaction regressions. The exact production blur is now asserted. All 159 comparisons completed: Alpha improved from 9.8659% to 9.6403% over-20 pixels; 158 over-20 results were unchanged and none worsened. Read [the live-sidebar review](reference-review/2026-09-12-sidebar-live.md) for 13 continuous observations, preserved failures and remaining defects. No MATCH/FLOW box was advanced.
 
 The preceding 05ee6ec combined candidate passed 159 desktop captures, 5 responsive samples, 218 route checks and 48 interaction regressions with stable source identities; all 159 were compared. This is the combined sidebar, library-control and cover-integrity candidate, not acceptance or proof that a sidebar-only commit contains that whole batch. See [the sidebar review](reference-review/2026-09-12-sidebar.md) for the exact identity and mixed visual results.
 
@@ -39,6 +41,7 @@ Open the linked reference → edit the linked component → open the matching lo
 
 - [x] Restore the main content scrollport and keep carousel painting/hit targets out of the sidebar. Committed in `3b1f24e`; current desktop captures have no horizontal document/main overflow.
 - [ ] Finish the shared typography/icon/hover/focus comparison at the reference viewport; keep keyboard and responsive behavior working.
+  - `4c8840a`: Native scrollport width and keyboard/wheel behavior verified; Home responsive controls corrected without changing the 1440px layout. [Bounded review](reference-review/2026-09-12-home-artwork-controls.md).
   - 2026-09-12 bounded sidebar correction: restored measured row anchors and navigation symbols; production controls pass, but typography, glass and 904px alignment remain partial. The combined comparison has 105 lower / 2 unchanged / 52 higher threshold residuals. [Evidence and remaining defects](reference-review/2026-09-12-sidebar.md).
 
 ## Screen checklist
@@ -71,6 +74,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - `4c8840a`: Handle material yields a small direct residual improvement to 9.638858%. The preceding card remains wrong; live/direct residual remains 1.875461%. Not matched [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Real Volume/Account preservation, translucent selection, clickable carousel return, offscreen material and exact production blur verified. Original residual 9.6403%; live-from-New residual 10.6978%. Wrong/partial preceding artwork, glass distribution and typography remain. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Reference image](../apple-music-clone/reference/originals/54b01eab-e635-4f54-882b-4bc62e7a2a4c.webp) · [Open app state](http://127.0.0.1:6431/screen/54b01eab-e635-4f54-882b-4bc62e7a2a4c) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -267,6 +271,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-d5173715 — Home — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-d5173715 — Finish and verify the exact screenshot match.**
+  - `4c8840a`: Native forward station artwork and actual glass replace sidebar colour compensation. Direct/source residual 5.936308%; continuous carousel/vertical-return matches the direct fixture exactly. Glass distribution, typography and lower shelves remain partial [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Authenticated Home carousel/vertical-return segment verifies material removal and restoration. Original residual remains 6.0798%; direct/live over-20 difference is 0%. This is not full Home-flow acceptance. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Reference image](../apple-music-clone/reference/originals/d5173715-ea54-4801-837c-2a40ec9df2af.webp) · [Open app state](http://127.0.0.1:6431/screen/d5173715-ea54-4801-837c-2a40ec9df2af) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -1088,6 +1093,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/starting-a-trial?step=0). Sequence: [1: 51c79ae2](#screen-51c79ae2) → [2: b74d25cb](#screen-b74d25cb) → [3: 94b9d90d](#screen-94b9d90d) → [4: a728c2af](#screen-a728c2af) → [5: 06ea37ef](#screen-06ea37ef) → [6: 5175a910](#screen-5175a910) → [7: ecb33359](#screen-ecb33359) → [8: bf099ae2](#screen-bf099ae2) → [9: e72be564](#screen-e72be564) → [10: a917d88f](#screen-a917d88f)
 
 - [ ] **FLOW-bc4b3fa8 — 3. New (5 steps).** Complete and verify the recorded journey.
+  - `4c8840a`: Five recorded New checkpoints still traverse continuously. Original/live Alpha residual is 10.697290%; account/catalog/artwork reconciliation remains open [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: All five checkpoints traversed continuously from e72be564 through actual hover, carousel and wheel controls, then returned. Snapshot/artwork/profile differences remain; live Alpha differs from its direct fixture by 1.8698% over threshold. Do not replace session data behind a hover. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/new?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4f611a9e](#screen-4f611a9e) → [3: 54b01eab](#screen-54b01eab) → [4: 8b03c9d0](#screen-8b03c9d0) → [5: 706de500](#screen-706de500)
 
@@ -1191,6 +1197,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/milestone-detail?step=0). Sequence: [1: 18225175](#screen-18225175) → [2: cc18744f](#screen-cc18744f) → [3: b5d31893](#screen-b5d31893)
 
 - [ ] **FLOW-bc2a77fc — 35. Home (6 steps).** Complete and verify the recorded journey.
+  - `4c8840a`: Fixed hidden Next and misplaced Previous at narrower widths; registered full-carousel/return checks at 1440, 1264, 1024 and 768px. This extends control coverage, not the complete recorded six-step Home acceptance [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Only the authenticated a917d88f to d5173715 carousel/vertical-return segment was added here. The full six-step sequence and visual acceptance remain open. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/home?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: aefa8502](#screen-aefa8502) → [3: a917d88f](#screen-a917d88f) → [4: 2f5da478](#screen-2f5da478) → [5: d5173715](#screen-d5173715) → [6: 42098642](#screen-42098642)
 

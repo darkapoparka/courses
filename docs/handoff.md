@@ -2,7 +2,25 @@
 
 Updated 2026-09-12. Work only on `main` in `J:\courses-astra-preview\apple-music-clone`. Preserve the entire working tree and frozen `reference/` archive. No courses/community adaptation or production deployment is authorized.
 
-## Current verified checkpoint — a30a9ee
+## Current verified implementation — 4c8840a
+
+`4c8840a0870849e3d9ceedad963f97fe8cdcb8bc` — `fix(reference): preserve artwork and responsive carousel controls`. Preserves all previous main history and finishes/verifies the pending Home station, glass, native-scrollport and carousel-handle edits found on arrival. Publication/CI status is recorded separately; never infer it from a local commit.
+
+A real 1024px Home regression was reproduced and fixed: Next disappeared before the final card, while Previous floated over the second card. Boundary visibility now follows the actual disabled state, and the expanded desktop gutter no longer leaks into narrower layouts. The registered regression traverses and returns at 1440, 1264, 1024 and 768px. The native station artwork supplies the Home glass colour without compensating sidebar gradients; native keyboard/wheel scrolling remains verified.
+
+Fresh production build `pnPB4llWg5W19-hBO2k-t`: 159 desktop captures, 5 responsive samples, 218 route checks, 52 interaction regressions, zero failures. Typecheck, build, archive/coverage, five Python and nine Node tests passed. All 159 exact-size comparisons completed: Home d5173715 improved from 6.079811% to 5.936308% over-20 pixels; Alpha from 9.640319% to 9.638858%; 157 were unchanged, none worsened at that desktop threshold.
+
+Stable implementation SHA-256: `4ea0d14603e0a795f39bffdadb11ac099cc4215c419e848cfef424385dc4a700`. Stable QA SHA-256: `29dc8dda2899d4c3ccac70dfb37919e23063e115955ef67c4ad698a7e558a14f`. Evidence correctly records pre-commit HEAD 289c049 plus these then-uncommitted source hashes; do not rewrite capture history.
+
+Evidence root: `apple-music-clone/.parity-evidence/artwork-implementation-20260912-1950/`. Use `production/results.json`, `production-comparison/index.html` / `metrics.json`, `production/journeys/`, `production-journey-metrics.json`, and `responsive-production/`. Detailed review: `reference-review/2026-09-12-home-artwork-controls.md`. `reference-review/latest-metrics.json` now contains this image-free full-corpus comparison.
+
+Observed running previews: development 127.0.0.1:6431/PID 39192; fresh production audit 127.0.0.1:6432/PID 53704. Both belong to this app. The previous development process disappeared during diagnostics and was restarted after verifying the port was vacant. Port 3000/PID 22308 belongs to the other project and remains untouched. Recheck ownership and freshness before reuse.
+
+J: space was reclaimed by hash-verified relocation, not deletion of work. Five completed audit directories now have D: backing and unchanged J: directory-junction paths. Manifest: `D:\courses-storage-relocation\20260912-194335\manifest.json`. The initial working tree is backed up in the sibling `working-tree-backup` directory. Reclaimed allocation was 3,476,373,504 bytes; J: rose from about 397 MB to 3.87 GB free before the new verification output. Preserve all junctions and their backing storage. Process-local TEMP/TMP use D:\courses-audit-temp.
+
+**Acceptance stays UI 159/159, MATCH 0/159, complete FLOW 0/58.** Continuous Home matches its direct scrolled fixture exactly, but both still differ from the original. Live New→Alpha remains 10.697290% different from its original and 1.875461% from its direct fixture. The wrong preceding Alpha artwork, remaining material/font/icon/player details and first-entry library/queue/lyrics inconsistencies are not fixed. Do not substitute unrelated artwork or invent session transitions. Continue these exact owners in tasks.md.
+
+## Previous verified checkpoint — a30a9ee (historical)
 
 `a30a9eee7d7b3a44874fd2b4364b30648c064455` — `fix(reference): preserve live sidebar material and carousel controls`, pushed normally to `main`. GitHub run **34680539220**, job **103518256549**, completed successfully, including the full browser and comparison stages. The strict clone acceptance gate was skipped, not passed. Earlier `05ee6ec`, `46f9c15`, `719113e`, `51087ec` and `b1b1247` remain in history.
 
