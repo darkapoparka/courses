@@ -1,28 +1,31 @@
 # Documentation map
 
-## Current assignment
+## Current phase: exact Apple Music reconstruction
 
-Finish the existing Apple Music clone to true 1:1 screen and interaction fidelity. Only then, with owner approval, adapt it into a courses/community product. Work only on `main`; the working app is `apple-music-clone/`, not a new `web/` scaffold.
+The [root contract](../AGENTS.md) defines the phase and preservation rules. The primary workspace is `J:\courses` on `main`; the [transition record](astra/branch-transition.md) explains the consolidated histories and retained preview evidence. Read only the relevant documents below, not the entire repository at every task.
 
-## Read in this order
-
-| Document | Authority and purpose |
+| Need | Owning document |
 | --- | --- |
-| [Root agent contract](../AGENTS.md) | Branch, preservation, phase boundaries, and honest acceptance rules |
-| [Handoff](handoff.md) | Actual source checkpoint, running server, evidence, and next work |
-| [Development runbook](development.md) | Reproducible setup, capture, comparison, testing, and checkpoint commands |
-| [Tasks](tasks.md) | The single 159-screen / 58-flow completion checklist; UI, MATCH, and FLOW are separate |
-| [Current audit](reference-audit.md) | Findings, verified scope, residuals, and historical audit context |
-| [Latest diagnostics](reference-review/latest-metrics.json) | Hash-identified measurements for every saved screen; not a second acceptance checklist |
-| [Source review ledger](reference-review/ledger.md) | Dated source observations, not automatic implementation acceptance |
-| [Decisions](decisions.md) | Current owner direction followed by historical decisions |
+| Resume actual work and understand unverified changes | [handoff.md](handoff.md) |
+| Start the right server; run captures, comparisons and tests | [development.md](development.md) |
+| Locate screen/flow IDs and record acceptance | [tasks.md](tasks.md), the sole live checklist |
+| Understand unresolved mismatches | [reference-audit.md](reference-audit.md) |
+| Locate active components and state boundaries | [architecture.md](architecture.md) |
+| Match visual geometry, material, assets and interaction | [design-system.md](design-system.md) |
+| Interpret fixture routes versus continuous journeys | [screens-and-flows.md](screens-and-flows.md) |
+| Edit with the installed stack | [tech-stack.md](tech-stack.md), [coding-standards.md](coding-standards.md) |
+| Choose verification and record evidence | [quality-and-operations.md](quality-and-operations.md) |
+| Resolve conflicting directions | [decisions.md](decisions.md) |
+| Use Astra, current OpenAI sources and focused skills | [astra/README.md](astra/README.md) |
 
-The source archive and acquisition reports are under `apple-music-clone/reference/`. Preserve them byte-for-byte. Current implementation status belongs in the active documents above, not rewritten acquisition-era reports.
+Dated observations remain in [reference-review](reference-review/ledger.md). The existing [full-corpus metrics](reference-review/latest-metrics.json) identify a past candidate, not the current dirty working tree or an acceptance certificate.
 
-## Deferred courses/community phase
+## Deferred product requirements
 
-The platform, architecture, data, authoring, media, commerce, security, and component specifications in this folder are retained planning material. They do not authorize course copy, a second app, new providers, production infrastructure, subscriptions, or deployment during clone finalization. Read them only for an explicitly assigned later-phase task.
+[platform.md](platform.md) and [features.md](features.md) describe the later multi-creator course product. [data-model.md](data-model.md), [commerce-and-video.md](commerce-and-video.md), and [security-and-trust.md](security-and-trust.md) retain its important correctness and trust requirements. They do not authorize a new app, provider provisioning, live money or a course-themed redesign during clone finalization.
 
-## Avoid status drift
+[research.md](research.md) distinguishes repository evidence, reviewed official OpenAI guidance and vendor references to refresh at integration time. [history](history/README.md) preserves the prior documentation without making its superseded instructions active.
 
-Do not create another task list or call all implemented routes "done." Update `tasks.md` with reviewed evidence, `reference-audit.md` with findings, and `handoff.md` with the actual tested checkpoint. Keep local screenshots and experiments in ignored `.parity-evidence/` and `.qa/` directories; retain their source/candidate hashes and reproduction commands.
+## Ownership of status
+
+Tasks own acceptance. Audit owns findings. Handoff owns the actual checkpoint and immediate next work. Decisions own phase/architecture changes. Research owns source provenance. Skills route repeated workflows; they do not hold a second set of completion counters. Historical documents and source captures are not rewritten to make a current status look better.

@@ -1,8 +1,10 @@
 # Apple Music clone — screen and flow checklist
 
-Checked this session at 2026-09-12. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
+Updated 2026-09-12 for `DOCS-MAIN-CONSOLIDATION`. Primary checkout: `J:\courses`; integrated baseline: `main`, explicitly authorized by the owner. Future tasks may use bounded branches/worktrees. Preserve unfinished preview edits and evidence; see [the transition record](astra/branch-transition.md).
 
 Implementation checkpoint: `4c8840a0870849e3d9ceedad963f97fe8cdcb8bc`, preserving 289c049 and all earlier main work. Fresh production passed 159 desktop captures, 5 responsive samples, 218 route checks and 52 interaction regressions. These are not visual sign-offs. See handoff.md and the Home artwork/controls review. No courses/community adaptation.
+
+`DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
 ## Progress at a glance
 
@@ -1286,6 +1288,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 ### Fidelity checkpoint - 2026-09-11
 
+Historical record below. Its main-only policy and runtime observations describe that checkpoint, not the adopted workspace or current branch instructions.
+
 - Active branch policy is `main` only. The fidelity batch based on `e166f5b` was checkpointed as `94486db36446c8717e50ccaaff014bdb02054511` after the fresh complete regression passed. `apple-music-clone/.qa/` remains local-only QA scratch space and is not part of the checkpoint.
 - Implementation/render coverage is complete: 159/159 saved desktop UI states render and all 218 recorded route states resolve. A fresh complete canonical browser suite after the latest fidelity refinements passed 164 rendered states (159 desktop + 5 mobile samples), 218/218 route states, 16/16 interaction journeys and 0 failures.
 - A fresh real-browser hydration check passed on the current source: the root app loaded in Chromium, clicking `Radio` changed the live heading to `Radio`, and the navigation control became `aria-current="page"`.
@@ -1304,7 +1308,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 ## Deferred courses-product backlog
 
-Everything below belongs to the eventual courses product. It is deferred until the owner accepts the Apple Music clone; old planning status is not the current clone implementation status.
+Everything below is preserved historical planning for the eventual courses product, not a current assignment. It is deferred until the owner accepts the Apple Music clone and authorizes transition. The old `web/` scaffold recommendation is superseded by decision A-03; do not execute it. Later course-preview work and its evidence remain on `astra/implementation` at `8a5c078`. Consult that branch before an authorized adaptation; do not reset or regenerate this historical table to represent current work.
 
 <details>
 <summary>Show the preserved courses-product backlog</summary>

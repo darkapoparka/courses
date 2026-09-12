@@ -17,3 +17,10 @@ __pycache__/
 apple-music-clone/reference/originals/browser-bundles.json
 apple-music-clone/.parity-evidence/
 apple-music-clone/.qa/
+
+# Historical course-preview outputs retained from astra/implementation.
+# Its source remains on that branch; these are local generated evidence/caches.
+/docs/evidence/
+/web/next-env.d.ts
+/web/playwright-report/
+/web/test-results/

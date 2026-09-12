@@ -1,56 +1,41 @@
-# Features and acceptance
+# Features and stage gates
 
-Scope is staged. A listed future feature is not permission to scaffold it. Route details live in [screens and flows](screens-and-flows.md); task status lives only in [tasks](tasks.md).
+Feature requirements live here; completion status lives only in [tasks.md](tasks.md). A future feature is not an instruction to create it now.
 
-## M0 — reviewable course UI
+## Stage C — current Apple Music clone
 
-| Feature | Required acceptance |
+Implement the exact saved screen states and continuous recorded journeys in the existing app. Preserve music semantics, working controls, local-preview safety and immutable originals. Acceptance requires 159 genuine MATCH entries, 58 complete FLOW entries and explicit owner approval before a product transition. Implemented routes, regression counts and a polished subset do not satisfy this gate.
+
+## Stage A0 — authorized course adaptation, after Stage C
+
+Adapt an accepted shell/detail/learning slice with original or licensed fixtures. Discovery, a course detail and a sample lesson must form a coherent navigable journey. Show curriculum, outcome, teacher and distinct preview/owned/locked states without pretending to charge, publish or persist to a backend. Test keyboard, responsive layout, loading/empty/error behavior and source-to-adaptation decisions.
+
+This stage uses the existing application and needs no payment/backend credentials. Create independent course-design baselines, not new claims of pixel identity to Apple. A route redesign or path rename needs a migration decision.
+
+## Stage A1 — real free-course alpha
+
+| Capability | Required outcome |
 | --- | --- |
-| Learner shell | Desktop rail and intentional mobile navigation; actual links, browser Back and active state; no giant all-screen component |
-| Discovery | Original/licensed fixture covers, small editorial shelves, clear course titles/creator/effort, browse/search entry; honest demo labeling |
-| Course detail | Outcome, teacher, price/access summary, curriculum, preview; clear locked/owned/in-progress variants without fake purchase behavior |
-| Lesson workspace | One sample video or text lesson, curriculum, previous/next and visible resume/progress fixture states; only licensed public sample media |
-| Responsive states | Readable at 390px and 1440px; keyboard focus; loading/empty/error examples for the slice; screenshot evidence |
+| Identity and ownership | Verified server identity, safe return intent and one creator-owner per workspace; cross-user/workspace requests denied |
+| Draft authoring | Stable course/lesson IDs, bounded content, upload/processing/caption states, preserved input and visible save conflicts |
+| Publication | Version-checked submission, locked review/published content, attributable operator decision and safe public projections |
+| Enrollment | Idempotent free-course grant; bookmarks never grant access |
+| Learning | Authorized video, text, transcript and resources, usable controls, failures and expiry recovery |
+| Library and progress | Owned access separate from saved items; correct resume, separate completion, stale-write protection |
+| Minimal operations | Real review queue and narrow access diagnosis with audit, not a generic admin framework |
 
-This milestone must run without Supabase, Stripe, or Mux credentials. Actions either work locally as documented demo behavior or are clearly unavailable; no button claims to buy, persist to a backend, or publish when it does not.
+The gate is a real test creator publishing a course and another test learner finding, enrolling, learning, leaving and resuming. Disconnected fixture screens or service-key-only tests are insufficient.
 
-## M1 — real free-course alpha
+## Stage A2 — controlled paid pilot
 
-| Feature | Required acceptance |
-| --- | --- |
-| Identity | Supabase email OTP, expiry/resend/rate-limit handling, safe return path, verified server identity; one account may learn and create |
-| Creator ownership | One owner per workspace; two-creator adversarial tests; client input cannot assign ownership or operator status |
-| Draft authoring | Course metadata, modules, stable lesson IDs, simple Markdown/text, files/video, explicit save feedback and conflict handling |
-| Publication | Server-controlled draft → submitted → published or changes requested; submitted/published content locked against creator edits; operator reasons recorded |
-| Public catalog | Published safe metadata only; useful direct URLs and metadata; drafts/private payloads absent from HTML, RSC, API and search |
-| Enrollment | Idempotent free-course grant for authenticated learners; bookmarks never grant access |
-| Learning | Server-authorized video/text/resources, accessible controls, next lesson, clear errors; direct resource/token requests cannot bypass access |
-| Library/progress | Active-access courses separate from saved items; correct resume position; completion separate from watched position; stale updates handled |
-| Minimal operations | Review queue, restricted access diagnosis, basic audit; no requirement for a full admin product |
+Require a chosen marketplace payment model and supported test environment, server-priced hosted checkout, authoritative fulfillment, idempotency, concurrent/replayed/out-of-order event handling, recovery and policy-consistent refunds. Buyer and creator views show only their own records. A closing browser or forged success URL cannot determine access.
 
-M1 is done only when a real test creator publishes a course and a different test learner finds, enrolls, learns, leaves, and resumes it. A set of disconnected polished screens is not this milestone.
+Private notes remain author-only; lesson questions have course-context permission, creator response and real report/hide behavior. Live release additionally needs actual assets/content, working support, policies, limits, monitoring, restore evidence and explicit owner approval. Provider sandbox success is not live-market eligibility or a legal compliance certificate.
 
-## M2 — paid pilot
+## Stage A3 — separately assigned expansion
 
-| Feature | Required acceptance |
-| --- | --- |
-| Connect onboarding | Provider-hosted flow and current selling/payout states; platform business model and supported markets approved |
-| Course checkout | Server-resolved price/currency/terms, one pending order safely reused, owner-only status; no client amount or success-URL trust |
-| Fulfillment | Verified provider status; short atomic database update; duplicate/concurrent/out-of-order/delayed cases tested; grant source unique |
-| Refund/support | Provider-confirmed refund state, correct charge-model handling, source-specific access change, ordinary unlisting distinct from suspension |
-| Private notes | Author-only text and optional timecode, explicit save/conflict/retry; neither course owner nor other learners can read notes |
-| Lesson questions | One-level course/lesson-scoped questions/replies, creator response, report/hide actions; no realtime infrastructure requirement |
-| Buyer/creator operations | Own purchases, receipt/support links; creator's own sales summaries; operator reconciliation and exceptions |
-| Trust and operations | Real content/assets, working contact/report paths, privacy/terms, backup/restore evidence, limits, monitoring and named support owner |
+Community spaces, reviews/follows, team roles, bundles/subscriptions, versioning, assessments, AI study tools, dedicated search, live events, native apps, offline media and affiliates are optional. Promote only a concrete need with access, data, support and validation requirements; do not precreate their infrastructure.
 
-Use Stripe receipts and in-app status initially. Custom email campaigns and a notification pipeline are not prerequisites. Production auth email still requires deliberate SMTP/domain/deliverability configuration.
+## Complete means observed
 
-## M3 — separate, optional assignments
-
-Creator spaces/announcements, eligible course reviews, creator follows, team members, subscriptions/bundles, course versioning, assessments, AI study tools, dedicated search, live events, native apps, offline media, and affiliates each need a concrete user need, data/access policy, and bounded task. Promote one at a time.
-
-Reviews must not be fabricated or suppress legitimate criticism; free-course participation is not a verified purchase. Do not use completion badges to imply regulated qualifications.
-
-## Definition of complete
-
-A feature includes its relevant permission checks, real persistence, failure states, accessible interaction, tests, and handoff evidence. Design approval and functional verification are separate. A fixture is marked `UI_ONLY`, not `IMPLEMENTED_BACKEND`. A provider sandbox test is not a live-market eligibility approval.
+A delivered slice includes appropriate real behavior/persistence, permissions, failure/recovery states, accessible interaction, tests and evidence. Label fixtures as UI-only and sandbox results as sandbox results. Keep design acceptance, backend verification, financial eligibility and release authorization separate.

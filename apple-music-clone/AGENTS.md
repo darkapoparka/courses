@@ -8,22 +8,22 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Active project contract
+## Application-specific contract
 
-Read `../AGENTS.md`, `../docs/handoff.md`, and `../docs/development.md` before implementation. Work only on `main`, in this existing app. Finish and genuinely accept the saved Apple Music clone before any courses/community adaptation.
+Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. The primary app is `J:\courses\apple-music-clone`; `main` is the integrated baseline. Use the branch assigned to the current task. Preserve the original preview evidence and recovery material described in `../docs/astra/branch-transition.md`. No courses adaptation before clone acceptance.
 
-The entire `reference/` tree is frozen evidence. Current status belongs in `../docs/tasks.md` and `../docs/reference-audit.md`. Use the read-only coverage command, not the historical archive-writing inventory generator. Keep experiments and screenshots in ignored `.qa/` and `.parity-evidence/` directories.
+Keep `reference/` unchanged. Use the read-only `qa:coverage` command; do not run the historical screen-status generator. Keep local QA and captures in ignored `.qa/` and `.parity-evidence/` directories. Use explicit UTF-8 for Windows file and stdin operations.
 
-Use explicit UTF-8 for file edits, verify the actual server before browsing, and compare both fixture captures and real-control journeys. Render success is not MATCH or FLOW acceptance. The root contract governs preservation, evidence, and handoff; the generated framework block above remains intact.
+## Known regression traps
 
-## Regression evidence contract
+The `Content` switch in `components/apple-music-app.tsx` identifies the active view. Some similarly named exports in `music-browse.tsx` are not the active album/artist implementation. Trace imports before editing.
 
-Register new browser modules in `scripts/browser-reference.py` before counting them as canonical coverage. A completed helper file is not a passed test. Keep behavioral regression totals separate from the 58 recorded-flow acceptance entries.
+Shared material, artwork edition and navigation must follow live state, not the continued presence of `data-source`. After sidebar/carousel changes exercise Volume, Account, Next, Previous, vertical scrolling, return navigation and the existing six-width containment regression. Artwork leaving the viewport must not leave its tint behind.
 
-Start a recorded journey at its first fixture, then use real controls. When an endpoint uses a different catalog/library snapshot, retain and report that discrepancy; do not replace live session state merely to manufacture the endpoint image. Compare continuous captures against both the saved original and the direct fixture.
+Inspect optimized production computed blur/saturation, not just development or a non-none filter. This toolchain previously dropped a standard backdrop override when declaration order was reversed. Preserve the reviewed standard-after-prefixed order where both are used. Native dialog initial scrolling also needs cold production verification.
 
-Journey evidence uses ordered, non-overwriting screenshot filenames and each original's exact application viewport. Read `steps.jsonl` for the image name, action, and hashes. The computed CSS font stack is not proof of the font actually rendered; the canonical captures also record Chromium platform-font usage without copying font files.
+A fixture endpoint and a continuous journey can have different catalogs, account/library snapshots or playback state. Do not silently replace session data behind a hover or panel toggle to manufacture the endpoint image. Retain the discrepancy and investigate the recording/scenario model.
 
-Shared chrome must follow live component state, not the presence of `data-source`. After changing sidebar/rail material, exercise Volume, Account, Next, Previous and vertical scrolling from the first fixture, including return navigation and the existing six-width containment regression. Artwork leaving the viewport must not leave a painted tint behind.
+Register new browser suites in `scripts/browser-reference.py` and execute them before reporting coverage. Journey captures require each original's exact viewport, ordered non-overwriting image names and `steps.jsonl` evidence. Chromium platform-font usage, not a CSS family list, identifies the actual rendered font; never copy proprietary font files.
 
-Check the exact computed blur/saturation in the optimized build, not only development or a `backdrop-filter != none` assertion. Keep the standard declaration after its prefixed counterpart when both are needed; this toolchain previously dropped the standard override in the reverse order. Retain failed checks as evidence and rerun the complete corpus after the correction.
+Use `../docs/development.md` for runnable commands and `../docs/quality-and-operations.md` for evidence requirements. A rendered fixture, passing regression or small pixel residual does not independently accept MATCH or FLOW.

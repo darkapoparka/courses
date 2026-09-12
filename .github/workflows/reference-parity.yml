@@ -4,6 +4,9 @@ on:
   push:
     branches: ['main']
     paths: ['apple-music-clone/**', 'docs/**', 'AGENTS.md', 'CLAUDE.md', 'README.md', '.github/workflows/reference-parity.yml']
+  pull_request:
+    branches: ['main']
+    paths: ['apple-music-clone/**', 'docs/**', 'AGENTS.md', 'CLAUDE.md', 'README.md', '.github/workflows/reference-parity.yml']
   workflow_dispatch:
     inputs:
       require_acceptance:
@@ -23,7 +26,6 @@ env:
 
 jobs:
   reference:
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
