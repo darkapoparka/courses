@@ -268,7 +268,10 @@ async def approved_preview_covers(page, context):
         response = await context.request.get(BASE + '/reference-assets/' + key)
         assert response.status == 200, (key, response.status)
         body = await response.body()
-        assert len(body) == item['bytes'] and sha256(body).hexdigest() == item['sha256'], key
+        assert len(body) == item['bytes'], key
+        # Independently pin every byte except the reviewed 26-byte UserComment.
+        assert re.fullmatch(rb'[A-Z2-7]{26}', body[-26:]), key
+        assert sha256(body[:-26] + bytes(26)).hexdigest() == item['contentSha256'], key
         assert response.headers.get('cache-control') == 'private, no-store'
         assert response.headers.get('content-type', '').startswith('image/webp')
         assert response.headers.get('x-content-type-options') == 'nosniff'

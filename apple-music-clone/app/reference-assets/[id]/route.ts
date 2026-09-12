@@ -1,4 +1,4 @@
-import { createHash } from "node:crypto";
+import { isReviewedCover } from "../../../lib/cover-integrity.mjs";
 import { coverResources, isCoverResource, type CoverResourceId } from "../../../lib/cover-resources";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -18,7 +18,7 @@ async function cleanCover(id: CoverResourceId): Promise<Uint8Array> {
     const response = await fetch(resource.url, { cache: "no-store", signal: AbortSignal.timeout(15000) });
     if (!response.ok || !response.headers.get("content-type")?.startsWith("image/")) throw new Error(`Cover provider HTTP ${response.status}`);
     const bytes = new Uint8Array(await response.arrayBuffer());
-    if (bytes.byteLength !== resource.bytes || createHash("sha256").update(bytes).digest("hex") !== resource.sha256) throw new Error("Cover resource differs from the reviewed bytes");
+    if (!isReviewedCover(bytes, resource)) throw new Error("Cover image differs from the reviewed content");
     return bytes;
   })();
   coverCache.set(id, pending);

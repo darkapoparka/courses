@@ -238,6 +238,10 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
       const anchor = stationCard ? { x: r.left + 10, y: r.top + 7 }
         : albumTools && menu === "share" ? { x: innerWidth - 240, y: r.bottom - 1 }
         : albumTools ? { x: r.right - 186, y: r.top + 14 }
+        // Compact library menus overlap their triggering control in the archive.
+        // Anchor to that real control; MusicMenus still clamps narrow viewports.
+        : menu === "sort" && event.currentTarget.closest(".library-songs") ? { x: r.right - 179, y: r.top + 7 }
+        : menu === "track" && event.currentTarget.closest(".library-song-table") ? { x: Math.round(r.right - 20), y: Math.round(r.top + 8) }
         : { x: r.right - 176, y: r.bottom + 5 };
       setMenuPosition(anchor);
     }

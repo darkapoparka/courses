@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { coverContentSha256, isReviewedCover } from '../lib/cover-integrity.mjs';
 
 // Diagnostic evidence only: unknown provider encodings never become approved.
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -20,7 +21,9 @@ for (const [id, expected] of Object.entries(resources)) {
     const bytes = new Uint8Array(await response.arrayBuffer());
     if (bytes.byteLength > 2_000_000) throw new Error('Unexpected artwork size');
     Object.assign(row, { bytes: bytes.byteLength, sha256: createHash('sha256').update(bytes).digest('hex') });
-    row.matches = row.bytes === expected.bytes && row.sha256 === expected.sha256;
+    row.contentSha256 = coverContentSha256(bytes);
+    row.matchesOriginalEncoding = row.sha256 === expected.sha256;
+    row.matches = isReviewedCover(bytes, expected);
     await writeFile(resolve(output, `${id}.webp`), bytes);
   } catch (error) { row.error = String(error); row.matches = false; }
   observations.push(row);

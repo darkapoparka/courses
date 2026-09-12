@@ -2,7 +2,9 @@ import resources from "./cover-resources.json";
 
 /** Clean provider-owned covers observed to match the saved reference artwork.
  * Only fixed public resource URLs are allowed. No image files are redistributed
- * in this repository, and the reference-assets route is preview-only.
+ * in this repository, and the reference-assets route is preview-only. The
+ * content digest tolerates only the reviewed provider UserComment identifier;
+ * image payloads, dimensions, colour profiles and other metadata remain pinned.
  */
 export const coverResources = resources;
 export type CoverResourceId = keyof typeof coverResources;

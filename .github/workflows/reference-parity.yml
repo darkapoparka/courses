@@ -65,8 +65,10 @@ jobs:
           python3 -m venv /tmp/reference-browser
           /tmp/reference-browser/bin/pip install -r scripts/requirements-qa.txt
           /tmp/reference-browser/bin/python -m playwright install --with-deps chromium
-      - name: Test the comparison tooling
-        run: /tmp/reference-browser/bin/python -m unittest discover -s scripts -p test_qa_tools.py
+      - name: Test comparison and cover integrity tooling
+        run: |
+          /tmp/reference-browser/bin/python -m unittest discover -s scripts -p test_qa_tools.py
+          node --test scripts/test_cover_integrity.mjs
       - name: Render every saved state and exercise real controls
         shell: bash
         run: |

@@ -46,7 +46,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "plus": return <svg {...common}><path d="M12 4v16M4 12h16" /></svg>;
     case "share": return <svg {...common}><path d="M8 9H5v12h14V9h-3M12 15V2M8 6l4-4 4 4" /></svg>;
     case "sort": return <svg {...common}><path d="M7 3v18M3 7l4-4 4 4M17 21V3M13 17l4 4 4-4" /></svg>;
-    case "pin": return <svg {...common}><path d="m9 3 12 12-4 1-4 4-9-9 4-4 1-4ZM9 15l-6 6" /></svg>;
+    case "pin": return <svg {...common}><path d="M6 3h12M8 4v4c0 2-3 3-3 6h14c0-3-3-4-3-6V4M12 14v8" /></svg>;
     case "location": return <svg {...common}><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>;
     case "headphones": return <svg {...common}><path d="M4 14v-3a8 8 0 0 1 16 0v3" /><rect x="3" y="12" width="5" height="9" rx="2" /><rect x="16" y="12" width="5" height="9" rx="2" /></svg>;
     case "expand": return <svg {...common}><path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6" /></svg>;

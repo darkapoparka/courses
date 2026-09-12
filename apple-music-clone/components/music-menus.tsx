@@ -5,6 +5,7 @@ import { albumTitle, allTracks } from "../lib/music-catalog";
 import { sceneUrl } from "../lib/music-scenes";
 import { useMusic } from "./music-context";
 import { SystemShareIcon } from "./music-share-icons";
+import { LibraryMenuGlyph } from "./music-library-menu-icons";
 import { Glyph, type GlyphName } from "./music-primitives";
 
 export function MusicMenus() {
@@ -64,8 +65,8 @@ export function MusicMenus() {
     const groups = [["Add to Library", "Delete from Library"], ["Favourite", "Undo Favourite"], ["Copy Link", "Link Copied"], ["Copy Embed Code", "Embed Code Copied"], ["Suggest Less", "Undo Suggest Less"]];
     return groups.find(group => group.includes(label))?.[0] ?? label;
   };
-  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean, keepOpen = false) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={actionKey(label)} onClick={() => { run(); if (!keepOpen) close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && <Glyph name={icon} size={16} />}</button>;
-  const playlistAction = <button type="button" role="menuitem" data-playlist-trigger aria-haspopup="menu" aria-expanded={submenu} onMouseEnter={() => setSubmenu(true)} onClick={() => setSubmenu(true)} onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); setSubmenu(true); requestAnimationFrame(() => flyout.current?.querySelector<HTMLButtonElement>("button")?.focus()); } }}><span>Add to Playlist</span><Glyph name="playlist" size={16} /></button>;
+  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean, keepOpen = false) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={actionKey(label)} onClick={() => { run(); if (!keepOpen) close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && (m.scene.page === "songs" ? <LibraryMenuGlyph name={icon} /> : <Glyph name={icon} size={16} />)}</button>;
+  const playlistAction = <button type="button" role="menuitem" data-playlist-trigger aria-haspopup="menu" aria-expanded={submenu} onMouseEnter={() => setSubmenu(true)} onClick={() => setSubmenu(true)} onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); setSubmenu(true); requestAnimationFrame(() => flyout.current?.querySelector<HTMLButtonElement>("button")?.focus()); } }}><span>Add to Playlist</span>{m.scene.page === "songs" ? <LibraryMenuGlyph name="playlist" /> : <Glyph name="playlist" size={16} />}</button>;
   const queueAction = (next: boolean) => m.setQueue(current => next ? [...ids, ...current.filter(id => !ids.includes(id))] : [...current.filter(id => !ids.includes(id)), ...ids]);
   const stationAction = () => { m.setQueue(allTracks.filter(t => t.artist === artist && t.id !== track.id && !t.unavailable).map(t => t.id)); m.play(track); };
   let content: ReactNode;

@@ -13,6 +13,7 @@
 .faithful-library.library-playlists { min-height:calc(100% + 163px); }
 .faithful-library.library-playlists > .library-grid { padding-top:9px; }
 .library-sort { position:absolute; top:7px; right:8px; display:flex; gap:8px; align-items:center; font-size:14px; color:#777; min-height:22px; }
+.library-songs .library-sort { right:18px; }
 .library-made-for-you .library-sort, .library-playlists .library-sort { top:28px; right:38px; color:var(--accent); }
 .faithful-library .library-grid { row-gap:33px; padding-bottom:43px; }
 .faithful-library.library-albums .library-grid { row-gap:50px; }
@@ -130,6 +131,8 @@
 .faithful-menu.menu-location { width:288px; }
 .faithful-menu .menu-location-search { margin:6px; }
 .faithful-menu.menu-sort > button[role="menuitemradio"] { color:#222; }
+.faithful-menu.menu-sort, .music-app[data-scene="songs"] .faithful-menu.menu-track { width:176px; }
+.faithful-menu.menu-sort > button, .music-app[data-scene="songs"] .faithful-menu.menu-track > button { font-size:13px; line-height:17px; }
 .expanded-player ~ .menu-layer .faithful-menu { background:rgb(222 234 238 / 80%); }
 .playlist-detail .album-actions { gap:10px; }
 .playlist-detail .album-actions .dark { background:#000; }
@@ -150,7 +153,7 @@
 .library-song-table .track-table-row:nth-child(2n) { background:#fafafa; }
 .library-song-table .track-table-row:nth-child(2n+1) { background:#fff; }
 .library-song-table .track-table-row > div:last-child { opacity:0; }
-.library-song-table .track-table-row:hover > div:last-child, .library-song-table .track-table-row:focus-within > div:last-child { opacity:1; }
+.library-song-table .track-table-row:hover > div:last-child, .library-song-table .track-table-row:has(:focus-visible) > div:last-child { opacity:1; }
 @media(max-width:640px) {
  .playlist-detail .chart-table .track-table-head, .playlist-detail .chart-table .track-table-row, .library-song-table .track-table-head, .library-song-table .track-table-row { grid-template-columns:minmax(0,1fr) 40px 28px; }
 }
@@ -197,9 +200,9 @@
 .library-song-table .track-table-row { position:relative; }
 .library-song-table .table-art { position:relative; }
 .library-song-table .table-art-state { position:absolute; inset:0; display:grid; place-items:center; border-radius:4px; color:white; background:rgb(0 0 0 / 42%); opacity:0; }
-.library-song-table .track-table-row[data-current="true"] .table-art-state, .library-song-table .table-art:hover .table-art-state, .library-song-table .table-art:focus-visible .table-art-state { opacity:1; }
+.library-song-table .track-table-row[data-current="true"] .table-art-state, .library-song-table .track-table-row:hover .table-art-state, .library-song-table .table-art:focus-visible .table-art-state { opacity:1; }
 .library-song-table .track-table-row > div:last-child { position:absolute; left:calc(33.2% - 27px); top:7px; width:27px; opacity:0; }
-.library-song-table .track-table-row[data-current="true"] > div:last-child, .library-song-table .track-table-row:hover > div:last-child, .library-song-table .track-table-row:focus-within > div:last-child { opacity:1; }
+.library-song-table .track-table-row[data-current="true"] > div:last-child, .library-song-table .track-table-row:hover > div:last-child, .library-song-table .track-table-row:has(:focus-visible) > div:last-child { opacity:1; }
 .sidebar-pins { margin-top:3px; }
 .sidebar-pins-label { height:29px; display:flex; align-items:center; gap:5px; padding:0; font-size:14px; }
 .sidebar-pins-label > svg:first-child { margin-left:-4px; color:#777; }
@@ -216,3 +219,11 @@
 /* Pointer-opened menus receive container focus without painting an arbitrary
    selected row. Keyboard input moves focus into the real menu items. */
 .faithful-menu:focus { outline:none; }
+
+/* Reveal the section being pointed at, not every control in the sidebar.
+   Editing and keyboard focus keep their controls visible independently. */
+.sidebar-scroll:hover .sidebar-section-label > button { opacity:0; }
+.sidebar-scroll .sidebar-section-label:hover > button,
+.sidebar-scroll .sidebar-section-label > button:focus-visible,
+.sidebar-scroll .sidebar-section-label:has(+ nav .editable-row) > button { opacity:1; }
+.library-section-label > button { color:#222; }
