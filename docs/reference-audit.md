@@ -1,8 +1,26 @@
 # Apple Music clone audit — current findings
 
-Updated: 2026-09-12. This is the active implementation audit, replacing the older prototype/acquisition assessment. Dated source observations remain in `reference-review/ledger.md`; historical decisions and earlier audits remain in Git history. The frozen `apple-music-clone/reference/` archive is unchanged.
+Updated 2026-09-12. Current verified implementation: `719113ea538ebe8253e63c26b10413c4bf3e8621`. Continue only on `main`. The frozen reference archive, pending implementation batch and earlier main history are preserved; courses/community adaptation remains blocked.
 
-## Phase and repository findings
+## Current implementation and verification
+
+Eight library journeys are now registered and actually exercised. Stronger assertions exposed and fixed missing saved-playlist sidebar entries after real navigation. Songs follows the original eight rows and has refined compact-table geometry. Initial album hover is separate from saved favourites and yields to real pointer/keyboard input.
+
+Queue/lyrics corrections cover panel width/gutters, distinct artwork editions, recorded credits/titles, translucent row rules, lyric spacing/fade and first-verse anchoring. The schedule's intermediate regression was inspected and corrected through the exact original's crop, LIVE separator, title sizing and line boxes. No artwork containing copied player-interface pixels was restored.
+
+The final production run passed 159 desktop captures, 5 responsive samples, 218 route checks and 44 interaction regressions with zero failures. Typecheck, optimized build, archive/task checks and five QA-tool unit tests passed. All 159 comparisons completed: 16 improved, 143 unchanged, none increased their over-threshold residual. Application and tooling hashes stayed stable and match the committed batch.
+
+Use `handoff.md` for current source/server identities and `reference-review/2026-09-12-library-panels.md` for measured results, preserved failures and review scope. `reference-review/latest-metrics.json` contains the final image-free full-corpus measurements. The audit below is historical, not the current checkpoint.
+
+## Current acceptance gaps
+
+The 39 continuous-state captures include first-fixture entry into lyrics and queue. These reveal major catalog/library/queue differences from the saved endpoints despite established-panel checks passing: live residuals are approximately 36.58% and 34.69%, versus approximately 10.13% for the direct fixtures. Do not substitute one category for the other or silently replace session data behind a toggle to manufacture a match.
+
+Partial lower release artwork, sidebar translucency, typography, lyric blur, player/dialog/menu details and album selected-row/overflow/truncation differences remain. Actual platform-font metadata confirms Arial for sampled Windows controls. One lyrics recording was sampled, not the entire motion corpus. Acceptance remains UI 159/159, MATCH 0/159, FLOW 0/58.
+
+## Earlier audit history — through febd7b8
+
+### Phase and repository findings
 
 The required order is **true 1:1 Apple Music clone, then separately authorized courses/community adaptation**. Work only on `main`. The active application is `apple-music-clone/`.
 
@@ -12,7 +30,7 @@ The GitHub default branch is `main`, but the verification workflow still targete
 
 Root/app README and agent instructions, the documentation map, and the development runbook contained contradictory paused/prototype/course-first directions. Active entry points now agree on the clone-first phase and point to the same checklist and evidence workflow. The old inventory alias is read-only; acquisition reports must not be regenerated.
 
-## Audit coverage and evidence
+### Audit coverage and evidence
 
 The frozen corpus contains 159 unique screens, 58 flows, 218 ordered steps, and 13 available motion assets. The implementation inventory remains 159/159; this is not visual or flow acceptance. The complete baseline suite passed 164 renders, 218 route checks, and 16 interaction regressions before this batch.
 
@@ -22,13 +40,13 @@ Canonical output records source/render hashes, implementation and QA identities,
 
 The first stricter candidate passed all 17 then-registered interaction tests but retained one failed CSS request (`ERR_NO_BUFFER_SPACE`) on `54b01eab`. That run was not promoted to acceptance. Windows capture now defaults to serial execution, records concurrency, and preserves failed runs. Explicit UTF-8 edits also prevent the selector corruption caught in an intermediate harness run. Final candidate results belong in `handoff.md` and the latest metrics checkpoint.
 
-## Source fixes made during this audit
+### Source fixes made during this audit
 
 The video timeline was hard-coded at `0:06`, its slider was read-only, seek buttons changed unrelated audio state, and its fullscreen control opened a media picker. `music-video-player.tsx` now owns a bounded silent-preview transport: seek, back/forward ten seconds, elapsed/remaining time, play/pause, volume, actual browser fullscreen, and local-file playback. Keyboard focus is contained and restored to the opener; the background is inert while the video is open. A real artist-page entry test covers these controls, not only the canonical video fixture.
 
 The lyrics-panel discovery rail rendered fractional-width artwork and a 20px gap where the source uses 406×233px cards and an 18px gap. The desktop legacy-panel rule now uses whole-pixel widths and the source gutter. Its regression verifies both the saved state and closing/reopening the panel through live controls after the source ID is cleared. The focused `ee8db412` comparison improved from 11.15% to 10.56% of pixels exceeding a 20-channel-value difference; MAE improved from 8.18 to 7.72. This is a diagnostic improvement, not a MATCH decision.
 
-## Visual review and remaining priorities
+### Visual review and remaining priorities
 
 Full-size source/render inspection of the lyrics side panel still shows inactive-line blur/fade and line-spacing differences, sidebar/footer alignment differences, and player typography/glass/glyph discrepancies. The saved video frame and controls were also inspected. The all-screen numerical comparison is comprehensive; readable manual visual review of every screen and every motion asset is not yet complete.
 
@@ -38,13 +56,13 @@ Complete real-control journeys remain a separate workstream. Verify every record
 
 The acceptance boundary remains 159 genuinely reviewed MATCH entries, 58 complete FLOW entries, and explicit owner authorization before courses/community adaptation. Current numerical diagnostics and the final test checkpoint are evidence of progress, not a claim that this boundary has been reached.
 
-## Production-only state defect found by full comparison
+### Production-only state defect found by full comparison
 
 The first complete production-mode run passed 164 captures, 218 routes, and 18 behavioral tests, but its full comparison revealed `9b43cccb` was at the top of the album article instead of the recorded bottom position. Its pixel residual worsened by 1.50 percentage points despite every existing render test being green. The source and candidate were opened at full size to verify the wrong state.
 
 `AlbumArticle` attempted to scroll during a layout effect before the native dialog's `showModal()` effect made it measurable. Development Strict Mode had obscured that ordering dependency. The initialization now waits for an open, laid-out dialog before applying the recorded scroll. A new regression checks three cold production opens, then enters through the album's real MORE control, scrolls with the keyboard, and closes with Escape. It passes alongside the video and lyrics-layout production regressions. This adds a nineteenth behavioral regression without pretending that nineteen tests equal the 58 complete recorded flows.
 
-## Final measured checkpoint
+### Final measured checkpoint
 
 The final production-mode run at source `febd7b8` passed all 164 captures, all 218 recorded route checks, and all 19 behavioral regressions with zero browser/resource failures. Both application and QA identities stayed unchanged during capture. All 159 exact-size comparisons were completed and retained in `reference-review/latest-metrics.json`, with the full local gallery under `.parity-evidence/audit-2026-09-12/final-comparison/`.
 

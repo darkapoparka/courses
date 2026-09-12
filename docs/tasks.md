@@ -2,7 +2,7 @@
 
 Checked this session at 2026-09-12. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
 
-Implementation checkpoint: `febd7b8d8aa3acad9f59c310fed418ba4f396d09`, following the audit/player checkpoint `50cba6b` and preserved fidelity work through `6ecfb4a`. See `handoff.md` for the exact verification checkpoint and `reference-audit.md` for findings. Course/community adaptation remains blocked until genuine clone acceptance and owner authorization.
+Implementation checkpoint: `719113ea538ebe8253e63c26b10413c4bf3e8621`, preserving `b1b1247`, `51087ec`, the pending album/schedule batch and the earlier main history. See `handoff.md` for the exact verification checkpoint and `reference-audit.md` for findings. Course/community adaptation remains blocked until genuine clone acceptance and owner authorization.
 
 ## Progress at a glance
 
@@ -20,6 +20,8 @@ Implementation checkpoint: `febd7b8d8aa3acad9f59c310fed418ba4f396d09`, following
 **Flow checkboxes:** check `FLOW-…` only after traversing its entire recorded sequence using real controls and checking the intermediate states. Loading `/flows/...` URLs alone does not complete a flow.
 
 ## Current finalization evidence
+
+The latest optimized-production checkpoint passed 159 desktop captures, 5 responsive samples, 218 route checks and 44 interaction regressions. All 159 states were compared: 16 improved, 143 were unchanged and none increased their over-threshold residual. The eight new library journeys are registered and exercised; first-fixture lyrics/queue entry still exposes substantial endpoint state differences. See [the bounded review](reference-review/2026-09-12-library-panels.md) and the updated owning rows below. No MATCH/FLOW box was advanced.
 
 The audit now uses each original's exact 1440×903 or 1440×904 application viewport, hash-identified source/candidate files, fresh output directories, and an all-screen comparison gallery. Follow `development.md` for reproduction; numerical residuals do not check the acceptance boxes below.
 
@@ -399,24 +401,28 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-ee8db412"></a>
 
 - [x] **UI-ee8db412 — New — lyrics panel, playing stupid song.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Refined panel geometry and lyric spacing/fade; first-verse seeking and close/reopen retain the established catalog. Initial recorded entry remains different: see FLOW-bc0ba8f1. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-ee8db412 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/ee8db412-71b0-49a8-a1ab-5d6685153abe.webp) · [Open app state](http://127.0.0.1:6431/screen/ee8db412-71b0-49a8-a1ab-5d6685153abe) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-8f029018"></a>
 
 - [x] **UI-8f029018 — New — queue panel, playing stupid song.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Separated discovery and queue YUKON editions, retained full queue titles/credits and removed opaque row rules. Volume toggling preserves editions. Initial recorded entry remains different: see FLOW-e0a0f93e. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-8f029018 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/8f029018-9c70-4715-9012-88a8a9d106b2.webp) · [Open app state](http://127.0.0.1:6431/screen/8f029018-9c70-4715-9012-88a8a9d106b2) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-de48a956"></a>
 
 - [x] **UI-de48a956 — New — queue panel / empty, playing stupid song.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Real Clear reaches the empty queue without resetting the catalog; panel styling improved. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-de48a956 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/de48a956-6060-4086-b8ed-26e80ec6ac3e.webp) · [Open app state](http://127.0.0.1:6431/screen/de48a956-6060-4086-b8ed-26e80ec6ac3e) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-4811dde3"></a>
 
 - [x] **UI-4811dde3 — New — queue panel, playing stupid song, autoplay on.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Real Autoplay retains the queue catalog; panel geometry and glass improved. Lower artwork and typography remain partial. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-4811dde3 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/4811dde3-bebc-4792-a524-f0137e2e4753.webp) · [Open app state](http://127.0.0.1:6431/screen/4811dde3-bebc-4792-a524-f0137e2e4753) · [Component](../apple-music-clone/components/music-player.tsx)
 
@@ -473,6 +479,7 @@ Check selected/unavailable rows, the video row, lower collections, sticky editor
 <a id="screen-b620e4ab"></a>
 
 - [x] **UI-b620e4ab — Album detail — named profile.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: An unsaved outline star represents hover, not a favourite. Real input ends the captured hover; saving stays filled after pointer exit, and unsaving restores the neutral marker. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-b620e4ab — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/b620e4ab-d6dc-47c9-b704-6cd45cbd714c.webp) · [Open app state](http://127.0.0.1:6431/screen/b620e4ab-d6dc-47c9-b704-6cd45cbd714c) · [Component](../apple-music-clone/components/music-album.tsx)
 
@@ -799,6 +806,7 @@ Check station identity, lower station collections, schedule menu and expanded li
 <a id="screen-f49fce21"></a>
 
 - [x] **UI-f49fce21 — Radio schedule — named profile.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Reviewed the intermediate regression, then corrected the cover crop, LIVE separator, title sizing and line boxes. The 13-entry schedule is reached via the real station menu. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-f49fce21 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/f49fce21-d9a7-4c97-9e2e-bae95924e5d4.webp) · [Open app state](http://127.0.0.1:6431/screen/f49fce21-d9a7-4c97-9e2e-bae95924e5d4) · [Component](../apple-music-clone/components/music-chart-schedule.tsx)
 
@@ -839,6 +847,7 @@ Check the exact card order, video aspect ratios, artist split view, sorting, emp
 <a id="screen-92589389"></a>
 
 - [x] **UI-92589389 — Library songs — named profile.** Coded UI; current browser render passed.
+  - 2026-09-12 bounded review: Verified eight exact source rows in order; refined the header, column rules, artwork inset and time alignment. Shared typography and chrome still differ. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-92589389 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/92589389-e185-401c-a395-c646b801a0c4.webp) · [Open app state](http://127.0.0.1:6431/screen/92589389-e185-401c-a395-c646b801a0c4) · [Component](../apple-music-clone/components/music-library.tsx)
 
@@ -1096,15 +1105,19 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/hiding-lyrics?step=0). Sequence: [1: b3f29b6f](#screen-b3f29b6f) → [2: 06a34864](#screen-06a34864)
 
 - [ ] **FLOW-bc0ba8f1 — 14. Showing lyrics (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: The first fixture to Show lyrics is now captured continuously. Its catalog/library differs substantially from the saved legacy endpoint; direct rendering and reopening are not completion of this flow. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/showing-lyrics?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: ee8db412](#screen-ee8db412)
 
 - [ ] **FLOW-e0a0f93e — 15. Song queue (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: The first fixture to Up Next is now captured continuously. Its catalog/queue differs substantially from the saved endpoint; session data must not be replaced merely to manufacture that image. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/song-queue?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: 8f029018](#screen-8f029018)
 
 - [ ] **FLOW-7f504621 — 16. Clearing song queue (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: The populated and cleared queue states use the real Clear control. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/clearing-song-queue?step=0). Sequence: [1: 8f029018](#screen-8f029018) → [2: de48a956](#screen-de48a956)
 
 - [ ] **FLOW-fc3dbfae — 17. Enabling autoplay (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: The recorded queue and Autoplay-enabled states use the real toggle with catalog persistence checked. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/enabling-autoplay?step=0). Sequence: [1: 8f029018](#screen-8f029018) → [2: 4811dde3](#screen-4811dde3)
 
 - [ ] **FLOW-47b2a149 — 18. Adjusting volume (4 steps).** Complete and verify the recorded journey.
@@ -1117,9 +1130,11 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/album-description?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: 32515da3](#screen-32515da3) → [3: 9b43cccb](#screen-9b43cccb)
 
 - [ ] **FLOW-1319943e — 21. Share an album (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: Initial real hover and the album Share control are captured; pointer/keyboard focus modality is separately tested. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/share-an-album?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: 56c2e39a](#screen-56c2e39a)
 
 - [ ] **FLOW-8c9a97bc — 22. Copying an album link (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: Initial real hover, overflow, Copy Link and inline confirmation are captured; clipboard content and focus restoration are asserted. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/copying-an-album-link?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: ef86b595](#screen-ef86b595) → [3: eca1baa1](#screen-eca1baa1)
 
 - [ ] **FLOW-98bde04b — 23. Artist detail (6 steps).** Complete and verify the recorded journey.
@@ -1168,18 +1183,22 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/listening-to-a-live-radio?step=0). Sequence: [1: 4cb8f3aa](#screen-4cb8f3aa) → [2: a9992e55](#screen-a9992e55) → [3: 47a07865](#screen-47a07865) → [4: 7bd2ef54](#screen-7bd2ef54)
 
 - [ ] **FLOW-4239264b — 38. Live radio schedule (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: All three steps use real controls; LIVE text and 13 entries are asserted. A minor live station-menu versus direct-fixture difference remains. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/live-radio-schedule?step=0). Sequence: [1: a9992e55](#screen-a9992e55) → [2: 37575452](#screen-37575452) → [3: f49fce21](#screen-f49fce21)
 
 - [ ] **FLOW-af293a1e — 39. Recently added (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6431/flows/recently-added?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: bdc69b59](#screen-bdc69b59) → [3: e757eb0f](#screen-e757eb0f)
 
 - [ ] **FLOW-9decd1cd — 40. Artists (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: All three Artists steps are exercised continuously, including saved sidebar playlists and real artist selection. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/artists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 0df0d2a2](#screen-0df0d2a2) → [3: 610af644](#screen-610af644)
 
 - [ ] **FLOW-2797b86f — 41. Albums (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: New to Albums is exercised continuously with saved playlist navigation visible. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/albums?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 5d3db7ca](#screen-5d3db7ca)
 
 - [ ] **FLOW-0e305ee9 — 42. Songs (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: New to Songs asserts the eight exact source rows in order. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/songs?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 92589389](#screen-92589389)
 
 - [ ] **FLOW-c454fe86 — 43. Sorting songs (3 steps).** Complete and verify the recorded journey.
@@ -1189,21 +1208,26 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6431/flows/pinning-a-song?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: e9bee76d](#screen-e9bee76d) → [3: 3884ff64](#screen-3884ff64) → [4: 06be9f09](#screen-06be9f09)
 
 - [ ] **FLOW-51ec8869 — 45. Music videos (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: New to Music Videos is exercised through the recorded empty state. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/music-videos?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4e857921](#screen-4e857921)
 
 - [ ] **FLOW-ee643f9f — 46. Made for you (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6431/flows/made-for-you?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 0b0e3fbf](#screen-0b0e3fbf) → [3: e379e3fe](#screen-e379e3fe)
 
 - [ ] **FLOW-b49a8505 — 47. All playlists (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: New to All Playlists is exercised through the real sidebar. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/all-playlists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 8a2a4241](#screen-8a2a4241)
 
 - [ ] **FLOW-c12bd09a — 48. Playlist detail (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: All Playlists to playlist detail uses the real card control. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/playlist-detail?step=0). Sequence: [1: 8a2a4241](#screen-8a2a4241) → [2: a573d1ab](#screen-a573d1ab)
 
 - [ ] **FLOW-14785972 — 49. Adding a suggested song (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: Adding the suggested song updates actual playlist rows. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/adding-a-suggested-song?step=0). Sequence: [1: a573d1ab](#screen-a573d1ab) → [2: 5044abe5](#screen-5044abe5)
 
 - [ ] **FLOW-6f857f3f — 50. Favorite songs (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-12 bounded review: Home to Favourite Songs verifies the four recorded favourites. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6431/flows/favorite-songs?step=0). Sequence: [1: a917d88f](#screen-a917d88f) → [2: bde65d33](#screen-bde65d33)
 
 - [ ] **FLOW-8db5f5fe — 51. Editing library menus (5 steps).** Complete and verify the recorded journey.

@@ -87,3 +87,15 @@ Course/community environments and service integrations remain deferred to a sepa
 Do not verify only `next dev`. This audit found a native-dialog scroll race that appeared in production despite green development captures. After the optimized build, use a separate, verified loopback production server and run the same full browser suite against its `REFERENCE_URL`; preserve the development preview for the owner. The existing CI does this against its isolated production server. Compare every source state afterward: render success alone did not catch the wrong article scroll position.
 
 The current local/CI `next start` audit path emits a standalone-output advisory even though the measured routes and browser checks run. This is a preview-only setup, not a production deployment approval; any deployment work must use the framework's documented standalone entry point and static-asset packaging.
+
+## Continuous-journey and font evidence
+
+The canonical runner imports `browser_library_flows.py` and `browser_panel_controls.py` alongside the existing suites. New tests must be registered and actually run before reporting coverage. The Songs original has eight rows; assertions must follow the frozen evidence rather than an invented row count.
+
+`browser_live_fidelity.start` selects the initial original's exact viewport. `record` refuses a mismatched viewport and writes an ordinal-prefixed image name recorded in `steps.jsonl`; revisiting a state must not overwrite its earlier screenshot. Use the `move_pointer=False` option only when deliberately preserving a real hovered control, such as the initial album outline star.
+
+Review the actual first-fixture entry to lyrics/queue separately from tests that reopen an already-established panel. A direct fixture can render correctly while the real journey still has the wrong catalog, queue, library, or playback state. Do not quietly mutate those values behind a panel toggle to manufacture a match. Preserve the discrepancy and identify the scenario/model work still required.
+
+`platformFonts` in each capture records Chromium's actual platform-font usage (family, PostScript name, custom-font flag, and glyph count). On the reviewed Windows candidate, the sampled Latin controls resolve to Arial; listing SF Pro in the CSS stack does not establish SF Pro rendering. Do not copy or distribute proprietary font files.
+
+Before a production audit, compare the build timestamp/ID with the listener's creation time and inspect its full command line. An older `next start` process is not fresh merely because `.next/BUILD_ID` changed. Start or restart only a positively identified clone audit listener, leaving the owner's development preview and unrelated port 3000 untouched.

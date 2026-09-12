@@ -1,65 +1,67 @@
 # Apple Music clone — current handoff
 
-Updated 2026-09-12. Work only on `main` in `J:\courses-astra-preview\apple-music-clone`. Preserve existing work and the complete `reference/` tree. Do not scaffold another app, switch branches, reset, discard, force-push, or start courses/community adaptation before genuine clone acceptance and owner authorization.
+Updated 2026-09-12. Continue only on `main` in `J:\courses-astra-preview\apple-music-clone`. Preserve the complete working tree and frozen `reference/` archive. The next phase is still a faithful Apple Music clone, not courses/community adaptation.
 
-## Source checkpoint
+## Verified implementation checkpoint
 
-`febd7b8d8aa3acad9f59c310fed418ba4f396d09` (production article-scroll fix), following `50cba6b8d1b2d7ce18d1bad04dcd75f3540cccd2` — `fix(reference): harden clone audits and repair player fidelity`.
+`719113ea538ebe8253e63c26b10413c4bf3e8621` — `fix(reference): verify library journeys and refine player panels`.
 
-This preserves the previously unpushed source commit `6ecfb4a`, the earlier `94486db` fidelity batch, and the complete main-branch history. The separate historical course-implementation branch was inspected read-only and left untouched. No reference images, recordings, source mappings, or historical acquisition reports were changed. Existing `.qa/` scratch files remain preserved and are now ignored alongside `.parity-evidence/`.
+This preserves both previously unpushed commits, `b1b1247` and `51087ec`, and incorporates the five pending application edits plus the previously unregistered library test module. No branches were created or switched, and no original reference bytes were changed. Inspect live Git/GitHub state rather than assuming those older commits remain unpushed.
 
-Read `AGENTS.md`, `development.md`, `reference-audit.md`, and the relevant `tasks.md` entries. The active docs now agree on the clone-first phase. The old course plans and source-ledger adaptation column are explicitly deferred, not instructions to replace music behavior.
+Read the root/app `AGENTS.md`, `development.md`, `reference-audit.md`, and the existing owning entries in `tasks.md`. The detailed bounded review is `reference-review/2026-09-12-library-panels.md`; the single acceptance checklist remains `tasks.md`.
 
-## Running app and evidence locations
+## Servers
 
-The owner's development preview is **`http://127.0.0.1:6431/`**. Port 3000 belongs to another project and must not be assumed to be this clone or terminated. A separate local production-build audit server was started at `http://127.0.0.1:6432/`; the primary development preview remains 6431.
+Owner development preview: **`http://127.0.0.1:6431/`**, original listener PID 6880. Leave it running. Port 3000 belongs to another project.
 
-Local evidence is under `apple-music-clone/.parity-evidence/audit-2026-09-12/`. Keep each run separate: `baseline` is the untouched-source legacy capture; `canonical-baseline` corrects source heights; `baseline-comparison` is the complete source comparison; `candidate` preserves a failed transient-resource attempt. Do not overwrite them or present an intermediate failed suite as green. The runbook documents fresh-output reproduction commands.
+Fresh optimized production audit: **`http://127.0.0.1:6433/`**, verified listener PID 54716. It was started after build `obBeifU7J74d7qmIbjTpb` completed at local machine time 07:28:32 on 2026-09-12. The older listeners on 6432 and 6434 are not evidence of current build freshness; do not use them without independent ownership/freshness verification.
 
-## Implemented in this checkpoint
+## What changed
 
-The video player now has functional seeking, bounded skip controls, elapsed/remaining time, play/pause, volume, actual fullscreen, and keyboard/focus containment with focus restored to the real opener. It remains a silent local UI preview unless user-owned local media is selected; no Apple streaming or live account/payment integration is claimed.
+The eight library journeys are now registered in the canonical runner and actually exercised. Their stronger assertions exposed and fixed missing Favourite Songs/Emotional Songs sidebar entries after real navigation from New. Songs follows the original eight rows, not the earlier incorrect ten-row test assumption. The compact Songs table now has corrected header sizing, separators, column alignment and artwork inset.
 
-The legacy lyrics-panel rail now matches the source's 18px gutter and whole-pixel 406×233 artwork geometry. A regression checks the canonical fixture and closes/reopens the panel through live controls after source identity is cleared. The focused comparison improved from 11.15% to 10.56% over-threshold pixels, but remaining typography, blur, and glass differences prevent visual sign-off.
+Album hover is separate from saved favourite state. Initial fixture hover yields to real pointer/keyboard input; saving remains filled after pointer exit, and unsaving restores the neutral marker. Existing album/song favourite isolation and mouse-versus-keyboard menu focus are preserved.
 
-The QA runner now captures all originals at their actual application heights: 147 at 1440×903, 12 at 1440×904. It records source/candidate hashes, browser/platform, geometry, font family, console/resource errors, and source stability. The full comparison tool rejects missing, altered, or wrong-size captures and creates a reviewable gallery. Windows defaults to serial capture after one observed Chromium resource-allocation failure.
+The queue and lyrics panel use corrected width/gutters, distinct discovery/queue artwork editions, recorded queue credits/titles, translucent row rules, lyric spacing/fade and first-verse anchoring. Real seeking, Volume toggling and panel reopening are tested. No artwork containing copied player controls was restored.
 
-The production audit also uncovered an album-description initialization race: the saved bottom-scroll fixture opened at the top even though the render suite passed. The dialog now waits until it is open and measurable before applying the captured scroll. The new regression repeats cold production opens and exercises the real MORE button, keyboard scrolling, and Escape. Do not replace this production-mode check with a route-presence assertion.
+The schedule's intermediate numerical regression was inspected and corrected: one-pixel artwork crop, LIVE middle-dot separator, station title sizing/line boxes, heading spacing and row geometry. The complete three-step schedule journey uses actual station controls.
 
-## Final local verification — 2026-09-12
+## Final local verification
 
-Verified application source: `febd7b8d8aa3acad9f59c310fed418ba4f396d09`. The final run used the optimized production build on loopback port 6432, Chromium `151.0.7922.34`, Windows 11, scale 1, and serial capture.
+The fresh production run passed **159 desktop captures, 5 responsive samples, 218 recorded route checks and 44 interaction regressions, with zero failures**. Typecheck, optimized build, archive integrity, read-only task coverage and all five QA-tool unit tests passed. Responsive smoke checks and route counts are not visual or complete-flow acceptance.
 
-| Check | Observed result |
-| --- | --- |
-| Frozen archive integrity | 58 flows, 218 ordered steps, 159 identities, 318 image variants; passed |
-| Checklist integrity | All 159 UI/MATCH and 58 FLOW identities/order validated |
-| TypeScript and optimized build | Passed after the source fixes |
-| QA-tool unit tests | 5 passed |
-| Browser captures | 159 desktop + 5 responsive samples passed |
-| Recorded flow route checks | 218 passed; route coverage is not complete-flow acceptance |
-| Interaction regressions | 19 passed, including video controls, live lyrics geometry, and production article scrolling |
-| Browser/resource failures | 0 in the final run |
-| Candidate stability | Implementation and QA hashes unchanged throughout capture |
-| Exact-size comparisons | All 159 compared; no over-threshold residual increased against the canonical baseline |
-| Strict acceptance gate | Correctly rejected the unfinished MATCH/FLOW checklist |
+All 159 states were compared at their actual application viewport: 147 at 1440×903 and 12 at 1440×904, excluding only the documented 120px acquisition footer. Against the preceding full production comparison, 16 states improved, 143 were unchanged and none increased their over-threshold pixel residual.
 
-Implementation SHA-256: `c0c028b67a359b9ec6ae1d02c0045820bff9c0425dcb2ab9a903761ca37b3f6c`.
+The browser is Chromium `151.0.7922.34` on the connected Windows machine, scale 1. Actual platform-font metadata confirms Arial for sampled Latin controls; the CSS stack alone is not evidence that SF Pro rendered.
 
-Final browser evidence: `.parity-evidence/audit-2026-09-12/final/`. Full gallery: `.parity-evidence/audit-2026-09-12/final-comparison/index.html`. Durable, image-free metrics: `docs/reference-review/latest-metrics.json` (repository-root relative). The article returned to its baseline 9.2783% residual after fixing the production-only wrong scroll; lyrics improved to 10.5578%; video improved slightly to 5.2051%. These are pixel diagnostics, not completion percentages.
+Implementation SHA-256: `14145d001a229ef8ba51a95d49a675ff569c8597872ca515c3bf133e4faea1d1`.
+QA-tooling SHA-256: `96c4f6e3aecc5f5fbe05b77632f7be6b70a263f6c88649735d9179b371658af8`.
 
-The earlier directory named `verified` is an intermediate 18-test production run that exposed the article-state defect, not the final accepted checkpoint. Preserve it as evidence of why full comparison and state-specific assertions are required.
+The captures record HEAD `51087ec` plus these then-uncommitted hashes. That exact application/test batch was subsequently committed as `719113e`; do not rewrite the original capture metadata to pretend it was captured after the commit. Both hashes were stable throughout the run.
 
-## Acceptance and next work
+## Evidence
 
-The single checklist remains 159/159 implemented UI states, 0/159 signed-off MATCH entries, and 0/58 signed-off complete FLOW entries. The nineteen behavioral regressions are not a replacement for the 58 recorded journeys. No acceptance boxes were artificially advanced.
+All paths below are app-relative under `.parity-evidence/resume-20260912-062030/` and remain local/uncommitted:
 
-Start with the highest remaining states in the latest full-corpus metrics and gallery: Home/sidebar translucency, queue/autoplay presentation, lyrics typography/blur, and lower discovery shelves. Inspect complete saved originals and actual renders before modifying the active component. Recheck all 159 after shared changes, then verify the corresponding continuous real-control flows and available recordings. Remaining video/control typography and album-dialog geometry also need visual refinement; corrected behavior is not MATCH acceptance.
+- `production-verified/results.json`: final production browser results and candidate identity.
+- `production-verified-comparison/index.html` and `metrics.json`: all 159 original/render/difference comparisons.
+- `production-verified/journeys/`: continuous real-control screenshots and ordered `steps.jsonl` records.
+- `production-verified-journey-comparison/index.html`: continuous-state original/render/difference review, also comparing each live state with its direct fixture.
+- `library-baseline/`, `library-sidebar-regression/`, `library-candidate/`, `focused-before/`, `panels-candidate-1/`, `lyrics-candidate-2/`, `focused-final-1/`, `schedule-refinement/`: preserved focused baselines, failed attempts and refinements.
+- `production-final/` and its comparison: an intermediate all-green behavioral run that exposed the schedule's small visual regression; it is not the latest candidate.
 
-Do not restart implementation, change frameworks, import the old courses branch, or substitute course semantics. The clone must be accepted first. Follow the root agent contract and runbook for evidence and subsequent handoffs.
+`docs/reference-review/latest-metrics.json` retains the final image-free full-corpus metrics. Never commit the local image galleries, dependencies, build output or proprietary fonts.
 
-## GitHub verification
+## Acceptance and immediate remaining work
 
-The workflow now targets `main`, includes active documentation changes, validates the archive and task inventory, builds with the existing lockfile, runs browser/QA tests, and produces the complete comparison gallery. Its optional strict acceptance gate remains separate. GitHub Actions is the authority for the latest remote run; the local results above do not claim that an unobserved CI run succeeded.
+**UI 159/159; MATCH 0/159; complete recorded FLOW 0/58.** No acceptance boxes were checked because a test, route, screenshot or pixel score passed.
 
-Stage only the intended source/docs/evidence metadata. Never commit `.qa/`, `.parity-evidence/`, dependency caches, generated build output, or proprietary fonts. Preserve and normally push the existing main history; never force-push.
+The first-fixture journeys `1f9e170c → ee8db412` (lyrics) and `1f9e170c → 8f029018` (queue) now have continuous captures. They expose a major remaining scenario/state discrepancy: the recorded start's listening catalog/library is not the legacy/queue catalog shown at the endpoint. The live endpoint residuals are roughly 36.58% and 34.69%, substantially worse than the approximately 10.13% direct fixtures. Do not conflate reopening an established panel with completing those recorded entry flows, and do not replace session data behind a toggle to manufacture an image.
+
+The eight library journeys now preserve their state through real navigation, but their originals still show typography/sidebar/player differences. Queue/lyrics also retain incomplete lower release artwork and glass/blur differences. A smaller live radio station-menu versus direct-fixture difference remains. The available lyrics motion asset was sampled and reviewed, not the entire motion corpus.
+
+Continue with those scenario transitions and the highest residual states in the current gallery, using the actual originals and real intermediate controls. Resolve visible typography, artwork, sidebar translucency, player/menu/dialog details before advancing MATCH/FLOW. New browser modules must be registered and executed; ordered journey screenshots must not overwrite earlier visits.
+
+## GitHub checkpoint
+
+Push normally on `main`, preserving the existing history. Inspect the actual workflow for the pushed commit: the workflow is named **Clone verification (not acceptance)**. A green GitHub run validates its checks and artifacts, not 159 visual approvals or 58 complete-flow approvals. Do not claim a CI result without observing it. The local results above were completed before the documentation checkpoint and do not substitute for that remote check.
