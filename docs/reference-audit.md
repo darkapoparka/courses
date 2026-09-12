@@ -1,8 +1,18 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-12 during main consolidation. The latest recorded verified implementation is `4c8840a`; its results below are inherited evidence, not a new local audit during the merge. [Handoff](handoff.md) owns current source/check state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-13 after main implementation `5929190`. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest verified Home artwork and controls
+## Latest main discovery and player findings
+
+Implementation `5929190` completes the preserved-preview transfer into `J:\courses` on main. Native New shelf dimensions, caption positions, Coming Soon badges, clean City Charts fragments, panel release coordinates and wide legacy release artwork were corrected. Alpha/player and library-editor material now follow actual controls rather than fixture IDs. Legacy artwork persists through Volume; closing/reopening lyrics does not import captured panel UI into a cover.
+
+The final optimized run passed 159 desktop captures, five responsive samples, 218 route checks and 57 interaction regressions, zero failures. Typecheck/build/archive/coverage, five Python and nine Node tests passed. All 159 comparisons completed: 29 lower over-20 residuals, 130 unchanged, zero higher. Essentials/City Charts improved 10.078058% to 5.507490%; Coming Soon 5.597315% to 3.891042%; legacy New 8.023102% to 6.034207%.
+
+[The dated main review](reference-review/2026-09-13-main-discovery-artwork.md) records exact identities, readable inspections, intermediate failures, the tiny Replay MAE increase, and continuous counter-evidence. [Latest metrics](reference-review/latest-metrics.json) is the final full-corpus report. The first production attempt had seven threshold increases; it was retained and followed by further artwork fixes, not silently promoted to the final candidate.
+
+Live New-to-Alpha remains 10.639766% different from its original and 1.880460% from its direct fixture. First-entry library/lyrics/queue snapshot differences remain unresolved. Corrected legacy fixtures do not justify changing a live session behind a toggle. Full covers/metadata, middle City Charts art, right-edge continuation cards, Alpha underlay, typography/icons and material details still require implementation. No MATCH/FLOW approvals were granted.
+
+## Previous verified Home artwork and controls — historical
 
 Implementation `4c8840a` preserves native Windows scrolling, renders station artwork beneath real glass, and fixes Home Next/Previous boundaries at 1440, 1264, 1024 and 768px. The live sidebar/state repairs from `a30a9ee` and exact optimized blur assertions remain in place.
 
@@ -31,6 +41,6 @@ A continuous journey starts at the permitted first fixture and then uses real co
 
 ## Current acceptance boundary
 
-The preserved checklist reports UI 159/159, MATCH 0/159 and FLOW 0/58. This rewrite grants no new acceptance. Where rights, unavailable recordings or differing reference snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent an approval or silently redefine 1:1; an explicit owner decision is required for any changed acceptance scope.
+The preserved checklist reports UI 159/159, MATCH 0/159 and FLOW 0/58. No new acceptance is inferred from these historical observations. Where rights, unavailable recordings or differing reference snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent an approval or silently redefine 1:1; an explicit owner decision is required for any changed acceptance scope.
 
 Earlier detailed observations remain in [library controls](reference-review/2026-09-12-library-controls.md), [library panels](reference-review/2026-09-12-library-panels.md), [sidebar geometry](reference-review/2026-09-12-sidebar.md), [the source ledger](reference-review/ledger.md), and the [pre-Astra audit](history/pre-astra-2026-09-12/docs/reference-audit.md).
