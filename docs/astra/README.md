@@ -4,7 +4,7 @@ This is the development-agent setup for Courses, not an AI feature inside the pr
 
 ## What is included
 
-[Sources](sources.md) and [sources.json](sources.json) collect the relevant official guidance with dates and review scope. [Skills](skills.md) distinguishes project-authored workflows from upstream skills that have only been inspected or indexed. [Prompts](prompts.md) provides outcome-focused implementation/review/handoff prompts. [Branch transition](branch-transition.md) preserves the unpublished Windows work during local adoption.
+[Sources](sources.md) and [sources.json](sources.json) collect the relevant official guidance with dates and review scope. [Skills](skills.md) distinguishes project-authored workflows from upstream skills that have only been inspected or indexed. [Prompts](prompts.md) provides outcome-focused implementation/review/handoff prompts. [Branch transition](branch-transition.md) records completed local adoption into `J:\courses` and preservation of pending work.
 
 The root `AGENTS.md` contains durable constraints and pointers. Detailed runbook and acceptance rules live in their owning documents. Load a skill only for its matching task. Do not copy every article, model example or provider guide into always-on context.
 
@@ -18,7 +18,7 @@ The September 11 Astra article recommends concise, specifically triggered skills
 
 Use the connected GitHub and authorized computer for their live data/actions. Verify actual browser and command capabilities in each environment. Do not pretend a screenshot, a new skill file or a model name creates a browser tool, subagent, MCP connection or independent reviewer.
 
-OpenAI Docs MCP supplies documentation search/content, not application API execution. In an authorized Codex client, inspect `codex mcp list` first. When setup is explicitly authorized and that server is absent, the documented command is:
+OpenAI Docs MCP supplies documentation search/content, not application API execution. During local adoption, its existing search and page-fetch tools successfully returned official documentation; no installation was needed. In another client, inspect the available tools/configuration first. Only when setup is explicitly authorized and the server is absent, the documented command is:
 
 ```text
 codex mcp add openaiDeveloperDocs --url https://developers.openai.com/mcp

@@ -2,7 +2,7 @@
 
 ## Current phase: exact Apple Music reconstruction
 
-The [root contract](../AGENTS.md) defines the phase, authorized `astra-pro` branch and preservation rules. The dirty Windows `main` checkout has not been migrated. Read only the relevant documents below, not the entire repository at every task.
+The [root contract](../AGENTS.md) defines the phase and preservation rules. The adopted workspace is `J:\courses` on `astra-pro`; the [transition record](astra/branch-transition.md) explains the retained original preview and pending source. Read only the relevant documents below, not the entire repository at every task.
 
 | Need | Owning document |
 | --- | --- |

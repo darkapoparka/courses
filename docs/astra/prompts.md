@@ -7,10 +7,11 @@ Use a clear outcome, the actual constraints and observed completion evidence. Th
 ```text
 Resume the existing Apple Music clone, not documentation-only work.
 Read AGENTS.md, docs/handoff.md and the relevant docs/tasks.md entries.
-The authorized target is astra-pro. First inspect the actual remote/local
-state and follow docs/astra/branch-transition.md: the prior dirty main
-checkout has unpublished UI work that must not be overwritten or assumed
-included in GitHub. Preserve all existing work and original references.
+Work in J:\courses on astra-pro; local adoption is complete. Inspect the
+actual status and docs/astra/branch-transition.md. The transferred pending
+UI/tests require their own runtime verification before a code checkpoint.
+Preserve the original preview and historical branches. Do not create another
+worktree, repeat the transfer blindly or assume GitHub includes local edits.
 
 Choose the highest-impact currently evidenced discrepancy in the active
 implementation. Open the exact originals, establish a stable baseline,

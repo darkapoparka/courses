@@ -26,7 +26,7 @@ A real-control FLOW needs every recorded step. Existing route checks, responsive
 
 `qa:archive` validates archive integrity; `qa:coverage` checks the single inventory; the browser/comparison tools generate evidence. `qa:acceptance` is intentionally strict and fails until the required review entries are complete. The owner then approves or rejects the phase transition. Current historical totals are in the handoff, not recertified by this document.
 
-The existing reference workflow currently targets `main`. The new documentation workflow targets `astra-pro` guidance changes. Before application implementation is checkpointed on `astra-pro`, enable the unchanged reference verification there and observe the run. A skipped, queued or unavailable check is not passed. No branch-protection policy is assumed.
+The reference workflow targets `main` and `astra-pro`; its verification and evidence steps are unchanged. The documentation workflow separately targets guidance changes. Observe the actual pushed SHA: a docs-only commit checks the committed clone baseline, not pending local source. A skipped, queued or unavailable check is not passed. No branch-protection policy is assumed.
 
 ## Accessibility and usability
 

@@ -2,9 +2,11 @@
 
 This is the active application. Reconstruct the saved music interface and recorded flows before any courses/community adaptation. Read [the root contract](../AGENTS.md), [handoff](../docs/handoff.md), [runbook](../docs/development.md) and [single checklist](../docs/tasks.md).
 
-The `astra-pro` guidance branch does not include unpublished changes from the existing dirty Windows `main` checkout. Follow [branch transition](../docs/astra/branch-transition.md), not a blind checkout command.
+The adopted checkout is `J:\courses` on `astra-pro`. Eleven pending source/test files from the preserved Windows preview were copied here and hash-verified; they remain uncommitted and are not a verified runtime candidate. See [branch transition](../docs/astra/branch-transition.md) before checkpointing them.
 
 ## Run
+
+Run from `J:\courses\apple-music-clone` after confirming the port and checkout. An older listener is not evidence that this checkout is running.
 
 ```powershell
 $env:REFERENCE_PREVIEW='1'

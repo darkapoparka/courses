@@ -1,43 +1,31 @@
-# Current handoff — Astra documentation transition
+# Current handoff — local Astra adoption
 
-Updated 2026-09-12. This is a documentation/tooling checkpoint, not a new visual or runtime acceptance result. The active product remains the Apple Music clone.
+Updated 2026-09-12. Task `DOCS-ASTRA-LOCAL`: adopt and reconcile the GPT web documentation and local workflows. The product phase remains Apple Music clone finalization, followed by an explicitly authorized courses adaptation.
 
-## Branch and source identity
+## Work here
 
-The owner requested `astra-pro`; it was created on GitHub from `289c049cc3e198baa762cd89850f744e80e99ff2` (`docs(reference): record verified sidebar regression repairs`). This revision changes guidance, not application implementation. Inspect the actual branch tip for its documentation commit; do not infer that unpublished local code is included.
+**`J:\courses` → `astra-pro` → `apple-music-clone/`.** Adopted from `67a44c41a43aa0bead23b3e665c844e6403828ba`, which includes committed `main` at `289c049`. No new worktree, merge to main, dependency upgrade or frontend redesign. The original preview remains on `main`; the four historical course-preview commits remain on `astra/implementation` at `8a5c078`.
 
-The Windows checkout `J:\courses-astra-preview` was inspected on `main` at that same commit. Before the connection ended, its pending files were:
+Eleven unpublished UI/test files from `J:\courses-astra-preview` were copied here, checked against SHA-256 snapshots and left uncommitted. They cover station artwork, sidebar glass, native scrolling and Home carousel boundaries. They are **not included in the documentation commit or certified by its CI**. Exact filenames, source provenance and recovery paths are in [the transition record](astra/branch-transition.md). Existing work remains recoverable in its original checkout and in `J:\courses\.git\local-adoption\20260912-astra\`.
 
-```text
- M apple-music-clone/app/globals.css
- M apple-music-clone/app/reference-fidelity.css
- M apple-music-clone/components/music-browse.tsx
- M apple-music-clone/components/music-discovery.tsx
-?? apple-music-clone/components/station-artwork.module.css
-?? apple-music-clone/components/station-artwork.tsx
-```
+Root/app instructions, runbook, current branch header, source register and matching project skills are reconciled. Two obsolete untracked parity drafts were parked outside active docs; historical docs, course work, local evidence and reference files were preserved. The existing clone CI now covers `astra-pro` without removing checks.
 
-No local writes or branch switch were performed before Remote Desktop Commander reported no available device. Reinspect the live tree when access returns; another session may have continued. Do not discard, automatically stage, or claim verification of these files. Follow [the transition procedure](astra/branch-transition.md). The historical `J:\courses` worktree is a different implementation branch and was not touched.
+## Verification of this adoption
 
-## Last recorded implementation verification — not rerun here
+Passed: nine documentation unit tests; the contract validator (34 active documents, four skills, ten source records); the existing task coverage checker; all four skill-creator structural validations; and `git diff --check`. Separate checks confirmed all 378 checkbox lines unchanged, all 577 reference files hash-identical, both copies of the eleven pending files equal to their source snapshot, original preview provenance retained, and only two branch-filter changes in the runtime workflow. See [verification](astra/verification.md).
 
-The pre-Astra handoff records implementation `a30a9eee7d7b3a44874fd2b4364b30648c064455`: 159 desktop captures, five responsive samples, 218 route checks and 51 interaction regressions, with zero failures. It records typecheck/build/archive/coverage, five Python and nine Node tests, plus GitHub run 34680539220 / job 103518256549. Its strict acceptance stage was skipped. These are historical claims linked to that candidate, not checks on the pending station-artwork changes.
+No local application build, browser audit, provider call or visual acceptance was run. Inspect the actual pushed SHA and its CI runs; the final task report records their observed status. Runtime CI on this documentation commit covers committed application code only.
 
-Application SHA-256: `a69870d6f1255be4c935c9329af8b77693612e6bab77ba30b0385252d86079ee`.
-QA SHA-256: `90d4bbed39b006c0329b9778e969ac011e3181e7d072cbdc3ed00f3de4bac34f`.
+Python 3.13.1 and Node 24.21.0 are available locally; CI uses Node 22. Installed packages match the existing manifest: Next 16.3.4, React 19.2.8, TypeScript 7.0.2 and Tailwind 4.3.3. No install was performed.
 
-Evidence is app-relative under `.parity-evidence/sidebar-live-20260912-092105/`: `production-verified/results.json`, `production-verified-comparison/` and `production-verified-journey-comparison/`. The dated [sidebar-live review](reference-review/2026-09-12-sidebar-live.md) and [latest metrics](reference-review/latest-metrics.json) retain details. Some J: evidence directories are junctions backed by `D:\courses-parity-evidence\sidebar-live-20260912-092105`; preserve both paths and backing data.
+## Last recorded runtime evidence — inherited
 
-## Acceptance and next implementation work
+Implementation `a30a9ee` recorded 159 desktop captures, five responsive samples, 218 route checks and 51 interaction regressions with no failures, plus type/build/archive/coverage and tooling checks. [The dated review](reference-review/2026-09-12-sidebar-live.md) retains exact hashes, failures, residuals and [CI run 34680539220](https://github.com/darkapoparka/courses/actions/runs/34680539220). Those results were not rerun or extended to the pending batch here.
 
-The recorded status remains **UI 159/159; MATCH 0/159; complete FLOW 0/58**. No checklist box changes in this revision. The next implementation session should reconcile the actual pending UI work, establish a fresh stable candidate, and fix a bounded discrepancy from the existing task rows with source/live comparison evidence.
+Acceptance remains **UI 159/159, MATCH 0/159, complete FLOW 0/58**. The task IDs, checkboxes and recorded evidence are preserved. Course adaptation and owner acceptance have not occurred.
 
-Prioritize wrong or partial artwork and scenario-state inconsistencies before cosmetic tuning. Preserve the repaired live sidebar/carousel behavior. Remaining issues include synthetic glass distribution, typography/icons, player details, live New Alpha versus its direct fixture, and first-entry library/lyrics/queue snapshot differences. The Home regression covers only an authenticated carousel segment, not the whole recorded flow. See [current audit](reference-audit.md).
+## Next bounded implementation action
 
-## Runtime status is unverified now
+Verify the transferred Home batch for `UI-2f5da478`, `UI-d5173715` and its affected `FLOW-bc2a77fc` states. Inspect the exact originals/recording and current diff, establish a stable optimized candidate, run the existing archive/type/build/tooling checks and full browser/comparison corpus because shared CSS changed, then inspect the source/live/difference images and real carousel/scroll controls. Fix demonstrated regressions within that batch, record its evidence, and checkpoint it separately on `astra-pro`. A carousel segment alone does not accept the entire six-step Home flow.
 
-The earlier handoff recorded development on loopback 6431 and production audit on 6432. Those process IDs and build identity are not current health checks. Recheck listener ownership, command line, hydration, navigation, screenshots, browser errors and production-build freshness. Do not touch the unrelated port 3000 application or run simultaneous builds into the same `.next` directory.
-
-## Scope of this revision
-
-Astra-facing entry points and active documentation are rewritten; project skills and a dated OpenAI source register are added. The original docs remain in [history](history/README.md). The application implementation, locked dependencies, frozen reference archive, dated reviews and live task checklist are preserved. No SDK/model setting, global MCP installation, provider account, production deployment, owner acceptance or local server restart is implied.
+Runtime ownership is unresolved: ports 6431–6433 were occupied but process command lines could not be read. No listener was changed or declared to serve this checkout. Establish actual ownership before starting a candidate and avoid simultaneous builds into one `.next` directory. Use [the runbook](development.md); do not repeat adoption or scaffold another application.

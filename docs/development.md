@@ -2,7 +2,7 @@
 
 ## Preflight and ownership
 
-Read the root/app `AGENTS.md`, current handoff and owning task entries. The active app is `apple-music-clone/`; the existing Windows checkout is `J:\courses-astra-preview`. The owner-authorized target is `astra-pro`, but that dirty `main` checkout was not migrated. Follow [branch transition](astra/branch-transition.md), preserving all existing work.
+Read the root/app `AGENTS.md`, current handoff and owning task entries. Work in `J:\courses` on `astra-pro`; the active app is `J:\courses\apple-music-clone`. Local adoption is complete. The [transition record](astra/branch-transition.md) identifies copied, uncommitted work and the untouched original preview. Use this checkout by default; do not create more worktrees or reapply the snapshot blindly.
 
 Inspect branch, HEAD, staged/unstaged diffs, untracked files, worktrees, remotes and incoming/outgoing commits. Fetching is not permission to pull over someone else's work. Do not reset, clean, force-push, stash-and-forget, stage all files indiscriminately, or import the historical course implementation.
 
@@ -10,7 +10,7 @@ Use existing locked dependencies. Only when missing, reproduce the install from 
 
 ## Identify and start the correct preview
 
-Check each listener's owner PID, command line and working directory. Port 3000 may belong to another project. The established clone preview is loopback 6431; do not terminate another app to take a port. From the correct active app checkout:
+Check each listener's owner PID, command line and working directory. Port 3000 may belong to another project. Ports 6431, 6432 and 6433 were occupied at adoption, with command lines unavailable to this session; none was claimed as the adopted app or restarted. The following is an example only after verifying ownership/free capacity. From the correct active app checkout:
 
 ```powershell
 $env:REFERENCE_PREVIEW='1'
@@ -92,4 +92,4 @@ A focused component edit needs focused regressions; a shared shell/state/style c
 
 Review explicit file diffs for archive changes, dirty work ownership, secrets, scratch output, stale claims and generated `next-env.d.ts` churn. Stage only the coherent reviewed batch, commit on the authorized branch and push normally when authorized. Preserve failed evidence. Update task evidence, audit findings and handoff without converting test counts into acceptance.
 
-Confirm actual GitHub checks for the pushed SHA before saying CI passed. The existing reference workflow is scoped to `main`; the Astra docs workflow verifies documentation. Before the first application-code checkpoint on `astra-pro`, extend the reference workflow to that branch without weakening its checks, and verify the actual run. No current document promises unconfigured branch protection or automatic visual approval.
+Confirm actual GitHub checks for the pushed SHA before saying CI passed. The existing reference workflow now covers `main` and `astra-pro`, with its archive, coverage, install, typecheck, build, browser, comparison and evidence steps retained. The Astra docs workflow separately verifies documentation. A docs commit's runtime CI checks its committed application baseline, not the copied local changes. Before checkpointing those changes, verify that actual source candidate locally and observe its own CI run. No current document promises unconfigured branch protection or automatic visual approval.

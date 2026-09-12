@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Application-specific contract
 
-Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. This is the active clone, not an archived prototype. The authorized target branch is `astra-pro`; never switch the preserved dirty `main` checkout to obtain it. Read the transition procedure first. No courses adaptation before clone acceptance.
+Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. The adopted app is `J:\courses\apple-music-clone` on `astra-pro`. Continue here; preserve `J:\courses-astra-preview` as the original source of the pending changes recorded in `../docs/astra/branch-transition.md`. No courses adaptation before clone acceptance.
 
 Keep `reference/` unchanged. Use the read-only `qa:coverage` command; do not run the historical screen-status generator. Keep local QA and captures in ignored `.qa/` and `.parity-evidence/` directories. Use explicit UTF-8 for Windows file and stdin operations.
 

@@ -6,7 +6,7 @@ Finish the existing `apple-music-clone/` as a working 1:1 reconstruction of the 
 
 ## Branch and preservation
 
-The owner authorized `astra-pro` on 2026-09-12. This is the branch for this guidance revision and subsequent authorized work; it supersedes the older main-only instruction for that work. It does not authorize switching a dirty checkout or discarding another session's changes. The existing `J:\courses-astra-preview` checkout was left on `main` with unpublished UI work. Follow `docs/astra/branch-transition.md` before local adoption. No additional branches, force-pushes, resets, cleaning, or unreviewed merges.
+Work in `J:\courses` on `astra-pro`, using the existing `apple-music-clone/` app. The owner prefers branches in this checkout, not more working directories. Inspect the current status before each task; do not create another branch or worktree for this assignment. Local adoption is complete; `docs/astra/branch-transition.md` records the preserved preview checkout, historical branches and pending source transfer. Switching to or merging into `main` requires explicit owner authorization.
 
 Preserve existing committed, staged, unstaged, and untracked work. Keep `apple-music-clone/reference/` immutable, including historical reports, manifests, stills and motion assets. Keep `.qa/`, `.parity-evidence/`, dependencies, build outputs and credentials out of commits. Do not delete evidence backing a filesystem junction.
 
@@ -14,7 +14,9 @@ Preserve existing committed, staged, unstaged, and untracked work. Keep `apple-m
 
 Start with `docs/handoff.md` and the owning entries in `docs/tasks.md`. Read `docs/development.md` for execution and verification; `docs/reference-audit.md` for unresolved discrepancies. The app's nested `AGENTS.md` supplies version-specific constraints. Consult `docs/README.md` for other task-specific documents. `docs/history/` is inactive provenance, not current instructions.
 
-`docs/tasks.md` is the sole live acceptance checklist. Its preserved checkpoint header predates this branch authorization; its screen IDs, checkboxes and evidence remain authoritative. Do not regenerate it or create a competing backlog. The four project skills under `.agents/skills/` are narrow workflow aids, not mandatory reading for every edit.
+`docs/tasks.md` is the sole live acceptance checklist. Preserve its screen IDs, checkboxes and evidence; do not regenerate it or create a competing backlog. The four project skills under `.agents/skills/` are narrow workflow aids, not mandatory reading for every edit. Use `docs/astra/skills.md` to locate the matching workflow and read its `SKILL.md` explicitly when client discovery is not established.
+
+The user's current assignment controls scope. Complete already-authorized edits and checks without repeated approval requests. Documentation adoption does not authorize a redesign, dependency migration, provider setup or release. Keep instructions concise; report an actual conflict instead of inventing another permission gate.
 
 ## Implementation and verification
 

@@ -1,6 +1,6 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-12 for the Astra documentation transition. This document summarizes existing evidence; no new visual audit was performed during the disconnected documentation session. The candidate and evidence details belong in [handoff](handoff.md), while acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-12 for local Astra adoption. This document summarizes existing evidence; no new visual audit was performed during adoption. Eleven pending UI/test files are now present in `J:\courses` but are not recertified by this audit. The candidate and evidence details belong in [handoff](handoff.md), while acceptance remains solely in [tasks](tasks.md).
 
 ## What the prior verified candidate established
 

@@ -11,13 +11,15 @@
 
 These are original project instructions, not OpenAI-authored official skills or installed plugins. Their repository location follows the reviewed skill-authoring guide. In a client that supports repository skills, verify they are actually discovered; in another environment, open the matching file explicitly. No tool capability or independent reviewer is created by adding a SKILL.md.
 
+Local adoption inspected all four files. The handoff and OpenAI-guidance workflows were explicitly read for this task. This session's initial skill catalog did not list the project files, so automatic discovery/trigger behavior is not claimed. Repository `.agents/skills` discovery is documented by [Build skills](https://learn.chatgpt.com/docs/build-skills); if a client has stale instructions after the branch switch, start a fresh task in `J:\courses` or read the relevant files explicitly. Do not install duplicate global copies as a workaround.
+
 ## Official skills reviewed or indexed, not bulk-installed
 
 The requested `openai-docs` skill is the main upstream reference for official documentation and model guidance. Its scripts and fallback files are not bundled here, so commands referring to them must not be presented as locally runnable. Inspect a complete pinned distribution, dependencies, license and script behavior before any future installation.
 
 The upstream Playwright skill is CLI-first and its inspected opening uses a Bash wrapper and user-scoped paths. Our existing Windows QA uses isolated Python tooling and repository-specific state/evidence checks. Do not replace those checks or copy incompatible shell paths just to say an official skill was installed.
 
-The upstream GitHub CI skill is useful for failure-context discipline but has its own CLI and approval assumptions. This environment already has an authorized GitHub connector. Use the actually available authorized tool and the user's current task scope; do not add an unrelated authentication/configuration ritual or ignore real approval boundaries.
+The upstream GitHub CI skill is useful for failure-context discipline but has its own CLI and approval assumptions. Local adoption verified Git remote access and an authenticated `gh` read of the Astra workflow. Use the actually available authorized tool and the user's current task scope; do not add an unrelated authentication/configuration ritual or ignore real approval boundaries.
 
 The pinned curated catalog also exposes design, goal-setting and other integration-specific skills. They remain discovery candidates, not instructions to install every tool, scaffold another app or introduce Figma/service dependencies absent from the task. See [the source collection](sources.md) for exact review status.
 

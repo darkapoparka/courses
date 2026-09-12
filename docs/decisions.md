@@ -5,7 +5,7 @@
 | ID | Decision | Authority and consequence |
 | --- | --- | --- |
 | A-01 | Finish the saved Apple Music frontend and recorded flows before course adaptation | Owner direction. All 159 MATCH and 58 FLOW entries require genuine acceptance, followed by explicit owner transition approval. |
-| A-02 | Use `astra-pro` for the requested guidance revision and subsequent authorized work | Current owner request supersedes the older main-only rule for this work. The dirty Windows `main` checkout is preserved; follow the branch-transition procedure before local adoption. No additional branch proliferation. |
+| A-02 | Use `astra-pro` in `J:\courses` for this assignment and subsequent authorized work | Local tracking branch adopted from `67a44c4`. Owner prefers branches in the existing J: checkout. The original dirty `main` preview and older course branch remain preserved. No new worktree, automatic merge or change to `main`. |
 | A-03 | Evolve the existing `apple-music-clone/`; do not scaffold `web/` | Owner continuity requirement. Earlier fresh-app recommendations are superseded, not an alternative active instruction. |
 | A-04 | Keep one live acceptance checklist and immutable evidence | `docs/tasks.md` owns completion. Reference originals, dated reviews and historical candidate records are preserved. UI, automated verification, MATCH, FLOW and owner approval remain separate. |
 | A-05 | Use concise durable rules and focused task workflows | Engineering choice informed by current official OpenAI guidance. Root instructions route; detailed references load when relevant. Do not copy every available skill into always-on context. |

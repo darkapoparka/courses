@@ -1,8 +1,10 @@
 # Apple Music clone — screen and flow checklist
 
-Checked this session at 2026-09-12. Active branch: `main`. Branch policy: work only on `main`; do not create or switch to feature/implementation branches unless the owner explicitly reverses this rule.
+Local adoption checked on 2026-09-12. Active checkout: `J:\courses`; active branch: `astra-pro`, authorized by the owner. Use this existing checkout; preserve the original dirty preview on `main` and historical course branches. No additional branch/worktree or merge to `main` is authorized by this task.
 
-Implementation checkpoint: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, preserving `05ee6ec` and all earlier main work. The final production run covers 159 desktop states, 5 responsive samples, 218 route checks and 51 interaction regressions; these are not visual sign-offs. See `handoff.md` and `reference-audit.md` for identities and findings. Course/community adaptation remains blocked until genuine clone acceptance.
+Last recorded implementation checkpoint: `a30a9eee7d7b3a44874fd2b4364b30648c064455`, preserving `05ee6ec` and all earlier main work. Its production run covers 159 desktop states, 5 responsive samples, 218 route checks and 51 interaction regressions; these are inherited results, not checks on the transferred local UI batch or visual sign-offs. See `handoff.md` and `reference-audit.md` for identities and findings. Course/community adaptation remains blocked until genuine clone acceptance.
+
+`DOCS-ASTRA-LOCAL` — adopted `67a44c4` into `J:\courses`, preserved the four historical course commits and original preview, and hash-verified eleven transferred pending files plus all 577 reference files. Documentation and CI scope were reconciled. Nine docs unit tests, the docs contract, task coverage, all four skill structural checks and whitespace checks passed; [the transition record](astra/branch-transition.md) owns provenance and [the handoff](handoff.md) records verification limits. No UI/MATCH/FLOW checkbox changed. The runtime results below remain attributed to their original candidates.
 
 ## Progress at a glance
 
@@ -1279,6 +1281,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 ### Fidelity checkpoint - 2026-09-11
 
+Historical record below. Its main-only policy and runtime observations describe that checkpoint, not the adopted workspace or current branch instructions.
+
 - Active branch policy is `main` only. The fidelity batch based on `e166f5b` was checkpointed as `94486db36446c8717e50ccaaff014bdb02054511` after the fresh complete regression passed. `apple-music-clone/.qa/` remains local-only QA scratch space and is not part of the checkpoint.
 - Implementation/render coverage is complete: 159/159 saved desktop UI states render and all 218 recorded route states resolve. A fresh complete canonical browser suite after the latest fidelity refinements passed 164 rendered states (159 desktop + 5 mobile samples), 218/218 route states, 16/16 interaction journeys and 0 failures.
 - A fresh real-browser hydration check passed on the current source: the root app loaded in Chromium, clicking `Radio` changed the live heading to `Radio`, and the navigation control became `aria-current="page"`.
@@ -1297,7 +1301,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 ## Deferred courses-product backlog
 
-Everything below belongs to the eventual courses product. It is deferred until the owner accepts the Apple Music clone; old planning status is not the current clone implementation status.
+Everything below is preserved historical planning for the eventual courses product, not a current assignment. It is deferred until the owner accepts the Apple Music clone and authorizes transition. The old `web/` scaffold recommendation is superseded by decision A-03; do not execute it. Later course-preview work and its evidence remain on `astra/implementation` at `8a5c078`. Consult that branch before an authorized adaptation; do not reset or regenerate this historical table to represent current work.
 
 <details>
 <summary>Show the preserved courses-product backlog</summary>

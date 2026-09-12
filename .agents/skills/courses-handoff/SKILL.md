@@ -5,7 +5,7 @@ description: Resume or checkpoint this repository's existing clone work with bra
 
 # Preserving handoff
 
-Project-authored workflow. Read root/app AGENTS, `docs/handoff.md` and the relevant task rows. On resume, inspect actual Git and tool state before trusting recorded process IDs, branch tips or test counts. Follow `docs/astra/branch-transition.md` when adopting the guidance branch; the prior Windows main checkout contains unpublished work.
+Project-authored workflow; paths below are repository-relative. Read root/app AGENTS, `docs/handoff.md` and the relevant task rows. On resume, inspect actual Git and tool state before trusting recorded process IDs, branch tips or test counts. Use the adopted `J:\courses` checkout and its authorized branch. Consult `docs/astra/branch-transition.md` for pending-source provenance; do not repeat the completed adoption or create more worktrees by default.
 
 Identify committed, staged, unstaged and untracked changes and their ownership. Keep the current implementation, original archive, historical evidence and other worktrees intact. Missing local access does not make the committed GitHub baseline equivalent to the latest dirty implementation.
 

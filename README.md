@@ -8,7 +8,9 @@ Read [the working contract](AGENTS.md), [current handoff](docs/handoff.md), [dev
 
 ## Branch status
 
-`astra-pro` was created from `289c049cc3e198baa762cd89850f744e80e99ff2` on 2026-09-12 for this revision. The connected Windows checkout was not switched: it was on `main` with four modified and two untracked UI files when the remote connection ended. Those unpublished changes are not included merely because the new branch exists. Follow the [preserving transition procedure](docs/astra/branch-transition.md) before adopting it locally.
+Use **`J:\courses` on `astra-pro`**. Local adoption of the GPT web documentation checkpoint `67a44c4` is complete. All committed clone work from `main` at `289c049` is included. Eleven unpublished source/test files were copied from the preserved `J:\courses-astra-preview` checkout, verified by hash and left uncommitted for runtime review. The [transition record](docs/astra/branch-transition.md) identifies every file and recovery location.
+
+No new worktree was created. The older course-preview implementation remains on `astra/implementation` at `8a5c078`; it is historical work to consult during an authorized adaptation, not a second active app. `main` remains unchanged.
 
 ## Acceptance is not implementation coverage
 
@@ -16,7 +18,7 @@ The recorded checkpoint reports UI 159/159, MATCH 0/159 and complete FLOW 0/58. 
 
 ## Preview
 
-From the existing app directory, with its locked dependencies installed:
+From `J:\courses\apple-music-clone`, with its locked dependencies installed and port 6431 verified free or already owned by this checkout:
 
 ```powershell
 $env:REFERENCE_PREVIEW='1'

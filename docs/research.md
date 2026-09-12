@@ -8,11 +8,11 @@ The Astra source register is [astra/sources.json](astra/sources.json), with a re
 
 ## Repository provenance
 
-The documentation transition starts from `289c049cc3e198baa762cd89850f744e80e99ff2`. The previous docs tree is `3a07bc4fb09b409fa069f68b0a826edccfeceaff`, preserved in [history](history/README.md). The frozen reference tree is `dde330ce23357fda311a21c32b1d23030126765e`; the live task-checklist blob is `94a04e21a9bcfc8fa82e37ac5793c6edafa3b733`. This revision intentionally preserves both.
+The documentation transition starts from `289c049cc3e198baa762cd89850f744e80e99ff2`, with GPT web guidance at `67a44c41a43aa0bead23b3e665c844e6403828ba`. The previous docs tree is `3a07bc4fb09b409fa069f68b0a826edccfeceaff`, preserved in [history](history/README.md). The frozen reference tree is `dde330ce23357fda311a21c32b1d23030126765e`. The inherited task-checklist blob was `94a04e21a9bcfc8fa82e37ac5793c6edafa3b733`; local adoption corrects its branch/status framing and adds documentation evidence while preserving the existing IDs, checkboxes and historical evidence.
 
 Dated source observations and candidate comparisons remain in `docs/reference-review/`; current summaries are in the handoff and audit. Reference acquisition counts, implementation coverage, manual visual review, continuous-flow review and owner acceptance are different claims. Do not generalize one reviewed image or sampled recording to the entire corpus.
 
-The connected Windows checkout had four modified and two untracked UI files before disconnection. They were not read/validated as a new stable candidate by this documentation pass and are not included in the branch just because the branch shares the committed baseline. No local runtime, server-health or current remote-worktree claim follows from GitHub-only documentation work.
+The earlier disconnected session recorded six pending files. Local inspection found eleven: eight modified and three untracked. They were inspected, snapshotted and hash-verified into `J:\courses` on `astra-pro`, and remain uncommitted. The original preview is unchanged. [The transition record](astra/branch-transition.md) records the exact files, historical course branch, preservation of 577 reference files and local recovery location. No current runtime or visual claim follows from that source transfer.
 
 ## OpenAI research boundaries
 
@@ -31,4 +31,4 @@ The prior source register remains intact in the historical research file. Useful
 - Playwright: https://playwright.dev/docs/test-snapshots
 - Accessibility: https://www.w3.org/TR/WCAG22/
 
-These carried-forward links are not new provider verification or approval. The attempted Supabase changelog fetch during this revision failed; no release-specific claim is drawn from it. Revalidate each relevant API, supported runtime, paid plan, country/merchant model, privacy/legal requirement and security advisory at the actual task. No benchmark, exhaustive competitor study, legal review, production eligibility check or new backend integration was completed here.
+During local adoption on 2026-09-12, the Next.js installation guide, Supabase's Next.js SSR client guide, Stripe's current marketplace guide and Mux's secure-playback guide were reopened for the recommendations in [tech-stack.md](tech-stack.md). Review scope was capability/architecture fit, not SDK installation or provider testing. Supabase's `changelog.md` fetch again returned an internal error; no release-specific Supabase claim is drawn from it. The other carried-forward links above were not all re-reviewed. Revalidate each relevant API, supported runtime, paid plan, country/merchant model, privacy/legal requirement and security advisory at the actual task. No benchmark, exhaustive competitor study, legal review, production eligibility check or new backend integration was completed here.

@@ -2,7 +2,7 @@ name: Clone verification (not acceptance)
 
 on:
   push:
-    branches: ['main']
+    branches: ['main', 'astra-pro']
     paths: ['apple-music-clone/**', 'docs/**', 'AGENTS.md', 'CLAUDE.md', 'README.md', '.github/workflows/reference-parity.yml']
   workflow_dispatch:
     inputs:
@@ -23,7 +23,7 @@ env:
 
 jobs:
   reference:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/astra-pro'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:
