@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Application-specific contract
 
-Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. The primary app is `J:\courses\apple-music-clone`; `main` is the integrated baseline. Use the branch assigned to the current task. Preserve the original preview evidence and recovery material described in `../docs/astra/branch-transition.md`. No courses adaptation before clone acceptance.
+Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. The only implementation checkout is `J:\courses`, the only working branch is `main`, and the active app is `J:\courses\apple-music-clone`. Do not create or switch branches or worktrees for implementation unless the owner explicitly reverses this rule. Preserve the original preview evidence and recovery material described in `../docs/astra/branch-transition.md`. No courses adaptation before clone acceptance.
 
 Keep `reference/` unchanged. Use the read-only `qa:coverage` command; do not run the historical screen-status generator. Keep local QA and captures in ignored `.qa/` and `.parity-evidence/` directories. Use explicit UTF-8 for Windows file and stdin operations.
 

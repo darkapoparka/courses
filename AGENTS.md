@@ -6,7 +6,7 @@ Finish the existing `apple-music-clone/` as a working 1:1 reconstruction of the 
 
 ## Branch and preservation
 
-Use `J:\courses` as the primary checkout, with `main` as the shared, integrated baseline and `apple-music-clone/` as the active app. The owner authorized this consolidation into local and remote `main`. Inspect branch, status and incoming commits before work. Future bounded tasks may use `codex/` feature branches in this checkout or worktrees when isolation is useful; integrate verified work into `main` when authorized. Do not create extra directories by default. `docs/astra/branch-transition.md` records reconciliation and recovery locations; preserve any unfinished work from another session.
+Use `J:\courses` as the only implementation checkout, `main` as the only working branch, and `apple-music-clone/` as the active app. The owner authorized coherent verified commits and ordinary pushes directly to `main`. Do not create or switch branches or worktrees for implementation unless the owner explicitly reverses this rule. Inspect branch, status and incoming commits before work. `docs/astra/branch-transition.md` records reconciliation and recovery locations; preserve any unfinished work from another session.
 
 Preserve existing committed, staged, unstaged, and untracked work. Keep `apple-music-clone/reference/` immutable, including historical reports, manifests, stills and motion assets. Keep `.qa/`, `.parity-evidence/`, dependencies, build outputs and credentials out of commits. Do not delete evidence backing a filesystem junction.
 

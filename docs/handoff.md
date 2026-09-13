@@ -1,41 +1,67 @@
 # Courses — current handoff
 
-Updated 2026-09-13 after implementation `5929190f0756353765d7296cd0302acade4c295c` — `fix(reference): preserve player state and restore discovery artwork`.
+Updated 2026-09-13 after `dbfe7fe9a015dd2525d65da9107c068100ff7e72` — `fix(reference): preserve New artwork through live navigation` — and retirement of the duplicate preview worktree.
 
-## Active checkout and preservation
+## One checkout, one branch — mandatory
 
-**`J:\courses` → `main` → `apple-music-clone/`.** The owner approved transferring the pending player/metadata batch here and continuing implementation on main. That transfer is complete. The old `J:\courses-astra-preview` checkout remains preserved on `codex/preview-preserved-20260912`; all seven original pending files still match their transfer hashes. Do not transfer them again or overwrite main with that older checkout.
+**Only implementation checkout:** `J:\courses`
 
-Transfer backup: `D:\courses-main-transfer\20260913-000116\manifest.json`. Main build/evidence output has D: backing through verified junctions. Keep their targets and the original preview evidence intact. No source archive, dependencies, untracked user work or unrelated application was deleted.
+**Only working branch:** `main`
 
-## Current implementation and verification
+**Active app:** `J:\courses\apple-music-clone`
 
-Alpha player glass follows real carousel state; library-editor glass follows actual Edit/Done state. Both retain their material through local controls. The SVG tab icon is integrated and tested. New shelves use the recorded 208px/19px grid, corrected caption insets and explicit badges. Unobstructed London/Miami artwork is restored. Panel releases use the separate 193px/19px grid and safe fragment coordinates. Wide legacy release fragments no longer substitute unrelated visible library artwork and persist through Volume; closing/reopening lyrics avoids cropping captured panel UI into wide cards.
+The owner explicitly ended the multi-branch/multi-worktree workflow. Do not create, checkout, or switch to another branch/worktree for implementation unless the owner later explicitly reverses this rule. Commit coherent verified checkpoints directly to `main` and push normally.
 
-Fresh optimized build `f_UWNMB9ViI8JIPcjYPm4`: 159 desktop captures, five responsive samples, 218 route checks and **57 interaction regressions, zero failures**. Typecheck, build, archive/coverage, five Python QA-tool tests and nine Node cover-integrity tests passed. All 159 source comparisons completed: **29 lower over-20 residuals, 130 unchanged, zero higher**. One unchanged-threshold Replay image has six one-level pixel differences; this is not a claim that every metric/image is identical or approved.
+`git worktree list` now contains only `J:/courses` on `main`. The former local branch `codex/preview-preserved-20260912` was deleted after verifying it had **0 commits unique versus main**. Port 6431 was stopped. `J:\courses-astra-preview` is no longer a Git worktree and has no `.git` metadata; a `RETIRED_DO_NOT_USE.txt` marker remains because Windows could not remove the residual physical directory. Never use it as source.
 
-Largest reviewed improvements include Essentials/City Charts 10.078058%→5.507490%, Coming Soon 5.597315%→3.891042%, legacy New 8.023102%→6.034207%, and the navigation editor 8.960177%→6.481840% over-20 pixels. Read [the dated implementation review](reference-review/2026-09-13-main-discovery-artwork.md) for exact identities, failures, live-state discrepancies and limitations. [Latest metrics](reference-review/latest-metrics.json) contains only the final image-free full-corpus report.
+Recovery backup of the former dirty preview state: `D:\courses-main-transfer\20260913-retire-preview\`. The canonical isolated QA interpreter is now `D:\courses-main-qa\audit-venv\Scripts\python.exe`, verified with Playwright 1.62.0 / Chromium 151.
 
-Application SHA-256: `4b0b9408ceb42a71695fd7e6db3faec0e96b8351cc2e0f3910ac7b23759784a1`. QA SHA-256: `7bc4035c8cc479849555437e6b65fdda4f461da641cd5e2c76a7481866c645d4`. Both were stable during capture. The original evidence correctly records HEAD `c0ce99f` plus then-uncommitted hashes; do not rewrite it after the commit.
+## Latest verified implementation checkpoint
 
-## Servers and exact evidence
+`dbfe7fe` fixes ordinary real-control navigation so `Radio → New` and `Concerts → New` retain the current New release-artwork edition instead of falling back to unrelated generic covers. The regression suite now exercises both transitions through actual sidebar controls.
 
-Main development preview: **`http://127.0.0.1:6435/`**. Fresh main optimized audit: **`http://127.0.0.1:6436/`**, started after the build above. Recheck listener command lines and build freshness before reuse. Old 6431/6432 listeners belong to the preserved preview, not this main candidate. Port 3000 belongs to another project and remains untouched.
+The exact implementation/tooling content later committed at `dbfe7fe` was captured in fresh optimized production with build ID `oHtHpB5wwKrNHt_n6-S2j`. The capture recorded implementation SHA-256 `e106e5549567d186040b1a359400158bb1c8160024c3026ca121d9c3edc5846d` and tooling SHA-256 `b74ceb4cdd3bd89e4e01c895237ecce2843a3e6f5a0a51464f8967eb31e899fa`; both stayed stable through the run.
+Fresh optimized browser verification against that source:
 
-Evidence: `apple-music-clone/.parity-evidence/main-implementation-20260913/`, backed by `D:\courses-main-evidence\main-implementation-20260913`. Use `production-final/results.json`, `production-final-comparison/index.html` / `metrics.json`, `production-final/journeys/`, and `production-final-journey-metrics.json`. Earlier `production/` is a superseded candidate, not the final result. All failed/intermediate evidence is retained.
+- 159 desktop states
+- 5 responsive states
+- 218 recorded route checks
+- 57 interaction regressions
+- 0 failures
+- archive integrity passed: 58 flows / 218 steps / 159 identities / 318 image variants
+- typecheck and optimized build passed
+- 5 Python QA-tool tests passed
+- 9 Node cover-integrity tests passed
 
-`.next` is backed by `D:\courses-main-build\20260913-000116`; its parent `node_modules` junction is needed for physical-path module resolution. TEMP/TMP are process-local under `D:\courses-main-temp`. J: still had only about 844 MB free at the last storage check, so preserve these D:-backed paths. The preview-only standalone advisory is not a production-deployment approval.
+Fresh all-159 exact-size comparison against the preceding compatible pushed baseline: **7 lower over-20 residuals, 152 unchanged, 0 higher**. The seven improved states are `11803c64`, `c98f8b54`, `1f9e170c`, `9fbb38e1`, `afd02fa6`, `d83e96ba`, and `ad689c37`, each improving by roughly 0.766–0.773 percentage points. `bbb92581` kept the same over-20 percentage with a negligible MAE decrease. No MATCH or FLOW acceptance was granted from these diagnostics.
 
-## Remaining implementation, not sign-off
+Evidence root: `D:\courses-main-evidence\main-navigation-20260913\production-full-20260913-022654\`. Browser output is under `browser\`; the successful comparison retry is `comparison-retry\metrics.json` and `comparison-retry\index.html`. The first comparison process hung before creating output and was terminated; its retry completed normally in about 37 seconds.
 
-**UI 159/159, MATCH 0/159, complete FLOW 0/58.** Course/community adaptation remains blocked pending genuine clone acceptance and explicit owner approval.
+## Servers and storage
 
-Legacy release states after Volume and an established lyrics close/reopen equal their direct fixtures, but their originals still differ. Live New→Alpha remains 10.639766% from its original and 1.880460% from its fixture. First-entry lyrics/queue remain approximately 36.56% / 34.67% different from the originals; library editing remains approximately 34.36–34.63% different after its first checkpoint. Do not replace the starting catalog or profile behind a control to manufacture a match.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses`. The fresh optimized audit used `http://127.0.0.1:6437/`; positively identify freshness before reuse. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
 
-Continue the existing owners in [tasks](tasks.md): Alpha preceding artwork/sidebar material; missing right-edge continuation cards; partial release covers/metadata and middle City Charts artwork; actual font/icon/player/lyrics details; legitimate first-entry scenario reconciliation. Platform-font evidence still reports Arial for sampled controls. Do not copy proprietary font files or confuse the 57 behavior regressions with 58 complete recorded-flow acceptances.
+Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or rebuild simultaneously into a `.next` used by another process. J: is space-constrained; prefer process-local D: TEMP/TMP/cache locations.
 
-## Historical consolidation context
+## Honest acceptance status
 
-Baseline `c0ce99f` combined Astra guidance `eae1eff` / `67a44c4`, verified Home implementation `4c8840a` and evidence `e6a71f7`. Merge commits `30e5204` and `fb0059b` retained the older course-preview ancestry without reactivating `web/`. See [the transition record](astra/branch-transition.md); recovery material remains in `J:\courses\.git\local-adoption\20260912-main\`.
+**UI implemented/renderable: 159 / 159**
 
-The previous handoff's unfinished-preview transfer instruction is now satisfied. Earlier Home/sidebar verification and CI remain evidence of their own commits, not substitutes for this candidate. Inspect the actual pushed main SHA and its workflow outcome; publication, local verification, visual acceptance and owner approval remain separate facts.
+**MATCH genuinely signed off: 0 / 159**
+
+**Complete recorded FLOW genuinely signed off: 0 / 58**
+
+Green CI, a rendered fixture, route coverage, or a lower pixel residual is not acceptance. Course/community adaptation remains blocked until genuine clone acceptance and explicit owner approval.
+## Continue implementation immediately
+
+Do not stop at verification. After preflight on `J:\courses/main`, continue directly into the next substantive 1:1 defect.
+
+Priority unresolved areas:
+
+1. **Alpha / New carousel (`54b01eab`)** — wrong/partial preceding artwork, sidebar colour distribution, glass/arrow/material differences, typography/icon geometry, and live New→Alpha session divergence. Open the saved original at full size before changing code; do not compensate for wrong artwork with gradients.
+2. **Lyrics / queue first-entry flows** — direct fixtures are much closer than the continuous transitions `1f9e170c → ee8db412` and `1f9e170c → 8f029018`. Investigate the recorded scenario transition rather than silently swapping catalogs/profile/session data.
+3. **Library editor snapshot transition** — later checkpoints still diverge substantially because the recording changes account/catalog/library snapshot. Model a transition only if frozen evidence supports it.
+4. **Release / City / continuation artwork** — middle City Chart lower artwork, incomplete release covers/metadata, and right-edge continuation cards remain partial. Never paste captured player/interface pixels into artwork.
+5. **Typography / icons / player / panels** — platform-font evidence still reports Arial for sampled Windows Chromium controls. Match geometry lawfully; do not copy proprietary Apple fonts. Continue player glass/control geometry, lyrics fade/blur, queue glass, sidebar material, dialogs, menus, hover and focus states through real controls.
+
+The exact frozen archive under `apple-music-clone/reference/` remains immutable. Use each original's real 1440×903 or 1440×904 application viewport, excluding only the documented 120px acquisition footer. No screenshot-as-page implementation, invisible hotspots, product masks, resized candidates, forced clicks as FLOW evidence, fixture jumping presented as a flow, course adaptation, deployment, real Apple credentials/payments, or copyrighted streaming.

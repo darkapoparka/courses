@@ -2,7 +2,7 @@
 
 ## Preflight and ownership
 
-Read the root/app `AGENTS.md`, current handoff and owning task entries. The primary checkout is `J:\courses`, its integrated baseline is `main`, and the active app is `J:\courses\apple-music-clone`. Use the current assigned branch; bounded feature branches and worktrees are available for future work. The [transition record](astra/branch-transition.md) owns preservation provenance. Do not repeat completed transfers or overwrite a checkout another session is editing.
+Read the root/app `AGENTS.md`, current handoff and owning task entries. The **only implementation checkout is `J:\courses`**, the **only working branch is `main`**, and the active app is `J:\courses\apple-music-clone`. Do not create or switch branches/worktrees for implementation unless the owner explicitly reverses this rule. Historical recovery material is provenance only. Preserve any dirty work already present on main and continue there.
 
 Inspect branch, HEAD, staged/unstaged diffs, untracked files, worktrees, remotes and incoming/outgoing commits. Fetching is not permission to pull over someone else's work. Do not reset, clean, force-push, stash-and-forget, stage all files indiscriminately, or import the historical course implementation.
 
@@ -10,23 +10,25 @@ Use existing locked dependencies. Only when missing, reproduce the install from 
 
 ## Identify and start the correct preview
 
-Check each listener's owner PID, command line and working directory. Port 3000 may belong to another project. Ports 6431, 6432 and 6433 were occupied at adoption, with command lines unavailable to this session; none was claimed as the adopted app or restarted. The following is an example only after verifying ownership/free capacity. From the correct active app checkout:
+Check each listener's owner PID, command line and working directory. The canonical main development preview uses 6435. Optimized audits may use a separate verified unused loopback port, but they must run the same `J:\courses` source/build rather than another checkout. The former 6431 preview was retired on 2026-09-13. Port 3000 belongs to another project. Recheck ownership and freshness before stopping anything. From the active app checkout:
 
 ```powershell
 $env:REFERENCE_PREVIEW='1'
-npm run dev -- --hostname 127.0.0.1 --port 6431
+npm run dev -- --hostname 127.0.0.1 --port 6435
 ```
 
-Open `http://127.0.0.1:6431/`. Verify hydration, a real navigation action, the visible page, console errors and failed assets. HTTP 200 or a listener alone proves neither application health nor fidelity. For a separate worktree, choose a verified unused loopback port rather than replacing the owner's existing preview.
+Open `http://127.0.0.1:6435/`. Verify hydration, a real navigation action, the visible page, console errors and failed assets. HTTP 200 or a listener alone proves neither application health nor fidelity. For an optimized audit, choose a verified unused loopback port while keeping the source checkout on `J:\courses`.
 
 ## Isolated QA environment
 
-Only create this environment when it is not already available:
+The canonical isolated QA interpreter is `D:/courses-main-qa/audit-venv/Scripts/python.exe`; execute scripts from `J:/courses/apple-music-clone`. It replaces the interpreter that used to live under the retired preview checkout. Main build/evidence storage is D:-backed; see the handoff before changing junctions or creating another environment on nearly-full J:.
+
+Only recreate this external environment when it is genuinely missing:
 
 ```powershell
-python -m venv .qa\audit-venv
-.qa\audit-venv\Scripts\python.exe -m pip install -r scripts/requirements-qa.txt
-.qa\audit-venv\Scripts\python.exe -m playwright install chromium
+python -m venv D:\courses-main-qa\audit-venv
+D:\courses-main-qa\audit-venv\Scripts\python.exe -m pip install -r scripts/requirements-qa.txt
+D:\courses-main-qa\audit-venv\Scripts\python.exe -m playwright install chromium
 ```
 
 Use explicit UTF-8 when reading/writing Windows text. Before piping Python source through PowerShell, set `$OutputEncoding=[System.Text.UTF8Encoding]::new($false)` and `$env:PYTHONUTF8='1'`, or use ASCII source with Unicode escapes. Do not corrupt fixture strings or selectors through stdin encoding.
@@ -40,13 +42,13 @@ npm run qa:archive
 npm run qa:coverage
 npm run typecheck
 npm run build
-.qa\audit-venv\Scripts\python.exe -m unittest discover -s scripts -p test_qa_tools.py
+D:\courses-main-qa\audit-venv\Scripts\python.exe -m unittest discover -s scripts -p test_qa_tools.py
 node --test scripts/test_cover_integrity.mjs
 $run = Get-Date -Format 'yyyyMMdd-HHmmss'
-$env:REFERENCE_URL='http://127.0.0.1:6431'
+$env:REFERENCE_URL='http://127.0.0.1:6435'
 $env:REFERENCE_OUTPUT=Join-Path (Get-Location) ".parity-evidence/$run/browser"
-.qa\audit-venv\Scripts\python.exe scripts/browser-reference.py
-.qa\audit-venv\Scripts\python.exe scripts/compare-reference.py --input $env:REFERENCE_OUTPUT --output ".parity-evidence/$run/comparison"
+D:\courses-main-qa\audit-venv\Scripts\python.exe scripts/browser-reference.py
+D:\courses-main-qa\audit-venv\Scripts\python.exe scripts/compare-reference.py --input $env:REFERENCE_OUTPUT --output ".parity-evidence/$run/comparison"
 ```
 
 Use the actual verified server URL, not the example when auditing another listener. Npm's Python aliases require the QA environment on PATH; explicit executable paths avoid that ambiguity. For a baseline diagnostic, add `--baseline <prior-comparison/metrics.json>` to the comparison command. Keep the browser, OS, scale, viewport, content and capture conditions equivalent.
@@ -90,6 +92,6 @@ A focused component edit needs focused regressions; a shared shell/state/style c
 
 ## Checkpoint and handoff
 
-Review explicit file diffs for archive changes, dirty work ownership, secrets, scratch output, stale claims and generated `next-env.d.ts` churn. Stage only the coherent reviewed batch, commit on the authorized branch and push normally when authorized. Preserve failed evidence. Update task evidence, audit findings and handoff without converting test counts into acceptance.
+Review explicit file diffs for archive changes, dirty work ownership, secrets, scratch output, stale claims and generated `next-env.d.ts` churn. Stage only the coherent reviewed batch, commit directly on `main`, and push normally. Do not create a temporary implementation branch or worktree. Preserve failed evidence. Update task evidence, audit findings and handoff without converting test counts into acceptance.
 
 Confirm actual GitHub checks for the pushed SHA before saying CI passed. Both workflows cover relevant `main` pushes and pull requests into `main`; manual dispatch remains available. The reference workflow retains archive, coverage, install, typecheck, build, browser, comparison and evidence steps. Documentation checks are separate. A committed candidate's CI cannot certify later dirty changes or grant visual acceptance. No current document promises unconfigured branch protection or automatic approval.

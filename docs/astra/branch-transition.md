@@ -2,7 +2,7 @@
 
 ## Current workspace - 2026-09-12
 
-The owner explicitly requested a complete shared `main` in `J:\courses`, superseding the earlier astra-pro-only adoption. The active app remains `J:\courses\apple-music-clone`. Future tasks may use bounded `codex/` feature branches in this checkout or worktrees when isolation is useful. No new working directory was created for consolidation.
+The owner explicitly requested a complete shared `main` in `J:\courses`, superseding the earlier astra-pro-only adoption. The active app remains `J:\courses\apple-music-clone`. On 2026-09-13 the owner further required **one implementation checkout and one working branch only**: `J:\courses` on `main`. Do not create or switch implementation branches/worktrees unless the owner explicitly reverses that rule.
 
 Origin: `https://github.com/darkapoparka/courses.git`. The integration combines:
 
@@ -31,8 +31,14 @@ The preceding adoption snapshot remains at `J:\courses\.git\local-adoption\20260
 
 Previously ignored course evidence, generated `web/` files, dependencies and build directories remain locally. Do not delete ignored outputs just to make the folder appear smaller. Preview evidence includes junctions backed by `D:\courses-storage-relocation\20260912-194335\` and older D: locations recorded in the dated reviews; preserve both the links and their backing data.
 
+## Preview retirement — 2026-09-13
+
+Before retirement, the former preview branch had **0 commits unique versus main**. Its dirty files were compared against main: six were byte-identical and main's differing `browser-reference.py` was the newer copy because it additionally registered discovery-shelf regressions. A binary patch plus both former untracked files were backed up under `D:\courses-main-transfer\20260913-retire-preview\`.
+
+Port 6431 was positively identified as the preview checkout and stopped. `git worktree remove --force` removed the worktree registration, and local branch `codex/preview-preserved-20260912` was deleted. `git worktree list` now contains only `J:/courses` on `main`. Windows could not remove the residual physical `J:\courses-astra-preview` directory, so it has no `.git` metadata and contains `RETIRED_DO_NOT_USE.txt`; never use it for source. The QA interpreter was recreated and verified at `D:\courses-main-qa\audit-venv\Scripts\python.exe`.
+
 ## Continuing safely
 
-Use J:\courses for new work. Fetch and inspect branch/status/incoming commits before switching or integrating; use ordinary non-force pushes. Confirm another session has stopped editing before retiring or removing its worktree. A retained worktree containing local evidence is not a second product baseline.
+Use **only** `J:\courses` on `main` for new implementation work. Fetch and inspect status/incoming commits without switching branches. Preserve dirty work already on main, commit coherent verified checkpoints directly to main, and use ordinary non-force pushes. Historical recovery material is not a second product baseline.
 
 Existing preview listeners were left alone. Establish checkout, source/build identity and a free loopback port before runtime checks in the primary checkout. Do not build into a `.next` directory used by another process or assume a historical server PID is still current. [The runbook](../development.md) owns commands; [verification](verification.md) and [handoff](../handoff.md) own actual outcomes.

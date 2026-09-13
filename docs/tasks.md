@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-13 for implementation `5929190`. Primary checkout: `J:\courses` on `main`, as assigned by the owner. The pending preview transfer is complete and the original preview remains preserved. Main live-state links below now use the verified development preview on port 6435.
+Updated 2026-09-13 for implementation `dbfe7fe`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree was retired after verifying it had 0 commits unique versus main; port 6431 was stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: `5929190f0756353765d7296cd0302acade4c295c`, preserving the consolidated main baseline and earlier clone work. Fresh optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 57 interaction regressions, zero failures. These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: `dbfe7fe9a015dd2525d65da9107c068100ff7e72`, preserving the consolidated main baseline and fixing real-control `Radio → New` / `Concerts → New` release-artwork persistence. Fresh optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 57 interaction regressions, zero failures. The full compatible comparison had 7 lower over-20 residuals, 152 unchanged and 0 higher. These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: `5929190f0756353765d7296cd0302acade4c295c`, preservin
 
 ## Current finalization evidence
 
-The current main candidate restores native discovery artwork geometry, visible clean legacy release fragments, City Charts edges and Coming Soon badges, and preserves player/editor material through real controls. All 159 comparisons completed with stable source hashes: 29 lower over-20 residuals, 130 unchanged, zero higher. Continuous catalog discrepancies remain explicit. [Exact evidence, preserved failures and remaining defects](reference-review/2026-09-13-main-discovery-artwork.md). No MATCH/FLOW box advanced.
+The current main candidate includes the preceding native discovery/artwork/player work and now preserves the current New release edition through ordinary `Radio → New` and `Concerts → New` sidebar navigation. Fresh all-159 exact-size comparison versus the preceding compatible pushed baseline: **7 lower over-20 residuals, 152 unchanged, 0 higher**; optimized browser coverage remained 159 desktop + 5 responsive + 218 routes + 57 interaction regressions with 0 failures. Evidence: `D:\courses-main-evidence\main-navigation-20260913\production-full-20260913-022654\` (`comparison-retry`). Continuous catalog discrepancies remain explicit. No MATCH/FLOW box advanced.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
