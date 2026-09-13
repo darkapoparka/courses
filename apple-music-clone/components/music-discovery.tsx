@@ -76,7 +76,9 @@ export function NewView() {
   const wideReleaseSource = !m.scene.panel && legacy && !zh ? wideLegacyReleaseSource(source) : undefined;
   const partialReleases = releaseEdition || wideReleaseSource ? Object.fromEntries([9, 4, 1, 5, 7].flatMap((index, position) => cleanReleases[position] ? [] : [[position, releaseEdition ? partialPanelRelease(releaseEdition, position, libraryCovers[index]!) : partialDiscoveryRelease(wideReleaseSource!, position, libraryCovers[index]!)]])) : {};
   const newThisWeek = [9, 4, 1, 5, 7].map((index, position) => cleanReleases[position] ?? partialReleases[position]?.card ?? libraryCovers[index]!);
-  const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : undefined;
+  // Ordinary sidebar navigation has no fixture ID; retain the current catalog artwork.
+  const currentReleaseSource = !m.scene.panel && !legacy && !queue ? (zh ? "be864051" : "e72be564") : undefined;
+  const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : currentReleaseSource;
   const panelReleaseSource = releaseEdition;
   const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource || wideReleaseSource
     ? Object.fromEntries(Object.entries(partialReleases).map(([index, value]) => [index, value.overlay]))

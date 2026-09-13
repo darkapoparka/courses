@@ -50,6 +50,24 @@ async def discovery_shelves(page, context):
     await page.locator('#more-to-explore').get_by_role('button', name='Concerts', exact=True).click()
     await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'concerts')
     await expect(page.get_by_role('heading', name='Concerts', exact=True)).to_be_visible()
+    await page.get_by_role("navigation", name="Browse music", exact=True).get_by_role("button", name="New", exact=True).click()
+    await expect(page.get_by_role("heading", name="New", exact=True)).to_be_visible()
+    for index in [0, 4]:
+        strip = page.locator("#new-this-week .media-card").nth(index).locator(".reference-art-strip [data-art-source]")
+        await expect(strip).to_have_count(1)
+        edition = await strip.get_attribute("data-art-source")
+        assert edition and edition.startswith("e72be564"), (index, edition)
+    await record(page, journey, "e72be564", "Return through the actual New sidebar control; retain the current release edition")
+    navigation = page.get_by_role("navigation", name="Browse music", exact=True)
+    await navigation.get_by_role("button", name="Radio", exact=True).click()
+    await expect(page.locator(".music-app")).to_have_attribute("data-scene", "radio")
+    await navigation.get_by_role("button", name="New", exact=True).click()
+    await expect(page.locator(".music-app")).to_have_attribute("data-scene", "new")
+    for index in [0, 4]:
+        strip = page.locator("#new-this-week .media-card").nth(index).locator(".reference-art-strip [data-art-source]")
+        await expect(strip).to_have_count(1)
+        assert (await strip.get_attribute("data-art-source") or "").startswith("e72be564")
+    await record(page, journey, "e72be564", "Radio to New through real sidebar controls preserves current artwork")
 
 
 CASES = [('discovery-native-square-artwork', discovery_shelves)]
