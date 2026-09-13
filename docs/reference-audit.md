@@ -1,14 +1,20 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-13 after main implementation `5929190`. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-13 for the verified subscription/artwork checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest main discovery and player findings
+## Latest subscription and thumbnail findings
+
+Native Viral Hits crops, clean Shabang hover behavior, subscription wording/spacing and cancellation dialog material were corrected. The live success acknowledgement now retains the prior details beneath it until Done. Full optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 59 interaction regressions, zero failures; four additional mobile dialog captures passed.
+
+All 159 comparisons completed: 30 lower over-20 residuals, 126 unchanged and three tiny increases beneath the queue. The [dated review](reference-review/2026-09-13-subscription-artwork.md) records these exceptions, exact source/build hashes, the five real-control cancellation checkpoints and remaining live/direct playlist-row differences. [Latest metrics](reference-review/latest-metrics.json) now points to this final candidate. No MATCH/FLOW acceptance was granted.
+
+## Previous main discovery and player findings
 
 Implementation `5929190` completes the preserved-preview transfer into `J:\courses` on main. Native New shelf dimensions, caption positions, Coming Soon badges, clean City Charts fragments, panel release coordinates and wide legacy release artwork were corrected. Alpha/player and library-editor material now follow actual controls rather than fixture IDs. Legacy artwork persists through Volume; closing/reopening lyrics does not import captured panel UI into a cover.
 
 The final optimized run passed 159 desktop captures, five responsive samples, 218 route checks and 57 interaction regressions, zero failures. Typecheck/build/archive/coverage, five Python and nine Node tests passed. All 159 comparisons completed: 29 lower over-20 residuals, 130 unchanged, zero higher. Essentials/City Charts improved 10.078058% to 5.507490%; Coming Soon 5.597315% to 3.891042%; legacy New 8.023102% to 6.034207%.
 
-[The dated main review](reference-review/2026-09-13-main-discovery-artwork.md) records exact identities, readable inspections, intermediate failures, the tiny Replay MAE increase, and continuous counter-evidence. [Latest metrics](reference-review/latest-metrics.json) is the final full-corpus report. The first production attempt had seven threshold increases; it was retained and followed by further artwork fixes, not silently promoted to the final candidate.
+[The dated main review](reference-review/2026-09-13-main-discovery-artwork.md) records exact identities, readable inspections, intermediate failures, the tiny Replay MAE increase, and continuous counter-evidence. Its historical full-corpus report remains in the dated evidence directory. The first production attempt had seven threshold increases; it was retained and followed by further artwork fixes, not silently promoted to the final candidate.
 
 Live New-to-Alpha remains 10.639766% different from its original and 1.880460% from its direct fixture. First-entry library/lyrics/queue snapshot differences remain unresolved. Corrected legacy fixtures do not justify changing a live session behind a toggle. Full covers/metadata, middle City Charts art, right-edge continuation cards, Alpha underlay, typography/icons and material details still require implementation. No MATCH/FLOW approvals were granted.
 

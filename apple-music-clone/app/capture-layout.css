@@ -86,18 +86,21 @@
 .connected-account-view > h2 { font-size:24px; line-height:31px; }
 .connected-account-view > p { font-size:16px; line-height:25px; color:#777; margin-top:8px; }
 .connected-account-view > .connected-empty { min-height:66px; margin-top:63px; text-align:left; display:flex; align-items:center; padding:18px; border:1px solid #e1e1e4; background:#f7f7fa; border-radius:9px; color:#333; font-size:14px; }
-.subscription-details { padding-top:20px; }
-.subscription-details > h2 { display:flex; gap:14px; align-items:center; font-size:24px; line-height:32px; margin:0 0 22px; }
-.subscription-details .music-badge { width:48px; height:48px; border-radius:11px; }
+.subscription-details { padding-top:19px; }
+.subscription-details > h2 { display:flex; gap:12px; align-items:center; font-size:22px; line-height:32px; margin:0 0 22px; }
+.subscription-details .music-badge { width:48px; height:48px; border-radius:11px; background:linear-gradient(#ff5276,#ff0039); }
 .subscription-details > h3 { font-size:16px; line-height:24px; margin:0 0 16px; }
 .subscription-details > strong { display:block; font-size:16px; line-height:23px; font-weight:600; }
-.subscription-details > p { font-size:14px; line-height:22px; color:#838388; }
+.subscription-details > p { font-size:13px; line-height:22px; color:#838388; }
+.subscription-details:not(.cancelled) > p:last-of-type { font-size:16px; }
+.subscription-details > .account-action + .account-action { margin-top:15px; }
 .subscription-details hr { border:0; border-top:1px solid #dedee1; margin:16px 0 30px; }
 .account-action { display:table; padding:7px 13px; border:1px solid #ed2948; color:#ed2948; border-radius:7px; font-size:13px; line-height:18px; margin:8px 0; }
 .account-action.filled { background:#ff1c42; color:#fff; border-color:transparent; }
-.subscription-privacy { font-size:14px; margin-top:28px; }
-.subscription-details.cancelled > h3 { margin-bottom:8px; }
-.subscription-details.cancelled > .text-accent { color:#e82947; }
+.subscription-privacy { font-size:16px; margin-top:38px; }
+.subscription-details.cancelled > h3 { margin-bottom:16px; }
+.subscription-details.cancelled > p.text-accent { color:#d70015; font-size:16px; font-weight:600; line-height:23px; }
+.subscription-details.cancelled > .account-action.filled { margin-top:26px; }
 
 /* Native top-layer dialogs preserve focus/inertness while matching the account iframe's backdrop. */
 .account-scoped-dialog { width:762px; height:534px; padding:0; left:calc(50% + 124px - 381px); top:calc((100dvh - 173px - 534px) / 2); right:auto; bottom:auto; margin:0; border-radius:10px; }
@@ -124,17 +127,19 @@
 .passcode-success .passcode-body h2 { margin:0; }
 .passcode-done { display:block; width:330px; max-width:100%; height:49px; border-radius:11px; background:#ff2042; color:#fff; font-size:16px; margin:56px auto 0; }
 .cancel-reference-dialog { width:762px; height:534px; padding:0; display:block; }
+.cancel-reference-dialog, .cancel-result-dialog { border-radius:10px; box-shadow:0 4px 12px rgb(0 0 0 / 15%); }
+.cancel-reference-dialog::backdrop, .cancel-result-dialog::backdrop { background:rgb(0 0 0 / 47%); }
 .cancel-reference-dialog > .dialog-close { display:none; }
 .cancel-reference-dialog > svg { position:absolute; right:25px; top:27px; color:#c7c7cb; }
 .cancel-reference-body { height:480px; padding:57px 45px; text-align:center; position:relative; }
-.cancel-reference-body .music-badge { width:52px; height:52px; border-radius:14px; margin-bottom:12px; }
+.cancel-reference-body .music-badge { width:52px; height:52px; border-radius:14px; margin-bottom:12px; background:linear-gradient(#ff5276,#ff0039); }
 .cancel-reference-body > h2 { font-size:23px; line-height:30px; letter-spacing:-.4px; }
 .cancel-reference-body > p:not(.reference-disclosure) { font-size:16px; line-height:24px; margin:9px auto 0; }
 .cancel-reference-dialog .account-action { font-size:14px; min-height:35px; margin:0; padding:7px 14px; }
 .cancel-result-dialog { width:337px; height:286px; padding:55px 30px 30px; text-align:center; }
-.cancel-result-icon { width:50px; height:50px; fill:none; stroke:#0074bd; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; margin:0 auto 14px; }
-.cancel-result-dialog h2 { font-size:19px; line-height:23px; letter-spacing:-.2px; font-weight:600; }
-.cancel-result-dialog .dialog-primary { margin-top:21px; height:33px; min-height:33px; font-size:13px; border-radius:4px; padding:5px; }
+.cancel-result-icon { width:50px; height:50px; fill:none; stroke:#0071e3; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; margin:0 auto 12px; }
+.cancel-result-dialog h2 { font-size:22px; line-height:27px; letter-spacing:-.35px; font-weight:600; }
+.cancel-result-dialog .dialog-primary { margin-top:24px; height:34px; min-height:34px; font-size:13px; font-weight:400; border-radius:8px; padding:5px; }
 .cancel-result-dialog .reference-disclosure { bottom:10px; font-size:8px; }
 @media (max-width:1180px) {
   .schedule-page .schedule-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }

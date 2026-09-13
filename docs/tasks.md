@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-13 for implementation `dbfe7fe`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree was retired after verifying it had 0 commits unique versus main; port 6431 was stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-13 for the verified subscription/artwork checkpoint on top of `1a5c1f9`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree was retired after verifying it had 0 commits unique versus main; port 6431 was stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: `dbfe7fe9a015dd2525d65da9107c068100ff7e72`, preserving the consolidated main baseline and fixing real-control `Radio → New` / `Concerts → New` release-artwork persistence. Fresh optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 57 interaction regressions, zero failures. The full compatible comparison had 7 lower over-20 residuals, 152 unchanged and 0 higher. These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: native thumbnail artwork, subscription/dialog fidelity and the continuous cancellation underlay transition. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 comparisons completed: 30 lower over-20 residuals, 126 unchanged and three tiny increases documented in the [dated review](reference-review/2026-09-13-subscription-artwork.md). These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: `dbfe7fe9a015dd2525d65da9107c068100ff7e72`, preservin
 
 ## Current finalization evidence
 
-The current main candidate includes the preceding native discovery/artwork/player work and now preserves the current New release edition through ordinary `Radio → New` and `Concerts → New` sidebar navigation. Fresh all-159 exact-size comparison versus the preceding compatible pushed baseline: **7 lower over-20 residuals, 152 unchanged, 0 higher**; optimized browser coverage remained 159 desktop + 5 responsive + 218 routes + 57 interaction regressions with 0 failures. Evidence: `D:\courses-main-evidence\main-navigation-20260913\production-full-20260913-022654\` (`comparison-retry`). Continuous catalog discrepancies remain explicit. No MATCH/FLOW box advanced.
+The latest source and stable evidence hashes are in the [subscription/artwork review](reference-review/2026-09-13-subscription-artwork.md). Evidence root: `D:\courses-main-evidence\finalization-20260913\`; final directories are `production-verified`, `comparison-verified`, `journey-comparison-verified` and `mobile-subscription-verified`. A new five-step cancellation regression preserves the prior page beneath success until Done. Native thumbnails retain real hover/play controls. Three small queue-underlay residual increases and remaining live/direct playlist-row differences are explicit. No MATCH/FLOW box advanced.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -66,6 +66,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Native 38px thumbnail crops and the clean Shabang cover now retain real hover/play indicators. Exact source residual: 6.56469% over-20. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 6.754568% → 6.725037%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/e72be564-1f7a-4448-9568-f239af3233ed.webp) · [Open app state](http://127.0.0.1:6435/screen/e72be564-1f7a-4448-9568-f239af3233ed) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -80,6 +81,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Native thumbnail correction reduces over-20 residual to 9.43037%; preceding artwork, continuation and live-session discrepancies remain. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 9.638858% → 9.596099%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - `4c8840a`: Handle material yields a small direct residual improvement to 9.638858%. The preceding card remains wrong; live/direct residual remains 1.875461%. Not matched [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Real Volume/Account preservation, translucent selection, clickable carousel return, offscreen material and exact production blur verified. Original residual 9.6403%; live-from-New residual 10.6978%. Wrong/partial preceding artwork, glass distribution and typography remain. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
@@ -1089,24 +1091,28 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 
 - [x] **UI-c0997fe5 — Subscription — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-c0997fe5 — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Renewal wording, filled music symbol, typography and control spacing corrected; over-20 residual 3.05033%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/c0997fe5-7f01-4d42-9b12-1c7f284f8046.webp) · [Open app state](http://127.0.0.1:6435/screen/c0997fe5-7f01-4d42-9b12-1c7f284f8046) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-fd1c0c71"></a>
 
 - [x] **UI-fd1c0c71 — Subscription — cancellation confirmation.** Coded UI; current browser render passed.
   - [ ] **MATCH-fd1c0c71 — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Scoped backdrop, symbol and dialog material corrected; direct over-20 residual 2.70387%. Live playlist-row discrepancy remains. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/fd1c0c71-8411-48fb-9d7d-537cf52224a2.webp) · [Open app state](http://127.0.0.1:6435/screen/fd1c0c71-8411-48fb-9d7d-537cf52224a2) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-03157020"></a>
 
 - [x] **UI-03157020 — Subscription — cancellation result.** Coded UI; current browser render passed.
   - [ ] **MATCH-03157020 — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Success geometry corrected; live prior details remain beneath the acknowledgement until Done. Direct over-20 residual 3.01403%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/03157020-edc1-453b-8d8a-8aa44d31ed81.webp) · [Open app state](http://127.0.0.1:6435/screen/03157020-edc1-453b-8d8a-8aa44d31ed81) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-603983c7"></a>
 
 - [x] **UI-603983c7 — Subscription — signed out, cancelled.** Coded UI; current browser render passed.
   - [ ] **MATCH-603983c7 — Finish and verify the exact screenshot match.**
+  - 2026-09-13: Cancelled-state typography and button spacing corrected; direct over-20 residual 3.29419%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/603983c7-b9be-401e-8547-9c469ee313c0.webp) · [Open app state](http://127.0.0.1:6435/screen/603983c7-b9be-401e-8547-9c469ee313c0) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-50fe374b"></a>
@@ -1311,6 +1317,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/turning-on-content-restrictions?step=0). Sequence: [1: 01f96377](#screen-01f96377) → [2: f99d9583](#screen-f99d9583) → [3: 0da4882b](#screen-0da4882b) → [4: 8b9e8598](#screen-8b9e8598) → [5: 0260ef9f](#screen-0260ef9f) → [6: 5b34ad72](#screen-5b34ad72) → [7: 7437b956](#screen-7437b956) → [8: 6436de36](#screen-6436de36)
 
 - [ ] **FLOW-16a876bc — 56. Canceling a trial (5 steps).** Complete and verify the recorded journey.
+  - 2026-09-13: All five checkpoints traversed using Manage, Cancel Free Trial, Cancel Subscription and Done. The underlay transition is fixed and registered; sidebar/profile and visual residuals keep acceptance open. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/canceling-a-trial?step=0). Sequence: [1: 44101453](#screen-44101453) → [2: c0997fe5](#screen-c0997fe5) → [3: fd1c0c71](#screen-fd1c0c71) → [4: 03157020](#screen-03157020) → [5: 603983c7](#screen-603983c7)
 
 - [ ] **FLOW-59b6cb8b — 57. Changing language (5 steps).** Complete and verify the recorded journey.

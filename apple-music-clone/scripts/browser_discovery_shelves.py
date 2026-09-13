@@ -140,3 +140,33 @@ async def legacy_panel_exit_artwork(page, context):
 
 
 CASES.append(('legacy-panel-exit-clean-artwork', legacy_panel_exit_artwork))
+
+
+async def viral_artwork_controls(page, context):
+    """A thumbnail is clean artwork; hover/play indicators are live controls."""
+    await start(page, 'e72be564')
+    play = page.get_by_role('button', name='Play Shabang', exact=True)
+    artwork = play.locator('.music-art')
+    overlay = play.locator('.art-play')
+    clean_source = await artwork.get_attribute('data-art-source')
+    assert clean_source and clean_source.startswith('54b01eab'), 'Do not restore the captured hover icon as cover art'
+    await expect(overlay).not_to_be_visible()
+    await play.hover()
+    await expect(overlay).to_be_visible()
+    await record(page, 'viral-artwork-controls', 'e72be564', 'Hover the real Shabang thumbnail control', move_pointer=False)
+    await page.mouse.move(1100, 80)
+    await expect(overlay).not_to_be_visible()
+    await record(page, 'viral-artwork-controls', 'e72be564', 'Move away; the hover icon disappears from clean artwork')
+    await play.click()
+    await page.mouse.move(1100, 80)
+    await expect(play.locator('.playing-bars')).to_be_visible()
+    await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
+    assert await page.locator('audio').evaluate('(element) => element.paused'), 'Local UI preview must stay silent'
+    await page.get_by_role('button', name='Volume', exact=True).click()
+    await page.get_by_role('button', name='Volume', exact=True).click()
+    assert await artwork.get_attribute('data-art-source') == clean_source
+    await page.get_by_role('button', name='Pause', exact=True).click()
+    await expect(play.locator('.playing-bars')).to_have_count(0)
+
+
+CASES.append(('viral-artwork-live-controls', viral_artwork_controls))

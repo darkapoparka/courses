@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-13 after `dbfe7fe9a015dd2525d65da9107c068100ff7e72` — `fix(reference): preserve New artwork through live navigation` — and retirement of the duplicate preview worktree.
+Updated 2026-09-13 for the verified subscription-journey and native-thumbnail checkpoint on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,24 +18,17 @@ Recovery backup of the former dirty preview state: `D:\courses-main-transfer\202
 
 ## Latest verified implementation checkpoint
 
-`dbfe7fe` fixes ordinary real-control navigation so `Radio → New` and `Concerts → New` retain the current New release-artwork edition instead of falling back to unrelated generic covers. The regression suite now exercises both transitions through actual sidebar controls.
+The candidate on top of `1a5c1f9` corrects native Viral Hits thumbnail crops, removes the captured Shabang hover icon from artwork, refines subscription typography/spacing/dialogs, and retains the prior subscription details beneath the cancellation-success acknowledgement. The complete five-step cancellation journey and real artwork controls are registered regressions. The [dated review](reference-review/2026-09-13-subscription-artwork.md) records exact originals, inspection, preserved failures and remaining differences.
 
-The exact implementation/tooling content later committed at `dbfe7fe` was captured in fresh optimized production with build ID `oHtHpB5wwKrNHt_n6-S2j`. The capture recorded implementation SHA-256 `e106e5549567d186040b1a359400158bb1c8160024c3026ca121d9c3edc5846d` and tooling SHA-256 `b74ceb4cdd3bd89e4e01c895237ecce2843a3e6f5a0a51464f8967eb31e899fa`; both stayed stable through the run.
-Fresh optimized browser verification against that source:
+Optimized build `myRmhF4WQ4YTIyxskWpDs` captured implementation SHA-256 `29e1f569606a7b875dc855681a9de6ac19e781906712de387cdef14088cd9c5b` and tooling SHA-256 `f92d576d56e6465e8d4a4e5bd0dedb078cd81a7f949dac02309837e1e9a8264c`; both stayed stable throughout the run.
 
-- 159 desktop states
-- 5 responsive states
-- 218 recorded route checks
-- 57 interaction regressions
-- 0 failures
-- archive integrity passed: 58 flows / 218 steps / 159 identities / 318 image variants
-- typecheck and optimized build passed
-- 5 Python QA-tool tests passed
-- 9 Node cover-integrity tests passed
+- 159 desktop states, five responsive states, 218 route checks and 59 interaction regressions: zero failures.
+- Four additional optimized mobile dialog captures at 360×800 / 390×844 passed.
+- Typecheck and optimized build passed; archive/coverage, five Python QA-tool and nine Node cover-integrity tests also passed during the session.
+- All 159 comparisons completed: 30 lower over-20 residuals, 126 unchanged, three increases of at most 0.00431 percentage points beneath the queue. The dated review records these and the mixed MAE results.
+- The five cancellation steps were traversed through real controls. Three equal their direct fixtures; the two dialogs retain a 0.08544% live/direct difference in sidebar playlist rows. No MATCH/FLOW acceptance was granted.
 
-Fresh all-159 exact-size comparison against the preceding compatible pushed baseline: **7 lower over-20 residuals, 152 unchanged, 0 higher**. The seven improved states are `11803c64`, `c98f8b54`, `1f9e170c`, `9fbb38e1`, `afd02fa6`, `d83e96ba`, and `ad689c37`, each improving by roughly 0.766–0.773 percentage points. `bbb92581` kept the same over-20 percentage with a negligible MAE decrease. No MATCH or FLOW acceptance was granted from these diagnostics.
-
-Evidence root: `D:\courses-main-evidence\main-navigation-20260913\production-full-20260913-022654\`. Browser output is under `browser\`; the successful comparison retry is `comparison-retry\metrics.json` and `comparison-retry\index.html`. The first comparison process hung before creating output and was terminated; its retry completed normally in about 37 seconds.
+Evidence: `D:\courses-main-evidence\finalization-20260913\production-verified\results.json`, `comparison-verified\metrics.json` / `index.html`, `journey-comparison-verified\metrics.json`, and `mobile-subscription-verified\results.json`. Earlier sidebar and transport trials were rejected and preserved. `production` and `production-final` are superseded, not the final source. The preceding `dbfe7fe` navigation checkpoint remains the compatible comparison baseline under `main-navigation-20260913/production-full-20260913-022654/comparison-retry`.
 
 ## Servers and storage
 

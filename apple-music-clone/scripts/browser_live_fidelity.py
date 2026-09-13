@@ -288,3 +288,27 @@ CASES += [('recorded-clear-queue', clear_recorded_queue),
           ('recorded-autoplay', recorded_autoplay),
           ('lyrics-catalog-persistence', lyrics_catalog_persistence),
           ('approved-preview-covers', approved_preview_covers)]
+
+
+async def cancellation_sequence(page, context):
+    journey = 'canceling-a-trial-continuous'
+    await start(page, '44101453')
+    await record(page, journey, '44101453', 'Start at recorded account settings')
+    await page.get_by_role('button', name='Manage', exact=True).click()
+    await record(page, journey, 'c0997fe5', 'Manage the local subscription')
+    await page.get_by_role('button', name='Cancel Free Trial', exact=True).click()
+    await record(page, journey, 'fd1c0c71', 'Open cancellation confirmation')
+    await page.get_by_role('button', name='Cancel Subscription', exact=True).click()
+    await expect(page.get_by_role('dialog', name='Subscription cancellation preview')).to_be_visible()
+    await record(page, journey, '03157020', 'Confirm; preserve subscription details under the result dialog')
+    await expect(page.locator('.subscription-details')).not_to_have_class('subscription-details cancelled')
+    await expect(page.locator('.subscription-details strong')).to_have_text('You have subscribed through a free offer.')
+    await page.get_by_role('button', name='Done', exact=True).click()
+    await expect(page.get_by_text('You have cancelled your subscription.', exact=True)).to_be_visible()
+    await expect(page.get_by_text('Only the local preview subscription changed. No external account was cancelled.', exact=True)).not_to_be_visible(timeout=6000)
+    await record(page, journey, '603983c7', 'Dismiss success; reveal cancelled state after the local notice clears')
+    # Frozen-reference sessions intentionally do not write browser storage.
+    # The ordinary cancellation-preview case separately checks reload persistence.
+
+
+CASES.append(('recorded-canceling-a-trial', cancellation_sequence))

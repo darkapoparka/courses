@@ -52,7 +52,10 @@ const viralRows: [string, string, boolean?][] = [
 export const viralTracks: Track[] = viralRows.map(([title, artist, explicit], i) => ({
   id: i === 0 ? "album-2" : `viral-${i}`, title, artist, album: i === 0 ? albumTitle : title,
   duration: i === 0 ? 209 : 0, explicit,
-  art: i === 0 ? albumArt : crop("e72be564", [286, 665, 1043][Math.floor(i / 4)]!, 564 + (i % 4) * 52.3, 37, 37),
+  // Preserve the shelf's native 38px artwork and integer row anchors. The
+  // initial Shabang still contains a hover control; the Alpha still exposes
+  // its clean cover. Hover and playback indicators belong to SongRow's DOM.
+  art: crop(i === 5 ? "54b01eab" : "e72be564", [286, 665, 1043][Math.floor(i / 4)]!, [564, 616, 669, 721][i % 4]!, 38, 38),
 }));
 const libraryRows: [string, string, string, number][] = [
   ["BIRDS OF A FEATHER", "Billie Eilish", "HIT ME HARD AND SOFT", 210],

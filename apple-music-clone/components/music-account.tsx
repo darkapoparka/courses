@@ -67,10 +67,13 @@ export function ConnectedView() {
   return <AccountFrame><div className="account-back"><button type="button" className="text-accent" onClick={() => m.go("settings")}>‹ Back</button></div><section className="connected-account-view"><h2>Connected Accounts</h2><p>Manage the apps and services you have connected to your account.</p><div className="connected-empty">No Connected Accounts</div></section></AccountFrame>;
 }
 export function SubscriptionView() {
-  const m = useMusic(); const cancelled = m.library.cancelled || m.scene.cancelled;
+  const m = useMusic();
+  // Confirmation persists locally, while the recorded result dialog retains
+  // the prior details beneath it until the acknowledgement is dismissed.
+  const cancelled = m.scene.overlay !== "cancelled" && (m.library.cancelled || m.scene.cancelled);
   return <AccountFrame><div className="account-back"><button type="button" className="text-accent" onClick={() => m.go("settings")}>‹ Back</button></div><section className={`subscription-details ${cancelled ? "cancelled" : ""}`}>
-    <h2><span className="music-badge small"><Glyph name="music" size={29} /></span>Apple Music</h2><h3>Individual</h3>
-    {cancelled ? <><p className="text-accent">You have cancelled your subscription.</p><p>Your subscription ended on 13 July.</p><button type="button" className="account-action filled" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>Subscribe</button></> : <><strong>You have subscribed through a free offer.</strong><p>Starting 25 July, plan renews for $10.98/month until cancelled.</p></>}
+    <h2><span className="music-badge small"><Glyph name="apple-music" size={33} /></span>Apple Music</h2><h3>Individual</h3>
+    {cancelled ? <><p className="text-accent">You have cancelled your subscription.</p><p>Your subscription ended on 13 July.</p><button type="button" className="account-action filled" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>Subscribe</button></> : <><strong>You have subscribed through a free offer.</strong><p>Starting 25 July, plan renews for $10.98 per month until cancelled.</p></>}
     <hr />{!cancelled && <h3>Manage</h3>}<button type="button" className="account-action" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>See All Plans</button>
     {!cancelled && <><button type="button" className="account-action" onClick={() => m.patch({ overlay: "cancel-trial" })}>Cancel Free Trial</button><p>If you cancel, you will immediately lose access to your subscription.</p></>}
     <button type="button" className="text-accent subscription-privacy" onClick={() => m.notify("Local subscription preview only. No billing account or payment provider is connected.")}>About Subscriptions and Privacy</button>
