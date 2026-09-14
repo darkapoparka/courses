@@ -21,6 +21,22 @@ export function crop(prefix: string, x: number, y: number, width: number, height
   return { source: sourceId(prefix), x, y, width, height };
 }
 
+/** Clean provider artwork for the Alpha carousel predecessor. The reviewed
+ * 1200×300 editorial strip is cropped as artwork beneath live sidebar glass;
+ * the separately captured 26px boundary remains owned by AlphaPreviousEdge. */
+export const viralHitsFeatureArt: Artwork = {
+  source: "cover-viral-hits-feature", x: 352, y: 0, width: 524, height: 300,
+  canvasWidth: 1200, canvasHeight: 300, displayRatio: 548 / 314,
+};
+
+/** The source only exposes the left edge of the following New Music Daily
+ * card. Keep its full destination live with reviewed provider artwork; the
+ * exact visible boundary is reconstructed separately without captured UI. */
+export const newMusicDailyFeatureArt: Artwork = {
+  source: "cover-new-music-daily-feature", x: 0, y: 257, width: 1200, height: 686,
+  canvasWidth: 1200, canvasHeight: 1200, displayRatio: 548 / 314,
+};
+
 export type Track = {
   id: string; title: string; artist: string; album: string; duration: number;
   art: Artwork; explicit?: boolean; unavailable?: boolean;

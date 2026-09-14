@@ -9,7 +9,8 @@ async def shell_state(page):
       const rail = document.querySelector('[data-rail="Featured music"] .music-rail');
       const style = getComputedStyle(pane);
       const player = getComputedStyle(document.querySelector('.floating-player'));
-      return {background: style.background, filter: style.backdropFilter,
+      return {background: style.background, backgroundImage: style.backgroundImage,
+        filter: style.backdropFilter,
         player: {background: player.backgroundColor, filter: player.backdropFilter},
         mainX: document.querySelector('main').getBoundingClientRect().x,
         railX: rail.getBoundingClientRect().x, scroll: rail.scrollLeft,
@@ -23,7 +24,8 @@ async def alpha_controls(page, context):
     await start(page, '54b01eab')
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Initial Alpha fixture')
     before = await shell_state(page)
-    assert before['mainX'] == 0 and before['filter'] == 'blur(18px) saturate(1.15)', before
+    assert before['mainX'] == 0 and before['filter'] == 'blur(22px) saturate(1.2)', before
+    assert before['backgroundImage'] == 'none' and '0.53' in before['background'], before
     assert before['player'] == {'background': 'rgba(249, 249, 251, 0.84)', 'filter': 'blur(18px) saturate(1)'}, before['player']
     selection = await page.locator('.sidebar-row[aria-current=page]').evaluate('(e)=>getComputedStyle(e).backgroundColor')
     assert selection.startswith('rgba('), selection
@@ -33,6 +35,23 @@ async def alpha_controls(page, context):
     await expect(edge).to_have_count(1)
     assert await edge.locator('.music-art').count() == 3
     assert set(await edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
+    predecessor = page.locator('[data-rail="Featured music"] .feature-card').nth(3)
+    provider_art = predecessor.locator('[data-art-source="cover-viral-hits-feature"]')
+    await expect(provider_art).to_have_count(1)
+    assert await provider_art.get_attribute('data-art-partial') is None
+    continuation = page.locator('[data-rail="Featured music"] .feature-card').nth(6)
+    await expect(continuation).to_contain_text('New Music Daily')
+    clean_continuation = continuation.locator('[data-art-source="cover-new-music-daily-feature"]')
+    await expect(clean_continuation).to_have_count(1)
+    assert await clean_continuation.get_attribute('data-art-partial') is None
+    next_button = page.get_by_role('button', name='Next Featured music', exact=True)
+    await expect(next_button).to_be_enabled()
+    next_box = await next_button.bounding_box()
+    assert next_box and next_box['x'] == 1408 and next_box['width'] == 26 and next_box['height'] == 50, next_box
+    next_edge = page.locator('.alpha-next-edge')
+    await expect(next_edge).to_have_count(1)
+    assert await next_edge.locator('.music-art').count() == 3
+    assert set(await next_edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
     await page.get_by_role('button', name='Volume', exact=True).click()
     await expect(page.locator('.music-app')).not_to_have_attribute('data-source')
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Open Volume using the player')
@@ -63,6 +82,23 @@ async def discovery_carousel(page, context):
     edge = page.locator('.alpha-previous-edge')
     await expect(edge).to_have_count(1)
     assert set(await edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
+    predecessor = page.locator('[data-rail="Featured music"] .feature-card').nth(3)
+    provider_art = predecessor.locator('[data-art-source="cover-viral-hits-feature"]')
+    await expect(provider_art).to_have_count(1)
+    assert await provider_art.get_attribute('data-art-partial') is None
+    continuation = page.locator('[data-rail="Featured music"] .feature-card').nth(6)
+    await expect(continuation).to_contain_text('New Music Daily')
+    clean_continuation = continuation.locator('[data-art-source="cover-new-music-daily-feature"]')
+    await expect(clean_continuation).to_have_count(1)
+    assert await clean_continuation.get_attribute('data-art-partial') is None
+    next_button = page.get_by_role('button', name='Next Featured music', exact=True)
+    await expect(next_button).to_be_enabled()
+    next_box = await next_button.bounding_box()
+    assert next_box and next_box['x'] == 1408 and next_box['width'] == 26 and next_box['height'] == 50, next_box
+    next_edge = page.locator('.alpha-next-edge')
+    await expect(next_edge).to_have_count(1)
+    assert await next_edge.locator('.music-art').count() == 3
+    assert set(await next_edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
     await record(page, 'new-carousel-sidebar', '54b01eab', 'Advance the actual featured carousel twice; retain starting catalog/profile')
     before = await shell_state(page)
     assert before['player'] == {'background': 'rgba(249, 249, 251, 0.84)', 'filter': 'blur(18px) saturate(1)'}, before['player']
@@ -89,6 +125,9 @@ async def discovery_carousel(page, context):
     await previous.click()
     await expect(page.locator('.capture-discovery')).not_to_have_attribute('data-feature-alpha')
     await expect(page.locator('.alpha-previous-edge')).to_have_count(0)
+    await expect(page.locator('.alpha-next-edge')).to_have_count(0)
+    await expect(page.locator('[data-rail="Featured music"] .feature-card').nth(3).locator('[data-art-source="cover-viral-hits-feature"]')).to_have_count(1)
+    await expect(page.locator('[data-rail="Featured music"] .feature-card').nth(6).locator('[data-art-source="cover-new-music-daily-feature"]')).to_have_count(1)
     await previous.click()
     await expect(page.locator('.capture-discovery')).not_to_have_attribute('data-feature-scrolled')
     returned = await shell_state(page)

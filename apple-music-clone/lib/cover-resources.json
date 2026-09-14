@@ -30,5 +30,21 @@
     "observedIn": "8f029018",
     "bytes": 25666,
     "contentSha256": "7eeacf6769925b0a5c9a93458b6b0a69ed1b3d300780da4813d505f2033952e6"
+  },
+  "cover-viral-hits-feature": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/e6/b9/28/e6b92894-d11b-8bbb-1af5-13006bb82cc3/046c6b1c-40bf-4cb5-a0b1-43f6277b4e09.png/1200x686bb.webp",
+    "sha256": "5cf46ada1610a8611a2af8559e607a9c3d0ff01c057b1ab214289f61b3aa1a16",
+    "page": "https://music.apple.com/us/playlist/viral-hits/pl.3de89e62aa3340038e08fa325c3f3f01",
+    "observedIn": "54b01eab",
+    "bytes": 27412,
+    "contentSha256": "b78aaebc8c13c1c4de8938c40b75ffd526e3093ddda9a5fc48ae46935073114d"
+  },
+  "cover-new-music-daily-feature": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Features/v4/20/bf/5a/20bf5a71-a69e-3ba5-bc45-f9c00e975b82/83ef0420-0b70-4fb8-98a6-103a7a65ff92.png/1200x1200SC.DN01.webp?l=en-US",
+    "sha256": "e6d9aa5811cc7de04b83f4ee627275ad5af175e7aa00bd613229df9ec7772439",
+    "page": "https://music.apple.com/us/playlist/new-music-daily/pl.2b0e6e332fdf4b7a91164da3162127b5",
+    "observedIn": "54b01eab",
+    "bytes": 49776,
+    "contentSha256": "31d7011a0dcf92833133970bc29f3801fcb165b9250e06a206f1bafe9f6575bb"
   }
 }

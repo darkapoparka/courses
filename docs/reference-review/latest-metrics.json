@@ -1,13 +1,13 @@
 {
   "candidate": {
-    "toolingSha256": "20e7f0c1eff2831f5df7347701e83acffb21ebecdaf91a78c8985d7f9db588eb",
-    "commit": "5c59b76c54b6f85293672f5cdff31947ca2db649",
+    "toolingSha256": "b5343da4b1cd568edaae4adafb4def6e7aab22c8979e9b1ab020c3669df54e30",
+    "commit": "a85d2e7e9fcf863f172ef67c0e912a6fb7a6e4a3",
     "branch": "main",
-    "implementationSha256": "e732b776de08a9dd293e7a0778eff6a8863b00bf337f451b36a634aed1fb2dcf",
-    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/scripts/browser_sidebar_material.py\n M docs/handoff.md\n M docs/reference-audit.md\n M docs/reference-review/latest-metrics.json\n M docs/tasks.md\n?? docs/reference-review/2026-09-14-alpha-edge.md",
-    "capturedAt": "2026-09-14T01:13:37.054590+00:00",
+    "implementationSha256": "120e15661676c04d7728e0b3f874df987f2914092dd16d9e2e32a07138eb3b7b",
+    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/lib/cover-resources.json\n M apple-music-clone/lib/music-catalog.ts\n M apple-music-clone/scripts/browser_sidebar_material.py",
+    "capturedAt": "2026-09-14T21:15:53.726763+00:00",
     "platform": "Windows-11-10.0.26200-SP0",
-    "python": "3.13.1"
+    "python": "3.13.15"
   },
   "browser": "151.0.7922.34",
   "baseUrl": "http://127.0.0.1:6437",
@@ -293,26 +293,6 @@
       "over20Percent": 9.084071613141381,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
-    },
-    {
-      "screen": "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "34e39dea7642d15b47976525dd0418ec9f649800b448ebba3512f4b36f00177f",
-      "renderSha256": "dc7fe9125824601fc93f49f19ee998024a8d6190e8c40751b20055438c336746",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 6.454005424305812,
-      "over20Percent": 9.066460563553587,
-      "deltaMae": -0.28560303104876716,
-      "deltaOver20Percent": -0.3639104220499565
     },
     {
       "screen": "c9a554f4-59ef-4e05-b61b-f3eefabc0bbe",
@@ -655,6 +635,26 @@
       "deltaOver20Percent": 0.0
     },
     {
+      "screen": "54b01eab-e635-4f54-882b-4bc62e7a2a4c",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "34e39dea7642d15b47976525dd0418ec9f649800b448ebba3512f4b36f00177f",
+      "renderSha256": "0a2f5c942695373a1ca072f6dcd613cfb73ca269cbcbd2a53ceb9f517cb5fdac",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 5.8353151531930605,
+      "over20Percent": 7.892134243878431,
+      "deltaMae": -0.6186902711127518,
+      "deltaOver20Percent": -1.1743263196751563
+    },
+    {
       "screen": "f78d223e-9ba1-4898-b5bd-93390d4da1cc",
       "viewport": {
         "width": 1440,
@@ -681,7 +681,7 @@
         "height": 904
       },
       "sourceSha256": "e4c42f5ab9717a6fcce83c234c65aa074362d1771ff12dca5cc71af718a09d55",
-      "renderSha256": "f27206579141ff6d28cf73c44e1e12834061f127f7d67c1fa508eb810e5f5996",
+      "renderSha256": "62e91f5fea3fd9014be063113da1ddd6ddc2390b4d64bfea48caeb790b64f7d2",
       "crop": [
         0,
         0,
@@ -689,9 +689,9 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.405806497869551,
+      "mae": 5.405805985742379,
       "over20Percent": 7.653254056047197,
-      "deltaMae": 0.0,
+      "deltaMae": -5.121271717811737e-07,
       "deltaOver20Percent": 0.0
     },
     {
@@ -2361,7 +2361,7 @@
         "height": 903
       },
       "sourceSha256": "03a1295d45c6461d6a187bffb34346f6d1d2f4055e5039d2e84e64320442b870",
-      "renderSha256": "6e9c93a37251991d7c41251db8541b481c23d98b3f49ff69b6609eb129bfc283",
+      "renderSha256": "39e0fca0a483214d6e5780e473dad2aa3f70a589a41142e259af240245eb2b80",
       "crop": [
         0,
         0,
@@ -2369,9 +2369,9 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.401946700299414,
+      "mae": 4.401952083589681,
       "over20Percent": 3.5548941798941804,
-      "deltaMae": -5.3832902668915494e-06,
+      "deltaMae": 5.3832902668915494e-06,
       "deltaOver20Percent": 0.0
     },
     {

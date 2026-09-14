@@ -133,6 +133,11 @@
   .alpha-previous-edge-top { left:0; top:0; width:26px !important; height:132px; }
   .alpha-previous-edge-middle { left:0; top:132px; width:13px !important; height:50px; }
   .alpha-previous-edge-bottom { left:0; top:182px; width:26px !important; height:132px; }
+  .alpha-next-edge { display:block; position:absolute; inset:0 auto 0 0; width:18px; height:314px; pointer-events:none; }
+  .alpha-next-edge > .music-art { position:absolute; margin:0; }
+  .alpha-next-edge-top { left:0; top:0; width:18px !important; height:132px; border-radius:9px 0 0 !important; }
+  .alpha-next-edge-middle { left:12px; top:132px; width:6px !important; height:50px; border-radius:0 !important; }
+  .alpha-next-edge-bottom { left:0; top:182px; width:18px !important; height:132px; border-radius:0 0 0 9px !important; }
 }
 @media (min-width: 1181px) {
   .music-app:has(.capture-discovery[data-feature-scrolled]) .music-main { left: 0; }
@@ -196,7 +201,14 @@
  .radio-page > .music-section .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
 }
 
-@media (min-width:1181px) { .music-app:has(.capture-discovery[data-feature-alpha][data-feature-underlay]) .music-sidebar { background-image:radial-gradient(ellipse 120% 18% at 55% 30%,rgba(255,20,240,.46) 0%,transparent 86%),radial-gradient(ellipse 100% 20% at 58% 39%,rgba(245,15,230,.16) 0%,transparent 86%),radial-gradient(ellipse 115% 42% at 60% 34%,rgba(255,20,245,.10) 0%,rgba(255,45,240,.055) 55%,transparent 88%); } }
+@media (min-width:1181px) {
+ .music-app:has(.capture-discovery[data-feature-alpha][data-feature-underlay]) .music-sidebar {
+  background:rgb(248 248 250 / 53%);
+  background-image:none;
+  -webkit-backdrop-filter:blur(22px) saturate(1.2);
+  backdrop-filter:blur(22px) saturate(1.2);
+ }
+}
 
 /* Home shelves retain the artwork's native pixel dimensions and let card
    shadows paint without changing the following section's flow position. */
