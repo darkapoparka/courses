@@ -1,6 +1,6 @@
 """Sidebar material must follow real carousel state, not an acquisition ID."""
 from playwright.async_api import expect
-from browser_live_fidelity import start, record
+from browser_live_fidelity import start, record, source
 
 
 async def shell_state(page):
@@ -29,6 +29,10 @@ async def alpha_controls(page, context):
     assert selection.startswith('rgba('), selection
     arrow = await page.get_by_role('button', name='Previous Featured music', exact=True).bounding_box()
     assert arrow and arrow['x'] >= 240 and arrow['height'] == 50, arrow
+    edge = page.locator('.alpha-previous-edge')
+    await expect(edge).to_have_count(1)
+    assert await edge.locator('.music-art').count() == 3
+    assert set(await edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
     await page.get_by_role('button', name='Volume', exact=True).click()
     await expect(page.locator('.music-app')).not_to_have_attribute('data-source')
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Open Volume using the player')
@@ -55,6 +59,10 @@ async def discovery_carousel(page, context):
     assert (await shell_state(page))['mainX'] == 0
     await next_page.click()
     await expect(page.locator('[data-rail="Featured music"] .feature-card').nth(4)).to_be_in_viewport()
+    await expect(page.locator('.capture-discovery')).to_have_attribute('data-feature-alpha', 'true')
+    edge = page.locator('.alpha-previous-edge')
+    await expect(edge).to_have_count(1)
+    assert set(await edge.locator('.music-art').evaluate_all('(els)=>els.map(e=>e.dataset.artSource)')) == {source('54b01eab')}
     await record(page, 'new-carousel-sidebar', '54b01eab', 'Advance the actual featured carousel twice; retain starting catalog/profile')
     before = await shell_state(page)
     assert before['player'] == {'background': 'rgba(249, 249, 251, 0.84)', 'filter': 'blur(18px) saturate(1)'}, before['player']
@@ -79,6 +87,8 @@ async def discovery_carousel(page, context):
     await expect(page.locator('.capture-discovery')).to_have_attribute('data-feature-underlay', 'true')
     previous = page.get_by_role('button', name='Previous Featured music', exact=True)
     await previous.click()
+    await expect(page.locator('.capture-discovery')).not_to_have_attribute('data-feature-alpha')
+    await expect(page.locator('.alpha-previous-edge')).to_have_count(0)
     await previous.click()
     await expect(page.locator('.capture-discovery')).not_to_have_attribute('data-feature-scrolled')
     returned = await shell_state(page)

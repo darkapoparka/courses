@@ -128,6 +128,11 @@
   .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows { left: 253px; right: 6px; opacity: 1; }
   .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows .icon-button { width: 26px; height: 50px; border-radius: 16px; background: #ffffffa6; box-shadow: none; }
   .capture-discovery[data-feature-scrolled] > .feature-rail .rail-arrows svg { width: 15px; height: 34px; }
+  .alpha-previous-edge { display:block; position:absolute; inset:0 0 0 auto; width:26px; height:314px; pointer-events:none; }
+  .alpha-previous-edge > .music-art { position:absolute; margin:0; }
+  .alpha-previous-edge-top { left:0; top:0; width:26px !important; height:132px; }
+  .alpha-previous-edge-middle { left:0; top:132px; width:13px !important; height:50px; }
+  .alpha-previous-edge-bottom { left:0; top:182px; width:26px !important; height:132px; }
 }
 @media (min-width: 1181px) {
   .music-app:has(.capture-discovery[data-feature-scrolled]) .music-main { left: 0; }

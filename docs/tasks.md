@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-13 for the verified subscription/artwork checkpoint on top of `1a5c1f9`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree was retired after verifying it had 0 commits unique versus main; port 6431 was stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-14 for the verified Alpha-predecessor/continuous-carousel checkpoint on top of `5c59b76`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: native thumbnail artwork, subscription/dialog fidelity and the continuous cancellation underlay transition. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 comparisons completed: 30 lower over-20 residuals, 126 unchanged and three tiny increases documented in the [dated review](reference-review/2026-09-13-subscription-artwork.md). These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: the direct Alpha fixture and continuous New→Alpha journey now share one feature sequence and the saved Viral Hits predecessor boundary. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 comparisons completed: one lower over-20 residual, 158 unchanged and zero higher, documented in the [dated review](reference-review/2026-09-14-alpha-edge.md). These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: native thumbnail artwork, subscription/dialog fidelit
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [subscription/artwork review](reference-review/2026-09-13-subscription-artwork.md). Evidence root: `D:\courses-main-evidence\finalization-20260913\`; final directories are `production-verified`, `comparison-verified`, `journey-comparison-verified` and `mobile-subscription-verified`. A new five-step cancellation regression preserves the prior page beneath success until Done. Native thumbnails retain real hover/play controls. Three small queue-underlay residual increases and remaining live/direct playlist-row differences are explicit. No MATCH/FLOW box advanced.
+The latest source and stable evidence hashes are in the [Alpha predecessor review](reference-review/2026-09-14-alpha-edge.md). Evidence root: `D:\courses-main-evidence\alpha-edge-final-20260914\`; final directories are `browser` and `comparison`, with `alpha-metrics.json` for the direct/continuous measurements. The full optimized corpus has zero failures, one lower desktop residual and no higher residuals. No MATCH/FLOW box advanced. The preceding subscription/artwork evidence remains preserved under `finalization-20260913`.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -81,6 +81,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-14: The correct Viral Hits predecessor boundary now follows the actual Alpha carousel position in direct and continuous states. Direct residual 9.430371% → 9.066461%; continuous 10.474037% → 9.915329%; live/direct gap 1.880460% → 0.977375%. Remaining material, continuation, typography and session differences keep MATCH open. [Evidence](reference-review/2026-09-14-alpha-edge.md).
   - 2026-09-13: Native thumbnail correction reduces over-20 residual to 9.43037%; preceding artwork, continuation and live-session discrepancies remain. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 9.638858% → 9.596099%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - `4c8840a`: Handle material yields a small direct residual improvement to 9.638858%. The preceding card remains wrong; live/direct residual remains 1.875461%. Not matched [Evidence](reference-review/2026-09-12-home-artwork-controls.md).

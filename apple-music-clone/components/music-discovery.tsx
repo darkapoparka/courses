@@ -40,6 +40,16 @@ function CityCard({ city, index }: { city: string; index: number }) {
   const m = useMusic();
   return <article className="media-card city-card"><button type="button" className="card-art-button" aria-label={`Top 25: ${city}`} onClick={() => m.go(`category:Top 25: ${city}`)}><span className="city-art" data-art-partial={index > 0 && index < 4 || undefined}><Art art={crop("8b03c9d0", 286 + index * 227, 714, 208, index === 0 || index === 4 ? 189 : 119)} label={`Top 25 ${city}`} className="city-upper" /><Art art={crop("706de500", 286 + index * 227, 0, 208, 39)} label="" className="city-lower" /></span></button><button type="button" className="card-title" onClick={() => m.go(`category:Top 25: ${city}`)}>Top 25: {city}</button><p>Apple Music</p></article>;
 }
+
+const alphaPreviousEdge = {
+  top: crop("54b01eab", 240, 167, 26, 132),
+  middle: crop("54b01eab", 240, 299, 13, 50),
+  bottom: crop("54b01eab", 240, 349, 26, 132),
+};
+function AlphaPreviousEdge() {
+  return <span className="alpha-previous-edge" aria-hidden="true"><Art art={alphaPreviousEdge.top} label="" className="alpha-previous-edge-top" /><Art art={alphaPreviousEdge.middle} label="" className="alpha-previous-edge-middle" /><Art art={alphaPreviousEdge.bottom} label="" className="alpha-previous-edge-bottom" /></span>;
+}
+
 export function NewView() {
   const m = useMusic();
   const underlay = useRailUnderlay(".feature-rail");
@@ -52,10 +62,10 @@ export function NewView() {
   const currentFeatures = ["4f611a9e", "fc5d84bd"].includes(source ?? "")
     ? features.map((card, index) => index < 2 ? { ...card, art: crop(source!, index === 0 ? 286 : 854, 167, 548, 314) } : card)
     : features;
-  const sourceFeatures = source === "54b01eab" ? currentFeatures.map((card, index) => index === 3 ? { ...card, art: currentFeatures[5]!.art } : card) : currentFeatures;
-  const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [sourceFeatures[0]!, performanceFeature, ...sourceFeatures.slice(1)] : sourceFeatures;
+  const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [currentFeatures[0]!, performanceFeature, ...currentFeatures.slice(1)] : currentFeatures;
   const initialIndex = !legacy && !queue && m.scene.hero === "alpha" ? 4 : 0;
   const [featureIndex, setFeatureIndex] = useState(initialIndex);
+  const alphaActive = featureCards[featureIndex]?.id === "alpha";
   const songs = m.library.locale === "zh" ? localizedSongs : finalLogin ? finalLoginSongs : queue ? queueSongs : legacy ? legacySongs : viralTracks;
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
@@ -86,8 +96,8 @@ export function NewView() {
       0: crop(releaseStripSource, 286, 840, 208, 63),
       4: crop(releaseStripSource, 1194, 840, 208, 63),
     } : undefined;
-  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={featureCards[featureIndex]?.id === "alpha" || undefined}><h1>{zh ? "新发现" : "New"}</h1>
-    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map(card => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} /></button></article>)}</Rail>
+  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined}><h1>{zh ? "新发现" : "New"}</h1>
+    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map((card, index) => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} />{alphaActive && index === featureIndex - 1 && <AlphaPreviousEdge />}</button></article>)}</Rail>
     <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} showAdd={(!legacy && !queue && m.scene.hero === "listening") || source === "6ac70c34"} />)}</div></Rail></Section>
     <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={newThisWeek} label="New releases" artOverlays={releaseArtOverlays} /></Section>
     <Section title={zh ? "大家都在听…" : "Everyone’s Listening To…"} id="essentials" onMore={() => m.go(`category:${zh ? "大家都在听" : "Everyone’s Listening To"}`)}><Cards cards={listening} label="Everyone’s listening" /></Section>
