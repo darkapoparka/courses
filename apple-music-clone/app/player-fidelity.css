@@ -97,7 +97,7 @@
 .lyric-viewport li[data-distance="3"] { filter:blur(2.6px); color:#c0d5e1; opacity:.16; }
 .lyric-viewport li small { display:block; font-size:16px; line-height:22px; margin-top:15px; letter-spacing:0; }
 .panel-lyric-viewport { mask-image:linear-gradient(transparent,#000 18%,#000 80%,transparent); }
-.panel-lyric-viewport ol { padding-top:188px; padding-bottom:500px; }
+.panel-lyric-viewport ol { padding-top:191px; padding-bottom:500px; }
 .panel-lyric-viewport li { font-size:22px; line-height:28px; letter-spacing:-.5px; margin-bottom:29px; }
 .panel-lyric-viewport li[aria-current="true"] { color:#29272a; }
 .panel-lyric-viewport li[data-distance="1"] { color:#464349; opacity:.65; filter:blur(1.3px); }

@@ -40,8 +40,8 @@ export function Player() {
   const playerTitle = broadcast?.title;
   const playerSubtitle = broadcast?.subtitle ?? "Live Radio";
   const playerArt = broadcast?.compactArt;
-  // Glass follows open panels and the live navigation editor, not fixture IDs.
-  const editingPlayerStyle = Boolean(m.scene.panel && (m.scene.catalog === "legacy" || m.scene.catalog === "queue"))
+  // Glass follows open panels and the live navigation editor, not fixture IDs or endpoint catalogs.
+  const editingPlayerStyle = m.scene.panel
     ? { background: "rgb(249 249 251 / 38%)", backdropFilter: "blur(24px) saturate(1.4)", WebkitBackdropFilter: "blur(24px) saturate(1.4)" }
     : m.scene.editingNav ? { background: "rgb(249 249 251 / 50%)", backdropFilter: "blur(22px) saturate(1)", WebkitBackdropFilter: "blur(22px) saturate(1)" } : undefined;
   return <div className={`floating-player ${m.activeId ? "has-track" : "is-idle"} ${m.scene.guest && m.scene.page !== "home" ? "with-trial" : ""}`} aria-label="Music player" data-station={Boolean(station) || undefined} data-radio={capturedLive || undefined} data-snapshot={m.snapshot || undefined} data-volume-open={m.scene.volumeOpen || undefined} title={m.mediaName ? `Local file: ${m.mediaName}` : "Local UI reference. Shift+M opens media you own."} style={editingPlayerStyle}>
@@ -95,8 +95,8 @@ export function PlayerPanel() {
     // edition, full title and credit line when this recorded queue is active.
     return track ? [{ ...track, ...(recorded ? { title: recorded.title, artist: recorded.artist, art: recorded.art, duration: recorded.duration } : {}) }] : [];
   });
-  const panelStyle = m.scene.panel === "lyrics" && m.scene.catalog === "legacy" ? { backgroundColor: "rgb(242 242 246 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
-  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} data-catalog={m.scene.catalog} style={panelStyle}>
+  const panelStyle = m.scene.panel === "lyrics" ? { backgroundColor: "rgb(242 242 246 / 46%)", backdropFilter: "blur(15px) saturate(1.6)", WebkitBackdropFilter: "blur(15px) saturate(1.6)" } : undefined;
+  return <aside className={`player-panel faithful-panel ${m.scene.panel === "lyrics" ? "lyrics-panel" : "queue-panel"}`} aria-label={m.scene.panel === "queue" ? "Up Next queue" : "Lyrics"} data-catalog={m.scene.catalog ?? "current"} style={panelStyle}>
     <IconButton icon="close" label="Close player panel" className="panel-keyboard-close" onClick={() => m.patch({ panel: null })} />
     {m.scene.panel === "lyrics" ? <Lyrics panel /> : <>
       <header><h2>Up next</h2>{queue.length > 0 && <button type="button" className="text-accent" onClick={() => m.setQueue([])}>Clear</button>}<button type="button" className="autoplay-toggle" aria-label="Autoplay" aria-pressed={Boolean(m.scene.autoplay)} onClick={() => m.patch({ autoplay: !m.scene.autoplay })}>∞</button></header>

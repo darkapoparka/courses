@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-15 for the verified Alpha material/continuation checkpoint on top of `a85d2e7`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-15 for the verified lyrics/queue first-entry material and continuity checkpoint on top of `c60b812`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: the direct Alpha fixture and continuous New→Alpha journey share one live feature sequence with reviewed Viral Hits material, a real New Music Daily continuation and enabled Previous/Next controls. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 comparisons completed: one lower over-20 residual, 158 unchanged and zero higher, documented in the [dated review](reference-review/2026-09-15-alpha-material-continuation.md). These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: real Show lyrics and Up Next entry from `1f9e170c` now applies live panel/player glass without replacing the current catalog, sidebar, artwork, active track or queue to imitate unrelated endpoint stills. Close/reopen is deterministic and the lyric anchor is 191px. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 direct comparisons kept the same over-20 residual, documented in the [dated review](reference-review/2026-09-15-lyrics-queue-first-entry.md). These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: the direct Alpha fixture and continuous New→Alpha j
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [Alpha material/continuation review](reference-review/2026-09-15-alpha-material-continuation.md). Evidence root: `D:\courses-main-evidence\alpha-continuation-final-20260915\`; final directories are `browser` and `comparison`, with `candidate-summary.json` for direct/continuous measurements. The full optimized corpus has zero failures, one lower desktop residual and no higher residuals. No MATCH/FLOW box advanced. The preceding Alpha-edge evidence remains preserved under `alpha-edge-final-20260914`.
+The latest source and stable evidence hashes are in the [lyrics/queue first-entry review](reference-review/2026-09-15-lyrics-queue-first-entry.md). Evidence root: `D:\courses-main-evidence\lyrics-queue-first-entry-final-20260915-024103\`; final directories are `browser` and `comparison`, with `continuous-metrics.json` for the real-control endpoint measurements. The full optimized corpus has zero failures and all 159 direct over-20 residuals are unchanged. No MATCH/FLOW box advanced. The preceding Alpha evidence remains preserved under `alpha-continuation-final-20260915`.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -325,6 +325,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
   - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-15: This remains the immutable live start for lyrics and queue entry. Real-control regressions assert the current catalog, Top 100 shelves, sidebar, release/player artwork, active `stupid song` track and queue signature survive every panel toggle. Direct residual remains 7.128322% over-20. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.093546% → 8.082087%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/1f9e170c-8798-46de-90ea-d5236c7f15be.webp) · [Open app state](http://127.0.0.1:6435/screen/1f9e170c-8798-46de-90ea-d5236c7f15be) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -440,6 +441,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-ee8db412"></a>
 
 - [x] **UI-ee8db412 — New — lyrics panel, playing stupid song.** Coded UI; current browser render passed.
+  - 2026-09-15: Live first entry now applies the reviewed lyric/player glass and 191px active-line anchor without an endpoint-catalog reset. Close/reopen is byte-identical; the direct fixture remains unchanged at 10.104359% over-20. The continuous endpoint remains 36.523933% because its saved catalog/library/lyric snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Refined panel geometry and lyric spacing/fade; first-verse seeking and close/reopen retain the established catalog. Initial recorded entry remains different: see FLOW-bc0ba8f1. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-ee8db412 — Finish and verify the exact screenshot match.**
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.138351% → 10.104359%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
@@ -448,6 +450,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-8f029018"></a>
 
 - [x] **UI-8f029018 — New — queue panel, playing stupid song.** Coded UI; current browser render passed.
+  - 2026-09-15: Live first entry now applies open-panel player glass while preserving the current eleven-row queue exactly. Close/reopen is byte-identical; the direct fixture remains unchanged at 9.781054% over-20. The continuous endpoint remains 34.701150% because its saved discovery/queue snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Separated discovery and queue YUKON editions, retained full queue titles/credits and removed opaque row rules. Volume toggling preserves editions. Initial recorded entry remains different: see FLOW-e0a0f93e. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-8f029018 — Finish and verify the exact screenshot match.**
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.134659% → 9.776978%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
@@ -1171,11 +1174,13 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/hiding-lyrics?step=0). Sequence: [1: b3f29b6f](#screen-b3f29b6f) → [2: 06a34864](#screen-06a34864)
 
 - [ ] **FLOW-bc0ba8f1 — 14. Showing lyrics (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-15: The real Show lyrics control preserves the complete listening signature, applies live panel/player glass, anchors the first line at 191px and reproduces the same pixels after close/reopen. The saved endpoint still contains an unrelated catalog/library and later lyric snapshot; no hidden reset was introduced and FLOW remains unchecked. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Established lyrics close/reopen returns to its exact direct fixture with safe artwork. First-entry source discrepancy remains approximately 36.56%; this is not complete-flow acceptance. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12 bounded review: The first fixture to Show lyrics is now captured continuously. Its catalog/library differs substantially from the saved legacy endpoint; direct rendering and reopening are not completion of this flow. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/showing-lyrics?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: ee8db412](#screen-ee8db412)
 
 - [ ] **FLOW-e0a0f93e — 15. Song queue (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-15: The real Up Next control preserves the complete listening signature and exact eleven-row current queue, applies live player glass and reproduces the same pixels after close/reopen. The saved endpoint still contains an unrelated discovery/queue snapshot; no hidden replacement was introduced and FLOW remains unchecked. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Panel artwork/coordinates and Volume persistence are verified; first-entry source discrepancy remains approximately 34.67%. No hidden catalog replacement or flow acceptance. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12 bounded review: The first fixture to Up Next is now captured continuously. Its catalog/queue differs substantially from the saved endpoint; session data must not be replaced merely to manufacture that image. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/song-queue?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: 8f029018](#screen-8f029018)
