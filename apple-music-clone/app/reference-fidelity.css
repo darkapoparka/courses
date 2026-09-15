@@ -179,7 +179,8 @@
 .guest-session[data-scene="home"] .music-main { bottom:0; }
 .guest-session[data-scene="home"] .music-sidebar { bottom:8px; }
 .guest-session[data-scene="home"] .sidebar-footer { flex-basis:94px; }
-.guest-session[data-scene="home"] .floating-player { bottom:16px; }
+/* Signed-out Home keeps the captured warm translucent player over its red page. */
+.guest-session[data-scene="home"] .floating-player { bottom:16px; background:rgb(255 255 243 / 50%); }
 .music-app[data-source^="2f5da478"] .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; }
 /* Remaining cards, not a captured scroll flag, own the carousel boundaries.
  * The expanded desktop gutter is positioned in the desktop rule below. */

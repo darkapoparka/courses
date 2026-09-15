@@ -79,12 +79,37 @@ async def material(page, selector):
     return await page.locator(selector).evaluate("""e => {
       const style = getComputedStyle(e);
       return { backgroundColor: style.backgroundColor, backgroundImage: style.backgroundImage,
-               backdropFilter: style.backdropFilter, webkitBackdropFilter: style.webkitBackdropFilter };
+               backdropFilter: style.backdropFilter, webkitBackdropFilter: style.webkitBackdropFilter,
+               boxShadow: style.boxShadow };
     }""")
 
+
+async def sidebar_signature(page):
+    return await page.evaluate("""() => {
+      const pane = document.querySelector('.music-sidebar');
+      const active = pane.querySelector('.sidebar-row[aria-current="page"]');
+      const rect = pane.getBoundingClientRect();
+      const style = getComputedStyle(pane);
+      return {
+        backgroundColor: style.backgroundColor,
+        backgroundImage: style.backgroundImage,
+        backdropFilter: style.backdropFilter,
+        boxShadow: style.boxShadow,
+        activeBackground: active ? getComputedStyle(active).backgroundColor : null,
+        rect: {x: rect.x, y: rect.y, width: rect.width, height: rect.height},
+        mainScrollTop: document.querySelector('main').scrollTop
+      };
+    }""")
+
+
 async def panel_entry(page, panel, target, journey):
+    failed_requests, bad_responses = [], []
+    page.on('requestfailed', lambda request: failed_requests.append(request.url))
+    page.on('response', lambda response: bad_responses.append(
+        {'url': response.url, 'status': response.status}) if response.status >= 400 else None)
     await start(page, '1f9e170c')
     before = await listening_signature(page)
+    sidebar_before = await sidebar_signature(page)
     assert before['catalog'] == 'current' and before['features'][0] == 'Top 100: Singapore', before
     assert before['playerTitle'] == 'stupid song', before
     await record(page, journey, '1f9e170c', 'Initial recorded listening state')
@@ -94,6 +119,8 @@ async def panel_entry(page, panel, target, journey):
     await expect(panel_host).to_be_visible()
     assert await page.locator('.music-app').get_attribute('data-source') is None
     assert await listening_signature(page) == before
+    assert await sidebar_signature(page) == sidebar_before
+    assert await toggle.evaluate('(e) => document.activeElement === e')
     await expect(panel_host).to_have_attribute('data-catalog', 'current')
     player_material = await material(page, '.floating-player')
     assert player_material['backgroundColor'] == 'rgba(249, 249, 251, 0.38)', player_material
@@ -117,12 +144,23 @@ async def panel_entry(page, panel, target, journey):
     await toggle.click()
     await expect(panel_host).to_have_count(0)
     assert await listening_signature(page) == before
+    assert await sidebar_signature(page) == sidebar_before
+    assert await toggle.evaluate('(e) => document.activeElement === e')
     closed_material = await material(page, '.floating-player')
     assert closed_material['backgroundColor'] == 'rgba(249, 249, 251, 0.84)', closed_material
     await toggle.click()
     await expect(panel_host).to_be_visible()
     assert await listening_signature(page) == before
+    assert await sidebar_signature(page) == sidebar_before
+    assert await toggle.evaluate('(e) => document.activeElement === e')
     assert (await material(page, '.floating-player'))['backgroundColor'] == 'rgba(249, 249, 251, 0.38)'
+    overflow = await page.evaluate("""() => ({
+      document: document.documentElement.scrollWidth > innerWidth,
+      main: document.querySelector('main').scrollWidth > document.querySelector('main').clientWidth + 1
+    })""")
+    assert not any(overflow.values()), overflow
+    assert not failed_requests, failed_requests
+    assert not bad_responses, bad_responses
     await record(page, journey, target, 'Close and reopen through the real control; retain the listening session and panel material')
     observation = {'journey': journey, 'target': target, 'catalog': before['catalog'],
                    'features': before['features'], 'songs': before['songs'],

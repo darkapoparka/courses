@@ -66,6 +66,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Ordinary sidebar material is now state-owned and measurably closer: whole-frame MAE 5.617697 → 5.328036, sidebar MAE 4.777983 → 3.288301 and edge MAE 3.766290 → 1.240851. Typography, player/control geometry, lower shelves and artwork still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-13: Native 38px thumbnail crops and the clean Shabang cover now retain real hover/play indicators. Exact source residual: 6.56469% over-20. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 6.754568% → 6.725037%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/e72be564-1f7a-4448-9568-f239af3233ed.webp) · [Open app state](http://127.0.0.1:6435/screen/e72be564-1f7a-4448-9568-f239af3233ed) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -81,6 +82,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Alpha retains real provider artwork beneath state-specific glass; the ordinary-material repair does not flatten or replace it. Direct over-20 improves 7.892134% → 7.881983% and edge MAE 4.815290 → 3.974644. Typography, exact glass/control material, lower artwork and live profile/title differences still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: Replaced Alpha's compensating sidebar gradient with live glass over reviewed Viral Hits provider art; added a real New Music Daily continuation and enabled Next control with artwork-only edge fragments that exclude arrow pixels. Direct residual 9.066461% → 7.892134%; continuous 9.915329% → 8.741156%; live/direct gap remains 0.977375%. Typography, exact material, lower artwork and session differences keep MATCH open. [Evidence](reference-review/2026-09-15-alpha-material-continuation.md).
   - 2026-09-14: The correct Viral Hits predecessor boundary now follows the actual Alpha carousel position in direct and continuous states. Direct residual 9.430371% → 9.066461%; continuous 10.474037% → 9.915329%; live/direct gap 1.880460% → 0.977375%. Remaining material, continuation, typography and session differences keep MATCH open. [Evidence](reference-review/2026-09-14-alpha-edge.md).
   - 2026-09-13: Native thumbnail correction reduces over-20 residual to 9.43037%; preceding artwork, continuation and live-session discrepancies remain. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
@@ -269,12 +271,14 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-a917d88f — Home — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-a917d88f — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Ordinary Home sidebar material now matches the captured neutral surface and stronger edge separation; whole-frame MAE 4.066425 → 3.777962 and sidebar MAE 5.783696 → 4.300169. Typography, cards, player/control geometry and lower content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp) · [Open app state](http://127.0.0.1:6435/screen/a917d88f-d15a-4f53-92d3-1daecf59d05f) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-aefa8502"></a>
 
 - [x] **UI-aefa8502 — Home — signed out.** Coded UI; current browser render passed.
   - [ ] **MATCH-aefa8502 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Restored the compact accessible guest profile affordance and measured warm translucent player. Whole-frame over-20 falls 7.223298% → 4.405267%, MAE 5.325646 → 3.424772 and footer MAE 48.647446 → 5.135247; source artwork is pixel-identical. Marketing-background edge glows, lawful font geometry/raster and player icon treatment still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/aefa8502-aec3-486a-b4f5-5075590500f1.webp) · [Open app state](http://127.0.0.1:6435/screen/aefa8502-aec3-486a-b4f5-5075590500f1) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-2f5da478"></a>
@@ -287,6 +291,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-d5173715 — Home — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-d5173715 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Home underlay remains real artwork-driven glass with no ordinary-style leakage; direct over-20 improves 5.936308% → 5.914467% and edge MAE 5.710830 → 4.509719. Glass distribution, typography, player/control geometry and lower shelves still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `4c8840a`: Native forward station artwork and actual glass replace sidebar colour compensation. Direct/source residual 5.936308%; continuous carousel/vertical-return matches the direct fixture exactly. Glass distribution, typography and lower shelves remain partial [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Authenticated Home carousel/vertical-return segment verifies material removal and restoration. Original residual remains 6.0798%; direct/live over-20 difference is 0%. This is not full Home-flow acceptance. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Reference image](../apple-music-clone/reference/originals/d5173715-ea54-4801-837c-2a40ec9df2af.webp) · [Open app state](http://127.0.0.1:6435/screen/d5173715-ea54-4801-837c-2a40ec9df2af) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -325,6 +330,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
   - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-15: The live lyrics/queue start keeps its listening signature while ordinary sidebar MAE falls 4.968420 → 3.464884 and whole-frame MAE 6.606871 → 6.314517. Typography, player/control geometry, lower releases and session-specific content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: This remains the immutable live start for lyrics and queue entry. Real-control regressions assert the current catalog, Top 100 shelves, sidebar, release/player artwork, active `stupid song` track and queue signature survive every panel toggle. Direct residual remains 7.128322% over-20. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.093546% → 8.082087%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/1f9e170c-8798-46de-90ea-d5236c7f15be.webp) · [Open app state](http://127.0.0.1:6435/screen/1f9e170c-8798-46de-90ea-d5236c7f15be) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -444,6 +450,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
   - 2026-09-15: Live first entry now applies the reviewed lyric/player glass and 191px active-line anchor without an endpoint-catalog reset. Close/reopen is byte-identical; the direct fixture remains unchanged at 10.104359% over-20. The continuous endpoint remains 36.523933% because its saved catalog/library/lyric snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Refined panel geometry and lyric spacing/fade; first-verse seeking and close/reopen retain the established catalog. Initial recorded entry remains different: see FLOW-bc0ba8f1. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-ee8db412 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Opening lyrics no longer has any path to mutate unrelated sidebar material; direct over-20 is 10.100975% / 6.873147 MAE. Real-control open/close/reopen is byte-identical, but typography, lyric fade/blur, player geometry and the unsupported endpoint catalog snapshot still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.138351% → 10.104359%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/ee8db412-71b0-49a8-a1ab-5d6685153abe.webp) · [Open app state](http://127.0.0.1:6435/screen/ee8db412-71b0-49a8-a1ab-5d6685153abe) · [Component](../apple-music-clone/components/music-player.tsx)
 
@@ -453,6 +460,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
   - 2026-09-15: Live first entry now applies open-panel player glass while preserving the current eleven-row queue exactly. Close/reopen is byte-identical; the direct fixture remains unchanged at 9.781054% over-20. The continuous endpoint remains 34.701150% because its saved discovery/queue snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Separated discovery and queue YUKON editions, retained full queue titles/credits and removed opaque row rules. Volume toggling preserves editions. Initial recorded entry remains different: see FLOW-e0a0f93e. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [ ] **MATCH-8f029018 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Opening Up Next no longer has any path to mutate unrelated sidebar material; direct residual is 9.783284% / 7.451456 MAE. Real-control open/close/reopen is byte-identical, but queue row geometry/artwork, player controls and the unsupported endpoint discovery/queue snapshot still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.134659% → 9.776978%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/8f029018-9c70-4715-9012-88a8a9d106b2.webp) · [Open app state](http://127.0.0.1:6435/screen/8f029018-9c70-4715-9012-88a8a9d106b2) · [Component](../apple-music-clone/components/music-player.tsx)
 
@@ -658,6 +666,7 @@ Check the city/no-results suggestions, June/July range selection, genre results,
 
 - [x] **UI-dcafd99e — Concert detail — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-dcafd99e — Finish and verify the exact screenshot match.**
+  - 2026-09-15: The dark concert sidebar remains pixel-identical through the shared sidebar repair, proving ordinary and underlay rules do not leak into this variant. Whole-frame residual remains 5.780962% over-20 / 8.594650 MAE; typography, icons, artwork and content still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/dcafd99e-94e3-42a1-be31-e02f7e015ecc.webp) · [Open app state](http://127.0.0.1:6435/screen/dcafd99e-94e3-42a1-be31-e02f7e015ecc) · [Component](../apple-music-clone/components/music-concerts.tsx)
 
 <a id="screen-4f237528"></a>
@@ -1174,12 +1183,14 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/hiding-lyrics?step=0). Sequence: [1: b3f29b6f](#screen-b3f29b6f) → [2: 06a34864](#screen-06a34864)
 
 - [ ] **FLOW-bc0ba8f1 — 14. Showing lyrics (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-15: Fresh optimized evidence uses only the recorded start and real Show lyrics control. Close/reopen is byte-identical at 36.520087% over-20 / 27.884589 MAE with focus return and preserved listening signature; the immutable endpoint still changes unrelated catalog/library/lyric state, so FLOW remains unchecked. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: The real Show lyrics control preserves the complete listening signature, applies live panel/player glass, anchors the first line at 191px and reproduces the same pixels after close/reopen. The saved endpoint still contains an unrelated catalog/library and later lyric snapshot; no hidden reset was introduced and FLOW remains unchecked. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Established lyrics close/reopen returns to its exact direct fixture with safe artwork. First-entry source discrepancy remains approximately 36.56%; this is not complete-flow acceptance. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12 bounded review: The first fixture to Show lyrics is now captured continuously. Its catalog/library differs substantially from the saved legacy endpoint; direct rendering and reopening are not completion of this flow. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/showing-lyrics?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: ee8db412](#screen-ee8db412)
 
 - [ ] **FLOW-e0a0f93e — 15. Song queue (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-15: Fresh optimized evidence uses only the recorded start and real Up Next control. Close/reopen is byte-identical at 34.702996% over-20 / 28.036701 MAE with focus return and the eleven-row live queue preserved; the immutable endpoint still changes unrelated discovery/queue state, so FLOW remains unchecked. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: The real Up Next control preserves the complete listening signature and exact eleven-row current queue, applies live player glass and reproduces the same pixels after close/reopen. The saved endpoint still contains an unrelated discovery/queue snapshot; no hidden replacement was introduced and FLOW remains unchecked. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Panel artwork/coordinates and Volume persistence are verified; first-entry source discrepancy remains approximately 34.67%. No hidden catalog replacement or flow acceptance. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12 bounded review: The first fixture to Up Next is now captured continuously. Its catalog/queue differs substantially from the saved endpoint; session data must not be replaced merely to manufacture that image. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).

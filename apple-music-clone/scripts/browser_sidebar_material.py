@@ -20,6 +20,50 @@ async def shell_state(page):
     }''')
 
 
+ORDINARY_SHADOW = ('rgba(0, 0, 0, 0.02) 0px 0px 0px 1px inset, '
+                   'rgba(0, 0, 0, 0.12) 0px 4px 36px 0px')
+
+
+async def sidebar_material(page):
+    return await page.evaluate('''() => {
+      const pane = document.querySelector('.music-sidebar');
+      const active = pane.querySelector('.sidebar-row[aria-current="page"]');
+      const footer = pane.querySelector('.sidebar-footer');
+      const main = document.querySelector('main');
+      const paneStyle = getComputedStyle(pane);
+      const rect = pane.getBoundingClientRect();
+      return {
+        backgroundColor: paneStyle.backgroundColor,
+        backgroundImage: paneStyle.backgroundImage,
+        filter: paneStyle.backdropFilter,
+        shadow: paneStyle.boxShadow,
+        activeBackground: active ? getComputedStyle(active).backgroundColor : null,
+        footerBorder: footer ? getComputedStyle(footer).borderTopColor : null,
+        rect: {x: rect.x, y: rect.y, width: rect.width, height: rect.height},
+        viewport: {width: innerWidth, height: innerHeight},
+        insets: {left: rect.left, top: rect.top,
+                 right: innerWidth - rect.right, bottom: innerHeight - rect.bottom},
+        overflow: {
+          document: document.documentElement.scrollWidth > innerWidth,
+          main: main.scrollWidth > main.clientWidth + 1
+        }
+      };
+    }''')
+
+
+def assert_ordinary_material(state):
+    assert state['backgroundColor'] == 'rgb(249, 249, 251)', state
+    assert state['backgroundImage'] == 'none', state
+    assert state['filter'] == 'blur(16px) saturate(1.8)', state
+    assert state['shadow'] == ORDINARY_SHADOW, state
+    assert state['activeBackground'] == 'rgb(239, 238, 241)', state
+    assert state['footerBorder'] == 'rgb(232, 232, 236)', state
+    assert state['rect'] == {'x': 8, 'y': 8, 'width': 232, 'height': state['viewport']['height'] - 16}, state
+    assert state['insets']['left'] == 8 and state['insets']['top'] == 8, state
+    assert state['insets']['bottom'] == 8, state
+    assert not any(state['overflow'].values()), state
+
+
 async def alpha_controls(page, context):
     await start(page, '54b01eab')
     await record(page, 'alpha-sidebar-controls', '54b01eab', 'Initial Alpha fixture')
@@ -139,7 +183,61 @@ async def discovery_carousel(page, context):
     assert await page.locator('.music-sidebar').evaluate('(e)=>getComputedStyle(e).backgroundImage') == 'none'
 
 
-CASES = [('alpha-sidebar-live-controls', alpha_controls),
+async def ordinary_sidebar_states(page, context):
+    failed_requests, bad_responses = [], []
+    page.on('requestfailed', lambda request: failed_requests.append(request.url))
+    page.on('response', lambda response: bad_responses.append(
+        {'url': response.url, 'status': response.status}) if response.status >= 400 else None)
+    for prefix, description in [
+        ('e72be564', 'New initial ordinary sidebar'),
+        ('a917d88f', 'Home initial ordinary sidebar'),
+        ('1f9e170c', 'New playing ordinary sidebar'),
+        ('aefa8502', 'Guest Home ordinary sidebar'),
+    ]:
+        await start(page, prefix)
+        state = await sidebar_material(page)
+        assert_ordinary_material(state)
+        await record(page, 'ordinary-sidebar-material', prefix, description)
+        if prefix == 'aefa8502':
+            assert await page.locator('.sidebar-signin').count() == 0
+            guest_profile = page.locator('.guest-profile-button')
+            await expect(guest_profile).to_have_count(1)
+            await expect(guest_profile).to_have_attribute('aria-label', 'Sign In')
+            assert (await guest_profile.inner_text()).strip() == ''
+            assert await guest_profile.bounding_box() == {
+                'x': 20, 'y': 854, 'width': 41, 'height': 23}
+            guest_player = await page.locator('.floating-player').evaluate('''e => {
+              const style = getComputedStyle(e); const rect = e.getBoundingClientRect();
+              return {background: style.backgroundColor,
+                filter: style.backdropFilter,
+                rect: {x: rect.x, y: rect.y, width: rect.width, height: rect.height}};
+            }''')
+            assert guest_player == {
+                'background': 'rgba(255, 255, 243, 0.5)',
+                'filter': 'blur(24px) saturate(1.4)',
+                'rect': {'x': 526, 'y': 834, 'width': 635, 'height': 54}}, guest_player
+            await guest_profile.click()
+            await expect(page.get_by_role('dialog')).to_be_visible()
+            await page.keyboard.press('Escape')
+            await expect(page.get_by_role('dialog')).to_have_count(0)
+            assert await guest_profile.evaluate('(e) => document.activeElement === e')
+    await start(page, 'dcafd99e')
+    dark = await sidebar_material(page)
+    assert dark['backgroundColor'] == 'rgb(85, 86, 84)', dark
+    assert dark['shadow'] == 'none', dark
+    assert dark['activeBackground'] == 'rgba(255, 255, 255, 0.082)', dark
+    assert dark['rect'] == {'x': 8, 'y': 8, 'width': 232, 'height': dark['viewport']['height'] - 16}, dark
+    assert dark['insets']['left'] == 8 and dark['insets']['top'] == 8, dark
+    assert dark['insets']['bottom'] == 8, dark
+    assert not any(dark['overflow'].values()), dark
+    await record(page, 'ordinary-sidebar-material', 'dcafd99e',
+                 'Concert detail retains its captured dark sidebar')
+    assert not failed_requests, failed_requests
+    assert not bad_responses, bad_responses
+
+
+CASES = [('ordinary-sidebar-material', ordinary_sidebar_states),
+         ('alpha-sidebar-live-controls', alpha_controls),
          ('new-carousel-sidebar-material', discovery_carousel)]
 
 

@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-15 for the verified lyrics/queue first-entry material and continuity checkpoint on `J:\courses/main`.
+Updated 2026-09-15 for the verified sidebar-material and signed-out Home repair on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -10,7 +10,7 @@ Updated 2026-09-15 for the verified lyrics/queue first-entry material and contin
 
 **Active app:** `J:\courses\apple-music-clone`
 
-The owner explicitly ended the multi-branch/multi-worktree workflow. Do not create, checkout, or switch to another branch/worktree for implementation unless the owner later explicitly reverses this rule. Commit coherent verified checkpoints directly to `main` and push normally.
+The owner explicitly ended the multi-branch/multi-worktree workflow. Do not create, checkout or switch to another branch/worktree for implementation unless the owner later explicitly reverses this rule. Commit coherent verified checkpoints directly to `main` and push normally.
 
 `git worktree list` contains only `J:/courses` on `main`. Port 6431 remains retired. `J:\courses-astra-preview` is not a Git checkout and must never be used as source. Recovery material under `D:\courses-main-transfer\20260913-retire-preview\` is provenance only.
 
@@ -18,24 +18,28 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified candidate on top of `c60b812` repairs the real-control first entry from `1f9e170c` into lyrics and Up Next without replacing the current catalog, profile, library, artwork, active track or queue merely to imitate unrelated endpoint stills. Floating-player glass now follows any open panel, lyric glass follows the live lyrics panel, and the panel lyric anchor is consistently 191px. The [dated review](reference-review/2026-09-15-lyrics-queue-first-entry.md) records exact source inspection, state ownership, focused controls, measurements and remaining discontinuities.
+The verified candidate on top of `0a983829e5bf5fd66a5d75e4fe3d7859ae81661b` repairs the ordinary sidebar material without flattening Alpha/Home artwork underlay or changing the dark concert variant. The active ordinary owner is the base `.music-sidebar` rule in `app/globals.css`; no panel-open selector or carousel-underlay selector was leaking into ordinary states. The generic flat surface and weak shadow were the actual defect.
 
-Optimized build `_Rj431BT_BSpEza9MFldD` captured implementation SHA-256 `4a1df61e1a54d630ef2034c99f5af8b060cdc23df4b86ed1cf27ce79dbc5d5bb` and tooling SHA-256 `cddf78ada6c7a131ca42cd8657aeb113475c8ca08fb6c95349e8774209e80c6f`.
+The same batch restores signed-out Home's compact icon-only sign-in profile control and measured warm translucent player. The control remains real accessible DOM: click opens the existing sign-in dialog, Escape closes it and focus returns. Other guest/acquisition states retain their captured text Sign In button. The [dated review](reference-review/2026-09-15-sidebar-material-repair.md) records source inspection, active ownership, measurements, controls and remaining blockers.
 
-- 159 desktop states, five responsive states, 218 route checks and 59 interaction regressions: zero failures.
+Optimized build `HyW8qwIiJlvPv3dZBxWuv` captured implementation SHA-256 `fd0de3bc6130daecef3f279801b7d3fb209852e290679f3cd7db912a1940ec9d` and tooling SHA-256 `058ca23b03e49b12fabec324c437d74aeed6cfd5778d6d7de31dbdc1c89ea350`.
+
+- 159 desktop states, five responsive states, 218 route checks and 60 interaction regressions: zero failures.
 - Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed; every over-20 residual was unchanged. Two unrelated states showed only microscopic MAE capture noise.
-- Direct `1f9e170c`, `ee8db412` and `8f029018` renders are unchanged from the preceding verified corpus.
-- Continuous lyrics over-20 improved 36.554002% → 36.523933%, while MAE changed 28.132844 → 28.168334; its panel region improved materially.
-- Continuous queue MAE improved 28.254887 → 28.007936, while over-20 changed 34.648779% → 34.701150%; its player-region MAE improved materially.
-- Close/reopen produces byte-identical first-entry material for both journeys while preserving the live listening signature and eleven-row current queue.
-- No MATCH/FLOW acceptance was granted.
+- All 159 exact-size comparisons completed with zero functional failures. Forty-five over-20 residuals fell, 15 were numerically identical and 99 moved only by tiny threshold crossings; readable review found no visual regression. The largest positive threshold delta was 0.011689 percentage points, while summed corpus over-20 changed by -2.811052 percentage points and summed MAE by -10.690476.
+- Ordinary sidebar whole-frame MAE improved for `e72be564` 5.617697 → 5.328036, `a917d88f` 4.066425 → 3.777962 and `1f9e170c` 6.606871 → 6.314517.
+- Signed-out Home `aefa8502` improved 7.223298% → 4.405267% over-20 and 5.325646 → 3.424772 MAE; its footer MAE improved 48.647446 → 5.135247 and its artwork is pixel-identical to source.
+- Direct Alpha `54b01eab` improved 7.892134% → 7.881983%; Home underlay `d5173715` improved 5.936308% → 5.914467%; dark concert `dcafd99e` is pixel-identical to the preceding candidate.
+- Lyrics and queue real-control close/reopen remain byte-identical while preserving current session state. Their saved endpoints still contain unrelated snapshot changes, so no FLOW acceptance was granted.
+- No MATCH or FLOW box was checked.
 
-Evidence: `D:\courses-main-evidence\lyrics-queue-first-entry-final-20260915-024103\browser\results.json`, `comparison\metrics.json` / `index.html`, both journey directories, and `continuous-metrics.json`. The preceding Alpha evidence remains preserved under `alpha-continuation-final-20260915`.
+Evidence: `D:\courses-main-evidence\sidebar-material-final-20260915-044845\browser\results.json`, `comparison\metrics.json` / `index.html`, all journey directories and readable regression composites; focused evidence is preserved under `D:\courses-main-evidence\sidebar-material-repair-focused-20260915-044308\`.
+
+The preceding lyrics/queue continuity evidence remains preserved under `lyrics-queue-first-entry-final-20260915-024103`; Alpha material evidence remains under `alpha-continuation-final-20260915`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `_Rj431BT_BSpEza9MFldD`; positively identify freshness before ever reusing or stopping a listener. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `HyW8qwIiJlvPv3dZBxWuv` and was stopped after verification. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
 
 Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. J: is constrained; keep TEMP/TMP and evidence on D:.
 
@@ -47,7 +51,7 @@ Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backin
 
 **Complete recorded FLOW genuinely signed off: 0 / 58**
 
-Green CI, a rendered fixture, route coverage, or a lower residual is not acceptance. Course/community adaptation remains blocked until genuine clone acceptance and explicit owner approval.
+Green CI, a rendered fixture, route coverage or a lower residual is not acceptance. Course/community adaptation remains blocked until genuine clone acceptance and explicit owner approval.
 
 ## Continue implementation immediately
 
@@ -55,10 +59,12 @@ Do not stop at verification. After preflight on `J:\courses/main`, continue dire
 
 Priority unresolved areas:
 
-1. **Alpha / New finishing (`54b01eab`)** — review all five New checkpoints and continue lawful typography/icon geometry, exact glass/arrow material, player geometry, lower releases and the live profile/title difference. Do not undo the repaired provider artwork or continuation without readable counter-evidence.
-2. **Library editor snapshot transition** — later checkpoints still diverge because the recording changes account/catalog/library snapshot. Model a transition only if frozen evidence supports it.
-3. **Release / City artwork** — middle City Chart lower artwork and incomplete release covers/metadata remain partial. Never paste captured player/interface pixels into artwork.
-4. **Shared surfaces** — continue player glass/control geometry, lyrics fade/blur, queue glass/row geometry, dialogs, menus, hover and keyboard-focus states through real controls.
-5. **Lyrics / queue remaining discrepancy** — direct fixtures remain useful for exact panel geometry, but the first-entry endpoint snapshots contain unrelated catalog/library/queue changes. Preserve the live transition and do not invent a hidden reset; only model additional state if immutable evidence supports it.
+1. **Shared lawful typography and symbols** — platform evidence still resolves to Arial on Windows. Refine geometry, weight and wrapping without distributing proprietary Apple fonts.
+2. **Player and panels** — continue player dimensions, bottom positioning, control/icon contours, glass, lyrics fade/blur and queue row geometry/artwork. Do not re-couple right-panel state to the repaired left sidebar.
+3. **Alpha / New finishing (`54b01eab`)** — retain provider artwork and state-specific glass while refining arrows, player geometry, lower releases and the live profile/title difference.
+4. **Release / City artwork** — middle City Chart lower artwork and incomplete release covers/metadata remain partial. Never paste captured interface pixels into artwork.
+5. **Library editor snapshot transition** — later checkpoints still diverge because the recording changes account/catalog/library snapshot. Model a transition only if frozen evidence supports it.
+6. **Signed-out Home (`aefa8502`)** — retain the repaired footer/player; remaining blockers are the marketing-background edge glows, lawful type geometry/raster and player icon treatment.
+7. **Lyrics / queue endpoint discontinuity** — preserve the live transition and never invent a hidden catalog/library/queue reset merely to manufacture an endpoint still.
 
-The exact frozen archive under `apple-music-clone/reference/` remains immutable. Use each original's real 1440×903 or 1440×904 application viewport, excluding only the documented 120px acquisition footer. No screenshot-as-page implementation, invisible hotspots, product masks, resized candidates, forced clicks as FLOW evidence, fixture jumping presented as a flow, course adaptation, deployment, real Apple credentials/payments, or copyrighted streaming.
+The exact frozen archive under `apple-music-clone/reference/` remains immutable. Use each original's real 1440×903 or 1440×904 application viewport, excluding only the documented 120px acquisition footer. No screenshot-as-page implementation, invisible hotspots, product masks, resized candidates, forced clicks as FLOW evidence, fixture jumping presented as a flow, course adaptation, deployment, real Apple credentials/payments or copyrighted streaming.
