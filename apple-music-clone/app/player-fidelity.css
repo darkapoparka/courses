@@ -20,6 +20,25 @@
 .floating-player .transport .icon-button { width:31px; height:31px; }
 .floating-player .transport .icon-button:first-child, .floating-player .transport .icon-button:last-child { width:22px; }
 .transport .icon-button[aria-pressed="true"] svg { fill:none; }
+
+/* Ordinary member playback uses lighter sampled glass and optically aligned
+   transport/utility glyphs. Guest and expanded-panel materials own their own
+   measurements and are deliberately excluded. */
+.member-session:not(.with-player-panel) .floating-player {
+  background:rgb(249 249 251 / 74%);
+  -webkit-backdrop-filter:blur(28px) saturate(1.4);
+  backdrop-filter:blur(28px) saturate(1.4);
+}
+.member-session:not(.with-player-panel) .floating-player .transport > button:first-child > svg { width:18px; height:18px; transform:translateX(1.5px); }
+.member-session:not(.with-player-panel) .floating-player .transport > button:nth-child(2) > svg { width:22px; height:22px; transform:translateX(4px); }
+.member-session:not(.with-player-panel) .floating-player .transport > .play-toggle > svg { width:25px; height:25px; transform:translateX(3px); }
+.member-session:not(.with-player-panel) .floating-player .transport > button:nth-child(4) > svg { width:22px; height:22px; transform:translateX(2px); }
+.member-session:not(.with-player-panel) .floating-player .transport > button:last-child > svg { width:18px; height:18px; transform:translateX(4px); }
+.member-session:not(.with-player-panel) .floating-player.is-idle .now-playing > svg { transform:translateX(3px); }
+.member-session:not(.with-player-panel) .floating-player .player-utilities > button:nth-child(1) > svg { width:16px; height:16px; transform:translateX(1px); }
+.member-session:not(.with-player-panel) .floating-player .player-utilities > button:nth-child(2) > svg { transform:translateX(1px); }
+.member-session:not(.with-player-panel) .floating-player .volume-control .icon-button > svg { width:20px; height:20px; }
+
 @media(min-width:821px) {
  .with-player-panel .music-main { right:0; padding-right:var(--panel); }
  .with-player-panel .page-content .rail-wrap { margin-right:calc(-1 * (var(--page-right) + var(--panel))); }

@@ -1,4 +1,5 @@
 """Sidebar material must follow real carousel state, not an acquisition ID."""
+import re
 from playwright.async_api import expect
 from browser_live_fidelity import start, record, source
 
@@ -209,13 +210,16 @@ async def ordinary_sidebar_states(page, context):
             guest_player = await page.locator('.floating-player').evaluate('''e => {
               const style = getComputedStyle(e); const rect = e.getBoundingClientRect();
               return {background: style.backgroundColor,
+                border: style.borderColor, shadow: style.boxShadow,
                 filter: style.backdropFilter,
                 rect: {x: rect.x, y: rect.y, width: rect.width, height: rect.height}};
             }''')
             assert guest_player == {
                 'background': 'rgba(255, 255, 243, 0.5)',
+                'border': 'rgb(246, 100, 112)',
+                'shadow': 'rgba(70, 0, 20, 0.15) 0px 6px 28px 0px',
                 'filter': 'blur(24px) saturate(1.4)',
-                'rect': {'x': 526, 'y': 834, 'width': 635, 'height': 54}}, guest_player
+                'rect': {'x': 526, 'y': 833, 'width': 635, 'height': 54}}, guest_player
             await guest_profile.click()
             await expect(page.get_by_role('dialog')).to_be_visible()
             await page.keyboard.press('Escape')
@@ -236,7 +240,84 @@ async def ordinary_sidebar_states(page, context):
     assert not bad_responses, bad_responses
 
 
+async def signed_out_home_controls(page, context):
+    await start(page, 'aefa8502')
+    membership = page.locator('.capture-membership')
+    geometry = await membership.evaluate('''element => {
+      const box = selector => {
+        const rect = element.querySelector(selector).getBoundingClientRect();
+        return {x: rect.x, y: rect.y, width: rect.width, height: rect.height};
+      };
+      return {membership: (() => { const rect=element.getBoundingClientRect(); return {x:rect.x,y:rect.y,width:rect.width,height:rect.height}; })(),
+        art: box('.membership-hero-art'), brand: box('.brand'), heading: box('h1'),
+        copy: box('p'), trial: box('.pill')};
+    }''')
+    assert geometry == {
+        'membership': {'x': 246, 'y': 0, 'width': 1194, 'height': 904},
+        'art': {'x': 246, 'y': 220, 'width': 1194, 'height': 450},
+        'brand': {'x': 246, 'y': 77, 'width': 1194, 'height': 29},
+        'heading': {'x': 246, 'y': 119, 'width': 1194, 'height': 98},
+        'copy': {'x': 583, 'y': 708, 'width': 520, 'height': 44},
+        'trial': {'x': 771.5, 'y': 784, 'width': 143, 'height': 35}}, geometry
+    art = membership.locator('.membership-hero-art')
+    await expect(art).to_have_attribute('data-art-source', source('aefa8502'))
+
+    profile = page.get_by_role('button', name='Sign In', exact=True)
+    await profile.click()
+    await expect(page.get_by_role('dialog')).to_be_visible()
+    await page.keyboard.press('Escape')
+    await expect(page.get_by_role('dialog')).to_have_count(0)
+    await expect(profile).to_be_focused()
+
+    trial = page.get_by_role('button', name='Try It Free', exact=True)
+    await trial.click()
+    await expect(page.get_by_role('dialog')).to_be_visible()
+    await page.keyboard.press('Escape')
+    await expect(page.get_by_role('dialog')).to_have_count(0)
+    await expect(trial).to_be_focused()
+
+    for label in ['Shuffle', 'Repeat']:
+        toggle = page.get_by_role('button', name=label, exact=True)
+        await expect(toggle).to_have_attribute('aria-pressed', 'false')
+        await toggle.click()
+        await expect(toggle).to_have_attribute('aria-pressed', 'true')
+        await toggle.click()
+        await expect(toggle).to_have_attribute('aria-pressed', 'false')
+
+    volume = page.get_by_role('button', name='Volume', exact=True)
+    await volume.click()
+    await expect(page.get_by_role('slider', name='Volume level', exact=True)).to_be_visible()
+    await page.keyboard.press('Escape')
+    await expect(page.get_by_role('slider', name='Volume level', exact=True)).to_have_count(0)
+    await expect(volume).to_be_focused()
+
+    queue = page.get_by_role('button', name='Up Next', exact=True)
+    await queue.click()
+    await expect(page.get_by_role('complementary', name='Up Next queue', exact=True)).to_be_visible()
+    await queue.click()
+    await expect(page.get_by_role('complementary', name='Up Next queue', exact=True)).to_have_count(0)
+
+    play = page.get_by_role('button', name='Play', exact=True)
+    await play.click()
+    pause = page.get_by_role('button', name='Pause', exact=True)
+    await expect(pause).to_be_visible()
+    await expect(page.locator('.floating-player')).to_have_class(re.compile('has-track'))
+    await expect(page.locator('.now-playing')).to_contain_text('stupid song')
+    await pause.click()
+    await expect(page.get_by_role('button', name='Play', exact=True)).to_be_visible()
+    assert await page.evaluate('document.querySelector("audio").paused')
+
+    for width, height in [(1264, 700), (1024, 768), (820, 900), (390, 844)]:
+        await start(page, 'aefa8502')
+        await page.set_viewport_size({'width': width, 'height': height})
+        await expect(page.get_by_role('button', name='Try It Free', exact=True)).to_be_visible()
+        assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth'), width
+        player = await page.locator('.floating-player').bounding_box()
+        assert player and player['x'] >= 0 and player['x'] + player['width'] <= width + .1, (width, player)
+
+
 CASES = [('ordinary-sidebar-material', ordinary_sidebar_states),
+         ('signed-out-home-controls', signed_out_home_controls),
          ('alpha-sidebar-live-controls', alpha_controls),
          ('new-carousel-sidebar-material', discovery_carousel)]
 

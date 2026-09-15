@@ -1,18 +1,18 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-15 for the verified sidebar-material and signed-out Home repair. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-15 for the verified signed-out Home and ordinary-player geometry checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest sidebar-material findings
+## Latest signed-out Home and player findings
 
-The ordinary sidebar regression was not caused by a lyrics/queue panel selector or carousel-underlay leakage. Computed styles, real-control panel toggles and Git history identified the active owner as the generic base `.music-sidebar` rule in `app/globals.css`: its flat `#fafafa` surface, weak 5% / 22px shadow and generic active row made the left navigation insufficiently separated after the right panel received distinct glass.
+Signed-out Home's remaining flat red surround was owned by `.capture-membership` in `app/reference-fidelity.css`, not its immutable 450px artwork. Live layered CSS now supplies the captured one-pixel edge, marketing glows, tonal falloff and bottom seam. Brand, heading, copy and CTA anchors were measured at 1440×904; the real artwork stays effectively pixel-identical and no interface pixels were pasted into it.
 
-The base ordinary surface now uses the reviewed neutral material, inset edge, broader shadow and measured active row. Alpha and Home retain their state-specific artwork-driven glass, and the dark concert sidebar is pixel-identical to the preceding candidate. Panel opening, closing and reopening cannot mutate unrelated sidebar material; no source-specific colour compensation or captured interface pixels were introduced.
+The guest player now owns its measured warm shell, border, shadow and optical SVG treatment beneath `.guest-session[data-scene="home"] .floating-player`. Sign In, Try It Free, Escape focus return, shuffle, repeat, volume, queue, play/pause and four responsive widths are exercised through real controls.
 
-Signed-out Home separately restores the compact icon-only sign-in profile control instead of the unrelated red text pill, and uses a measured 50% warm translucent player over the real red page. The control opens the real sign-in dialog, closes with Escape and returns focus. Its source artwork remains pixel-identical.
+Ordinary member players now use lighter sampled glass and measured transport/utility geometry under `.member-session:not(.with-player-panel) .floating-player`. A first full-corpus run exposed selectors that were too broad and altered expanded controls plus standalone radio volume; that candidate was rejected, the rules were narrowed below `.floating-player`, and the final corpus confirms the leak is gone. Alpha and open lyrics/queue panels retain independent material owners.
 
-Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 60 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Signed-out Home improved 7.223298% → 4.405267% over-20 and 5.325646 → 3.424772 MAE. Ordinary `e72be564`, `a917d88f` and `1f9e170c` whole-frame MAE each fell by about 0.29. Readable review of every largest positive threshold delta found no visual regression; those changes were confined to sub-pixel crossings around the corrected edge/shadow.
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 62 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Signed-out Home improved 4.405267% → 1.502120% over-20 and 3.424772 → 1.932716 MAE. `e72be564`, `a917d88f` and `1f9e170c` also improved. Corpus mean MAE changed by -0.063303 and mean over-20 residual by -0.068603 percentage points.
 
-The [dated review](reference-review/2026-09-15-sidebar-material-repair.md) records exact hashes, active selectors, measurements, focused journeys, full-corpus review and evidence paths. [Latest metrics](reference-review/latest-metrics.json) points to this candidate. Typography, player/control geometry, lower shelves/artwork, signed-out marketing glows and the unsupported lyrics/queue endpoint snapshot changes keep MATCH/FLOW open.
+The [dated review](reference-review/2026-09-15-guest-home-player-geometry.md) records exact hashes, selectors, rejected counter-evidence, measurements, focused journeys, full-corpus review and evidence paths. [Latest metrics](reference-review/latest-metrics.json) points to this candidate. Lawful type/button raster, lower release editions and metadata, now-playing geometry and unsupported lyrics/queue endpoint snapshot changes keep MATCH/FLOW open.
 
 ## Previous lyrics and queue first-entry findings — historical
 
@@ -51,9 +51,9 @@ Implementation `4c8840a` preserves native Windows scrolling, renders station art
 | Wrong or partial artwork | Inspect exact original, edition, crop, adjacent shelf and provider integrity. Do not replace content mistakes with gradients or sampled interface pixels. Alpha's immediate continuation is repaired; lower releases and City Chart artwork remain partial. |
 | Live versus fixture state | New→Alpha retains a known profile/title difference. First-entry lyrics/queue preserve and assert their live session, but their saved endpoint stills contain unrelated catalog/library/queue snapshots. Model only source-supported transitions; never reset unrelated state behind a control to imitate a still. |
 | Sidebar state ownership | Ordinary, Alpha/Home underlay and dark concert now have separate measured owners. Preserve that separation when changing shared shell material; panel-open selectors must not mutate the left sidebar. |
-| Shared material and geometry | Preserve hit targets, containment, scroll, optimized blur and the repaired ordinary edge while refining exact colour distribution and alignment. Do not restore removed compensation gradients. |
-| Typography and symbols | Windows captures sampled Arial in Chromium's actual platform-font data. A CSS SF Pro name is not proof of rendering. Match geometry lawfully without distributing proprietary fonts. |
-| Player and panels | Signed-out Home opacity and first-entry panel determinism are repaired. Artwork, control/icon geometry, lyric fade/blur, queue rows and source-snapshot discontinuities remain separate checks. |
+| Shared material and geometry | Preserve hit targets, containment, scroll, optimized blur, repaired edge/glows and state-specific owners. Shared selectors must remain below the intended `.floating-player` or panel root; do not restore compensation gradients. |
+| Typography and symbols | Windows captures sampled Arial in Chromium's actual platform-font data. A CSS SF Pro name is not proof of rendering. Signed-out text/button antialiasing and some icon contours remain visible; match them lawfully without distributing proprietary fonts. |
+| Player and panels | Guest and ordinary shell material plus floating-player SVG geometry are repaired. Lower artwork editions still alter real sampled glass; lyric fade/blur, queue rows and endpoint snapshot discontinuities remain separate checks. |
 | Whole-flow and motion review | A carousel segment or deterministic two-step control is not automatic FLOW acceptance. Review every recorded intermediate state and applicable motion asset before sign-off. |
 
 ## Evidence interpretation

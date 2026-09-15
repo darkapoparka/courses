@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-15 for the verified lyrics/queue first-entry material and continuity checkpoint on top of `c60b812`.  **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-15 for the verified signed-out Home and ordinary-player geometry checkpoint on top of `c6cf45f`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: real Show lyrics and Up Next entry from `1f9e170c` now applies live panel/player glass without replacing the current catalog, sidebar, artwork, active track or queue to imitate unrelated endpoint stills. Close/reopen is deterministic and the lyric anchor is 191px. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 59 interaction regressions, zero failures. All 159 direct comparisons kept the same over-20 residual, documented in the [dated review](reference-review/2026-09-15-lyrics-queue-first-entry.md). These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: signed-out Home now owns its live marketing glows, text/CTA geometry and guest-only player treatment; ordinary member players use lighter sampled glass and measured floating-player SVG geometry without leaking into expanded controls, radio volume, Alpha or lyrics/queue panel material. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 62 interaction regressions, zero failures. All 159 exact-size comparisons completed; corpus mean MAE changed by -0.063303 and mean over-20 residual by -0.068603 percentage points. [Dated review](reference-review/2026-09-15-guest-home-player-geometry.md). These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: real Show lyrics and Up Next entry from `1f9e170c` no
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [lyrics/queue first-entry review](reference-review/2026-09-15-lyrics-queue-first-entry.md). Evidence root: `D:\courses-main-evidence\lyrics-queue-first-entry-final-20260915-024103\`; final directories are `browser` and `comparison`, with `continuous-metrics.json` for the real-control endpoint measurements. The full optimized corpus has zero failures and all 159 direct over-20 residuals are unchanged. No MATCH/FLOW box advanced. The preceding Alpha evidence remains preserved under `alpha-continuation-final-20260915`.
+The latest source and stable evidence hashes are in the [signed-out Home and ordinary-player review](reference-review/2026-09-15-guest-home-player-geometry.md). Evidence root: `D:\courses-main-evidence\guest-player-scoped-final-20260915-065524\`; final directories are `browser` and `comparison`, with `verification-summary.json`, the complete comparison gallery and readable worsened-state contact sheets. The full optimized corpus has zero failures. No MATCH/FLOW box advanced. The preceding sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -66,6 +66,7 @@ Lower release collections, partly obscured artwork and source-specific featured 
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Ordinary floating-player glass and live transport/utility SVG geometry are now scoped below `.floating-player`; whole-frame MAE 5.328036 → 5.213605 and over-20 6.563077% → 6.426572%. Lower release editions sampled through real glass, shelf metadata and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Ordinary sidebar material is now state-owned and measurably closer: whole-frame MAE 5.617697 → 5.328036, sidebar MAE 4.777983 → 3.288301 and edge MAE 3.766290 → 1.240851. Typography, player/control geometry, lower shelves and artwork still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-13: Native 38px thumbnail crops and the clean Shabang cover now retain real hover/play indicators. Exact source residual: 6.56469% over-20. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 6.754568% → 6.725037%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
@@ -271,6 +272,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-a917d88f — Home — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-a917d88f — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Ordinary player glass/SVG geometry and the measured Home heading offset reduce whole-frame MAE 3.777962 → 3.757432 and over-20 3.927802% → 3.900963%. Recommendation editions, lower shelves, captions and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Ordinary Home sidebar material now matches the captured neutral surface and stronger edge separation; whole-frame MAE 4.066425 → 3.777962 and sidebar MAE 5.783696 → 4.300169. Typography, cards, player/control geometry and lower content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp) · [Open app state](http://127.0.0.1:6435/screen/a917d88f-d15a-4f53-92d3-1daecf59d05f) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -278,6 +280,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-aefa8502 — Home — signed out.** Coded UI; current browser render passed.
   - [ ] **MATCH-aefa8502 — Finish and verify the exact screenshot match.**
+  - 2026-09-15: Live marketing glows, one-pixel edge/seam, text/CTA anchors and guest-only player symbols reduce whole-frame MAE 3.424772 → 1.932716 and over-20 4.405267% → 1.502120%; the real artwork remains effectively pixel-identical. Lawful platform-font/button antialiasing and small idle-symbol contour differences remain visible, so MATCH stays open. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Restored the compact accessible guest profile affordance and measured warm translucent player. Whole-frame over-20 falls 7.223298% → 4.405267%, MAE 5.325646 → 3.424772 and footer MAE 48.647446 → 5.135247; source artwork is pixel-identical. Marketing-background edge glows, lawful font geometry/raster and player icon treatment still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/aefa8502-aec3-486a-b4f5-5075590500f1.webp) · [Open app state](http://127.0.0.1:6435/screen/aefa8502-aec3-486a-b4f5-5075590500f1) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -330,6 +333,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
   - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-15: The playing-state ordinary player now uses the measured lighter glass and scoped live SVG geometry; whole-frame MAE 6.314517 → 6.257022 and over-20 7.126784% → 6.849929%. Lower release editions, now-playing type/metadata geometry and lawful symbol raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: The live lyrics/queue start keeps its listening signature while ordinary sidebar MAE falls 4.968420 → 3.464884 and whole-frame MAE 6.606871 → 6.314517. Typography, player/control geometry, lower releases and session-specific content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: This remains the immutable live start for lyrics and queue entry. Real-control regressions assert the current catalog, Top 100 shelves, sidebar, release/player artwork, active `stupid song` track and queue signature survive every panel toggle. Direct residual remains 7.128322% over-20. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.093546% → 8.082087%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).

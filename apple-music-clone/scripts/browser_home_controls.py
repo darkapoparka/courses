@@ -53,4 +53,62 @@ async def home_carousel_boundaries(page, context):
         assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth'), width
 
 
-CASES = [('home-carousel-responsive-boundaries', home_carousel_boundaries)]
+async def ordinary_player_material_and_geometry(page, context):
+    expected_material = {
+        'background': 'rgba(249, 249, 251, 0.74)',
+        'filter': 'blur(28px) saturate(1.4)',
+        'box': {'x': 526, 'y': 833, 'width': 635, 'height': 54},
+    }
+    expected_svgs = {
+        'Shuffle': {'x': 543.5, 'y': 851, 'width': 18, 'height': 18},
+        'Previous track': {'x': 571.5, 'y': 849, 'width': 22, 'height': 22},
+        'Play': {'x': 601, 'y': 847.5, 'width': 25, 'height': 25},
+        'Next track': {'x': 633.5, 'y': 849, 'width': 22, 'height': 22},
+        'Repeat': {'x': 665, 'y': 851, 'width': 18, 'height': 18},
+        'Show lyrics': {'x': 1065, 'y': 852, 'width': 16, 'height': 16},
+        'Up Next': {'x': 1094.5, 'y': 851.5, 'width': 17, 'height': 17},
+        'Volume': {'x': 1122, 'y': 849.75, 'width': 20, 'height': 20},
+    }
+
+    async def material():
+        return await page.locator('.floating-player').evaluate('''element => {
+          const style=getComputedStyle(element); const rect=element.getBoundingClientRect();
+          return {background:style.backgroundColor, filter:style.backdropFilter,
+            box:{x:rect.x,y:rect.y,width:rect.width,height:rect.height}};
+        }''')
+
+    for prefix in ['e72be564', 'a917d88f']:
+        await start(page, prefix)
+        assert await material() == expected_material
+        actual = await page.evaluate('''() => Object.fromEntries(
+          [...document.querySelectorAll('.transport button,.player-utilities button')].map(button => {
+            const svg=button.querySelector('svg'); const rect=svg.getBoundingClientRect();
+            return [button.getAttribute('aria-label'), {x:rect.x,y:rect.y,width:rect.width,height:rect.height}];
+          }))''')
+        assert actual == expected_svgs, (prefix, actual)
+
+    await start(page, 'e72be564')
+    await page.get_by_role('button', name='Play', exact=True).click()
+    await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
+    await expect(page.locator('.now-playing')).to_contain_text('stupid song')
+    assert await material() == expected_material
+    await page.get_by_role('button', name='Pause', exact=True).click()
+    await expect(page.get_by_role('button', name='Play', exact=True)).to_be_visible()
+    assert await page.evaluate('document.querySelector("audio").paused')
+
+    await start(page, '54b01eab')
+    alpha = await material()
+    assert alpha['background'] == 'rgba(249, 249, 251, 0.84)', alpha
+    assert alpha['filter'] == 'blur(18px) saturate(1)', alpha
+
+    await start(page, 'ee8db412')
+    panel = await material()
+    assert panel == {
+        'background': 'rgba(249, 249, 251, 0.38)',
+        'filter': 'blur(24px) saturate(1.4)',
+        'box': {'x': 382.5, 'y': 833, 'width': 635, 'height': 54},
+    }, panel
+
+
+CASES = [('home-carousel-responsive-boundaries', home_carousel_boundaries),
+         ('ordinary-player-material-and-geometry', ordinary_player_material_and_geometry)]

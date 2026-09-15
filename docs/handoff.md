@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-15 for the verified sidebar-material and signed-out Home repair on `J:\courses/main`.
+Updated 2026-09-15 for the verified signed-out Home and ordinary-player geometry checkpoint on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,28 +18,31 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified candidate on top of `0a983829e5bf5fd66a5d75e4fe3d7859ae81661b` repairs the ordinary sidebar material without flattening Alpha/Home artwork underlay or changing the dark concert variant. The active ordinary owner is the base `.music-sidebar` rule in `app/globals.css`; no panel-open selector or carousel-underlay selector was leaking into ordinary states. The generic flat surface and weak shadow were the actual defect.
+The verified candidate was captured on top of `c6cf45f8bd9d3db3cc2647f70d459d7faee19fce`. Signed-out Home now owns its live one-pixel edge, marketing glows, tonal falloff, bottom seam, text/CTA anchors and guest-only player symbols. The exact 450px artwork region remains real source artwork and effectively pixel-identical.
 
-The same batch restores signed-out Home's compact icon-only sign-in profile control and measured warm translucent player. The control remains real accessible DOM: click opens the existing sign-in dialog, Escape closes it and focus returns. Other guest/acquisition states retain their captured text Sign In button. The [dated review](reference-review/2026-09-15-sidebar-material-repair.md) records source inspection, active ownership, measurements, controls and remaining blockers.
+Ordinary member players now use the measured lighter sampled glass and optically aligned transport/utility SVGs. Every new geometry rule is scoped beneath `.floating-player`; an earlier full-corpus run exposed leakage into expanded controls and standalone radio volume, so that candidate was rejected and the selectors were narrowed. Guest, Alpha and open lyrics/queue panels retain separate material owners. Home receives its measured heading offset; the equivalent New heading change was tested and rejected.
 
-Optimized build `HyW8qwIiJlvPv3dZBxWuv` captured implementation SHA-256 `fd0de3bc6130daecef3f279801b7d3fb209852e290679f3cd7db912a1940ec9d` and tooling SHA-256 `058ca23b03e49b12fabec324c437d74aeed6cfd5778d6d7de31dbdc1c89ea350`.
+The [dated review](reference-review/2026-09-15-guest-home-player-geometry.md) records active selectors, exact measurements, rejected counter-evidence, readable regression review and remaining blockers.
 
-- 159 desktop states, five responsive states, 218 route checks and 60 interaction regressions: zero failures.
+Optimized build `EJ_Dgxkz3BiPF7mKme9XK` captured implementation SHA-256 `f64c6c9ce6e4281c682fd396c36f65c76bb4a0d2f3970b4a70cd8b772d7458fe` and tooling SHA-256 `764d3ccf005256967f96617c4646668c1e026a02ab3d0c11723a18afcf75f99b`.
+
+- 159 desktop states, five responsive states, 218 route checks and 62 interaction regressions: zero failures.
 - Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed with zero functional failures. Forty-five over-20 residuals fell, 15 were numerically identical and 99 moved only by tiny threshold crossings; readable review found no visual regression. The largest positive threshold delta was 0.011689 percentage points, while summed corpus over-20 changed by -2.811052 percentage points and summed MAE by -10.690476.
-- Ordinary sidebar whole-frame MAE improved for `e72be564` 5.617697 → 5.328036, `a917d88f` 4.066425 → 3.777962 and `1f9e170c` 6.606871 → 6.314517.
-- Signed-out Home `aefa8502` improved 7.223298% → 4.405267% over-20 and 5.325646 → 3.424772 MAE; its footer MAE improved 48.647446 → 5.135247 and its artwork is pixel-identical to source.
-- Direct Alpha `54b01eab` improved 7.892134% → 7.881983%; Home underlay `d5173715` improved 5.936308% → 5.914467%; dark concert `dcafd99e` is pixel-identical to the preceding candidate.
-- Lyrics and queue real-control close/reopen remain byte-identical while preserving current session state. Their saved endpoints still contain unrelated snapshot changes, so no FLOW acceptance was granted.
-- No MATCH or FLOW box was checked.
+- All 159 exact-size comparisons completed with zero functional failures. Mean corpus MAE changed by -0.063303 and mean over-20 residual by -0.068603 percentage points.
+- Signed-out Home `aefa8502` improved 3.424772 → 1.932716 MAE and 4.405267% → 1.502120% over-20; the source artwork remains effectively pixel-identical.
+- New idle `e72be564` improved 5.328036 → 5.213605 MAE and 6.563077% → 6.426572% over-20.
+- Home idle `a917d88f` improved 3.777962 → 3.757432 MAE and 3.927802% → 3.900963% over-20.
+- New playing `1f9e170c` improved 6.314517 → 6.257022 MAE and 7.126784% → 6.849929% over-20.
+- Every one of the eight remaining positive metric deltas was reviewed in source/baseline/current/difference sheets; no expanded-control or radio selector leak remains.
+- Lyrics and queue real-control close/reopen remain deterministic and preserve current session state. No MATCH or FLOW box was checked.
 
-Evidence: `D:\courses-main-evidence\sidebar-material-final-20260915-044845\browser\results.json`, `comparison\metrics.json` / `index.html`, all journey directories and readable regression composites; focused evidence is preserved under `D:\courses-main-evidence\sidebar-material-repair-focused-20260915-044308\`.
+Evidence: `D:\courses-main-evidence\guest-player-scoped-final-20260915-065524\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, all journey directories and worsened-state contact sheets. Focused evidence is preserved under `signed-out-home-focus-20260915` and `shared-player-focus-20260915`.
 
-The preceding lyrics/queue continuity evidence remains preserved under `lyrics-queue-first-entry-final-20260915-024103`; Alpha material evidence remains under `alpha-continuation-final-20260915`.
+The preceding sidebar evidence remains preserved under `sidebar-material-final-20260915-044845`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; Alpha material evidence under `alpha-continuation-final-20260915`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `HyW8qwIiJlvPv3dZBxWuv` and was stopped after verification. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `EJ_Dgxkz3BiPF7mKme9XK` and was stopped after verification. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
 
 Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. J: is constrained; keep TEMP/TMP and evidence on D:.
 
@@ -59,12 +62,12 @@ Do not stop at verification. After preflight on `J:\courses/main`, continue dire
 
 Priority unresolved areas:
 
-1. **Shared lawful typography and symbols** — platform evidence still resolves to Arial on Windows. Refine geometry, weight and wrapping without distributing proprietary Apple fonts.
-2. **Player and panels** — continue player dimensions, bottom positioning, control/icon contours, glass, lyrics fade/blur and queue row geometry/artwork. Do not re-couple right-panel state to the repaired left sidebar.
-3. **Alpha / New finishing (`54b01eab`)** — retain provider artwork and state-specific glass while refining arrows, player geometry, lower releases and the live profile/title difference.
-4. **Release / City artwork** — middle City Chart lower artwork and incomplete release covers/metadata remain partial. Never paste captured interface pixels into artwork.
-5. **Library editor snapshot transition** — later checkpoints still diverge because the recording changes account/catalog/library snapshot. Model a transition only if frozen evidence supports it.
-6. **Signed-out Home (`aefa8502`)** — retain the repaired footer/player; remaining blockers are the marketing-background edge glows, lawful type geometry/raster and player icon treatment.
-7. **Lyrics / queue endpoint discontinuity** — preserve the live transition and never invent a hidden catalog/library/queue reset merely to manufacture an endpoint still.
+1. **Lower release artwork and metadata** — exact release editions beneath New/Home change both shelves and the real colour sampled through player glass. Repair owning cards rather than adding a compensating player tint.
+2. **Lawful typography and symbols** — Windows platform evidence resolves to Arial-family rendering. Refine geometry, weight, wrapping and contours without distributing proprietary Apple fonts.
+3. **Lyrics and queue** — retain deterministic live entry while refining lyric fade/blur/scroll and queue row artwork, spacing, separators and durations. Never reset unrelated catalog/library/queue state to imitate endpoint stills.
+4. **Alpha / New finishing (`54b01eab`)** — retain provider artwork and state-specific glass while refining arrows, lower releases and the live profile/title difference.
+5. **Release / City artwork** — middle City Chart art and incomplete release covers/metadata remain partial. Never paste captured interface pixels into artwork.
+6. **Library editor snapshot transition** — model the later account/catalog/library change only if frozen evidence supports a real transition.
+7. **Signed-out Home (`aefa8502`)** — retain the repaired live glows/player; remaining blockers are lawful text/button antialiasing and small idle-symbol contour differences.
 
 The exact frozen archive under `apple-music-clone/reference/` remains immutable. Use each original's real 1440×903 or 1440×904 application viewport, excluding only the documented 120px acquisition footer. No screenshot-as-page implementation, invisible hotspots, product masks, resized candidates, forced clicks as FLOW evidence, fixture jumping presented as a flow, course adaptation, deployment, real Apple credentials/payments or copyrighted streaming.
