@@ -1,8 +1,22 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-16 for the verified signed-out Home typography and guest-player control checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-17 for the verified discovery typography and live-symbol checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest signed-out Home typography and guest-player findings
+## Latest discovery typography and live-symbol findings
+
+The New family now uses measured, scoped Windows compensation for the English page heading and feature kicker/title/subtitle. The viral-section heading replaces the text character `☆` with the existing live star SVG while remaining a real button to the real Viral Chart. `Section` owns the optional glyph and real title span; Viral Chart and the first Home section retain live text/SVG owners with their own scoped geometry.
+
+Focused readable review covered `e72be564`, `1f9e170c`, `8a234785` and `a917d88f`, plus 23 discovery states and all six Home states. The registered `discovery-typography-symbols` case traverses New → Viral Chart → New → Home through real controls, asserts the computed geometry, and preserves ordered non-overwriting captures plus `steps.jsonl`.
+
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309077 → 5.263068` and mean over-20 changed `5.379391% → 5.353294%`.
+
+Viral Chart `8a234785` improved `4.399940 → 3.865631` MAE and `3.885582% → 3.643103%` over-20. Initial New `e72be564` improved `4.319364 → 4.113135`; playing New `1f9e170c` improved `4.533112 → 4.282184`; and Home `a917d88f` improved `3.877053 → 3.833119` MAE. Forty-six states improved in MAE and 105 were byte-identical to the baseline. Eight tiny increases were max-one-channel drift with no pixel changing by more than one and no readable regression in the full contact-sheet review.
+
+The [dated review](reference-review/2026-09-17-discovery-typography-symbols.md) records exact owners, hashes, focused sweeps, real-control evidence, measurements and remaining blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+
+Typography is closer, but feature/shelf metadata, artwork identity/crops, sidebar and row raster, player geometry/material, lower shelves and chart rows remain visible. The batch does not complete any screen or recorded journey, so MATCH and FLOW stay open.
+
+## Previous signed-out Home typography and guest-player findings — historical
 
 Signed-out Home retains real marketing artwork, the repaired one-pixel content edge, glows, seam and warm player material. The current batch scopes lawful Windows typography and live-control geometry beneath `.capture-membership` and `.guest-session[data-scene="home"] .floating-player`: brand size, offer-copy opacity, CTA size/weight, shuffle/repeat ink, previous/play/next geometry, queue treatment and the idle Apple mark all move toward the exact immutable frame. Text remains DOM, the CTA/profile remain real accessible buttons and every player affordance remains an SVG/DOM control.
 

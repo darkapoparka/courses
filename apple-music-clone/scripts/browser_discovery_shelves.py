@@ -290,3 +290,72 @@ async def viral_artwork_controls(page, context):
 
 
 CASES.append(('viral-artwork-live-controls', viral_artwork_controls))
+
+
+async def discovery_typography_symbols(page, context):
+    """Lawful text compensation and live star geometry survive real navigation."""
+    await start(page, 'e72be564')
+    heading = page.locator('.capture-discovery:lang(en) > h1')
+    heading_style = await heading.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.fontSize,s.transform,s.transformOrigin]}')
+    assert heading_style == ['33.25px', 'matrix(1, 0, 0, 0.97, -0.25, 3.5)', '0px 0px'], heading_style
+
+    section = page.locator('.viral-hits-section')
+    link = section.locator('.section-link')
+    live_star = link.locator('svg').first
+    await expect(live_star).to_have_count(1)
+    box = await live_star.bounding_box()
+    assert box and abs(box['width'] - 15) < .05 and abs(box['height'] - 15) < .05, box
+    star_style = await live_star.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.strokeWidth,s.transform]}')
+    assert star_style == ['2.3px', 'matrix(1, 0, 0, 1, 0, -1)'], star_style
+
+    link_style = await link.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.gap,getComputedStyle(e.querySelector(".section-title-text")).transform,getComputedStyle(e.querySelector("svg")).color]}')
+    assert link_style == ['4px', 'matrix(0.98, 0, 0, 1, 0, 0)', 'rgb(29, 29, 31)'], link_style
+
+    caption = page.locator('.feature-caption').first
+    caption_styles = await caption.evaluate('''(e)=>{
+      const style = selector => getComputedStyle(e.querySelector(selector));
+      return [style('small').transform, style('button').transform,
+              style('span').color, style('span').transform];
+    }''')
+    assert caption_styles == [
+        'matrix(1.05, 0, 0, 1.08, 0, -1)',
+        'matrix(0.94, 0, 0, 1.03, 0, 1.5)',
+        'rgb(115, 115, 115)',
+        'matrix(1.02, 0, 0, 1, 0, -0.5)',
+    ], caption_styles
+    await record(page, 'discovery-typography-symbols', 'e72be564',
+                 'Initial New typography and live viral-section star')
+
+    await link.click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'chart')
+    chart_heading = page.locator('.chart-page > h1')
+    chart_style = await chart_heading.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.fontSize,s.lineHeight,s.gap]}')
+    assert chart_style == ['33px', '41px', '6px'], chart_style
+    chart_star = chart_heading.locator('svg').first
+    chart_box = await chart_star.bounding_box()
+    assert chart_box and abs(chart_box['width'] - 32.5) < .05, chart_box
+    assert abs(chart_box['height'] - 32.5) < .05, chart_box
+    chart_star_style = await chart_star.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.strokeWidth,s.transform]}')
+    assert chart_star_style == ['2.3px', 'matrix(1, 0, 0, 1, 0, -0.5)'], chart_star_style
+    await record(page, 'discovery-typography-symbols', '8a234785',
+                 'Open the chart through the real viral-section heading control')
+
+    navigation = page.get_by_role('navigation', name='Browse music', exact=True)
+    await navigation.get_by_role('button', name='New', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+    await expect(page.locator('.viral-hits-section .section-link svg').first).to_be_visible()
+    await navigation.get_by_role('button', name='Home', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'home')
+    home_title = page.locator('.capture-home:lang(en) > .music-section:first-of-type .section-title-text')
+    home_transform = await home_title.evaluate('(e)=>getComputedStyle(e).transform')
+    assert home_transform == 'matrix(0.99, 0, 0, 1, -0.5, 0)', home_transform
+    await record(page, 'discovery-typography-symbols', 'a917d88f',
+                 'Navigate through the real Home control and retain lawful section typography')
+
+
+CASES.append(('discovery-typography-symbols', discovery_typography_symbols))

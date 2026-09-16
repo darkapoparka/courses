@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-16 for the verified lower-release edition and legacy-player material checkpoint on top of `dda57fac`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-17 for the verified discovery typography and live-symbol checkpoint on top of `8d8fa37`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: New now preserves exact initial/current/localized lower-release orders and all five lawful source-owned lower fragments beneath the real player. Legacy discovery owns its measured 54% / 16px / 1.8-saturation glass without leaking into current New, Home, panels, expanded media or radio. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 65 interaction regressions, zero failures. All 159 exact-size comparisons completed; corpus mean MAE changed by `-0.111128` and mean over-20 residual by `-0.156104` percentage points. All 23 directly affected screens improved in both metrics. [Dated review](reference-review/2026-09-16-release-editions-legacy-player.md). These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: shared New/Home/Chart typography now uses source-measured lawful Windows compensation, and the viral heading uses the existing live star SVG instead of a text star. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed; corpus mean MAE changed by `-0.046009` and mean over-20 residual by `-0.026096` percentage points. Forty-six states improved in MAE; 105 were byte-identical; eight max-one-channel drifts had no readable regression. [Dated review](reference-review/2026-09-17-discovery-typography-symbols.md). These are not visual sign-offs. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,7 +23,7 @@ Implementation checkpoint: New now preserves exact initial/current/localized low
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [lower-release and legacy-player review](reference-review/2026-09-16-release-editions-legacy-player.md). Evidence root: `D:\courses-main-evidence\release-final-151-20260916-090731\`; final directories are `browser` and `comparison`, with `verification-summary.json`, the complete comparison gallery, fourteen all-increase contact sheets and priority full-frame sheets. The optimized corpus has zero failures. No MATCH/FLOW box advanced. Preceding signed-out Home/player, sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
+The latest source and stable evidence hashes are in the [discovery typography and live-symbol review](reference-review/2026-09-17-discovery-typography-symbols.md). Evidence root: `D:\courses-main-evidence\shared-typography-20260917-013440\`; final directories are `browser` and `comparison`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and the readable worsened-state review. The optimized corpus has zero failures. No MATCH/FLOW box advanced. Preceding signed-out Home/player, release/material, sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -45,6 +45,7 @@ Open the linked reference → edit the linked component → open the matching lo
 
 - [x] Restore the main content scrollport and keep carousel painting/hit targets out of the sidebar. Committed in `3b1f24e`; current desktop captures have no horizontal document/main overflow.
 - [ ] Finish the shared typography/icon/hover/focus comparison at the reference viewport; keep keyboard and responsive behavior working.
+  - 2026-09-17: Replaced the discovery text-star with the live SVG glyph and refined scoped New feature, viral/chart and Home section typography. The registered real-control New → Chart → New → Home case and full 159-state optimized corpus pass; remaining shared typography/symbol defects keep this task open. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - `4c8840a`: Native scrollport width and keyboard/wheel behavior verified; Home responsive controls corrected without changing the 1440px layout. [Bounded review](reference-review/2026-09-12-home-artwork-controls.md).
   - 2026-09-12 bounded sidebar correction: restored measured row anchors and navigation symbols; production controls pass, but typography, glass and 904px alignment remain partial. The combined comparison has 105 lower / 2 unchanged / 52 higher threshold residuals. [Evidence and remaining defects](reference-review/2026-09-12-sidebar.md).
 
@@ -66,6 +67,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-17: Scoped lawful New-heading and feature-caption geometry plus the live viral star reduce whole-frame MAE `4.319364 → 4.113135` and over-20 `4.819506% → 4.724529%`. Metadata, artwork/crops, row/sidebar raster, player and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the initial repeated lower-release order, truthful partial fourth underlay and all five lawful visible source fragments; whole-frame MAE 5.213605 → 4.319364 and over-20 6.426572% → 4.819506%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: Ordinary floating-player glass and live transport/utility SVG geometry are now scoped below `.floating-player`; whole-frame MAE 5.328036 → 5.213605 and over-20 6.563077% → 6.426572%. Lower release editions sampled through real glass, shelf metadata and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Ordinary sidebar material is now state-owned and measurably closer: whole-frame MAE 5.617697 → 5.328036, sidebar MAE 4.777983 → 3.288301 and edge MAE 3.766290 → 1.240851. Typography, player/control geometry, lower shelves and artwork still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
@@ -113,6 +115,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-8a234785 — Viral chart — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-8a234785 — Finish and verify the exact screenshot match.**
+  - 2026-09-17: The real chart star and heading geometry reduce whole-frame MAE `4.399940 → 3.865631` and over-20 `3.885582% → 3.643103%`. Table typography, row copy/artwork and player differences still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - [Reference image](../apple-music-clone/reference/originals/8a234785-f0b4-4200-8f3f-2eecf2b77708.webp) · [Open app state](http://127.0.0.1:6435/screen/8a234785-f0b4-4200-8f3f-2eecf2b77708) · [Component](../apple-music-clone/components/music-chart-schedule.tsx)
 
 <a id="screen-f2e44e3b"></a>
@@ -278,6 +281,7 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 
 - [x] **UI-a917d88f — Home — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-a917d88f — Finish and verify the exact screenshot match.**
+  - 2026-09-17: The scoped first-section title correction reduces whole-frame MAE `3.877053 → 3.833119` and over-20 `4.030393% → 4.012551%`. Card/caption editions, lower shelves, sidebar raster and player differences still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-15: Ordinary player glass/SVG geometry and the measured Home heading offset reduce whole-frame MAE 3.777962 → 3.757432 and over-20 3.927802% → 3.900963%. Recommendation editions, lower shelves, captions and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Ordinary Home sidebar material now matches the captured neutral surface and stronger edge separation; whole-frame MAE 4.066425 → 3.777962 and sidebar MAE 5.783696 → 4.300169. Typography, cards, player/control geometry and lower content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - [Reference image](../apple-music-clone/reference/originals/a917d88f-d15a-4f53-92d3-1daecf59d05f.webp) · [Open app state](http://127.0.0.1:6435/screen/a917d88f-d15a-4f53-92d3-1daecf59d05f) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -342,6 +346,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
   - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-17: Shared lawful New/feature/viral typography reduces whole-frame MAE `4.533112 → 4.282184` and over-20 `5.175341% → 5.058755%` while retaining the real playing state. Now-playing geometry, player material, metadata, rows, sidebar raster and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.257022 → 4.533112 and over-20 6.849929% → 5.175341%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: The playing-state ordinary player now uses the measured lighter glass and scoped live SVG geometry; whole-frame MAE 6.314517 → 6.257022 and over-20 7.126784% → 6.849929%. Lower release editions, now-playing type/metadata geometry and lawful symbol raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: The live lyrics/queue start keeps its listening signature while ordinary sidebar MAE falls 4.968420 → 3.464884 and whole-frame MAE 6.606871 → 6.314517. Typography, player/control geometry, lower releases and session-specific content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).

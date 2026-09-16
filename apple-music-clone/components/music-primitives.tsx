@@ -83,8 +83,9 @@ export function Art({ art, label, className = "", resolution = "standard" }: { a
 export function IconButton({ icon, label, className = "", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { icon: GlyphName; label: string }) {
   return <button type="button" className={`icon-button ${className}`} aria-label={label} title={label} {...props}><Glyph name={icon} /></button>;
 }
-export function Section({ title, children, onMore, id, className = "" }: { title: string; children: ReactNode; onMore?: () => void; id?: string; className?: string }) {
-  return <section className={`music-section ${className}`} id={id} aria-label={title}><h2>{onMore ? <button type="button" className="section-link" onClick={onMore}>{title}<Glyph name="chevron" size={15} /></button> : title}</h2>{children}</section>;
+export function Section({ title, children, onMore, id, className = "", icon }: { title: string; children: ReactNode; onMore?: () => void; id?: string; className?: string; icon?: GlyphName }) {
+  const heading = <>{icon && <Glyph name={icon} size={17} />}<span className="section-title-text">{title}</span></>;
+  return <section className={`music-section ${className}`} id={id} aria-label={title}><h2>{onMore ? <button type="button" className="section-link" onClick={onMore}>{heading}<Glyph name="chevron" size={15} /></button> : heading}</h2>{children}</section>;
 }
 export function EmptyState({ icon = "song", title, description, action, onAction }: { icon?: GlyphName; title?: string; description?: string; action?: string; onAction?: () => void }) {
   return <div className="empty-state"><Glyph name={icon} size={62} />{title && <h2>{title}</h2>}{description && <p>{description}</p>}{action && <button className="pill primary" type="button" onClick={onAction}>{action}</button>}</div>;

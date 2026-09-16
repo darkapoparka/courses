@@ -8,6 +8,9 @@
 }
 .page-content > h1 { transform: translateY(3px); }
 .feature-caption { padding-top: 3px; }
+.capture-discovery:lang(en) .feature-caption > button { transform:translateY(1.5px) scale(.94,1.03); transform-origin:top left; }
+.capture-discovery:lang(en) .feature-caption > small { transform:translateY(-1px) scale(1.05,1.08); transform-origin:top left; }
+.capture-discovery:lang(en) .feature-caption > span { color:rgb(115 115 115); transform:translateY(-.5px) scaleX(1.02); transform-origin:top left; }
 .song-row { gap: 15px; padding-right: 14px; }
 .song-art-button, .song-art-button .music-art { width: 38px; height: 38px; }
 .song-art-button { flex-basis: 38px; }
@@ -25,6 +28,12 @@
 .music-app[data-source^="f2e44e3b"] .library-section-label > button { opacity:1; color:#222; }
 .chart-page > .chart-table .favourite-marker { display:flex; }
 .chart-page > .chart-table .favourite-marker svg { fill:currentColor; }
+.chart-page > h1 { font-size:33px; line-height:41px; }
+.chart-page > h1 > svg { width:32.5px; height:32.5px; stroke-width:2.3; transform:translateY(-.5px); flex:none; }
+.viral-hits-section > h2 { height:22px; display:flex; align-items:flex-start; }
+.viral-hits-section .section-link { height:22px; gap:4px; }
+.viral-hits-section .section-title-text { display:inline-block; transform:scaleX(.98); transform-origin:top left; }
+.viral-hits-section .section-link > svg:first-child { width:15px; height:15px; color:rgb(29 29 31); stroke-width:2.3; transform:translateY(-1px); flex:none; }
 .guest-session .sidebar-footer { flex-basis:103px; }
 .guest-session .floating-player.is-idle .player-utilities { flex-basis:59px; }
 @media (min-width:1181px) {
@@ -256,6 +265,7 @@
  .capture-home .square-rail .card-art-button { box-shadow:0 3px 6px #0000001c; }
  .capture-home > h1 { font-size:33px; transform:translate(-.5px,3.5px) scaleY(.97); transform-origin:top left; }
  .capture-home > .music-section:first-of-type h2 { transform:translateY(5px); letter-spacing:-.45px; }
+ .capture-home:lang(en) > .music-section:first-of-type .section-title-text { display:inline-block; transform:translateX(-.5px) scaleX(.99); transform-origin:top left; }
  .capture-home > .music-section:nth-of-type(2) .rail-wrap { margin-top:11px; }
  .capture-home .media-card .card-title { font-size:12px; line-height:16px; }
  .capture-home > .music-section:nth-of-type(3) { margin-top:41px; }
@@ -282,7 +292,7 @@
 .capture-home #add-library > .rail-wrap { margin-top:13px; }
 
 @media (min-width:1181px) {
- .capture-discovery:lang(en) > h1 { font-size:33px; transform:translateY(4px); }
+ .capture-discovery:lang(en) > h1 { font-size:33.25px; transform:translate(-.25px,3.5px) scaleY(.97); transform-origin:top left; }
 }
 
 /* Sample neighbouring artwork where a handle straddles a card edge. */

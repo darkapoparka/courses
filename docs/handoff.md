@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-16 for the verified signed-out Home typography and guest-player control checkpoint on `J:\courses/main`.
+Updated 2026-09-17 for the verified discovery typography and live-symbol checkpoint on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,31 +18,31 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified runtime candidate was captured from a one-file implementation working tree on top of `2de2df92ee920eae5bc048e29c5dc111e2287499`. Signed-out Home keeps the repaired live artwork, edge, glows, seam and warm guest-player material while tightening lawful Windows typography and the real SVG controls. The active runtime change is scoped to `.capture-membership` and `.guest-session[data-scene="home"] .floating-player` in `app/reference-fidelity.css`; no other screen family owns these rules.
+The verified runtime candidate was captured from a coherent shared typography working tree on top of `8d8fa3769a8fd8d6bb866b2311be137f084521a3`. Initial/current/playing New, Viral Chart and named-profile Home retain the repaired artwork editions, state-specific glass and player behavior while tightening lawful Windows text geometry and replacing the viral heading's text star with the existing live SVG glyph.
 
-The brand is slightly larger, offer copy is less bright, and the CTA uses a measured Windows Arial compensation without changing its real button geometry. Shuffle/repeat ink, previous/play/next sizes and optical shifts, queue geometry and the idle Apple mark now follow the frozen frame more closely. The heading and volume path were deliberately left unchanged because tested variants worsened their supported metrics.
+The active implementation owners are `app/reference-fidelity.css`, `components/music-discovery.tsx` and `components/music-primitives.tsx`. `Section` now supports a real optional glyph and title span; the viral heading remains a real button to the real chart. Scoped English selectors refine the New heading, feature kicker/title/subtitle, viral heading, chart heading and first Home section title without changing signed-out Home or unrelated screen families.
 
-The [dated review](reference-review/2026-09-16-signed-out-home-typography-controls.md) records active selectors, focused sweeps, readable source/render/difference review, exact measurements, real-control coverage and remaining blockers. The preceding [release-edition and legacy-player review](reference-review/2026-09-16-release-editions-legacy-player.md) remains the authoritative historical record for that shared discovery batch.
+The [dated review](reference-review/2026-09-17-discovery-typography-symbols.md) records the focused sweeps, readable source/render/difference review, exact measurements, ordered real-control evidence and remaining blockers. The preceding [signed-out Home review](reference-review/2026-09-16-signed-out-home-typography-controls.md) and [release-edition review](reference-review/2026-09-16-release-editions-legacy-player.md) remain authoritative for their separate batches.
 
-Optimized build `bQVbWY2TQR3lywm6f6X7P` captured implementation SHA-256 `161fcb71b0eef5640fc4bc8b9fcb1afff4f89ea3910dd983785eeb16eebdab9c` and tooling SHA-256 `93e2d205bc23f100bee6d9dfbcef3f5bb644452e395a2e18f98dd55afb3e4aa8`.
+Optimized build `qX-R8M-kpo89ddKw02fdx` captured implementation SHA-256 `7a1d1b130025bd32bb7e4c2281b15fc4b54942028556462747a492db4ee291c9` and tooling SHA-256 `da997151082fbcde2c2c4e258c00685e34e2545fdb5a0e066a1ce8200d67d1e7`.
 
-- 159 desktop states, five responsive states, 218 route checks and 65 interaction regressions: zero failures.
+- 159 desktop states, five responsive states, 218 route checks and 66 interaction regressions: zero failures.
 - Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309224 → 5.309077`; mean over-20 changed `5.379484% → 5.379391%`.
-- Signed-out Home `aefa8502` improved `1.946265 → 1.922833` MAE and `1.500200% → 1.485374%` over-20.
-- CTA region MAE improved `16.556522 → 13.661545`; the entire guest-player region improved `2.547905 → 2.401105` MAE and `2.068639% → 1.725444%` over-20.
-- The other 158 exact-size states retained zero metric delta; no numerical regression was introduced.
-- The focused and registered suites passed Sign In/CTA Escape focus return, shuffle/repeat, volume, queue, play/pause continuity and responsive containment. No MATCH or FLOW box was checked.
+- All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309077 → 5.263068`; mean over-20 changed `5.379391% → 5.353294%`.
+- Viral Chart `8a234785` improved `4.399940 → 3.865631` MAE and `3.885582% → 3.643103%` over-20.
+- Initial New `e72be564` improved `4.319364 → 4.113135`; playing New `1f9e170c` improved `4.533112 → 4.282184`; Home `a917d88f` improved `3.877053 → 3.833119` MAE.
+- Forty-six states improved in MAE and 105 were byte-identical to the baseline. Eight tiny numerical increases were max-one-channel drift with no pixel changing by more than one and no readable regression.
+- The registered `discovery-typography-symbols` journey passed through real New, chart and Home controls with ordered non-overwriting captures. No MATCH or FLOW box was checked.
 
-Evidence: `D:\courses-main-evidence\signedout-home-player-20260916-202908\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, and the complete source/render/difference gallery. Readable development review is preserved under `C:\Users\radev\dc-review\aefa8502\`; the optimized render is pixel-identical to that reviewed frame.
+Evidence: `D:\courses-main-evidence\shared-typography-20260917-013440\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, `delta-summary.json`, the complete gallery and the worsened-state review. Readable focused review remains under `C:\Users\radev\dc-review\shared-batch-20260916\`.
 
-The previous release/material corpus remains under `D:\courses-main-evidence\release-final-151-20260916-090731\`; focused release controls under `focus-release-20260916-084928`; sidebar evidence under `sidebar-material-final-20260915-044845`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; and Alpha material evidence under `alpha-continuation-final-20260915`.
+The previous signed-out Home evidence remains under `D:\courses-main-evidence\signedout-home-player-20260916-202908\`; release/material evidence under `release-final-151-20260916-090731`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; and Alpha material evidence under `alpha-continuation-final-20260915`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `bQVbWY2TQR3lywm6f6X7P` and was stopped after verification; the canonical development preview was restored on 6435. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `qX-R8M-kpo89ddKw02fdx` and was stopped after verification; the canonical development preview was restored on 6435. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
 
-Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: had approximately 0.74 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
+Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: had approximately 39.81 GB free and D: had approximately 9.40 GB free; no cleanup command was run by this agent. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
 
 ## Honest acceptance status
 
