@@ -15,9 +15,38 @@ async def wheel_to(page, selector, top):
         '(y)=>Math.abs(document.querySelector("main").scrollTop-y)<1', arg=target)
 
 
+async def assert_release_overlays(cards, prefix):
+    for index in range(5):
+        overlay = cards.nth(index).locator('.reference-art-strip .music-art')
+        await expect(overlay).to_have_count(1)
+        source = await overlay.get_attribute('data-art-source')
+        assert source and source.startswith(prefix), (prefix, index, source)
+        if index in [1, 2, 3]:
+            await expect(overlay).to_have_attribute('data-art-partial', 'true')
+            mask = await overlay.evaluate('(e)=>getComputedStyle(e).maskImage')
+            assert '76.1905%' in mask, (prefix, index, mask)
+            if index == 1:
+                assert '6.25%' in mask, mask
+            elif index == 3:
+                assert '93.2692%' in mask, mask
+        else:
+            await expect(overlay).not_to_have_attribute('data-art-partial', 'true')
+
+
+async def assert_initial_release_edition(page):
+    cards = page.locator('#new-this-week .media-card')
+    assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == [
+        'cover-9', 'cover-9', 'cover-5', 'cover-7', 'cover-7']
+    partial = cards.nth(3).locator('.card-art-button > .music-art').first
+    await expect(partial).to_have_attribute('data-art-partial', 'true')
+    assert (await partial.get_attribute('data-art-source') or '').startswith('e72be564')
+    await assert_release_overlays(cards, 'e72be564')
+
+
 async def discovery_shelves(page, context):
     journey = 'new-square-artwork'
     await start(page, 'e72be564')
+    await assert_initial_release_edition(page)
     await wheel_to(page, '#essentials', 32)
     await record(page, journey, '8b03c9d0', 'Wheel from New to the saved Essentials checkpoint')
     for selector in ['#essentials', '#daily-top', '#city-charts']:
@@ -52,6 +81,7 @@ async def discovery_shelves(page, context):
     await expect(page.get_by_role('heading', name='Concerts', exact=True)).to_be_visible()
     await page.get_by_role("navigation", name="Browse music", exact=True).get_by_role("button", name="New", exact=True).click()
     await expect(page.get_by_role("heading", name="New", exact=True)).to_be_visible()
+    await assert_initial_release_edition(page)
     for index in [0, 4]:
         strip = page.locator("#new-this-week .media-card").nth(index).locator(".reference-art-strip [data-art-source]")
         await expect(strip).to_have_count(1)
@@ -63,6 +93,7 @@ async def discovery_shelves(page, context):
     await expect(page.locator(".music-app")).to_have_attribute("data-scene", "radio")
     await navigation.get_by_role("button", name="New", exact=True).click()
     await expect(page.locator(".music-app")).to_have_attribute("data-scene", "new")
+    await assert_initial_release_edition(page)
     for index in [0, 4]:
         strip = page.locator("#new-this-week .media-card").nth(index).locator(".reference-art-strip [data-art-source]")
         await expect(strip).to_have_count(1)
@@ -71,6 +102,62 @@ async def discovery_shelves(page, context):
 
 
 CASES = [('discovery-native-square-artwork', discovery_shelves)]
+
+
+async def current_release_editions(page, context):
+    """Named-profile and listening states retain one reviewed release edition."""
+    prefixes = [
+        '4f611a9e', '54b01eab', '11803c64', 'c98f8b54', '1f9e170c',
+        '9fbb38e1', 'afd02fa6', 'd83e96ba', 'ad689c37', 'fc5d84bd',
+    ]
+    expected_cards = ['cover-9', 'cover-1', 'cover-9', 'cover-5', 'cover-7']
+    for prefix in prefixes:
+        await start(page, prefix)
+        cards = page.locator('#new-this-week .media-card')
+        assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == expected_cards
+        for index in [1, 2, 3]:
+            art = cards.nth(index).locator('.card-art-button > .music-art').first
+            source = await art.get_attribute('data-art-source')
+            assert source and source.startswith('e757eb0f'), (prefix, index, source)
+        await assert_release_overlays(cards, prefix)
+        # The saved profile-menu fixture owns a dismiss layer. Close it through
+        # the real keyboard path before exercising an unrelated player control.
+        await page.keyboard.press('Escape')
+        before = await page.locator('#new-this-week [data-art-source]').evaluate_all(
+            '(els)=>els.map(e=>[e.dataset.artSource,e.getAttribute("style")])')
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        after = await page.locator('#new-this-week [data-art-source]').evaluate_all(
+            '(els)=>els.map(e=>[e.dataset.artSource,e.getAttribute("style")])')
+        assert after == before, prefix
+    await record(page, 'current-release-editions', 'fc5d84bd',
+                 'Current release cover order and source-owned masked artwork fragments survive real Volume controls')
+
+
+CASES.append(('current-release-artwork-persistence', current_release_editions))
+
+
+async def localized_release_fragments(page, context):
+    await start(page, 'be864051')
+    cards = page.locator('#new-this-week .media-card')
+    assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == [
+        'cover-9', 'cover-4', 'cover-1', 'cover-5', 'cover-7']
+    for index in [1, 2, 3]:
+        source = await cards.nth(index).locator('.card-art-button > .music-art').first.get_attribute('data-art-source')
+        assert source and source.startswith('e757eb0f'), (index, source)
+    await assert_release_overlays(cards, 'be864051')
+    before = await page.locator('#new-this-week [data-art-source]').evaluate_all(
+        '(els)=>els.map(e=>[e.dataset.artSource,e.getAttribute("style")])')
+    await page.get_by_role('button', name='Volume', exact=True).click()
+    await page.get_by_role('button', name='Volume', exact=True).click()
+    after = await page.locator('#new-this-week [data-art-source]').evaluate_all(
+        '(els)=>els.map(e=>[e.dataset.artSource,e.getAttribute("style")])')
+    assert after == before
+    await record(page, 'localized-release-fragments', 'be864051',
+                 'Localized release order and source-owned masked fragments survive real Volume controls')
+
+
+CASES.append(('localized-release-artwork-persistence', localized_release_fragments))
 
 
 async def panel_release_geometry(page, context):
@@ -118,6 +205,39 @@ async def legacy_release_fragments(page, context):
 
 
 CASES.append(('legacy-release-artwork-persistence', legacy_release_fragments))
+
+
+async def legacy_player_material(page, context):
+    prefixes = [
+        'cf59e554', 'a229e38a', '6ac70c34', 'e4dad439', 'cbbdc344',
+        '95ae6a8f', 'f2e44e3b', 'ffc18eb8', '3728aa07', 'e5e8383f',
+        'e027fe6d',
+    ]
+    for prefix in prefixes:
+        await start(page, prefix)
+        player = page.locator('.floating-player')
+        material = await player.evaluate('''(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}''')
+        assert material == ['rgba(249, 249, 251, 0.54)', 'blur(16px) saturate(1.8)'], (prefix, material)
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        retained = await player.evaluate('''(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}''')
+        assert retained == material, (prefix, material, retained)
+    await record(page, 'legacy-player-material', 'e027fe6d',
+                 'Legacy catalog material survives real Volume controls')
+
+    for prefix in ['e72be564', 'a917d88f']:
+        await start(page, prefix)
+        material = await page.locator('.floating-player').evaluate(
+            '''(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}''')
+        assert material == ['rgba(249, 249, 251, 0.74)', 'blur(28px) saturate(1.4)'], (prefix, material)
+
+    await start(page, 'ee8db412')
+    panel_material = await page.locator('.floating-player').evaluate(
+        '''(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}''')
+    assert panel_material != ['rgba(249, 249, 251, 0.54)', 'blur(16px) saturate(1.8)'], panel_material
+
+
+CASES.append(('legacy-player-material', legacy_player_material))
 
 
 async def legacy_panel_exit_artwork(page, context):

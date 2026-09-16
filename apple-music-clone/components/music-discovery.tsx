@@ -44,7 +44,7 @@ const currentFeatureSequence: Card[] = [
 ];
 
 function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artContents, artOverlays, onPositionChange, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artContents?: Partial<Record<string, ReactNode>>; onPositionChange?: (index: number) => void; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
-  return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={card.id} card={card} poster={poster} artContent={artContents?.[card.id]} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
+  return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={`${card.id}-${index}`} card={card} poster={poster} artContent={artContents?.[card.id]} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
 }
 // London and Miami are outside the captured player: retain their full visible
 // 189px. Middle columns must stop at 119px rather than embed player controls.
@@ -69,6 +69,42 @@ const alphaNextEdge = {
 };
 function AlphaNextEdge() {
   return <span className="alpha-next-edge" aria-hidden="true"><Art art={alphaNextEdge.top} label="" className="alpha-next-edge-top" /><Art art={alphaNextEdge.middle} label="" className="alpha-next-edge-middle" /><Art art={alphaNextEdge.bottom} label="" className="alpha-next-edge-bottom" /></span>;
+}
+
+// The named-profile/listening captures share one current New This Week edition.
+// Preserve that catalog after local controls clear the fixture URL. Clean full
+// middle covers remain provider-backed, while source-owned artwork fragments
+// restore only the pixels visible outside the captured floating player.
+const currentReleaseEditionSources = new Set([
+  "4f611a9e", "54b01eab", "11803c64", "c98f8b54", "1f9e170c",
+  "9fbb38e1", "afd02fa6", "d83e96ba", "ad689c37", "fc5d84bd",
+]);
+
+function releaseFragmentOverlay(prefix: string, position: number): Artwork {
+  const x = 286 + position * 227;
+  if (position === 0 || position === 4) return crop(prefix, x, 840, 208, 63);
+  const belowPlayer = "linear-gradient(transparent 0 76.190477%,#000 76.190477% 100%)";
+  const edge = position === 1
+    ? ",linear-gradient(90deg,#000 0 6.25%,transparent 6.25% 100%)"
+    : position === 3
+      ? ",linear-gradient(90deg,transparent 0 93.269231%,#000 93.269231% 100%)"
+      : "";
+  return { ...crop(prefix, x, 840, 208, 63), visibleMask: belowPlayer + edge, partial: true };
+}
+
+/** The initial current shelf's fourth full cover is never unobscured. Stretch
+ * its clean 15px lower fragment only as an honest partial underlay, then put
+ * back the exact lower band and the 14px right edge. The mask excludes every
+ * pixel occupied by the captured floating player. */
+function partialInitialRelease(fallback: Card): { card: Card; overlay: Artwork } {
+  const prefix = "e72be564";
+  const x = 967;
+  const belowPlayer = "linear-gradient(transparent 0 76.190477%,#000 76.190477% 100%)";
+  const rightEdge = ",linear-gradient(90deg,transparent 0 93.269231%,#000 93.269231% 100%)";
+  return {
+    card: { ...fallback, art: { ...crop(prefix, x, 888, 208, 15), displayRatio: 1, partial: true } },
+    overlay: { ...crop(prefix, x, 840, 208, 63), visibleMask: belowPlayer + rightEdge, partial: true },
+  };
 }
 
 export function NewView() {
@@ -105,18 +141,21 @@ export function NewView() {
   } : {};
   const releaseEdition = m.scene.panel ? (queue ? "8f029018" : legacy ? "ee8db412" : undefined) : undefined;
   const wideReleaseSource = !m.scene.panel && legacy && !zh ? wideLegacyReleaseSource(source) : undefined;
-  const partialReleases = releaseEdition || wideReleaseSource ? Object.fromEntries([9, 4, 1, 5, 7].flatMap((index, position) => cleanReleases[position] ? [] : [[position, releaseEdition ? partialPanelRelease(releaseEdition, position, libraryCovers[index]!) : partialDiscoveryRelease(wideReleaseSource!, position, libraryCovers[index]!)]])) : {};
-  const newThisWeek = [9, 4, 1, 5, 7].map((index, position) => cleanReleases[position] ?? partialReleases[position]?.card ?? libraryCovers[index]!);
+  const currentReleaseEdition = !legacy && !queue && currentReleaseEditionSources.has(source ?? "");
+  const initialReleaseEdition = !legacy && !queue && !zh && (!source || source === "e72be564");
+  const initialPartialRelease = initialReleaseEdition ? partialInitialRelease(libraryCovers[7]!) : undefined;
+  const releaseIndexes = currentReleaseEdition ? [9, 1, 9, 5, 7] : initialReleaseEdition ? [9, 9, 5, 7, 7] : [9, 4, 1, 5, 7];
+  const partialReleases = releaseEdition || wideReleaseSource ? Object.fromEntries(releaseIndexes.flatMap((index, position) => cleanReleases[position] ? [] : [[position, releaseEdition ? partialPanelRelease(releaseEdition, position, libraryCovers[index]!) : partialDiscoveryRelease(wideReleaseSource!, position, libraryCovers[index]!)]])) : {};
+  const newThisWeek = releaseIndexes.map((index, position) => cleanReleases[position] ?? (position === 3 ? initialPartialRelease?.card : undefined) ?? partialReleases[position]?.card ?? libraryCovers[index]!);
   // Ordinary sidebar navigation has no fixture ID; retain the current catalog artwork.
   const currentReleaseSource = !m.scene.panel && !legacy && !queue ? (zh ? "be864051" : "e72be564") : undefined;
-  const releaseStripSource = source && ["e72be564", "4f611a9e", "54b01eab", "f2e44e3b", "be864051", "e027fe6d", "fc5d84bd"].includes(source) ? source : currentReleaseSource;
+  const releaseStripSource = source && (["e72be564", "f2e44e3b", "be864051", "e027fe6d"].includes(source) || currentReleaseEditionSources.has(source)) ? source : currentReleaseSource;
   const panelReleaseSource = releaseEdition;
   const releaseArtOverlays: Partial<Record<number, Artwork>> | undefined = panelReleaseSource || wideReleaseSource
     ? Object.fromEntries(Object.entries(partialReleases).map(([index, value]) => [index, value.overlay]))
-    : releaseStripSource ? {
-      0: crop(releaseStripSource, 286, 840, 208, 63),
-      4: crop(releaseStripSource, 1194, 840, 208, 63),
-    } : undefined;
+    : releaseStripSource
+      ? Object.fromEntries([0, 1, 2, 3, 4].map(position => [position, releaseFragmentOverlay(releaseStripSource, position)]))
+      : undefined;
   return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined}><h1>{zh ? "新发现" : "New"}</h1>
     <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map((card, index) => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} />{alphaActive && index === featureIndex - 1 && <AlphaPreviousEdge />}{alphaActive && card.id === "new-music-daily" && <AlphaNextEdge />}</button></article>)}</Rail>
     <Section title="☆ Favourite These Viral Hits" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} showAdd={(!legacy && !queue && m.scene.hero === "listening") || source === "6ac70c34"} />)}</div></Rail></Section>

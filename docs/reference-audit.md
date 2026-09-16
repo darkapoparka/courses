@@ -1,18 +1,18 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-15 for the verified signed-out Home and ordinary-player geometry checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-16 for the verified lower-release edition and legacy-player material checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest signed-out Home and player findings
+## Latest release-edition and legacy-player findings
 
-Signed-out Home's remaining flat red surround was owned by `.capture-membership` in `app/reference-fidelity.css`, not its immutable 450px artwork. Live layered CSS now supplies the captured one-pixel edge, marketing glows, tonal falloff and bottom seam. Brand, heading, copy and CTA anchors were measured at 1440×904; the real artwork stays effectively pixel-identical and no interface pixels were pasted into it.
+The initial and current New families use different lower-release orders. The implementation now preserves those exact source-supported editions, including repeated covers, while all five lower fragments are owned by the relevant immutable frame. Three middle fragments are masked to the band below the real player and lawful outer edge; clean full covers remain provider-backed. No captured player, text, button or control pixels were copied into artwork.
 
-The guest player now owns its measured warm shell, border, shadow and optical SVG treatment beneath `.guest-session[data-scene="home"] .floating-player`. Sign In, Try It Free, Escape focus return, shuffle, repeat, volume, queue, play/pause and four responsive widths are exercised through real controls.
+Legacy discovery now owns a measured 54% / 16px / 1.8-saturation player material. It is scoped through `.capture-discovery[data-catalog="legacy"]`; current New, Home, panels, expanded media and radio retain separate owners. Navigation editing no longer replaces legacy material with a generic inline style. Duplicate release identities use index-qualified React keys so live controls retain the correct edition.
 
-Ordinary member players now use lighter sampled glass and measured transport/utility geometry under `.member-session:not(.with-player-panel) .floating-player`. A first full-corpus run exposed selectors that were too broad and altered expanded controls plus standalone radio volume; that candidate was rejected, the rules were narrowed below `.floating-player`, and the final corpus confirms the leak is gone. Alpha and open lyrics/queue panels retain independent material owners.
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 65 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.420352 → 5.309224` and mean over-20 residual changed `5.535588% → 5.379484%`. All 23 directly affected screens improved in both metrics; `e72be564` fell to 4.319364 MAE / 4.819506% over-20 and `1f9e170c` to 4.533112 / 5.175341%.
 
-Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 62 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Signed-out Home improved 4.405267% → 1.502120% over-20 and 3.424772 → 1.932716 MAE. `e72be564`, `a917d88f` and `1f9e170c` also improved. Corpus mean MAE changed by -0.063303 and mean over-20 residual by -0.068603 percentage points.
+The union of positive numerical deltas contained 106 states. Every one was reviewed in fourteen source/baseline/current/source-difference/candidate-change sheets. The largest increases were `a4afd6e6` at +0.160269 MAE and `468b0465` at +0.219561 percentage points over-20; no concrete unintended artwork, geometry, copy, state or control regression was found in the readable review.
 
-The [dated review](reference-review/2026-09-15-guest-home-player-geometry.md) records exact hashes, selectors, rejected counter-evidence, measurements, focused journeys, full-corpus review and evidence paths. [Latest metrics](reference-review/latest-metrics.json) points to this candidate. Lawful type/button raster, lower release editions and metadata, now-playing geometry and unsupported lyrics/queue endpoint snapshot changes keep MATCH/FLOW open.
+The [dated review](reference-review/2026-09-16-release-editions-legacy-player.md) records exact hashes, state owners, fragment masks, real-control regressions, full-corpus review and evidence paths. [Latest metrics](reference-review/latest-metrics.json) points to this candidate. Typography and symbols, remaining metadata/complete covers, City Chart art, Alpha live profile/title differences, now-playing geometry and lyrics/queue details keep MATCH/FLOW open.
 
 ## Previous lyrics and queue first-entry findings — historical
 
@@ -48,12 +48,12 @@ Implementation `4c8840a` preserves native Windows scrolling, renders station art
 
 | Class | Evidence and required response |
 | --- | --- |
-| Wrong or partial artwork | Inspect exact original, edition, crop, adjacent shelf and provider integrity. Do not replace content mistakes with gradients or sampled interface pixels. Alpha's immediate continuation is repaired; lower releases and City Chart artwork remain partial. |
+| Wrong or partial artwork | Inspect exact original, edition, crop, adjacent shelf and provider integrity. Do not replace content mistakes with gradients or sampled interface pixels. Initial/current/localized lower-release orders and visible fragments are repaired; remaining captions, complete covers and City Chart artwork are still partial. |
 | Live versus fixture state | New→Alpha retains a known profile/title difference. First-entry lyrics/queue preserve and assert their live session, but their saved endpoint stills contain unrelated catalog/library/queue snapshots. Model only source-supported transitions; never reset unrelated state behind a control to imitate a still. |
 | Sidebar state ownership | Ordinary, Alpha/Home underlay and dark concert now have separate measured owners. Preserve that separation when changing shared shell material; panel-open selectors must not mutate the left sidebar. |
 | Shared material and geometry | Preserve hit targets, containment, scroll, optimized blur, repaired edge/glows and state-specific owners. Shared selectors must remain below the intended `.floating-player` or panel root; do not restore compensation gradients. |
 | Typography and symbols | Windows captures sampled Arial in Chromium's actual platform-font data. A CSS SF Pro name is not proof of rendering. Signed-out text/button antialiasing and some icon contours remain visible; match them lawfully without distributing proprietary fonts. |
-| Player and panels | Guest and ordinary shell material plus floating-player SVG geometry are repaired. Lower artwork editions still alter real sampled glass; lyric fade/blur, queue rows and endpoint snapshot discontinuities remain separate checks. |
+| Player and panels | Guest, ordinary and legacy-discovery glass now have separate measured owners, and floating-player SVG geometry remains scoped. Remaining complete artwork/metadata, lyric fade/blur, queue rows and endpoint snapshot discontinuities are separate checks. |
 | Whole-flow and motion review | A carousel segment or deterministic two-step control is not automatic FLOW acceptance. Review every recorded intermediate state and applicable motion asset before sign-off. |
 
 ## Evidence interpretation
