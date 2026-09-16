@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-16 for the verified lower-release edition and legacy-player material checkpoint on `J:\courses/main`.
+Updated 2026-09-16 for the verified signed-out Home typography and guest-player control checkpoint on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,33 +18,29 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified candidate was captured on top of `dda57fac29b21023965393c74c124621fbcbd807`. New now owns exact initial/current/localized lower-release orders and all five lawful source fragments beneath the real floating player. The three masked middle fragments exclude captured controls; clean full covers remain provider-backed. Repeated catalog cards use stable index-qualified keys so edition state survives navigation and controls.
+The verified runtime candidate was captured from a one-file implementation working tree on top of `2de2df92ee920eae5bc048e29c5dc111e2287499`. Signed-out Home keeps the repaired live artwork, edge, glows, seam and warm guest-player material while tightening lawful Windows typography and the real SVG controls. The active runtime change is scoped to `.capture-membership` and `.guest-session[data-scene="home"] .floating-player` in `app/reference-fidelity.css`; no other screen family owns these rules.
 
-Legacy discovery now owns its measured 54% material, 16px blur and 1.8 saturation without flattening current New, Home, panels, expanded media or radio. The live navigation editor no longer replaces legacy material with its generic inline glass. Exact artwork order, fragment masks, panel exits and player material are regression-covered through real Volume, sidebar and panel controls.
+The brand is slightly larger, offer copy is less bright, and the CTA uses a measured Windows Arial compensation without changing its real button geometry. Shuffle/repeat ink, previous/play/next sizes and optical shifts, queue geometry and the idle Apple mark now follow the frozen frame more closely. The heading and volume path were deliberately left unchanged because tested variants worsened their supported metrics.
 
-The [dated review](reference-review/2026-09-16-release-editions-legacy-player.md) records active owners, exact hashes, source-supported masks, full-corpus measurements, all numerically increased-state review and remaining blockers.
+The [dated review](reference-review/2026-09-16-signed-out-home-typography-controls.md) records active selectors, focused sweeps, readable source/render/difference review, exact measurements, real-control coverage and remaining blockers. The preceding [release-edition and legacy-player review](reference-review/2026-09-16-release-editions-legacy-player.md) remains the authoritative historical record for that shared discovery batch.
 
-Optimized build `iOQ4wINUXolR1BwFqAY4c` captured implementation SHA-256 `5a0967e4ed96be2d048d3e787549f76f102c6f0aa60417c44ce07d559d274b01` and tooling SHA-256 `93e2d205bc23f100bee6d9dfbcef3f5bb644452e395a2e18f98dd55afb3e4aa8`.
+Optimized build `bQVbWY2TQR3lywm6f6X7P` captured implementation SHA-256 `161fcb71b0eef5640fc4bc8b9fcb1afff4f89ea3910dd983785eeb16eebdab9c` and tooling SHA-256 `93e2d205bc23f100bee6d9dfbcef3f5bb644452e395a2e18f98dd55afb3e4aa8`.
 
 - 159 desktop states, five responsive states, 218 route checks and 65 interaction regressions: zero failures.
 - Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.420352 → 5.309224` (`-0.111128`); mean over-20 changed `5.535588% → 5.379484%` (`-0.156104` pp).
-- All 23 directly affected release/material states improved in both metrics.
-- New idle `e72be564` improved 5.213605 → 4.319364 MAE and 6.426572% → 4.819506% over-20.
-- New playing `1f9e170c` improved 6.257022 → 4.533112 MAE and 6.849929% → 5.175341% over-20.
-- Selected track `11803c64` improved 6.304601 → 4.540586 MAE and 6.833087% → 5.138581% over-20.
-- Localized New `be864051` improved 6.454397 → 5.703245 MAE and 7.245293% → 6.760490% over-20.
-- Final named profile `e027fe6d` improved 6.715204 → 6.383223 MAE and 6.013135% → 4.870032% over-20.
-- All 106 states with any positive numerical delta were reviewed in fourteen readable contact sheets; no concrete unintended artwork, geometry, copy, state or control regression was found.
-- Lyrics and queue real-control close/reopen remain deterministic and preserve current session state. No MATCH or FLOW box was checked.
+- All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309224 → 5.309077`; mean over-20 changed `5.379484% → 5.379391%`.
+- Signed-out Home `aefa8502` improved `1.946265 → 1.922833` MAE and `1.500200% → 1.485374%` over-20.
+- CTA region MAE improved `16.556522 → 13.661545`; the entire guest-player region improved `2.547905 → 2.401105` MAE and `2.068639% → 1.725444%` over-20.
+- The other 158 exact-size states retained zero metric delta; no numerical regression was introduced.
+- The focused and registered suites passed Sign In/CTA Escape focus return, shuffle/repeat, volume, queue, play/pause continuity and responsive containment. No MATCH or FLOW box was checked.
 
-Evidence: `D:\courses-main-evidence\release-final-151-20260916-090731\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, journey directories, `worsened-review\` and `priority-worsened-review\`. Focused release-control evidence is preserved under `focus-release-20260916-084928`.
+Evidence: `D:\courses-main-evidence\signedout-home-player-20260916-202908\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, and the complete source/render/difference gallery. Readable development review is preserved under `C:\Users\radev\dc-review\aefa8502\`; the optimized render is pixel-identical to that reviewed frame.
 
-The preceding signed-out Home/player evidence remains under `guest-player-scoped-final-20260915-065524`; sidebar evidence under `sidebar-material-final-20260915-044845`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; Alpha material evidence under `alpha-continuation-final-20260915`.
+The previous release/material corpus remains under `D:\courses-main-evidence\release-final-151-20260916-090731\`; focused release controls under `focus-release-20260916-084928`; sidebar evidence under `sidebar-material-final-20260915-044845`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; and Alpha material evidence under `alpha-continuation-final-20260915`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `iOQ4wINUXolR1BwFqAY4c` and must be stopped after verification. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `bQVbWY2TQR3lywm6f6X7P` and was stopped after verification; the canonical development preview was restored on 6435. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
 
 Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: had approximately 0.74 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
 
@@ -69,6 +65,6 @@ Priority unresolved areas:
 3. **Lyrics and queue** — retain deterministic live entry while refining lyric fade/blur/scroll and queue artwork, rows, spacing, separators and durations. Never reset unrelated catalog/library/queue state to imitate endpoint stills.
 4. **Alpha / New finishing (`54b01eab`)** — retain provider artwork, corrected lower release edition and state-specific glass while refining arrows, live profile/title difference, typography and controls.
 5. **Library-editor snapshot transition** — model the later account/catalog/library change only if frozen evidence supports a real transition.
-6. **Signed-out Home (`aefa8502`)** — retain the repaired live glows/player; remaining blockers are lawful text/button antialiasing and small idle-symbol contour differences.
+6. **Signed-out Home (`aefa8502`)** — retain the repaired live glows, lawful CTA compensation and scoped player geometry; remaining blockers are heading/sidebar raster, CTA antialiasing and volume/small-symbol contours.
 
 The exact frozen archive under `apple-music-clone/reference/` remains immutable. Use each original's real 1440×903 or 1440×904 application viewport, excluding only the documented 120px acquisition footer. No screenshot-as-page implementation, invisible hotspots, product masks, resized candidates, forced clicks as FLOW evidence, fixture jumping presented as a flow, course adaptation, deployment, real Apple credentials/payments or copyrighted streaming.

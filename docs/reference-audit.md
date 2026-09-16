@@ -1,8 +1,20 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-16 for the verified lower-release edition and legacy-player material checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-16 for the verified signed-out Home typography and guest-player control checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest release-edition and legacy-player findings
+## Latest signed-out Home typography and guest-player findings
+
+Signed-out Home retains real marketing artwork, the repaired one-pixel content edge, glows, seam and warm player material. The current batch scopes lawful Windows typography and live-control geometry beneath `.capture-membership` and `.guest-session[data-scene="home"] .floating-player`: brand size, offer-copy opacity, CTA size/weight, shuffle/repeat ink, previous/play/next geometry, queue treatment and the idle Apple mark all move toward the exact immutable frame. Text remains DOM, the CTA/profile remain real accessible buttons and every player affordance remains an SVG/DOM control.
+
+The heading and volume contour were deliberately not changed because tested variants worsened supported metrics. No proprietary Apple font, captured interface pixels, screenshot mask or synthetic player tint was introduced.
+
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 65 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309224 → 5.309077` and mean over-20 residual changed `5.379484% → 5.379391%`. `aefa8502` improved `1.946265 → 1.922833` MAE and `1.500200% → 1.485374%` over-20; every other state retained zero metric delta.
+
+The focused and registered suites passed profile/CTA dialog focus return, shuffle/repeat, volume, queue, play/pause continuity and four responsive viewports. The optimized pixels are identical to the readable development candidate. The [dated review](reference-review/2026-09-16-signed-out-home-typography-controls.md) records exact selectors, sweeps, region measurements, evidence paths and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+
+Lawful text/sidebar raster, CTA antialiasing and remaining volume/small-symbol contours remain visible, so MATCH stays open. The batch does not alter any recorded flow and grants no FLOW acceptance.
+
+## Previous release-edition and legacy-player findings — historical
 
 The initial and current New families use different lower-release orders. The implementation now preserves those exact source-supported editions, including repeated covers, while all five lower fragments are owned by the relevant immutable frame. Three middle fragments are masked to the band below the real player and lawful outer edge; clean full covers remain provider-backed. No captured player, text, button or control pixels were copied into artwork.
 
@@ -52,8 +64,8 @@ Implementation `4c8840a` preserves native Windows scrolling, renders station art
 | Live versus fixture state | New→Alpha retains a known profile/title difference. First-entry lyrics/queue preserve and assert their live session, but their saved endpoint stills contain unrelated catalog/library/queue snapshots. Model only source-supported transitions; never reset unrelated state behind a control to imitate a still. |
 | Sidebar state ownership | Ordinary, Alpha/Home underlay and dark concert now have separate measured owners. Preserve that separation when changing shared shell material; panel-open selectors must not mutate the left sidebar. |
 | Shared material and geometry | Preserve hit targets, containment, scroll, optimized blur, repaired edge/glows and state-specific owners. Shared selectors must remain below the intended `.floating-player` or panel root; do not restore compensation gradients. |
-| Typography and symbols | Windows captures sampled Arial in Chromium's actual platform-font data. A CSS SF Pro name is not proof of rendering. Signed-out text/button antialiasing and some icon contours remain visible; match them lawfully without distributing proprietary fonts. |
-| Player and panels | Guest, ordinary and legacy-discovery glass now have separate measured owners, and floating-player SVG geometry remains scoped. Remaining complete artwork/metadata, lyric fade/blur, queue rows and endpoint snapshot discontinuities are separate checks. |
+| Typography and symbols | Windows captures sampled Arial in Chromium's actual platform-font data. A CSS SF Pro name is not proof of rendering. Signed-out brand/copy/CTA geometry is closer, but heading/sidebar raster, CTA antialiasing and some icon contours remain visible; match them lawfully without distributing proprietary fonts. |
+| Player and panels | Guest, ordinary and legacy-discovery glass now have separate measured owners, and signed-out floating-player SVG geometry remains scoped and regression-covered. Remaining complete artwork/metadata, lyric fade/blur, queue rows and endpoint snapshot discontinuities are separate checks. |
 | Whole-flow and motion review | A carousel segment or deterministic two-step control is not automatic FLOW acceptance. Review every recorded intermediate state and applicable motion asset before sign-off. |
 
 ## Evidence interpretation
