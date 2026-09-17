@@ -71,7 +71,9 @@ async def all_playlists(page, context):
     star_box = await favourite_star.bounding_box()
     assert star_box and abs(star_box['x'] - 600.578125) < .05, star_box
     assert abs(star_box['y'] - 224.203125) < .05, star_box
-    assert abs(star_box['width'] - 9.171875) < .05 and abs(star_box['height'] - 8) < .05, star_box
+    # Chromium's system star advance is 9.171875 px on Windows and 10 px on Ubuntu.
+    assert min(abs(star_box['width'] - width) for width in (9.171875, 10)) < .05, star_box
+    assert abs(star_box['height'] - 8) < .05, star_box
     star_style = await favourite_star.evaluate(
         '(e)=>{const s=getComputedStyle(e);return [s.fontSize,s.lineHeight,s.color,s.transform,s.marginLeft]}')
     assert star_style == [
