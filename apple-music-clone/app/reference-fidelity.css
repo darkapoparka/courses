@@ -250,8 +250,11 @@
 .music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows { opacity:1; }
 .music-app:has(.capture-home[data-home-scrolled]) .capture-home > .music-section:first-of-type .rail-arrows .icon-button:last-child:disabled { visibility:hidden; }
 
-.music-app[data-source^="5b3ec96a"] .capture-search > .empty-state { transform:translateY(17px); }
-.music-app[data-source^="5b3ec96a"] .capture-search > .empty-state > svg { width:31px; height:31px; }
+.library-search-empty .search-field { padding-left:5px; padding-right:5px; color:rgb(106 106 106); }
+.library-search-empty .segmented button { padding:5px 11px; color:rgb(34 34 34); position:relative; top:-1px; }
+.library-search-empty > .empty-state { transform:translateY(17px); }
+.library-search-empty > .empty-state > svg { width:31px; height:31px; color:rgb(122 122 122); transform:translate(-2px,-1.5px) scale(1.29); transform-origin:center; }
+.library-search-empty > .empty-state > p { font-size:14.25px; line-height:22px; color:rgb(108 108 108); transform:translateY(-1.5px); }
 
 .editable-row input[type="checkbox"] { accent-color:var(--accent); width:13px; height:13px; }
 .music-app:has(.editable-row) .library-section-label > button { color:#222; font-weight:600; }

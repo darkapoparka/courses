@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-17 for the verified All Playlists screen match on top of `b08f480`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-18 for the verified Search library-empty match on top of `cc4ed59`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: All Playlists now removes the source-absent sort control, restores the live Favourite Songs star, and verifies both cards and browser-Back/player continuity through real controls. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed. `8a2a4241` improved from `1.589619 / 1.174711%` to `1.554882 / 1.138720%`; 148 states were byte-identical. [Dated review](reference-review/2026-09-17-all-playlists-match.md). `MATCH-8a2a4241` is genuinely signed off; no FLOW box advanced. No courses/community adaptation.
+Implementation checkpoint: the Your Library empty Search state now owns its live sidebar/navigation, field, segmented control and empty-state geometry instead of source-specific fixture compensation. The complete real-control Search journey is registered and passes. Optimized production passed 159 desktop states, five responsive samples, 218 route checks and 67 interaction regressions, zero failures. All 159 exact-size comparisons completed. `5b3ec96a` improved from `2.036646 / 1.349898%` to `1.873896 / 1.203088%`; 148 states were byte-identical. [Dated review](reference-review/2026-09-18-search-library-empty-match.md). `MATCH-5b3ec96a` is genuinely signed off; no FLOW box advanced. Existing `MATCH-8a2a4241` remains accepted. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,7 +13,7 @@ Implementation checkpoint: All Playlists now removes the source-absent sort cont
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **1 / 159** |
+| Exact visual matches genuinely signed off | **2 / 159** |
 | Full recorded flows genuinely signed off | **0 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
@@ -23,7 +23,7 @@ Implementation checkpoint: All Playlists now removes the source-absent sort cont
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md). Evidence root: `D:\courses-main-evidence\all-playlists-full-20260917-204127\`; final directories are `browser`, `comparison` and `worsened-review`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. One MATCH box advanced; FLOW remains 0/58. Preceding Viral Chart, discovery typography, signed-out Home/player, release/material, sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
+The latest verified evidence is in the [Search library empty-state review](reference-review/2026-09-18-search-library-empty-match.md). Evidence root: `D:\courses-main-evidence\search-empty-current-full-20260918-001110\`; final directories include `browser`, `comparison-baseline` and `worsened-review-baseline`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. `MATCH-5b3ec96a` advanced; FLOW remains 0/58. The preceding [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md) and all earlier evidence remain preserved.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -784,7 +784,8 @@ Check catalog/library scope, suggestions, recent searches, category ordering and
 <a id="screen-5b3ec96a"></a>
 
 - [x] **UI-5b3ec96a — Search — library scope, empty state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-5b3ec96a — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-5b3ec96a — Exact screenshot match verified.**
+  - 2026-09-18: Live Your Library empty-state ownership, exact toolbar/empty geometry, All Playlists-only navigation, complete readable source/render review and the real-control Search regression are verified. MAE `2.036646 → 1.873896`; over-20 `1.349898% → 1.203088%`. [Evidence](reference-review/2026-09-18-search-library-empty-match.md).
   - [Reference image](../apple-music-clone/reference/originals/5b3ec96a-2ba2-4798-b03e-07e82e3bc7a7.webp) · [Open app state](http://127.0.0.1:6435/screen/5b3ec96a-2ba2-4798-b03e-07e82e3bc7a7) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-4b515439"></a>
@@ -1269,6 +1270,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/watching-a-music-video?step=0). Sequence: [1: edae3407](#screen-edae3407) → [2: 898ca766](#screen-898ca766) → [3: a4afd6e6](#screen-a4afd6e6)
 
 - [ ] **FLOW-6c5d545e — 27. Search (4 steps).** Complete and verify the recorded journey.
+  - 2026-09-18: The complete real-control sequence and ordered captures now pass, but `e72be564`, `035569a0` and `812ba627` remain visually incomplete; FLOW stays unchecked. [Evidence](reference-review/2026-09-18-search-library-empty-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/search?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 035569a0](#screen-035569a0) → [3: 812ba627](#screen-812ba627) → [4: 5b3ec96a](#screen-5b3ec96a)
 
 - [ ] **FLOW-638262c8 — 28. Searching Apple Music (4 steps).** Complete and verify the recorded journey.

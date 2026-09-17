@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-17 for the verified All Playlists screen match on `J:\courses/main`.
+Updated 2026-09-18 for the verified Search library-empty match on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,36 +18,34 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified runtime candidate was captured from a coherent All Playlists working tree on top of `b08f480d781dca2cf4ab07effb13fafbfba69f3f`. It preserves the Viral Chart repair while finishing the lowest-residual All Playlists screen.
+The verified runtime candidate was captured from the Search library-empty working tree on top of `cc4ed594fbc0d57e1bf86befeae94507b5d42e95`. It preserves the accepted All Playlists screen while moving `5b3ec96a` from fixture-specific compensation to live Search state ownership.
 
-The implementation owners are `components/music-library.tsx`, `components/music-browse.tsx` and the scoped `.library-playlists .card-favourite-star` rule in `app/reference-fidelity.css`. The playlists page no longer exposes the source-absent sort control, and the live Favourite Songs title now includes the source-supported red star. `scripts/browser_library_flows.py` asserts the exact marker box and no-sort state, then exercises both cards, hover overlay, browser Back and idle-player continuity without state injection or force clicks.
+The implementation owners are `components/music-search.tsx`, `components/apple-music-app.tsx`, `lib/reference-chrome.ts` and the scoped `.library-search-empty` rules in `app/reference-fidelity.css`. The empty Your Library state now shows only All Playlists, owns exact field/segmented/empty-state geometry, and preserves sidebar, footer and idle-player continuity. `scripts/browser_library_flows.py` traverses all four archived Search steps through real controls, then verifies scope round-trips, suggestions, Escape focus return, Enter submission, results and Clear.
 
-The [dated All Playlists review](reference-review/2026-09-17-all-playlists-match.md) records complete source/render/difference review, exact geometry, real-control evidence, hashes, optimized corpus and the acceptance decision. The preceding [Viral Chart review](reference-review/2026-09-17-viral-chart-rows-controls.md), [discovery typography review](reference-review/2026-09-17-discovery-typography-symbols.md), [signed-out Home review](reference-review/2026-09-16-signed-out-home-typography-controls.md) and [release-edition review](reference-review/2026-09-16-release-editions-legacy-player.md) remain authoritative for their separate batches.
+The [dated Search review](reference-review/2026-09-18-search-library-empty-match.md) records source/render/difference review, exact geometry, hashes, real-control evidence, corpus review and acceptance. The preceding [All Playlists review](reference-review/2026-09-17-all-playlists-match.md), [Viral Chart review](reference-review/2026-09-17-viral-chart-rows-controls.md) and earlier reviews remain authoritative for their batches.
 
-Optimized build `dFlvWryUZwJWmsR7eTkrO` captured implementation SHA-256 `e8da27db78b49e403934367588beb0718596344e68de25c47dd16c09c659c6e6` and tooling SHA-256 `3901dacf36807efbb46d9328f73c35efa1115b64c17ab66056138001ecdcfe36`.
+Optimized build `2dDDJQCONN7SjE62vhe7p` captured implementation SHA-256 `063592d771133f06810d593cc78698a2f354c1634b4206d99ad98891a626fddb` and tooling SHA-256 `6e0c450aa520aa7169b7b4d76f31c07aec4725b5aab31551b05a7255553d83e8`.
 
-- 159 desktop states, five responsive states, 218 route checks and 66 interaction regressions: zero failures.
-- Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed. Corpus mean MAE changed `5.262063176 → 5.262080975`; mean over-20 improved `5.353007481% → 5.352900105%`.
-- All Playlists `8a2a4241` improved `1.589619478 → 1.554882388` MAE and `1.174710840% → 1.138719700%` over-20.
-- 148 states were byte-identical and eleven render hashes changed. All eight states with a positive delta in either metric were reviewed source/baseline/current/candidate-change; seven were image-decoder variation and `e757eb0f` gained the same source-supported Favourite Songs star.
-- `MATCH-8a2a4241` is genuinely checked after full-frame/card/sidebar/player review and real-control verification. `FLOW-b49a8505` stays open because its initial `e72be564` New state is not MATCH-complete.
+- 159 desktop states, five responsive states, 218 route checks and 67 interaction regressions: zero failures.
+- Archive/coverage, typecheck, five Python QA-tool tests and nine Node cover-integrity tests passed.
+- All 159 exact-size comparisons completed. Corpus mean MAE improved `5.262081 â†’ 5.260985`; mean over-20 improved `5.352900% â†’ 5.351792%`.
+- Search library empty `5b3ec96a` improved `2.036646 â†’ 1.873896` MAE and `1.349898% â†’ 1.203088%` over-20.
+- 148 states were byte-identical and eleven render hashes changed. Six positive-delta states were reviewed source/baseline/current/candidate-change; every changed pixel stayed below 20 levels and no concrete regression was found.
+- `MATCH-5b3ec96a` is genuinely checked. `FLOW-6c5d545e` stays open because `e72be564`, `035569a0` and `812ba627` are not MATCH-complete.
 
-Evidence: `D:\courses-main-evidence\all-playlists-full-20260917-204127\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, `delta-summary.json`, the complete gallery and `worsened-review\`. Focused real-control evidence is under `all-playlists-controls-20260917-203652`.
-
-The previous shared typography evidence remains under `D:\courses-main-evidence\shared-typography-20260917-013440\`; signed-out Home evidence under `signedout-home-player-20260916-202908`; release/material evidence under `release-final-151-20260916-090731`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; and Alpha material evidence under `alpha-continuation-final-20260915`.
+Evidence: `D:\courses-main-evidence\search-empty-current-full-20260918-001110\verification-summary.json`, `browser\results.json`, `comparison-baseline\metrics.json` / `index.html`, `delta-summary.json`, the complete gallery and `worsened-review-baseline\`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Listener PID `34596` is the verified Next child of PID `27224`, launched by project shell PID `12412`; HTTP 200, `[data-reference-ready="true"]`, scene hydration and absence of an error overlay were verified. The optimized audit used `http://127.0.0.1:6437/` from build `dFlvWryUZwJWmsR7eTkrO` and was stopped after verification. Port 6431 is retired/stopped. Port 3000 remains untouched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Listener PID `37312` is the Next child of PID `20764`, launched by project shell PID `15444`; that shell is owned by Desktop Commander PID `23456` (remote relay PID `25040`). HTTP 200, `[data-reference-ready="true"]`, hydrated `new` scene, non-empty body and absence of a framework error overlay were verified. The optimized audit used port 6437 from build `2dDDJQCONN7SjE62vhe7p` and its exact listener was stopped after verification. Ports 6431 and 6437 are stopped; port 3000 was not touched.
 
-Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: has approximately 35.76 GB free and D: has approximately 8.10 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
+Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: has approximately 35.60 GB free and D: has approximately 7.09 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
 
 ## Honest acceptance status
 
 **UI implemented/renderable: 159 / 159**
 
-**MATCH genuinely signed off: 1 / 159**
+**MATCH genuinely signed off: 2 / 159**
 
 **Complete recorded FLOW genuinely signed off: 0 / 58**
 

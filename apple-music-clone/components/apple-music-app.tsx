@@ -67,7 +67,8 @@ function MusicShell() {
   // the user navigates. A first-frame fixture must not hide saved playlists forever.
   useEffect(() => { if (m.scene.page !== initialPage) revealPlaylists(true); }, [m.scene.page, initialPage]);
   const [initialPlaylistCount] = useState(m.library.playlists.length);
-  const showPlaylists = fixturePlaylists || m.library.playlists.length > initialPlaylistCount;
+  const hideEmptyLibrarySearchPlaylists = m.scene.page === "search" && m.scene.scope === "library" && !(m.scene.query ?? "").trim();
+  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (fixturePlaylists || m.library.playlists.length > initialPlaylistCount);
   const sourcePrefix = m.scene.source?.slice(0, 8);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const loginOffer = m.scene.flow === "logging-in" || ["3131018d", "417f6129", "6aa4a9d7", "4e65c7c6", "97de6907"].includes(sourcePrefix ?? "");

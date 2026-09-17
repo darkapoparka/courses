@@ -1,8 +1,22 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-17 for the verified All Playlists screen match. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-18 for the verified Search library-empty match. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest All Playlists screen-match findings
+## Latest Search library-empty screen-match findings
+
+The saved `5b3ec96a` frame is the empty Your Library scope: one All Playlists sidebar entry, a measured search field and segmented control, a centered search glyph/label, the ordinary footer and an idle player. Those facts now belong to live Search state rather than a source-specific navigation fixture.
+
+`recorded-search` traverses New â†’ Search top â†’ Search bottom â†’ Your Library through visible controls, preserves four ordered captures, verifies scroll reset and player continuity, then exercises scope round-trips, suggestions, Escape focus return, Enter submission, results and Clear. The journey is complete, but FLOW remains open because the first three archived frames are not MATCH-complete.
+
+Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 67 interaction regressions, zero failures. All 159 exact-size comparisons completed. `5b3ec96a` improved `2.036646 â†’ 1.873896` MAE and `1.349898% â†’ 1.203088%` over-20. Corpus mean improved `5.262081 â†’ 5.260985` MAE and `5.352900% â†’ 5.351792%` over-20.
+
+The complete source, render, difference, toolbar, segmented control, empty state, sidebar, footer and player were reviewed at 1440Ã—903. Strings, geometry, state ownership and controls match; remaining pixels are lawful Windows text/SVG raster and tiny image-decoder edges without a concrete visible product discrepancy. `MATCH-5b3ec96a` is checked.
+
+148 states were byte-identical and eleven render hashes changed. Six positive-delta states had no baseline-to-candidate channel difference above 19 and no changed pixel above 20; readable sheets show artwork/player decode-edge variation only. No unintended geometry, copy, state, session or control regression was found.
+
+The [dated review](reference-review/2026-09-18-search-library-empty-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the FLOW blocker. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+
+## Previous All Playlists screen-match findings
 
 The immutable All Playlists frame contains two live playlist cards, no sort control and a small red star after `Favourite Songs`. The implementation now owns those facts through `components/music-library.tsx`, `components/music-browse.tsx` and the narrowly scoped `.library-playlists .card-favourite-star` rule. The star remains live text inside the existing title button; no interface pixels or hidden hit targets are used.
 

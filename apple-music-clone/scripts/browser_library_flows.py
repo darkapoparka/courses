@@ -130,7 +130,110 @@ async def favourite_songs(page, context):
     await expect(page.get_by_role('heading', name='Favourite Songs', exact=False)).to_be_visible()
     await record(page, journey, 'bde65d33', 'Open Favourite Songs from the sidebar')
 
+async def recorded_search(page, context):
+    journey = '6c5d545e-search'
+    await begin(page, journey)
+
+    navigation = page.get_by_role('navigation', name='Browse music', exact=True)
+    player = page.locator('.floating-player')
+    player_signature = await player.evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]')
+
+    await navigation.get_by_role('button', name='Search', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'search')
+    await expect(page.get_by_role('heading', name='Recently Searched', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='Apple Music', exact=True)).to_have_attribute('aria-pressed', 'true')
+    await page.locator('.capture-search [data-art-source]').first.wait_for()
+    await page.evaluate(r"""async () => {
+      const urls = [...new Set([...document.querySelectorAll('.capture-search [data-art-source]')].map(element => {
+        const match = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+        return match?.[1];
+      }).filter(Boolean))];
+      await Promise.all(urls.map(url => new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = resolve; image.onerror = reject; image.src = url;
+        if (image.complete) image.decode().then(resolve, reject);
+      })));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }""")
+    playlists = page.get_by_role('navigation', name='Playlists', exact=True)
+    assert await playlists.get_by_role('button').all_text_contents() == [
+        'All Playlists', 'Favourite Songs', 'Emotional Songs']
+    await record(page, journey, '035569a0', 'Open Search through the visible sidebar control')
+
+    main = page.locator('.music-main')
+    await main.hover()
+    await page.mouse.wheel(0, 5000)
+    await page.wait_for_timeout(150)
+    scroll = await main.evaluate('(e)=>[e.scrollTop,e.scrollHeight,e.clientHeight]')
+    assert abs(scroll[0] - (scroll[1] - scroll[2])) < 1, scroll
+    await expect(page.get_by_text('Mandopop', exact=True)).to_be_visible()
+    await record(page, journey, '812ba627', 'Scroll the real Search surface to its recorded bottom state')
+
+    await page.get_by_role('button', name='Your Library', exact=True).click()
+    await expect(page.get_by_role('button', name='Your Library', exact=True)).to_have_attribute('aria-pressed', 'true')
+    empty = page.locator('.capture-search > .empty-state')
+    await expect(empty.locator(':scope > p')).to_have_text('Search in Library')
+    await expect(page.locator('.capture-search')).to_have_class(
+        'page-content search-page capture-search library-search-results short-page library-search-empty')
+    assert await main.evaluate('(e)=>e.scrollTop') == 0
+    assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists']
+
+    search_field = page.locator('.search-field')
+    field_box = await search_field.bounding_box()
+    assert field_box and abs(field_box['x'] - 590) < .05 and abs(field_box['y'] - 13) < .05, field_box
+    assert abs(field_box['width'] - 508) < .05 and abs(field_box['height'] - 33) < .05, field_box
+    glyph_box = await search_field.locator(':scope > svg').bounding_box()
+    assert glyph_box and abs(glyph_box['x'] - 595) < .05 and abs(glyph_box['y'] - 22) < .05, glyph_box
+
+    segmented = page.locator('.segmented')
+    segmented_box = await segmented.bounding_box()
+    assert segmented_box and abs(segmented_box['x'] + segmented_box['width'] - 1418) < .05, segmented_box
+    assert abs(segmented_box['y'] - 12.5) < .05 and abs(segmented_box['height'] - 34) < .05, segmented_box
+    assert 187 <= segmented_box['width'] <= 190.5, segmented_box
+
+    svg_box = await empty.locator(':scope > svg').bounding_box()
+    text_box = await empty.locator(':scope > p').bounding_box()
+    assert svg_box and abs(svg_box['x'] - 822.0050048828125) < .06, svg_box
+    assert abs(svg_box['y'] - 323.0050048828125) < .06 and abs(svg_box['width'] - 39.989990234375) < .06, svg_box
+    assert text_box and abs(text_box['x'] + text_box['width'] / 2 - 844) < .06, text_box
+    assert abs(text_box['y'] - 371.5) < .06 and abs(text_box['height'] - 22) < .06, text_box
+    assert 107 <= text_box['width'] <= 112.5, text_box
+    styles = await empty.evaluate("(e)=>{const svg=getComputedStyle(e.querySelector(':scope > svg'));const text=getComputedStyle(e.querySelector(':scope > p'));return [svg.color,svg.transform,text.fontSize,text.lineHeight,text.color,text.transform]}")
+    assert styles == ['rgb(122, 122, 122)', 'matrix(1.29, 0, 0, 1.29, -2, -1.5)',
+                      '14.25px', '22px', 'rgb(108, 108, 108)', 'matrix(1, 0, 0, 1, 0, -1.5)'], styles
+    assert await player.evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
+    await record(page, journey, '5b3ec96a', 'Switch to Your Library through the sticky real control')
+
+    await page.get_by_role('button', name='Apple Music', exact=True).click()
+    await expect(page.get_by_role('heading', name='Recently Searched', exact=True)).to_be_visible()
+    assert await playlists.get_by_role('button').all_text_contents() == [
+        'All Playlists', 'Favourite Songs', 'Emotional Songs']
+    await page.get_by_role('button', name='Your Library', exact=True).click()
+    await expect(empty.locator(':scope > p')).to_have_text('Search in Library')
+
+    field = page.get_by_label('Search Apple Music', exact=True)
+    await field.fill('Olivia')
+    suggestions = page.get_by_role('listbox', name='Search suggestions', exact=True)
+    await expect(suggestions).to_be_visible()
+    await expect(field).to_have_attribute('aria-expanded', 'true')
+    await field.press('Escape')
+    await expect(suggestions).to_have_count(0)
+    await expect(field).to_be_focused()
+    await field.press('Enter')
+    await expect(page.get_by_role('heading', name='Songs', exact=True)).to_be_visible()
+    await expect(page.locator('.library-result-songs .song-row')).to_have_count(4)
+    await page.get_by_role('button', name='Clear search', exact=True).click()
+    await expect(field).to_have_value('')
+    await expect(empty.locator(':scope > p')).to_have_text('Search in Library')
+    assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists']
+    assert await player.evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
+
+
 CASES = [('recorded-library-artists', artists), ('recorded-library-albums', albums),
          ('recorded-library-songs', songs), ('recorded-library-videos', music_videos),
          ('recorded-all-playlists', all_playlists), ('recorded-playlist-detail', playlist_detail),
-         ('recorded-suggested-song', suggested_song), ('recorded-favourite-songs', favourite_songs)]
+         ('recorded-suggested-song', suggested_song), ('recorded-favourite-songs', favourite_songs),
+         ('recorded-search', recorded_search)]
