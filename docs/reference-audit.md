@@ -1,8 +1,23 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-17 for the verified Viral Chart row and real-control checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-17 for the verified All Playlists screen match. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest Viral Chart row and real-control findings
+## Latest All Playlists screen-match findings
+
+The immutable All Playlists frame contains two live playlist cards, no sort control and a small red star after `Favourite Songs`. The implementation now owns those facts through `components/music-library.tsx`, `components/music-browse.tsx` and the narrowly scoped `.library-playlists .card-favourite-star` rule. The star remains live text inside the existing title button; no interface pixels or hidden hit targets are used.
+
+The registered `recorded-all-playlists` case traverses New → All Playlists through the visible sidebar, records both ordered states, checks the exact star box and no-sort state, then hovers/opens Emotional Songs, returns with browser Back, opens Favourite Songs, returns again and proves idle-player continuity. The extra card checks do not convert the archived flow into acceptance because initial New screen `e72be564` remains visibly incomplete.
+
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed. All Playlists `8a2a4241` improved from `1.589619 / 1.174711%` to `1.554882 / 1.138720%` MAE / over-20.
+
+The complete immutable source, optimized render, amplified difference, card/title, sidebar and player regions were reviewed at the exact 1440 × 903 viewport. Card order, artwork, strings, geometry, scroll, sidebar/profile state and idle player match the saved frame. Remaining pixels are limited to lawful platform text/SVG antialiasing and image decoding without a concrete visible product discrepancy. `MATCH-8a2a4241` is therefore checked.
+
+Corpus mean MAE changed `5.262063176 → 5.262080975`; mean over-20 improved `5.353007481% → 5.352900105%`. 148 states were byte-identical and 11 render hashes changed. Seven positive-delta states were only readable artwork/image decode variation; `e757eb0f` gained the same source-supported Favourite Songs star. No unintended geometry, copy, state, session or control regression was found.
+
+The [dated review](reference-review/2026-09-17-all-playlists-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the reason `FLOW-b49a8505` remains open. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+
+## Previous Viral Chart row and real-control findings
+
 
 The saved Viral Chart uses a tighter desktop table than the preceding candidate: 39 px artwork, measured column starts, a higher header baseline, inset separators, subtler metadata ink, a smaller dark-red favourite star and different duration/More geometry. These details are now owned by desktop-scoped selectors beneath `.chart-page > .chart-table`; the live `music-chart-schedule.tsx` component and immutable source archive remain unchanged.
 
@@ -92,6 +107,6 @@ A continuous journey starts at its permitted first fixture and then uses real co
 
 ## Current acceptance boundary
 
-The preserved checklist reports UI 159/159, MATCH 0/159 and FLOW 0/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
+The preserved checklist reports UI 159/159, MATCH 1/159 and FLOW 0/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
 
 Earlier detailed observations remain in [library controls](reference-review/2026-09-12-library-controls.md), [library panels](reference-review/2026-09-12-library-panels.md), [sidebar geometry](reference-review/2026-09-12-sidebar.md), [the source ledger](reference-review/ledger.md), and the [pre-Astra audit](history/pre-astra-2026-09-12/docs/reference-audit.md).

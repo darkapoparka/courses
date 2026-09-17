@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-17 for the verified discovery typography and live-symbol checkpoint on top of `8d8fa37`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The duplicate preview worktree remains retired; port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-17 for the verified All Playlists screen match on top of `b08f480`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
 
-Implementation checkpoint: shared New/Home/Chart typography now uses source-measured lawful Windows compensation, and the viral heading uses the existing live star SVG instead of a text star. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed; corpus mean MAE changed by `-0.046009` and mean over-20 residual by `-0.026096` percentage points. Forty-six states improved in MAE; 105 were byte-identical; eight max-one-channel drifts had no readable regression. [Dated review](reference-review/2026-09-17-discovery-typography-symbols.md). These are not visual sign-offs. No courses/community adaptation.
+Implementation checkpoint: All Playlists now removes the source-absent sort control, restores the live Favourite Songs star, and verifies both cards and browser-Back/player continuity through real controls. Optimized production passed 159 desktop captures, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed. `8a2a4241` improved from `1.589619 / 1.174711%` to `1.554882 / 1.138720%`; 148 states were byte-identical. [Dated review](reference-review/2026-09-17-all-playlists-match.md). `MATCH-8a2a4241` is genuinely signed off; no FLOW box advanced. No courses/community adaptation.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: shared New/Home/Chart typography now uses source-meas
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual match | Pending screen-by-screen sign-off; not inferred from rendering |
-| Full recorded flow completion | Pending end-to-end sign-off; not inferred from route existence |
+| Exact visual matches genuinely signed off | **1 / 159** |
+| Full recorded flows genuinely signed off | **0 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: shared New/Home/Chart typography now uses source-meas
 
 ## Current finalization evidence
 
-The latest source and stable evidence hashes are in the [discovery typography and live-symbol review](reference-review/2026-09-17-discovery-typography-symbols.md). Evidence root: `D:\courses-main-evidence\shared-typography-20260917-013440\`; final directories are `browser` and `comparison`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and the readable worsened-state review. The optimized corpus has zero failures. No MATCH/FLOW box advanced. Preceding signed-out Home/player, release/material, sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
+The latest source and stable evidence hashes are in the [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md). Evidence root: `D:\courses-main-evidence\all-playlists-full-20260917-204127\`; final directories are `browser`, `comparison` and `worsened-review`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. One MATCH box advanced; FLOW remains 0/58. Preceding Viral Chart, discovery typography, signed-out Home/player, release/material, sidebar, lyrics/queue and Alpha evidence remains preserved under its original non-overwritten roots.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -999,7 +999,8 @@ Check the initial three songs, vampire insertion/replacement, list counts, neste
 <a id="screen-8a2a4241"></a>
 
 - [x] **UI-8a2a4241 — All Playlists — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-8a2a4241 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-8a2a4241 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-17: Removed the source-absent sort control, restored the live Favourite Songs star at the exact source box, reviewed full-frame/card/sidebar/player evidence and verified both cards plus Back/player continuity through real controls. Optimized target improved `1.589619 / 1.174711%` to `1.554882 / 1.138720%`. [Evidence](reference-review/2026-09-17-all-playlists-match.md).
   - [Reference image](../apple-music-clone/reference/originals/8a2a4241-7833-471f-b5e4-72f89d71412b.webp) · [Open app state](http://127.0.0.1:6435/screen/8a2a4241-7833-471f-b5e4-72f89d71412b) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-a573d1ab"></a>
@@ -1338,6 +1339,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 - [ ] **FLOW-b49a8505 — 47. All playlists (2 steps).** Complete and verify the recorded journey.
   - 2026-09-12 bounded review: New to All Playlists is exercised through the real sidebar. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
+  - 2026-09-17: The ordered New → All Playlists path passes through the real sidebar, and the strengthened case proves both cards, browser Back and idle-player continuity. FLOW remains open because initial screen `e72be564` is not yet MATCH-complete. [Evidence](reference-review/2026-09-17-all-playlists-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/all-playlists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 8a2a4241](#screen-8a2a4241)
 
 - [ ] **FLOW-c12bd09a — 48. Playlist detail (2 steps).** Complete and verify the recorded journey.

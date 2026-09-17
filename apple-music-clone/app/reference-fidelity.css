@@ -26,6 +26,7 @@
 .open-music-icon > svg { width:11px; height:11px; }
 .open-music > svg:last-child { width:9px; height:9px; }
 .music-app[data-source^="f2e44e3b"] .library-section-label > button { opacity:1; color:#222; }
+.library-playlists .card-favourite-star { display:inline-block; margin-left:0; font-size:11px; line-height:8px; color:rgb(172 8 24); vertical-align:baseline; transform:translateY(-1px); }
 .chart-page > .chart-table .favourite-marker { display:flex; color:#bc0023; opacity:.95; }
 .chart-page > .chart-table .favourite-marker svg { width:9px; height:9px; fill:currentColor; }
 .chart-page > h1 { font-size:33px; line-height:41px; }

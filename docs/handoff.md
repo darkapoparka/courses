@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-17 for the verified Viral Chart row and real-control checkpoint on `J:\courses/main`.
+Updated 2026-09-17 for the verified All Playlists screen match on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,37 +18,36 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The verified runtime candidate was captured from a coherent Viral Chart working tree on top of `8aabf6d651852ef467e2d83dbf12c232058963a1`. It retains the preceding discovery typography/live-symbol repair while tightening the real chart table and proving the chart's actual controls.
+The verified runtime candidate was captured from a coherent All Playlists working tree on top of `b08f480d781dca2cf4ab07effb13fafbfba69f3f`. It preserves the Viral Chart repair while finishing the lowest-residual All Playlists screen.
 
-The active implementation owner is `app/reference-fidelity.css`, scoped beneath `.chart-page > .chart-table` at the desktop breakpoint. `components/music-chart-schedule.tsx` remains the live chart owner and was not rewritten. `scripts/browser_discovery_shelves.py` now asserts exact table/header/row geometry and traverses play, favourite, More/Escape focus return, unavailable playback, artist/album navigation, browser Back and player continuity without fixture jumping, state injection or force clicks.
+The implementation owners are `components/music-library.tsx`, `components/music-browse.tsx` and the scoped `.library-playlists .card-favourite-star` rule in `app/reference-fidelity.css`. The playlists page no longer exposes the source-absent sort control, and the live Favourite Songs title now includes the source-supported red star. `scripts/browser_library_flows.py` asserts the exact marker box and no-sort state, then exercises both cards, hover overlay, browser Back and idle-player continuity without state injection or force clicks.
 
-The [dated Viral Chart review](reference-review/2026-09-17-viral-chart-rows-controls.md) records source/render/difference review, exact geometry, real-control evidence, hashes, optimized corpus and remaining blockers. The preceding [discovery typography review](reference-review/2026-09-17-discovery-typography-symbols.md), [signed-out Home review](reference-review/2026-09-16-signed-out-home-typography-controls.md) and [release-edition review](reference-review/2026-09-16-release-editions-legacy-player.md) remain authoritative for their separate batches.
+The [dated All Playlists review](reference-review/2026-09-17-all-playlists-match.md) records complete source/render/difference review, exact geometry, real-control evidence, hashes, optimized corpus and the acceptance decision. The preceding [Viral Chart review](reference-review/2026-09-17-viral-chart-rows-controls.md), [discovery typography review](reference-review/2026-09-17-discovery-typography-symbols.md), [signed-out Home review](reference-review/2026-09-16-signed-out-home-typography-controls.md) and [release-edition review](reference-review/2026-09-16-release-editions-legacy-player.md) remain authoritative for their separate batches.
 
-Optimized build `34gwP38nRlIk-xYO0T56Z` captured implementation SHA-256 `0e06ee9cd9a83db22aa3dc3de305e2d484745e3ed076bc0473eb8720e8ec5d81` and tooling SHA-256 `51589d159f3da5351bddfaff8a3b7c552d5772300900f6957eb938de12c50a91`.
+Optimized build `dFlvWryUZwJWmsR7eTkrO` captured implementation SHA-256 `e8da27db78b49e403934367588beb0718596344e68de25c47dd16c09c659c6e6` and tooling SHA-256 `3901dacf36807efbb46d9328f73c35efa1115b64c17ab66056138001ecdcfe36`.
 
 - 159 desktop states, five responsive states, 218 route checks and 66 interaction regressions: zero failures.
 - Archive/coverage, typecheck and optimized build passed; five Python QA-tool and nine Node cover-integrity tests also passed.
-- All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.263068 → 5.262063`; mean over-20 changed `5.353294% → 5.353007%`.
-- Viral Chart `8a234785` improved `3.865631 → 3.751661` MAE and `3.643103% → 3.585118%` over-20.
-- 146 states were byte-identical. Thirteen render hashes changed: the intended chart repair, seven max-one-channel variations, one max-two-channel variation and four artwork/video decode variations.
-- All six states with a positive delta in either metric were reviewed source/baseline/current/candidate-change; none exposed a readable geometry, copy, state or control regression.
-- The strengthened registered journey enters from New through the real chart heading, plays an available row, preserves an unavailable row, round-trips favourite, verifies More/Escape focus, navigates artist/album and returns with player continuity. No MATCH or FLOW box was checked.
+- All 159 exact-size comparisons completed. Corpus mean MAE changed `5.262063176 → 5.262080975`; mean over-20 improved `5.353007481% → 5.352900105%`.
+- All Playlists `8a2a4241` improved `1.589619478 → 1.554882388` MAE and `1.174710840% → 1.138719700%` over-20.
+- 148 states were byte-identical and eleven render hashes changed. All eight states with a positive delta in either metric were reviewed source/baseline/current/candidate-change; seven were image-decoder variation and `e757eb0f` gained the same source-supported Favourite Songs star.
+- `MATCH-8a2a4241` is genuinely checked after full-frame/card/sidebar/player review and real-control verification. `FLOW-b49a8505` stays open because its initial `e72be564` New state is not MATCH-complete.
 
-Evidence: `D:\courses-main-evidence\viral-chart-full-20260917-055328\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, `delta-summary.json`, the complete gallery and `worsened-review\`. Focused evidence remains under `viral-chart-focused-20260917-054929` and `viral-chart-source-backed-20260917-055053`.
+Evidence: `D:\courses-main-evidence\all-playlists-full-20260917-204127\verification-summary.json`, `browser\results.json`, `comparison\metrics.json` / `index.html`, `delta-summary.json`, the complete gallery and `worsened-review\`. Focused real-control evidence is under `all-playlists-controls-20260917-203652`.
 
 The previous shared typography evidence remains under `D:\courses-main-evidence\shared-typography-20260917-013440\`; signed-out Home evidence under `signedout-home-player-20260916-202908`; release/material evidence under `release-final-151-20260916-090731`; lyrics/queue continuity under `lyrics-queue-first-entry-final-20260915-024103`; and Alpha material evidence under `alpha-continuation-final-20260915`.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. The optimized audit used `http://127.0.0.1:6437/` from build `34gwP38nRlIk-xYO0T56Z` and was stopped after verification; the canonical development preview was restored on 6435. Port 6431 is retired/stopped. Port 3000 belongs to another project and must not be touched.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Listener PID `34596` is the verified Next child of PID `27224`, launched by project shell PID `12412`; HTTP 200, `[data-reference-ready="true"]`, scene hydration and absence of an error overlay were verified. The optimized audit used `http://127.0.0.1:6437/` from build `dFlvWryUZwJWmsR7eTkrO` and was stopped after verification. Port 6431 is retired/stopped. Port 3000 remains untouched.
 
-Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: had approximately 39.73 GB free and D: had approximately 8.37 GB free; no cleanup command was run by this agent. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
+Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: has approximately 35.76 GB free and D: has approximately 8.10 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
 
 ## Honest acceptance status
 
 **UI implemented/renderable: 159 / 159**
 
-**MATCH genuinely signed off: 0 / 159**
+**MATCH genuinely signed off: 1 / 159**
 
 **Complete recorded FLOW genuinely signed off: 0 / 58**
 

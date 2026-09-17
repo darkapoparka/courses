@@ -60,8 +60,47 @@ async def all_playlists(page, context):
     journey = 'b49a8505-all-playlists'
     await begin(page, journey)
     await navigate(page, 'All Playlists', 'playlists', 'Playlists')
-    assert await page.locator('.library-grid .card-title').all_text_contents() == ['Emotional Songs', 'Favourite Songs']
+    titles = page.locator('.library-grid .card-title')
+    assert await titles.count() == 2
+    assert [await titles.nth(index).evaluate('(e)=>e.firstChild?.textContent') for index in range(2)] == [
+        'Emotional Songs', 'Favourite Songs']
+    await expect(page.locator('.library-sort')).to_have_count(0)
+    favourite_star = titles.nth(1).locator('.card-favourite-star')
+    await expect(favourite_star).to_have_text('★')
+    await expect(favourite_star).to_have_attribute('aria-hidden', 'true')
+    star_box = await favourite_star.bounding_box()
+    assert star_box and abs(star_box['x'] - 600.578125) < .05, star_box
+    assert abs(star_box['y'] - 224.203125) < .05, star_box
+    assert abs(star_box['width'] - 9.171875) < .05 and abs(star_box['height'] - 8) < .05, star_box
+    star_style = await favourite_star.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.fontSize,s.lineHeight,s.color,s.transform,s.marginLeft]}')
+    assert star_style == [
+        '11px', '8px', 'rgb(172, 8, 24)', 'matrix(1, 0, 0, 1, 0, -1)', '0px'], star_style
     await record(page, journey, '8a2a4241', 'Select All Playlists from the sidebar')
+
+    player_signature = await page.locator('.floating-player').evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]')
+    emotional_art = page.locator('[data-card-id=emotional] .card-art-button')
+    await emotional_art.hover()
+    await expect(emotional_art.locator('.card-play')).to_have_css('opacity', '1')
+    await emotional_art.click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'playlist')
+    await expect(page.get_by_role('heading', name='Emotional Songs', exact=True)).to_be_visible()
+    await page.go_back(wait_until='networkidle')
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'playlists')
+    assert await page.locator('.floating-player').evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
+
+    favourite_title = page.locator('[data-card-id=favourites] .card-title')
+    await favourite_title.click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'favourites')
+    await expect(page.get_by_role('heading', name='Favourite Songs', exact=False)).to_be_visible()
+    await page.go_back(wait_until='networkidle')
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'playlists')
+    await expect(page.locator('.library-sort')).to_have_count(0)
+    await expect(page.locator('.card-favourite-star')).to_be_visible()
+    assert await page.locator('.floating-player').evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
 
 async def playlist_detail(page, context):
     journey = 'c12bd09a-playlist-detail'
