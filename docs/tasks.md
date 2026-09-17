@@ -115,6 +115,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-8a234785 — Viral chart — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-8a234785 — Finish and verify the exact screenshot match.**
+  - 2026-09-17: Scoped chart-row geometry, artwork insets, header/metadata baselines, row rules, favourite/More symbols and real-control coverage improve MAE `3.865631 → 3.751661` and over-20 `3.643103% → 3.585118%`. Readable platform typography/SVG, sidebar/player and smaller artwork residuals still block MATCH. [Evidence](reference-review/2026-09-17-viral-chart-rows-controls.md).
   - 2026-09-17: The real chart star and heading geometry reduce whole-frame MAE `4.399940 → 3.865631` and over-20 `3.885582% → 3.643103%`. Table typography, row copy/artwork and player differences still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - [Reference image](../apple-music-clone/reference/originals/8a234785-f0b4-4200-8f3f-2eecf2b77708.webp) · [Open app state](http://127.0.0.1:6435/screen/8a234785-f0b4-4200-8f3f-2eecf2b77708) · [Component](../apple-music-clone/components/music-chart-schedule.tsx)
 

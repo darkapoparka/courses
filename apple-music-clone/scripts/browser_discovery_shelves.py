@@ -342,6 +342,79 @@ async def discovery_typography_symbols(page, context):
     chart_star_style = await chart_star.evaluate(
         '(e)=>{const s=getComputedStyle(e);return [s.strokeWidth,s.transform]}')
     assert chart_star_style == ['2.3px', 'matrix(1, 0, 0, 1, 0, -0.5)'], chart_star_style
+    chart_table = page.locator('.chart-page > .chart-table')
+    table_box = await chart_table.bounding_box()
+    assert table_box and abs(table_box['x'] - 286) < .05, table_box
+    assert abs(table_box['y'] - 97) < .05 and abs(table_box['width'] - 1116) < .05, table_box
+    header = chart_table.locator('.track-table-head')
+    header_box = await header.bounding_box()
+    assert header_box and abs(header_box['height'] - 28) < .05, header_box
+    header_transform = await header.locator(':scope > span').first.evaluate(
+        '(e)=>getComputedStyle(e).transform')
+    assert header_transform == 'matrix(1, 0, 0, 1, 0, -2)', header_transform
+    header_cells = header.locator(':scope > span')
+    assert await header_cells.count() == 4
+    header_boxes = [await header_cells.nth(index).bounding_box() for index in range(4)]
+    expected_columns = [292, 683.90625, 968.734375, 1309]
+    assert all(header_boxes), header_boxes
+    for box, expected_x in zip(header_boxes, expected_columns):
+        assert abs(box['x'] - expected_x) < .05, (box, expected_x)
+
+    first_row = chart_table.locator('.track-table-row').first
+    row_box = await first_row.bounding_box()
+    assert row_box and abs(row_box['y'] - 125) < .05, row_box
+    assert abs(row_box['height'] - 51.5) < .05, row_box
+    art_box = await first_row.locator('.table-art').bounding_box()
+    assert art_box and abs(art_box['x'] - 292) < .05, art_box
+    assert abs(art_box['width'] - 39) < .05 and abs(art_box['height'] - 39) < .05, art_box
+    title_box = await first_row.locator('.table-song-title').bounding_box()
+    assert title_box and abs(title_box['x'] - 342) < .05, title_box
+    artist_box = await first_row.locator('.table-text-link').nth(0).bounding_box()
+    album_box = await first_row.locator('.table-text-link').nth(1).bounding_box()
+    time_box = await first_row.locator('.track-time').bounding_box()
+    more_button_box = await first_row.locator(':scope > .icon-button').bounding_box()
+    assert artist_box and abs(artist_box['x'] - expected_columns[1]) < .05, artist_box
+    assert album_box and abs(album_box['x'] - expected_columns[2]) < .05, album_box
+    assert time_box and abs(time_box['x'] - expected_columns[3]) < .05, time_box
+    assert more_button_box and abs(more_button_box['x'] - 1356) < .05, more_button_box
+    assert abs(more_button_box['width'] - 28) < .05, more_button_box
+
+    favourite = chart_table.locator('.favourite-marker[aria-pressed=true]').first
+    favourite_style = await favourite.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.color,s.opacity]}')
+    assert favourite_style == ['rgb(188, 0, 35)', '0.95'], favourite_style
+    favourite_box = await favourite.locator('svg').bounding_box()
+    assert favourite_box and abs(favourite_box['width'] - 9) < .05, favourite_box
+    assert abs(favourite_box['height'] - 9) < .05, favourite_box
+    row_styles = await first_row.evaluate('''(e)=>{
+      const style = selector => getComputedStyle(e.querySelector(selector));
+      return [style('.table-song-title').color, style('.table-text-link').color,
+              style('.track-time').transform, style(':scope > .icon-button').color];
+    }''')
+    assert row_styles == [
+        'rgb(41, 41, 43)', 'rgb(107, 107, 112)',
+        'matrix(1, 0, 0, 1, 0, 1)', 'rgb(92, 92, 96)',
+    ], row_styles
+    more_box = await first_row.locator(':scope > .icon-button > svg').bounding_box()
+    assert more_box and abs(more_box['width'] - 17) < .05, more_box
+    rule_style = await first_row.evaluate(
+        "(e)=>{const s=getComputedStyle(e,'::after');return [s.left,s.right,s.bottom,s.height,s.backgroundColor]}")
+    assert rule_style == ['10px', '0px', '-1px', '1px', 'rgb(234, 234, 236)'], rule_style
+
+    unavailable = chart_table.locator('.track-table-row[data-unavailable=true]')
+    await expect(unavailable).to_have_count(1)
+    await expect(unavailable.locator('.table-song-title')).to_be_disabled()
+    await expect(unavailable.locator('.track-time')).to_be_empty()
+    explicit = unavailable.locator('.explicit')
+    explicit_box = await explicit.bounding_box()
+    explicit_style = await explicit.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.width,s.height,s.fontSize,s.lineHeight,s.borderRadius]}')
+    assert explicit_box and abs(explicit_box['width'] - 9) < .05, explicit_box
+    assert abs(explicit_box['height'] - 10) < .05, explicit_box
+    assert explicit_style == ['9px', '10px', '7px', '10px', '2px'], explicit_style
+    last_row_box = await chart_table.locator('.track-table-row').last.bounding_box()
+    assert last_row_box and abs(last_row_box['y'] - 846) < .05, last_row_box
+    assert abs(last_row_box['height'] - 51.5) < .05, last_row_box
     await record(page, 'discovery-typography-symbols', '8a234785',
                  'Open the chart through the real viral-section heading control')
 
@@ -356,6 +429,73 @@ async def discovery_typography_symbols(page, context):
     assert home_transform == 'matrix(0.99, 0, 0, 1, -0.5, 0)', home_transform
     await record(page, 'discovery-typography-symbols', 'a917d88f',
                  'Navigate through the real Home control and retain lawful section typography')
+
+
+    # Re-enter through visible controls before exercising the chart. The source-aligned
+    # captures above remain idle; the assertions below prove the live path without
+    # direct URL jumps, state injection or force clicks.
+    await navigation.get_by_role('button', name='New', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+    await page.locator('.viral-hits-section .section-link').click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'chart')
+    chart_table = page.locator('.chart-page > .chart-table')
+    first_row = chart_table.locator('.track-table-row').first
+    player = page.locator('.now-playing')
+
+    await first_row.get_by_role('button', name='Play drop dead', exact=True).click()
+    await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='Expand drop dead', exact=True)).to_be_visible()
+    await expect(player).to_contain_text('drop dead')
+    assert await page.locator('audio').evaluate('(element)=>element.paused'), 'Reference preview must stay silent'
+
+    favourite_control = first_row.get_by_role('button', name='Favourite drop dead', exact=True)
+    await expect(favourite_control).to_have_attribute('aria-pressed', 'false')
+    await favourite_control.click()
+    unfavourite_control = first_row.get_by_role('button', name='Unfavourite drop dead', exact=True)
+    await expect(unfavourite_control).to_have_attribute('aria-pressed', 'true')
+    await unfavourite_control.click()
+    await expect(favourite_control).to_have_attribute('aria-pressed', 'false')
+
+    more = first_row.get_by_role('button', name='More actions for drop dead', exact=True)
+    await more.click()
+    menu = page.get_by_role('menu', name='track actions', exact=True)
+    await expect(menu).to_be_visible()
+    assert await menu.get_by_role('menuitem').all_text_contents() == [
+        'Add to Library', 'Add to Playlist', 'Play Next', 'Play Last',
+        'Create Station', 'Favourite', 'View Credits', 'Share',
+        'Copy Link', 'Copy Embed Code',
+    ]
+    await page.keyboard.press('Escape')
+    await expect(menu).to_have_count(0)
+    await expect(more).to_be_focused()
+
+    unavailable = chart_table.locator('.track-table-row[data-unavailable=true]')
+    player_before = await player.get_attribute('aria-label')
+    assert player_before == 'Expand drop dead', player_before
+    await unavailable.get_by_role('button', name='Play Kiss It Better', exact=True).click()
+    await expect(player).to_have_attribute('aria-label', player_before)
+    await expect(player).to_contain_text('drop dead')
+
+    await first_row.locator('.table-text-link').nth(0).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'artist')
+    assert 'view=artist' in page.url, page.url
+    await expect(page.locator('h1').first).to_have_text('Olivia Rodrigo')
+    await expect(player).to_contain_text('drop dead')
+    await page.go_back(wait_until='networkidle')
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'chart')
+    await expect(player).to_contain_text('drop dead')
+
+    chart_table = page.locator('.chart-page > .chart-table')
+    await chart_table.locator('.track-table-row').first.locator('.table-text-link').nth(1).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'album')
+    assert 'view=album' in page.url, page.url
+    await expect(page.locator('h1').first).to_contain_text('you seem pretty sad for a girl so in love')
+    await expect(player).to_contain_text('drop dead')
+    await page.go_back(wait_until='networkidle')
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'chart')
+    await expect(player).to_contain_text('drop dead')
+    await page.get_by_role('button', name='Pause', exact=True).click()
+    await expect(page.get_by_role('button', name='Play', exact=True)).to_be_visible()
 
 
 CASES.append(('discovery-typography-symbols', discovery_typography_symbols))

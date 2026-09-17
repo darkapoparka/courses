@@ -1,20 +1,20 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-17 for the verified discovery typography and live-symbol checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-17 for the verified Viral Chart row and real-control checkpoint. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest discovery typography and live-symbol findings
+## Latest Viral Chart row and real-control findings
 
-The New family now uses measured, scoped Windows compensation for the English page heading and feature kicker/title/subtitle. The viral-section heading replaces the text character `☆` with the existing live star SVG while remaining a real button to the real Viral Chart. `Section` owns the optional glyph and real title span; Viral Chart and the first Home section retain live text/SVG owners with their own scoped geometry.
+The saved Viral Chart uses a tighter desktop table than the preceding candidate: 39 px artwork, measured column starts, a higher header baseline, inset separators, subtler metadata ink, a smaller dark-red favourite star and different duration/More geometry. These details are now owned by desktop-scoped selectors beneath `.chart-page > .chart-table`; the live `music-chart-schedule.tsx` component and immutable source archive remain unchanged.
 
-Focused readable review covered `e72be564`, `1f9e170c`, `8a234785` and `a917d88f`, plus 23 discovery states and all six Home states. The registered `discovery-typography-symbols` case traverses New → Viral Chart → New → Home through real controls, asserts the computed geometry, and preserves ordered non-overwriting captures plus `steps.jsonl`.
+The registered `discovery-typography-symbols` case now asserts table/header/row/badge/control geometry and then exercises the chart through real visible controls. It enters through New and the viral heading, plays `drop dead`, round-trips favourite, opens the exact ten-item More menu, verifies Escape focus return, preserves unavailable `Kiss It Better`, navigates to artist and album, returns with browser Back and preserves player continuity. No direct endpoint jump, injected state or force click is used as journey evidence.
 
-Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309077 → 5.263068` and mean over-20 changed `5.379391% → 5.353294%`.
+Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 66 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.263068 → 5.262063` and mean over-20 changed `5.353294% → 5.353007%`.
 
-Viral Chart `8a234785` improved `4.399940 → 3.865631` MAE and `3.885582% → 3.643103%` over-20. Initial New `e72be564` improved `4.319364 → 4.113135`; playing New `1f9e170c` improved `4.533112 → 4.282184`; and Home `a917d88f` improved `3.877053 → 3.833119` MAE. Forty-six states improved in MAE and 105 were byte-identical to the baseline. Eight tiny increases were max-one-channel drift with no pixel changing by more than one and no readable regression in the full contact-sheet review.
+Viral Chart `8a234785` improved `3.865631 → 3.751661` MAE and `3.643103% → 3.585118%` over-20. 146 states were byte-identical and thirteen render hashes changed. The non-target changes comprise seven max-one-channel variations, one max-two-channel variation and four artwork/video decode variations. All six states with a positive delta in either metric were reviewed source/baseline/current/candidate-change; no concrete artwork identity, geometry, copy, session, state or control regression was found.
 
-The [dated review](reference-review/2026-09-17-discovery-typography-symbols.md) records exact owners, hashes, focused sweeps, real-control evidence, measurements and remaining blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated review](reference-review/2026-09-17-viral-chart-rows-controls.md) records exact selectors, geometry, hashes, focused and optimized control evidence, full-corpus review and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
 
-Typography is closer, but feature/shelf metadata, artwork identity/crops, sidebar and row raster, player geometry/material, lower shelves and chart rows remain visible. The batch does not complete any screen or recorded journey, so MATCH and FLOW stay open.
+The chart is closer, but lawful heading/table/sidebar typography, SVG contour antialiasing, some row-artwork decoding, player symbols/material and smaller sidebar details remain visible. The batch does not complete any screen or archived journey, so MATCH and FLOW stay open.
 
 ## Previous signed-out Home typography and guest-player findings — historical
 

@@ -1,11 +1,11 @@
 {
   "candidate": {
-    "toolingSha256": "da997151082fbcde2c2c4e258c00685e34e2545fdb5a0e066a1ce8200d67d1e7",
-    "commit": "8d8fa3769a8fd8d6bb866b2311be137f084521a3",
+    "toolingSha256": "51589d159f3da5351bddfaff8a3b7c552d5772300900f6957eb938de12c50a91",
+    "commit": "8aabf6d651852ef467e2d83dbf12c232058963a1",
     "branch": "main",
-    "implementationSha256": "7a1d1b130025bd32bb7e4c2281b15fc4b54942028556462747a492db4ee291c9",
-    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/components/music-chart-schedule.tsx\n M apple-music-clone/components/music-discovery.tsx\n M apple-music-clone/components/music-primitives.tsx\n M apple-music-clone/scripts/browser_discovery_shelves.py",
-    "capturedAt": "2026-09-16T22:34:40.975532+00:00",
+    "implementationSha256": "0e06ee9cd9a83db22aa3dc3de305e2d484745e3ed076bc0473eb8720e8ec5d81",
+    "workingTree": "M apple-music-clone/app/reference-fidelity.css\n M apple-music-clone/scripts/browser_discovery_shelves.py",
+    "capturedAt": "2026-09-17T02:53:28.820144+00:00",
     "platform": "Windows-11-10.0.26200-SP0",
     "python": "3.13.15"
   },
@@ -31,8 +31,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 6.657168491858414,
       "over20Percent": 9.916635905007997,
-      "deltaMae": -0.22715587957836014,
-      "deltaOver20Percent": -0.11950904392764983
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "bc773ae9-a55f-495b-a49f-d5b683feee73",
@@ -41,7 +41,7 @@
         "height": 903
       },
       "sourceSha256": "7ed30b327a1a240ef9ce1c6437a1ae825598d6afc109f9d883ea978c6dfb93dd",
-      "renderSha256": "2aadd20cd8c58ca12cf881cbcfcc445644c23a29229d1b8a64eb2bf2df78afef",
+      "renderSha256": "c283b2a0bd817dee600acb179c23b3bf2c388f83548add3a89cebe209b9d3e6b",
       "crop": [
         0,
         0,
@@ -49,9 +49,9 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.047729789590255,
+      "mae": 7.04746088142406,
       "over20Percent": 9.739602559370002,
-      "deltaMae": 0.0002689081661948478,
+      "deltaMae": -0.0002689081661948478,
       "deltaOver20Percent": 0.0
     },
     {
@@ -71,8 +71,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 7.310916799967187,
       "over20Percent": 9.603712932201304,
-      "deltaMae": -0.19535242606948078,
-      "deltaOver20Percent": -0.10943460071366928
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "898ca766-3133-4e02-a186-00d62d3804e4",
@@ -81,7 +81,7 @@
         "height": 903
       },
       "sourceSha256": "e8ea03ccdb245cb743805ff2479d822db646a10f818273cbca6d682b79749ca2",
-      "renderSha256": "6bc1b871eed5e16b5ee2ea73d6f701f2b4fb4421f8a92b49a93e1d0d213e1009",
+      "renderSha256": "728bdd4666c9b99ead6e8a4453235a64ec9d945037fbb4b1ce171af2dbedcadd",
       "crop": [
         0,
         0,
@@ -89,10 +89,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.645018918420082,
-      "over20Percent": 9.570259628399164,
-      "deltaMae": 0.0016411344899722735,
-      "deltaOver20Percent": -0.00023071244001471314
+      "mae": 6.643377783930109,
+      "over20Percent": 9.570490340839179,
+      "deltaMae": -0.0016411344899722735,
+      "deltaOver20Percent": 0.00023071244001471314
     },
     {
       "screen": "32515da3-7507-463f-baad-a257cfed078b",
@@ -151,8 +151,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 7.501020518026332,
       "over20Percent": 9.494816660514335,
-      "deltaMae": -0.1951411960132896,
-      "deltaOver20Percent": -0.10820413436692533
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "96711b04-1b3e-4b9d-acbc-f84a3ee05b47",
@@ -301,7 +301,7 @@
         "height": 903
       },
       "sourceSha256": "4c07236e9bbedb7b6c5247f8a465b1c261d9bbf405f10d3e8d983c96bfa9b8cb",
-      "renderSha256": "adc068635c3919840658483319a246be4db112560eac9098a4ae430d944df312",
+      "renderSha256": "66084c51a4ea16af6865c04b990e544fea1071571b352926a4e6bfa4cccd1ff2",
       "crop": [
         0,
         0,
@@ -309,10 +309,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 7.124046132234117,
-      "over20Percent": 9.021471637750707,
-      "deltaMae": 0.0010376932857552035,
-      "deltaOver20Percent": 0.0005383290267015894
+      "mae": 7.123008438948362,
+      "over20Percent": 9.020933308724006,
+      "deltaMae": -0.0010376932857552035,
+      "deltaOver20Percent": -0.0005383290267015894
     },
     {
       "screen": "70566e85-0ab4-4f53-9ca6-7c3e5cb12d3f",
@@ -361,7 +361,7 @@
         "height": 903
       },
       "sourceSha256": "e5541f6c7b5691fb9f2635dc5d3c91afe14ba9d53aa86697d6590f3772526299",
-      "renderSha256": "315a1bfd79ec5113b91ffa65148f353b150c1bb9e7df24bf2f2aabb6bb50d54a",
+      "renderSha256": "a7c2fd447bdacc0c27ca2c0af9df731035af0d55c17ecce5980c0d84e70a4d65",
       "crop": [
         0,
         0,
@@ -369,9 +369,9 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.540218305237685,
+      "mae": 6.539962214429269,
       "over20Percent": 8.663098314261104,
-      "deltaMae": 0.00025609080841615395,
+      "deltaMae": -0.00025609080841615395,
       "deltaOver20Percent": 0.0
     },
     {
@@ -451,8 +451,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 6.470579293302161,
       "over20Percent": 8.284960625076904,
-      "deltaMae": -0.19458979328165427,
-      "deltaOver20Percent": -0.11220314999384762
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "b0caf02f-21b6-4334-9304-ac9f62defebc",
@@ -601,7 +601,7 @@
         "height": 903
       },
       "sourceSha256": "d2c3f6f0e45c55cb1b335abb8ad7c4f3f7498855a00a5e446d096b14c40597f6",
-      "renderSha256": "e15a3a7748be4f6404233bf4b3d77fbe5875db7dc7a04e86331bac88158e32c1",
+      "renderSha256": "b96100426201cf8ed0f32c8bd4766bb71cf87cc91e97fc6319199e8eea0a1389",
       "crop": [
         0,
         0,
@@ -609,10 +609,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 6.185586624830811,
-      "over20Percent": 7.887827611664822,
-      "deltaMae": 0.00038528977482510385,
-      "deltaOver20Percent": 0.0
+      "mae": 6.1792404946474715,
+      "over20Percent": 7.890134736064969,
+      "deltaMae": -0.006346130183339405,
+      "deltaOver20Percent": 0.0023071244001471314
     },
     {
       "screen": "3c1805b6-47bd-43d5-a5c3-8f6109e7ae97",
@@ -831,8 +831,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.829561184939092,
       "over20Percent": 7.074873877199458,
-      "deltaMae": -0.1847306816783565,
-      "deltaOver20Percent": -0.08282576596530156
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "e1069ba9-2687-468c-bdb9-b81733b7be0f",
@@ -901,7 +901,7 @@
         "height": 903
       },
       "sourceSha256": "595cf4db27c9db8692cd0d9afd3ba372393617b27367e0ed8cb921d9da6e3510",
-      "renderSha256": "d5babacc65f34441b589df3c0b3fab2354a9478319b4ae91fe8cdee268d3a79b",
+      "renderSha256": "851f4ece2054a066142802b785e2f0f6a467b52ea139163c27274f389e7cc33d",
       "crop": [
         0,
         0,
@@ -909,10 +909,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.0258259505352525,
-      "over20Percent": 6.787329272794389,
-      "deltaMae": 0.0019510582010582311,
-      "deltaOver20Percent": 7.690414667127499e-05
+      "mae": 5.023874892334194,
+      "over20Percent": 6.787252368647717,
+      "deltaMae": -0.0019510582010582311,
+      "deltaOver20Percent": -7.690414667127499e-05
     },
     {
       "screen": "be864051-c59b-4676-a3c4-643fc136616d",
@@ -931,8 +931,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.622109942168081,
       "over20Percent": 6.728805217177309,
-      "deltaMae": -0.08113490012714841,
-      "deltaOver20Percent": -0.03168450842869497
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "0c6da10e-2903-4869-aea9-34ae60cc5c20",
@@ -981,7 +981,7 @@
         "height": 903
       },
       "sourceSha256": "c941c31d7e94716c0d572ce370d756c00fe37d665407e9bc30fadb0bd4298d92",
-      "renderSha256": "c4ce0211d063684be235eb70aa8ef8bb55acb67b37129d13437135455ca69f67",
+      "renderSha256": "8032fbfa2fcba48baea7b154e4725208daf03757ee0d9224def69318ade54440",
       "crop": [
         0,
         0,
@@ -989,10 +989,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.365807134654034,
-      "over20Percent": 6.625522948197367,
-      "deltaMae": 0.0015006562487185349,
-      "deltaOver20Percent": -0.0005383290267015894
+      "mae": 5.364306478405315,
+      "over20Percent": 6.626061277224069,
+      "deltaMae": -0.0015006562487185349,
+      "deltaOver20Percent": 0.0005383290267015894
     },
     {
       "screen": "f3fc07c5-f37c-4cbd-a025-1af76704f538",
@@ -1081,7 +1081,7 @@
         "height": 903
       },
       "sourceSha256": "b015bf0810777e03d97b1d3871c7747df61cadd149e0df6dd69938fcb3d3edd1",
-      "renderSha256": "e272a45574633aec5317a98ba2ea73e6f7d78050e6042a106bb94d07ac06a83c",
+      "renderSha256": "7f3235cb0c68bd83c9616ddb161c8e9a0ee112c341c44bfb7e33d89093bdade6",
       "crop": [
         0,
         0,
@@ -1089,10 +1089,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.342230630408925,
-      "over20Percent": 6.31490709979082,
-      "deltaMae": 0.0,
-      "deltaOver20Percent": 0.0
+      "mae": 4.341279582461753,
+      "over20Percent": 6.321443952257906,
+      "deltaMae": -0.0009510479471721567,
+      "deltaOver20Percent": 0.006536852467085907
     },
     {
       "screen": "812ba627-9cf5-4fb2-a508-1fedce206994",
@@ -1131,8 +1131,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.554954421475739,
       "over20Percent": 6.263381321520857,
-      "deltaMae": -0.05839049874902624,
-      "deltaOver20Percent": -0.07105943152454763
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "ffc18eb8-5cbb-4e01-b066-867308585f5f",
@@ -1151,8 +1151,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.902443614798427,
       "over20Percent": 6.163194444444445,
-      "deltaMae": -0.1256747275483443,
-      "deltaOver20Percent": -0.06598758603736421
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "3728aa07-f749-4edd-8c9f-f2f606649f04",
@@ -1171,8 +1171,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.88914008726647,
       "over20Percent": 6.152362954768928,
-      "deltaMae": -0.1257361828089154,
-      "deltaOver20Percent": -0.0662180432645032
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "3131018d-35b8-4527-a6fe-384fbe950fe7",
@@ -1191,8 +1191,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.313643564661007,
       "over20Percent": 6.0983450227636276,
-      "deltaMae": -0.058077755219227534,
-      "deltaOver20Percent": -0.07182847299126305
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "fc5d84bd-aeee-420d-aef0-7c1681d8f1c2",
@@ -1211,8 +1211,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.537206551130777,
       "over20Percent": 5.990351524090462,
-      "deltaMae": -0.12252053629957427,
-      "deltaOver20Percent": -0.058382497541789036
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "d5173715-ea54-4801-837c-2a40ec9df2af",
@@ -1231,8 +1231,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.42215403387884,
       "over20Percent": 5.950150732127477,
-      "deltaMae": -0.0439412349780568,
-      "deltaOver20Percent": -0.017841762027808628
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "9105a602-1d41-4e20-a694-fc62c1bbda0d",
@@ -1261,7 +1261,7 @@
         "height": 904
       },
       "sourceSha256": "9c415903de224d8bafa6b57703b84fe809979135419f1d52f2cb670a57bdddff",
-      "renderSha256": "166a733772ed23dba87449b762dd606491cb2b9e69a8eb8d060e7a7625410978",
+      "renderSha256": "2eafa5283beb1f555ff0578193cfc991cfbd7afbc1f96fe6bec7c40d68ac2c5b",
       "crop": [
         0,
         0,
@@ -1269,9 +1269,9 @@
         904
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.453548273107178,
+      "mae": 4.422892084562439,
       "over20Percent": 5.781941371681416,
-      "deltaMae": 0.0,
+      "deltaMae": -0.030656188544739393,
       "deltaOver20Percent": 0.0
     },
     {
@@ -1351,8 +1351,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.1545155551454,
       "over20Percent": 5.63468992248062,
-      "deltaMae": -0.05826591403141812,
-      "deltaOver20Percent": -0.07436630983142667
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "0c042c32-f6d8-48b2-b2b0-0e43106fd67c",
@@ -1361,7 +1361,7 @@
         "height": 903
       },
       "sourceSha256": "f42f7c387f79c335637a0d32877e7a2d67a5b83a4888f45670ca3fe703895ec7",
-      "renderSha256": "467a968132e806ae5db75ca3d72dc8647d64149e7298d53c14b4664db222849e",
+      "renderSha256": "5fe0024a22f3764329fa690f711878e1635695ff731003a266ec396a08c49fd5",
       "crop": [
         0,
         0,
@@ -1369,10 +1369,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.975464501045896,
-      "over20Percent": 5.611541774332472,
-      "deltaMae": 0.0013012181616831597,
-      "deltaOver20Percent": -0.00015380829334343815
+      "mae": 5.974163282884213,
+      "over20Percent": 5.611695582625815,
+      "deltaMae": -0.0013012181616831597,
+      "deltaOver20Percent": 0.00015380829334343815
     },
     {
       "screen": "95ae6a8f-cc7b-4594-8ec6-05e1936ad1a1",
@@ -1391,8 +1391,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.437420532381773,
       "over20Percent": 5.601159714531807,
-      "deltaMae": -0.22231271276813924,
-      "deltaOver20Percent": -0.1064353389934789
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "e4dad439-32c1-4a28-954c-1d945b9e37e8",
@@ -1411,8 +1411,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.47792927894672,
       "over20Percent": 5.594392149624708,
-      "deltaMae": -0.22228912882982677,
-      "deltaOver20Percent": -0.10666605143349273
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "eebd5ffb-0edf-4662-a583-a6c7c73d38e5",
@@ -1431,8 +1431,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.0956464562569215,
       "over20Percent": 5.5908545588778145,
-      "deltaMae": -0.05824284278741665,
-      "deltaOver20Percent": -0.07452011812476922
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "cbbdc344-c1ba-4774-b90b-c70e276dec6d",
@@ -1451,8 +1451,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 5.512452319429063,
       "over20Percent": 5.584548418850745,
-      "deltaMae": -0.22228912882982677,
-      "deltaOver20Percent": -0.10666605143349273
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "6ac70c34-9db0-4ca6-9a2d-c6ca902eb663",
@@ -1471,8 +1471,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 6.704168461096756,
       "over20Percent": 5.582933431770641,
-      "deltaMae": -0.2277344551084859,
-      "deltaOver20Percent": -0.10728128460686559
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "bdc56e10-b108-4247-85a8-749f706e94bb",
@@ -1481,7 +1481,7 @@
         "height": 903
       },
       "sourceSha256": "0c27f977e326b3aff6c0e6a27b16c0185ddab1ea44ee6926d0512fa6a6453e35",
-      "renderSha256": "b13c339dfb41f284eba7beb6d881f23e7ac7c49bd266a6d4be1ee1a8055ad4aa",
+      "renderSha256": "c95f5f9f5736732b2017c0900c5a823ea438dcc8748885cad91b2dc835e9bdc9",
       "crop": [
         0,
         0,
@@ -1489,10 +1489,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 5.229603738566917,
-      "over20Percent": 5.485265165497723,
-      "deltaMae": -0.058096212214429066,
-      "deltaOver20Percent": -0.07305893933800967
+      "mae": 5.228729338419261,
+      "over20Percent": 5.485188261351052,
+      "deltaMae": -0.0008744001476559404,
+      "deltaOver20Percent": -7.690414667127499e-05
     },
     {
       "screen": "8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f",
@@ -1531,8 +1531,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.8456877281489685,
       "over20Percent": 5.434969853574505,
-      "deltaMae": -0.05807724252491653,
-      "deltaOver20Percent": -0.07298203519133661
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "ee751367-0aad-4762-b7c3-52724efe5656",
@@ -1551,8 +1551,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.985164933759895,
       "over20Percent": 5.297772855912391,
-      "deltaMae": -0.05831359460235408,
-      "deltaOver20Percent": -0.0716746646979205
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "e757eb0f-2d7c-48e6-a37f-54ce600c0a8f",
@@ -1591,8 +1591,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.512945531356384,
       "over20Percent": 5.251553463762766,
-      "deltaMae": -0.25077160493827133,
-      "deltaOver20Percent": -0.11689430294081493
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "a4afd6e6-eddb-4263-b7eb-5be73f8f2b03",
@@ -1631,8 +1631,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.390860454862393,
       "over20Percent": 5.188030638612034,
-      "deltaMae": -0.20216946597760543,
-      "deltaOver20Percent": -0.09743755383290242
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "9fbb38e1-269a-431e-8f51-deb9bea70744",
@@ -1651,8 +1651,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.502844684385382,
       "over20Percent": 5.1568844592100405,
-      "deltaMae": -0.25095207333579417,
-      "deltaOver20Percent": -0.11527931586071105
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "1e5b4763-6664-4fc0-871d-3b7c9a03853e",
@@ -1691,8 +1691,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.2821841290349045,
       "over20Percent": 5.058754768057094,
-      "deltaMae": -0.2509274640088588,
-      "deltaOver20Percent": -0.11658668635412806
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "468b0465-74be-480a-b303-cbbafc496c73",
@@ -1731,8 +1731,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.416236259792461,
       "over20Percent": 5.049526270456503,
-      "deltaMae": -0.2504880849842097,
-      "deltaOver20Percent": -0.11650978220745678
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "cd34d1ac-4edf-48aa-80f8-28565046d465",
@@ -1751,8 +1751,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.708807575571141,
       "over20Percent": 5.047142241909683,
-      "deltaMae": -0.057869601328904174,
-      "deltaOver20Percent": -0.0724437061646368
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "11803c64-693e-4f2d-8c3e-576691601b2b",
@@ -1771,8 +1771,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.289598457815512,
       "over20Percent": 5.021840777654731,
-      "deltaMae": -0.25098744924326244,
-      "deltaOver20Percent": -0.1167404946474715
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "4e65c7c6-1268-4720-9509-6acfb97dd34f",
@@ -1791,8 +1791,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.377833661457692,
       "over20Percent": 4.9933093392395715,
-      "deltaMae": -0.058746308600960084,
-      "deltaOver20Percent": -0.07490463885812737
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01",
@@ -1811,8 +1811,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.623284524834912,
       "over20Percent": 4.992771010212871,
-      "deltaMae": -0.05804084122882536,
-      "deltaOver20Percent": -0.07359726836470948
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "ad689c37-d388-40c5-b490-ddf9eb7a9a49",
@@ -1831,8 +1831,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.42131808580452,
       "over20Percent": 4.982388950412206,
-      "deltaMae": -0.2508920881013905,
-      "deltaOver20Percent": -0.11812476928755977
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "97de6907-6131-4688-ab0d-34e81e99e379",
@@ -1851,8 +1851,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.367853041302654,
       "over20Percent": 4.981081579918789,
-      "deltaMae": -0.05851713424387839,
-      "deltaOver20Percent": -0.0742894056847545
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "d83e96ba-2976-4612-9441-f941d67b6f31",
@@ -1871,8 +1871,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.427771369098888,
       "over20Percent": 4.9756982896517785,
-      "deltaMae": -0.2507659653008494,
-      "deltaOver20Percent": -0.11735572782084347
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "56c2e39a-126a-4ac8-a51c-2b5a98b0a40f",
@@ -1911,8 +1911,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.749245826668307,
       "over20Percent": 4.848037406176941,
-      "deltaMae": -0.22231271276813924,
-      "deltaOver20Percent": -0.1064353389934789
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "a229e38a-189e-417d-89a2-937c80ccb3b5",
@@ -1931,8 +1931,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.859693254993642,
       "over20Percent": 4.843346253229974,
-      "deltaMae": -0.22230245888191646,
-      "deltaOver20Percent": -0.10597391411344859
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "f49fce21-d9a7-4c97-9e2e-bae95924e5d4",
@@ -1971,8 +1971,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.3177540913006025,
       "over20Percent": 4.782207456626061,
-      "deltaMae": -0.05883295393954313,
-      "deltaOver20Percent": -0.0722129937246212
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "e027fe6d-4556-4638-9b51-12b4970cd85d",
@@ -1991,8 +1991,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 6.1534711968336,
       "over20Percent": 4.760059062384644,
-      "deltaMae": -0.2297521635699935,
-      "deltaOver20Percent": -0.10997292974037087
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "e72be564-1f7a-4448-9568-f239af3233ed",
@@ -2011,8 +2011,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.113135484598663,
       "over20Percent": 4.72452934662237,
-      "deltaMae": -0.20622897953324237,
-      "deltaOver20Percent": -0.09497662113941097
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "06a34864-602c-4163-b552-1bf12d426aba",
@@ -2051,8 +2051,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.086400527049752,
       "over20Percent": 4.4581333825519875,
-      "deltaMae": -0.044031981871129666,
-      "deltaOver20Percent": -0.018303186907838054
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "3731221f-497f-40a3-b00a-30abfe3766da",
@@ -2061,7 +2061,7 @@
         "height": 903
       },
       "sourceSha256": "d066c557f8a724aa17fbadb401ab564a093ff0cc557762762280dfb4705dd7b9",
-      "renderSha256": "9270dddaca18438e0fac019b1029c807ad05bb9efc7a73703caa60f1747ec6f3",
+      "renderSha256": "4505e14fca1990d144874a61190ba5792f9ba5fa3e9cae0c4323ee01d5e9fcf7",
       "crop": [
         0,
         0,
@@ -2069,10 +2069,10 @@
         903
       ],
       "excluded": "120px acquisition footer only",
-      "mae": 4.691373405520692,
-      "over20Percent": 4.380537098560355,
-      "deltaMae": -0.20723591116033013,
-      "deltaOver20Percent": -0.10135966531315344
+      "mae": 4.692366494401378,
+      "over20Percent": 4.383843976867233,
+      "deltaMae": 0.000993088880686166,
+      "deltaOver20Percent": 0.003306878306878147
     },
     {
       "screen": "f2e44e3b-cb93-4607-a0bf-6e38aa56019d",
@@ -2091,8 +2091,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.456667333169271,
       "over20Percent": 4.276101267380337,
-      "deltaMae": -0.22409535088798638,
-      "deltaOver20Percent": -0.10674295558016489
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "50fe374b-43b5-403d-962e-b072bf58d5e1",
@@ -2151,8 +2151,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 4.143681298962306,
       "over20Percent": 4.1047588285960375,
-      "deltaMae": -0.22413380296132246,
-      "deltaOver20Percent": -0.10766580534022463
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "a917d88f-d15a-4f53-92d3-1daecf59d05f",
@@ -2171,8 +2171,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 3.833119283458431,
       "over20Percent": 4.012550756736803,
-      "deltaMae": -0.04393354456338949,
-      "deltaOver20Percent": -0.017841762027808628
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "706de500-7231-4d8d-9820-89fac6c8aaac",
@@ -2231,8 +2231,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 3.7104799844140928,
       "over20Percent": 3.80906238464378,
-      "deltaMae": -0.05871964849678024,
-      "deltaOver20Percent": -0.0731358434846805
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "99af3033-b3bc-489e-951d-9d68077d5a1f",
@@ -2251,8 +2251,8 @@
       "excluded": "120px acquisition footer only",
       "mae": 3.599550879783438,
       "over20Percent": 3.768918420081211,
-      "deltaMae": -0.05870119150157915,
-      "deltaOver20Percent": -0.07290513104466578
+      "deltaMae": 0.0,
+      "deltaOver20Percent": 0.0
     },
     {
       "screen": "5044abe5-979b-464c-bf96-8c5c99c1b24b",
@@ -2275,26 +2275,6 @@
       "deltaOver20Percent": 0.0
     },
     {
-      "screen": "8a234785-f0b4-4200-8f3f-2eecf2b77708",
-      "viewport": {
-        "width": 1440,
-        "height": 903
-      },
-      "sourceSha256": "4b3cdf25b3e0b13648f856bf6df30bbee66c02f42f459555972f0e67551c0e53",
-      "renderSha256": "1e8480a9e0126209ed23d2dc943f263d130adabaf320f8ea075b99be189d0d7d",
-      "crop": [
-        0,
-        0,
-        1440,
-        903
-      ],
-      "excluded": "120px acquisition footer only",
-      "mae": 3.865630511463845,
-      "over20Percent": 3.643103236126492,
-      "deltaMae": -0.5343092469545958,
-      "deltaOver20Percent": -0.24247877445551858
-    },
-    {
       "screen": "6436de36-bec0-483d-b9a5-5bb9793c211e",
       "viewport": {
         "width": 1440,
@@ -2313,6 +2293,26 @@
       "over20Percent": 3.611726344284484,
       "deltaMae": 0.0,
       "deltaOver20Percent": 0.0
+    },
+    {
+      "screen": "8a234785-f0b4-4200-8f3f-2eecf2b77708",
+      "viewport": {
+        "width": 1440,
+        "height": 903
+      },
+      "sourceSha256": "4b3cdf25b3e0b13648f856bf6df30bbee66c02f42f459555972f0e67551c0e53",
+      "renderSha256": "69ef8fd70fa07d0a4c8c2e94d0a04e766820fe71fe3df3661f698ae462c5504e",
+      "crop": [
+        0,
+        0,
+        1440,
+        903
+      ],
+      "excluded": "120px acquisition footer only",
+      "mae": 3.7516611295681064,
+      "over20Percent": 3.585117509536114,
+      "deltaMae": -0.11396938189573858,
+      "deltaOver20Percent": -0.05798572659037804
     },
     {
       "screen": "bbb92581-a59e-46ef-add7-3dd0e625eb27",

@@ -26,10 +26,27 @@
 .open-music-icon > svg { width:11px; height:11px; }
 .open-music > svg:last-child { width:9px; height:9px; }
 .music-app[data-source^="f2e44e3b"] .library-section-label > button { opacity:1; color:#222; }
-.chart-page > .chart-table .favourite-marker { display:flex; }
-.chart-page > .chart-table .favourite-marker svg { fill:currentColor; }
+.chart-page > .chart-table .favourite-marker { display:flex; color:#bc0023; opacity:.95; }
+.chart-page > .chart-table .favourite-marker svg { width:9px; height:9px; fill:currentColor; }
 .chart-page > h1 { font-size:33px; line-height:41px; }
 .chart-page > h1 > svg { width:32.5px; height:32.5px; stroke-width:2.3; transform:translateY(-.5px); flex:none; }
+@media (min-width:1181px) {
+ .chart-page > .chart-table .track-table-head,
+ .chart-page > .chart-table .track-table-row { grid-template-columns:35.5% 25.8% minmax(0,1fr) 47px 40px; }
+ .chart-page > .chart-table .table-art { width:39px; height:39px; margin-right:11px; }
+ .chart-page > .chart-table .track-table-head > span { transform:translateY(-2px); }
+ .chart-page > .chart-table .table-text-link,
+ .chart-page > .chart-table .track-time { transform:translateY(1px); }
+ .chart-page > .chart-table .table-song-title { color:rgb(41 41 43); }
+ .chart-page > .chart-table .table-text-link { color:rgb(107 107 112); }
+ .chart-page > .chart-table .track-table-row > .icon-button { color:rgb(92 92 96); }
+ .chart-page > .chart-table .track-table-row > .icon-button > svg { width:17px; }
+ .chart-page > .chart-table .track-table-head,
+ .chart-page > .chart-table .track-table-row { position:relative; border-bottom-color:transparent; }
+ .chart-page > .chart-table .track-table-head::after,
+ .chart-page > .chart-table .track-table-row::after { content:""; position:absolute; left:10px; right:0; bottom:-1px; height:1px; background:#eaeaec; pointer-events:none; }
+ .chart-page > .chart-table .track-table-head::after { background:#e5e5e7; }
+}
 .viral-hits-section > h2 { height:22px; display:flex; align-items:flex-start; }
 .viral-hits-section .section-link { height:22px; gap:4px; }
 .viral-hits-section .section-title-text { display:inline-block; transform:scaleX(.98); transform-origin:top left; }
