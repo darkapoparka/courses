@@ -49,9 +49,4 @@
     content: "He";
     font-size: 16px;
   }
-
-  /* Only the frozen e72 frame records Shabang's live hover control. */
-  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) .viral-grid .song-row:nth-child(6) .art-play) {
-    display: grid;
-  }
 }
