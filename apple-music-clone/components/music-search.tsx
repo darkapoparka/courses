@@ -23,6 +23,10 @@ export function SearchView() {
   const isOlivia = query.trim().toLowerCase().startsWith("olivia");
   const results = allTracks.filter(track => (scope !== "library" || m.library.songs.includes(track.id)) && (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && `${track.title} ${track.artist} ${track.album}`.toLowerCase().includes(query.trim().toLowerCase()));
   const update = (changes: { query?: string; scope?: "catalog" | "library" }, submit = false) => {
+    if (changes.scope !== undefined || submit) {
+      document.getElementById("music-main")?.scrollTo({ top: 0 });
+      setAtBottom(false);
+    }
     m.patch({ ...changes, filled: false, empty: false });
     const next = { query, scope, ...changes };
     const search = new URLSearchParams({ view: "search" });
