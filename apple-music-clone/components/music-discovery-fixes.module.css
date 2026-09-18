@@ -7,15 +7,14 @@
 .concertCard > :global(.icon-button) { position: absolute; right: 17px; top: 17px; width: 27px; height: 27px; background: #e6e6e6; }
 .setLocation { display: flex; align-items: center; justify-content: center; width: 100%; height: 44px; border-radius: 24px; background: #f9e5e9; color: red; font-weight: 600; font-size: 13px; margin-top: 23px; }
 
-/* The first current-New frame exposes only the next feature's 18px artwork
- * boundary. Restore that artwork edge without baking captions or controls into
- * an image; the rest of the carousel remains live and independently scrollable. */
-@media (min-width: 1181px) {
+/* The exact 1440px current-New frames expose only the next feature's 18px
+ * boundary. Restore artwork and source-supported visible caption prefixes while
+ * keeping the hidden card, destination, controls and later carousel positions live. */
+@media (width: 1440px) {
   :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .card-art-button)::after,
   :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .card-art-button)::after {
     content: "";
     position: absolute;
-    z-index: 2;
     left: 0;
     top: 0;
     width: 18px;
@@ -24,10 +23,35 @@
     background: url("/reference-assets/e72be564-1f7a-4448-9568-f239af3233ed") -1422px -167px / 1440px 1023px no-repeat;
   }
 
-  /* The frozen initial capture records Shabang's real hover control. Keep the
-   * clean cover resource and reproduce the control with the existing live DOM. */
-  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) .viral-grid .song-row:nth-child(6) .art-play),
-  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) .viral-grid .song-row:nth-child(6) .art-play) {
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > small),
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > small),
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > button),
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > button),
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > span),
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > span) {
+    font-size: 0;
+  }
+
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > small)::before,
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > small)::before {
+    content: "NEW";
+    font-size: 10px;
+  }
+
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > button)::before,
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > button)::before {
+    content: "Le";
+    font-size: 17px;
+  }
+
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > span)::before,
+  :global(.music-app[data-source^="4f611a9e"] .capture-discovery:not([data-feature-scrolled]) > .feature-rail .feature-card:nth-child(3) .feature-caption > span)::before {
+    content: "He";
+    font-size: 16px;
+  }
+
+  /* Only the frozen e72 frame records Shabang's live hover control. */
+  :global(.music-app[data-source^="e72be564"] .capture-discovery:not([data-feature-scrolled]) .viral-grid .song-row:nth-child(6) .art-play) {
     display: grid;
   }
 }
