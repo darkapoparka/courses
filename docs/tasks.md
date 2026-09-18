@@ -906,7 +906,8 @@ Check the exact card order, video aspect ratios, artist split view, sorting, emp
 <a id="screen-bdc69b59"></a>
 
 - [x] **UI-bdc69b59 — Recently Added — empty state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bdc69b59 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-bdc69b59 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Restored the filled double-note empty-state symbol and source-supported compact footer, then reviewed the complete optimized frame and regression corpus. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/bdc69b59-1062-43ee-91da-589de56512b6.webp) · [Open app state](http://127.0.0.1:6435/screen/bdc69b59-1062-43ee-91da-589de56512b6) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-e757eb0f"></a>
@@ -918,79 +919,91 @@ Check the exact card order, video aspect ratios, artist split view, sorting, emp
 <a id="screen-0df0d2a2"></a>
 
 - [x] **UI-0df0d2a2 — Library artists — Ariana Grande.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0df0d2a2 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0df0d2a2 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the Ariana Grande split view, selection rail, artwork, actions, sidebar, footer and idle player in the optimized Library-family review. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/0df0d2a2-72b6-428f-a93a-a0cc9da20569.webp) · [Open app state](http://127.0.0.1:6435/screen/0df0d2a2-72b6-428f-a93a-a0cc9da20569) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-610af644"></a>
 
 - [x] **UI-610af644 — Library artists — Olivia Rodrigo.** Coded UI; current browser render passed.
-  - [ ] **MATCH-610af644 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-610af644 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified real artist selection into Olivia Rodrigo, both cards, favourite state, actions, sidebar, footer and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/610af644-8f7a-48a3-9b5e-c88f959beb43.webp) · [Open app state](http://127.0.0.1:6435/screen/610af644-8f7a-48a3-9b5e-c88f959beb43) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-5d3db7ca"></a>
 
 - [x] **UI-5d3db7ca — Library albums — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-5d3db7ca — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-5d3db7ca — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the six-card album grid, exact 45px toolbar, artwork/order, labels, footer, sidebar and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/5d3db7ca-e68a-4678-9eb5-b0da5c7d7568.webp) · [Open app state](http://127.0.0.1:6435/screen/5d3db7ca-e68a-4678-9eb5-b0da5c7d7568) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-92589389"></a>
 
 - [x] **UI-92589389 — Library songs — named profile.** Coded UI; current browser render passed.
   - 2026-09-12 bounded review: Verified eight exact source rows in order; refined the header, column rules, artwork inset and time alignment. Shared typography and chrome still differ. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
-  - [ ] **MATCH-92589389 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-92589389 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified all eight source rows, headings, separators, artwork, favourites, durations, sidebar and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/92589389-e185-401c-a395-c646b801a0c4.webp) · [Open app state](http://127.0.0.1:6435/screen/92589389-e185-401c-a395-c646b801a0c4) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-09b3600e"></a>
 
 - [x] **UI-09b3600e — Library songs — sort menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-09b3600e — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-09b3600e — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the captured sort anchor, material, shadow, row geometry and checked-symbol placement through the live Sort control. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/09b3600e-624d-4fd9-a3dd-625f6c086a37.webp) · [Open app state](http://127.0.0.1:6435/screen/09b3600e-624d-4fd9-a3dd-625f6c086a37) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-1d016f0f"></a>
 
 - [x] **UI-1d016f0f — Library songs — descending.** Coded UI; current browser render passed.
-  - [ ] **MATCH-1d016f0f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-1d016f0f — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified descending row order and the complete Songs surface after selecting Descending through the live menu. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/1d016f0f-5c51-4ddc-a3e4-f1c75dbee729.webp) · [Open app state](http://127.0.0.1:6435/screen/1d016f0f-5c51-4ddc-a3e4-f1c75dbee729) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-e9bee76d"></a>
 
 - [x] **UI-e9bee76d — Library songs — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e9bee76d — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e9bee76d — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the intentional real pointer hover, play overlay, overflow reveal, row geometry and unchanged library/player state. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/e9bee76d-7158-4521-8c6e-8e79268b39ae.webp) · [Open app state](http://127.0.0.1:6435/screen/e9bee76d-7158-4521-8c6e-8e79268b39ae) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-3884ff64"></a>
 
 - [x] **UI-3884ff64 — Library songs — track menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-3884ff64 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-3884ff64 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the live track menu anchor, material, shadow, copy and measured compact action-symbol contours. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/3884ff64-732a-4b00-81ee-059746090eec.webp) · [Open app state](http://127.0.0.1:6435/screen/3884ff64-732a-4b00-81ee-059746090eec) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-06be9f09"></a>
 
 - [x] **UI-06be9f09 — Library songs — song pinned.** Coded UI; current browser render passed.
-  - [ ] **MATCH-06be9f09 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-06be9f09 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the real Pin Song mutation, Pins section geometry and preserved Songs/favourite/player state. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Reference image](../apple-music-clone/reference/originals/06be9f09-22fe-45fc-93b8-a49214c9f5f5.webp) · [Open app state](http://127.0.0.1:6435/screen/06be9f09-22fe-45fc-93b8-a49214c9f5f5) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-4e857921"></a>
 
 - [x] **UI-4e857921 — Music Videos — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-4e857921 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-4e857921 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the exact three-card Music Videos layout, 16:9 artwork, copy, toolbar, sidebar, footer and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/4e857921-f588-4920-ad53-634f36389674.webp) · [Open app state](http://127.0.0.1:6435/screen/4e857921-f588-4920-ad53-634f36389674) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-0b0e3fbf"></a>
 
 - [x] **UI-0b0e3fbf — Made for You — empty state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0b0e3fbf — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0b0e3fbf — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Restored the filled person empty-state symbol and source-supported compact footer, then reviewed the complete optimized frame. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/0b0e3fbf-2dd5-4323-b83d-dc5f65e50b31.webp) · [Open app state](http://127.0.0.1:6435/screen/0b0e3fbf-2dd5-4323-b83d-dc5f65e50b31) · [Component](../apple-music-clone/components/music-library.tsx)
 
 <a id="screen-e379e3fe"></a>
 
 - [x] **UI-e379e3fe — Made for You — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e379e3fe — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e379e3fe — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the named-profile Made for You grid, ordering, artwork, source footer, sidebar and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/e379e3fe-9298-433a-938a-7cb3b195028b.webp) · [Open app state](http://127.0.0.1:6435/screen/e379e3fe-9298-433a-938a-7cb3b195028b) · [Component](../apple-music-clone/components/music-library.tsx)
 
 ### Playlists and favourites — 4 states
@@ -1019,7 +1032,8 @@ Check the initial three songs, vampire insertion/replacement, list counts, neste
 <a id="screen-bde65d33"></a>
 
 - [x] **UI-bde65d33 — Favourite Songs — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bde65d33 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-bde65d33 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Verified the Favourite Songs header, star artwork, four exact rows, controls, count, footer, sidebar and idle player. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/bde65d33-8e43-4796-b2c4-c702cb16eb78.webp) · [Open app state](http://127.0.0.1:6435/screen/bde65d33-8e43-4796-b2c4-c702cb16eb78) · [Component](../apple-music-clone/components/music-playlist.tsx)
 
 ### Sidebar editing and account menu — 4 states
@@ -1324,11 +1338,13 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-12 bounded review: New to Songs asserts the eight exact source rows in order. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/songs?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 92589389](#screen-92589389)
 
-- [ ] **FLOW-c454fe86 — 43. Sorting songs (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-c454fe86 — 43. Sorting songs (3 steps).** Complete recorded journey reviewed and signed off.
+  - 2026-09-18: Traversed initial Songs → live Sort menu → Descending through visible controls; retained ordered screenshots/`steps.jsonl`, exact direct-fixture equivalence, keyboard End/Escape and focus return. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12 control review: All three stills are reached continuously with actual sorting and keyboard focus/escape checks. Live menu anchor corrected; font/shadow differences still prevent acceptance. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/sorting-songs?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: 09b3600e](#screen-09b3600e) → [3: 1d016f0f](#screen-1d016f0f)
 
-- [ ] **FLOW-22c4db47 — 44. Pinning a song (4 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-22c4db47 — 44. Pinning a song (4 steps).** Complete recorded journey reviewed and signed off.
+  - 2026-09-18: Traversed Songs → real row hover → live overflow → Pin Song, retained ordered screenshots/`steps.jsonl`, then verified unpin and favourite isolation. [Evidence](reference-review/2026-09-18-library-family-match.md).
   - 2026-09-12 control review: All four stills are reached through actual hover, menu and Pin Song controls, with unpin/favourite isolation checked. Fractional live anchoring was corrected; original typography/icons/shadow remain imperfect. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/pinning-a-song?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: e9bee76d](#screen-e9bee76d) → [3: 3884ff64](#screen-3884ff64) → [4: 06be9f09](#screen-06be9f09)
 

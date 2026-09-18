@@ -108,8 +108,42 @@ async def library_editor(page, context):
     await label.get_by_role('button', name='Done', exact=True).click()
     await expect(navigation.get_by_role('button')).to_have_count(6)
 
+async def captured_menu_hover(page, context):
+    for source_id, menu_name in (("09b3600e", "sort actions"), ("3884ff64", "track actions")):
+        await start(page, source_id)
+        menu = page.get_by_role("menu", name=menu_name, exact=True)
+        buttons = menu.locator(":scope > button")
+        await expect(menu).to_have_attribute("data-captured-first-hover", "true")
+        assert await buttons.first.evaluate("e => getComputedStyle(e).backgroundColor") == "rgba(221, 221, 223, 0.5)"
+        assert await menu.evaluate("e => getComputedStyle(e).boxShadow") == "rgba(0, 0, 0, 0.2) 0px 12px 30px 0px"
+        if source_id == "09b3600e":
+            check_transforms = await menu.locator('button[aria-checked="true"] > svg').evaluate_all(
+                "nodes => nodes.map(node => getComputedStyle(node).transform)")
+            assert check_transforms == [
+                "matrix(1, 0, 0, 1, 0.5, 1.5)",
+                "matrix(1, 0, 0, 1, 0.5, 1.5)",
+            ], check_transforms
+        if source_id == "3884ff64":
+            icons = await menu.locator("svg").evaluate_all("""nodes => nodes.map(node => ({
+                transform: getComputedStyle(node).transform,
+                stroke: node.getAttribute("stroke-width"),
+            }))""")
+            assert icons == [
+                {"transform": "matrix(1, 0, 0, 1, 0.5, 1)", "stroke": "1.8"},
+                {"transform": "matrix(1, 0, 0, 1, 0.5, 1.5)", "stroke": "1.6"},
+                {"transform": "matrix(1, 0, 0, 1, 0.5, 0.5)", "stroke": "1.8"},
+                {"transform": "matrix(1, 0, 0, 1, 1, 1)", "stroke": "1.6"},
+                {"transform": "matrix(1, 0, 0, 1, 1, 0.5)", "stroke": "2"},
+                {"transform": "matrix(1, 0, 0, 1, 1, 0)", "stroke": "1.4"},
+            ], icons
+        await buttons.nth(1).hover()
+        assert await menu.get_attribute("data-captured-first-hover") is None
+        assert await buttons.first.evaluate("e => getComputedStyle(e).backgroundColor") == "rgba(0, 0, 0, 0)"
+        assert await buttons.nth(1).evaluate("e => getComputedStyle(e).backgroundColor") == "rgba(221, 221, 223, 0.5)"
+
+
 CASES = [('recorded-sorting-songs', sorting), ('recorded-pinning-song', pinning),
-         ('recorded-library-editor', library_editor)]
+         ('recorded-library-editor', library_editor), ('captured-library-menu-hover', captured_menu_hover)]
 
 async def preferences_persist(page, context):
     # Ordinary navigation, separate from frozen fixtures: storage is intentionally
@@ -139,3 +173,28 @@ async def preferences_persist(page, context):
     await page.keyboard.press('Escape')
 
 CASES.append(('library-preferences-persistence', preferences_persist))
+
+
+async def library_empty_state_symbols(page, context):
+    for prefix, scene, y in (("bdc69b59", "library", 287.5), ("0b0e3fbf", "made-for-you", 307.5)):
+        await start(page, prefix)
+        await expect(page.locator('.music-app')).to_have_attribute('data-scene', scene)
+        empty = page.locator('.empty-state')
+        icon = empty.locator(':scope > svg')
+        box = await icon.bounding_box()
+        assert box and abs(box['x'] - 805) < .05 and abs(box['y'] - y) < .05, box
+        assert abs(box['width'] - 76) < .05 and abs(box['height'] - 76) < .05, box
+        await expect(page.locator('.content-footer .footer-region')).to_have_css('display', 'none')
+        if prefix == "bdc69b59":
+            await expect(empty.get_by_role('heading', name='Add music to your library', exact=True)).to_be_visible()
+            await expect(empty.get_by_text('Browse millions of songs and collect your favourite here.', exact=True)).to_be_visible()
+            await expect(empty.get_by_role('button', name='Browse Apple Music', exact=True)).to_be_visible()
+            assert await icon.get_attribute('fill') == 'currentColor'
+            assert await icon.locator('ellipse').count() == 2
+        else:
+            await expect(empty.get_by_text('Personal mixes that you add will appear here.', exact=True)).to_be_visible()
+            assert await icon.get_attribute('stroke-width') == '2.1'
+            assert await icon.locator('circle[fill="currentColor"]').count() == 1
+            assert await icon.locator('path[fill="currentColor"]').count() == 1
+
+CASES.append(('library-empty-state-symbols', library_empty_state_symbols))

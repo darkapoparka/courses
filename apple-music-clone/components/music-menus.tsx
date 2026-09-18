@@ -18,6 +18,8 @@ export function MusicMenus() {
   const [location, setLocation] = useState(m.scene.location ?? "");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
+  const [capturedFirstHover, setCapturedFirstHover] = useState(() => Boolean(m.scene.source && ["09b3600e", "3884ff64"].some(id => m.scene.source!.startsWith(id))));
+  const clearCapturedFirstHover = capturedFirstHover ? () => setCapturedFirstHover(false) : undefined;
   const close = () => m.patch({ menu: null });
   useLayoutEffect(() => {
     if (!kind || !menu.current) return;
@@ -102,7 +104,7 @@ export function MusicMenus() {
   };
   return <div className="menu-layer">
     <button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} />
-    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" tabIndex={-1} data-copy-state={copied ?? undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onKeyDown={event => keyboard(event)}>{content}</div>
+    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" tabIndex={-1} data-copy-state={copied ?? undefined} data-captured-first-hover={capturedFirstHover || undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onPointerMoveCapture={clearCapturedFirstHover} onKeyDown={event => { clearCapturedFirstHover?.(); keyboard(event); }}>{content}</div>
     {submenu && <div ref={flyout} className="context-menu faithful-menu playlist-flyout" role="menu" aria-label="Add to playlist" style={{ left: flyoutPosition.x, top: flyoutPosition.y }} onKeyDown={event => keyboard(event, true)}>
       {action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null, playlistSeed: ids }))}
       {m.library.playlists.map(playlist => action(playlist.name, null, () => {

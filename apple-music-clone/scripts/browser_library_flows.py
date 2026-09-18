@@ -13,10 +13,22 @@ async def navigate(page, name, scene, navigation='Music library'):
     await expect(playlists.get_by_role('button', name='Favourite Songs', exact=True)).to_be_visible()
     await expect(playlists.get_by_role('button', name='Emotional Songs', exact=True)).to_be_visible()
 
+async def assert_library_topbar(page, expected_height):
+    topbar = await page.locator('.library-topbar').bounding_box()
+    title = await page.locator('.library-topbar > h1').bounding_box()
+    sort = await page.locator('.library-topbar .library-sort').bounding_box()
+    assert topbar and title and sort
+    assert abs(topbar['height'] - expected_height) < .05, topbar
+    assert abs((title['x'] + title['width'] / 2) - (topbar['x'] + topbar['width'] / 2 - 6)) < .05, (topbar, title)
+    assert abs((title['y'] + title['height'] / 2) - 16.5) < .05, title
+    assert abs((topbar['x'] + topbar['width']) - (sort['x'] + sort['width']) - 18) < .05, (topbar, sort)
+    assert abs(sort['y'] - 6) < .05 and abs(sort['height'] - 22) < .05, sort
+
 async def artists(page, context):
     journey = '9decd1cd-artists'
     await begin(page, journey)
     await navigate(page, 'Artists', 'artists')
+    await assert_library_topbar(page, 35)
     panel = page.locator('.library-artist-content')
     await expect(panel.get_by_role('heading')).to_contain_text('Ariana Grande')
     await expect(panel.locator('.media-card')).to_have_count(1)
@@ -30,6 +42,7 @@ async def albums(page, context):
     journey = '2797b86f-albums'
     await begin(page, journey)
     await navigate(page, 'Albums', 'albums')
+    await assert_library_topbar(page, 45)
     await expect(page.locator('.library-grid .media-card')).to_have_count(6)
     await record(page, journey, '5d3db7ca', 'Select Albums from the sidebar')
 
@@ -37,6 +50,7 @@ async def songs(page, context):
     journey = '0e305ee9-songs'
     await begin(page, journey)
     await navigate(page, 'Songs', 'songs')
+    await assert_library_topbar(page, 35)
     # The saved Songs original contains eight rows, not ten.
     assert await page.locator('.library-song-table .table-song-title').all_text_contents() == [
         'BIRDS OF A FEATHER', 'Cruel Summer', 'deja vu', 'jealousy, jealousy',
@@ -49,6 +63,7 @@ async def music_videos(page, context):
     journey = '51ec8869-music-videos'
     await begin(page, journey)
     await navigate(page, 'Music Videos', 'videos')
+    await assert_library_topbar(page, 35)
     cards = page.locator('.library-grid .media-card')
     assert await cards.locator('.card-title').all_text_contents() == ['Begged (Lyric Video)', 'BIRDS OF A FEATHER', 'You Need To Calm Down']
     for card in await cards.all():

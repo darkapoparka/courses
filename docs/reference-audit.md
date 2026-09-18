@@ -1,6 +1,18 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-18 for the verified Search library-empty match. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-18 for the verified Library-family match batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+
+## Latest Library-family screen and journey findings
+
+Fourteen coherent Library screens are now accepted through their shared implementation owners rather than isolated fixture patches. The repair covers the compact top bars, Albums height, sort/menu anchors and material, checked-symbol placement, compact action glyph contours, Recently Added and Made for You empty symbols, and source-supported footer state.
+
+The registered Library suites traverse Artists, Albums, Songs, Music Videos, sorting, pinning, playlists, favourites, empty states and persistence through real controls. `FLOW-c454fe86` uses the visible Sort control through initial Songs, the live menu and descending order, then proves keyboard End/Escape and focus return. `FLOW-22c4db47` uses the real row hover, overflow and Pin Song action, then proves unpin and favourite isolation. Ordered screenshots and `steps.jsonl` are retained; no forced clicks, stepwise fixture jumps or state injection are used.
+
+Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 69 interaction regressions with zero failures. All 159 exact-size comparisons completed. Corpus mean MAE improved `5.260984609 → 5.256962793`; mean over-20 improved `5.351792008% → 5.350413054%`. Thirteen states improved, 142 were unchanged and four small positive-delta states were reviewed without a concrete product regression.
+
+Accepted MATCH entries: `bdc69b59`, `0df0d2a2`, `610af644`, `5d3db7ca`, `92589389`, `09b3600e`, `1d016f0f`, `e9bee76d`, `3884ff64`, `06be9f09`, `4e857921`, `0b0e3fbf`, `e379e3fe` and `bde65d33`. The previously accepted `8a2a4241` and `5b3ec96a` optimized renders stayed byte-identical.
+
+The [dated Library review](reference-review/2026-09-18-library-family-match.md) records exact geometry, hashes, source/render/difference review, continuous-flow evidence, regressions and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
 
 ## Latest Search library-empty screen-match findings
 
@@ -121,6 +133,6 @@ A continuous journey starts at its permitted first fixture and then uses real co
 
 ## Current acceptance boundary
 
-The preserved checklist reports UI 159/159, MATCH 1/159 and FLOW 0/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
+The preserved checklist reports UI 159/159, MATCH 16/159 and FLOW 2/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
 
 Earlier detailed observations remain in [library controls](reference-review/2026-09-12-library-controls.md), [library panels](reference-review/2026-09-12-library-panels.md), [sidebar geometry](reference-review/2026-09-12-sidebar.md), [the source ledger](reference-review/ledger.md), and the [pre-Astra audit](history/pre-astra-2026-09-12/docs/reference-audit.md).

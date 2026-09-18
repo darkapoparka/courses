@@ -6,7 +6,7 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
+export type GlyphName = IconName | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "made-for-you-empty" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
@@ -52,6 +52,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "expand": return <svg {...common}><path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6" /></svg>;
     case "mail": return <svg {...common}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 5 10 8L22 5M2 20l7-9m13 9-7-9" /></svg>;
     case "made-for-you": return <svg {...common}><rect x="3" y="2.5" width="18" height="19" rx="2" /><circle cx="12" cy="8.5" r="2.6" /><path d="M7.1 17.3c.5-2.7 2.2-4.2 4.9-4.2s4.4 1.5 4.9 4.2" /></svg>;
+    case "made-for-you-empty": return <svg {...common} strokeWidth="2.1"><rect x="3" y="2.5" width="18" height="19" rx="2" /><circle cx="12" cy="8.5" r="3" fill="currentColor" stroke="none" /><path d="M5.4 20.5c.6-5 3-7.5 6.6-7.5s6 2.5 6.6 7.5Z" fill="currentColor" stroke="none" /></svg>;
     case "rewind-10": return <svg {...common}><path d="M8 5H3v5" /><path d="M4 9a8 8 0 1 1-.2 5" /><text x="8" y="15.5" fill="currentColor" stroke="none" fontSize="8" fontWeight="600">10</text></svg>;
     case "forward-10": return <svg {...common}><path d="M16 5h5v5" /><path d="M20 9a8 8 0 1 0 .2 5" /><text x="8" y="15.5" fill="currentColor" stroke="none" fontSize="8" fontWeight="600">10</text></svg>;
     case "stop": return <svg {...common} fill="currentColor" stroke="none"><rect x="1" y="1" width="22" height="22" rx="2" /></svg>;
