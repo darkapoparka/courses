@@ -58,6 +58,8 @@ export type Scene = {
   locale?: "en" | "zh";
   category?: string;
   video?: boolean;
+  viralRailActive?: boolean;
+  featureEdge?: "initial";
   flow?: string;
 };
 const base: Scene = { page: "new" };
@@ -65,7 +67,7 @@ const playing: Scene = { page: "new", namedProfile: true, hero: "superbloom", tr
 const expanded: Scene = { ...playing, expanded: true, lyrics: true };
 const account: Scene = { page: "settings", namedProfile: true };
 const definitions: Record<string, Scene> = {
-  "3731221f": { ...base, guest: true },
+  "3731221f": { ...base, guest: true, featureEdge: "initial" },
   "ee751367": { ...base, guest: true, overlay: "signin" },
   "bdc56e10": { ...base, guest: true, overlay: "signin", filled: true },
   "4a1d7759": { ...base, guest: true, overlay: "signup" },
@@ -82,9 +84,9 @@ const definitions: Record<string, Scene> = {
   "5175a910": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2 },
   "ecb33359": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2, scrollOffset: 60 },
   "bf099ae2": { ...base, guest: true, overlay: "payment", formStep: 3 },
-  "e72be564": base,
+  "e72be564": { ...base, viralRailActive: true, featureEdge: "initial" },
   "a917d88f": { page: "home", namedProfile: true },
-  "4f611a9e": { ...base, namedProfile: true },
+  "4f611a9e": { ...base, namedProfile: true, featureEdge: "initial" },
   "54b01eab": { ...base, hero: "alpha", namedProfile: true },
   "8b03c9d0": { ...base, scroll: "essentials", namedProfile: true },
   "706de500": { ...base, scroll: "coming-soon", namedProfile: true },

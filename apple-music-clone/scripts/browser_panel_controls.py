@@ -147,7 +147,8 @@ async def panel_entry(page, panel, target, journey):
     assert await sidebar_signature(page) == sidebar_before
     assert await toggle.evaluate('(e) => document.activeElement === e')
     closed_material = await material(page, '.floating-player')
-    assert closed_material['backgroundColor'] == 'rgba(249, 249, 251, 0.74)', closed_material
+    assert closed_material['backgroundColor'] == 'rgba(249, 249, 251, 0.7)', closed_material
+    assert closed_material['backdropFilter'] == 'blur(28px) saturate(2)', closed_material
     await toggle.click()
     await expect(panel_host).to_be_visible()
     assert await listening_signature(page) == before

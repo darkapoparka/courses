@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-18 for the verified Search library-empty match on top of `cc4ed59`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Port 6431 remains stopped. Main live-state links below use the canonical development preview on port 6435.
+Updated 2026-09-18 for the verified initial New/shared discovery progress batch on top of `bf5736d`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The canonical development preview remains port 6435.
 
-Implementation checkpoint: the Your Library empty Search state now owns its live sidebar/navigation, field, segmented control and empty-state geometry instead of source-specific fixture compensation. The complete real-control Search journey is registered and passes. Optimized production passed 159 desktop states, five responsive samples, 218 route checks and 67 interaction regressions, zero failures. All 159 exact-size comparisons completed. `5b3ec96a` improved from `2.036646 / 1.349898%` to `1.873896 / 1.203088%`; 148 states were byte-identical. [Dated review](reference-review/2026-09-18-search-library-empty-match.md). `MATCH-5b3ec96a` is genuinely signed off; no FLOW box advanced. Existing `MATCH-8a2a4241` remains accepted. No courses/community adaptation.
+Implementation checkpoint: initial/current New now owns a live partial third feature card, a real sixteen-row Viral Hits rail with source-backed continuation artwork, real Previous/Next traversal and playback, measured current-New player glass, and exact desktop row tracks. Optimized production passed 159 desktop states, five responsive samples, 218 route checks and 71 interaction regressions with zero failures; all 159 exact-size comparisons completed. Corpus mean improved from `5.240636608 / 5.323660568%` to `5.190585576 / 5.277333751%` MAE / over-20. [Dated review](reference-review/2026-09-18-new-initial-family-progress.md). No MATCH or FLOW checkbox advanced; acceptance remains 22/159 and 3/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: the Your Library empty Search state now owns its live
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **2 / 159** |
-| Full recorded flows genuinely signed off | **0 / 58** |
+| Exact visual matches genuinely signed off | **22 / 159** |
+| Full recorded flows genuinely signed off | **3 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -22,6 +22,8 @@ Implementation checkpoint: the Your Library empty Search state now owns its live
 **Flow checkboxes:** check `FLOW-…` only after traversing its entire recorded sequence using real controls and checking the intermediate states. Loading `/flows/...` URLs alone does not complete a flow.
 
 ## Current finalization evidence
+
+The latest verified evidence is the [initial New/shared discovery progress review](reference-review/2026-09-18-new-initial-family-progress.md). Evidence root: `D:\courses-main-evidence\\new-family-optimized-full-20260918-1610\\`; the fresh optimized corpus has zero functional failures and a passing regression gate. This batch advances live DOM/state/control ownership but no acceptance checkbox. MATCH remains 22/159 and FLOW remains 3/58.
 
 The latest verified evidence is in the [Search library empty-state review](reference-review/2026-09-18-search-library-empty-match.md). Evidence root: `D:\courses-main-evidence\search-empty-current-full-20260918-001110\`; final directories include `browser`, `comparison-baseline` and `worsened-review-baseline`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. `MATCH-5b3ec96a` advanced; FLOW remains 0/58. The preceding [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md) and all earlier evidence remain preserved.
 
@@ -61,12 +63,14 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-3731221f — New — signed out.** Coded UI; current browser render passed.
   - [ ] **MATCH-3731221f — Finish and verify the exact screenshot match.**
+  - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.692366 â†’ 4.096477` and over-20 `4.383844% â†’ 3.713317%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - [Reference image](../apple-music-clone/reference/originals/3731221f-497f-40a3-b00a-30abfe3766da.webp) · [Open app state](http://127.0.0.1:6435/screen/3731221f-497f-40a3-b00a-30abfe3766da) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-e72be564"></a>
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.113135 â†’ 3.411616` and over-20 `4.724529% â†’ 3.943645%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-17: Scoped lawful New-heading and feature-caption geometry plus the live viral star reduce whole-frame MAE `4.319364 → 4.113135` and over-20 `4.819506% → 4.724529%`. Metadata, artwork/crops, row/sidebar raster, player and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the initial repeated lower-release order, truthful partial fourth underlay and all five lawful visible source fragments; whole-frame MAE 5.213605 → 4.319364 and over-20 6.426572% → 4.819506%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: Ordinary floating-player glass and live transport/utility SVG geometry are now scoped below `.floating-player`; whole-frame MAE 5.328036 → 5.213605 and over-20 6.563077% → 6.426572%. Lower release editions sampled through real glass, shelf metadata and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
@@ -79,6 +83,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-4f611a9e — New — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
+  - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.390860 â†’ 3.782705` and over-20 `5.188031% â†’ 4.705303%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.399554 → 4.593030 and over-20 6.356820% → 5.285468%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 6.559078% → 6.519011%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/4f611a9e-b39b-4ee5-a6b7-fa10fad5f093.webp) · [Open app state](http://127.0.0.1:6435/screen/4f611a9e-b39b-4ee5-a6b7-fa10fad5f093) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -87,6 +92,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.829561 â†’ 4.478386` and over-20 `7.074874% â†’ 6.721269%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.754271 → 5.014292 and over-20 7.880676% → 7.157700%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: Alpha retains real provider artwork beneath state-specific glass; the ordinary-material repair does not flatten or replace it. Direct over-20 improves 7.892134% → 7.881983% and edge MAE 4.815290 → 3.974644. Typography, exact glass/control material, lower artwork and live profile/title differences still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - 2026-09-15: Replaced Alpha's compensating sidebar gradient with live glass over reviewed Viral Hits provider art; added a real New Music Daily continuation and enabled Next control with artwork-only edge fragments that exclude arrow pixels. Direct residual 9.066461% → 7.892134%; continuous 9.915329% → 8.741156%; live/direct gap remains 0.977375%. Typography, exact material, lower artwork and session differences keep MATCH open. [Evidence](reference-review/2026-09-15-alpha-material-continuation.md).

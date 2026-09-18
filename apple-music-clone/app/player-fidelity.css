@@ -42,6 +42,11 @@
   -webkit-backdrop-filter:blur(16px) saturate(1.8);
   backdrop-filter:blur(16px) saturate(1.8);
 }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player {
+  background:rgb(249 249 251 / 70%);
+  -webkit-backdrop-filter:blur(28px) saturate(2);
+  backdrop-filter:blur(28px) saturate(2);
+}
 .member-session:not(.with-player-panel) .floating-player .transport > button:first-child > svg { width:18px; height:18px; transform:translateX(1.5px); }
 .member-session:not(.with-player-panel) .floating-player .transport > button:nth-child(2) > svg { width:22px; height:22px; transform:translateX(4px); }
 .member-session:not(.with-player-panel) .floating-player .transport > .play-toggle > svg { width:25px; height:25px; transform:translateX(3px); }

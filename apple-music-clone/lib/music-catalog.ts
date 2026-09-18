@@ -39,9 +39,9 @@ export const newMusicDailyFeatureArt: Artwork = {
 
 export type Track = {
   id: string; title: string; artist: string; album: string; duration: number;
-  art: Artwork; explicit?: boolean; unavailable?: boolean;
+  art: Artwork; explicit?: boolean; unavailable?: boolean; metadataHidden?: boolean;
 };
-export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string; background?: string; portrait?: Artwork; plain?: boolean; explicit?: boolean; year?: string };
+export type Card = { id: string; title: string; subtitle?: string; art: Artwork; destination: string; kicker?: string; background?: string; portrait?: Artwork; plain?: boolean; explicit?: boolean; year?: string; metadataPartial?: boolean };
 export const albumTitle = "you seem pretty sad for a girl so in love";
 export const albumArt = crop("b620e4ab", 286, 42, 256, 256);
 export const sourArt = crop("e757eb0f", 514, 305, 207, 207);
@@ -65,7 +65,15 @@ const viralRows: [string, string, boolean?][] = [
   ["Lush Life", "Zara Larsson"], ["White Keys", "Dominic Fike"],
   ["YUKON", "Justin Bieber"], ["Raindance", "Dave, Tems"],
 ];
-export const viralTracks: Track[] = viralRows.map(([title, artist, explicit], i) => ({
+const viralContinuationRows: [string, string, boolean?, boolean?][] = [
+  ["Dracula", "Tame Impala"],
+  ["What You Saying", "Lil Uzi Vert", true],
+  ["Dracula (JENNIE Remix)", "Tame Impala, JENNIE", true],
+  // The fourth continuation row's metadata is outside every frozen New frame.
+  // Keep the row and its source-backed artwork live without inventing a title.
+  ["Archived Viral Hits continuation", "Metadata outside frozen source frame", false, true],
+];
+const initialViralTracks: Track[] = viralRows.map(([title, artist, explicit], i) => ({
   id: i === 0 ? "album-2" : `viral-${i}`, title, artist, album: i === 0 ? albumTitle : title,
   duration: i === 0 ? 209 : 0, explicit,
   // Preserve the shelf's native 38px artwork and integer row anchors. The
@@ -73,6 +81,14 @@ export const viralTracks: Track[] = viralRows.map(([title, artist, explicit], i)
   // its clean cover. Hover and playback indicators belong to SongRow's DOM.
   art: crop(i === 5 ? "54b01eab" : "e72be564", [286, 665, 1043][Math.floor(i / 4)]!, [564, 616, 669, 721][i % 4]!, 38, 38),
 }));
+const viralContinuationTracks: Track[] = viralContinuationRows.map(([title, artist, explicit, metadataHidden], i) => ({
+  id: `viral-${i + 12}`, title, artist, album: title, duration: 0, explicit, metadataHidden,
+  // 4f611a9e exposes the same continuation column without the captured hover
+  // control. Only 18px are present in the immutable viewport, so keep the
+  // fragment partial instead of stretching or fabricating the hidden 20px.
+  art: { ...crop("4f611a9e", 1422, [564, 616, 669, 721][i]!, 18, 38), partial: true },
+}));
+export const viralTracks: Track[] = [...initialViralTracks, ...viralContinuationTracks];
 const libraryRows: [string, string, string, number][] = [
   ["BIRDS OF A FEATHER", "Billie Eilish", "HIT ME HARD AND SOFT", 210],
   ["Cruel Summer", "Taylor Swift", "Lover", 178],

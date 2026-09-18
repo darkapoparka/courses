@@ -1,6 +1,16 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-18 for the verified Search-family match batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-18 for the verified initial New/shared discovery progress batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+
+## Latest initial New/shared discovery progress findings
+
+Initial/current New now owns a live source-backed partial third feature card, a sixteen-row Viral Hits rail with real overflow and playback controls, measured current-New player glass and exact desktop row tracks. The old source-conditioned third-card screenshot/text pseudo-elements are removed. Unknown offscreen metadata remains undisclosed rather than fabricated.
+
+Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 71 interaction regressions with zero failures. All 159 exact-size comparisons completed. Corpus mean improved `5.240636608 â†’ 5.190585576` MAE and `5.323660568% â†’ 5.277333751%` over-20. `e72be564` improved to `3.411616` MAE / `3.943645%` over-20.
+
+The complete positive-delta union and eight threshold-positive lyrics-dialog, concert-calendar, milestone and queue states were reviewed source/baseline/current/difference. Their visible product structure is stable; no new geometry, copy, state, session or control regression was found. Existing New typography, symbols, metadata, lower-shelf/City Chart, player details and Alpha profile/title differences keep every related MATCH/FLOW open.
+
+The [dated review](reference-review/2026-09-18-new-initial-family-progress.md) records exact ownership, dimensions, hashes, real-control evidence, full-corpus review and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
 
 ## Latest Search-family screen and journey findings
 

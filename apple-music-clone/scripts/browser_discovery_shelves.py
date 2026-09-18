@@ -225,11 +225,14 @@ async def legacy_player_material(page, context):
     await record(page, 'legacy-player-material', 'e027fe6d',
                  'Legacy catalog material survives real Volume controls')
 
-    for prefix in ['e72be564', 'a917d88f']:
+    for prefix, expected in [
+        ('e72be564', ['rgba(249, 249, 251, 0.7)', 'blur(28px) saturate(2)']),
+        ('a917d88f', ['rgba(249, 249, 251, 0.74)', 'blur(28px) saturate(1.4)']),
+    ]:
         await start(page, prefix)
         material = await page.locator('.floating-player').evaluate(
             '''(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}''')
-        assert material == ['rgba(249, 249, 251, 0.74)', 'blur(28px) saturate(1.4)'], (prefix, material)
+        assert material == expected, (prefix, material)
 
     await start(page, 'ee8db412')
     panel_material = await page.locator('.floating-player').evaluate(
@@ -499,3 +502,61 @@ async def discovery_typography_symbols(page, context):
 
 
 CASES.append(('discovery-typography-symbols', discovery_typography_symbols))
+
+
+async def viral_rail_continuation(page, context):
+    """The saved fourth Viral Hits column is real scrollable DOM, not painted UI."""
+    await start(page, 'e72be564')
+    section = page.locator('.viral-hits-section')
+    rail = section.locator('.music-rail')
+    rows = section.locator('.song-row')
+    await expect(rows).to_have_count(16)
+    assert await rows.evaluate_all('(els)=>els.slice(12,15).map(e=>e.querySelector(".song-title")?.textContent)') == [
+        'Dracula', 'What You SayingE', 'Dracula (JENNIE Remix)E']
+    assert await rows.nth(15).locator('.song-title').count() == 0
+    for index in range(12, 16):
+        artwork = rows.nth(index).locator('.music-art')
+        await expect(artwork).to_have_attribute('data-art-partial', 'true')
+        assert (await artwork.get_attribute('data-art-source') or '').startswith('4f611a9e')
+        box = await artwork.bounding_box()
+        assert box and abs(box['width'] - 18) < .05 and abs(box['height'] - 38) < .05, (index, box)
+    geometry = await rail.evaluate("e=>({clientWidth:e.clientWidth,scrollWidth:e.scrollWidth,scrollLeft:e.scrollLeft,documentOverflow:document.documentElement.scrollWidth>innerWidth,mainOverflow:document.querySelector('main').scrollWidth>document.querySelector('main').clientWidth+1})")
+    assert geometry['scrollWidth'] > geometry['clientWidth'] + 250, geometry
+    assert geometry['scrollLeft'] == 0, geometry
+    assert not geometry['documentOverflow'] and not geometry['mainOverflow'], geometry
+    row_geometry = await rows.evaluate_all('(els)=>els.slice(0,4).map(e=>{const r=e.getBoundingClientRect();const a=e.querySelector(".music-art").getBoundingClientRect();return {rowY:r.y,artY:a.y}})')
+    assert [item['rowY'] for item in row_geometry] == [557, 609, 662, 714], row_geometry
+    assert [item['artY'] for item in row_geometry] == [564.125, 615.625, 668.625, 720.625], row_geometry
+    fourth = await rows.nth(12).bounding_box()
+    assert fourth and abs(fourth['x'] - 1421.96875) < .1, fourth
+
+    previous = page.locator('button[aria-label="Previous Viral songs"]')
+    next_page = page.locator('button[aria-label="Next Viral songs"]')
+    await expect(previous).to_be_disabled()
+    assert await previous.evaluate('(e)=>getComputedStyle(e).visibility') == 'hidden'
+    await expect(next_page).to_be_enabled()
+    await expect(next_page).to_be_visible()
+    assert await section.locator('.rail-arrows').evaluate('(e)=>getComputedStyle(e).opacity') == '1'
+    await record(page, 'viral-rail-continuation', 'e72be564',
+                 'Initial source-owned fourth column and live Next control', move_pointer=False)
+
+    await next_page.click()
+    await page.wait_for_function("document.querySelector('.viral-hits-section .music-rail').scrollLeft > 250")
+    after = await rail.evaluate('(e)=>({left:e.scrollLeft,max:e.scrollWidth-e.clientWidth})')
+    assert abs(after['left'] - after['max']) < 1, after
+    await expect(previous).to_be_enabled()
+    await expect(next_page).to_be_disabled()
+    assert await next_page.evaluate('(e)=>getComputedStyle(e).visibility') == 'hidden'
+    await expect(page.get_by_role('button', name='Play Dracula', exact=True)).to_be_visible()
+    await page.get_by_role('button', name='Play Dracula', exact=True).click()
+    await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
+    await expect(page.locator('.now-playing')).to_contain_text('Dracula')
+    assert await page.locator('audio').evaluate('(element)=>element.paused')
+    await page.get_by_role('button', name='Pause', exact=True).click()
+    await previous.click()
+    await page.wait_for_function("document.querySelector('.viral-hits-section .music-rail').scrollLeft < 1")
+    await expect(next_page).to_be_enabled()
+    await expect(previous).to_be_disabled()
+
+
+CASES.append(('viral-rail-continuation', viral_rail_continuation))

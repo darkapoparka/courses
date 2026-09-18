@@ -43,6 +43,19 @@ const currentFeatureSequence: Card[] = [
     subtitle: "Apple Music", destination: "category:New Music Daily", art: newMusicDailyFeatureArt },
 ];
 
+// The initial archive exposes only the first 18px of this third card. Preserve
+// exactly those source-backed pixels and visible live-text prefixes; do not
+// substitute a later edition or invent metadata outside the frozen viewport.
+const initialPartialFeature: Card = {
+  id: "initial-feature-continuation",
+  kicker: "NEW",
+  title: "Le",
+  subtitle: "He",
+  destination: "new",
+  metadataPartial: true,
+  art: { ...crop("e72be564", 1422, 167, 18, 314), partial: true },
+};
+
 function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artContents, artOverlays, onPositionChange, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artContents?: Partial<Record<string, ReactNode>>; onPositionChange?: (index: number) => void; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
   return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={`${card.id}-${index}`} card={card} poster={poster} artContent={artContents?.[card.id]} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
 }
@@ -116,9 +129,13 @@ export function NewView() {
   const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : i === 2 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[3]! : i === 3 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[2]! : card) : legacyFeatures;
   // A local control clears source routing, not the visible catalog/artwork edition.
   const [source] = useState(() => m.scene.source?.slice(0, 8));
-  const currentFeatures = ["4f611a9e", "fc5d84bd"].includes(source ?? "")
-    ? currentFeatureSequence.map((card, index) => index < 2 ? { ...card, art: crop(source!, index === 0 ? 286 : 854, 167, 548, 314) } : card)
-    : currentFeatureSequence;
+  const currentFeatures = currentFeatureSequence.map((card, index) => {
+    if (m.scene.featureEdge === "initial" && index === 2) return initialPartialFeature;
+    if (["4f611a9e", "fc5d84bd"].includes(source ?? "") && index < 2) {
+      return { ...card, art: crop(source!, index === 0 ? 286 : 854, 167, 548, 314) };
+    }
+    return card;
+  });
   const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [currentFeatures[0]!, performanceFeature, ...currentFeatures.slice(1)] : currentFeatures;
   const initialIndex = !legacy && !queue && m.scene.hero === "alpha" ? 4 : 0;
   const [featureIndex, setFeatureIndex] = useState(initialIndex);
@@ -156,8 +173,8 @@ export function NewView() {
     : releaseStripSource
       ? Object.fromEntries([0, 1, 2, 3, 4].map(position => [position, releaseFragmentOverlay(releaseStripSource, position)]))
       : undefined;
-  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined}><h1>{zh ? "新发现" : "New"}</h1>
-    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map((card, index) => <article className="feature-card" key={card.id}><div className="feature-caption"><small>{card.kicker}</small><button type="button" onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-label={`Open ${card.title}`} onClick={() => m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`)}><Art art={card.art} label={card.title} />{alphaActive && index === featureIndex - 1 && <AlphaPreviousEdge />}{alphaActive && card.id === "new-music-daily" && <AlphaNextEdge />}</button></article>)}</Rail>
+  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined} data-viral-rail-active={m.scene.viralRailActive || undefined}><h1>{zh ? "新发现" : "New"}</h1>
+    <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map((card, index) => <article className="feature-card" key={card.id} data-feature-partial={card.metadataPartial || undefined}><div className="feature-caption"><small>{card.kicker}</small><button type="button" aria-disabled={card.metadataPartial || undefined} aria-label={card.metadataPartial ? "Archived feature continuation; metadata is outside the frozen reference frame" : undefined} onClick={() => { if (!card.metadataPartial) m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`); }}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-disabled={card.metadataPartial || undefined} aria-label={card.metadataPartial ? "Archived feature artwork; only the visible source fragment is available" : `Open ${card.title}`} onClick={() => { if (!card.metadataPartial) m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`); }}><Art art={card.art} label={card.metadataPartial ? "Partial archived feature artwork" : card.title} />{alphaActive && index === featureIndex - 1 && <AlphaPreviousEdge />}{alphaActive && card.id === "new-music-daily" && <AlphaNextEdge />}</button></article>)}</Rail>
     <Section title="Favourite These Viral Hits" icon="star" className="viral-hits-section" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} showAdd={(!legacy && !queue && m.scene.hero === "listening") || source === "6ac70c34"} />)}</div></Rail></Section>
     <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={newThisWeek} label="New releases" artOverlays={releaseArtOverlays} /></Section>
     <Section title={zh ? "大家都在听…" : "Everyone’s Listening To…"} id="essentials" onMore={() => m.go(`category:${zh ? "大家都在听" : "Everyone’s Listening To"}`)}><Cards cards={listening} label="Everyone’s listening" /></Section>

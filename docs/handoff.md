@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-18 for the verified Search-family match batch on `J:\courses/main`.
+Updated 2026-09-18 for the verified initial New/shared discovery progress batch on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,38 +18,28 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The source-clean exact candidate was captured from the Search-family working tree on top of `dc6df744b0a0d28cd7ed290d81c608df3f7508eb`. It preserves all sixteen previously accepted screens and both accepted Library journeys while completing the remaining Search family through live state ownership.
+The fresh exact candidate was captured from the coherent initial New/shared discovery working tree on top of `bf5736dd7fd63f74a37fadc2ca6e1cbd5cf7a9ef`. It preserves the 22 accepted screens and three accepted journeys while replacing source-conditioned continuation patches with live DOM, state and controls.
 
-The owning implementation is `components/music-search.tsx`, `app/capture-content.css`, `app/player-fidelity.css` and `app/reference-fidelity.css`. Registered evidence is strengthened in `scripts/browser_library_flows.py` and `scripts/browser-reference.py`. Search field focus, bottom-scroll state, suggestion glass, submitted results, compact Clear material, result rails and player material now survive the same real-control paths rather than depending on direct fixture selectors.
+The owning implementation is `lib/music-catalog.ts`, `lib/music-scenes.ts`, `components/music-discovery.tsx`, `components/music-browse.tsx`, `components/music-rail.tsx`, `app/reference-fidelity.css` and `app/player-fidelity.css`. Registered evidence is strengthened in the New, discovery, Home and panel browser suites. The [dated New progress review](reference-review/2026-09-18-new-initial-family-progress.md) records exact source/render/difference review, real-control evidence, hashes, full-corpus review and blockers.
 
-The [dated Search-family review](reference-review/2026-09-18-search-family-match.md) records exact source/render/difference review, dimensions, hashes, real-control evidence, continuous-flow comparison and the complete regression review. The preceding [Library review](reference-review/2026-09-18-library-family-match.md), [empty Search review](reference-review/2026-09-18-search-library-empty-match.md), [All Playlists review](reference-review/2026-09-17-all-playlists-match.md) and earlier reviews remain authoritative for their batches.
+Optimized build `Na9JfUh5E21aht9bWlMt1` captured implementation SHA-256 `47bfad7f3c2cc3d51daf783c5b8d30c33d47c4bd932f134bd90c76df6f8a7a98` and tooling SHA-256 `9955dc8c2eb2e022a27084609b88ad25c1a51c8669f871449e4fceddf0a92060`.
 
-Optimized build `F0KMjIXtaan15z-xzgDqh` captured implementation SHA-256 `079156c833d7c5a570194cfe087dd7edc41e4e7682d633fdd640279f9e2e0556` and tooling SHA-256 `238539ac80f6664654a6bdcbae57a9fba134cabe03c18fcc5b6ca0106f23e0b0` after generated `next-env.d.ts` / `tsconfig.json` build churn was removed.
-
-- 159 desktop states, five responsive states, 218 route checks and 70 interaction regressions: zero failures.
+- 159 desktop states, five responsive states, 218 route checks and 71 interaction regressions: zero failures.
 - Archive/coverage, typecheck, optimized build, five Python QA-tool tests and nine Node cover-integrity tests passed.
-- All 159 exact-size comparisons completed. Corpus mean MAE improved `5.256962793 → 5.240636608`; mean over-20 improved `5.350413054% → 5.323660568%`.
-- Seven render hashes changed, all seven improved, 152 states retained both metrics and the positive-delta union is empty.
-- All four `FLOW-638262c8` continuous checkpoints and all Search checkpoints inside `FLOW-6c5d545e` are byte-identical to direct candidate fixtures.
-- Six Search MATCH entries and the complete Searching Apple Music journey were genuinely accepted.
+- All 159 exact-size comparisons completed. Corpus mean MAE improved `5.240636608 â†’ 5.190585576`; mean over-20 improved `5.323660568% â†’ 5.277333751%`.
+- All 159 fresh render hashes differ from the preceding optimized capture; 108 states have lower MAE and 51 higher, while 109 have lower over-20 and 50 higher. The complete positive union and the eight threshold-positive states were reviewed readably without a concrete batch-owned geometry, copy, state, session or control regression.
+- Initial New `e72be564` improved `4.113135 â†’ 3.411616` MAE and `4.724529% â†’ 3.943645%` over-20.
+- No MATCH or FLOW checkbox advanced. `FLOW-6c5d545e` and other journeys beginning at initial New remain open because `e72be564` is not MATCH-complete.
 
-New MATCH entries: `035569a0`, `812ba627`, `4b515439`, `e70094e3`, `bbb92581`, `f4a8b5dc`.
-
-New FLOW entry: `FLOW-638262c8`.
-
-`FLOW-6c5d545e` remains open only because its permitted initial New frame `e72be564` is not MATCH-complete.
-
-Evidence: `D:\courses-main-evidence\search-family-final-source-clean-full-20260918-080117\`, `D:\courses-main-evidence\search-final-accepted-focused-20260918-075151\browser\`, and readable review `C:\Users\radev\courses-search-final-source-clean-review\`.
+Evidence: `D:\courses-main-evidence\new-family-optimized-full-20260918-1610\` and focused roots recorded in the dated review.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Listener PID `28884` is the Next child of PID `10036`, launched through project command/npm PIDs `14664`, `38124`, `29212` and shell PID `32204`; that shell is owned by Desktop Commander runtime PID `38144` and remote relay PID `35552`. HTTP 200, `[data-reference-ready="true"]`, hydrated `new` scene, non-empty body, absence of a framework error overlay, zero console/request failures and real navigation to Search were verified.
+Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Final verification found listener PID `37828` with project-only Node/Next/npm/PowerShell ancestry, HTTP 200 and `[data-reference-ready="true"]`; the canonical preview remains running.
 
-The optimized audit used port 6437 from isolated build directory `.parity-evidence/search-family-final-accepted-build-20260918-0800/.next`. Listener PID `15260` and its complete project-only ancestry were inspected; HTTP and the exact browser corpus passed before the exact listener was stopped. Port 6437 is stopped and port 3000 is unused.
+The optimized audit ran the exact fresh build on port 6437. Its complete project-only ancestry was inspected before the exact listener was stopped; port 6437 is now free. Current port observations: 6431 `free`, 3000 `free`. No unrelated listener was terminated.
 
-Port 6431 was unexpectedly occupied during final verification by orphan listener PID `39808`, whose served page identifies itself as an unrelated `Shop reference preview`. It was not touched because computer-safety rules prohibit terminating an unrelated project. Do not use that listener as clone evidence; re-inspect it before any future action.
-
-Main `.next` and `.parity-evidence` remain D:-backed. Do not delete their backing directories or build simultaneously into a `.next` used by another process. At this checkpoint J: has approximately 33.66 GB free and D: has approximately 2.93 GB free; no cleanup command was run. Keep TEMP/TMP, build scratch and evidence on D: and report further storage pressure instead of deleting user data.
+Main `.next` and `.parity-evidence` remain D:-backed. No cleanup command was run. At this checkpoint J: has approximately 32.75 GB free and D: has approximately 2.46 GB free; report storage pressure instead of deleting user data.
 
 ## Honest acceptance status
 

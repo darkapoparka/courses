@@ -54,9 +54,14 @@ async def home_carousel_boundaries(page, context):
 
 
 async def ordinary_player_material_and_geometry(page, context):
-    expected_material = {
+    ordinary_material = {
         'background': 'rgba(249, 249, 251, 0.74)',
         'filter': 'blur(28px) saturate(1.4)',
+        'box': {'x': 526, 'y': 833, 'width': 635, 'height': 54},
+    }
+    current_new_material = {
+        'background': 'rgba(249, 249, 251, 0.7)',
+        'filter': 'blur(28px) saturate(2)',
         'box': {'x': 526, 'y': 833, 'width': 635, 'height': 54},
     }
     expected_svgs = {
@@ -77,9 +82,9 @@ async def ordinary_player_material_and_geometry(page, context):
             box:{x:rect.x,y:rect.y,width:rect.width,height:rect.height}};
         }''')
 
-    for prefix in ['e72be564', 'a917d88f']:
+    for prefix, expected in [('e72be564', current_new_material), ('a917d88f', ordinary_material)]:
         await start(page, prefix)
-        assert await material() == expected_material
+        assert await material() == expected, (prefix, await material())
         actual = await page.evaluate('''() => Object.fromEntries(
           [...document.querySelectorAll('.transport button,.player-utilities button')].map(button => {
             const svg=button.querySelector('svg'); const rect=svg.getBoundingClientRect();
@@ -91,7 +96,7 @@ async def ordinary_player_material_and_geometry(page, context):
     await page.get_by_role('button', name='Play', exact=True).click()
     await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
     await expect(page.locator('.now-playing')).to_contain_text('stupid song')
-    assert await material() == expected_material
+    assert await material() == current_new_material
     await page.get_by_role('button', name='Pause', exact=True).click()
     await expect(page.get_by_role('button', name='Play', exact=True)).to_be_visible()
     assert await page.evaluate('document.querySelector("audio").paused')

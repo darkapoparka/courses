@@ -114,7 +114,20 @@ async def alpha_controls(page, context):
 async def discovery_carousel(page, context):
     await start(page, 'e72be564')
     initial_player = (await shell_state(page))['player']
+    assert initial_player == {'background': 'rgba(249, 249, 251, 0.7)', 'filter': 'blur(28px) saturate(2)'}, initial_player
     await record(page, 'new-carousel-sidebar', 'e72be564', 'First recorded New state')
+    partial = page.locator('[data-rail="Featured music"] .feature-card').nth(2)
+    await expect(partial).to_have_attribute('data-feature-partial', 'true')
+    assert await partial.locator('.feature-caption').inner_text() == 'NEW\nLe\nHe'
+    await expect(partial.locator('.feature-caption > button')).to_have_attribute('aria-disabled', 'true')
+    await expect(partial.locator('.card-art-button')).to_have_attribute('aria-disabled', 'true')
+    partial_art = partial.locator('.music-art')
+    await expect(partial_art).to_have_attribute('data-art-partial', 'true')
+    await expect(partial_art).to_have_attribute('data-art-source', source('e72be564'))
+    partial_box = await partial_art.bounding_box()
+    assert partial_box and abs(partial_box['x'] - 1422) < .01 and abs(partial_box['y'] - 167) < .01, partial_box
+    assert abs(partial_box['width'] - 18) < .01 and abs(partial_box['height'] - 314) < .01, partial_box
+    assert await partial.locator('.card-art-button').evaluate('(e)=>getComputedStyle(e,"::after").content') == 'none'
     next_page = page.get_by_role('button', name='Next Featured music', exact=True)
     await next_page.hover()
     await record(page, 'new-carousel-sidebar', '4f611a9e', 'Hover the actual Next control; preserve starting profile/artwork', move_pointer=False)
