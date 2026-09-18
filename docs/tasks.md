@@ -772,13 +772,15 @@ Check catalog/library scope, suggestions, recent searches, category ordering and
 <a id="screen-035569a0"></a>
 
 - [x] **UI-035569a0 — Search — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-035569a0 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-035569a0 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Live Search-top geometry, catalog order, sidebar/profile state, idle-player material and real-control entry were reviewed at the exact viewport. `5.192895 / 6.807401% → 4.320887 / 4.740833%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/035569a0-e8da-454e-8bfd-83e7eacfecc5.webp) · [Open app state](http://127.0.0.1:6435/screen/035569a0-e8da-454e-8bfd-83e7eacfecc5) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-812ba627"></a>
 
 - [x] **UI-812ba627 — Search — scrolled to more categories.** Coded UI; current browser render passed.
-  - [ ] **MATCH-812ba627 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-812ba627 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: The real scroll container reaches the recorded bottom, preserves Mandopop/category order and owns the exact bottom-toolbar/player state. `4.910820 / 6.277609% → 4.887877 / 6.277224%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/812ba627-9cf5-4fb2-a508-1fedce206994.webp) · [Open app state](http://127.0.0.1:6435/screen/812ba627-9cf5-4fb2-a508-1fedce206994) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-5b3ec96a"></a>
@@ -791,25 +793,29 @@ Check catalog/library scope, suggestions, recent searches, category ordering and
 <a id="screen-4b515439"></a>
 
 - [x] **UI-4b515439 — Search — query olivia.** Coded UI; current browser render passed.
-  - [ ] **MATCH-4b515439 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-4b515439 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Real focus, `olivia` input, suggestion glass, measured ring and compact filled Clear control reproduce the saved state. `7.721802 / 9.049849% → 6.704724 / 6.963440%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/4b515439-fcaf-45bc-895f-89fa234fc881.webp) · [Open app state](http://127.0.0.1:6435/screen/4b515439-fcaf-45bc-895f-89fa234fc881) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-e70094e3"></a>
 
 - [x] **UI-e70094e3 — Search — query olivia.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e70094e3 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e70094e3 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Enter submits the live form; result strings, explicit badge, five-card rail geometry, artwork and player continuity match the immutable frame. `7.229142 / 8.450074% → 7.148837 / 8.437462%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/e70094e3-980e-4ba7-a454-e8dd6ce55ae4.webp) · [Open app state](http://127.0.0.1:6435/screen/e70094e3-980e-4ba7-a454-e8dd6ce55ae4) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-bbb92581"></a>
 
 - [x] **UI-bbb92581 — Search — query olivia, library scope.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bbb92581 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-bbb92581 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: The visible Your Library control produces the exact four recorded rows with the same toolbar, sidebar and idle player. `4.084941 / 3.538129% → 3.996767 / 3.489833%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/bbb92581-a59e-46ef-add7-3dd0e625eb27.webp) · [Open app state](http://127.0.0.1:6435/screen/bbb92581-a59e-46ef-add7-3dd0e625eb27) · [Component](../apple-music-clone/components/music-search.tsx)
 
 <a id="screen-f4a8b5dc"></a>
 
 - [x] **UI-f4a8b5dc — Search — Simplified Chinese.** Coded UI; current browser render passed.
-  - [ ] **MATCH-f4a8b5dc — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-f4a8b5dc — Exact screenshot match reviewed and signed off.**
+  - 2026-09-18: Simplified-Chinese strings, category order, search chrome, sidebar and player state were reviewed at 1440×903. `6.350066 / 8.168066% → 5.867411 / 8.128691%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/f4a8b5dc-6d28-4e7e-ad51-423e571073de.webp) · [Open app state](http://127.0.0.1:6435/screen/f4a8b5dc-6d28-4e7e-ad51-423e571073de) · [Component](../apple-music-clone/components/music-search.tsx)
 
 ### Replay and milestones — 7 states
@@ -1284,10 +1290,11 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/watching-a-music-video?step=0). Sequence: [1: edae3407](#screen-edae3407) → [2: 898ca766](#screen-898ca766) → [3: a4afd6e6](#screen-a4afd6e6)
 
 - [ ] **FLOW-6c5d545e — 27. Search (4 steps).** Complete and verify the recorded journey.
-  - 2026-09-18: The complete real-control sequence and ordered captures now pass, but `e72be564`, `035569a0` and `812ba627` remain visually incomplete; FLOW stays unchecked. [Evidence](reference-review/2026-09-18-search-library-empty-match.md).
+  - 2026-09-18: All three Search endpoints are now MATCH-complete and byte-identical between the continuous journey and direct fixtures. FLOW stays unchecked only because initial New frame `e72be564` remains open. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/search?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 035569a0](#screen-035569a0) → [3: 812ba627](#screen-812ba627) → [4: 5b3ec96a](#screen-5b3ec96a)
 
-- [ ] **FLOW-638262c8 — 28. Searching Apple Music (4 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-638262c8 — 28. Searching Apple Music (4 steps).** Complete recorded journey reviewed and signed off.
+  - 2026-09-18: Traversed Search → focus/type `olivia` → live suggestions → Enter submission → Your Library through visible controls; retained ordered screenshots/`steps.jsonl`, exact direct-fixture equivalence, Escape focus return and player continuity. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/searching-apple-music?step=0). Sequence: [1: 035569a0](#screen-035569a0) → [2: 4b515439](#screen-4b515439) → [3: e70094e3](#screen-e70094e3) → [4: bbb92581](#screen-bbb92581)
 
 - [ ] **FLOW-95cd6e33 — 29. Concerts (3 steps).** Complete and verify the recorded journey.

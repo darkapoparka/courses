@@ -161,7 +161,11 @@ async def search(page, context):
     await field.fill('no-match-uuid-1234')
     await field.press('Enter')
     await expect(page.get_by_role('heading', name='No results', exact=True)).to_be_visible()
-    await page.get_by_role('button', name='Clear search', exact=True).click()
+    clear = page.get_by_role('button', name='Clear search', exact=True)
+    await expect(clear).to_have_count(0)
+    await field.focus()
+    await expect(clear).to_be_visible()
+    await clear.click()
     await expect(field).to_have_value('')
 
 

@@ -29,6 +29,11 @@
   -webkit-backdrop-filter:blur(28px) saturate(1.4);
   backdrop-filter:blur(28px) saturate(1.4);
 }
+.music-app[data-scene="search"]:not(:has(.library-search-empty)) .floating-player {
+  background:rgb(249 249 251 / 44%);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  backdrop-filter:blur(16px) saturate(1.4);
+}
 /* The legacy discovery catalog is materially more transparent and saturated.
    Scope this beneath the live catalog owner so current New, Home, panels,
    expanded media and radio keep their independently reviewed glass. */

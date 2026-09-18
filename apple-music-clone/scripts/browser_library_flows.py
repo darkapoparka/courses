@@ -24,6 +24,39 @@ async def assert_library_topbar(page, expected_height):
     assert abs((topbar['x'] + topbar['width']) - (sort['x'] + sort['width']) - 18) < .05, (topbar, sort)
     assert abs(sort['y'] - 6) < .05 and abs(sort['height'] - 22) < .05, sort
 
+async def assert_search_toolbar(page, focused=False, at_bottom=False):
+    search = page.locator('.capture-search')
+    field = search.locator('.search-field')
+    field_box = await field.bounding_box()
+    assert field_box and abs(field_box['x'] - 590) < .05 and abs(field_box['y'] - 13) < .05, field_box
+    assert abs(field_box['width'] - 508) < .05 and abs(field_box['height'] - 33) < .05, field_box
+    glyph_box = await field.locator(':scope > svg').bounding_box()
+    assert glyph_box and abs(glyph_box['x'] - 602) < .05 and abs(glyph_box['y'] - 22) < .05, glyph_box
+    style = await field.evaluate('(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.boxShadow]}')
+    if focused:
+        assert style == ['rgba(255, 255, 255, 0.94)',
+                         'rgba(190, 91, 104, 0.78) 0px 0px 0px 4px, rgba(0, 0, 0, 0.12) 0px 8px 32px 0px'], style
+        clear = field.get_by_role('button', name='Clear search', exact=True)
+        clear_box = await clear.bounding_box()
+        assert clear_box and abs(clear_box['x'] - 1064) < .05 and abs(clear_box['y'] - 18.5) < .05, clear_box
+        clear_material = await clear.evaluate(
+            "(e)=>{const p=getComputedStyle(e,'::before');return [p.width,p.height,p.borderRadius,p.backgroundColor]}")
+        assert clear_material == ['13px', '13px', '50%', 'rgb(121, 121, 127)'], clear_material
+        clear_icon = await clear.locator('svg').evaluate(
+            '(e)=>{const s=getComputedStyle(e);return [s.width,s.height,s.color,s.strokeWidth]}')
+        assert clear_icon == ['14px', '14px', 'rgb(255, 255, 255)', '2.8px'], clear_icon
+    elif at_bottom:
+        assert style == ['rgba(255, 255, 255, 0.93)',
+                         'rgba(0, 0, 0, 0.07) 0px 8px 27px 0px, rgba(237, 237, 240, 0.47) 0px 0px 0px 1px'], style
+    else:
+        assert style == ['rgba(255, 255, 255, 0.94)',
+                         'rgba(0, 0, 0, 0.12) 0px 8px 32px 0px, rgba(237, 237, 240, 0.2) 0px 0px 0px 1px'], style
+
+async def assert_search_player(page):
+    material = await page.locator('.floating-player').evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}')
+    assert material == ['rgba(249, 249, 251, 0.44)', 'blur(16px) saturate(1.4)'], material
+
 async def artists(page, context):
     journey = '9decd1cd-artists'
     await begin(page, journey)
@@ -174,6 +207,8 @@ async def recorded_search(page, context):
     playlists = page.get_by_role('navigation', name='Playlists', exact=True)
     assert await playlists.get_by_role('button').all_text_contents() == [
         'All Playlists', 'Favourite Songs', 'Emotional Songs']
+    await assert_search_toolbar(page)
+    await assert_search_player(page)
     await record(page, journey, '035569a0', 'Open Search through the visible sidebar control')
 
     main = page.locator('.music-main')
@@ -183,14 +218,19 @@ async def recorded_search(page, context):
     scroll = await main.evaluate('(e)=>[e.scrollTop,e.scrollHeight,e.clientHeight]')
     assert abs(scroll[0] - (scroll[1] - scroll[2])) < 1, scroll
     await expect(page.get_by_text('Mandopop', exact=True)).to_be_visible()
+    classes = (await page.locator('.capture-search').get_attribute('class') or '').split()
+    assert 'search-at-bottom' in classes, classes
+    await assert_search_toolbar(page, at_bottom=True)
+    await assert_search_player(page)
     await record(page, journey, '812ba627', 'Scroll the real Search surface to its recorded bottom state')
 
     await page.get_by_role('button', name='Your Library', exact=True).click()
     await expect(page.get_by_role('button', name='Your Library', exact=True)).to_have_attribute('aria-pressed', 'true')
     empty = page.locator('.capture-search > .empty-state')
     await expect(empty.locator(':scope > p')).to_have_text('Search in Library')
-    await expect(page.locator('.capture-search')).to_have_class(
-        'page-content search-page capture-search library-search-results short-page library-search-empty')
+    classes = (await page.locator('.capture-search').get_attribute('class') or '').split()
+    assert {'library-search-results', 'short-page', 'library-search-empty'}.issubset(classes), classes
+    assert 'search-at-bottom' not in classes, classes
     assert await main.evaluate('(e)=>e.scrollTop') == 0
     assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists']
 
@@ -239,6 +279,9 @@ async def recorded_search(page, context):
     await field.press('Enter')
     await expect(page.get_by_role('heading', name='Songs', exact=True)).to_be_visible()
     await expect(page.locator('.library-result-songs .song-row')).to_have_count(4)
+    await expect(page.get_by_role('button', name='Clear search', exact=True)).to_have_count(0)
+    await field.focus()
+    await expect(page.get_by_role('button', name='Clear search', exact=True)).to_be_visible()
     await page.get_by_role('button', name='Clear search', exact=True).click()
     await expect(field).to_have_value('')
     await expect(empty.locator(':scope > p')).to_have_text('Search in Library')
@@ -247,8 +290,67 @@ async def recorded_search(page, context):
         '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
 
 
+async def searching_apple_music(page, context):
+    journey = '638262c8-searching-apple-music'
+    await start(page, '035569a0')
+    await expect(page.get_by_role('heading', name='Recently Searched', exact=True)).to_be_visible()
+    await assert_search_toolbar(page)
+    await assert_search_player(page)
+    player_signature = await page.locator('.floating-player').evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]')
+    await record(page, journey, '035569a0', 'Initial Apple Music Search surface')
+
+    field = page.get_by_label('Search Apple Music', exact=True)
+    await field.focus()
+    await field.fill('olivia')
+    suggestions = page.get_by_role('listbox', name='Search suggestions', exact=True)
+    await expect(suggestions).to_be_visible()
+    await expect(field).to_have_attribute('aria-expanded', 'true')
+    classes = (await page.locator('.capture-search').get_attribute('class') or '').split()
+    assert 'search-suggestions-open' in classes, classes
+    await assert_search_toolbar(page, focused=True)
+    suggestion_material = await suggestions.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.backgroundColor,s.backdropFilter]}')
+    assert suggestion_material == ['rgba(248, 247, 248, 0.75)', 'blur(36px) saturate(1.08)'], suggestion_material
+    await assert_search_player(page)
+    await record(page, journey, '4b515439', 'Type olivia into the real Search field', move_pointer=False)
+
+    await field.press('Enter')
+    await expect(page.get_by_role('heading', name='Top Results', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='Clear search', exact=True)).to_have_count(0)
+    album_result = page.locator('.capture-result').filter(has_text='you seem pretty sad for a girl so in love')
+    await expect(album_result.locator('.explicit')).to_have_text('E')
+    albums = page.locator('.capture-search .square-rail .music-rail')
+    assert await albums.evaluate("e => getComputedStyle(e).gap") == "19px"
+    boxes = await albums.locator('.media-card').evaluate_all(
+        "items => items.map(e => [e.getBoundingClientRect().x, e.getBoundingClientRect().width, getComputedStyle(e).flexBasis])")
+    assert boxes == [[286, 208, 'calc(20% - 15.2px)'], [513, 208, 'calc(20% - 15.2px)'],
+                     [740, 208, 'calc(20% - 15.2px)'], [967, 208, 'calc(20% - 15.2px)'],
+                     [1194, 208, 'calc(20% - 15.2px)']], boxes
+    await assert_search_toolbar(page)
+    await assert_search_player(page)
+    await record(page, journey, 'e70094e3', 'Submit the query through the Search form')
+
+    await page.get_by_role('button', name='Your Library', exact=True).click()
+    await expect(page.get_by_role('button', name='Your Library', exact=True)).to_have_attribute('aria-pressed', 'true')
+    await expect(page.get_by_role('heading', name='Songs', exact=True)).to_be_visible()
+    await expect(page.locator('.library-result-songs .song-row')).to_have_count(4)
+    await expect(page.get_by_role('button', name='Clear search', exact=True)).to_have_count(0)
+    await assert_search_toolbar(page)
+    await assert_search_player(page)
+    assert await page.locator('.floating-player').evaluate(
+        '(e)=>[e.className,e.getAttribute("aria-label"),e.textContent]') == player_signature
+    await record(page, journey, 'bbb92581', 'Switch the submitted query to Your Library')
+
+    await field.focus()
+    await expect(page.get_by_role('button', name='Clear search', exact=True)).to_be_visible()
+    await field.press('Escape')
+    await expect(suggestions).to_have_count(0)
+    await expect(field).to_be_focused()
+
+
 CASES = [('recorded-library-artists', artists), ('recorded-library-albums', albums),
          ('recorded-library-songs', songs), ('recorded-library-videos', music_videos),
          ('recorded-all-playlists', all_playlists), ('recorded-playlist-detail', playlist_detail),
          ('recorded-suggested-song', suggested_song), ('recorded-favourite-songs', favourite_songs),
-         ('recorded-search', recorded_search)]
+         ('recorded-search', recorded_search), ('recorded-searching-apple-music', searching_apple_music)]

@@ -1,8 +1,20 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-18 for the verified Library-family match batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-18 for the verified Search-family match batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest Library-family screen and journey findings
+## Latest Search-family screen and journey findings
+
+Six additional Search frames are now accepted through live state ownership rather than endpoint-only compensation: `035569a0`, `812ba627`, `4b515439`, `e70094e3`, `bbb92581` and `f4a8b5dc`. The previously accepted empty-library frame `5b3ec96a` is reconfirmed.
+
+`components/music-search.tsx` now owns suggestion-open, bottom-scroll and submitted-results state; `capture-content.css` owns the measured field, focus ring, suggestion glass, compact filled Clear control, results spacing and rail geometry; `player-fidelity.css` owns the ordinary Search player material; and `reference-fidelity.css` follows live submitted-results state. `recorded-searching-apple-music` traverses focus/type `olivia`, suggestions, Enter submission and Your Library through visible controls. Every continuous checkpoint is byte-identical to its direct candidate fixture, retains ordered screenshots and `steps.jsonl`, and verifies Escape focus return and player continuity.
+
+Fresh source-clean optimized verification passed 159 desktop states, five responsive states, 218 route checks and 70 interaction regressions with zero failures. All 159 exact-size comparisons completed. Corpus mean improved `5.256962793 → 5.240636608` MAE and `5.350413054% → 5.323660568%` over-20. Seven render hashes changed; all seven improved, 152 states retained both metrics and the positive-delta union is empty.
+
+`FLOW-638262c8` is accepted. `FLOW-6c5d545e` remains open only because its permitted initial frame `e72be564` is not MATCH-complete; its three Search endpoints and continuous/direct equivalence are now complete.
+
+The [dated Search-family review](reference-review/2026-09-18-search-family-match.md) records exact ownership, geometry, hashes, readable source/render/difference review, real-control evidence, corpus review and the remaining flow boundary. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+
+## Previous Library-family screen and journey findings
 
 Fourteen coherent Library screens are now accepted through their shared implementation owners rather than isolated fixture patches. The repair covers the compact top bars, Albums height, sort/menu anchors and material, checked-symbol placement, compact action glyph contours, Recently Added and Made for You empty symbols, and source-supported footer state.
 
@@ -14,7 +26,7 @@ Accepted MATCH entries: `bdc69b59`, `0df0d2a2`, `610af644`, `5d3db7ca`, `9258938
 
 The [dated Library review](reference-review/2026-09-18-library-family-match.md) records exact geometry, hashes, source/render/difference review, continuous-flow evidence, regressions and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
 
-## Latest Search library-empty screen-match findings
+## Previous Search library-empty screen-match findings
 
 The saved `5b3ec96a` frame is the empty Your Library scope: one All Playlists sidebar entry, a measured search field and segmented control, a centered search glyph/label, the ordinary footer and an idle player. Those facts now belong to live Search state rather than a source-specific navigation fixture.
 
@@ -133,6 +145,6 @@ A continuous journey starts at its permitted first fixture and then uses real co
 
 ## Current acceptance boundary
 
-The preserved checklist reports UI 159/159, MATCH 16/159 and FLOW 2/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
+The preserved checklist reports UI 159/159, MATCH 22/159 and FLOW 3/58. No acceptance is inferred from these findings. Where rights, unavailable recordings or differing snapshots prevent a justified exact claim, record the precise discrepancy and evidence. Do not invent approval or silently redefine 1:1.
 
 Earlier detailed observations remain in [library controls](reference-review/2026-09-12-library-controls.md), [library panels](reference-review/2026-09-12-library-panels.md), [sidebar geometry](reference-review/2026-09-12-sidebar.md), [the source ledger](reference-review/ledger.md), and the [pre-Astra audit](history/pre-astra-2026-09-12/docs/reference-audit.md).

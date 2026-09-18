@@ -262,8 +262,8 @@
 .guest-session .sidebar-signin { height:34px; margin-top:3px; }
 
 @media(min-width:1181px) {
- .music-app[data-source^="e70094e3"] .square-rail .music-rail { gap:19px; }
- .music-app[data-source^="e70094e3"] .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
+ .capture-search.search-results-catalog .square-rail .music-rail { gap:19px; }
+ .capture-search.search-results-catalog .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
  .radio-page > .music-section .square-rail .music-rail { gap:19px; }
  .radio-page > .music-section .square-rail .media-card { flex-basis:calc((100% - 76px)/5); }
 }
