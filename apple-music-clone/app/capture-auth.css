@@ -185,3 +185,16 @@
   .auth-signup .auth-footer .account-action { color:rgb(154 62 82); border-color:rgb(159 64 84); font-weight:400; }
   .auth-signup .auth-footer .account-action.filled { color:white; background:rgb(238 30 50); border:1px solid rgb(190 36 57); }
 }
+
+/* Signup controls retain native input/select semantics. Only their captured
+   optical chrome is customized; keyboard, focus and validation stay native. */
+.auth-signup .capture-field input,
+.auth-signup .capture-field select { border-radius:13px; border-color:rgb(146 146 146); }
+.auth-signup .capture-field input[readonly] { border-color:rgb(202 202 204); }
+.auth-signup .auth-country select { appearance:none; padding-right:44px; }
+.auth-signup .auth-country::after {
+  content:""; position:absolute; right:19px; top:22px; width:6px; height:6px;
+  border-right:1.3px solid rgb(90 90 90); border-bottom:1.3px solid rgb(90 90 90);
+  transform:rotate(45deg); pointer-events:none;
+}
+.auth-signup .auth-checkbox input { accent-color:rgb(0 105 201); }

@@ -1,6 +1,6 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-20 for the verified player/Replay/release checkpoint on top of `fd39956`. **Only checkout: `J:\courses`; only branch: `main`.** Canonical development preview: port 6435.
+Updated 2026-09-20 for the verified signup-control follow-up on `32ea2e1`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
 Implementation checkpoint: corrected named/playing New release artwork; preserved and verified expanded lyrics, modal gestures, playback completion, account identity, signup and Replay controls. Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 97 interaction tests. [Verified review](reference-review/2026-09-20-player-replay-release-checkpoint.md). MATCH remains 22/159 and FLOW 3/58; concrete defects remain and no checkbox advanced.
 
@@ -22,6 +22,8 @@ Implementation checkpoint: corrected named/playing New release artwork; preserve
 **Flow checkboxes:** check `FLOW-…` only after traversing its entire recorded sequence using real controls and checking the intermediate states. Loading `/flows/...` URLs alone does not complete a flow.
 
 ## Current finalization evidence
+
+Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
 Latest implementation evidence: [2026-09-20-player-replay-release-checkpoint.md](reference-review/2026-09-20-player-replay-release-checkpoint.md). Evidence root: `J:\courses\apple-music-clone\.qa\evidence\publish-20260920`. Full browser/comparison gates pass; the dated review explicitly records visual blockers and review limits. Earlier reviews below retain their original candidate scope.
 

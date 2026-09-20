@@ -1,5 +1,16 @@
 # Courses — current handoff
 
+## Latest signup-control follow-up
+
+[Verified signup review](reference-review/2026-09-20-signup-control-chrome.md). Build `Rb2nQZf5zZtyItM1k47jY`; 159 desktop states, five responsive states, 218 routes and 98 tests, zero failures. Evidence: `.qa/evidence/signup-chrome-20260920`. MATCH remains 22/159, FLOW 3/58.
+
+The 36-file preceding batch is published as `32ea2e1089a7a28622885c05ce914703d0c89f6a`; both workflows passed. The immediate next defect is the initial New selected-row corners/ink and player glass/underlay, confirmed by native source/render/difference review. Preserve the ATEEZ cover repair and all playback/session work.
+
+For ordinary pushes, use the configured manager without the global selector: `git -c credential.helper= -c credential.helper=manager -c credential.interactive=never push origin main`. Do not change global credential settings or expose tokens.
+
+The older runtime/parent details below belong to the preceding batch; recheck exact listeners and Git before reuse.
+
+
 Updated 2026-09-20 for the player/Replay/release implementation checkpoint.
 
 ## Single checkout and preservation

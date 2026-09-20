@@ -43,3 +43,33 @@ async def guest_editorial_continuity(page, context):
     await record(page, 'guest-editorial-continuity', '3731221f', 'Dialog return and browser Back retain the public editorial continuation')
 
 CASES.append(('guest-editorial-continuity', guest_editorial_continuity))
+
+
+async def signup_field_chrome(page, context):
+    for prefix in ['4a1d7759', 'cd34d1ac', 'eebd5ffb', '269160a4']:
+        await start(page, prefix)
+        dialog = page.get_by_role('dialog')
+        inputs = dialog.locator('.capture-field input')
+        assert set(await inputs.evaluate_all('(els)=>els.map(e=>getComputedStyle(e).borderRadius)')) == {'13px'}
+        country = dialog.locator('.auth-country select')
+        await expect(country).to_have_css('appearance', 'none')
+        arrow = await country.locator('..').evaluate('(e)=>{const s=getComputedStyle(e,"::after");return [s.pointerEvents,s.right,s.width,s.borderRightWidth]}')
+        assert arrow[:3] == ['none', '19px', '6px'], arrow
+        await record(page, 'signup-field-chrome', prefix, 'Native signup controls with source-supported corners, readonly borders and select chevron')
+        previous = await country.input_value()
+        values = await country.locator('option:enabled').evaluate_all('(els)=>els.map(e=>e.value)')
+        if len(values) > 1:
+            await country.select_option(next(value for value in values if value != previous))
+            await country.select_option(previous)
+        await country.focus()
+        await expect(country).to_be_focused()
+        await expect(country).to_have_value(previous)
+        checkbox = dialog.locator('.auth-checkbox input').first
+        was_checked = await checkbox.is_checked()
+        await checkbox.click()
+        assert await checkbox.is_checked() != was_checked
+        await checkbox.click()
+        assert await checkbox.is_checked() == was_checked
+        await expect(dialog).to_be_visible()
+
+CASES.append(('signup-field-chrome', signup_field_chrome))
