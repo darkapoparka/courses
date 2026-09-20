@@ -117,16 +117,16 @@ async def current_release_editions(page, context):
         '4f611a9e', '54b01eab', '11803c64', 'c98f8b54', '1f9e170c',
         '9fbb38e1', 'afd02fa6', 'd83e96ba', 'ad689c37', 'fc5d84bd',
     ]
-    expected_cards = ['hearts-lemon-tang', 'cover-1', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind', 'muse-wow-signal']
+    expected_cards = ['hearts-lemon-tang', 'ateez-golden-hour-five', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind', 'muse-wow-signal']
     for prefix in prefixes:
         await start(page, prefix)
         cards = page.locator('#new-this-week .media-card')
         assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == expected_cards
-        for index in [1, 2]:
+        for index in [2]:
             art = cards.nth(index).locator('.card-art-button > .music-art').first
             source = await art.get_attribute('data-art-source')
             assert source and source.startswith('e757eb0f'), (prefix, index, source)
-        for index, provider in [(0, 'cover-hearts-lemon-tang'), (3, 'cover-kwn-all-pride-aside'), (4, 'cover-maren-hero-second-wind')]:
+        for index, provider in [(0, 'cover-hearts-lemon-tang'), (1, 'cover-ateez-golden-hour-five'), (3, 'cover-kwn-all-pride-aside'), (4, 'cover-maren-hero-second-wind')]:
             art = cards.nth(index).locator('.card-art-button > .music-art').first
             await expect(art).to_have_attribute('data-art-source', provider)
             await expect(art).not_to_have_attribute('data-art-partial', 'true')

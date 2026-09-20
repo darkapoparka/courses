@@ -17,6 +17,12 @@ import struct
 import wave
 from playwright.async_api import async_playwright, expect
 from browser_live_fidelity import CASES as LIVE_FIDELITY_CASES
+from browser_expanded_controls import CASES as EXPANDED_CONTROL_CASES
+from browser_dialog_controls import CASES as DIALOG_CONTROL_CASES
+from browser_playback_completion import CASES as PLAYBACK_COMPLETION_CASES
+from browser_replay_controls import CASES as REPLAY_CONTROL_CASES
+from browser_auth_controls import CASES as AUTH_CONTROL_CASES
+from browser_account_session import CASES as ACCOUNT_SESSION_CASES
 from browser_library_flows import CASES as LIBRARY_FLOW_CASES
 from browser_library_controls import CASES as LIBRARY_CONTROL_CASES
 from browser_panel_controls import CASES as PANEL_CONTROL_CASES
@@ -363,6 +369,12 @@ async def main():
         cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
         cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry), ("article-scroll-state", article_scroll_state)]
         cases += LIVE_FIDELITY_CASES
+        cases += EXPANDED_CONTROL_CASES
+        cases += DIALOG_CONTROL_CASES
+        cases += PLAYBACK_COMPLETION_CASES
+        cases += REPLAY_CONTROL_CASES
+        cases += AUTH_CONTROL_CASES
+        cases += ACCOUNT_SESSION_CASES
         cases += LIBRARY_FLOW_CASES
         cases += LIBRARY_CONTROL_CASES
         cases += PANEL_CONTROL_CASES

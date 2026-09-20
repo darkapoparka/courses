@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type Dispatch, type MouseEvent, type ReactNode, type RefObject, type SetStateAction } from "react";
-import { allTracks, capturedQueue, libraryTracks, radioStations, trackById, viralTracks, type Track } from "../lib/music-catalog";
+import { allTracks, autoplayTracks, capturedQueue, libraryTracks, radioStations, trackById, viralTracks, type Track } from "../lib/music-catalog";
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
@@ -53,10 +53,11 @@ function browseEntryKey(): string {
 }
 export type Controller = {
   viewportMemory: BrowseViewportMemory;
+  profileName: string;
   scene: Scene; patch: (patch: Partial<Scene>) => void; go: (destination: string) => void;
   library: LibraryState; setLibrary: Dispatch<SetStateAction<LibraryState>>;
   active: Track | undefined; activeId: string | undefined; playing: boolean; snapshot: boolean;
-  elapsed: number; duration: number; setElapsed: (value: number) => void;
+  elapsed: number; seekRevision: number; duration: number; setElapsed: (value: number) => void;
   volume: number; setVolume: (value: number) => void; muted: boolean; setMuted: (value: boolean) => void;
   shuffle: boolean; setShuffle: (value: boolean) => void; repeat: boolean; setRepeat: (value: boolean) => void;
   queue: string[]; queueOverrides: Track[]; setQueue: Dispatch<SetStateAction<string[]>>;
@@ -73,12 +74,13 @@ export function useMusic(): Controller { const value = useContext(Context); if (
 
 export function MusicProvider({ initialScene, children }: { initialScene: Scene; children: ReactNode }) {
   const [scene, setScene] = useState(initialScene);
+  const [profileName] = useState(initialScene.profileName ?? "SmithAlex");
   const referenceSession = useRef(Boolean(initialScene.source));
   const viewportMemory = useRef<BrowseViewportMemory>({ main: new Map(), rails: new Map(), entries: new Map() });
   useEffect(() => { viewportMemory.current.entryKey = browseEntryKey(); }, []);
   const rememberViewport = useCallback(() => {
     const main = document.getElementById("music-main");
-    if (main && (scene.page === "new" || scene.page === "home")) {
+    if (main && (["new", "home", "replay", "milestones", "milestone"].includes(scene.page))) {
       const memory = viewportMemory.current;
       memory.main.set(scene.page, main.scrollTop);
       if (memory.entryKey) memory.entries.set(memory.entryKey, {
@@ -101,13 +103,15 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     discouraged: initialScene.page === "artist" && initialScene.filled ? allTracks.filter(track => track.artist.split(", ").includes("Olivia Rodrigo")).map(track => track.id) : [...initialLibrary.discouraged],
     favouriteArtists: initialScene.source && initialScene.page === "artist" ? [] : [...initialLibrary.favouriteArtists],
     songs: initialScene.librarySeed === "song" ? ["album-2"] : initialScene.librarySeed || initialScene.empty && initialScene.page === "library" ? [] : [...initialLibrary.songs],
-    favourites: initialScene.favourite === false ? initialLibrary.favourites.filter(id => id !== "album-2") : [...initialLibrary.favourites], playlists: initialScene.librarySeed === "empty" || initialScene.librarySeed === "song" ? [] : initialScene.librarySeed === "playlist" ? [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2"], public: true }] : initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),
+    favourites: initialScene.favourite === false ? initialLibrary.favourites.filter(id => id !== "album-2") : [...initialLibrary.favourites], playlists: initialScene.personalPlaylistsEmpty || initialScene.librarySeed === "empty" || initialScene.librarySeed === "song" ? [] : initialScene.librarySeed === "playlist" ? [{ id: "emotional", name: "Emotional Songs", description: "just in case I wanna cry", tracks: ["album-2"], public: true }] : initialLibrary.playlists.map((item) => ({ ...item, tracks: [...item.tracks, ...(initialScene.page === "playlist" && initialScene.filled ? ["vampire"] : [])] })),
     pinned: initialScene.pinned ? ["album-2"] : [], hiddenNav: initialScene.hiddenNav ?? [], locale: initialScene.locale ?? "en", restrictions: initialScene.restrictions ?? false, cancelled: initialScene.cancelled ?? false }));
   const [hydrated, setHydrated] = useState(false);
   const [activeId, setActiveId] = useState(initialScene.track);
   const [realPlaying, setRealPlaying] = useState(false);
   const [snapshot, setSnapshot] = useState(Boolean(initialScene.snapshotPlaying));
   const [elapsed, updateElapsed] = useState(initialScene.elapsed ?? 0);
+  // Explicit seeks resume lyric following; clock ticks must not steal manual scrolling.
+  const [seekRevision, advanceSeekRevision] = useState(0);
   const [demoRunning, setDemoRunning] = useState(false);
   const [duration, updateDuration] = useState(0);
   const [volume, updateVolume] = useState(initialScene.volume ?? .5);
@@ -241,6 +245,16 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     const next = queue[shuffle ? Math.floor(Math.random() * queue.length) : 0];
     if (next) { setQueue(current => current.filter(id => id !== next)); play(next); }
   }, [activeId, queue, shuffle, play]);
+  // Silent previews and owned-file playback must follow the same completion
+  // rules. Prefer the recommendations actually shown in the Autoplay panel.
+  const advanceAfterTrack = useCallback(() => {
+    if (queue.length) { skip(1); return; }
+    if (!scene.autoplay) return;
+    const current = autoplayTracks.findIndex(track => track.id === activeId);
+    const recommendations = current < 0 ? autoplayTracks : [...autoplayTracks.slice(current + 1), ...autoplayTracks.slice(0, current)];
+    const next = recommendations.find(track => track.id !== activeId && !track.unavailable && !library.discouraged.includes(track.id) && (!library.restrictions || library.musicRating === "Explicit" || !track.explicit));
+    if (next) play(next);
+  }, [queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions, library.musicRating]);
   const displayDuration = duration || (activeId === "album-2" ? 210 : trackById(activeId ?? "")?.duration ?? 0);
   useEffect(() => {
     if (!demoRunning || !displayDuration) return;
@@ -251,8 +265,8 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     if (!demoRunning || !displayDuration || elapsed < displayDuration) return;
     if (repeat) { updateElapsed(0); return; }
     setDemoRunning(false); setSnapshot(false);
-    if (queue.length) skip(1);
-  }, [demoRunning, elapsed, displayDuration, repeat, queue.length, skip]);
+    advanceAfterTrack();
+  }, [demoRunning, elapsed, displayDuration, repeat, advanceAfterTrack]);
   useEffect(() => {
     const element = audio.current; if (!element) return;
     const time = () => { updateElapsed(element.currentTime); updateDuration(Number.isFinite(element.duration) ? element.duration : 0); };
@@ -261,16 +275,12 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     const failed = () => { setRealPlaying(false); notify("This media could not be decoded. Choose another local file."); };
     const ended = () => {
       setRealPlaying(false);
-      if (queue.length) skip(1);
-      else if (scene.autoplay) {
-        const next = allTracks.find(track => track.id !== activeId && !track.unavailable && !library.discouraged.includes(track.id) && (!library.restrictions || library.musicRating === "Explicit" || !track.explicit));
-        if (next) play(next);
-      }
+      advanceAfterTrack();
     };
     element.addEventListener("timeupdate", time); element.addEventListener("durationchange", time);
     element.addEventListener("play", started); element.addEventListener("pause", stopped); element.addEventListener("error", failed); element.addEventListener("ended", ended);
     return () => { element.removeEventListener("timeupdate", time); element.removeEventListener("durationchange", time); element.removeEventListener("play", started); element.removeEventListener("pause", stopped); element.removeEventListener("error", failed); element.removeEventListener("ended", ended); };
-  }, [notify, queue.length, skip, scene.autoplay, activeId, play, library.discouraged, library.restrictions, library.musicRating]);
+  }, [notify, advanceAfterTrack]);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
@@ -326,11 +336,11 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const favourite = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, favourites: toggle(current.favourites, id) })); };
   const addToLibrary = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, songs: toggle(current.songs, id) })); };
   const pin = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, pinned: toggle(current.pinned, id) })); };
-  const value: Controller = { viewportMemory: viewportMemory.current, scene, patch, go, library, setLibrary, active: activeId ? trackById(activeId) : undefined, activeId, playing: realPlaying || snapshot, snapshot,
-    elapsed, duration: displayDuration, setElapsed: (time) => {
+  const value: Controller = { viewportMemory: viewportMemory.current, profileName, scene, patch, go, library, setLibrary, active: activeId ? trackById(activeId) : undefined, activeId, playing: realPlaying || snapshot, snapshot,
+    elapsed, seekRevision, duration: displayDuration, setElapsed: (time) => {
       const next = Math.max(0, Math.min(displayDuration, time));
       if (audio.current && duration > 0 && media.current.has(activeId ?? "")) audio.current.currentTime = next;
-      updateElapsed(next); patch({ lyricIndex: undefined });
+      updateElapsed(next); advanceSeekRevision(value => value + 1); patch({ lyricIndex: undefined });
     },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
     shuffle, setShuffle, repeat, setRepeat, queue, queueOverrides: queueState.overrides, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,

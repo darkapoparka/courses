@@ -1,6 +1,8 @@
 import { crop } from "./music-catalog";
 import type { Scene } from "./music-scenes";
 
+// Open-menu frames overlap the cover: reuse the unobscured album art.
+// Captured interface pixels must never become part of an artwork asset.
 /** The captured player states belong to several catalog snapshots. Keep their
  * data and progress explicit rather than guessing from ordinal source indexes. */
 export const playerReference: Record<string, Partial<Scene>> = {
@@ -16,9 +18,9 @@ export const playerReference: Record<string, Partial<Scene>> = {
   "6ac70c34": { favourite: false },
   "c939c9b8": { elapsed: 11, lyricIndex: 0, favourite: false, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
   "b3f29b6f": { elapsed: 54, lyricIndex: 11, librarySeed: "empty", playerArt: crop("b3f29b6f",144,134,461,462) },
-  "ac05c6b8": { elapsed: 73, lyricIndex: 15, librarySeed: "empty", playerArt: crop("ac05c6b8",144,134,461,462) },
-  "96711b04": { elapsed: 81, lyricIndex: 17, librarySeed: "song", playerArt: crop("96711b04",144,134,461,462) },
-  "0c6da10e": { elapsed: 101, lyricIndex: 20, librarySeed: "empty", playerArt: crop("0c6da10e",144,134,461,462) },
+  "ac05c6b8": { elapsed: 73, lyricIndex: 15, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
+  "96711b04": { elapsed: 81, lyricIndex: 17, librarySeed: "song", playerArt: crop("c939c9b8",144,134,461,462) },
+  "0c6da10e": { elapsed: 101, lyricIndex: 20, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
   "55ae9e4c": { elapsed: 110, lyricIndex: 23, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
   "67446c83": { elapsed: 141, lyricIndex: 29, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },
   "3c1805b6": { elapsed: 151, lyricIndex: 31, librarySeed: "empty", playerArt: crop("c939c9b8",144,134,461,462) },

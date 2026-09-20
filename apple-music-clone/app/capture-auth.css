@@ -170,3 +170,18 @@
 .capture-checkout h3.checkout-confirm-heading { margin-top:48px; }
 
 .capture-checkout h3.checkout-confirm-heading { margin-top:40px; }
+
+/* Source-observed signup fields stay live, including the filled password
+   label and the profile step anchored to the actual Last Name control. */
+@media (min-width:641px) {
+  .auth-signup .auth-profile-fields { margin-top:20px; }
+  .auth-signup input[readonly] { color:rgb(102 102 102); }
+  .auth-signup .auth-country { margin-top:29px; }
+  .auth-signup .auth-checkbox { margin-top:14px; }
+  .auth-signup .auth-checkbox + .auth-checkbox { margin-top:24px; }
+  .auth-signup .auth-checkbox small { font-size:11.5px; color:rgb(102 102 102); }
+  .auth-signup .auth-terms { margin-top:23px; font-size:11.5px; color:rgb(102 102 102); }
+  .auth-signup .auth-footer { flex-basis:54px; }
+  .auth-signup .auth-footer .account-action { color:rgb(154 62 82); border-color:rgb(159 64 84); font-weight:400; }
+  .auth-signup .auth-footer .account-action.filled { color:white; background:rgb(238 30 50); border:1px solid rgb(190 36 57); }
+}

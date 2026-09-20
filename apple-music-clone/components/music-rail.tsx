@@ -10,7 +10,7 @@ export function Rail({ children, className = "", label, initialIndex = 0, onPosi
 }) {
   const id = useId();
   const { scene, viewportMemory } = useMusic();
-  const memoryKey = scene.page === "new" || scene.page === "home" ? `${scene.page}:${label}` : undefined;
+  const memoryKey = ["new", "home", "replay"].includes(scene.page) ? `${scene.page}:${label}` : undefined;
   const rail = useRef<HTMLDivElement>(null);
   const [edges, setEdges] = useState({ previous: false, next: false });
   useLayoutEffect(() => {

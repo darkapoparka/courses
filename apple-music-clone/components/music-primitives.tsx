@@ -94,16 +94,39 @@ export function EmptyState({ icon = "song", title, description, action, onAction
 }
 export function Dialog({ title, children, onClose, className = "", hideClose = false }: { title: string; children: ReactNode; onClose: () => void; className?: string; hideClose?: boolean }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const backdropPress = useRef(false);
+  const outside = (element: HTMLDialogElement, x: number, y: number) => {
+    const rect = element.getBoundingClientRect();
+    return x < rect.left || x > rect.right || y < rect.top || y > rect.bottom;
+  };
   useEffect(() => {
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const element = dialog.current;
     if (element && !element.open) { element.showModal(); element.focus({ preventScroll: true }); }
-    return () => { element?.close(); previous?.focus(); };
+    return () => { element?.close(); if (previous?.isConnected) previous.focus({ preventScroll: true }); };
   }, []);
-  return <dialog ref={dialog} className={`music-dialog ${className}`} aria-label={title} onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => {
-    if (event.target !== event.currentTarget) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
+  return <dialog ref={dialog} className={`music-dialog ${className}`} aria-label={title} aria-modal="true" onKeyDown={(event) => {
+    if (event.key !== "Tab" || event.defaultPrevented) return;
+    const surface = event.currentTarget;
+    const controls = Array.from(surface.querySelectorAll<HTMLElement>('button, input, select, textarea, a[href], [tabindex], [contenteditable="true"]')).filter(element =>
+      element.tabIndex >= 0 && !element.matches(':disabled') && !element.closest('[inert]') && element.getClientRects().length > 0 && getComputedStyle(element).visibility === "visible");
+    const first = controls[0], last = controls.at(-1);
+    const active = document.activeElement;
+    // Explicitly cycle at the boundaries: Chromium otherwise permits Tab to
+    // hand focus to browser chrome, leaving the modal without an active control.
+    if (!first || active === surface || !surface.contains(active) || (event.shiftKey ? active === first : active === last)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first)?.focus();
+      if (!first) surface.focus({ preventScroll: true });
+    }
+  }} onCancel={(event) => { event.preventDefault(); onClose(); }} onPointerDown={(event) => {
+    // Text selection and slider drags can end over the backdrop. Only an
+    // intentional press beginning outside the surface may dismiss a draft.
+    backdropPress.current = event.button === 0 && event.target === event.currentTarget && outside(event.currentTarget, event.clientX, event.clientY);
+  }} onPointerCancel={() => { backdropPress.current = false; }} onClick={(event) => {
+    const dismiss = backdropPress.current;
+    backdropPress.current = false;
+    if (dismiss && event.detail > 0 && event.target === event.currentTarget && outside(event.currentTarget, event.clientX, event.clientY)) onClose();
   }}>{!hideClose && <IconButton icon="close" label="Close dialog" className="dialog-close" onClick={onClose} />}{children}</dialog>;
 }
 export function Footer({ compact = false }: { compact?: boolean } = {}) {

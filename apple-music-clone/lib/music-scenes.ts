@@ -14,6 +14,10 @@ export type Scene = {
   discoveryOrigin?: string;
   guest?: boolean;
   namedProfile?: boolean;
+  /** Display identity of the recorded session; navigation never changes it. */
+  profileName?: "SmithAlex" | "Alex Smith";
+  /** Initial personal-playlist inventory, independent of saved songs/favourites. */
+  personalPlaylistsEmpty?: boolean;
   hero?: "default" | "superbloom" | "alpha" | "listening";
   catalog?: "legacy" | "queue";
   radioEdition?: "launch" | "hits";
@@ -216,9 +220,9 @@ const definitions: Record<string, Scene> = {
   "7437b956": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 3 },
   "6436de36": { ...account, scroll: "parental-controls", restrictions: true },
   "c0997fe5": { page: "subscription", namedProfile: true },
-  "fd1c0c71": { page: "subscription", namedProfile: true, overlay: "cancel-trial" },
-  "03157020": { page: "subscription", namedProfile: true, overlay: "cancelled" },
-  "603983c7": { page: "subscription", namedProfile: true, cancelled: true, guest: true },
+  "fd1c0c71": { page: "subscription", namedProfile: true, profileName: "Alex Smith", overlay: "cancel-trial" },
+  "03157020": { page: "subscription", namedProfile: true, profileName: "Alex Smith", overlay: "cancelled" },
+  "603983c7": { page: "subscription", namedProfile: true, profileName: "Alex Smith", cancelled: true, guest: true },
   "50fe374b": { ...account, locale: "zh" },
   "f4a8b5dc": { page: "search", namedProfile: true, locale: "zh" },
   "468b0465": { page: "home", namedProfile: true, locale: "zh" },

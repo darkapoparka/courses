@@ -65,10 +65,13 @@ function MusicShell() {
   const [initialPage] = useState(m.scene.page);
   // Preserve captured chrome through menus, but expose the actual library once
   // the user navigates. A first-frame fixture must not hide saved playlists forever.
-  useEffect(() => { if (m.scene.page !== initialPage) revealPlaylists(true); }, [m.scene.page, initialPage]);
+  useEffect(() => {
+    if (m.scene.page !== initialPage && !["settings", "connected", "subscription"].includes(m.scene.page)) revealPlaylists(true);
+  }, [m.scene.page, initialPage]);
   const [initialPlaylistCount] = useState(m.library.playlists.length);
   const hideEmptyLibrarySearchPlaylists = m.scene.page === "search" && m.scene.scope === "library" && !(m.scene.query ?? "").trim();
-  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (fixturePlaylists || m.library.playlists.length > initialPlaylistCount);
+  const replayChrome = ["replay", "milestones", "milestone"].includes(m.scene.page);
+  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.library.playlists.length > initialPlaylistCount);
   const sourcePrefix = m.scene.source?.slice(0, 8);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const loginOffer = m.scene.flow === "logging-in" || ["3131018d", "417f6129", "6aa4a9d7", "4e65c7c6", "97de6907"].includes(sourcePrefix ?? "");
@@ -95,7 +98,7 @@ function MusicShell() {
     return () => cancelAnimationFrame(frame);
   }, [m.scene.source, m.scene.scroll, m.scene.page, m.viewportMemory.entryKey]);
   const navigation = (page: string, label: string, icon: GlyphName) => <button type="button" key={page} className="sidebar-row" aria-current={activePage === page ? "page" : undefined} onClick={() => go(page)}><SidebarGlyph name={icon} size={19} /><span>{label}</span></button>;
-  return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""} ${m.scene.checkout ? "checkout-stage" : ""}`} lang={zh ? "zh-Hans" : "en-SG"} data-scene={m.scene.page} data-source={m.scene.source} data-flow={m.scene.flow} data-form-step={m.scene.formStep ?? 0}>
+  return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""} ${m.scene.checkout ? "checkout-stage" : ""}`} lang={zh ? "zh-Hans" : "en-SG"} data-scene={m.scene.page} data-replay-chrome={replayChrome || undefined} data-source={m.scene.source} data-flow={m.scene.flow} data-form-step={m.scene.formStep ?? 0}>
     <a className="skip-link" href="#music-main">Skip to content</a>
     <header className="mobile-header"><IconButton icon="queue" label="Open navigation" aria-expanded={mobileNav} aria-controls="music-sidebar" onClick={() => setMobileNav(!mobileNav)} /><button type="button" className="brand" onClick={() => go("new")}><Glyph name="apple" size={25} />Music</button><IconButton icon="person" label="Account" onClick={event => m.scene.guest ? m.patch({ overlay: "signin" }) : m.openMenu("profile", event)} /></header>
     {mobileNav && <button type="button" className="mobile-nav-backdrop" aria-label="Close navigation" onClick={() => setMobileNav(false)} />}
@@ -111,7 +114,7 @@ function MusicShell() {
           <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{showPlaylists && <>{navigation("favourites", zh ? "喜爱歌曲" : "Favourite Songs", "favourites")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><SidebarGlyph name="playlist" size={19} /><span>{playlist.name}</span></button>)}</>}</nav>
         </>}
       </div>
-      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><span className="open-music-icon"><Glyph name="apple-music" size={13} /></span><span>{zh ? "在“音乐”中打开" : "Open in Music"}</span><Glyph name="external-arrow" size={9} /></a>{guestHomeProfile ? <button type="button" className="profile-button guest-profile-button" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><span className="profile-avatar"><ProfileAvatar /></span></button> : m.scene.guest && !m.scene.checkout && !cancellationProfile ? <button type="button" className="sidebar-signin" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person-solid" size={13} /><span>Sign In</span></button> : <button type="button" className="profile-button" onClick={event => m.scene.guest ? m.patch({ overlay: "signin", formStep: 0 }) : m.openMenu("profile", event)} aria-label={m.scene.guest ? "Sign In" : "Account menu"}><span className="profile-avatar"><ProfileAvatar /></span>{(m.scene.namedProfile || cancellationProfile) && <span>{cancellationProfile ? "Alex Smith" : "SmithAlex"}</span>}</button>}</div>
+      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><span className="open-music-icon"><Glyph name="apple-music" size={13} /></span><span>{zh ? "在“音乐”中打开" : "Open in Music"}</span><Glyph name="external-arrow" size={9} /></a>{guestHomeProfile ? <button type="button" className="profile-button guest-profile-button" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><span className="profile-avatar"><ProfileAvatar /></span></button> : m.scene.guest && !m.scene.checkout && !cancellationProfile ? <button type="button" className="sidebar-signin" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person-solid" size={13} /><span>Sign In</span></button> : <button type="button" className="profile-button" onClick={event => m.scene.guest ? m.patch({ overlay: "signin", formStep: 0 }) : m.openMenu("profile", event)} aria-label={m.scene.guest ? "Sign In" : "Account menu"}><span className="profile-avatar"><ProfileAvatar /></span>{(m.scene.namedProfile || cancellationProfile) && <span>{m.profileName}</span>}</button>}</div>
     </aside>
     <main id="music-main" ref={main} className="music-main" tabIndex={-1}><Content /></main>
     {!m.scene.expanded && !m.scene.video && <><Player /><PlayerPanel /></>}

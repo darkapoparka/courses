@@ -123,6 +123,10 @@ const kwnPrideRelease: Card = {
   id: "kwn-all-pride-aside", title: "and all pride aside", subtitle: "kwn",
   destination: "category:and all pride aside", art: coverArtwork("cover-kwn-all-pride-aside"),
 };
+const goldenHourRelease: Card = {
+  id: "ateez-golden-hour-five", title: "GOLDEN HOUR : Part.5 - EP", subtitle: "ATEEZ",
+  destination: "category:GOLDEN HOUR : Part.5 - EP", art: coverArtwork("cover-ateez-golden-hour-five"),
+};
 const initialReleaseContinuation: Card = {
   id: "initial-release-continuation", title: "Archived release continuation",
   destination: "new", metadataPartial: true,
@@ -139,7 +143,9 @@ export function NewView() {
   // A local control clears source routing, not the visible catalog/artwork edition.
   const [source] = useState(() => (m.scene.discoveryOrigin ?? m.scene.source)?.slice(0, 8));
   const currentFeatures = currentFeatureSequence.map((card, index) => {
-    if (m.scene.featureEdge === "initial" && index === 2) return initialPartialFeature;
+    if ((m.scene.featureEdge === "initial" || m.scene.guest) && index === 2) {
+      return m.scene.guest ? { ...initialPartialFeature, art: { ...crop("3731221f", 1422, 167, 18, 314), partial: true } } : initialPartialFeature;
+    }
     // The public edition retains the same editorial artwork identities,
     // using its signed-out animation frame without resetting catalog data.
     if (m.scene.guest && index < 2) {
@@ -192,6 +198,7 @@ export function NewView() {
   const newThisWeek = releaseIndexes.map((index, position) => {
     if (initialReleaseEdition || currentReleaseEdition) {
       if (position === 0) return lemonTangRelease;
+      if (currentReleaseEdition && position === 1) return goldenHourRelease;
       if (position === (currentReleaseEdition ? 3 : 2)) return kwnPrideRelease;
       if (position === (currentReleaseEdition ? 4 : 3)) return marenHeroRelease;
       if (initialReleaseEdition && position === 4) return museWowRelease;

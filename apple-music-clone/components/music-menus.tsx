@@ -26,15 +26,33 @@ export function MusicMenus() {
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const captured = m.scene.source;
     const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1200, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
-    const anchor = m.menuPosition ?? fallback;
-    const bounds = menu.current.getBoundingClientRect();
-    setPosition({ x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) });
+    const expandedTrack = kind === "track" && m.scene.expanded;
+    const place = () => {
+      const host = menu.current;
+      if (!host) return;
+      const bounds = host.getBoundingClientRect();
+      const trigger = expandedTrack ? document.querySelector<HTMLElement>('.expanded-meta button[aria-label="More song actions"]') : null;
+      const rect = trigger?.getBoundingClientRect();
+      const anchor = rect
+        ? { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) - bounds.height }
+        : m.menuPosition ?? fallback;
+      const next = { x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) };
+      setPosition(current => current.x === next.x && current.y === next.y ? current : next);
+    };
+    place();
+    const observer = expandedTrack ? new ResizeObserver(place) : null;
+    observer?.observe(menu.current);
+    if (expandedTrack) window.addEventListener("resize", place);
     setSubmenu(Boolean(captured?.startsWith("0c6da10e")));
     setCopied(kind === "album" && m.scene.filled ? "link" : null);
     const focusTarget = menu.current.querySelector<HTMLElement>("input") ?? (m.menuKeyboard ? menu.current.querySelector<HTMLElement>("button") : menu.current);
     focusTarget?.focus({ preventScroll: true });
-    return () => previous?.focus({ preventScroll: true });
-  }, [kind, m.menuPosition, m.menuKeyboard]);
+    return () => {
+      observer?.disconnect();
+      if (expandedTrack) window.removeEventListener("resize", place);
+      previous?.focus({ preventScroll: true });
+    };
+  }, [kind, m.menuPosition, m.menuKeyboard, m.scene.expanded]);
   useLayoutEffect(() => {
     if (!submenu || !flyout.current || !menu.current) return;
     const trigger = menu.current.querySelector<HTMLElement>("[data-playlist-trigger]");
@@ -67,7 +85,7 @@ export function MusicMenus() {
     const groups = [["Add to Library", "Delete from Library"], ["Favourite", "Undo Favourite"], ["Copy Link", "Link Copied"], ["Copy Embed Code", "Embed Code Copied"], ["Suggest Less", "Undo Suggest Less"]];
     return groups.find(group => group.includes(label))?.[0] ?? label;
   };
-  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean, keepOpen = false) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={actionKey(label)} onClick={() => { run(); if (!keepOpen) close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && (m.scene.page === "songs" ? <LibraryMenuGlyph name={icon} /> : <Glyph name={icon} size={16} />)}</button>;
+  const action = (label: string, icon: GlyphName | null, run: () => void, checked?: boolean, keepOpen = false) => <button type="button" role={checked === undefined ? "menuitem" : "menuitemradio"} aria-checked={checked} key={actionKey(label)} onPointerEnter={event => { if (event.currentTarget.parentElement === menu.current) setSubmenu(false); }} onFocus={event => { if (event.currentTarget.parentElement === menu.current) setSubmenu(false); }} onClick={() => { run(); if (!keepOpen) close(); }}><span>{label}</span>{checked !== undefined ? checked && <Glyph name="check" size={15} /> : icon && (m.scene.page === "songs" ? <LibraryMenuGlyph name={icon} /> : <Glyph name={icon} size={16} />)}</button>;
   const playlistAction = <button type="button" role="menuitem" data-playlist-trigger aria-haspopup="menu" aria-expanded={submenu} onMouseEnter={() => setSubmenu(true)} onClick={() => setSubmenu(true)} onKeyDown={event => { if (event.key === "ArrowRight") { event.preventDefault(); setSubmenu(true); requestAnimationFrame(() => flyout.current?.querySelector<HTMLButtonElement>("button")?.focus()); } }}><span>Add to Playlist</span>{m.scene.page === "songs" ? <LibraryMenuGlyph name="playlist" /> : <Glyph name="playlist" size={16} />}</button>;
   const queueAction = (next: boolean) => m.setQueue(current => next ? [...ids, ...current.filter(id => !ids.includes(id))] : [...current.filter(id => !ids.includes(id)), ...ids]);
   const stationAction = () => { m.setQueue(allTracks.filter(t => t.artist === artist && t.id !== track.id && !t.unavailable).map(t => t.id)); m.play(track); };
@@ -88,7 +106,7 @@ export function MusicMenus() {
   } else if (kind === "track" && m.scene.page === "songs") {
     content = <>{action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action("Delete from Library", null, addLibrary)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{action("Create Station", "radio", stationAction)}{action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{action("View Credits", "info", () => m.go(`credits:${track.id}`))}</>;
   } else {
-    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? "close" : "plus", addLibrary, undefined, true)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{!(kind === "artist" && artistSuggestedLess) && action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{kind !== "track" && action(artistSuggestedLess ? "Undo Suggest Less" : "Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess), undefined, true)}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action(copied === "link" ? "Link Copied" : "Copy Link", copied === "link" ? null : "link", () => { void copy(); }, undefined, true)}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
+    content = <>{kind === "track" && inLibrary && action(m.library.pinned.includes(track.id) ? "Unpin Song" : "Pin Song", null, () => m.pin(track.id))}{action(inLibrary ? "Delete from Library" : "Add to Library", inLibrary ? (m.scene.expanded ? null : "close") : "plus", addLibrary, undefined, true)}{playlistAction}{action("Play Next", "play-next", () => queueAction(true))}{action("Play Last", "play-last", () => queueAction(false))}{kind !== "album" && action("Create Station", "radio", stationAction)}{!(kind === "artist" && artistSuggestedLess) && action(favourite ? "Undo Favourite" : "Favourite", favourite ? "star-slash" : "star", favouriteAction)}{kind !== "track" && action(artistSuggestedLess ? "Undo Suggest Less" : "Suggest Less", "thumb-down", () => ids.forEach(m.suggestLess), undefined, true)}{kind !== "album" && action("View Credits", "info", () => m.go(`credits:${track.id}`))}{action("Share", "share", share)}{action(copied === "link" ? "Link Copied" : "Copy Link", copied === "link" ? null : "link", () => { void copy(); }, undefined, true)}{action(copied === "embed" ? "Embed Code Copied" : "Copy Embed Code", copied === "embed" ? null : "code", () => { void copy(true); }, undefined, true)}</>;
   }
   const keyboard = (event: KeyboardEvent<HTMLDivElement>, child = false) => {
     if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); if (child) { setSubmenu(false); menu.current?.querySelector<HTMLElement>("[data-playlist-trigger]")?.focus(); } else close(); return; }
@@ -104,7 +122,7 @@ export function MusicMenus() {
   };
   return <div className="menu-layer">
     <button type="button" className="menu-dismiss" aria-label="Dismiss menu" tabIndex={-1} onClick={close} />
-    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" tabIndex={-1} data-copy-state={copied ?? undefined} data-captured-first-hover={capturedFirstHover || undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onPointerMoveCapture={clearCapturedFirstHover} onKeyDown={event => { clearCapturedFirstHover?.(); keyboard(event); }}>{content}</div>
+    <div ref={menu} className={`context-menu faithful-menu menu-${kind} ${m.scene.expanded && kind === "track" ? "menu-expanded-track" : ""} ${capturedSystemShare ? "system-share-menu" : ""}`} role="menu" tabIndex={-1} data-copy-state={copied ?? undefined} data-captured-first-hover={capturedFirstHover || undefined} aria-label={`${kind} actions`} style={{ left: position.x, top: position.y }} onPointerMoveCapture={clearCapturedFirstHover} onKeyDown={event => { clearCapturedFirstHover?.(); keyboard(event); }}>{content}</div>
     {submenu && <div ref={flyout} className="context-menu faithful-menu playlist-flyout" role="menu" aria-label="Add to playlist" style={{ left: flyoutPosition.x, top: flyoutPosition.y }} onKeyDown={event => keyboard(event, true)}>
       {action("New Playlist…", "plus", () => m.patch({ overlay: "new-playlist", menu: null, playlistSeed: ids }))}
       {m.library.playlists.map(playlist => action(playlist.name, null, () => {

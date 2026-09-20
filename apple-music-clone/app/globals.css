@@ -457,6 +457,9 @@ input[type="range"] { accent-color: var(--text); cursor: pointer; }
 
 /* Native modal focus management; overlays scroll without moving the page. */
 .music-dialog { position: fixed; inset: 0; margin: auto; border: 0; padding: 45px 55px 30px; border-radius: 12px; background: #fff; color: #202023; max-width: calc(100vw - 32px); max-height: calc(100dvh - 40px); width: 762px; overflow: auto; box-shadow: 0 10px 40px #0004; font-size: 13px; }
+/* The modal surface is the initial focus destination, not a control.
+   Keep control :focus-visible rings without painting a native outer frame. */
+.music-dialog:focus { outline: none; }
 .music-dialog::backdrop { background: rgb(0 0 0 / 52%); }
 .dialog-close { position: absolute; top: 20px; left: 20px; background: #ececee; color: #656569; width: 27px; height: 27px; z-index: 1; }
 .dialog-close svg { width: 17px; height: 17px; }

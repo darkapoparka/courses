@@ -78,5 +78,13 @@
     "observedIn": "e72be564,4f611a9e,54b01eab",
     "bytes": 30752,
     "contentSha256": "b0243063c40fb64b55a715258ffe874945fb1524dc1ef624389cfd79b8b1f0dc"
+  },
+  "cover-ateez-golden-hour-five": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/15/5e/a0/155ea070-3f0d-84ae-7883-128ecd9ed5bf/196874257944.jpg/600x600bb.webp",
+    "sha256": "383bb1bc39d3e9d864b81c1d470661e52c22e08d93f3f750cf567c4ef07aaac5",
+    "page": "https://music.apple.com/sg/album/golden-hour-part-5-ep/6770401924?uo=4",
+    "observedIn": "4f611a9e,54b01eab,11803c64,1f9e170c",
+    "bytes": 30686,
+    "contentSha256": "4df8f7255cf8a6ee1be29ff2c872dd56b0da80c4d0b043fee01606735fc19cea"
   }
 }

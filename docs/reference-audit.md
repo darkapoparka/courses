@@ -1,5 +1,10 @@
 # Reference audit — findings, not acceptance
 
+## Latest player/Replay/release implementation
+
+The [verified checkpoint](reference-review/2026-09-20-player-replay-release-checkpoint.md) supersedes older runtime observations. The ATEEZ release mapping is implemented and real navigation preserves it. Expanded/menu/lyrics, modal, playback, signup, account and Replay changes pass the fresh optimized corpus. Acceptance remains 22/159 and 3/58; remaining visual and session defects are listed explicitly. Earlier sections describe their original candidates.
+
+
 Updated 2026-09-20 for the verified session/discovery recovery batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
 ## Latest session/discovery recovery findings

@@ -21,7 +21,7 @@ export function AuthenticationDialog() {
   const [password, setPassword] = useState((m.scene.overlay === "signup" ? Boolean(m.scene.filled || m.scene.formStep) : Boolean(m.scene.filled)) ? previewPassword : "");
   const [first, setFirst] = useState(m.scene.filled || m.scene.formStep ? "Alex" : "");
   const [last, setLast] = useState(m.scene.filled || m.scene.formStep ? "Smith" : "");
-  const [birth, setBirth] = useState(m.scene.overlay === "signup" && m.scene.formStep === 1 && m.scene.filled ? "1995-02-18" : "");
+  const [birth, setBirth] = useState(m.scene.overlay === "signup" && m.scene.formStep === 1 && m.scene.filled ? "18/02/1995" : "");
   const [updates, setUpdates] = useState(true);
   const [terms, setTerms] = useState(Boolean(m.scene.overlay === "signup" && m.scene.formStep === 1 && m.scene.filled));
   const [code, setCode] = useState(m.scene.filled ? previewCode : "");
@@ -51,9 +51,14 @@ export function AuthenticationDialog() {
   };
   useEffect(() => { if (!codeEntry || emailCode || initial.current.filled || code.length !== 6 || pending) return; completeCode(); }, [code]);
   useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  const showProfileStep = () => {
+    const host = scroll.current;
+    const lastName = host?.querySelector<HTMLElement>('[aria-label="Last name"]');
+    if (host && lastName) host.scrollTop += lastName.getBoundingClientRect().top - host.getBoundingClientRect().top - 41;
+  };
   useEffect(() => {
     if (!signup || !scroll.current) return;
-    const frame = requestAnimationFrame(() => { if (initial.current.formStep === 1) scroll.current!.scrollTop = 385; });
+    const frame = requestAnimationFrame(() => { if (initial.current.formStep === 1) showProfileStep(); });
     return () => cancelAnimationFrame(frame);
   }, [signup]);
   const submit = (event: FormEvent) => {
@@ -62,7 +67,7 @@ export function AuthenticationDialog() {
       if ((m.scene.formStep ?? 0) === 0) {
         if (!first.trim() || !last.trim() || password.length < 8) { setError("Complete the account fields to continue."); return; }
         m.patch({ formStep: 1, filled: false });
-        requestAnimationFrame(() => scroll.current?.scrollTo({ top: 385 })); return;
+        requestAnimationFrame(showProfileStep); return;
       }
       if (!birth || !terms) { setError("Complete the profile and accept the terms to continue."); return; }
       m.patch({ overlay: "verify", formStep: 0, filled: false });
@@ -83,7 +88,7 @@ export function AuthenticationDialog() {
     <form onSubmit={submit} autoComplete="off" data-auth-flow={m.scene.flow ?? ""} data-auth-step={m.scene.formStep ?? 0} data-auth-terms={String(terms)} data-auth-birth={birth} data-auth-password-length={password.length}>
       {signup ? <><div className="auth-scroll" ref={scroll}><h2>{heading}</h2><p className="auth-subtitle">You’ll use this account for all Apple services.</p><div className="auth-profile-fields">
         <label className="capture-field"><span>Apple Account</span><input aria-label="Preview Apple Account" value={demoEmail} readOnly /></label><p className="capture-help">This email address will become your Apple Account.</p>
-        <label className="capture-field placeholder-only"><span className="sr-only">Fixed preview password</span><input aria-label="Preview password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" autoComplete="off" /></label><p className="capture-help">Your password must have 8 or more characters, upper and lowercase letters and at least one number.</p>
+        <label className={`capture-field ${password ? "" : "placeholder-only"}`}><span>Password</span><input aria-label="Preview password" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" autoComplete="off" /></label><p className="capture-help">Your password must have 8 or more characters, upper and lowercase letters and at least one number.</p>
         <label className={`capture-field ${first ? "" : "placeholder-only"}`}><span>First Name</span><input aria-label="First name" value={first} placeholder="First Name" maxLength={80} onChange={e => setFirst(e.target.value)} required /></label>
         <label className={`capture-field ${last ? "" : "placeholder-only"}`}><span>Last Name</span><input aria-label="Last name" value={last} placeholder="Last Name" maxLength={80} onChange={e => setLast(e.target.value)} required /></label>
         <label className={`capture-field ${birth ? "" : "placeholder-only"}`}><span>Date of Birth</span><input aria-label="Date of birth" type="text" value={birth} placeholder="Date of Birth" onChange={e => setBirth(e.target.value)} required={(m.scene.formStep ?? 0) === 1} /></label>

@@ -10,7 +10,7 @@ import styles from "./music-replay.module.css";
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"] as const;
 const defaultMilestone = replayMilestones[0];
-const badge = (index: number) => crop("cc18744f", 286 + (index % 5) * 227, 54 + Math.floor(index / 5) * 278, 207, 207);
+const badge = (index: number) => crop("cc18744f", 286 + (index % 5) * 227, 54 + Math.floor(index / 5) * 278, 208, 208);
 
 function useReplayActions() {
   const m = useMusic();
@@ -18,7 +18,7 @@ function useReplayActions() {
     m.go(collection ? `replay:${collection}` : "replay");
     m.patch({ month: "May" });
     const url = new URL(location.href); url.searchParams.set("month", "May");
-    history.replaceState({}, "", url);
+    history.replaceState(history.state, "", url);
   };
   const share = async (title: string) => {
     try {
@@ -63,11 +63,12 @@ export function ReplayView() {
   const yearRegion = useRef<HTMLElement>(null);
   useEffect(() => {
     if (!yearOpen) return;
+    yearRegion.current?.querySelector<HTMLButtonElement>('[role="menuitemradio"]')?.focus({ preventScroll: true });
     const dismiss = (event: PointerEvent) => {
       if (event.target instanceof Node && !yearRegion.current?.contains(event.target)) setYearOpen(false);
     };
     const escape = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") { setYearOpen(false); yearRegion.current?.querySelector<HTMLButtonElement>("button")?.focus(); }
+      if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); setYearOpen(false); yearRegion.current?.querySelector<HTMLButtonElement>("button")?.focus({ preventScroll: true }); }
     };
     document.addEventListener("pointerdown", dismiss); document.addEventListener("keydown", escape);
     return () => { document.removeEventListener("pointerdown", dismiss); document.removeEventListener("keydown", escape); };
@@ -79,7 +80,7 @@ export function ReplayView() {
     if (url.pathname.startsWith("/screen/") || url.pathname.startsWith("/flows/")) {
       url.pathname = "/"; url.search = new URLSearchParams({ view: "replay", month: next }).toString();
     }
-    history.replaceState({}, "", url);
+    history.replaceState(history.state, "", url);
   };
   const monthKey = (event: KeyboardEvent, index: number) => {
     let next = index;
@@ -95,8 +96,8 @@ export function ReplayView() {
   return <div className={`${styles.replay} ${!hasStats ? styles.empty : ""}`}>
     <div className={styles.ambient} aria-hidden="true" />
     <header ref={yearRegion} className={styles.header}><h1>{collection ? `Your Top ${collection === "year" ? "Songs of 2026" : collection.charAt(0).toUpperCase() + collection.slice(1)}` : "Replay"}</h1>
-      <div className={styles.headerActions}><button type="button" className={styles.yearButton} aria-expanded={yearOpen} aria-controls="replay-year-picker" onClick={() => setYearOpen(!yearOpen)}>2026<Glyph name="down" size={17} /></button>{hasStats && <IconButton icon="share" label="Share Replay" onClick={() => void share("Replay")} />}</div>
-      {yearOpen && <div id="replay-year-picker" className={styles.yearMenu} role="menu"><button type="button" role="menuitemradio" aria-checked="true" onClick={() => setYearOpen(false)}>2026<Glyph name="check" size={14} /></button><span>Only 2026 is included in this capture.</span></div>}
+      <div className={styles.headerActions}><button type="button" className={styles.yearButton} aria-haspopup="menu" aria-expanded={yearOpen} aria-controls="replay-year-picker" onClick={() => setYearOpen(!yearOpen)}>2026<Glyph name="down" size={17} /></button>{hasStats && <IconButton icon="share" label="Share Replay" onClick={() => void share("Replay")} />}</div>
+      {yearOpen && <div id="replay-year-picker" className={styles.yearMenu} role="menu" aria-label="Replay year" onKeyDown={event => { if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) { event.preventDefault(); event.currentTarget.querySelector<HTMLButtonElement>("button")?.focus(); } else if (event.key === "Tab") { setYearOpen(false); yearRegion.current?.querySelector<HTMLButtonElement>("button")?.focus(); } }}><button type="button" role="menuitemradio" aria-checked="true" onClick={() => { setYearOpen(false); yearRegion.current?.querySelector<HTMLButtonElement>("button")?.focus({ preventScroll: true }); }}>2026<Glyph name="check" size={14} /></button><span>Only 2026 is included in this capture.</span></div>}
     </header>
     {collection ? <button type="button" className={styles.backLink} onClick={() => visit()}>‹ Replay</button> : <div className={styles.months} role="tablist" aria-label="Replay month">
       {months.map((value, index) => <button type="button" role="tab" key={value} ref={element => { monthButtons.current[index] = element; }} aria-selected={month === value} tabIndex={month === value ? 0 : -1} aria-controls="replay-month-panel" onKeyDown={event => monthKey(event, index)} onClick={() => selectMonth(value)}>{value}</button>)}
@@ -117,7 +118,7 @@ export function ReplayView() {
         {show("albums") && <section id="top-albums" data-reference-top="181" className={styles.albumSection} aria-label="Your Top Albums">
           {!collection && <ReplaySectionHeading onClick={() => visit("albums")}>Your Top Albums</ReplaySectionHeading>}
           <div className={styles.albumGrid}>{replayAlbums.map((album, index) => <article key={album.title}>
-            <button type="button" className={styles.albumArt} onClick={() => m.go(`album:${album.title}`)} aria-label={`Open ${album.title}`}><Art resolution="standard" art={crop("b67b8895", 286 + index * 227, 213, 207, 208)} label={album.title} /></button>
+            <button type="button" className={styles.albumArt} onClick={() => m.go(`album:${album.title}`)} aria-label={`Open ${album.title}`}><Art resolution="standard" art={crop("b67b8895", 286 + index * 227, 213, 208, 208)} label={album.title} /></button>
             <strong>{index + 1}</strong><button type="button" className={styles.albumTitle} onClick={() => m.go(`album:${album.title}`)}>{album.title}{album.explicit && <span className="explicit">E</span>}</button>
             <button type="button" className={styles.albumArtist} onClick={() => m.go(`artist:${album.artist}`)}>{album.artist}</button><span>{album.minutes} minutes</span>
           </article>)}</div>
@@ -126,8 +127,9 @@ export function ReplayView() {
           <section id="milestones" data-reference-top="205" className={styles.milestoneSection} aria-label="Your Milestones">
             <ReplaySectionHeading onClick={() => m.go("milestones")}>Your Milestones</ReplaySectionHeading>
             <Rail label="Recent milestones" className={`poster-rail ${styles.milestoneRail}`}>
-              {replayMilestones.slice(0, 4).map((milestone, index) => <button type="button" key={milestone.id} className={styles.milestoneCard} aria-label={`${milestone.value} ${milestone.detail}, reached ${milestone.date}`} onClick={() => m.go(`milestone:${milestone.id}`)}>
-                <Art resolution="standard" art={crop("18225175", 286 + index * 284, 237, 264, 353)} label={`${milestone.value} ${milestone.detail}`} />
+              {replayMilestones.filter(milestone => milestone.achieved).map((milestone, index) => <button type="button" key={milestone.id} className={styles.milestoneCard} aria-label={`${milestone.value} ${milestone.detail}, reached ${milestone.date}`} onClick={() => m.go(`milestone:${milestone.id}`)}>
+                <span className={styles.milestoneIllustration}><Art resolution="standard" art={index < 4 ? crop("18225175", 286 + index * 284, 269, 264, 254) : badge(index)} label={`${milestone.value} ${milestone.detail}`} /></span>
+                <span className={styles.milestoneCaption}><strong>{milestone.detail}</strong><span>Reached {milestone.date}</span></span>
               </button>)}
             </Rail>
           </section>

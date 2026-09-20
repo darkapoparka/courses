@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-20 for the verified session/discovery recovery batch on top of `517783a`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Canonical development preview: port 6435.
+Updated 2026-09-20 for the verified player/Replay/release checkpoint on top of `fd39956`. **Only checkout: `J:\courses`; only branch: `main`.** Canonical development preview: port 6435.
 
-Implementation checkpoint: queue metadata, Autoplay, logout state and per-visit browse positions now survive real navigation; preserved discovery/public-chrome work and scoped current-New glass are verified. Fresh optimized production passed 159 desktop states, five responsive states, 218 route checks and 78 interaction regressions with zero failures; all 159 exact-size comparisons completed. Mean MAE 5.190585576 -> 5.049159017; over-20 5.277333751% -> 5.154771669%. [Dated review](reference-review/2026-09-20-session-discovery-recovery.md). Acceptance remains MATCH 22/159 and FLOW 3/58; no checkbox advanced.
+Implementation checkpoint: corrected named/playing New release artwork; preserved and verified expanded lyrics, modal gestures, playback completion, account identity, signup and Replay controls. Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 97 interaction tests. [Verified review](reference-review/2026-09-20-player-replay-release-checkpoint.md). MATCH remains 22/159 and FLOW 3/58; concrete defects remain and no checkbox advanced.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -22,6 +22,8 @@ Implementation checkpoint: queue metadata, Autoplay, logout state and per-visit 
 **Flow checkboxes:** check `FLOW-…` only after traversing its entire recorded sequence using real controls and checking the intermediate states. Loading `/flows/...` URLs alone does not complete a flow.
 
 ## Current finalization evidence
+
+Latest implementation evidence: [2026-09-20-player-replay-release-checkpoint.md](reference-review/2026-09-20-player-replay-release-checkpoint.md). Evidence root: `J:\courses\apple-music-clone\.qa\evidence\publish-20260920`. Full browser/comparison gates pass; the dated review explicitly records visual blockers and review limits. Earlier reviews below retain their original candidate scope.
 
 Current evidence: [session/discovery recovery review](reference-review/2026-09-20-session-discovery-recovery.md). Exact evidence root: `J:\courses\apple-music-clone\.qa\evidence\resume-20260920`; successful directories: `optimized-browser-rerun` and `optimized-comparison-rerun`. The earlier ERR_NO_BUFFER_SPACE capture failure is preserved separately. All 28 positive-delta states were reviewed against source and published baseline; remaining concrete visual defects stay open.
 

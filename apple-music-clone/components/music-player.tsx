@@ -7,6 +7,8 @@ import { Art, Glyph, IconButton } from "./music-primitives";
 import { SongRow } from "./music-browse";
 import { Lyrics } from "./music-lyrics";
 import { stationPlayback } from "../lib/radio-reference";
+import { expandedPresentation } from "../lib/expanded-presentation";
+import { ExpandedArtwork } from "./expanded-artwork";
 
 function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {
   const m = useMusic();
@@ -74,11 +76,11 @@ export function ExpandedPlayer() {
   const art = radioReference && broadcast ? broadcast.expandedArt : m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
   const total = m.duration;
   const hasLyrics = Boolean(m.scene.lyrics && !station);
-  return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} aria-label="Expanded player">
+  return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} data-player-ambience={!station && (!m.activeId || m.activeId === "album-2") ? expandedPresentation(m.elapsed, hasLyrics).ambience : undefined} aria-label="Expanded player">
     {radioReference && <Art art={art} label="" className="radio-reference-backdrop" />}
     <IconButton icon="close" label="Close expanded player" className="expanded-close" onClick={() => m.patch({ expanded: false })} />
     <div className="expanded-layout"><div className="expanded-left">
-      <Art art={art} label={m.active?.album ?? stationTitle ?? albumTitle} />
+      <ExpandedArtwork art={art} label={m.active?.album ?? stationTitle ?? albumTitle} ambience={!station && (!m.activeId || m.activeId === "album-2") ? expandedPresentation(m.elapsed, true).ambience : undefined} />
       <div className="expanded-meta"><div><strong>{m.active?.title ?? stationTitle ?? "stupid song"}</strong><button type="button" onClick={() => m.go(station ? "radio" : `album:${m.active?.album ?? albumTitle}`)}>{station ? stationSubtitle : `${m.active?.artist ?? "Olivia Rodrigo"} — ${m.active?.album ?? albumTitle}`}</button></div>
         {!station && <IconButton icon="star" label="Favourite current song" aria-pressed={m.library.favourites.includes(m.activeId ?? "album-2")} onClick={() => m.favourite(m.activeId ?? "album-2")} />}
         {!radioReference && <IconButton icon="more" label="More song actions" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId ?? "album-2")} />}
