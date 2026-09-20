@@ -36,10 +36,17 @@ async def assert_release_overlays(cards, prefix):
 async def assert_initial_release_edition(page):
     cards = page.locator('#new-this-week .media-card')
     assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == [
-        'cover-9', 'cover-9', 'cover-5', 'cover-7', 'cover-7']
-    partial = cards.nth(3).locator('.card-art-button > .music-art').first
+        'hearts-lemon-tang', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind',
+        'muse-wow-signal', 'initial-release-continuation']
+    for index, provider in [(0, 'cover-hearts-lemon-tang'), (2, 'cover-kwn-all-pride-aside'), (3, 'cover-maren-hero-second-wind'), (4, 'cover-muse-wow-signal')]:
+        art = cards.nth(index).locator('.card-art-button > .music-art').first
+        await expect(art).to_have_attribute('data-art-source', provider)
+        await expect(art).not_to_have_attribute('data-art-partial', 'true')
+    partial = cards.nth(5).locator('.card-art-button > .music-art').first
     await expect(partial).to_have_attribute('data-art-partial', 'true')
     assert (await partial.get_attribute('data-art-source') or '').startswith('e72be564')
+    await expect(cards.nth(5).locator('.card-art-button')).to_have_attribute('aria-disabled', 'true')
+    await expect(cards.nth(5).locator('.card-title, .card-play')).to_have_count(0)
     await assert_release_overlays(cards, 'e72be564')
 
 
@@ -110,15 +117,19 @@ async def current_release_editions(page, context):
         '4f611a9e', '54b01eab', '11803c64', 'c98f8b54', '1f9e170c',
         '9fbb38e1', 'afd02fa6', 'd83e96ba', 'ad689c37', 'fc5d84bd',
     ]
-    expected_cards = ['cover-9', 'cover-1', 'cover-9', 'cover-5', 'cover-7']
+    expected_cards = ['hearts-lemon-tang', 'cover-1', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind', 'muse-wow-signal']
     for prefix in prefixes:
         await start(page, prefix)
         cards = page.locator('#new-this-week .media-card')
         assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == expected_cards
-        for index in [1, 2, 3]:
+        for index in [1, 2]:
             art = cards.nth(index).locator('.card-art-button > .music-art').first
             source = await art.get_attribute('data-art-source')
             assert source and source.startswith('e757eb0f'), (prefix, index, source)
+        for index, provider in [(0, 'cover-hearts-lemon-tang'), (3, 'cover-kwn-all-pride-aside'), (4, 'cover-maren-hero-second-wind')]:
+            art = cards.nth(index).locator('.card-art-button > .music-art').first
+            await expect(art).to_have_attribute('data-art-source', provider)
+            await expect(art).not_to_have_attribute('data-art-partial', 'true')
         await assert_release_overlays(cards, prefix)
         # The saved profile-menu fixture owns a dismiss layer. Close it through
         # the real keyboard path before exercising an unrelated player control.
@@ -226,7 +237,7 @@ async def legacy_player_material(page, context):
                  'Legacy catalog material survives real Volume controls')
 
     for prefix, expected in [
-        ('e72be564', ['rgba(249, 249, 251, 0.7)', 'blur(28px) saturate(2)']),
+        ('e72be564', ['rgba(249, 249, 251, 0.5)', 'blur(16px) saturate(2)']),
         ('a917d88f', ['rgba(249, 249, 251, 0.74)', 'blur(28px) saturate(1.4)']),
     ]:
         await start(page, prefix)
@@ -273,6 +284,10 @@ async def viral_artwork_controls(page, context):
     overlay = play.locator('.art-play')
     clean_source = await artwork.get_attribute('data-art-source')
     assert clean_source and clean_source.startswith('54b01eab'), 'Do not restore the captured hover icon as cover art'
+    await expect(play).to_have_attribute('data-snapshot-hover', 'true')
+    await expect(overlay).to_be_visible()
+    await page.mouse.move(1100, 80)
+    await expect(play).not_to_have_attribute('data-snapshot-hover', 'true')
     await expect(overlay).not_to_be_visible()
     await play.hover()
     await expect(overlay).to_be_visible()
@@ -290,6 +305,21 @@ async def viral_artwork_controls(page, context):
     assert await artwork.get_attribute('data-art-source') == clean_source
     await page.get_by_role('button', name='Pause', exact=True).click()
     await expect(play.locator('.playing-bars')).to_have_count(0)
+
+    await start(page, 'e72be564')
+    play = page.get_by_role('button', name='Play Shabang', exact=True)
+    await expect(play).to_have_attribute('data-snapshot-hover', 'true')
+    await page.keyboard.press('Tab')
+    assert await page.evaluate('document.activeElement !== document.body')
+    await expect(play).not_to_have_attribute('data-snapshot-hover', 'true')
+    await expect(play.locator('.art-play')).not_to_be_visible()
+
+    await start(page, 'e72be564')
+    play = page.get_by_role('button', name='Play Shabang', exact=True)
+    await expect(play).to_have_attribute('data-snapshot-hover', 'true')
+    await page.get_by_role('heading', name='New', exact=True).click()
+    await expect(play).not_to_have_attribute('data-snapshot-hover', 'true')
+    await expect(play.locator('.art-play')).not_to_be_visible()
 
 
 CASES.append(('viral-artwork-live-controls', viral_artwork_controls))
@@ -311,11 +341,31 @@ async def discovery_typography_symbols(page, context):
     assert box and abs(box['width'] - 15) < .05 and abs(box['height'] - 15) < .05, box
     star_style = await live_star.evaluate(
         '(e)=>{const s=getComputedStyle(e);return [s.strokeWidth,s.transform]}')
-    assert star_style == ['2.3px', 'matrix(1, 0, 0, 1, 0, -1)'], star_style
+    assert star_style == ['2.4px', 'matrix(1, 0, 0, 1, 0.5, -1)'], star_style
 
-    link_style = await link.evaluate(
-        '(e)=>{const s=getComputedStyle(e);return [s.gap,getComputedStyle(e.querySelector(".section-title-text")).transform,getComputedStyle(e.querySelector("svg")).color]}')
-    assert link_style == ['4px', 'matrix(0.98, 0, 0, 1, 0, 0)', 'rgb(29, 29, 31)'], link_style
+    link_style = await link.evaluate('''(e)=>{
+      const title = getComputedStyle(e.querySelector('.section-title-text'));
+      const first = getComputedStyle(e.querySelector('svg:first-child'));
+      const last = getComputedStyle(e.querySelector('svg:last-child'));
+      return [getComputedStyle(e).gap, title.transform, title.color, first.color,
+              last.width, last.height, last.strokeWidth, last.transform, last.color];
+    }''')
+    assert link_style == [
+        '4px', 'matrix(0.98, 0, 0, 1, 0, 1)', 'rgb(29, 29, 31)',
+        'rgb(29, 29, 31)', '15px', '15px', '2px',
+        'matrix(1, 0, 0, 1, -7, -2)', 'rgb(155, 155, 155)',
+    ], link_style
+
+    row_type = await section.locator('.song-row').first.evaluate('''(e)=>{
+      const title = getComputedStyle(e.querySelector('.song-title'));
+      const artist = getComputedStyle(e.querySelector('.song-artist'));
+      return [title.color, title.letterSpacing, title.transform,
+              artist.color, artist.transform];
+    }''')
+    assert row_type == [
+        'rgb(47, 47, 47)', '-0.05px', 'matrix(0.99, 0, 0, 1, 0, 0)',
+        'rgb(119, 119, 123)', 'matrix(1.06, 0, 0, 1, 0, 0.5)',
+    ], row_type
 
     caption = page.locator('.feature-caption').first
     caption_styles = await caption.evaluate('''(e)=>{
@@ -324,10 +374,10 @@ async def discovery_typography_symbols(page, context):
               style('span').color, style('span').transform];
     }''')
     assert caption_styles == [
-        'matrix(1.05, 0, 0, 1.08, 0, -1)',
-        'matrix(0.94, 0, 0, 1.03, 0, 1.5)',
-        'rgb(115, 115, 115)',
-        'matrix(1.02, 0, 0, 1, 0, -0.5)',
+        'matrix(1, 0, 0, 1, 0, -1)',
+        'none',
+        'rgb(102, 102, 102)',
+        'matrix(1, 0, 0, 1, 0, -0.5)',
     ], caption_styles
     await record(page, 'discovery-typography-symbols', 'e72be564',
                  'Initial New typography and live viral-section star')
@@ -560,3 +610,224 @@ async def viral_rail_continuation(page, context):
 
 
 CASES.append(('viral-rail-continuation', viral_rail_continuation))
+
+
+async def release_continuation_controls(page, context):
+    """Release artwork, true overflow and unavailable partial metadata stay live."""
+    await start(page, 'e72be564')
+    await assert_initial_release_edition(page)
+    section = page.locator('#new-this-week')
+    rail = section.locator('.music-rail')
+    cards = section.locator('.media-card')
+    boxes = await cards.locator('.card-art-button').evaluate_all(
+        '(els)=>els.map(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height]})')
+    assert boxes == [[286 + 227 * index, 840, 208, 208] for index in range(6)], boxes
+    partial = cards.last.locator('.music-art')
+    box = await partial.bounding_box()
+    assert box and [box['x'], box['y'], box['width'], box['height']] == [1422, 840, 18, 63], box
+    await page.get_by_role('button', name='Play Shabang', exact=True).hover()
+    await record(page, 'release-continuation-controls', 'e72be564',
+                 'Native release geometry, pinned full covers and visible partial sixth card', move_pointer=False)
+    player_before = await page.locator('.floating-player').evaluate('(e)=>[e.className,e.textContent]')
+    await wheel_to(page, '#new-this-week', 160)
+    next_page = section.locator('button[aria-label="Next New releases"]')
+    previous = section.locator('button[aria-label="Previous New releases"]')
+    await expect(next_page).to_be_enabled()
+    await expect(previous).to_be_disabled()
+    await next_page.click()
+    await page.wait_for_function("document.querySelector('#new-this-week .music-rail').scrollLeft > 200")
+    await expect(previous).to_be_enabled()
+    await expect(next_page).to_be_disabled()
+    partial_button = cards.last.locator('.card-art-button')
+    await expect(partial_button).to_be_visible()
+    assert await partial_button.get_attribute('aria-disabled') == 'true'
+    await expect(cards.last.locator('.card-title, .card-play')).to_have_count(0)
+    await previous.click()
+    await page.wait_for_function("document.querySelector('#new-this-week .music-rail').scrollLeft < 1")
+    await expect(previous).to_be_disabled()
+    await expect(next_page).to_be_enabled()
+    assert await page.locator('.floating-player').evaluate('(e)=>[e.className,e.textContent]') == player_before
+    navigation = page.get_by_role('navigation', name='Browse music', exact=True)
+    await navigation.get_by_role('button', name='Search', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'search')
+    await page.go_back(wait_until='networkidle')
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+    await assert_initial_release_edition(page)
+    assert await page.locator('.floating-player').evaluate('(e)=>[e.className,e.textContent]') == player_before
+
+
+CASES.append(('release-continuation-controls', release_continuation_controls))
+
+
+async def discovery_catalog_navigation(page, context):
+    """Navigation must not silently switch the user's discovery edition."""
+    for prefix in ['e72be564', '4f611a9e', '1f9e170c']:
+        await start(page, prefix)
+        signature = '''() => ({
+          catalog: document.querySelector('.capture-discovery').dataset.catalog,
+          features: Array.from(document.querySelectorAll('.feature-caption > button'), e=>e.textContent),
+          songs: Array.from(document.querySelectorAll('.viral-grid .song-title'), e=>e.textContent),
+          releases: Array.from(document.querySelectorAll('#new-this-week .media-card'), e=>e.dataset.cardId),
+          artwork: Array.from(document.querySelectorAll('#new-this-week [data-art-source]'), e=>{const s=getComputedStyle(e);return [e.dataset.artSource,s.backgroundImage,s.backgroundSize,s.backgroundPosition,s.maskImage,s.aspectRatio]}),
+          player: document.querySelector('.floating-player').textContent
+        })'''
+        before = await page.evaluate(signature)
+        navigation = page.get_by_role('navigation', name='Browse music', exact=True)
+        await navigation.get_by_role('button', name='Search', exact=True).click()
+        await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+        await navigation.get_by_role('button', name='New', exact=True).click()
+        await expect(page.locator('.capture-discovery')).to_be_visible()
+        assert await page.evaluate(signature) == before, (prefix, before, await page.evaluate(signature))
+        assert await page.locator('.music-app').get_attribute('data-source') is None
+        await record(page, 'discovery-catalog-navigation-' + prefix, prefix,
+                     'Search and New through visible sidebar controls preserve the editorial catalog, artwork and player')
+        await page.go_back()
+        await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+        await page.go_forward()
+        assert await page.evaluate(signature) == before, prefix
+
+
+CASES.append(('discovery-catalog-navigation', discovery_catalog_navigation))
+
+
+async def browse_history_positions(page, context):
+    """Real Back/Forward navigation retains New/Home viewports, not fixtures."""
+    import json
+    from browser_live_fidelity import OUT
+    evidence = OUT / 'browse-history-positions'
+    evidence.mkdir(parents=True, exist_ok=False)
+    ordinal = 0
+
+    async def capture(view, action, state):
+        nonlocal ordinal
+        ordinal += 1
+        name = f'{ordinal:02d}-{view}-{action}.png'
+        await page.screenshot(path=str(evidence / name), animations='disabled')
+        with (evidence / 'steps.jsonl').open('a', encoding='utf-8') as log:
+            log.write(json.dumps({'ordinal': ordinal, 'screenshot': name,
+                       'action': action, 'view': view, 'state': state,
+                       'url': page.url, 'viewport': page.viewport_size,
+                       'acceptance': 'Non-archived interaction regression; not FLOW sign-off'}) + '\n')
+
+    signature = "() => ({\n      top: document.querySelector('#music-main').scrollTop,\n      rails: Array.from(document.querySelectorAll('.music-rail'), e => ({\n        label: e.getAttribute('aria-label'), left: e.scrollLeft,\n        artwork: Array.from(e.querySelectorAll('[data-art-source]'), a => a.dataset.artSource)\n      })),\n      player: document.querySelector('.floating-player').textContent\n    })"
+    for prefix, view, featured, section in [
+        ('e72be564', 'new', 'Featured music', '#new-this-week'),
+        ('a917d88f', 'home', 'Top picks', '.home-page .music-section:nth-of-type(2)')
+    ]:
+        await start(page, prefix)
+        await page.get_by_role('button', name='Next ' + featured, exact=True).click()
+        if view == 'new':
+            await page.get_by_role('button', name='Next ' + featured, exact=True).click()
+            await expect(page.locator('.capture-discovery')).to_have_attribute('data-feature-alpha', 'true')
+        await wheel_to(page, section, 140)
+        before = await page.evaluate(signature)
+        assert before['top'] > 100 and before['rails'][0]['left'] > 100, before
+        await capture(view, 'before-leaving', before)
+        nav = page.get_by_role('navigation', name='Browse music', exact=True)
+        await nav.get_by_role('button', name='Search', exact=True).click()
+        await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+        await page.go_back()
+        await expect(page.locator('.music-app')).to_have_attribute('data-scene', view)
+        await page.wait_for_function('(top) => Math.abs(document.querySelector("#music-main").scrollTop - top) < 1', arg=before['top'])
+        after = await page.evaluate(signature)
+        assert after == before, (view, before, after)
+        await capture(view, 'restored-back', after)
+        await page.go_forward()
+        await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+        await page.go_back()
+        await page.wait_for_function('(top) => Math.abs(document.querySelector("#music-main").scrollTop - top) < 1', arg=before['top'])
+        assert await page.evaluate(signature) == before
+        await capture(view, 'restored-second-back', await page.evaluate(signature))
+        rail = page.get_by_role('region', name=featured, exact=True)
+        index_js = '(e) => e.scrollLeft / (e.children[1].offsetLeft - e.children[0].offsetLeft)'
+        selected_index = await rail.evaluate(index_js)
+        await page.set_viewport_size({'width': 1180, 'height': 903})
+        await page.wait_for_timeout(120)
+        assert abs(await rail.evaluate(index_js) - selected_index) < .01
+        assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
+        await capture(view, 'responsive-selection', await page.evaluate(signature))
+        await page.set_viewport_size({'width': 1440, 'height': 903})
+        await page.wait_for_timeout(120)
+        assert abs(await rail.evaluate(index_js) - selected_index) < .01
+        await nav.get_by_role('button', name='Search', exact=True).click()
+        await nav.get_by_role('button', name=view.title(), exact=True).click()
+        await page.wait_for_function('document.querySelector("#music-main").scrollTop === 0')
+        assert abs(await rail.evaluate(index_js) - selected_index) < .01
+        await page.get_by_role('button', name='Previous ' + featured, exact=True).click()
+        assert await rail.evaluate(index_js) < selected_index
+
+
+CASES.append(('browse-history-positions', browse_history_positions))
+
+
+async def browse_history_distinct_visits(page, context):
+    """Back restores each visit, not the most recent viewport for its page."""
+    import json
+    from browser_live_fidelity import OUT
+    evidence = OUT / 'browse-history-distinct-visits'
+    evidence.mkdir(parents=True, exist_ok=False)
+    ordinal = 0
+    signature = "() => ({top: document.querySelector('#music-main').scrollTop, rails: Array.from(document.querySelectorAll('.music-rail'), e => [e.getAttribute('aria-label'), e.scrollLeft]), player: document.querySelector('.floating-player').textContent})"
+
+    async def capture(view, action, state):
+        nonlocal ordinal
+        ordinal += 1
+        name = f'{ordinal:02d}-{view}-{action}.png'
+        await page.screenshot(path=str(evidence / name), animations='disabled')
+        with (evidence / 'steps.jsonl').open('a', encoding='utf-8') as log:
+            log.write(json.dumps({'ordinal': ordinal, 'screenshot': name,
+                'view': view, 'action': action, 'state': state, 'url': page.url,
+                'acceptance': 'Unarchived real-control regression, not FLOW sign-off'}) + '\n')
+
+    for prefix, view, featured in [
+        ('e72be564', 'new', 'Featured music'),
+        ('a917d88f', 'home', 'Top picks'),
+    ]:
+        await start(page, prefix)
+        nav = page.get_by_role('navigation', name='Browse music', exact=True)
+        next_card = page.get_by_role('button', name='Next ' + featured, exact=True)
+        await next_card.click()
+        await page.mouse.move(1200, 600)
+        await page.mouse.wheel(0, 500)
+        await page.wait_for_function("document.querySelector('#music-main').scrollTop >= 500")
+        first = await page.evaluate(signature)
+        await capture(view, 'first-visit', first)
+        await nav.get_by_role('button', name='Search', exact=True).click()
+        await nav.get_by_role('button', name=view.title(), exact=True).click()
+        if view == 'home':
+            await page.get_by_role('button', name='Previous ' + featured, exact=True).click()
+        else:
+            await next_card.click()
+        await page.mouse.move(1200, 600)
+        await page.mouse.wheel(0, 260)
+        await page.wait_for_function("document.querySelector('#music-main').scrollTop >= 260")
+        second = await page.evaluate(signature)
+        assert first['top'] != second['top'] and first['rails'] != second['rails'], (first, second)
+        await capture(view, 'second-visit', second)
+        await nav.get_by_role('button', name='Search', exact=True).click()
+        for action, expected in [('second-back', second), ('first-back', first)]:
+            await page.go_back()
+            if action == 'first-back':
+                await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+                await page.go_back()
+            await expect(page.locator('.music-app')).to_have_attribute('data-scene', view)
+            await page.wait_for_function('(top) => document.querySelector("#music-main").scrollTop === top', arg=expected['top'])
+            actual = await page.evaluate(signature)
+            assert actual == expected, (view, action, expected, actual)
+            await capture(view, action, actual)
+        await page.go_forward()
+        await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+        await page.go_forward()
+        await page.wait_for_function('(top) => document.querySelector("#music-main").scrollTop === top', arg=second['top'])
+        assert await page.evaluate(signature) == second
+        await capture(view, 'second-forward', await page.evaluate(signature))
+        # Adjacent visits to the same route still have distinct scroll entries.
+        await nav.get_by_role('button', name=view.title(), exact=True).click()
+        await page.wait_for_function("document.querySelector('#music-main').scrollTop === 0")
+        await page.go_back()
+        await page.wait_for_function('(top) => document.querySelector("#music-main").scrollTop === top', arg=second['top'])
+        assert await page.evaluate(signature) == second
+        await capture(view, 'same-route-back', await page.evaluate(signature))
+
+
+CASES.append(('browse-history-distinct-visits', browse_history_distinct_visits))

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { albumArt, albumTitle, autoplayTracks, capturedQueue, crop, formatTime, radioStations, trackById } from "../lib/music-catalog";
+import { albumArt, albumTitle, autoplayTracks, crop, formatTime, radioStations, trackById } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
 import { Art, Glyph, IconButton } from "./music-primitives";
 import { SongRow } from "./music-browse";
@@ -96,7 +96,7 @@ export function PlayerPanel() {
   if (!m.scene.panel) return null;
   const queue = m.queue.flatMap(id => {
     const track = trackById(id);
-    const recorded = m.scene.queuePreset ? capturedQueue.find(item => item.id === id) : undefined;
+    const recorded = m.queueOverrides.find(item => item.id === id);
     // Keep track identity/library actions shared, but retain the observed queue
     // edition, full title and credit line when this recorded queue is active.
     return track ? [{ ...track, ...(recorded ? { title: recorded.title, artist: recorded.artist, art: recorded.art, duration: recorded.duration } : {}) }] : [];

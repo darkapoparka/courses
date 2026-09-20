@@ -46,5 +46,37 @@
     "observedIn": "54b01eab",
     "bytes": 49776,
     "contentSha256": "31d7011a0dcf92833133970bc29f3801fcb165b9250e06a206f1bafe9f6575bb"
+  },
+  "cover-maren-hero-second-wind": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e2/1c/ba/e21cbac1-2198-4e8d-91be-0db8bff127ac/196874291702.jpg/600x600bb.webp",
+    "sha256": "a6464c4bf94a01a0980427d100f494ec6efaf21e81a3d2f43f20bb546311a58d",
+    "page": "https://music.apple.com/us/album/hero-a-second-wind/6773927812",
+    "observedIn": "e72be564,4f611a9e,54b01eab",
+    "bytes": 16474,
+    "contentSha256": "7c1820f0a727b589d828c6bc04aa6abfdd101500b630f654f3f904ed8b3d3108"
+  },
+  "cover-muse-wow-signal": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5f/8f/4b/5f8f4b32-9d11-b416-a6f9-3fb23e045dd0/5026854898216.jpg/600x600bb.webp",
+    "sha256": "03b2242a5126a6dbaad2f3b4ee7c58d180f7b55d4572478bf6116e61a0efb4ae",
+    "page": "https://music.apple.com/us/album/the-wow-signal/1885607338",
+    "observedIn": "e72be564,4f611a9e,54b01eab",
+    "bytes": 16546,
+    "contentSha256": "f298cd5be7b0f8a1b538792a39e03115130926fa248c5dcbb65afc8b8e1f210f"
+  },
+  "cover-kwn-all-pride-aside": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/a3/ec/ba/a3ecbaab-a561-6b80-b50f-b80788077694/196874385968.jpg/600x600bb.webp",
+    "sha256": "5453e1fd116c99a633ba1de0e300a91c75b57ab403bfbbc3df26ace77da80676",
+    "page": "https://music.apple.com/us/album/and-all-pride-aside/6769880663",
+    "observedIn": "e72be564,4f611a9e,54b01eab",
+    "bytes": 14422,
+    "contentSha256": "869e12d62dc0f954b6af411765ec41336aaf1aa86de20d62a6b9300adbad103c"
+  },
+  "cover-hearts-lemon-tang": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/00/a4/c1/00a4c1fb-c2c9-83c9-af2e-44cb5da80bc4/888735956140.png/600x600bb.webp",
+    "sha256": "56e0e0c3eeb0426f05cc3a9ac9dd0cf93ace6f536842e27750b3893ce7ee3f6c",
+    "page": "https://music.apple.com/us/album/lemon-tang-the-2nd-mini-album-ep/6779521284",
+    "observedIn": "e72be564,4f611a9e,54b01eab",
+    "bytes": 30752,
+    "contentSha256": "b0243063c40fb64b55a715258ffe874945fb1524dc1ef624389cfd79b8b1f0dc"
   }
 }

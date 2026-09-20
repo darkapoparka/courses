@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { albumArt, albumTitle, albumTracks, allTracks, chartTracks, artistHero, categories, crop, emotionalArt, favouriteArt, features, formatTime, libraryCovers, libraryTracks, radioStations, recentlyPlayed, sourArt, topPicks, viralTracks, type Artwork, type Card, type Track } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
 import { Art, EmptyState, Footer, Glyph, IconButton, Section } from "./music-primitives";
@@ -8,9 +8,23 @@ import { Rail } from "./music-rail";
 
 export function SongRow({ track, showTime = false, trailing, showFavourite = false, showAdd = false }: { track: Track; showTime?: boolean; trailing?: ReactNode; showFavourite?: boolean; showAdd?: boolean }) {
   const m = useMusic(); const current = m.activeId === track.id || m.scene.selectedTrack === track.id; const loading = m.scene.loadingTrack === track.id;
+  const [snapshotHover, setSnapshotHover] = useState(m.scene.snapshotHoverTrack === track.id);
+  useEffect(() => setSnapshotHover(m.scene.snapshotHoverTrack === track.id), [m.scene.snapshotHoverTrack, track.id]);
+  useEffect(() => {
+    if (!snapshotHover) return;
+    const clearOutside = (event: Event) => {
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>(".song-art-button") : null;
+      if (target?.dataset.trackId !== track.id) setSnapshotHover(false);
+    };
+    // The initial capture may include a hover. It is not a persistent selection:
+    // keyboard focus and a touch/pen press outside the artwork end it as well.
+    const events = ["pointermove", "pointerdown", "focusin"] as const;
+    events.forEach(name => window.addEventListener(name, clearOutside));
+    return () => events.forEach(name => window.removeEventListener(name, clearOutside));
+  }, [snapshotHover, track.id]);
   const accessibleTitle = track.metadataHidden ? "archived Viral Hits continuation" : track.title;
   return <div className="song-row" data-current={current || undefined} data-active={current && m.playing || undefined}>
-    <button type="button" className="song-art-button" aria-label={`Play ${accessibleTitle}`} onClick={() => m.play(track)}><Art art={track.art} label={track.metadataHidden ? "Partial archived artwork" : track.album} /><span className="art-play">{loading ? <span className="loading-ring" aria-hidden="true" /> : current && m.playing ? <span className="playing-bars" aria-hidden="true"><i /><i /><i /></span> : <Glyph name="play" />}</span></button>
+    <button type="button" className="song-art-button" data-track-id={track.id} data-snapshot-hover={snapshotHover || undefined} aria-label={`Play ${accessibleTitle}`} onPointerLeave={() => setSnapshotHover(false)} onClick={() => m.play(track)}><Art art={track.art} label={track.metadataHidden ? "Partial archived artwork" : track.album} /><span className="art-play">{loading ? <span className="loading-ring" aria-hidden="true" /> : current && m.playing ? <span className="playing-bars" aria-hidden="true"><i /><i /><i /></span> : <Glyph name="play" />}</span></button>
     {track.metadataHidden ? <div className="song-copy song-copy-metadata-hidden" aria-hidden="true" /> : <div className="song-copy"><button className="song-title" type="button" onClick={() => m.play(track)}>{track.title}{showFavourite && m.library.favourites.includes(track.id) && <span className="small-star" aria-label="Favourite">★</span>}{track.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button><button className="song-artist" type="button" onClick={() => m.go(`artist:${track.artist}`)}>{track.artist}</button></div>}
     {showTime && <span className="duration">{track.duration ? formatTime(track.duration) : "—"}</span>}
     {showAdd && current && <IconButton icon="plus" label={`Add ${track.title} to Library`} className="song-add" onClick={() => m.addToLibrary(track.id)} />}
@@ -23,7 +37,7 @@ export function CardTile({ card, poster = false, artContent, artOverlay, artOver
   const appleMusicHits = card.id === "hits" || card.title === "Apple Music Hits";
   const favouriteSongs = card.id === "favourites";
   const artwork = artContent ?? (card.portrait || card.plain ? <span className="category-preview" style={{ backgroundColor: card.background }}>{card.portrait && <span className="category-portrait"><Art art={card.portrait} label={card.title} /></span>}<span className="category-caption">{card.title}</span></span> : <Art art={card.art} label={card.title} />);
-  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id}><button className="card-art-button" type="button" onClick={() => go(destination)} aria-label={card.title}>{artwork}{artOverlay && <span className={`reference-art-strip reference-art-strip-${artOverlayPosition}`} aria-hidden="true"><Art art={artOverlay} label="" /></span>}<span className="card-play"><Glyph name="play" size={22} /></span></button>{!poster && <><button type="button" className="card-title" onClick={() => go(destination)}>{appleMusicHits ? <><Glyph name="apple" size={11} />Music Hits</> : card.title}{favouriteSongs && <span className="small-star card-favourite-star" aria-hidden="true">★</span>}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
+  return <article className={`media-card ${poster ? "poster-card" : ""}`} data-card-id={card.id} data-card-partial={card.metadataPartial || undefined}><button className="card-art-button" type="button" aria-disabled={card.metadataPartial || undefined} onClick={() => { if (!card.metadataPartial) go(destination); }} aria-label={card.metadataPartial ? "Archived release artwork; metadata is outside the frozen reference frame" : card.title}>{artwork}{artOverlay && <span className={`reference-art-strip reference-art-strip-${artOverlayPosition}`} aria-hidden="true"><Art art={artOverlay} label="" /></span>}{!card.metadataPartial && <span className="card-play"><Glyph name="play" size={22} /></span>}</button>{!poster && !card.metadataPartial && <><button type="button" className="card-title" onClick={() => go(destination)}>{appleMusicHits ? <><Glyph name="apple" size={11} />Music Hits</> : card.title}{favouriteSongs && <span className="small-star card-favourite-star" aria-hidden="true">★</span>}{card.explicit && <span className="explicit" aria-label="Explicit">E</span>}</button>{card.subtitle && <p>{card.subtitle}</p>}</>}</article>;
 }
 function CardRail({ cards, label, poster = false }: { cards: Card[]; label: string; poster?: boolean }) { return <Rail label={label} className={poster ? "poster-rail" : "square-rail"}>{cards.map(card => <CardTile key={card.id} card={card} poster={poster} />)}</Rail>; }
 

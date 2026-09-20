@@ -10,6 +10,8 @@ export type Scene = {
   page: Page;
   checkout?: boolean;
   source?: string;
+  /** Artwork/catalog provenance retained by the live New session, not a route fixture. */
+  discoveryOrigin?: string;
   guest?: boolean;
   namedProfile?: boolean;
   hero?: "default" | "superbloom" | "alpha" | "listening";
@@ -60,6 +62,7 @@ export type Scene = {
   video?: boolean;
   viralRailActive?: boolean;
   featureEdge?: "initial";
+  snapshotHoverTrack?: string;
   flow?: string;
 };
 const base: Scene = { page: "new" };
@@ -84,7 +87,7 @@ const definitions: Record<string, Scene> = {
   "5175a910": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2 },
   "ecb33359": { ...base, checkout: true, guest: true, overlay: "payment", formStep: 2, scrollOffset: 60 },
   "bf099ae2": { ...base, guest: true, overlay: "payment", formStep: 3 },
-  "e72be564": { ...base, viralRailActive: true, featureEdge: "initial" },
+  "e72be564": { ...base, viralRailActive: true, featureEdge: "initial", snapshotHoverTrack: "viral-5" },
   "a917d88f": { page: "home", namedProfile: true },
   "4f611a9e": { ...base, namedProfile: true, featureEdge: "initial" },
   "54b01eab": { ...base, hero: "alpha", namedProfile: true },

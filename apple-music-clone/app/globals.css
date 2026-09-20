@@ -71,8 +71,9 @@ input[type="range"] { accent-color: var(--text); cursor: pointer; }
 .sidebar-brand { flex: 0 0 60px; padding: 0 18px; align-self: flex-start; }
 .sidebar-scroll { flex: 1; padding: 8px 12px 18px 11px; min-height: 0; overflow-y: auto; scrollbar-width: none; }
 .sidebar-scroll nav { display: flex; flex-direction: column; gap: 4px; }
-.sidebar-row { display: flex; align-items: center; gap: 8px; min-height: 34px; width: 100%; padding: 6px 8px; border-radius: 9px; font-size: 13.25px; letter-spacing: .15px; line-height: 18px; text-align: left; flex-shrink: 0; }
+.sidebar-row { display: flex; align-items: center; gap: 8px; min-height: 34px; width: 100%; padding: 6px 8px; border-radius: 9px; font-size: 13.25px; letter-spacing: .25px; line-height: 18px; text-align: left; flex-shrink: 0; }
 .sidebar-row > svg { flex: none; margin-right: -2px; }
+.sidebar-row > span { transform: translateY(1px); }
 .sidebar-row span { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .sidebar-row:hover { background: #eeeef0; }
 .sidebar-row[aria-current="page"] { background: rgb(239 238 241); color: #93001a; }
@@ -130,7 +131,9 @@ input[type="range"] { accent-color: var(--text); cursor: pointer; }
 .song-art-button { position: relative; display: block; flex: 0 0 37px; width: 37px; height: 37px; border-radius: 4px; overflow: hidden; }
 .song-art-button .music-art { width: 37px; height: 37px; }
 .art-play { position: absolute; inset: 0; background: #0006; color: white; display: none; place-items: center; }
-.song-art-button:hover .art-play, .song-art-button:focus-visible .art-play { display: grid; }
+.song-art-button:hover .art-play,
+.song-art-button:focus-visible .art-play,
+.song-art-button[data-snapshot-hover="true"] .art-play { display: grid; }
 .song-copy { flex: 1; min-width: 0; }
 .song-title { display: block; font-size: 12px; line-height: 16px; font-weight: 400; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left; }
 .song-artist { display: block; font-size: 11px; line-height: 16px; color: #77777b; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-align: left; }

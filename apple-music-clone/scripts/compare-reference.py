@@ -24,8 +24,8 @@ def main():
     parser.add_argument('--baseline', type=Path, help='Previous metrics.json; report changes without manufacturing acceptance.')
     args = parser.parse_args()
     args.input, args.output = args.input.resolve(), args.output.resolve()
-    if not args.output.is_relative_to((APP / '.parity-evidence').resolve()):
-        raise ValueError('Comparison output must stay inside .parity-evidence.')
+    if args.output.is_relative_to((APP / 'reference').resolve()) or not any(args.output.is_relative_to((APP / root).resolve()) for root in ('.parity-evidence', '.qa/evidence')):
+        raise ValueError('Comparison output must stay inside .parity-evidence or .qa/evidence.')
     if args.output.exists() and any(args.output.iterdir()):
         raise ValueError(f'Refusing to overwrite existing evidence: {args.output}')
     results = json.loads((args.input / 'results.json').read_text(encoding='utf-8'))

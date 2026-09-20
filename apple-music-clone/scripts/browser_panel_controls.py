@@ -69,6 +69,7 @@ async def listening_signature(page):
       catalog: document.querySelector('.capture-discovery')?.dataset.catalog ?? null,
       features: Array.from(document.querySelectorAll('.feature-caption > button'), e => e.textContent),
       songs: Array.from(document.querySelectorAll('.viral-grid .song-title'), e => e.textContent),
+      songIds: Array.from(document.querySelectorAll('.viral-grid .song-art-button'), e => e.dataset.trackId),
       sidebar: Array.from(document.querySelectorAll('.music-sidebar button, .music-sidebar a'), e => e.textContent.trim()).filter(Boolean),
       releaseArtwork: Array.from(document.querySelectorAll('#new-this-week .card-art-button > .music-art'), e => [e.dataset.artSource, e.dataset.artPartial]),
       playerArtwork: Array.from(document.querySelectorAll('.floating-player .player-cover > .music-art'), e => [e.dataset.artSource, e.dataset.artPartial]),
@@ -80,7 +81,7 @@ async def material(page, selector):
       const style = getComputedStyle(e);
       return { backgroundColor: style.backgroundColor, backgroundImage: style.backgroundImage,
                backdropFilter: style.backdropFilter, webkitBackdropFilter: style.webkitBackdropFilter,
-               boxShadow: style.boxShadow };
+               borderColor: style.borderColor, boxShadow: style.boxShadow };
     }""")
 
 
@@ -139,7 +140,17 @@ async def panel_entry(page, panel, target, journey):
         assert 'radial-gradient' in panel_material['backgroundImage'], panel_material
         assert panel_material['backdropFilter'] == 'blur(20px) saturate(1.3)', panel_material
         queue_titles = await page.locator('.queue-list .song-title').all_text_contents()
-        assert queue_titles == before['songs'][1:], (queue_titles, before['songs'])
+        queue_ids = await page.locator('.queue-list .song-art-button').evaluate_all(
+            '(els)=>els.map(e=>e.dataset.trackId)')
+        assert queue_ids == before['songIds'][1:], (queue_ids, before['songIds'])
+        # This New edition uses the expanded editorial Toy Story title; the
+        # ordinary queue retains its catalog title. Do not replace queue state
+        # with an unrelated archived queue merely to equalize display strings.
+        expected_titles = before['songs'][1:].copy()
+        assert before['songIds'][1] == 'viral-1'
+        assert expected_titles[0] == 'I Knew It, I Knew You (From "Toy Story 5")'
+        expected_titles[0] = 'I Knew It, I Knew You'
+        assert queue_titles == expected_titles, (queue_titles, expected_titles)
     await record(page, journey, target, 'Open panel from recorded start; preserve catalog, library, artwork, track and queue continuity while applying live panel glass')
     await toggle.click()
     await expect(panel_host).to_have_count(0)
@@ -147,8 +158,10 @@ async def panel_entry(page, panel, target, journey):
     assert await sidebar_signature(page) == sidebar_before
     assert await toggle.evaluate('(e) => document.activeElement === e')
     closed_material = await material(page, '.floating-player')
-    assert closed_material['backgroundColor'] == 'rgba(249, 249, 251, 0.7)', closed_material
-    assert closed_material['backdropFilter'] == 'blur(28px) saturate(2)', closed_material
+    assert closed_material['backgroundColor'] == 'rgba(249, 249, 251, 0.5)', closed_material
+    assert closed_material['backdropFilter'] == 'blur(16px) saturate(2)', closed_material
+    assert closed_material['borderColor'] == 'rgba(140, 145, 155, 0.25)', closed_material
+    assert closed_material['boxShadow'] == 'rgba(0, 0, 0, 0.06) 0px 8px 26px 0px', closed_material
     await toggle.click()
     await expect(panel_host).to_be_visible()
     assert await listening_signature(page) == before
@@ -179,3 +192,34 @@ async def queue_entry(page, context):
 CASES = [('album-hover-state', album_hover_state), ('lyrics-anchor-controls', lyrics_anchor_controls),
          ('queue-edition-persistence', queue_editions), ('lyrics-entry-session-integrity', lyrics_entry),
          ('queue-entry-session-integrity', queue_entry)]
+
+
+async def autoplay_history_continuity(page, context):
+    """Navigation must preserve the user-selected Autoplay preference."""
+    await start(page, "8f029018")
+    nav = page.get_by_role("navigation", name="Browse music", exact=True)
+    queue = page.get_by_role("complementary", name="Up Next queue", exact=True)
+    # Catalog identity and every displayed metadata field must remain attached to the queue.
+    signature_js = "rows => rows.map(row => {const art=row.querySelector('[data-art-source]');const s=getComputedStyle(art);return [row.querySelector('.song-art-button').dataset.trackId,row.querySelector('.song-title').textContent,row.querySelector('.song-artist').textContent,row.querySelector('.duration').textContent,art.dataset.artSource,s.backgroundImage,s.backgroundSize,s.backgroundPosition,s.maskImage]})"
+    signature = await queue.locator(".queue-list .song-row").evaluate_all(signature_js)
+    toggle = queue.get_by_role("button", name="Autoplay", exact=True)
+    await toggle.click()
+    await nav.get_by_role("button", name="Search", exact=True).click()
+    await page.go_back()
+    await expect(toggle).to_have_attribute("aria-pressed", "true")
+    assert await queue.locator(".queue-list .song-row").evaluate_all(signature_js) == signature
+    await record(page, "autoplay-history-continuity", "4811dde3", "Back preserves Autoplay and queue; navigation regression, not FLOW acceptance")
+    await nav.get_by_role("button", name="Search", exact=True).click()
+    await nav.get_by_role("button", name="New", exact=True).click()
+    await page.get_by_role("button", name="Up Next", exact=True).click()
+    await expect(toggle).to_have_attribute("aria-pressed", "true")
+    assert await queue.locator(".queue-list .song-row").evaluate_all(signature_js) == signature
+    await toggle.click()
+    await page.go_back()
+    await page.go_forward()
+    await page.get_by_role("button", name="Up Next", exact=True).click()
+    await expect(toggle).to_have_attribute("aria-pressed", "false")
+    await record(page, "autoplay-history-continuity", "8f029018", "Forward preserves disabled Autoplay; navigation regression, not FLOW acceptance")
+
+
+CASES.append(("autoplay-history-continuity", autoplay_history_continuity))

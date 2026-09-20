@@ -33,14 +33,33 @@ export function readLibrary(value: unknown): LibraryState | null {
     locale: row.locale === "zh" ? "zh" : "en", restrictions: row.restrictions === true, cancelled: row.cancelled === true, musicRating: row.musicRating === "Explicit" ? "Explicit" : "Clean", tvRating: typeof row.tvRating === "string" && ["G","PG","PG13","M18"].includes(row.tvRating) ? row.tvRating : "G", movieRating: typeof row.movieRating === "string" && ["G","PG","PG13","NC16","M18","R21"].includes(row.movieRating) ? row.movieRating : "G" };
 }
 const toggle = (items: string[], id: string) => items.includes(id) ? items.filter((value) => value !== id) : [...items, id];
+// In-session viewport continuity is independent of account, catalog and playback.
+type RailViewport = { offset: number; index?: number };
+export type BrowseViewportMemory = {
+  main: Map<string, number>;
+  restorePage?: string;
+  rails: Map<string, RailViewport>;
+  entryKey?: string;
+  entries: Map<string, { page: string; top: number; rails: Map<string, RailViewport> }>;
+};
+// Keep each browser-history visit distinct, including repeated visits to the
+// same URL. This key stores viewport history only, never account/player state.
+function browseEntryKey(): string {
+  const existing: unknown = window.history.state?.musicReferenceEntry;
+  if (typeof existing === 'string') return existing;
+  const key = crypto.randomUUID();
+  window.history.replaceState({ ...window.history.state, musicReferenceEntry: key }, '');
+  return key;
+}
 export type Controller = {
+  viewportMemory: BrowseViewportMemory;
   scene: Scene; patch: (patch: Partial<Scene>) => void; go: (destination: string) => void;
   library: LibraryState; setLibrary: Dispatch<SetStateAction<LibraryState>>;
   active: Track | undefined; activeId: string | undefined; playing: boolean; snapshot: boolean;
   elapsed: number; duration: number; setElapsed: (value: number) => void;
   volume: number; setVolume: (value: number) => void; muted: boolean; setMuted: (value: boolean) => void;
   shuffle: boolean; setShuffle: (value: boolean) => void; repeat: boolean; setRepeat: (value: boolean) => void;
-  queue: string[]; setQueue: Dispatch<SetStateAction<string[]>>;
+  queue: string[]; queueOverrides: Track[]; setQueue: Dispatch<SetStateAction<string[]>>;
   play: (track: Track | string) => void; togglePlayback: () => void; skip: (direction: number) => void;
   audio: RefObject<HTMLAudioElement | null>; loadMedia: (file: File) => Promise<void>; mediaName: string;
   favouriteArtist: (name: string) => void; suggestLess: (id: string) => void;
@@ -55,6 +74,29 @@ export function useMusic(): Controller { const value = useContext(Context); if (
 export function MusicProvider({ initialScene, children }: { initialScene: Scene; children: ReactNode }) {
   const [scene, setScene] = useState(initialScene);
   const referenceSession = useRef(Boolean(initialScene.source));
+  const viewportMemory = useRef<BrowseViewportMemory>({ main: new Map(), rails: new Map(), entries: new Map() });
+  useEffect(() => { viewportMemory.current.entryKey = browseEntryKey(); }, []);
+  const rememberViewport = useCallback(() => {
+    const main = document.getElementById("music-main");
+    if (main && (scene.page === "new" || scene.page === "home")) {
+      const memory = viewportMemory.current;
+      memory.main.set(scene.page, main.scrollTop);
+      if (memory.entryKey) memory.entries.set(memory.entryKey, {
+        page: scene.page, top: main.scrollTop,
+        rails: new Map([...memory.rails].filter(([key]) => key.startsWith(`${scene.page}:`))),
+      });
+    }
+  }, [scene.page]);
+  // Editorial inventory belongs to the New session, not whichever page happens
+  // to be mounted. Leaving for Search/Library must not switch releases or heroes.
+  const discoverySession = useRef<Partial<Scene>>({});
+  useEffect(() => {
+    if (scene.page !== "new") return;
+    discoverySession.current = {
+      hero: scene.hero, catalog: scene.catalog, featureEdge: scene.featureEdge,
+      discoveryOrigin: scene.source ?? scene.discoveryOrigin ?? discoverySession.current.discoveryOrigin,
+    };
+  }, [scene.page, scene.hero, scene.catalog, scene.featureEdge, scene.source, scene.discoveryOrigin]);
   const [library, setLibrary] = useState<LibraryState>(() => ({ ...initialLibrary,
     discouraged: initialScene.page === "artist" && initialScene.filled ? allTracks.filter(track => track.artist.split(", ").includes("Olivia Rodrigo")).map(track => track.id) : [...initialLibrary.discouraged],
     favouriteArtists: initialScene.source && initialScene.page === "artist" ? [] : [...initialLibrary.favouriteArtists],
@@ -72,7 +114,18 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const [muted, updateMuted] = useState(false);
   const [shuffle, setShuffle] = useState(Boolean(initialScene.shuffle));
   const [repeat, setRepeat] = useState(Boolean(initialScene.repeat));
-  const [queue, setQueue] = useState<string[]>(initialScene.queueEmpty ? [] : (initialScene.queuePreset ? capturedQueue : viralTracks.slice(1)).map((track) => track.id));
+  // Queue metadata belongs to its items, not the currently displayed route.
+  const [queueState, updateQueueState] = useState(() => {
+    const seed = initialScene.queueEmpty ? [] : initialScene.queuePreset ? capturedQueue : viralTracks.slice(1);
+    return { ids: seed.map(track => track.id), overrides: initialScene.queuePreset ? [...seed] : [] };
+  });
+  const queue = queueState.ids;
+  const setQueue: Dispatch<SetStateAction<string[]>> = useCallback(update => {
+    updateQueueState(current => {
+      const ids = typeof update === "function" ? update(current.ids) : update;
+      return { ids, overrides: current.overrides.filter(track => ids.includes(track.id)) };
+    });
+  }, []);
   const [menuTrackId, setMenuTrackId] = useState(initialScene.page === "artist" || initialScene.menu === "artist" ? "Olivia Rodrigo" : initialScene.track ?? "album-2");
   const [menuPosition, setMenuPosition] = useState<{ x: number; y: number } | null>(null);
   const [menuKeyboard, setMenuKeyboard] = useState(false);
@@ -103,10 +156,27 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     catch { if (!storageWarning.current) { storageWarning.current = true; notify("Browser storage is unavailable. Changes are kept for this session only."); } }
   }, [library, hydrated, notify]);
   useEffect(() => {
-    const onPop = () => { const next = sceneFromUrl(new URL(window.location.href)); if (next) setScene(next); };
+    const onPop = () => {
+      const next = sceneFromUrl(new URL(window.location.href));
+      if (!next) return;
+      rememberViewport();
+      const memory = viewportMemory.current;
+      memory.entryKey = browseEntryKey();
+      const visit = memory.entries.get(memory.entryKey);
+      if (visit?.page === next.page) {
+        memory.main.set(next.page, visit.top);
+        for (const key of memory.rails.keys()) {
+          if (key.startsWith(`${next.page}:`)) memory.rails.delete(key);
+        }
+        for (const [key, position] of visit.rails) memory.rails.set(key, position);
+      }
+      memory.restorePage = next.page;
+      // History restores navigation, never a stale authentication or listening state.
+      setScene(current => ({ ...(next.page === "new" && !next.source ? { ...discoverySession.current, ...next } : next), guest: current.guest, autoplay: current.autoplay }));
+    };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
-  }, []);
+  }, [rememberViewport]);
   useEffect(() => { if (audio.current) { audio.current.volume = volume; audio.current.muted = muted; audio.current.loop = repeat; } }, [volume, muted, repeat]);
 
   const go = useCallback((destination: string) => {
@@ -121,11 +191,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
       return;
     }
     if (!kind || !isPage(kind)) { notify("That destination is not included in the saved reference collection."); return; }
-    const next: Scene = { page: kind, namedProfile: true, guest: scene.guest, category: rest.join(":") || undefined };
+    const next: Scene = { ...(kind === "new" ? discoverySession.current : {}), page: kind, namedProfile: true, guest: scene.guest, autoplay: scene.autoplay, category: rest.join(":") || undefined };
+    rememberViewport();
+    viewportMemory.current.restorePage = undefined;
+    viewportMemory.current.entryKey = crypto.randomUUID();
     setScene(next);
-    window.history.pushState({}, "", sceneUrl(next));
+    window.history.pushState({ musicReferenceEntry: viewportMemory.current.entryKey }, "", sceneUrl(next));
     document.getElementById("music-main")?.scrollTo({ top: 0 });
-  }, [scene.guest, patch, notify]);
+  }, [scene.guest, scene.autoplay, patch, notify, rememberViewport]);
   const play = useCallback((target: Track | string, remember = true) => {
     const id = typeof target === "string" ? target : target.id;
     const track = trackById(id);
@@ -253,14 +326,14 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
   const favourite = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, favourites: toggle(current.favourites, id) })); };
   const addToLibrary = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, songs: toggle(current.songs, id) })); };
   const pin = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, pinned: toggle(current.pinned, id) })); };
-  const value: Controller = { scene, patch, go, library, setLibrary, active: activeId ? trackById(activeId) : undefined, activeId, playing: realPlaying || snapshot, snapshot,
+  const value: Controller = { viewportMemory: viewportMemory.current, scene, patch, go, library, setLibrary, active: activeId ? trackById(activeId) : undefined, activeId, playing: realPlaying || snapshot, snapshot,
     elapsed, duration: displayDuration, setElapsed: (time) => {
       const next = Math.max(0, Math.min(displayDuration, time));
       if (audio.current && duration > 0 && media.current.has(activeId ?? "")) audio.current.currentTime = next;
       updateElapsed(next); patch({ lyricIndex: undefined });
     },
     volume, setVolume: (value) => updateVolume(Math.max(0, Math.min(1, value))), muted, setMuted: updateMuted,
-    shuffle, setShuffle, repeat, setRepeat, queue, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
+    shuffle, setShuffle, repeat, setRepeat, queue, queueOverrides: queueState.overrides, setQueue, play, togglePlayback, skip, audio, loadMedia, mediaName,
     favouriteArtist, suggestLess, favourite, addToLibrary, pin, openMenu, menuTarget: menuTrackId, menuTrack: trackById(menuTrackId) ?? allTracks[0]!, menuPosition, menuKeyboard, message, notify };
   return <Context.Provider value={value}><audio ref={audio} preload="metadata" /><div data-reference-ready={hydrated ? "true" : "false"}>{children}</div></Context.Provider>;
 }

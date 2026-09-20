@@ -52,12 +52,13 @@ async def sidebar_material(page):
     }''')
 
 
-def assert_ordinary_material(state):
-    assert state['backgroundColor'] == 'rgb(249, 249, 251)', state
+def assert_ordinary_material(state, *, guest_home=False):
+    assert state['backgroundColor'] == ('rgb(250, 250, 250)' if guest_home else 'rgb(249, 249, 251)'), state
     assert state['backgroundImage'] == 'none', state
     assert state['filter'] == 'blur(16px) saturate(1.8)', state
-    assert state['shadow'] == ORDINARY_SHADOW, state
-    assert state['activeBackground'] == 'rgb(239, 238, 241)', state
+    expected_shadow = 'rgba(0, 0, 0, 0.02) 0px 0px 0px 1px inset' if guest_home else ORDINARY_SHADOW
+    assert state['shadow'] == expected_shadow, state
+    assert state['activeBackground'] == ('rgb(241, 241, 241)' if guest_home else 'rgb(239, 238, 241)'), state
     assert state['footerBorder'] == 'rgb(232, 232, 236)', state
     assert state['rect'] == {'x': 8, 'y': 8, 'width': 232, 'height': state['viewport']['height'] - 16}, state
     assert state['insets']['left'] == 8 and state['insets']['top'] == 8, state
@@ -84,6 +85,10 @@ async def alpha_controls(page, context):
     provider_art = predecessor.locator('[data-art-source="cover-viral-hits-feature"]')
     await expect(provider_art).to_have_count(1)
     assert await provider_art.get_attribute('data-art-partial') is None
+    provider_size, provider_position = await provider_art.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.backgroundSize,s.backgroundPosition]}')
+    assert abs(float(provider_size.split()[0].removesuffix('%')) - 1200 / 460 * 100) < .01, provider_size
+    assert abs(float(provider_position.split()[0].removesuffix('%')) - 380 / (1200 - 460) * 100) < .01, provider_position
     continuation = page.locator('[data-rail="Featured music"] .feature-card').nth(6)
     await expect(continuation).to_contain_text('New Music Daily')
     clean_continuation = continuation.locator('[data-art-source="cover-new-music-daily-feature"]')
@@ -114,7 +119,7 @@ async def alpha_controls(page, context):
 async def discovery_carousel(page, context):
     await start(page, 'e72be564')
     initial_player = (await shell_state(page))['player']
-    assert initial_player == {'background': 'rgba(249, 249, 251, 0.7)', 'filter': 'blur(28px) saturate(2)'}, initial_player
+    assert initial_player == {'background': 'rgba(249, 249, 251, 0.5)', 'filter': 'blur(16px) saturate(2)'}, initial_player
     await record(page, 'new-carousel-sidebar', 'e72be564', 'First recorded New state')
     partial = page.locator('[data-rail="Featured music"] .feature-card').nth(2)
     await expect(partial).to_have_attribute('data-feature-partial', 'true')
@@ -144,6 +149,10 @@ async def discovery_carousel(page, context):
     provider_art = predecessor.locator('[data-art-source="cover-viral-hits-feature"]')
     await expect(provider_art).to_have_count(1)
     assert await provider_art.get_attribute('data-art-partial') is None
+    provider_size, provider_position = await provider_art.evaluate(
+        '(e)=>{const s=getComputedStyle(e);return [s.backgroundSize,s.backgroundPosition]}')
+    assert abs(float(provider_size.split()[0].removesuffix('%')) - 1200 / 460 * 100) < .01, provider_size
+    assert abs(float(provider_position.split()[0].removesuffix('%')) - 380 / (1200 - 460) * 100) < .01, provider_position
     continuation = page.locator('[data-rail="Featured music"] .feature-card').nth(6)
     await expect(continuation).to_contain_text('New Music Daily')
     clean_continuation = continuation.locator('[data-art-source="cover-new-music-daily-feature"]')
@@ -206,11 +215,27 @@ async def ordinary_sidebar_states(page, context):
         ('e72be564', 'New initial ordinary sidebar'),
         ('a917d88f', 'Home initial ordinary sidebar'),
         ('1f9e170c', 'New playing ordinary sidebar'),
-        ('aefa8502', 'Guest Home ordinary sidebar'),
+        ('aefa8502', 'Guest Home neutral sidebar and unduplicated shadow'),
     ]:
         await start(page, prefix)
         state = await sidebar_material(page)
-        assert_ordinary_material(state)
+        guest_home = await page.locator('.guest-session[data-scene="home"]').count() == 1
+        assert_ordinary_material(state, guest_home=guest_home)
+        if prefix in ['e72be564', '1f9e170c']:
+            assert await page.locator('.sidebar-row[aria-current=page]').evaluate('(e)=>getComputedStyle(e).borderRadius') == '4px'
+        if prefix == 'e72be564':
+            text_contract = await page.evaluate('''() => {
+              const row = getComputedStyle(document.querySelector('.sidebar-row'));
+              const label = getComputedStyle(document.querySelector('.sidebar-row > span'));
+              const outer = getComputedStyle(document.querySelector('.profile-avatar svg > circle:first-child'));
+              const head = getComputedStyle(document.querySelector('.profile-avatar svg > circle:nth-child(2)'));
+              const body = getComputedStyle(document.querySelector('.profile-avatar svg > path'));
+              return [row.letterSpacing, label.transform, outer.stroke, head.fill, body.fill];
+            }''')
+            assert text_contract == [
+                '0.25px', 'matrix(1, 0, 0, 1, 0, 1)', 'rgb(143, 38, 58)',
+                'rgb(188, 0, 35)', 'rgb(188, 0, 35)',
+            ], text_contract
         await record(page, 'ordinary-sidebar-material', prefix, description)
         if prefix == 'aefa8502':
             assert await page.locator('.sidebar-signin').count() == 0
@@ -267,13 +292,21 @@ async def signed_out_home_controls(page, context):
     }''')
     assert geometry == {
         'membership': {'x': 246, 'y': 0, 'width': 1194, 'height': 904},
-        'art': {'x': 246, 'y': 220, 'width': 1194, 'height': 450},
+        'art': {'x': 246, 'y': 220, 'width': 1194, 'height': 488},
         'brand': {'x': 246, 'y': 77, 'width': 1194, 'height': 29},
         'heading': {'x': 246, 'y': 119, 'width': 1194, 'height': 98},
         'copy': {'x': 583, 'y': 708, 'width': 520, 'height': 44},
         'trial': {'x': 771.5, 'y': 784, 'width': 143, 'height': 35}}, geometry
     art = membership.locator('.membership-hero-art')
     await expect(art).to_have_attribute('data-art-source', source('aefa8502'))
+    # Keep the native illustration shadow and live copy separate.
+    assert await art.evaluate('(e) => e.getBoundingClientRect().bottom') == 708
+    assert await membership.locator('p').inner_text() == 'Get playlists and albums inspired by the artists and genres you’re listening to. 1 month free, then $10.99/month.'
+    sidebar = await page.locator('.music-sidebar').evaluate('(e) => {const s=getComputedStyle(e);return {background:s.backgroundColor,shadow:s.boxShadow}}')
+    assert sidebar == {'background': 'rgb(250, 250, 250)', 'shadow': 'rgba(0, 0, 0, 0.02) 0px 0px 0px 1px inset'}, sidebar
+    profile_ink = await page.locator('.guest-profile-button svg').evaluate('e => [getComputedStyle(e.children[0]).stroke,getComputedStyle(e.children[1]).fill,getComputedStyle(e.children[2]).fill]')
+    assert profile_ink == ['rgb(214, 0, 25)'] * 3, profile_ink
+    await record(page, 'signed-out-home-material', 'aefa8502', 'Native complete illustration shadow, neutral guest sidebar and live offer controls')
 
     profile = page.get_by_role('button', name='Sign In', exact=True)
     await profile.click()
@@ -369,3 +402,52 @@ async def home_underlay_scroll(page, context):
 
 
 CASES.append(('home-sidebar-visible-underlay', home_underlay_scroll))
+
+
+async def signed_out_discovery_chrome(page, context):
+    """Public chrome survives real dialogs and navigation."""
+    await start(page, '3731221f')
+    await record(page, 'signed-out-discovery-chrome', '3731221f', 'Initial signed-out New')
+    shell = page.locator('.music-app')
+    sign_in = page.locator('.sidebar-signin')
+    trial = page.locator('.trial-banner > button')
+    public_state = "() => ({guest: document.querySelector('.music-app').classList.contains('guest-session'), player: document.querySelector('.floating-player').textContent, art: Array.from(document.querySelectorAll('.feature-rail .music-art'), e => {const s=getComputedStyle(e); return [e.dataset.artSource, s.backgroundImage, s.backgroundSize, s.backgroundPosition]})})"
+    before = await page.evaluate(public_state)
+    assert before['guest']
+    assert await page.locator('.music-sidebar').evaluate('(e)=>getComputedStyle(e).backgroundColor') == 'rgb(249, 249, 249)'
+    assert await page.locator('.sidebar-row[aria-current="page"]').evaluate('(e)=>getComputedStyle(e).backgroundColor') == 'rgb(240, 240, 240)'
+    assert await page.locator('.trial-banner small').evaluate('(e)=>getComputedStyle(e).fontSize') == '14px'
+    assert await page.locator('.trial-banner').evaluate('(e)=>getComputedStyle(e).backgroundColor') == 'rgb(209, 0, 23)'
+    assert await sign_in.locator('svg').get_attribute('fill') == 'currentColor'
+    assert await page.locator('.sidebar-footer').evaluate('(e)=>e.getBoundingClientRect().y') == 721
+    assert await sign_in.evaluate('(e)=>e.getBoundingClientRect().y') == 774
+    assert await page.locator('.floating-player').evaluate('(e)=>getComputedStyle(e).boxShadow') == 'rgba(0, 0, 0, 0.14) 0px 4px 24px 0px'
+    for trigger, label in [(sign_in, 'Sign In'), (trial, 'Try It Free')]:
+        await trigger.click()
+        await expect(page.get_by_role('dialog')).to_be_visible()
+        await page.keyboard.press('Escape')
+        await expect(page.get_by_role('dialog')).to_have_count(0)
+        await expect(trigger).to_be_focused()
+        assert await page.evaluate(public_state) == before, label
+        await record(page, 'signed-out-discovery-chrome', '3731221f', label + ' then Escape; focus returns')
+    volume = page.get_by_role('button', name='Volume', exact=True)
+    await volume.click()
+    await volume.click()
+    assert await page.evaluate(public_state) == before, {'before': before, 'after': await page.evaluate(public_state)}
+    nav = page.get_by_role('navigation', name='Browse music', exact=True)
+    await nav.get_by_role('button', name='Search', exact=True).click()
+    await expect(page.get_by_label('Search Apple Music', exact=True)).to_be_visible()
+    await page.go_back()
+    await expect(shell).to_have_attribute('data-scene', 'new')
+    assert await page.evaluate(public_state) == before, {'before': before, 'after': await page.evaluate(public_state)}
+    await record(page, 'signed-out-discovery-chrome', '3731221f', 'Search then browser Back; public artwork and player persist')
+    await page.set_viewport_size({'width': 390, 'height': 844})
+    assert await page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+    await expect(trial).to_be_visible()
+    await trial.click()
+    await expect(page.get_by_role('dialog')).to_be_visible()
+    await page.keyboard.press('Escape')
+    await expect(trial).to_be_focused()
+
+
+CASES.append(('signed-out-discovery-chrome', signed_out_discovery_chrome))

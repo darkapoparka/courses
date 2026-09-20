@@ -1,6 +1,6 @@
 # Courses — current handoff
 
-Updated 2026-09-18 for the verified initial New/shared discovery progress batch on `J:\courses/main`.
+Updated 2026-09-20 for the verified session/discovery recovery batch on `J:\courses/main`.
 
 ## One checkout, one branch — mandatory
 
@@ -18,28 +18,28 @@ The canonical isolated QA interpreter is `D:\courses-main-qa\audit-venv\Scripts\
 
 ## Latest verified implementation checkpoint
 
-The fresh exact candidate was captured from the coherent initial New/shared discovery working tree on top of `bf5736dd7fd63f74a37fadc2ca6e1cbd5cf7a9ef`. It preserves the 22 accepted screens and three accepted journeys while replacing source-conditioned continuation patches with live DOM, state and controls.
+The coherent recovery batch is based on `517783a16ec21239e9d9f453cec186baa53de27a` and includes the previously uncommitted discovery, public chrome, hover, artwork and per-history-entry navigation work. The current code additionally preserves Autoplay, queue metadata and guest/member state through sidebar navigation and Back/Forward. The new logout regression and complete queue metadata checks pass. Do not redo or discard these repairs.
 
-The owning implementation is `lib/music-catalog.ts`, `lib/music-scenes.ts`, `components/music-discovery.tsx`, `components/music-browse.tsx`, `components/music-rail.tsx`, `app/reference-fidelity.css` and `app/player-fidelity.css`. Registered evidence is strengthened in the New, discovery, Home and panel browser suites. The [dated New progress review](reference-review/2026-09-18-new-initial-family-progress.md) records exact source/render/difference review, real-control evidence, hashes, full-corpus review and blockers.
+Fresh optimized build: `ImPNc1VtUO7uKcvfRUsQv`, in `.qa/build-resume-20260920`.
 
-Optimized build `Na9JfUh5E21aht9bWlMt1` captured implementation SHA-256 `47bfad7f3c2cc3d51daf783c5b8d30c33d47c4bd932f134bd90c76df6f8a7a98` and tooling SHA-256 `9955dc8c2eb2e022a27084609b88ad25c1a51c8669f871449e4fceddf0a92060`.
+- 159 desktop states, five responsive states, 218 route checks and 78 interaction regressions passed with zero failures; all 159 exact-size comparisons completed.
+- Archive/coverage, TypeScript, optimized build, seven Python QA-tool tests and nine Node cover-integrity tests passed.
+- Implementation SHA-256: `0b7c928ef5fdbbd171a3411268a6044d0d05ddaba89f91198d8f8176ae43ff2c`.
+- Tooling SHA-256: `0fdf4055cdd3270163fd51c52f2f52728ad4efac5cde0c40f7b4162fff098aa7`.
+- Mean MAE: 5.190585576 -> 5.049159017; mean over-20: 5.277333751% -> 5.154771669%. Initial New: 2.526055 MAE / 2.832610% over-20.
+- All 28 positive-delta states were reviewed readably against source and the published baseline. Inherited visible defects remain; no acceptance checkbox advanced.
 
-- 159 desktop states, five responsive states, 218 route checks and 71 interaction regressions: zero failures.
-- Archive/coverage, typecheck, optimized build, five Python QA-tool tests and nine Node cover-integrity tests passed.
-- All 159 exact-size comparisons completed. Corpus mean MAE improved `5.240636608 â†’ 5.190585576`; mean over-20 improved `5.323660568% â†’ 5.277333751%`.
-- All 159 fresh render hashes differ from the preceding optimized capture; 108 states have lower MAE and 51 higher, while 109 have lower over-20 and 50 higher. The complete positive union and the eight threshold-positive states were reviewed readably without a concrete batch-owned geometry, copy, state, session or control regression.
-- Initial New `e72be564` improved `4.113135 â†’ 3.411616` MAE and `4.724529% â†’ 3.943645%` over-20.
-- No MATCH or FLOW checkbox advanced. `FLOW-6c5d545e` and other journeys beginning at initial New remain open because `e72be564` is not MATCH-complete.
-
-Evidence: `D:\courses-main-evidence\new-family-optimized-full-20260918-1610\` and focused roots recorded in the dated review.
+Evidence root: `J:\courses\apple-music-clone\.qa\evidence\resume-20260920`. Successful directories: `optimized-browser-rerun` and `optimized-comparison-rerun`. The [dated recovery review](reference-review/2026-09-20-session-discovery-recovery.md) owns exact changes, results, preserved failures, review findings and next defects. [Latest metrics](reference-review/latest-metrics.json) is copied from this successful candidate, not the failed first capture.
 
 ## Servers and storage
 
-Canonical development preview: `http://127.0.0.1:6435/` from `J:\courses\apple-music-clone`. Final verification found listener PID `37828` with project-only Node/Next/npm/PowerShell ancestry, HTTP 200 and `[data-reference-ready="true"]`; the canonical preview remains running.
+Development remains `http://127.0.0.1:6435/`, using `.qa/dev-resume-20260920` in the same app checkout. Final health: HTTP 200, hydrated New -> Search -> browser Back, no page errors or failed requests, and computed player glass `blur(16px) saturate(2)`.
 
-The optimized audit ran the exact fresh build on port 6437. Its complete project-only ancestry was inspected before the exact listener was stopped; port 6437 is now free. Current port observations: 6431 `free`, 3000 `free`. No unrelated listener was terminated.
+Observed dev ancestry: listener `3272` -> project Next CLI `31016` -> project launch PowerShell `23480` -> Desktop Commander `37992` -> remote CLI `45896` -> command host `38668` -> npx `13608` -> command host `18144` -> user PowerShell `37316` -> Explorer `5684`; its recorded parent `5636` was absent. Never stop the Commander or desktop ancestors. Reinspect PIDs before any action.
 
-Main `.next` and `.parity-evidence` remain D:-backed. No cleanup command was run. At this checkpoint J: has approximately 32.75 GB free and D: has approximately 2.46 GB free; report storage pressure instead of deleting user data.
+The audit listener was `33952`, with exact absolute project CLI and build verified. Its former parent PID `41360` had been reused by a later unrelated process; do not follow or terminate that replacement as an ancestor. After evidence collection only the verified audit listener was stopped. Port 6437 was verified free; the development listener on 6435 remained PID 3272.
+
+The original `.next` and `.parity-evidence` junctions remain D:-backed and unchanged. This batch used ignored J-backed build/evidence directories when D: was nearly full. Last read: J: 23.243 GiB and D: 9.393 GiB free; no cleanup was run. Recheck space rather than deleting anything.
 
 ## Honest acceptance status
 
@@ -57,10 +57,10 @@ Do not stop at verification. After preflight on `J:\courses/main`, continue dire
 
 Priority unresolved areas:
 
-1. **Initial New frame and shared New discovery (`e72be564`)** — this one MATCH blocks the otherwise-complete Search journey and several Library/navigation journeys. Preserve live catalog/session continuity while refining lawful typography, metadata, lower-release artwork, City Chart artwork, player and sidebar.
+1. **Initial/current New and its actual artwork** — `e72be564` still blocks Search and several Library journeys. Named/playing New second-release artwork is incorrectly Lover: matching GOLDEN HOUR : Part.5 provider evidence was identified in the dated review, but the attempted mapping write was blocked and did not execute. Respect that safeguard; do not claim the mapping is fixed. Repair actual content ownership rather than hiding it with blur/tint. Initial-New ink, symbols, player details and lower content remain open.
 2. **Signed-out Home (`aefa8502`)** — retain the repaired live glows, lawful CTA compensation and scoped player geometry; remaining blockers are heading/sidebar raster, CTA antialiasing and volume/small-symbol contours.
 3. **Alpha / New finishing (`54b01eab`)** — retain provider artwork, corrected lower release edition and state-specific glass while refining arrows, live profile/title difference, typography and controls.
-4. **Lyrics and queue** — retain deterministic live entry while refining lyric fade/blur/scroll and queue artwork, rows, spacing, separators and durations. Never reset unrelated catalog/library/queue state to imitate endpoint stills.
+4. **Lyrics, expanded menus and queue** — retain the repaired queue/session continuity. Resolve the inherited extra menu-like backplate/edge, exact menu anchors, lyric emphasis/wrapping/fade, rows and separators. Its owner is not yet established; the clean c939c9b8 original does not prove menu pixels in artwork. Never reset unrelated catalog/library/queue state to imitate endpoint stills.
 5. **Concert and Replay families** — Search entry is now complete, but later concert/date/filter and Replay/milestone states still require family-wide MATCH review before their journeys can close.
 6. **Library-editor snapshot transition** — model the later account/catalog/library change only if frozen evidence supports a real transition.
 

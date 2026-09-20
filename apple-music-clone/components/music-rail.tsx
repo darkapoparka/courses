@@ -2,12 +2,15 @@
 
 import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { IconButton } from "./music-primitives";
+import { useMusic } from "./music-context";
 
 /** Scroll within the content column; never move a parent or the sidebar. */
 export function Rail({ children, className = "", label, initialIndex = 0, onPositionChange }: {
   children: ReactNode; className?: string; label: string; initialIndex?: number; onPositionChange?: (index: number) => void;
 }) {
   const id = useId();
+  const { scene, viewportMemory } = useMusic();
+  const memoryKey = scene.page === "new" || scene.page === "home" ? `${scene.page}:${label}` : undefined;
   const rail = useRef<HTMLDivElement>(null);
   const [edges, setEdges] = useState({ previous: false, next: false });
   useLayoutEffect(() => {
@@ -15,11 +18,26 @@ export function Rail({ children, className = "", label, initialIndex = 0, onPosi
     if (!host) return;
     const first = host.firstElementChild as HTMLElement | null;
     const selected = host.children[Math.max(0, initialIndex)] as HTMLElement | undefined;
-    host.scrollLeft = first && selected ? selected.offsetLeft - first.offsetLeft : 0;
+    const second = host.children[1] as HTMLElement | undefined;
+    const stride = first && second ? second.offsetLeft - first.offsetLeft : 0;
+    const remembered = memoryKey ? viewportMemory.rails.get(memoryKey) : undefined;
+    // Preserve the actual viewport through navigation. A card-relative offset
+    // adapts to responsive tracks; a single-grid song rail retains its pixels.
+    host.scrollLeft = remembered
+      ? remembered.index !== undefined && stride > 0 ? remembered.index * stride : remembered.offset
+      : first && selected ? selected.offsetLeft - first.offsetLeft : 0;
+    let lastStride = stride;
+    let lastOffset = host.scrollLeft;
     const update = () => {
       const first = host.firstElementChild as HTMLElement | null;
       const second = host.children[1] as HTMLElement | undefined;
       const stride = first && second ? second.offsetLeft - first.offsetLeft : 0;
+      if (memoryKey && stride > 0 && lastStride > 0 && Math.abs(stride - lastStride) > .01) {
+        host.scrollLeft = lastOffset / lastStride * stride;
+      }
+      lastStride = stride;
+      lastOffset = host.scrollLeft;
+      if (memoryKey) viewportMemory.rails.set(memoryKey, { offset: host.scrollLeft, index: stride > 0 ? host.scrollLeft / stride : undefined });
       if (stride > 0) onPositionChange?.(Math.round(host.scrollLeft / stride));
       const previous = host.scrollLeft > 1;
       const next = host.scrollLeft < host.scrollWidth - host.clientWidth - 1;
@@ -30,7 +48,7 @@ export function Rail({ children, className = "", label, initialIndex = 0, onPosi
     observer.observe(host);
     host.addEventListener("scroll", update, { passive: true });
     return () => { observer.disconnect(); host.removeEventListener("scroll", update); };
-  }, [initialIndex, onPositionChange]);
+  }, [initialIndex, onPositionChange, memoryKey, viewportMemory, viewportMemory.entryKey]);
   const move = (direction: number) => {
     const host = rail.current;
     if (!host) return;

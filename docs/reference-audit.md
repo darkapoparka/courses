@@ -1,8 +1,22 @@
 # Reference audit — findings, not acceptance
 
-Updated 2026-09-18 for the verified initial New/shared discovery progress batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
+Updated 2026-09-20 for the verified session/discovery recovery batch. [Handoff](handoff.md) owns source, server and publication state; acceptance remains solely in [tasks](tasks.md).
 
-## Latest initial New/shared discovery progress findings
+## Latest session/discovery recovery findings
+
+Autoplay, queue metadata, guest/member session state and per-visit browse positions now survive real navigation. The queue owns its recorded titles, credits, artwork and durations independently of the current route. A reproduced Account -> Sign Out -> Search -> Back bug no longer restores the signed-in interface. The local sign-in and checkout completion paths retain history-entry metadata.
+
+The preserved public/discovery batch, current-New 50% / 16px / saturation-2 player material, compact selection corners and registered controls passed a fresh optimized run: **159 desktop states, five responsive states, 218 routes and 78 interaction tests, zero failures**. All 159 exact-size comparisons completed. Mean MAE improved 5.190585576 -> 5.049159017; mean over-20 improved 5.277333751% -> 5.154771669%. The earlier single ERR_NO_BUFFER_SPACE capture failure remains preserved separately.
+
+The 28 positive-delta states were reviewed as readable source/published-baseline/current triples. No additional batch-owned layout/catalog/control-state regression was found; inherited visual defects remain explicitly documented. No MATCH or FLOW checkbox changed: acceptance remains **22/159 and 3/58**.
+
+The next concrete content defect is the named/playing New second release: the current mapping is still Lover, while the saved artwork evidence matches GOLDEN HOUR : Part.5. Provider metadata and native artwork-fragment evidence were identified, but the attempted mapping write was blocked and was not applied. Do not report it fixed or bypass the safeguard. The initial New edition has a different second card and must not be changed indiscriminately.
+
+Expanded menu states also retain an inherited extra grey backplate/edge, exact menu/lyric geometry and emphasis differences. Its owner is not yet established. The clean c939c9b8 original does not establish UI contamination in its artwork. Trace the live DOM and active styles instead of assuming a cause.
+
+The [dated recovery review](reference-review/2026-09-20-session-discovery-recovery.md) records the exact build, hashes, test results, complete positive-delta review and remaining defects. Evidence is under `J:\courses\apple-music-clone\.qa\evidence\resume-20260920`; [latest metrics](reference-review/latest-metrics.json) comes from the successful optimized rerun.
+
+## Previous initial New/shared discovery progress findings
 
 Initial/current New now owns a live source-backed partial third feature card, a sixteen-row Viral Hits rail with real overflow and playback controls, measured current-New player glass and exact desktop row tracks. The old source-conditioned third-card screenshot/text pseudo-elements are removed. Unknown offscreen metadata remains undisclosed rather than fabricated.
 
@@ -10,9 +24,9 @@ Fresh optimized verification passed 159 desktop states, five responsive states, 
 
 The complete positive-delta union and eight threshold-positive lyrics-dialog, concert-calendar, milestone and queue states were reviewed source/baseline/current/difference. Their visible product structure is stable; no new geometry, copy, state, session or control regression was found. Existing New typography, symbols, metadata, lower-shelf/City Chart, player details and Alpha profile/title differences keep every related MATCH/FLOW open.
 
-The [dated review](reference-review/2026-09-18-new-initial-family-progress.md) records exact ownership, dimensions, hashes, real-control evidence, full-corpus review and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated review](reference-review/2026-09-18-new-initial-family-progress.md) records exact ownership, dimensions, hashes, real-control evidence, full-corpus review and blockers. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
-## Latest Search-family screen and journey findings
+## Previous Search-family screen and journey findings
 
 Six additional Search frames are now accepted through live state ownership rather than endpoint-only compensation: `035569a0`, `812ba627`, `4b515439`, `e70094e3`, `bbb92581` and `f4a8b5dc`. The previously accepted empty-library frame `5b3ec96a` is reconfirmed.
 
@@ -22,7 +36,7 @@ Fresh source-clean optimized verification passed 159 desktop states, five respon
 
 `FLOW-638262c8` is accepted. `FLOW-6c5d545e` remains open only because its permitted initial frame `e72be564` is not MATCH-complete; its three Search endpoints and continuous/direct equivalence are now complete.
 
-The [dated Search-family review](reference-review/2026-09-18-search-family-match.md) records exact ownership, geometry, hashes, readable source/render/difference review, real-control evidence, corpus review and the remaining flow boundary. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated Search-family review](reference-review/2026-09-18-search-family-match.md) records exact ownership, geometry, hashes, readable source/render/difference review, real-control evidence, corpus review and the remaining flow boundary. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 ## Previous Library-family screen and journey findings
 
@@ -34,7 +48,7 @@ Fresh optimized verification passed 159 desktop states, five responsive states, 
 
 Accepted MATCH entries: `bdc69b59`, `0df0d2a2`, `610af644`, `5d3db7ca`, `92589389`, `09b3600e`, `1d016f0f`, `e9bee76d`, `3884ff64`, `06be9f09`, `4e857921`, `0b0e3fbf`, `e379e3fe` and `bde65d33`. The previously accepted `8a2a4241` and `5b3ec96a` optimized renders stayed byte-identical.
 
-The [dated Library review](reference-review/2026-09-18-library-family-match.md) records exact geometry, hashes, source/render/difference review, continuous-flow evidence, regressions and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated Library review](reference-review/2026-09-18-library-family-match.md) records exact geometry, hashes, source/render/difference review, continuous-flow evidence, regressions and blockers. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 ## Previous Search library-empty screen-match findings
 
@@ -48,7 +62,7 @@ The complete source, render, difference, toolbar, segmented control, empty state
 
 148 states were byte-identical and eleven render hashes changed. Six positive-delta states had no baseline-to-candidate channel difference above 19 and no changed pixel above 20; readable sheets show artwork/player decode-edge variation only. No unintended geometry, copy, state, session or control regression was found.
 
-The [dated review](reference-review/2026-09-18-search-library-empty-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the FLOW blocker. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated review](reference-review/2026-09-18-search-library-empty-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the FLOW blocker. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 ## Previous All Playlists screen-match findings
 
@@ -62,7 +76,7 @@ The complete immutable source, optimized render, amplified difference, card/titl
 
 Corpus mean MAE changed `5.262063176 → 5.262080975`; mean over-20 improved `5.353007481% → 5.352900105%`. 148 states were byte-identical and 11 render hashes changed. Seven positive-delta states were only readable artwork/image decode variation; `e757eb0f` gained the same source-supported Favourite Songs star. No unintended geometry, copy, state, session or control regression was found.
 
-The [dated review](reference-review/2026-09-17-all-playlists-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the reason `FLOW-b49a8505` remains open. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated review](reference-review/2026-09-17-all-playlists-match.md) records exact ownership, geometry, hashes, real-control evidence, corpus review and the reason `FLOW-b49a8505` remains open. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 ## Previous Viral Chart row and real-control findings
 
@@ -75,7 +89,7 @@ Fresh optimized verification passed 159 desktop states, five responsive samples,
 
 Viral Chart `8a234785` improved `3.865631 → 3.751661` MAE and `3.643103% → 3.585118%` over-20. 146 states were byte-identical and thirteen render hashes changed. The non-target changes comprise seven max-one-channel variations, one max-two-channel variation and four artwork/video decode variations. All six states with a positive delta in either metric were reviewed source/baseline/current/candidate-change; no concrete artwork identity, geometry, copy, session, state or control regression was found.
 
-The [dated review](reference-review/2026-09-17-viral-chart-rows-controls.md) records exact selectors, geometry, hashes, focused and optimized control evidence, full-corpus review and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The [dated review](reference-review/2026-09-17-viral-chart-rows-controls.md) records exact selectors, geometry, hashes, focused and optimized control evidence, full-corpus review and blockers. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 The chart is closer, but lawful heading/table/sidebar typography, SVG contour antialiasing, some row-artwork decoding, player symbols/material and smaller sidebar details remain visible. The batch does not complete any screen or archived journey, so MATCH and FLOW stay open.
 
@@ -87,7 +101,7 @@ The heading and volume contour were deliberately not changed because tested vari
 
 Fresh optimized verification passed 159 desktop states, five responsive samples, 218 route checks and 65 interaction regressions, zero failures. All 159 exact-size comparisons completed with zero functional failures. Corpus mean MAE changed `5.309224 → 5.309077` and mean over-20 residual changed `5.379484% → 5.379391%`. `aefa8502` improved `1.946265 → 1.922833` MAE and `1.500200% → 1.485374%` over-20; every other state retained zero metric delta.
 
-The focused and registered suites passed profile/CTA dialog focus return, shuffle/repeat, volume, queue, play/pause continuity and four responsive viewports. The optimized pixels are identical to the readable development candidate. The [dated review](reference-review/2026-09-16-signed-out-home-typography-controls.md) records exact selectors, sweeps, region measurements, evidence paths and blockers. [Latest metrics](reference-review/latest-metrics.json) points to this candidate.
+The focused and registered suites passed profile/CTA dialog focus return, shuffle/repeat, volume, queue, play/pause continuity and four responsive viewports. The optimized pixels are identical to the readable development candidate. The [dated review](reference-review/2026-09-16-signed-out-home-typography-controls.md) records exact selectors, sweeps, region measurements, evidence paths and blockers. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch.
 
 Lawful text/sidebar raster, CTA antialiasing and remaining volume/small-symbol contours remain visible, so MATCH stays open. The batch does not alter any recorded flow and grants no FLOW acceptance.
 
@@ -101,7 +115,7 @@ Fresh optimized verification passed 159 desktop states, five responsive samples,
 
 The union of positive numerical deltas contained 106 states. Every one was reviewed in fourteen source/baseline/current/source-difference/candidate-change sheets. The largest increases were `a4afd6e6` at +0.160269 MAE and `468b0465` at +0.219561 percentage points over-20; no concrete unintended artwork, geometry, copy, state or control regression was found in the readable review.
 
-The [dated review](reference-review/2026-09-16-release-editions-legacy-player.md) records exact hashes, state owners, fragment masks, real-control regressions, full-corpus review and evidence paths. [Latest metrics](reference-review/latest-metrics.json) points to this candidate. Typography and symbols, remaining metadata/complete covers, City Chart art, Alpha live profile/title differences, now-playing geometry and lyrics/queue details keep MATCH/FLOW open.
+The [dated review](reference-review/2026-09-16-release-editions-legacy-player.md) records exact hashes, state owners, fragment masks, real-control regressions, full-corpus review and evidence paths. The dated review preserves this historical candidate; [latest metrics](reference-review/latest-metrics.json) now records the current recovery batch. Typography and symbols, remaining metadata/complete covers, City Chart art, Alpha live profile/title differences, now-playing geometry and lyrics/queue details keep MATCH/FLOW open.
 
 ## Previous lyrics and queue first-entry findings — historical
 

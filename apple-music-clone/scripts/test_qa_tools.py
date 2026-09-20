@@ -45,5 +45,22 @@ class ComparisonTests(unittest.TestCase):
         self.assertFalse(output.exists())
 
 
+    def test_same_checkout_evidence_does_not_touch_archive(self):
+        output = APP / ".qa/evidence/qa-location-test"
+        missing = APP / ".qa/missing-qa-input"
+        self.assertFalse(output.exists())
+        with patch("sys.argv", ["compare-reference.py", "--input", str(missing), "--output", str(output)]):
+            with self.assertRaises(FileNotFoundError):
+                comparison.main()
+        self.assertFalse(output.exists())
+
+    def test_evidence_cannot_escape_into_source(self):
+        for output in [APP / "components/forbidden", APP / ".qa/evidence/../forbidden"]:
+            with self.subTest(output=output), patch("sys.argv", ["compare-reference.py", "--output", str(output)]):
+                with self.assertRaisesRegex(ValueError, "inside .parity-evidence"):
+                    comparison.main()
+            self.assertFalse(output.exists())
+
+
 if __name__ == '__main__':
     unittest.main()

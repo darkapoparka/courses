@@ -23,6 +23,7 @@ from browser_panel_controls import CASES as PANEL_CONTROL_CASES
 from browser_sidebar_material import CASES as SIDEBAR_MATERIAL_CASES
 from browser_home_controls import CASES as HOME_CONTROL_CASES
 from browser_metadata import CASES as METADATA_CASES
+from browser_session_controls import CASES as SESSION_CONTROL_CASES
 from browser_discovery_shelves import CASES as DISCOVERY_SHELF_CASES
 from qa_browser_fonts import platform_fonts
 from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry, article_scroll_state
@@ -335,8 +336,8 @@ async def strict_routes(page, context):
 
 
 async def main():
-    if not OUT.is_relative_to((APP / '.parity-evidence').resolve()):
-        raise ValueError('REFERENCE_OUTPUT must be inside .parity-evidence, never the archive.')
+    if OUT.is_relative_to((APP / 'reference').resolve()) or not any(OUT.is_relative_to((APP / root).resolve()) for root in ('.parity-evidence', '.qa/evidence')):
+        raise ValueError('REFERENCE_OUTPUT must be inside .parity-evidence or .qa/evidence, never the archive.')
     OUT.mkdir(parents=True, exist_ok=True)
     if any(OUT.iterdir()):
         raise ValueError(f'Use a fresh REFERENCE_OUTPUT; refusing to overwrite evidence: {OUT}')
@@ -368,6 +369,7 @@ async def main():
         cases += SIDEBAR_MATERIAL_CASES
         cases += HOME_CONTROL_CASES
         cases += METADATA_CASES
+        cases += SESSION_CONTROL_CASES
         cases += DISCOVERY_SHELF_CASES
         for name, callback in cases:
             result['tests'].append(await run_case(browser, name, callback))

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { StationArtwork } from "./station-artwork";
 import { useMusic } from "./music-context";
 import { partialDiscoveryRelease, partialPanelRelease, wideLegacyReleaseSource } from "../lib/panel-release-art";
@@ -105,32 +105,46 @@ function releaseFragmentOverlay(prefix: string, position: number): Artwork {
   return { ...crop(prefix, x, 840, 208, 63), visibleMask: belowPlayer + edge, partial: true };
 }
 
-/** The initial current shelf's fourth full cover is never unobscured. Stretch
- * its clean 15px lower fragment only as an honest partial underlay, then put
- * back the exact lower band and the 14px right edge. The mask excludes every
- * pixel occupied by the captured floating player. */
-function partialInitialRelease(fallback: Card): { card: Card; overlay: Artwork } {
-  const prefix = "e72be564";
-  const x = 967;
-  const belowPlayer = "linear-gradient(transparent 0 76.190477%,#000 76.190477% 100%)";
-  const rightEdge = ",linear-gradient(90deg,transparent 0 93.269231%,#000 93.269231% 100%)";
-  return {
-    card: { ...fallback, art: { ...crop(prefix, x, 888, 208, 15), displayRatio: 1, partial: true } },
-    overlay: { ...crop(prefix, x, 840, 208, 63), visibleMask: belowPlayer + rightEdge, partial: true },
-  };
-}
+// Complete provider covers matching the frozen release edition. Live glass
+// must sample the actual album, not an unrelated library cover or a stretched strip.
+const marenHeroRelease: Card = {
+  id: "maren-hero-second-wind", title: "HERO: A Second Wind", subtitle: "Maren Morris",
+  destination: "category:HERO: A Second Wind", art: coverArtwork("cover-maren-hero-second-wind"),
+};
+const museWowRelease: Card = {
+  id: "muse-wow-signal", title: "The Wow! Signal", subtitle: "Muse",
+  destination: "category:The Wow! Signal", art: coverArtwork("cover-muse-wow-signal"),
+};
+const lemonTangRelease: Card = {
+  id: "hearts-lemon-tang", title: "Lemon Tang - The 2nd Mini Album - EP", subtitle: "Hearts2Hearts",
+  destination: "category:Lemon Tang - The 2nd Mini Album - EP", art: coverArtwork("cover-hearts-lemon-tang"),
+};
+const kwnPrideRelease: Card = {
+  id: "kwn-all-pride-aside", title: "and all pride aside", subtitle: "kwn",
+  destination: "category:and all pride aside", art: coverArtwork("cover-kwn-all-pride-aside"),
+};
+const initialReleaseContinuation: Card = {
+  id: "initial-release-continuation", title: "Archived release continuation",
+  destination: "new", metadataPartial: true,
+  art: { ...crop("e72be564", 1422, 840, 18, 63), partial: true },
+};
 
 export function NewView() {
   const m = useMusic();
   const underlay = useRailUnderlay(".feature-rail");
-  const [finalLogin] = useState(() => m.scene.source?.startsWith("e027fe6d"));
+  const [finalLogin] = useState(() => (m.scene.discoveryOrigin ?? m.scene.source)?.startsWith("e027fe6d"));
   const queue = m.scene.catalog === "queue";
   const legacy = !queue && (finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom");
   const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : i === 2 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[3]! : i === 3 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[2]! : card) : legacyFeatures;
   // A local control clears source routing, not the visible catalog/artwork edition.
-  const [source] = useState(() => m.scene.source?.slice(0, 8));
+  const [source] = useState(() => (m.scene.discoveryOrigin ?? m.scene.source)?.slice(0, 8));
   const currentFeatures = currentFeatureSequence.map((card, index) => {
     if (m.scene.featureEdge === "initial" && index === 2) return initialPartialFeature;
+    // The public edition retains the same editorial artwork identities,
+    // using its signed-out animation frame without resetting catalog data.
+    if (m.scene.guest && index < 2) {
+      return { ...card, art: crop("3731221f", index === 0 ? 286 : 854, 167, 548, 314) };
+    }
     if (["4f611a9e", "fc5d84bd"].includes(source ?? "") && index < 2) {
       return { ...card, art: crop(source!, index === 0 ? 286 : 854, 167, 548, 314) };
     }
@@ -139,11 +153,24 @@ export function NewView() {
   const featureCards = m.library.locale === "zh" ? localizedFeatures : queue ? liveFeatures : legacy ? legacyCards : m.scene.hero === "listening" ? [currentFeatures[0]!, performanceFeature, ...currentFeatures.slice(1)] : currentFeatures;
   const initialIndex = !legacy && !queue && m.scene.hero === "alpha" ? 4 : 0;
   const [featureIndex, setFeatureIndex] = useState(initialIndex);
+  const [initialViralPointer, setInitialViralPointer] = useState(() =>
+    Boolean(m.scene.viralRailActive || m.scene.hero === "listening"));
+  useEffect(() => {
+    if (!initialViralPointer) return;
+    const leaveRail = (event: Event) => {
+      if (!(event.target instanceof Element) || !event.target.closest(".viral-hits-section")) {
+        setInitialViralPointer(false);
+      }
+    };
+    const events = ["pointermove", "pointerdown", "focusin"] as const;
+    events.forEach(name => window.addEventListener(name, leaveRail));
+    return () => events.forEach(name => window.removeEventListener(name, leaveRail));
+  }, [initialViralPointer]);
   const alphaActive = featureCards[featureIndex]?.id === "alpha";
   const songs = m.library.locale === "zh" ? localizedSongs : finalLogin ? finalLoginSongs : queue ? queueSongs : legacy ? legacySongs : viralTracks;
   const visible = songs.filter(track => (!m.library.restrictions || m.library.musicRating === "Explicit" || !track.explicit) && !m.library.discouraged.includes(track.id));
   const zh = m.library.locale === "zh";
-  const longToyStoryTitle = source === "4f611a9e" || source === "54b01eab";
+  const longToyStoryTitle = m.scene.hero === "listening" || currentReleaseEditionSources.has(source ?? "");
   const [capturedSongOrder] = useState(() => ["6ac70c34", "cf59e554", "a229e38a"].includes(source ?? "")
     ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "library-4", "chart-10", "chart-11"]
     : source === "ee8db412" ? ["album-1", "album-2", "chart-2", "chart-3", "chart-4", "chart-8", "chart-5", "chart-7", "chart-9", "chart-10", "chart-11"] : undefined);
@@ -159,11 +186,20 @@ export function NewView() {
   const releaseEdition = m.scene.panel ? (queue ? "8f029018" : legacy ? "ee8db412" : undefined) : undefined;
   const wideReleaseSource = !m.scene.panel && legacy && !zh ? wideLegacyReleaseSource(source) : undefined;
   const currentReleaseEdition = !legacy && !queue && currentReleaseEditionSources.has(source ?? "");
-  const initialReleaseEdition = !legacy && !queue && !zh && (!source || source === "e72be564");
-  const initialPartialRelease = initialReleaseEdition ? partialInitialRelease(libraryCovers[7]!) : undefined;
+  const initialReleaseEdition = !legacy && !queue && !zh && !currentReleaseEdition;
   const releaseIndexes = currentReleaseEdition ? [9, 1, 9, 5, 7] : initialReleaseEdition ? [9, 9, 5, 7, 7] : [9, 4, 1, 5, 7];
   const partialReleases = releaseEdition || wideReleaseSource ? Object.fromEntries(releaseIndexes.flatMap((index, position) => cleanReleases[position] ? [] : [[position, releaseEdition ? partialPanelRelease(releaseEdition, position, libraryCovers[index]!) : partialDiscoveryRelease(wideReleaseSource!, position, libraryCovers[index]!)]])) : {};
-  const newThisWeek = releaseIndexes.map((index, position) => cleanReleases[position] ?? (position === 3 ? initialPartialRelease?.card : undefined) ?? partialReleases[position]?.card ?? libraryCovers[index]!);
+  const newThisWeek = releaseIndexes.map((index, position) => {
+    if (initialReleaseEdition || currentReleaseEdition) {
+      if (position === 0) return lemonTangRelease;
+      if (position === (currentReleaseEdition ? 3 : 2)) return kwnPrideRelease;
+      if (position === (currentReleaseEdition ? 4 : 3)) return marenHeroRelease;
+      if (initialReleaseEdition && position === 4) return museWowRelease;
+    }
+    return cleanReleases[position] ?? partialReleases[position]?.card ?? libraryCovers[index]!;
+  });
+  if (currentReleaseEdition) newThisWeek.push(museWowRelease);
+  else if (initialReleaseEdition) newThisWeek.push(initialReleaseContinuation);
   // Ordinary sidebar navigation has no fixture ID; retain the current catalog artwork.
   const currentReleaseSource = !m.scene.panel && !legacy && !queue ? (zh ? "be864051" : "e72be564") : undefined;
   const releaseStripSource = source && (["e72be564", "f2e44e3b", "be864051", "e027fe6d"].includes(source) || currentReleaseEditionSources.has(source)) ? source : currentReleaseSource;
@@ -173,7 +209,7 @@ export function NewView() {
     : releaseStripSource
       ? Object.fromEntries([0, 1, 2, 3, 4].map(position => [position, releaseFragmentOverlay(releaseStripSource, position)]))
       : undefined;
-  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined} data-viral-rail-active={m.scene.viralRailActive || undefined}><h1>{zh ? "新发现" : "New"}</h1>
+  return <div ref={underlay.ref} className="page-content new-page capture-discovery" data-catalog={queue ? "queue" : legacy ? "legacy" : "current"} data-feature-scrolled={featureIndex > 0 || undefined} data-feature-underlay={(featureIndex > 0 && underlay.visible) || undefined} data-feature-alpha={alphaActive || undefined} data-viral-rail-active={initialViralPointer || undefined}><h1>{zh ? "新发现" : "New"}</h1>
     <Rail label="Featured music" className="feature-rail" initialIndex={initialIndex} onPositionChange={setFeatureIndex}>{featureCards.map((card, index) => <article className="feature-card" key={card.id} data-feature-partial={card.metadataPartial || undefined}><div className="feature-caption"><small>{card.kicker}</small><button type="button" aria-disabled={card.metadataPartial || undefined} aria-label={card.metadataPartial ? "Archived feature continuation; metadata is outside the frozen reference frame" : undefined} onClick={() => { if (!card.metadataPartial) m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`); }}>{card.title}</button><span>{card.subtitle || "\u00a0"}</span></div><button className="card-art-button" type="button" aria-disabled={card.metadataPartial || undefined} aria-label={card.metadataPartial ? "Archived feature artwork; only the visible source fragment is available" : `Open ${card.title}`} onClick={() => { if (!card.metadataPartial) m.go(zh ? card.destination : card.id === "singapore" ? "chart" : `category:${card.title}`); }}><Art art={card.art} label={card.metadataPartial ? "Partial archived feature artwork" : card.title} />{alphaActive && index === featureIndex - 1 && <AlphaPreviousEdge />}{alphaActive && card.id === "new-music-daily" && <AlphaNextEdge />}</button></article>)}</Rail>
     <Section title="Favourite These Viral Hits" icon="star" className="viral-hits-section" onMore={() => m.go("chart")}><Rail label="Viral songs" className="song-rail"><div className="viral-grid">{visibleSongs.map(track => <SongRow key={track.id} track={track} showFavourite={legacy || queue || zh} showAdd={(!legacy && !queue && m.scene.hero === "listening") || source === "6ac70c34"} />)}</div></Rail></Section>
     <Section title={zh ? "本周新发行" : "New This Week"} id="new-this-week" onMore={() => m.go("category:New This Week")}><Cards cards={newThisWeek} label="New releases" artOverlays={releaseArtOverlays} /></Section>
@@ -203,6 +239,7 @@ export function HomeView() {
   const recentsSource = laterFrame ? "d5173715" : homeFrame === "2f5da478" ? "2f5da478" : "a917d88f";
   const homeRecents = recentlyPlayed.map((card, index) => ({ ...card, art: crop(recentsSource, 286 + index * 227, 571, 208, 208), explicit: card.id === "parris" }));
   const homeTop100Overlays: Partial<Record<number, Artwork>> | undefined = source === "42098642" ? Object.fromEntries([286, 513, 740, 967, 1194].map((x, index) => [index, crop("42098642", x, 0, 208, 95)])) : undefined;
-  if (m.scene.guest) return <div className="membership-home capture-membership"><div className="brand"><Glyph name="apple" />Music</div><h1>Discover new music<br />every day.</h1><Art art={crop("aefa8502", 246, 220, 1194, 450)} label="Apple Music discovery illustration" className="membership-hero-art" /><p>Get playlists and albums inspired by the artists and genres you’re listening to. 1 month free, then $10.99/month.</p><button type="button" className="pill white" onClick={() => m.patch({ overlay: "signin" })}>Try It Free</button></div>;
+  // The art-only crop includes the complete note shadow, ending before offer copy.
+  if (m.scene.guest) return <div className="membership-home capture-membership"><div className="brand"><Glyph name="apple" />Music</div><h1>Discover new music<br />every day.</h1><Art art={crop("aefa8502", 246, 220, 1194, 488)} label="Apple Music discovery illustration" className="membership-hero-art" /><p>Get playlists and albums inspired by the artists and genres you’re listening to. 1 month free, then $10.99/month.</p><button type="button" className="pill white" onClick={() => m.patch({ overlay: "signin" })}>Try It Free</button></div>;
   return <div ref={underlay.ref} className="page-content home-page capture-home" data-home-scrolled={laterFrame || undefined} data-home-underlay={(laterFrame && underlay.visible) || undefined}><h1>{zh ? "主页" : "Home"}</h1><Section title={zh ? "专属精选推荐" : "Top Picks for You"}><Cards cards={topPickCards} artContents={!zh && laterFrame ? { alex: <StationArtwork /> } : undefined} label="Top picks" className="poster-rail" poster initialIndex={m.scene.hero === "alpha" ? 3 : 0} onPositionChange={setHomeIndex} /></Section><Section title={zh ? "最近播放" : "Recently Played"} onMore={() => m.go("library")}><Cards cards={zh ? localizedRecents : homeRecents} label="Recently played" /></Section><Section title={zh ? "运动健身" : "Pop"} onMore={() => m.go(zh ? "category:Fitness" : "category:Pop")}><Cards cards={libraryCovers.filter((_, i) => i > 3 && i !== 8)} label="Pop" /></Section>{!zh && <Section title="Top 100" className="home-top-100" onMore={() => m.go("chart")}><Cards cards={homeTop100} label="Top 100" artOverlays={homeTop100Overlays} artOverlayPosition="bottom" /></Section>}<Section title={zh ? "加入资料库" : "Add to Your Library"} id="add-library"><p className={styles.additionsDescription}>The best recent albums we love.</p><Cards cards={homeAdditions} label="Albums for your library" /></Section>{!hideConcerts && <Section title="Concerts"><div className={styles.concertCard}><div><span><Glyph name="concert-tickets" size={30} /></span><div><h3>Find Concerts Nearby</h3><p>Upcoming shows will appear here.</p></div></div><IconButton icon="close" label="Dismiss concert suggestion" onClick={() => setHideConcerts(true)} /><button type="button" className={styles.setLocation} onClick={() => m.go("concerts")}>Set Location</button></div></Section>}<Footer /></div>;
 }

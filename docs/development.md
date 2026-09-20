@@ -19,9 +19,11 @@ npm run dev -- --hostname 127.0.0.1 --port 6435
 
 Open `http://127.0.0.1:6435/`. Verify hydration, a real navigation action, the visible page, console errors and failed assets. HTTP 200 or a listener alone proves neither application health nor fidelity. For an optimized audit, choose a verified unused loopback port while keeping the source checkout on `J:\courses`.
 
+When the default `.next` junction is on a nearly full drive, use the existing `NEXT_DIST_DIR` setting with separate ignored paths inside the same app, such as `.qa/dev-<run>` for development and `.qa/build-<run>` for the optimized candidate. Do not move the checkout, change junctions, share one output directory between dev/build, or delete data. Inspect current storage and the handoff before choosing a path.
+
 ## Isolated QA environment
 
-The canonical isolated QA interpreter is `D:/courses-main-qa/audit-venv/Scripts/python.exe`; execute scripts from `J:/courses/apple-music-clone`. It replaces the interpreter that used to live under the retired preview checkout. Main build/evidence storage is D:-backed; see the handoff before changing junctions or creating another environment on nearly-full J:.
+The canonical isolated QA interpreter is `D:/courses-main-qa/audit-venv/Scripts/python.exe`; execute scripts from `J:/courses/apple-music-clone`. It replaces the interpreter that used to live under the retired preview checkout. The original build/evidence junctions are D:-backed; current runs may use ignored same-checkout J-backed paths. Recheck both drives rather than assuming a previous free-space observation is current. Preserve the junctions and the existing external QA environment.
 
 Only recreate this external environment when it is genuinely missing:
 
@@ -53,6 +55,8 @@ D:\courses-main-qa\audit-venv\Scripts\python.exe scripts/compare-reference.py --
 
 Use the actual verified server URL, not the example when auditing another listener. Npm's Python aliases require the QA environment on PATH; explicit executable paths avoid that ambiguity. For a baseline diagnostic, add `--baseline <prior-comparison/metrics.json>` to the comparison command. Keep the browser, OS, scale, viewport, content and capture conditions equivalent.
 
+Both runners also accept `.qa/evidence/<unique-run>/browser` and `.qa/evidence/<unique-run>/comparison` inside this same app checkout. This is the supported J-backed fallback when the D-backed `.parity-evidence` directory has insufficient space. Reference-archive exclusion, source identities, exact dimensions, overwrite protection and thresholds remain unchanged.
+
 Never reuse an evidence output directory for a new candidate. The runner covers 159 desktop states, five responsive samples, 218 recorded route steps and registered interaction regressions. It records source/browser/resource identity and rejects source changes during a run. Windows defaults to serial capture; `REFERENCE_CONCURRENCY` supports 1 through 4 and is recorded. Do not increase concurrency to hide resource failures.
 
 Open the resulting source/render/difference gallery at readable size. The standard originals contain 147 application viewports at 1440 by 903 and 12 at 1440 by 904. Only the documented 120px acquisition footer is excluded. Do not edit originals, resize candidates, skip hard states, mask product pixels or relax metrics to pass.
@@ -62,6 +66,8 @@ Open the resulting source/render/difference gallery at readable size. The standa
 Runtime-affecting changes must be checked against an optimized build, not only `next dev`. Preserve the owner's development preview. Start a separate positively identified clone audit listener on an unused loopback port and set `REFERENCE_URL` accordingly. Compare its command line and creation time with the build ID/time; replacing `.next/BUILD_ID` does not refresh an older process.
 
 Do not build simultaneously into a shared `.next` directory. The existing preview-only `next start` audit path has emitted a standalone-output advisory; it is not a production deployment recipe. Any future deployment must follow current documented standalone packaging and has a separate authorization gate.
+
+On Windows PowerShell, a native stderr advisory can terminate a server launch when `$ErrorActionPreference` is `Stop`. The verified local audit used `Start-Process` with an explicit project working directory and separate stdout/stderr files. Preserve diagnostic stderr, inspect the exit status/listener, and verify HTTP, hydration and real navigation; a printed Ready line alone does not prove that the process stayed alive. Do not hide genuine errors or terminate a reused parent PID.
 
 The app has had production-only dialog-scroll and compiled backdrop-style defects. Verify cold entry, layout/scroll state and exact computed values in production. A green render assertion may still capture the wrong state.
 

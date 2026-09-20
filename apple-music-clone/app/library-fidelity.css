@@ -178,6 +178,9 @@
 .chart-table .track-table-head > .sr-only { display:none; }
 .profile-avatar { background:transparent; border:none; color:#bc0022; }
 .profile-avatar > svg { width:23px; height:23px; }
+.profile-avatar > svg > circle:first-child { stroke:#8f263a; }
+.profile-avatar > svg > circle:nth-child(2),
+.profile-avatar > svg > path { fill:#bc0023; }
 .profile-button { gap:7px; }
 .sidebar-footer { flex-basis:94px; }
 .open-music > svg:last-child { width:9px; height:9px; }

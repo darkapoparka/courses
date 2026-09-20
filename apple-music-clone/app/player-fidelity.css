@@ -43,10 +43,24 @@
   backdrop-filter:blur(16px) saturate(1.8);
 }
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player {
-  background:rgb(249 249 251 / 70%);
-  -webkit-backdrop-filter:blur(28px) saturate(2);
-  backdrop-filter:blur(28px) saturate(2);
+  background:rgb(249 249 251 / 50%);
+  border:1px solid rgb(140 145 155 / 25%);
+  box-shadow:0 8px 26px rgb(0 0 0 / 6%);
+  -webkit-backdrop-filter:blur(16px) saturate(2);
+  backdrop-filter:blur(16px) saturate(2);
 }
+/* The frozen current-New idle player uses distinct enabled and mode-control
+   tones. Scope its optical bounds to this catalog so accepted Home, Search,
+   Alpha, legacy and active-track players retain their own measured controls. */
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:nth-child(2),
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > .play-toggle,
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:nth-child(4) { color:rgb(116 130 139); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:first-child,
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:last-child { color:rgb(142 164 177); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:first-child > svg { width:16px; height:16px; transform:translateX(1.5px); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > .play-toggle > svg { width:28px; height:28px; transform:translateX(4px); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:last-child > svg { width:16px; height:16px; transform:translateX(4px); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .now-playing > svg { width:27px; height:27px; color:rgb(104 108 115); transform:translate(3px,-1px); }
 .member-session:not(.with-player-panel) .floating-player .transport > button:first-child > svg { width:18px; height:18px; transform:translateX(1.5px); }
 .member-session:not(.with-player-panel) .floating-player .transport > button:nth-child(2) > svg { width:22px; height:22px; transform:translateX(4px); }
 .member-session:not(.with-player-panel) .floating-player .transport > .play-toggle > svg { width:25px; height:25px; transform:translateX(3px); }
@@ -305,4 +319,17 @@
   background: rgb(249 249 251 / 84%);
   -webkit-backdrop-filter: blur(18px) saturate(1);
   backdrop-filter: blur(18px) saturate(1);
+}
+
+/* The trial player keeps the normal transport geometry, rather than shrinking
+   its symbols when account controls replace the member sidebar footer. */
+@media (min-width:1024px) {
+  .guest-session .floating-player.is-idle.with-trial { background:rgb(248 248 248 / 84%); box-shadow:0 4px 24px rgb(0 0 0 / 14%); }
+  .guest-session .floating-player.is-idle.with-trial .transport { color:rgb(151 151 151); }
+  .guest-session .floating-player.is-idle .transport > button:nth-child(1) > svg { width:16px; height:16px; }
+  .guest-session .floating-player.is-idle .transport > button:nth-child(2) > svg { width:23px; height:23px; transform:translate(4px,-.5px) scaleY(.8); }
+  .guest-session .floating-player.is-idle .transport > button:nth-child(3) > svg { width:28px; height:28px; transform:translate(4px,-1.5px); }
+  .guest-session .floating-player.is-idle .transport > button:nth-child(4) > svg { width:23px; height:23px; transform:translate(1.5px,-1px) scaleY(.8); }
+  .guest-session .floating-player.is-idle .transport > button:nth-child(5) > svg { width:16px; height:16px; transform:translate(4px,-1px); }
+  .guest-session .floating-player.is-idle .now-playing > svg { transform:translateX(4px); }
 }

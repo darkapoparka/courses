@@ -4,7 +4,10 @@ from browser_live_fidelity import start, record
 
 async def begin(page, journey, prefix='e72be564'):
     await start(page, prefix)
-    await record(page, journey, prefix, 'Initial recorded state')
+    if prefix == 'e72be564':
+        # Reproduce the recorded pointer pose with the real visible control.
+        await page.get_by_role('button', name='Play Shabang', exact=True).hover()
+    await record(page, journey, prefix, 'Initial recorded state', move_pointer=prefix != 'e72be564')
 
 async def navigate(page, name, scene, navigation='Music library'):
     await page.get_by_role('navigation', name=navigation, exact=True).get_by_role('button', name=name, exact=True).click()

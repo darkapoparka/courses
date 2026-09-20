@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-18 for the verified initial New/shared discovery progress batch on top of `bf5736d`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** The canonical development preview remains port 6435.
+Updated 2026-09-20 for the verified session/discovery recovery batch on top of `517783a`. **Only implementation checkout: `J:\courses`; only working branch: `main`.** Canonical development preview: port 6435.
 
-Implementation checkpoint: initial/current New now owns a live partial third feature card, a real sixteen-row Viral Hits rail with source-backed continuation artwork, real Previous/Next traversal and playback, measured current-New player glass, and exact desktop row tracks. Optimized production passed 159 desktop states, five responsive samples, 218 route checks and 71 interaction regressions with zero failures; all 159 exact-size comparisons completed. Corpus mean improved from `5.240636608 / 5.323660568%` to `5.190585576 / 5.277333751%` MAE / over-20. [Dated review](reference-review/2026-09-18-new-initial-family-progress.md). No MATCH or FLOW checkbox advanced; acceptance remains 22/159 and 3/58.
+Implementation checkpoint: queue metadata, Autoplay, logout state and per-visit browse positions now survive real navigation; preserved discovery/public-chrome work and scoped current-New glass are verified. Fresh optimized production passed 159 desktop states, five responsive states, 218 route checks and 78 interaction regressions with zero failures; all 159 exact-size comparisons completed. Mean MAE 5.190585576 -> 5.049159017; over-20 5.277333751% -> 5.154771669%. [Dated review](reference-review/2026-09-20-session-discovery-recovery.md). Acceptance remains MATCH 22/159 and FLOW 3/58; no checkbox advanced.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -23,9 +23,11 @@ Implementation checkpoint: initial/current New now owns a live partial third fea
 
 ## Current finalization evidence
 
-The latest verified evidence is the [initial New/shared discovery progress review](reference-review/2026-09-18-new-initial-family-progress.md). Evidence root: `D:\courses-main-evidence\\new-family-optimized-full-20260918-1610\\`; the fresh optimized corpus has zero functional failures and a passing regression gate. This batch advances live DOM/state/control ownership but no acceptance checkbox. MATCH remains 22/159 and FLOW remains 3/58.
+Current evidence: [session/discovery recovery review](reference-review/2026-09-20-session-discovery-recovery.md). Exact evidence root: `J:\courses\apple-music-clone\.qa\evidence\resume-20260920`; successful directories: `optimized-browser-rerun` and `optimized-comparison-rerun`. The earlier ERR_NO_BUFFER_SPACE capture failure is preserved separately. All 28 positive-delta states were reviewed against source and published baseline; remaining concrete visual defects stay open.
 
-The latest verified evidence is in the [Search library empty-state review](reference-review/2026-09-18-search-library-empty-match.md). Evidence root: `D:\courses-main-evidence\search-empty-current-full-20260918-001110\`; final directories include `browser`, `comparison-baseline` and `worsened-review-baseline`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. `MATCH-5b3ec96a` advanced; FLOW remains 0/58. The preceding [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md) and all earlier evidence remain preserved.
+Historical preceding evidence is the [initial New/shared discovery progress review](reference-review/2026-09-18-new-initial-family-progress.md). Evidence root: `D:\courses-main-evidence\\new-family-optimized-full-20260918-1610\\`; the fresh optimized corpus has zero functional failures and a passing regression gate. This batch advances live DOM/state/control ownership but no acceptance checkbox. MATCH remains 22/159 and FLOW remains 3/58.
+
+Historical Search empty-state evidence is in the [Search library empty-state review](reference-review/2026-09-18-search-library-empty-match.md). Evidence root: `D:\courses-main-evidence\search-empty-current-full-20260918-001110\`; final directories include `browser`, `comparison-baseline` and `worsened-review-baseline`, with `verification-summary.json`, `delta-summary.json`, the complete comparison gallery and readable review sheets. The optimized corpus has zero failures. `MATCH-5b3ec96a` advanced; FLOW remains 0/58. The preceding [All Playlists match review](reference-review/2026-09-17-all-playlists-match.md) and all earlier evidence remain preserved.
 
 Historical Home artwork/control candidate passed the full optimized-production run with stable application and QA hashes. All 159 comparisons completed: Home 6.079811% → 5.936308%, Alpha 9.640319% → 9.638858% over-20 pixels; 157 unchanged. The 1024px hidden-Next/misplaced-Previous defects were reproduced and fixed, with four-width continuous return checks registered. [Evidence, preserved failures and remaining defects](reference-review/2026-09-12-home-artwork-controls.md). No MATCH/FLOW box advanced.
 
@@ -68,6 +70,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 <a id="screen-e72be564"></a>
 
+2026-09-20: Initial New improves to 2.526055 MAE / 2.832610% over-20; verified session continuity and scoped glass/corners do not close the remaining ink, material, metadata and control blockers. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
+
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.113135 â†’ 3.411616` and over-20 `4.724529% â†’ 3.943645%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
@@ -80,6 +84,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
   - [Reference image](../apple-music-clone/reference/originals/e72be564-1f7a-4448-9568-f239af3233ed.webp) · [Open app state](http://127.0.0.1:6435/screen/e72be564-1f7a-4448-9568-f239af3233ed) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-4f611a9e"></a>
+
+2026-09-20: Named New improves to 3.033397 MAE / 3.786068% over-20. The second release is still the wrong Lover edition; the matching GOLDEN HOUR provider evidence is identified but its mapping write was not applied. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
 
 - [x] **UI-4f611a9e — New — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
@@ -437,6 +443,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 <a id="screen-96711b04"></a>
 
+2026-09-20: Readable source/baseline/current review confirms an inherited extra grey menu-like backplate/edge and menu/lyric geometry differences. Its owner is not established; do not assume the clean c939c9b8 artwork contains the defect. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
+
 - [x] **UI-96711b04 — Expanded song player — track menu, lyrics visible.** Coded UI; current browser render passed.
   - [ ] **MATCH-96711b04 — Finish and verify the exact screenshot match.**
   - [Reference image](../apple-music-clone/reference/originals/96711b04-1b3e-4b9d-acbc-f84a3ee05b47.webp) · [Open app state](http://127.0.0.1:6435/screen/96711b04-1b3e-4b9d-acbc-f84a3ee05b47) · [Component](../apple-music-clone/components/music-menus.tsx)
@@ -488,6 +496,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
   - [Reference image](../apple-music-clone/reference/originals/ee8db412-71b0-49a8-a1ab-5d6685153abe.webp) · [Open app state](http://127.0.0.1:6435/screen/ee8db412-71b0-49a8-a1ab-5d6685153abe) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-8f029018"></a>
+
+2026-09-20: Autoplay and queue IDs, titles, credits, durations and artwork now survive Search/New and Back/Forward. The registered regression passes in optimized production; endpoint snapshot and panel visual blockers remain. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
 
 - [x] **UI-8f029018 — New — queue panel, playing stupid song.** Coded UI; current browser render passed.
   - 2026-09-15: Live first entry now applies open-panel player glass while preserving the current eleven-row queue exactly. Close/reopen is byte-identical; the direct fixture remains unchanged at 9.781054% over-20. The continuous endpoint remains 34.701150% because its saved discovery/queue snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).

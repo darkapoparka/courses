@@ -6,10 +6,11 @@ import { Icon, type IconName } from "./icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "made-for-you-empty" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
+export type GlyphName = IconName | "person-solid" | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "made-for-you-empty" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "person-solid": return <svg {...common} fill="currentColor" stroke="none"><circle cx="12" cy="7" r="4" /><path d="M4 21v-2a8 7 0 0 1 16 0v2Z" /></svg>;
     case "rail-back": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m8 4-5 12 5 12" strokeWidth="2.4" /></svg>;
     case "rail-next": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m4 4 5 12-5 12" strokeWidth="2.4" /></svg>;
     case "concert-tickets": return <svg {...common}><path d="m2 6 16-4 2 7L4 13Z" fill="currentColor" stroke="none" /><rect x="3" y="9" width="19" height="12" rx="1.5" /><path d="M6 12h4M6 15h3M6 18h3M16 12v6M16 13l3-.6" /><ellipse cx="14.5" cy="18.2" rx="1.5" ry="1" fill="currentColor" stroke="none" /><path d="M12 10v10" strokeDasharray="1 2" /></svg>;

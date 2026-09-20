@@ -22,10 +22,10 @@ export function crop(prefix: string, x: number, y: number, width: number, height
 }
 
 /** Clean provider artwork for the Alpha carousel predecessor. The reviewed
- * 1200×300 editorial strip is cropped as artwork beneath live sidebar glass;
+ * 1200×300 editorial strip is cropped to the source-observed glass underlay;
  * the separately captured 26px boundary remains owned by AlphaPreviousEdge. */
 export const viralHitsFeatureArt: Artwork = {
-  source: "cover-viral-hits-feature", x: 352, y: 0, width: 524, height: 300,
+  source: "cover-viral-hits-feature", x: 380, y: 0, width: 460, height: 300,
   canvasWidth: 1200, canvasHeight: 300, displayRatio: 548 / 314,
 };
 

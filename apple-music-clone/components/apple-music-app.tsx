@@ -78,7 +78,13 @@ function MusicShell() {
   const go = (destination: string) => { m.go(destination); setMobileNav(false); };
   useEffect(() => {
     const element = main.current; if (!element) return;
+    const rememberedTop = m.viewportMemory.restorePage === m.scene.page ? m.viewportMemory.main.get(m.scene.page) : undefined;
     const frame = requestAnimationFrame(() => {
+      if (rememberedTop !== undefined) {
+        element.scrollTo({ top: rememberedTop });
+        m.viewportMemory.restorePage = undefined;
+        return;
+      }
       if (m.scene.page === "settings" || m.scene.page === "connected" || m.scene.page === "subscription") return;
       if (m.scene.scrollOffset && !m.scene.overlay && ["concert", "nearby"].includes(m.scene.page)) { element.scrollTo({ top: m.scene.scrollOffset }); }
       else if (m.scene.scroll) {
@@ -87,7 +93,7 @@ function MusicShell() {
       } else if (m.scene.source) element.scrollTo({ top: 0 });
     });
     return () => cancelAnimationFrame(frame);
-  }, [m.scene.source, m.scene.scroll, m.scene.page]);
+  }, [m.scene.source, m.scene.scroll, m.scene.page, m.viewportMemory.entryKey]);
   const navigation = (page: string, label: string, icon: GlyphName) => <button type="button" key={page} className="sidebar-row" aria-current={activePage === page ? "page" : undefined} onClick={() => go(page)}><SidebarGlyph name={icon} size={19} /><span>{label}</span></button>;
   return <div className={`music-app ${m.scene.guest ? "guest-session" : "member-session"} ${m.scene.panel ? "with-player-panel" : ""} ${m.scene.checkout ? "checkout-stage" : ""}`} lang={zh ? "zh-Hans" : "en-SG"} data-scene={m.scene.page} data-source={m.scene.source} data-flow={m.scene.flow} data-form-step={m.scene.formStep ?? 0}>
     <a className="skip-link" href="#music-main">Skip to content</a>
@@ -105,7 +111,7 @@ function MusicShell() {
           <nav aria-label="Playlists">{navigation("playlists", zh ? "所有播放列表" : "All Playlists", "playlists")}{showPlaylists && <>{navigation("favourites", zh ? "喜爱歌曲" : "Favourite Songs", "favourites")}{m.library.playlists.map(playlist => <button type="button" className="sidebar-row" key={playlist.id} onClick={() => go(`playlist:${playlist.id}`)} aria-current={m.scene.page === "playlist" && (m.scene.category ?? "emotional") === playlist.id ? "page" : undefined}><SidebarGlyph name="playlist" size={19} /><span>{playlist.name}</span></button>)}</>}</nav>
         </>}
       </div>
-      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><span className="open-music-icon"><Glyph name="apple-music" size={13} /></span><span>{zh ? "在“音乐”中打开" : "Open in Music"}</span><Glyph name="external-arrow" size={9} /></a>{guestHomeProfile ? <button type="button" className="profile-button guest-profile-button" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><span className="profile-avatar"><ProfileAvatar /></span></button> : m.scene.guest && !m.scene.checkout && !cancellationProfile ? <button type="button" className="sidebar-signin" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person" size={13} /><span>Sign In</span></button> : <button type="button" className="profile-button" onClick={event => m.scene.guest ? m.patch({ overlay: "signin", formStep: 0 }) : m.openMenu("profile", event)} aria-label={m.scene.guest ? "Sign In" : "Account menu"}><span className="profile-avatar"><ProfileAvatar /></span>{(m.scene.namedProfile || cancellationProfile) && <span>{cancellationProfile ? "Alex Smith" : "SmithAlex"}</span>}</button>}</div>
+      <div className="sidebar-footer"><a className="open-music" href="https://music.apple.com/" target="_blank" rel="noreferrer"><span className="open-music-icon"><Glyph name="apple-music" size={13} /></span><span>{zh ? "在“音乐”中打开" : "Open in Music"}</span><Glyph name="external-arrow" size={9} /></a>{guestHomeProfile ? <button type="button" className="profile-button guest-profile-button" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><span className="profile-avatar"><ProfileAvatar /></span></button> : m.scene.guest && !m.scene.checkout && !cancellationProfile ? <button type="button" className="sidebar-signin" aria-label="Sign In" onClick={() => m.patch({ overlay: "signin", formStep: 0 })}><Glyph name="person-solid" size={13} /><span>Sign In</span></button> : <button type="button" className="profile-button" onClick={event => m.scene.guest ? m.patch({ overlay: "signin", formStep: 0 }) : m.openMenu("profile", event)} aria-label={m.scene.guest ? "Sign In" : "Account menu"}><span className="profile-avatar"><ProfileAvatar /></span>{(m.scene.namedProfile || cancellationProfile) && <span>{cancellationProfile ? "Alex Smith" : "SmithAlex"}</span>}</button>}</div>
     </aside>
     <main id="music-main" ref={main} className="music-main" tabIndex={-1}><Content /></main>
     {!m.scene.expanded && !m.scene.video && <><Player /><PlayerPanel /></>}
