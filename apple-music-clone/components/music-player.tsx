@@ -1,23 +1,52 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ButtonHTMLAttributes } from "react";
 import { albumArt, albumTitle, autoplayTracks, crop, formatTime, radioStations, trackById } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
-import { Art, Glyph, IconButton } from "./music-primitives";
+import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";
 import { SongRow } from "./music-browse";
 import { Lyrics } from "./music-lyrics";
 import { stationPlayback } from "../lib/radio-reference";
 import { expandedPresentation } from "../lib/expanded-presentation";
 import { ExpandedArtwork } from "./expanded-artwork";
 
+function ExpandedTransportGlyph({ name }: { name: GlyphName }) {
+  const className = `expanded-transport-glyph expanded-transport-${name}`;
+  const stroke = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const, className };
+  const fill = { viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const, className };
+  switch (name) {
+    case "shuffle": return <svg {...stroke}><path d="M3 6.5h3.2L17.8 17.5H21" /><path d="m18 14.5 3 3-3 3" /><path d="M3 17.5h3.2L17.8 6.5H21" /><path d="m18 3.5 3 3-3 3" /></svg>;
+    case "previous": return <svg {...fill}><path d="M11.15 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77L.75 12.76a.92.92 0 0 1 0-1.52Z" /><path d="M22.5 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77l-10.4-5.89a.92.92 0 0 1 0-1.52Z" /></svg>;
+    case "play": return <svg {...fill}><path d="M6.7 3.7C6 3.2 5 3.7 5 4.6v14.8c0 .9 1 1.4 1.7.9l12-7.4a1 1 0 0 0 0-1.8Z" /></svg>;
+    case "pause": return <svg {...fill}><rect x="5" y="3" width="5" height="18" rx="1.2" /><rect x="14" y="3" width="5" height="18" rx="1.2" /></svg>;
+    case "next": return <svg {...fill}><g transform="translate(24 0) scale(-1 1)"><path d="M11.15 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77L.75 12.76a.92.92 0 0 1 0-1.52Z" /><path d="M22.5 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77l-10.4-5.89a.92.92 0 0 1 0-1.52Z" /></g></svg>;
+    case "repeat": return <svg {...stroke}><path d="M4 11V9.5A5 5 0 0 1 9 4.5h8.8" /><path d="m15.2 2 2.8 2.5L15.2 7" /><path d="M20 13v1.5a5 5 0 0 1-5 5H6.2" /><path d="M8.8 17 6 19.5 8.8 22" /></svg>;
+    default: return <Glyph name={name} />;
+  }
+}
+
+function TransportButton({ large, icon, label, className = "", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { large: boolean; icon: GlyphName; label: string }) {
+  if (!large) return <IconButton icon={icon} label={label} className={className} {...props} />;
+  return <button type="button" className={`icon-button ${className}`} aria-label={label} title={label} {...props}><ExpandedTransportGlyph name={icon} /></button>;
+}
+
+function ExpandedLyricsButton({ label, pressed, onClick }: { label: string; pressed: boolean; onClick: () => void }) {
+  return <button type="button" className="icon-button expanded-lyrics-toggle" aria-label={label} title={label} aria-pressed={pressed} onClick={onClick}>
+    <svg className="expanded-lyrics-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 2.2h12a4.5 4.5 0 0 1 4.5 4.5v8.7a4.5 4.5 0 0 1-4.5 4.5H10l-5.4 3.2.9-3.5a4.5 4.5 0 0 1-4-4.5V6.7A4.5 4.5 0 0 1 6 2.2Z" />
+      <path fill="currentColor" stroke="none" d="M6.5 7.6h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H6.5V7.6Zm6.5 0h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H13V7.6Z" />
+    </svg>
+  </button>;
+}
+
 function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {
   const m = useMusic();
   return <div className={`transport ${large ? "transport-large" : ""}`}>
-    <IconButton icon="shuffle" label="Shuffle" disabled={m.activeId?.startsWith("station")} aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
-    <IconButton icon="previous" label="Previous track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(-1)} />
-    <IconButton icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
-    <IconButton icon="next" label="Next track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(1)} />
-    <IconButton icon="repeat" label="Repeat" disabled={m.activeId?.startsWith("station")} aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />
+    <TransportButton large={large} icon="shuffle" label="Shuffle" disabled={m.activeId?.startsWith("station")} aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
+    <TransportButton large={large} icon="previous" label="Previous track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(-1)} />
+    <TransportButton large={large} icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
+    <TransportButton large={large} icon="next" label="Next track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(1)} />
+    <TransportButton large={large} icon="repeat" label="Repeat" disabled={m.activeId?.startsWith("station")} aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />
   </div>;
 }
 function Volume({ expanded = false }: { expanded?: boolean }) {
@@ -89,7 +118,7 @@ export function ExpandedPlayer() {
       {station && <div className={`live-progress ${radioReference ? "radio-live-progress" : ""}`}>{radioReference ? <><span>--:--</span><span>LIVE</span></> : <span>LIVE</span>}</div>}
       {station ? <RadioTransport /> : <Transport large />}<Volume expanded />
     </div>{hasLyrics && <div className="expanded-lyrics"><Lyrics /></div>}</div>
-    {!station && <IconButton icon="lyrics" label={hasLyrics ? "Hide lyrics" : "Show lyrics"} className="expanded-lyrics-toggle" aria-pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}
+    {!station && <ExpandedLyricsButton label={hasLyrics ? "Hide lyrics" : "Show lyrics"} pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}
     <span className="sr-only">This is a local reference player. Without a user-owned file, transport controls preview UI state silently. Shift+M opens local media.</span>
   </div>;
 }
