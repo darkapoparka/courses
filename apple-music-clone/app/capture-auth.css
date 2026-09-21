@@ -1,8 +1,8 @@
 /* The authentication capture is a fixed 762×532 dialog, not a generic sheet. */
 .capture-auth, .capture-checkout { width:762px; height:532px; padding:0; overflow:hidden; border-radius:11px; }
 .capture-auth::backdrop, .capture-checkout::backdrop { background:rgb(0 0 0 / 52%); }
-.capture-auth .dialog-close, .capture-checkout .dialog-close { left:23px; top:23px; width:34px; height:34px; background:#e6e6eb; color:#59595d; }
-.capture-auth .dialog-close svg, .capture-checkout .dialog-close svg { width:24px; height:24px; stroke-width:1.8; }
+.capture-auth .dialog-close, .capture-checkout .dialog-close { left:23px; top:23px; width:34px; height:34px; background:#e6e6eb; }
+.capture-auth .dialog-close svg, .capture-checkout .dialog-close svg { width:23px; height:23px; stroke-width:1.4; }
 .capture-auth form { height:100%; position:relative; }
 .capture-auth h2 { font-size:29px; line-height:35px; font-weight:600; letter-spacing:-.75px; }
 .capture-auth .music-badge { width:61px; height:61px; margin:43px auto 13px; border-radius:14px; }
@@ -12,13 +12,13 @@
 .auth-email form { padding:0 60px; display:flow-root; }
 .email-entry { display:block; width:458px; max-width:100%; height:54px; margin:27px auto 0; }
 .email-entry input { display:block; width:100%; height:100%; padding:12px 16px; border:1px solid #96969a; border-radius:10px; font-size:16px; outline-offset:1px; }
-.auth-privacy { width:458px; max-width:100%; margin:35px auto 0; text-align:center; color:#85858a; font-size:11px; line-height:14px; }
+.auth-privacy { width:458px; max-width:100%; margin:34px auto 0; text-align:center; color:#85858a; font-size:11px; line-height:15px; }
 .privacy-mark { display:grid; place-items:center; height:27px; color:#d5234b; }
 .privacy-mark svg { display:none; }
 .privacy-mark::before {
   content:""; width:32px; height:24px; background:center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'%3E%3Cg fill='%23ff1738'%3E%3Ccircle cx='8' cy='4.2' r='3.7'/%3E%3Cpath d='M1.5 23v-8.3c0-4 2.4-6.6 6.5-6.6 3.7 0 6 2.2 6.4 5.7l3.8 2.8-2.4 3.2-3.1-2.2V23H1.5Z'/%3E%3C/g%3E%3Cg fill='%23ff8d97'%3E%3Ccircle cx='24' cy='4.2' r='3.7'/%3E%3Cpath d='M30.5 23v-8.3c0-4-2.4-6.6-6.5-6.6-3.7 0-6 2.2-6.4 5.7l-3.8 2.8 2.4 3.2 3.1-2.2V23h11.2Z'/%3E%3C/g%3E%3C/svg%3E");
 }
-.auth-privacy p { margin-top:20px; }
+.auth-privacy p { margin-top:18px; }
 .auth-privacy button { text-decoration:underline; color:#996370; }
 .auth-primary { display:block; width:304px; max-width:100%; height:42px; border-radius:7px; margin:17px auto 0; background:#ff173c; color:#fff; font-size:16px; line-height:22px; text-align:center; font-weight:400; }
 .auth-create-link { position:absolute; bottom:5px; right:24px; font-size:9px; color:#95616e; }
@@ -100,8 +100,8 @@
 .checkout-price strong:not(:first-child) { margin-top:17px; }
 .checkout-price small { font-size:11px; line-height:17px; color:#8e8e95; display:block; }
 .checkout-summary > p { padding:16px 12px; font-size:10px; line-height:14px; color:#5f5f64; }
-.checkout-privacy { width:340px; max-width:100%; margin:18px auto 0; text-align:center; font-size:11px; line-height:15px; color:#85858a; }
-.checkout-privacy p { margin-top:12px; }
+.checkout-privacy { width:340px; max-width:100%; margin:19px auto 0; text-align:center; font-size:11px; line-height:15px; color:#85858a; }
+.checkout-privacy p { margin-top:6px; }
 .checkout-privacy button { color:#945d6d; text-decoration:underline; }
 .checkout-column > .auth-primary { width:348px; margin-top:30px; }
 .checkout-cancel { display:block; margin:16px auto 0; font-size:16px; color:#965467; }
@@ -153,8 +153,8 @@
   transform:translateX(-50%);
 }
 .checkout-plan { padding:14px 19px; }
-.checkout-price { padding:20px 12px; }
-.checkout-summary > p { padding:19px 12px; }
+.checkout-price { padding:22.5px 12px; }
+.checkout-summary > p { padding:18px 12px; }
 .capture-checkout .capture-field:has(select)::after {
   content:""; position:absolute; right:18px; top:22px; width:7px; height:7px;
   border-right:1.3px solid #6e6e72; border-bottom:1.3px solid #6e6e72;
@@ -184,7 +184,7 @@
 
 .capture-checkout h3.checkout-confirm-heading { margin-top:48px; }
 
-.capture-checkout h3.checkout-confirm-heading { margin-top:40px; }
+.capture-checkout h3.checkout-confirm-heading { margin:40px 0 21px; }
 
 /* Source-observed signup fields stay live, including the filled password
    label and the profile step anchored to the actual Last Name control. */
