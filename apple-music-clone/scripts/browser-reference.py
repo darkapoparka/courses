@@ -21,6 +21,7 @@ from browser_expanded_controls import CASES as EXPANDED_CONTROL_CASES
 from browser_dialog_controls import CASES as DIALOG_CONTROL_CASES
 from browser_playback_completion import CASES as PLAYBACK_COMPLETION_CASES
 from browser_replay_controls import CASES as REPLAY_CONTROL_CASES
+from browser_player_material import CASES as PLAYER_MATERIAL_CASES
 from browser_auth_controls import CASES as AUTH_CONTROL_CASES
 from browser_account_session import CASES as ACCOUNT_SESSION_CASES
 from browser_library_flows import CASES as LIBRARY_FLOW_CASES
@@ -373,6 +374,7 @@ async def main():
         cases += DIALOG_CONTROL_CASES
         cases += PLAYBACK_COMPLETION_CASES
         cases += REPLAY_CONTROL_CASES
+        cases += PLAYER_MATERIAL_CASES
         cases += AUTH_CONTROL_CASES
         cases += ACCOUNT_SESSION_CASES
         cases += LIBRARY_FLOW_CASES

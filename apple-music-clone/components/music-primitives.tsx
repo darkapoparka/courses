@@ -3,13 +3,15 @@
 // Local, non-affiliated UI reference preview. No authentication or payment service.
 import { useEffect, useRef, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from "react";
 import { Icon, type IconName } from "./icons";
+import { CompactPlayerIcon, type CompactPlayerIconName } from "./compact-player-icons";
 import { useMusic } from "./music-context";
 import type { Artwork } from "../lib/music-catalog";
 
-export type GlyphName = IconName | "person-solid" | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "made-for-you-empty" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
+export type GlyphName = CompactPlayerIconName | IconName | "person-solid" | "rail-back" | "rail-next" | "concert-tickets" | "link" | "external-arrow" | "code" | "info" | "thumb-down" | "favourites" | "apple" | "new" | "recent" | "artist" | "albums" | "song" | "apple-music" | "person" | "playlists" | "star" | "star-slash" | "lyrics" | "muted" | "plus" | "share" | "down" | "back" | "sort" | "pin" | "location" | "headphones" | "expand" | "mail" | "made-for-you" | "made-for-you-empty" | "rewind-10" | "forward-10" | "stop" | "play-next" | "play-last" | "help" | "settings" | "transfer";
 export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
   const common = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const };
   switch (name) {
+    case "player-lyrics": case "player-queue": case "player-volume": case "player-muted": return <CompactPlayerIcon name={name} size={size} />;
     case "person-solid": return <svg {...common} fill="currentColor" stroke="none"><circle cx="12" cy="7" r="4" /><path d="M4 21v-2a8 7 0 0 1 16 0v2Z" /></svg>;
     case "rail-back": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m8 4-5 12 5 12" strokeWidth="2.4" /></svg>;
     case "rail-next": return <svg {...common} viewBox="0 0 12 32" width="12" height="32"><path d="m4 4 5 12-5 12" strokeWidth="2.4" /></svg>;

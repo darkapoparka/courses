@@ -49,14 +49,14 @@
   -webkit-backdrop-filter:blur(16px) saturate(2);
   backdrop-filter:blur(16px) saturate(2);
 }
-/* The frozen current-New idle player uses distinct enabled and mode-control
-   tones. Scope its optical bounds to this catalog so accepted Home, Search,
-   Alpha, legacy and active-track players retain their own measured controls. */
+/* Current-New idle ink blends with the live artwork under the glass rather
+   than baking the initial blue cover tint into every release edition. Keep
+   its geometry scoped; Home, Search, Alpha and active tracks own their styles. */
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:nth-child(2),
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > .play-toggle,
-.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:nth-child(4) { color:rgb(116 130 139); }
-.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:first-child,
-.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:last-child { color:rgb(142 164 177); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:nth-child(4) { color:rgb(0 0 0 / 35%); }
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:first-child[aria-pressed="false"],
+.member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:last-child[aria-pressed="false"] { color:rgb(0 0 0 / 25%); }
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:first-child > svg { width:16px; height:16px; transform:translateX(1.5px); }
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > .play-toggle > svg { width:28px; height:28px; transform:translateX(4px); }
 .member-session:not(.with-player-panel):has(.capture-discovery[data-catalog="current"]):not(:has(.capture-discovery[data-feature-alpha])) .floating-player.is-idle .transport > button:last-child > svg { width:16px; height:16px; transform:translateX(4px); }
@@ -356,3 +356,17 @@
   .faithful-expanded .lyric-viewport li { letter-spacing:0; margin-bottom:46px; }
   .faithful-expanded .lyric-viewport li:has(.expanded-lyric-break):not([aria-current="true"]) { margin-bottom:32px; }
 }
+
+/* Replay's live artwork and milestone shelves must remain visible through the
+   player. This follows page ownership, including real scrolling/history; it
+   never switches colors for a screenshot identity or a sampled paint layer. */
+.music-app.member-session[data-replay-chrome]:not(.with-player-panel) .floating-player {
+  background:rgb(249 249 251 / 50%);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);
+  backdrop-filter:blur(16px) saturate(1.4);
+}
+.music-app.member-session[data-replay-chrome]:not(.with-player-panel) .floating-player.is-idle .transport > button:not([aria-pressed]) { color:rgb(0 0 0 / 35%); }
+.music-app.member-session[data-replay-chrome]:not(.with-player-panel) .floating-player.is-idle .transport > button[aria-pressed="false"] { color:rgb(0 0 0 / 25%); }
+/* Pressed feedback must win over active-track chrome. The current-New idle
+   palette excludes pressed buttons, so it cannot conceal Shuffle or Repeat. */
+.floating-player .transport .icon-button[aria-pressed="true"]:not(:disabled) { color:var(--accent); }

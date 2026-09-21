@@ -30,7 +30,7 @@ function Volume({ expanded = false }: { expanded?: boolean }) {
     return () => document.removeEventListener("pointerdown", dismiss);
   }, [expanded, m.scene.volumeOpen, m.patch]);
   return <div ref={host} className={`volume-control ${expanded ? "volume-expanded" : ""}`} data-open={m.scene.volumeOpen || undefined}>
-    <IconButton icon={m.muted || m.volume === 0 ? "muted" : "volume"} label={expanded ? (m.muted ? "Unmute" : "Mute") : "Volume"} aria-expanded={expanded ? undefined : Boolean(m.scene.volumeOpen)} onClick={() => expanded ? m.setMuted(!m.muted) : m.patch({ volumeOpen: !m.scene.volumeOpen })} />
+    <IconButton icon={m.muted || m.volume === 0 ? (expanded ? "muted" : "player-muted") : (expanded ? "volume" : "player-volume")} label={expanded ? (m.muted ? "Unmute" : "Mute") : "Volume"} aria-expanded={expanded ? undefined : Boolean(m.scene.volumeOpen)} onClick={() => expanded ? m.setMuted(!m.muted) : m.patch({ volumeOpen: !m.scene.volumeOpen })} />
     {(expanded || m.scene.volumeOpen) && <input type="range" aria-label="Volume level" min="0" max="1" step="0.01" value={m.muted ? 0 : m.volume} style={{ backgroundSize: `${(m.muted ? 0 : m.volume) * 100}% 100%` }} onChange={event => { m.setMuted(false); m.setVolume(Number(event.target.value)); }} />}
   </div>;
 }
@@ -58,7 +58,7 @@ export function Player() {
       {m.activeId ? <><span className="player-cover"><Art art={m.active?.art ?? playerArt ?? albumArt} label={m.active?.album ?? playerTitle ?? "Music"} />{m.duration > 0 && <i style={{ width: `${m.elapsed / m.duration * 100}%` }} />}</span><span><strong>{m.active?.title ?? playerTitle}{m.library.favourites.includes(m.activeId) && <span className="small-star">★</span>}</strong><small>{station ? playerSubtitle : `${m.active?.artist} — ${m.active?.album}`}</small></span></> : <Glyph name="apple" size={28} />}
     </button>
     {capturedLive && <span className="player-live-badge">LIVE</span>}{m.activeId && m.scene.hero !== "listening" && !capturedLive && <IconButton icon="more" label="More current song actions" className="player-track-menu" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId)} />}
-    <div className="player-utilities">{!m.scene.guest && <IconButton icon="lyrics" label="Show lyrics" aria-pressed={m.scene.panel === "lyrics"} onClick={() => m.patch({ panel: m.scene.panel === "lyrics" ? null : "lyrics" })} />}<IconButton icon="queue" label="Up Next" aria-pressed={m.scene.panel === "queue"} onClick={() => m.patch({ panel: m.scene.panel === "queue" ? null : "queue" })} /><Volume /></div>
+    <div className="player-utilities">{!m.scene.guest && <IconButton icon="player-lyrics" label="Show lyrics" aria-pressed={m.scene.panel === "lyrics"} onClick={() => m.patch({ panel: m.scene.panel === "lyrics" ? null : "lyrics" })} />}<IconButton icon="player-queue" label="Up Next" aria-pressed={m.scene.panel === "queue"} onClick={() => m.patch({ panel: m.scene.panel === "queue" ? null : "queue" })} /><Volume /></div>
   </div>;
 }
 

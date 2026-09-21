@@ -69,6 +69,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-3731221f — New — signed out.** Coded UI; current browser render passed.
   - [ ] **MATCH-3731221f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Native compact utility glyphs and signed-out material passed the clean 164-capture/104-interaction corpus. The `+0.038276` MAE movement was reviewed as intended glyph/raster change; existing typography/content blockers keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.692366 â†’ 4.096477` and over-20 `4.383844% â†’ 3.713317%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - [Reference image](../apple-music-clone/reference/originals/3731221f-497f-40a3-b00a-30abfe3766da.webp) · [Open app state](http://127.0.0.1:6435/screen/3731221f-497f-40a3-b00a-30abfe3766da) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -78,6 +79,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Contextual idle ink, pressed-state ownership and native compact utilities passed the clean optimized corpus; exact diagnostics improve to `2.509861 / 2.808078%`. The complete second release artwork and resulting interior glass remain wrong, so MATCH stays open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Member selection corners/ink repaired and verified through live sidebar controls. The initial lower-release fallback artwork and real player glass distribution still block MATCH; no catalog reset or screenshot overlay was used. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.113135 â†’ 3.411616` and over-20 `4.724529% â†’ 3.943645%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
@@ -95,6 +97,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-4f611a9e — New — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Contextual playing/idle ink and compact utilities passed the clean optimized corpus; exact diagnostics improve to `2.902010 / 3.149686%`. Remaining source-specific metadata/type/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.390860 â†’ 3.782705` and over-20 `5.188031% â†’ 4.705303%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.399554 → 4.593030 and over-20 6.356820% → 5.285468%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
@@ -152,6 +155,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-be864051 — New — Simplified Chinese.** Coded UI; current browser render passed.
   - [ ] **MATCH-be864051 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Localized compact glyph/material controls passed the clean optimized corpus. The small `+0.009216` MAE / `+0.020918` over-20 movement was reviewed without a new state/geometry defect; localized typography/content blockers keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-16: Corrected the localized lower-release order and all five lawful visible source fragments; whole-frame MAE 6.454397 → 5.703245 and over-20 7.245293% → 6.760490%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 7.312969% → 7.275209%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/be864051-c59b-4676-a3c4-643fc136616d.webp) · [Open app state](http://127.0.0.1:6435/screen/be864051-c59b-4676-a3c4-643fc136616d) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -798,6 +802,7 @@ Check catalog/library scope, suggestions, recent searches, category ordering and
 
 - [x] **UI-035569a0 — Search — named profile.** Coded UI; current browser render passed.
   - [x] **MATCH-035569a0 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-21: The accepted Search frame was recaptured after the native compact-glyph change, passed its real controls and improved to `4.194987 / 4.675772%`; readable source/current review found no new concrete mismatch. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-18: Live Search-top geometry, catalog order, sidebar/profile state, idle-player material and real-control entry were reviewed at the exact viewport. `5.192895 / 6.807401% → 4.320887 / 4.740833%`. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Reference image](../apple-music-clone/reference/originals/035569a0-e8da-454e-8bfd-83e7eacfecc5.webp) · [Open app state](http://127.0.0.1:6435/screen/035569a0-e8da-454e-8bfd-83e7eacfecc5) · [Component](../apple-music-clone/components/music-search.tsx)
 
@@ -851,6 +856,7 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-f3fc07c5 — Replay — Jul, empty state.** Coded UI; current browser render passed.
   - [ ] **MATCH-f3fc07c5 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Replay live player material and native utilities passed the final corpus; diagnostics improve to `2.996819 / 5.072133%`. Ambient/type/content residuals keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/f3fc07c5-f37c-4cbd-a025-1af76704f538.webp) · [Open app state](http://127.0.0.1:6435/screen/f3fc07c5-f37c-4cbd-a025-1af76704f538) · [Component](../apple-music-clone/components/music-replay.tsx)
@@ -859,6 +865,7 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-3fed6760 — Replay — May.** Coded UI; current browser render passed.
   - [ ] **MATCH-3fed6760 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Replay live material and native utilities passed the final corpus; diagnostics are `5.144564 / 7.000215%`. Source-specific lighting/content/scroll differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/3fed6760-dab0-4f29-ae4a-1a25bb23a40a.webp) · [Open app state](http://127.0.0.1:6435/screen/3fed6760-dab0-4f29-ae4a-1a25bb23a40a) · [Component](../apple-music-clone/components/music-replay.tsx)
@@ -867,6 +874,7 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-b67b8895 — Replay — scrolled to top albums, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-b67b8895 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Contextual player material materially improves this exact state by `0.158137` MAE to `5.820547 / 5.528669%`; real Replay controls pass. Remaining album/song/content geometry keeps MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/b67b8895-5002-495a-912b-3709aaa4724d.webp) · [Open app state](http://127.0.0.1:6435/screen/b67b8895-5002-495a-912b-3709aaa4724d) · [Component](../apple-music-clone/components/music-replay.tsx)
@@ -875,6 +883,7 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-18225175 — Replay — scrolled to milestones, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-18225175 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Contextual player material improves this exact state by `0.489137` MAE and `2.026410` over-20 points to `3.881297 / 3.640917%`; the real milestone path passes. Remaining continuation/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/18225175-b422-4fbb-8371-eae08bb6c4a8.webp) · [Open app state](http://127.0.0.1:6435/screen/18225175-b422-4fbb-8371-eae08bb6c4a8) · [Component](../apple-music-clone/components/music-replay.tsx)
@@ -883,6 +892,7 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-b0caf02f — Replay — scrolled to replay year, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-b0caf02f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Replay year-art player material and native utilities passed the final corpus; diagnostics improve to `5.785063 / 8.287472%`. Year-art/type/footer differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/b0caf02f-21b6-4334-9304-ac9f62defebc.webp) · [Open app state](http://127.0.0.1:6435/screen/b0caf02f-21b6-4334-9304-ac9f62defebc) · [Component](../apple-music-clone/components/music-replay.tsx)
@@ -891,12 +901,14 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-cc18744f — Milestone gallery — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-cc18744f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Milestone-gallery live player material and compact glyphs passed the final real-control path; diagnostics improve to `2.135592 / 1.704846%`. Gallery continuation/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - [Reference image](../apple-music-clone/reference/originals/cc18744f-ee47-4062-9927-c85c292c25af.webp) · [Open app state](http://127.0.0.1:6435/screen/cc18744f-ee47-4062-9927-c85c292c25af) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-b5d31893"></a>
 
 - [x] **UI-b5d31893 — Milestone detail — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-b5d31893 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Milestone-detail player material and native utilities passed the final real-control path; diagnostics improve to `1.824367 / 1.423611%`. Exact type/footer/player residuals keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - [Reference image](../apple-music-clone/reference/originals/b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e.webp) · [Open app state](http://127.0.0.1:6435/screen/b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 ### Radio and schedule — 6 states
