@@ -4,6 +4,8 @@ Updated 2026-09-21. Only checkout `J:\courses`, only branch `main`, active app `
 
 ## Current verified implementation
 
+The Emotional Songs Playlist acceptance batch signs off two exact states and two complete real-control journeys on full-corpus checkpoint `5b3d98d3398a679af3cbd23b15c455a078f6a2a5`. The Playlist implementation is unchanged from focused capture base `8b9f7c4`; the parent checkpoint passed the complete 159/5/218/107 clean-checkout verification. [Review](reference-review/2026-09-21-playlist-acceptance.md).
+
 The flow-only acceptance batch registers source-ordered live-control journeys for Shuffle, Repeat and Favourite Songs on top of published checkpoint `8b9f7c4ff8dd1f178f070b13166082ad6fe6a323`. It changes no application UI and advances no MATCH state. [Review](reference-review/2026-09-21-ready-flow-acceptance.md).
 
 The album-detail/editorial acceptance batch is verified on top of capture base `67486c52d1e5f50fafd911bf9d05d4b0393c9f50`. After publication, use `git rev-parse HEAD` and `git rev-parse origin/main` for the resulting checkpoint rather than treating the capture base as the final commit.
@@ -20,13 +22,15 @@ Corpus mean MAE changed `4.907618 -> 4.911074`; mean over-20 changed `4.927650% 
 
 ## Acceptance and next work
 
-UI 159/159; MATCH 63/159; FLOW 11/58. The album review retains eight MATCH states and three album FLOW journeys; the flow-only review advances Shuffle, Repeat and Favourite Songs. `docs/tasks.md` remains the sole acceptance ledger.
+UI 159/159; MATCH 65/159; FLOW 13/58. The Playlist review advances two MATCH states and the Playlist detail/add-suggested-song journeys; the ready-flow and album decisions remain accepted. `docs/tasks.md` remains the sole acceptance ledger.
 
-Continue with a dependency report from the unchecked rows in `docs/tasks.md`, the recorded flow map and current metrics. Prioritize independent families with existing real-control regressions and the largest flow-unlock count. Do not reopen accepted New, Home, Replay, account, trial or album states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
+Recompute the dependency report from the updated ledger, then review Chart detail: its only unchecked endpoint is `8a234785`, and `FLOW-d5d60236` already has a real-control path. Do not reopen accepted New, Home, Replay, account, trial, album or Playlist states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
 
 Some lyrics/queue/player and session-dependent captures still require recording-order investigation. Do not rename a user, replace a queue/library/catalog snapshot or inject fixture state behind an ordinary control to manufacture an endpoint.
 
 ## Runtime, identity and preservation
+
+Remote-machine reconciliation note: Desktop Commander quota ended with a local-only pre-publication edit in `apple-music-clone/scripts/browser_live_fidelity.py`. Current `main` already owns the corresponding Shuffle/Repeat journeys. On the next remote session, fetch first and inspect that single duplicate diff; do not reset, clean or discard unrelated work.
 
 Canonical dev is `http://127.0.0.1:6435/` (listener PID 4728 when this handoff was written). The retained optimized listener is on `http://127.0.0.1:6437/` (PID 12600). The album audit listener remains on `http://127.0.0.1:6439/` (PID 17504) from the active app and verified build. These are observations, not authority to stop reused PIDs: inspect command line, executable path, creation time and ancestry before any process action.
 

@@ -1,5 +1,10 @@
 # Reference audit — findings, not acceptance
 
+## Latest Playlist acceptance
+
+The [Emotional Songs Playlist review](reference-review/2026-09-21-playlist-acceptance.md) accepts the initial and four-song states after exact source/current/residual review, then accepts Playlist detail and Add suggested song through visible real controls. The ledger is **UI 159/159, MATCH 65/159, FLOW 13/58**. The app checkpoint passed the complete clean-checkout corpus; no application or frozen-reference file changes in this acceptance-only batch.
+
+
 ## Latest ready-flow acceptance
 
 The [shuffle, repeat and Favourite Songs review](reference-review/2026-09-21-ready-flow-acceptance.md) registers the two missing compact-player journeys and reconfirms the existing Favourite Songs journey through visible controls. Every endpoint was already MATCH-complete, so no visual acceptance changes. The live ledger becomes **UI 159/159, MATCH 63/159 and FLOW 11/58**. Publication CI must pass the exact pushed SHA; the preceding album clean checkout remains the parent verification baseline.

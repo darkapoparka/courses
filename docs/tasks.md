@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the shuffle, repeat and Favourite Songs real-control acceptance review built on published checkpoint `8b9f7c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the Emotional Songs Playlist exact-state and real-control acceptance review. The full-corpus app checkpoint is `5b3d98d`; the focused Playlist evidence was captured against the unchanged Playlist implementation at `8b9f7c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: published checkpoint `8b9f7c4` passed 159 desktop states, five responsive states, 218 route checks and 105 interaction tests with zero failures. The added source-ordered shuffle, repeat and Favourite Songs journeys each passed a targeted live-control run against that unchanged optimized app; publication CI owns the combined 107-interaction clean-checkout rerun. [Acceptance review](reference-review/2026-09-21-ready-flow-acceptance.md). MATCH remains 63/159 and FLOW advances to 11/58.
+Implementation checkpoint: `5b3d98d` passed 159 desktop states, five responsive states, 218 route checks and 107 registered interaction tests in GitHub Actions run `35610617012`. The focused optimized-listener run passed both Playlist journeys with stable candidate identity, and exact source/current/4× residual review accepts both Emotional Songs states without changing application code. [Acceptance review](reference-review/2026-09-21-playlist-acceptance.md). MATCH is now 65/159 and FLOW is 13/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: published checkpoint `8b9f7c4` passed 159 desktop sta
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **63 / 159** |
-| Full recorded flows genuinely signed off | **11 / 58** |
+| Exact visual matches genuinely signed off | **65 / 159** |
+| Full recorded flows genuinely signed off | **13 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: published checkpoint `8b9f7c4` passed 159 desktop sta
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [shuffle, repeat and Favourite Songs flow review](reference-review/2026-09-21-ready-flow-acceptance.md). Three source-ordered journeys advance through visible controls after both endpoints were already MATCH-complete. Current ledger: UI 159/159, MATCH 63/159, FLOW 11/58.
+Latest acceptance evidence: [Emotional Songs Playlist exact-state and flow review](reference-review/2026-09-21-playlist-acceptance.md). Two Playlist states and two ordered real-control journeys advance after source/current/residual and live-control review. Current ledger: UI 159/159, MATCH 65/159, FLOW 13/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -1114,13 +1114,15 @@ Check the initial three songs, vampire insertion/replacement, list counts, neste
 <a id="screen-a573d1ab"></a>
 
 - [x] **UI-a573d1ab — Emotional Songs — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a573d1ab — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-a573d1ab — Exact screenshot match reviewed and signed off.**
+  - 2026-09-21: Exact source/current/4× residual review found the recorded Emotional Songs artwork and crop, title/owner/update copy, description, action controls, three song rows, count, Suggested Songs panel, sidebar/player state and scroll position present and aligned. The remaining residual follows lawful Windows/Chromium text, SVG, decoded-image and translucent-material rasterization. [Evidence](reference-review/2026-09-21-playlist-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/a573d1ab-e4c7-4f59-beb8-f2e171ba1530.webp) · [Open app state](http://127.0.0.1:6435/screen/a573d1ab-e4c7-4f59-beb8-f2e171ba1530) · [Component](../apple-music-clone/components/music-playlist.tsx)
 
 <a id="screen-5044abe5"></a>
 
 - [x] **UI-5044abe5 — Emotional Songs — after adding vampire (four songs).** Coded UI; current browser render passed.
-  - [ ] **MATCH-5044abe5 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-5044abe5 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-21: Exact source/current/4× residual review found the recorded vampire mutation, four rows, updated count/duration, reordered suggestions, artwork, controls, sidebar/player state and scroll position present and aligned. The remaining residual follows lawful Windows/Chromium text, SVG, decoded-image and translucent-material rasterization. [Evidence](reference-review/2026-09-21-playlist-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/5044abe5-979b-464c-bf96-8c5c99c1b24b.webp) · [Open app state](http://127.0.0.1:6435/screen/5044abe5-979b-464c-bf96-8c5c99c1b24b) · [Component](../apple-music-clone/components/music-playlist.tsx)
 
 <a id="screen-bde65d33"></a>
@@ -1465,11 +1467,13 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-17: The ordered New → All Playlists path passes through the real sidebar, and the strengthened case proves both cards, browser Back and idle-player continuity. FLOW remains open because initial screen `e72be564` is not yet MATCH-complete. [Evidence](reference-review/2026-09-17-all-playlists-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/all-playlists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 8a2a4241](#screen-8a2a4241)
 
-- [ ] **FLOW-c12bd09a — 48. Playlist detail (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-c12bd09a — 48. Playlist detail (2 steps).** Complete recorded journey reviewed and signed off.
+  - 2026-09-21: The visible Emotional Songs card opens from All Playlists, preserves the recorded player/sidebar state and reaches `a573d1ab` with the exact three rows and description. Ordered screenshots and `steps.jsonl` are under `apple-music-clone/.qa/evidence/flow-playlist-acceptance-20260921-r2/browser/journeys/c12bd09a-playlist-detail`. [Evidence](reference-review/2026-09-21-playlist-acceptance.md).
   - 2026-09-12 bounded review: All Playlists to playlist detail uses the real card control. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/playlist-detail?step=0). Sequence: [1: 8a2a4241](#screen-8a2a4241) → [2: a573d1ab](#screen-a573d1ab)
 
-- [ ] **FLOW-14785972 — 49. Adding a suggested song (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-14785972 — 49. Adding a suggested song (2 steps).** Complete recorded journey reviewed and signed off.
+  - 2026-09-21: The visible Add vampire control mutates the real playlist to four exact rows, updates the count/duration, removes the consumed suggestion and reaches `5044abe5`. Ordered screenshots and `steps.jsonl` are under `apple-music-clone/.qa/evidence/flow-playlist-acceptance-20260921-r2/browser/journeys/14785972-add-suggested-song`. [Evidence](reference-review/2026-09-21-playlist-acceptance.md).
   - 2026-09-12 bounded review: Adding the suggested song updates actual playlist rows. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/adding-a-suggested-song?step=0). Sequence: [1: a573d1ab](#screen-a573d1ab) → [2: 5044abe5](#screen-5044abe5)
 
