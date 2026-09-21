@@ -36,8 +36,12 @@ function ReplaySongRows() {
       const rank = index + 1;
       const seed = replaySongSeeds.find(item => item.rank === rank);
       const track = replayTracks.find(item => item.id === `replay-${rank}`);
-      if (!seed || !track) return <div className={styles.unrecordedSong} key={rank}>
-        <span>{rank}</span><span>Not visible in the saved capture</span>
+      if (!seed || !track) return <div className={`${styles.song} ${styles.obscuredSong}`} key={rank} aria-label={`Rank ${rank}; recorded song metadata is obscured by the player`}>
+        <span className={styles.obscuredRank} aria-hidden="true">{rank}</span>
+        {rank === 9 && <span className={styles.obscuredCopy} aria-hidden="true">
+          <strong>hold<span className="explicit">E</span></strong>
+          <span>a · 9 Plays</span>
+        </span>}
       </div>;
       return <div className={styles.song} key={rank}>
         <button type="button" className={styles.songArt} aria-label={`Play ${track.title}`} onClick={() => m.play(track)}><Art resolution="standard" art={track.art} label={track.album} /></button>

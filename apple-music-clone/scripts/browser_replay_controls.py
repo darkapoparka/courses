@@ -1,6 +1,6 @@
 """Replay journeys through live month, year, collection and history controls."""
 from playwright.async_api import expect
-from browser_live_fidelity import start, record
+from browser_live_fidelity import start, record, source
 
 async def scroll_section(page, selector, target):
     await page.mouse.move(1300, 650)
@@ -13,6 +13,23 @@ async def scroll_section(page, selector, target):
         await page.mouse.wheel(0, delta)
         await page.wait_for_timeout(70)
     raise AssertionError(f'{selector} did not reach its recorded scroll anchor')
+
+async def wait_artwork(locator):
+    """Decode every live background image before retaining visual evidence."""
+    await locator.first.wait_for()
+    await locator.evaluate_all(r"""async elements => {
+      const urls = [...new Set(elements.map(element => {
+        const match = getComputedStyle(element).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+        return match?.[1];
+      }).filter(Boolean))];
+      if (!urls.length) throw new Error('Replay artwork has no decodable background image.');
+      await Promise.all(urls.map(url => new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = resolve; image.onerror = reject; image.src = url;
+        if (image.complete) image.decode().then(resolve, reject);
+      })));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }""")
 
 async def replay_monthly(page, context):
     await start(page, '035569a0')
@@ -95,9 +112,13 @@ async def replay_milestone_detail(page, context):
     await page.get_by_role('button', name='Previous Recent milestones', exact=True).click()
     await page.wait_for_function("document.querySelector('#milestones .music-rail').scrollLeft === 0")
     await page.get_by_role('button', name='Your Milestones', exact=True).click()
-    await record(page, '7cb9228f-milestone-detail', 'cc18744f', 'Open the full milestone gallery')
+    await wait_artwork(page.locator('main .music-art'))
+    await record(page, '7cb9228f-milestone-detail', 'cc18744f', 'Open the full milestone gallery after its artwork decodes')
     await page.locator('main button:has(.music-art)').first.click()
-    await record(page, '7cb9228f-milestone-detail', 'b5d31893', 'Open the first visible milestone')
+    detail_art = page.locator('main .music-art')
+    await wait_artwork(detail_art)
+    await expect(detail_art).to_have_attribute('data-art-source', source('b5d31893'))
+    await record(page, '7cb9228f-milestone-detail', 'b5d31893', 'Open the first visible milestone after its badge decodes')
     await page.get_by_role('button', name='Back to milestones', exact=True).click()
     await expect(page.get_by_role('heading', name='Milestones', exact=True)).to_be_visible()
     await page.get_by_role('button', name='Back to Replay', exact=True).click()

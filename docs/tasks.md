@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the exact New/charts/Home acceptance review on `537a2c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the exact Replay/milestone acceptance review built from `28388bd`; obtain the resulting publication SHA from Git after commit. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: the contextual-player/compact-glyph build passed 159 desktop states, five responsive states, 218 route checks and 104 interaction tests. Exact source/current/residual review accepts 26 previously open New/charts/Home states while preserving the concrete initial-New artwork blocker. [Acceptance review](reference-review/2026-09-21-new-charts-acceptance.md). MATCH is now 48/159 and FLOW remains 3/58.
+Implementation checkpoint: optimized build `iSXqMeYlF6vbOLFZzu1oC` passed 159 desktop states, five responsive states, 218 route checks and 104 interaction tests with zero failures. Exact source/published/current/residual review accepts all seven Replay/milestone states and both recorded Replay journeys. [Acceptance review](reference-review/2026-09-21-replay-acceptance.md). MATCH is now 55/159 and FLOW is 5/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: the contextual-player/compact-glyph build passed 159 
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **48 / 159** |
-| Full recorded flows genuinely signed off | **3 / 58** |
+| Exact visual matches genuinely signed off | **55 / 159** |
+| Full recorded flows genuinely signed off | **5 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: the contextual-player/compact-glyph build passed 159 
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [New, charts and Home exact-state review](reference-review/2026-09-21-new-charts-acceptance.md). Twenty-six exact states advance after whole-frame and critical-region source/current/residual review; initial New remains open because its second release artwork identity is still concretely wrong. Current ledger: UI 159/159, MATCH 48/159, FLOW 3/58.
+Latest acceptance evidence: [Replay and milestone exact-state review](reference-review/2026-09-21-replay-acceptance.md). Seven exact states and two real-control journeys advance after optimized whole-frame, critical-region and ordered-step review. Current ledger: UI 159/159, MATCH 55/159, FLOW 5/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -881,7 +881,8 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-f3fc07c5"></a>
 
 - [x] **UI-f3fc07c5 — Replay — Jul, empty state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-f3fc07c5 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-f3fc07c5 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Replay live player material and native utilities passed the final corpus; diagnostics improve to `2.996819 / 5.072133%`. Ambient/type/content residuals keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -890,7 +891,8 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-3fed6760"></a>
 
 - [x] **UI-3fed6760 — Replay — May.** Coded UI; current browser render passed.
-  - [ ] **MATCH-3fed6760 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-3fed6760 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Replay live material and native utilities passed the final corpus; diagnostics are `5.144564 / 7.000215%`. Source-specific lighting/content/scroll differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -899,7 +901,8 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-b67b8895"></a>
 
 - [x] **UI-b67b8895 — Replay — scrolled to top albums, May.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b67b8895 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b67b8895 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Contextual player material materially improves this exact state by `0.158137` MAE to `5.820547 / 5.528669%`; real Replay controls pass. Remaining album/song/content geometry keeps MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -908,7 +911,8 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-18225175"></a>
 
 - [x] **UI-18225175 — Replay — scrolled to milestones, May.** Coded UI; current browser render passed.
-  - [ ] **MATCH-18225175 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-18225175 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Contextual player material improves this exact state by `0.489137` MAE and `2.026410` over-20 points to `3.881297 / 3.640917%`; the real milestone path passes. Remaining continuation/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -917,7 +921,8 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-b0caf02f"></a>
 
 - [x] **UI-b0caf02f — Replay — scrolled to replay year, May.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b0caf02f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b0caf02f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Replay year-art player material and native utilities passed the final corpus; diagnostics improve to `5.785063 / 8.287472%`. Year-art/type/footer differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -926,14 +931,16 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 <a id="screen-cc18744f"></a>
 
 - [x] **UI-cc18744f — Milestone gallery — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-cc18744f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-cc18744f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Milestone-gallery live player material and compact glyphs passed the final real-control path; diagnostics improve to `2.135592 / 1.704846%`. Gallery continuation/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - [Reference image](../apple-music-clone/reference/originals/cc18744f-ee47-4062-9927-c85c292c25af.webp) · [Open app state](http://127.0.0.1:6435/screen/cc18744f-ee47-4062-9927-c85c292c25af) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-b5d31893"></a>
 
 - [x] **UI-b5d31893 — Milestone detail — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b5d31893 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b5d31893 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/published/current/4? residual review and the clean optimized corpus found no remaining concrete mismatch in strings, state, geometry, artwork, material, controls or scroll position; remaining residual is lawful platform raster variation. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - 2026-09-21: Milestone-detail player material and native utilities passed the final real-control path; diagnostics improve to `1.824367 / 1.423611%`. Exact type/footer/player residuals keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - [Reference image](../apple-music-clone/reference/originals/b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e.webp) · [Open app state](http://127.0.0.1:6435/screen/b5d31893-2ccb-44b0-9a59-d8f7cb05cc7e) · [Component](../apple-music-clone/components/music-replay.tsx)
 
@@ -1385,10 +1392,12 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-4dd6b284 — 32. Filtering concerts (7 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/filtering-concerts?step=0). Sequence: [1: 84b9db6f](#screen-84b9db6f) → [2: e1069ba9](#screen-e1069ba9) → [3: b896bf23](#screen-b896bf23) → [4: e1f20d4a](#screen-e1f20d4a) → [5: 83bba8fd](#screen-83bba8fd) → [6: 99ffee15](#screen-99ffee15) → [7: d6b9a1a7](#screen-d6b9a1a7)
 
-- [ ] **FLOW-d303f5a7 — 33. Replay monthly (6 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-d303f5a7 — 33. Replay monthly (6 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: Accepted from the permitted Search start through visible Replay/month controls and real wheel scrolling; the six ordered target screenshots, supplemental Back/scroll restoration, `steps.jsonl` and all registered Replay regressions pass on the optimized candidate. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/replay-monthly?step=0). Sequence: [1: 035569a0](#screen-035569a0) → [2: f3fc07c5](#screen-f3fc07c5) → [3: 3fed6760](#screen-3fed6760) → [4: b67b8895](#screen-b67b8895) → [5: 18225175](#screen-18225175) → [6: b0caf02f](#screen-b0caf02f)
 
-- [ ] **FLOW-7cb9228f — 34. Milestone detail (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-7cb9228f — 34. Milestone detail (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: Accepted through the visible milestone shelf/gallery/detail controls; all three ordered screenshots, decoded live badge artwork, `steps.jsonl`, back navigation and registered milestone regressions pass on the optimized candidate. [Evidence](reference-review/2026-09-21-replay-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/milestone-detail?step=0). Sequence: [1: 18225175](#screen-18225175) → [2: cc18744f](#screen-cc18744f) → [3: b5d31893](#screen-b5d31893)
 
 - [ ] **FLOW-bc2a77fc — 35. Home (6 steps).** Complete and verify the recorded journey.
