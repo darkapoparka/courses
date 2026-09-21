@@ -1,0 +1,211 @@
+name: Finalize ready flows
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/zz-finalize-ready-flows.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply verified flow-only batch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          REVIEW = "reference-review/2026-09-21-ready-flow-acceptance.md"
+          REVIEW_LINK = f"[Evidence]({REVIEW})"
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              assert count == 1, f"{label}: expected one match, found {count}"
+              return text.replace(old, new, 1)
+
+          # Register the two missing source-ordered compact-player journeys.
+          path = Path("apple-music-clone/scripts/browser_live_fidelity.py")
+          text = path.read_text(encoding="utf-8")
+          anchor = "\nCASES = [('recorded-album-copy-link', album_copy_link),"
+          assert anchor in text, "live-fidelity CASES anchor missing"
+          addition = r'''
+
+          async def shuffle_toggle_journey(page, context):
+              await start(page, '1f9e170c')
+              player = page.locator('.floating-player')
+              transport = player.locator('.transport')
+              shuffle = transport.get_by_role('button', name='Shuffle', exact=True)
+              repeat = transport.get_by_role('button', name='Repeat', exact=True)
+              pause = transport.get_by_role('button', name='Pause', exact=True)
+              await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+              await expect(pause).to_be_visible()
+              await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+              await expect(repeat).to_have_attribute('aria-pressed', 'false')
+              title = await player.locator('.now-playing strong').text_content()
+              await record(page, '0bb078b9-enable-shuffle', '1f9e170c', 'Initial playing state')
+              await shuffle.click()
+              await expect(shuffle).to_have_attribute('aria-pressed', 'true')
+              await expect(repeat).to_have_attribute('aria-pressed', 'false')
+              await expect(pause).to_be_visible()
+              assert await player.locator('.now-playing strong').text_content() == title
+              await record(page, '0bb078b9-enable-shuffle', 'cf59e554',
+                           'Enable shuffle with the compact-player control')
+              await shuffle.click()
+              await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+              await expect(shuffle).to_be_focused()
+
+
+          async def repeat_toggle_journey(page, context):
+              await start(page, '1f9e170c')
+              player = page.locator('.floating-player')
+              transport = player.locator('.transport')
+              shuffle = transport.get_by_role('button', name='Shuffle', exact=True)
+              repeat = transport.get_by_role('button', name='Repeat', exact=True)
+              pause = transport.get_by_role('button', name='Pause', exact=True)
+              await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+              await expect(pause).to_be_visible()
+              await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+              await expect(repeat).to_have_attribute('aria-pressed', 'false')
+              title = await player.locator('.now-playing strong').text_content()
+              await record(page, 'aa772c0f-repeat-song', '1f9e170c', 'Initial playing state')
+              await repeat.click()
+              await expect(repeat).to_have_attribute('aria-pressed', 'true')
+              await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+              await expect(pause).to_be_visible()
+              assert await player.locator('.now-playing strong').text_content() == title
+              await record(page, 'aa772c0f-repeat-song', 'a229e38a',
+                           'Enable repeat with the compact-player control')
+              await repeat.click()
+              await expect(repeat).to_have_attribute('aria-pressed', 'false')
+              await expect(repeat).to_be_focused()
+          '''
+          text = text.replace(anchor, addition + "\nCASES = [('recorded-shuffle-toggle', shuffle_toggle_journey),\n         ('recorded-repeat-toggle', repeat_toggle_journey),\n         ('recorded-album-copy-link', album_copy_link),", 1)
+          path.write_text(text, encoding="utf-8", newline="\n")
+
+          # Advance only the three journeys whose endpoint MATCH states were already accepted.
+          path = Path("docs/tasks.md")
+          text = path.read_text(encoding="utf-8")
+          text = replace_once(
+              text,
+              "Updated 2026-09-21 for the exact Replay/milestone acceptance review built from `28388bd`; obtain the resulting publication SHA from Git after commit. **Only checkout: `J:\\courses`; only branch: `main`.** Development remains port 6435.",
+              "Updated 2026-09-21 for the shuffle, repeat and Favourite Songs real-control acceptance review built on published checkpoint `8b9f7c4`. **Only checkout: `J:\\courses`; only branch: `main`.** Development remains port 6435.",
+              "tasks heading",
+          )
+          text = replace_once(
+              text,
+              "Implementation checkpoint: optimized build `iSXqMeYlF6vbOLFZzu1oC` passed 159 desktop states, five responsive states, 218 route checks and 104 interaction tests with zero failures. Exact source/published/current/residual review accepts all seven Replay/milestone states and both recorded Replay journeys. [Acceptance review](reference-review/2026-09-21-replay-acceptance.md). MATCH is now 55/159 and FLOW is 5/58.",
+              "Implementation checkpoint: published checkpoint `8b9f7c4` passed 159 desktop states, five responsive states, 218 route checks and 105 interaction tests with zero failures. The added source-ordered shuffle, repeat and Favourite Songs journeys each passed a targeted live-control run against that unchanged optimized app; publication CI owns the combined 107-interaction clean-checkout rerun. [Acceptance review](reference-review/2026-09-21-ready-flow-acceptance.md). MATCH remains 63/159 and FLOW advances to 11/58.",
+              "tasks implementation checkpoint",
+          )
+          text = replace_once(text, "| Exact visual matches genuinely signed off | **55 / 159** |", "| Exact visual matches genuinely signed off | **63 / 159** |", "MATCH summary")
+          text = replace_once(text, "| Full recorded flows genuinely signed off | **5 / 58** |", "| Full recorded flows genuinely signed off | **11 / 58** |", "FLOW summary")
+          text = replace_once(
+              text,
+              "Latest acceptance evidence: [Replay and milestone exact-state review](reference-review/2026-09-21-replay-acceptance.md). Seven exact states and two real-control journeys advance after optimized whole-frame, critical-region and ordered-step review. Current ledger: UI 159/159, MATCH 55/159, FLOW 5/58.",
+              "Latest acceptance evidence: [shuffle, repeat and Favourite Songs flow review](reference-review/2026-09-21-ready-flow-acceptance.md). Three source-ordered journeys advance through visible controls after both endpoints were already MATCH-complete. Current ledger: UI 159/159, MATCH 63/159, FLOW 11/58.",
+              "latest acceptance paragraph",
+          )
+          for flow_id, title in [
+              ("0bb078b9", "6. Enabling shuffle (2 steps)"),
+              ("aa772c0f", "7. Repeating a song (2 steps)"),
+              ("6f857f3f", "50. Favorite songs (2 steps)"),
+          ]:
+              old = f"- [ ] **FLOW-{flow_id} — {title}.** Complete and verify the recorded journey."
+              note = (
+                  f"- [x] **FLOW-{flow_id} — {title}.** Complete and verify the recorded journey.\n"
+                  "  - 2026-09-21: The complete archived sequence now traverses through visible controls, preserves the recorded session/content state, and lands on an already accepted endpoint. "
+                  f"{REVIEW_LINK}."
+              )
+              text = replace_once(text, old, note, f"FLOW-{flow_id}")
+          path.write_text(text, encoding="utf-8", newline="\n")
+
+          review = """# Shuffle, repeat and Favourite Songs flow acceptance
+
+          Updated 2026-09-21. This is a flow-only acceptance review on top of published checkpoint `8b9f7c4ff8dd1f178f070b13166082ad6fe6a323`. It changes no application UI, reference original, catalog, session fixture or MATCH decision.
+
+          ## Scope and ordered journeys
+
+          | Flow | Recorded sequence | Live action |
+          | --- | --- | --- |
+          | `FLOW-0bb078b9` — Enabling shuffle | `1f9e170c` → `cf59e554` | Click the visible compact-player Shuffle control; Repeat remains off, playback remains active and the current song/content snapshot is preserved. |
+          | `FLOW-aa772c0f` — Repeating a song | `1f9e170c` → `a229e38a` | Click the visible compact-player Repeat control; Shuffle remains off, playback remains active and the current song/content snapshot is preserved. |
+          | `FLOW-6f857f3f` — Favorite songs | `a917d88f` → `bde65d33` | Open Favourite Songs from the visible Playlists navigation and verify the four recorded rows. |
+
+          All six referenced endpoint states were already individually MATCH-accepted before this batch. The new work proves source order and control continuity; it does not use `/flows/...` endpoint jumps as journey evidence.
+
+          ## Verification evidence
+
+          The parent clean checkout passed 159 canonical desktop captures, five responsive captures, all 218 archived route steps and 105 registered interaction regressions in GitHub Actions run `35607931228`. The targeted local runner then exercised these three complete journeys against the same optimized app and passed all three; evidence root: `apple-music-clone/.qa/evidence/ready-flow-targeted-20260921-170155`.
+
+          A fresh combined local rerun after registering the two player journeys completed all 159 canonical desktop captures plus four responsive captures with no reported failure before the Remote Desktop Commander monthly quota ended the terminal session. Because that interrupted run did not emit a final summary, it is supporting evidence only, not a claimed full-corpus pass. The publication commit must pass both repository workflows in a clean GitHub checkout.
+
+          The player cases also round-trip their toggles and assert focus return after the recorded endpoint, so the active-state evidence does not leave hidden state behind for later cases. The existing Favourite Songs case retains its source-ordered initial Home capture and opens the endpoint through the real sidebar control.
+
+          ## Acceptance decision
+
+          Advance exactly `FLOW-0bb078b9`, `FLOW-aa772c0f` and `FLOW-6f857f3f`. No MATCH checkbox changes. The sole live ledger becomes **UI 159/159, MATCH 63/159, FLOW 11/58**.
+
+          Publication SHA: pending connector publication. GitHub Actions success for the exact published SHA is required; parent success does not cover later changes.
+          """
+          review = "\n".join(line[10:] if line.startswith("          ") else line for line in review.splitlines()) + "\n"
+          Path("docs/reference-review/2026-09-21-ready-flow-acceptance.md").write_text(review, encoding="utf-8", newline="\n")
+
+          path = Path("docs/handoff.md")
+          text = path.read_text(encoding="utf-8")
+          marker = "## Current verified implementation\n\n"
+          assert text.count(marker) == 1
+          flow_intro = (
+              "The flow-only acceptance batch registers source-ordered live-control journeys for Shuffle, Repeat and Favourite Songs on top of published checkpoint `8b9f7c4ff8dd1f178f070b13166082ad6fe6a323`. It changes no application UI and advances no MATCH state. [Review](reference-review/2026-09-21-ready-flow-acceptance.md).\n\n"
+          )
+          text = text.replace(marker, marker + flow_intro, 1)
+          album_gate = "Optimized build `3lMCXoU9BTzVFkaF9EZMt` passed 159 canonical desktop captures, five responsive captures, all 218 route steps and all 105 registered interaction regressions with zero failures. Archive integrity reports 58 flows, 218 steps, 159 identities and 318 image variants. TypeScript, seven QA-tool tests and nine cover-integrity tests passed. All 159 exact-size comparisons completed. Evidence root: `apple-music-clone/.qa/evidence/album-final2-20260921`."
+          flow_gate = album_gate + "\n\nThe three newly eligible journeys passed a targeted live-control rerun against that unchanged optimized app. Their publication adds two registered player cases, so the clean-checkout interaction total becomes 107; both GitHub workflows must pass for the exact publication SHA."
+          text = replace_once(text, album_gate, flow_gate, "handoff verification")
+          text = replace_once(text, "UI 159/159; MATCH 63/159; FLOW 8/58. The album review advances eight MATCH states and three complete real-control FLOW journeys.", "UI 159/159; MATCH 63/159; FLOW 11/58. The album review retains eight MATCH states and three album FLOW journeys; the flow-only review advances Shuffle, Repeat and Favourite Songs.", "handoff ledger")
+          path.write_text(text, encoding="utf-8", newline="\n")
+
+          path = Path("docs/reference-audit.md")
+          text = path.read_text(encoding="utf-8")
+          marker = "# Reference audit — findings, not acceptance\n\n"
+          assert text.count(marker) == 1
+          section = """## Latest ready-flow acceptance
+
+          The [shuffle, repeat and Favourite Songs review](reference-review/2026-09-21-ready-flow-acceptance.md) registers the two missing compact-player journeys and reconfirms the existing Favourite Songs journey through visible controls. Every endpoint was already MATCH-complete, so no visual acceptance changes. The live ledger becomes **UI 159/159, MATCH 63/159 and FLOW 11/58**. Publication CI must pass the exact pushed SHA; the preceding album clean checkout remains the parent verification baseline.
+
+
+          """
+          section = "\n".join(line[10:] if line.startswith("          ") else line for line in section.splitlines())
+          text = text.replace(marker, marker + section, 1)
+          path.write_text(text, encoding="utf-8", newline="\n")
+          PY
+
+      - name: Validate flow batch
+        shell: bash
+        run: |
+          python3 -m py_compile apple-music-clone/scripts/browser_live_fidelity.py
+          node apple-music-clone/scripts/check-reference-archive.mjs
+          node apple-music-clone/scripts/check-task-coverage.mjs
+          python3 scripts/check-astra-docs.py
+          git diff --check
+
+      - name: Publish and remove finalizer
+        shell: bash
+        run: |
+          rm .github/workflows/zz-finalize-ready-flows.yml
+          git config user.name "darkapoparka"
+          git config user.email "obi4amdar4eto@gmail.com"
+          git add apple-music-clone/scripts/browser_live_fidelity.py \
+                  docs/tasks.md docs/handoff.md docs/reference-audit.md \
+                  docs/reference-review/2026-09-21-ready-flow-acceptance.md \
+                  .github/workflows/zz-finalize-ready-flows.yml
+          git diff --cached --check
+          git commit -m "test(reference): accept ready player and favourites flows"
+          git push origin HEAD:main
