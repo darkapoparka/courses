@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the Emotional Songs Playlist exact-state and real-control acceptance review. The full-corpus app checkpoint is `5b3d98d`; the focused Playlist evidence was captured against the unchanged Playlist implementation at `8b9f7c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the Chart detail exact-state and real-control acceptance review. The verified candidate is `d2dd9e977ec357ee3038c069263b706c9099146b`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: `5b3d98d` passed 159 desktop states, five responsive states, 218 route checks and 107 registered interaction tests in GitHub Actions run `35610617012`. The focused optimized-listener run passed both Playlist journeys with stable candidate identity, and exact source/current/4× residual review accepts both Emotional Songs states without changing application code. [Acceptance review](reference-review/2026-09-21-playlist-acceptance.md). MATCH is now 65/159 and FLOW is 13/58.
+Implementation checkpoint: `d2dd9e977ec357ee3038c069263b706c9099146b` passed 159 desktop states, five responsive states, 218 route checks and 108 registered interaction tests in GitHub Actions run `35619076538`. Exact source/current/residual review accepts `MATCH-8a234785`, and the dedicated named-profile New → Chart journey accepts `FLOW-d5d60236`. [Acceptance review](reference-review/2026-09-21-chart-detail-acceptance.md). MATCH is now 66/159 and FLOW is 14/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: `5b3d98d` passed 159 desktop states, five responsive 
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **65 / 159** |
-| Full recorded flows genuinely signed off | **13 / 58** |
+| Exact visual matches genuinely signed off | **66 / 159** |
+| Full recorded flows genuinely signed off | **14 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: `5b3d98d` passed 159 desktop states, five responsive 
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Emotional Songs Playlist exact-state and flow review](reference-review/2026-09-21-playlist-acceptance.md). Two Playlist states and two ordered real-control journeys advance after source/current/residual and live-control review. Current ledger: UI 159/159, MATCH 65/159, FLOW 13/58.
+Latest acceptance evidence: [Chart detail exact-state and flow review](reference-review/2026-09-21-chart-detail-acceptance.md). The exact named-profile Chart state and its ordered two-step real-control journey advance after clean source/current/residual, route and interaction review. Current ledger: UI 159/159, MATCH 66/159, FLOW 14/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -145,7 +145,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-8a234785"></a>
 
 - [x] **UI-8a234785 — Viral chart — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-8a234785 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-8a234785 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Clean candidate `d2dd9e9` reproduces the exact named-profile Chart content, row order, artwork, saved favourite, unavailable row, sidebar/player state and control geometry. Source/current/residual review records MAE `3.525869` and `3.427541%` over-20; the remaining residual is bounded to lawful browser text, SVG, live material and decoder raster variation. [Evidence](reference-review/2026-09-21-chart-detail-acceptance.md).
   - 2026-09-17: Scoped chart-row geometry, artwork insets, header/metadata baselines, row rules, favourite/More symbols and real-control coverage improve MAE `3.865631 → 3.751661` and over-20 `3.643103% → 3.585118%`. Readable platform typography/SVG, sidebar/player and smaller artwork residuals still block MATCH. [Evidence](reference-review/2026-09-17-viral-chart-rows-controls.md).
   - 2026-09-17: The real chart star and heading geometry reduce whole-frame MAE `4.399940 → 3.865631` and over-20 `3.885582% → 3.643103%`. Table typography, row copy/artwork and player differences still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - [Reference image](../apple-music-clone/reference/originals/8a234785-f0b4-4200-8f3f-2eecf2b77708.webp) · [Open app state](http://127.0.0.1:6435/screen/8a234785-f0b4-4200-8f3f-2eecf2b77708) · [Component](../apple-music-clone/components/music-chart-schedule.tsx)
@@ -1301,7 +1302,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - `a30a9ee`: All five checkpoints traversed continuously from e72be564 through actual hover, carousel and wheel controls, then returned. Snapshot/artwork/profile differences remain; live Alpha differs from its direct fixture by 1.8698% over threshold. Do not replace session data behind a hover. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/new?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4f611a9e](#screen-4f611a9e) → [3: 54b01eab](#screen-54b01eab) → [4: 8b03c9d0](#screen-8b03c9d0) → [5: 706de500](#screen-706de500)
 
-- [ ] **FLOW-d5d60236 — 4. Chart detail (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-d5d60236 — 4. Chart detail (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: Dedicated `recorded-chart-detail` evidence records `4f611a9e → 8a234785` in source order, clicks the visible Favourite These Viral Hits heading and asserts the 15-row catalog, saved favourite, SmithAlex continuity and `view=chart`. The complete 159/5/218/108 clean-checkout run passes. [Evidence](reference-review/2026-09-21-chart-detail-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/chart-detail?step=0). Sequence: [1: 4f611a9e](#screen-4f611a9e) → [2: 8a234785](#screen-8a234785)
 
 - [ ] **FLOW-4139fb15 — 5. Listening to songs (8 steps).** Complete and verify the recorded journey.
