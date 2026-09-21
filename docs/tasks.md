@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the Chart detail exact-state and real-control acceptance review. The verified candidate is `d2dd9e977ec357ee3038c069263b706c9099146b`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the expanded song-player exact-state acceptance review. The verified final tree is `116ffff29c41915654d1648a3fdd373e41353817`; the application repair ends at `4070d2661be4c66ff81af0efc588fd052e19fd00`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: `d2dd9e977ec357ee3038c069263b706c9099146b` passed 159 desktop states, five responsive states, 218 route checks and 108 registered interaction tests in GitHub Actions run `35619076538`. Exact source/current/residual review accepts `MATCH-8a234785`, and the dedicated named-profile New → Chart journey accepts `FLOW-d5d60236`. [Acceptance review](reference-review/2026-09-21-chart-detail-acceptance.md). MATCH is now 66/159 and FLOW is 14/58.
+Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159 desktop states, five responsive states, 218 route checks and 109 registered interaction tests in GitHub Actions run `35628073726`; all 159 exact-size comparisons passed. Exact source/current/residual review accepts `MATCH-c939c9b8`. The complete three-step expanding flow remains open because only its video-visible `6ac70c34 → c939c9b8` segment is truthfully reproduced by a real control. [Acceptance review](reference-review/2026-09-21-expanded-player-repair-candidate.md). MATCH is now 67/159 and FLOW remains 14/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,7 +13,7 @@ Implementation checkpoint: `d2dd9e977ec357ee3038c069263b706c9099146b` passed 159
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **66 / 159** |
+| Exact visual matches genuinely signed off | **67 / 159** |
 | Full recorded flows genuinely signed off | **14 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
@@ -23,7 +23,7 @@ Implementation checkpoint: `d2dd9e977ec357ee3038c069263b706c9099146b` passed 159
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Chart detail exact-state and flow review](reference-review/2026-09-21-chart-detail-acceptance.md). The exact named-profile Chart state and its ordered two-step real-control journey advance after clean source/current/residual, route and interaction review. Current ledger: UI 159/159, MATCH 66/159, FLOW 14/58.
+Latest acceptance evidence: [Expanded player exact-state review](reference-review/2026-09-21-expanded-player-repair-candidate.md). The repaired fullscreen song state advances after clean source/current/residual, route and real-control review. The incomplete first transition keeps the related three-step flow open. Current ledger: UI 159/159, MATCH 67/159, FLOW 14/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -466,7 +466,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-c939c9b8"></a>
 
 - [x] **UI-c939c9b8 — Expanded song player — lyrics visible.** Coded UI; current browser render passed.
-  - [ ] **MATCH-c939c9b8 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-c939c9b8 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Final tree `116ffff2` passed 164 captures, 218 routes, 109 real-control tests and all 159 exact-size comparisons. Direct source/current/4× residual review verifies the exact artwork, title/artist, active and future lyrics, progress/volume, close/favourite/overflow controls, source-clipped subtitle, repaired transport/Repeat geometry and source-shaped lyrics toggle. MAE improves `5.044422 → 4.969747`; over-20 improves `3.311185% → 3.254737%`. Remaining pixels are lawful background/material, text and SVG raster variation, not a concrete product mismatch. [Evidence](reference-review/2026-09-21-expanded-player-repair-candidate.md).
   - [Reference image](../apple-music-clone/reference/originals/c939c9b8-e195-4e43-92a6-b845d0b99243.webp) · [Open app state](http://127.0.0.1:6435/screen/c939c9b8-e195-4e43-92a6-b845d0b99243) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-b3f29b6f"></a>
@@ -1318,6 +1319,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/repeating-a-song?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: a229e38a](#screen-a229e38a)
 
 - [ ] **FLOW-b6295ef8 — 8. Expanding a song (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: Registered `expanded-song-entry` starts at accepted state `6ac70c34`, clicks the visible **Expand stupid song** control and reaches accepted `c939c9b8` with listening/profile/catalog continuity asserted. The frozen journey begins at `1f9e170c`; no truthful visible action has been found for `1f9e170c → 6ac70c34`, so this complete-flow checkbox remains open rather than reloading fixtures or injecting hidden state. [Evidence](reference-review/2026-09-21-expanded-player-repair-candidate.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/expanding-a-song?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: 6ac70c34](#screen-6ac70c34) → [3: c939c9b8](#screen-c939c9b8)
 
 - [ ] **FLOW-2765d26d — 9. Favoriting a song (2 steps).** Complete and verify the recorded journey.

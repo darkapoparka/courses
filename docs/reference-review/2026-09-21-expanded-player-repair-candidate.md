@@ -1,35 +1,51 @@
-# Expanded player repair candidate — 2026-09-21
+# Expanded player exact-state acceptance — 2026-09-21
 
-## Candidate
+## Scope and identity
 
-Application commits:
+This review accepts `MATCH-c939c9b8` only. It does **not** accept `FLOW-b6295ef8`.
 
-- `9083b97a26dd7be1db5952d89585becbe4e5c554` — isolate the fullscreen song transport, subtitle clipping, lyrics control, and real compact-to-fullscreen regression.
-- `cd2fb041d73babe5353881cf8997a2d399acd355` — return Repeat to the closer native outline with scoped sizing and test a source-tinted quotation bubble.
-- `4070d2661be4c66ff81af0efc588fd052e19fd00` — replace the overfilled test bubble with the source-sized thick rounded outline and filled quotation marks found in the retained pixels.
+The application repair is published through `4070d2661be4c66ff81af0efc588fd052e19fd00`; the verified docs-triggered final tree is `116ffff29c41915654d1648a3fdd373e41353817`. GitHub Actions run `35628073726` produced retained artifact `reference-candidate-116ffff29c41915654d1648a3fdd373e41353817` (artifact `10654430236`, digest `sha256:51b9cf60137d814fd78ff4894a3ffd4a8f6d16f20523a75f1526d72f7cfd07d1`). The retained source package is artifact `10652434523`, digest `sha256:bbb5bf7c1646c784f0d54c9893240c4c8f2503e24d10c4e0938edb76acf8c6a2`.
 
-This checkpoint exists to trigger the repository's ordinary clean-checkout verification after the guarded publication commits. It is **not** an acceptance decision and does not change the sole ledger. UI remains 159/159, MATCH remains 66/159, and FLOW remains 14/58 pending fresh source/current/residual review.
+## Clean verification
 
-## First clean artifact review
+- The frozen archive and every checklist mapping passed.
+- TypeScript and the production build passed.
+- 159 canonical desktop states and five responsive states rendered successfully.
+- All 218 recorded route steps returned their expected states.
+- All 109 registered interaction tests passed with zero failures, including `expanded-song-entry`.
+- All 159 exact-size source/current comparisons completed successfully.
 
-Run `35624293745` passed the frozen corpus, TypeScript, production build, 164 captures, all registered real-control checks, and all 159 exact-size comparisons. Its retained artifact measured `c939c9b8` at MAE `4.988379014396457` and `3.275270702596284%` over threshold 20, improving from MAE `5.044421885894754` and `3.3111849390919157%` before the repair.
+## Exact-state repair
 
-Direct source/old/new review confirmed that the subtitle endpoint and the main transport shapes moved materially closer. It also showed that the first custom lyrics outline was too large and too thin.
+The repair is isolated to fullscreen song playback. It preserves the accepted compact player and excludes radio fullscreen controls.
 
-## Second clean artifact review
+- Shuffle, Previous, Play/Pause and Next use source-shaped fullscreen vectors and measured placement/opacity.
+- Repeat uses the closer native outline with fullscreen-only scale and position correction.
+- The subtitle tracking reproduces the archived hard clipping at `...girl so`.
+- The lower-right lyrics toggle uses the source-sized thick rounded outline with filled quotation marks and corrected tint/placement.
+- The existing exact artwork, title/artist, active and future lyrics, progress/volume bars, close, favourite and overflow controls remain intact.
 
-Run `35626437567` again passed the frozen corpus, TypeScript, production build, all captures and real-control checks, and all 159 comparisons. The retained `c939c9b8` render measured MAE `4.990732281284607` and `3.270579549649317%` over threshold 20. Repeat improved substantially, but direct 4× source/current inspection proved that the experimental solid bubble was structurally wrong even though its tint was close: the source is a thick rounded outline with a transparent interior and filled quotation marks. The third commit corrects that specific structure without reopening the accepted transport and subtitle repairs.
+## Direct source/current/residual review
 
-## Isolated product changes
+The reviewed target is `c939c9b8-e195-4e43-92a6-b845d0b99243` at 1440×903. Source SHA-256 is `82d29beb0d737b673b4b0998d330e8510b04413a6a135a95c6e03ec86aaefa85`; final render SHA-256 is `d848a486a545c208f49d98101eb1699843702a4e004ea54eae960dbcec1d6c04`.
 
-- Song-only fullscreen transport controls use dedicated source-shaped Shuffle, Previous, Play/Pause, and Next vectors. The accepted compact player continues to use the existing shared glyphs.
-- Repeat uses the closer existing native vector with fullscreen-only scale and position correction.
-- The fullscreen song subtitle uses a small scoped tracking adjustment so its clipped endpoint matches the archived frame.
-- The lower-right fullscreen lyrics control uses a source-sized thick rounded speech-bubble outline with filled quote marks, source-like tint, and corrected vertical placement.
-- Radio fullscreen controls are explicitly excluded from these song-only selectors.
+Baseline MAE `5.044421885894754` improves to `4.969747190435175`. Pixels over threshold 20 improve from `3.3111849390919157%` to `3.2547372954349703%`.
 
-## Real-control coverage
+Focused regions also improve:
 
-The new `expanded-song-entry` regression begins at accepted compact-player state `6ac70c34`, clicks the visible **Expand stupid song** control, and records `c939c9b8` while asserting track, lyrics, profile/catalog continuity, playback controls, and cleared fixture routing.
+- Subtitle: MAE `18.5478 → 17.5321`; over-20 `21.7294% → 20.6547%`.
+- Main transport: MAE `10.3108 → 5.9477`; over-20 `7.9335% → 5.3651%`.
+- Repeat: MAE `8.9621 → 5.0819`; over-20 `7.5884% → 4.3659%`.
+- Lyrics toggle: MAE `16.1044 → 12.7817`; over-20 `14.7541% → 10.6414%`.
 
-This proves only the video-visible `6ac70c34 → c939c9b8` segment. `FLOW-b6295ef8` remains open because the frozen sequence begins at `1f9e170c`, and no truthful user action has yet been identified for the dynamic editorial transition `1f9e170c → 6ac70c34`. The regression does not fake that transition by reloading fixtures.
+Readable full-frame and 4× source/current/residual inspection found no remaining concrete product mismatch. The residual is broad background/material motion-frame variance plus lawful browser text/SVG antialiasing and tiny edge-raster differences; it is not hidden by exclusions, overlays or screenshot substitution.
+
+## Real-control coverage and flow boundary
+
+The registered `expanded-song-entry` case begins at accepted compact state `6ac70c34`, asserts SmithAlex/profile, legacy catalog and active playback, clicks the visible **Expand stupid song** control, and records `c939c9b8`. It then asserts the expanded ambience, exact track, visible lyrics, playback slider, close control, cleared fixture routing and preserved catalog continuity.
+
+This truthfully proves the video-visible `6ac70c34 → c939c9b8` segment. The frozen three-step journey begins at `1f9e170c`; no visible user action has been established for the dynamic editorial transition `1f9e170c → 6ac70c34`. The regression therefore does not reload fixtures or inject hidden scenario state, and `FLOW-b6295ef8` remains open.
+
+## Acceptance decision
+
+`MATCH-c939c9b8` is accepted. The ledger advances from MATCH 66/159 to MATCH 67/159. UI remains 159/159 and FLOW remains 14/58.

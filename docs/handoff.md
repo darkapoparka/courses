@@ -4,6 +4,8 @@ Updated 2026-09-21. Only checkout `J:\courses`, only branch `main`, active app `
 
 ## Current verified implementation
 
+The expanded song-player acceptance batch signs off exact state `c939c9b8` on final tree `116ffff29c41915654d1648a3fdd373e41353817` (application repair through `4070d2661be4c66ff81af0efc588fd052e19fd00`). GitHub Actions run `35628073726` passed 159 canonical desktop states, five responsive states, all 218 route checks and 109 registered interaction tests with zero failures; all 159 exact-size comparisons also passed. [Review](reference-review/2026-09-21-expanded-player-repair-candidate.md).
+
 The Chart detail acceptance batch signs off exact state `8a234785` and complete real-control `FLOW-d5d60236` on candidate `d2dd9e977ec357ee3038c069263b706c9099146b`. GitHub Actions run `35619076538` passed 159 canonical desktop states, five responsive states, all 218 route checks and 108 registered interaction tests with zero failures; all 159 exact-size comparisons also passed. [Review](reference-review/2026-09-21-chart-detail-acceptance.md).
 
 The Emotional Songs Playlist acceptance batch signs off two exact states and two complete real-control journeys on full-corpus checkpoint `5b3d98d3398a679af3cbd23b15c455a078f6a2a5`. The Playlist implementation is unchanged from focused capture base `8b9f7c4`; the parent checkpoint passed the complete 159/5/218/107 clean-checkout verification. [Review](reference-review/2026-09-21-playlist-acceptance.md).
@@ -24,9 +26,9 @@ Corpus mean MAE changed `4.907618 -> 4.911074`; mean over-20 changed `4.927650% 
 
 ## Acceptance and next work
 
-UI 159/159; MATCH 66/159; FLOW 14/58. The Chart review advances one MATCH state and the complete two-step Chart detail journey; the Playlist, ready-flow and album decisions remain accepted. `docs/tasks.md` remains the sole acceptance ledger.
+UI 159/159; MATCH 67/159; FLOW 14/58. The expanded-player review advances exact state `c939c9b8`; the complete three-step expanding-song journey remains open. The Chart, Playlist, ready-flow and album decisions remain accepted. `docs/tasks.md` remains the sole acceptance ledger.
 
-Recompute the dependency report from the updated ledger before selecting the next independent family. Do not reopen accepted New, Chart, Home, Replay, account, trial, album or Playlist states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
+Recompute the dependency report from the updated ledger before selecting the next independent family. Do not mark `FLOW-b6295ef8` complete unless `1f9e170c → 6ac70c34 → c939c9b8` is traversed continuously through truthful visible controls; the current regression proves only the real `6ac70c34 → c939c9b8` segment. Do not reopen accepted New, Chart, Home, Replay, account, trial, album or Playlist states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
 
 Some lyrics/queue/player and session-dependent captures still require recording-order investigation. Do not rename a user, replace a queue/library/catalog snapshot or inject fixture state behind an ordinary control to manufacture an endpoint.
 
