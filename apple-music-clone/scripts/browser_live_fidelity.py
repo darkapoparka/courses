@@ -48,7 +48,10 @@ async def album_copy_link(page, context):
     await context.grant_permissions(['clipboard-read', 'clipboard-write'])
     await start(page, 'b620e4ab')
     await page.get_by_role('button', name='Favourite stupid song', exact=True).hover()
-    await record(page, '8c9a97bc-copy-album-link', 'b620e4ab', 'Initial album detail; hover the unsaved song star', move_pointer=False)
+    unavailable = page.locator('[role=row][data-unavailable=true]')
+    assert await unavailable.count() == 4
+    assert await unavailable.locator('.icon-button').count() == 0
+    await record(page, '8c9a97bc-copy-album-link', 'b620e4ab', 'Initial album detail; hover the unsaved song star and omit unavailable-row menus', move_pointer=False)
     await page.get_by_role('button', name='More actions for you seem pretty sad for a girl so in love', exact=True).click()
     menu = page.get_by_role('menu', name='album actions', exact=True)
     await expect(menu.get_by_role('menuitem', name='Favourite', exact=True)).to_be_visible()
@@ -63,6 +66,24 @@ async def album_copy_link(page, context):
     await page.keyboard.press('Escape')
     await expect(menu).to_have_count(0)
     await expect(page.get_by_role('button', name='More actions for you seem pretty sad for a girl so in love', exact=True)).to_be_focused()
+
+async def album_description(page, context):
+    await start(page, 'b620e4ab')
+    await page.get_by_role('button', name='Favourite stupid song', exact=True).hover()
+    await record(page, '91b7c60d-album-description', 'b620e4ab', 'Start at album detail with the recorded unsaved-song hover', move_pointer=False)
+    await page.get_by_role('button', name='MORE', exact=True).click()
+    body = page.get_by_label('Album editorial notes', exact=True)
+    await expect(body).to_be_visible()
+    assert await body.evaluate('(element) => element.scrollTop') == 0
+    await record(page, '91b7c60d-album-description', '32515da3', 'Open the editorial dialog with the visible MORE control')
+    await body.focus()
+    await page.keyboard.press('Control+End')
+    await page.wait_for_function('''() => {
+      const element = document.querySelector('[aria-label="Album editorial notes"]');
+      return element && element.scrollTop > 200 && Math.abs(element.scrollTop - (element.scrollHeight - element.clientHeight)) < 1;
+    }''')
+    await record(page, '91b7c60d-album-description', '9b43cccb', 'Scroll the live editorial article to its recorded end state')
+
 
 async def album_share_sheet(page, context):
     await start(page, 'b620e4ab')
@@ -157,6 +178,7 @@ async def album_favourite_isolation(page, context):
     await expect(song).to_have_attribute('aria-pressed', 'true')
 
 CASES = [('recorded-album-copy-link', album_copy_link),
+         ('recorded-album-description', album_description),
          ('recorded-album-share-sheet', album_share_sheet),
          ('recorded-radio-schedule', radio_schedule),
          ('radio-live-playback', radio_live_playback),

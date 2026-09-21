@@ -622,49 +622,57 @@ Check selected/unavailable rows, the video row, lower collections, sticky editor
 
 - [x] **UI-b620e4ab — Album detail — named profile.** Coded UI; current browser render passed.
   - 2026-09-12 bounded review: An unsaved outline star represents hover, not a favourite. Real input ends the captured hover; saving stays filled after pointer exit, and unsaving restores the neutral marker. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
-  - [ ] **MATCH-b620e4ab — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b620e4ab — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/b620e4ab-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/b620e4ab-d6dc-47c9-b704-6cd45cbd714c.webp) · [Open app state](http://127.0.0.1:6435/screen/b620e4ab-d6dc-47c9-b704-6cd45cbd714c) · [Component](../apple-music-clone/components/music-album.tsx)
 
 <a id="screen-ffd1356a"></a>
 
 - [x] **UI-ffd1356a — Album detail — scrolled to other versions.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ffd1356a — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ffd1356a — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/ffd1356a-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/ffd1356a-86ec-4185-a19a-d48bf888d67a.webp) · [Open app state](http://127.0.0.1:6435/screen/ffd1356a-86ec-4185-a19a-d48bf888d67a) · [Component](../apple-music-clone/components/music-album.tsx)
 
 <a id="screen-eb489e8d"></a>
 
 - [x] **UI-eb489e8d — Album detail — scrolled to music videos.** Coded UI; current browser render passed.
-  - [ ] **MATCH-eb489e8d — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-eb489e8d — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/eb489e8d-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/eb489e8d-0b65-4bfc-9da8-450ec3db1a53.webp) · [Open app state](http://127.0.0.1:6435/screen/eb489e8d-0b65-4bfc-9da8-450ec3db1a53) · [Component](../apple-music-clone/components/music-album.tsx)
 
 <a id="screen-32515da3"></a>
 
 - [x] **UI-32515da3 — Album detail — editorial dialog.** Coded UI; current browser render passed.
-  - [ ] **MATCH-32515da3 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-32515da3 — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/32515da3-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/32515da3-7507-463f-baad-a257cfed078b.webp) · [Open app state](http://127.0.0.1:6435/screen/32515da3-7507-463f-baad-a257cfed078b) · [Component](../apple-music-clone/components/music-album-article.tsx)
 
 <a id="screen-9b43cccb"></a>
 
 - [x] **UI-9b43cccb — Album detail — editorial dialog, scrolled state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-9b43cccb — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-9b43cccb — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/9b43cccb-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/9b43cccb-8b12-499d-aee1-d43b8cc57461.webp) · [Open app state](http://127.0.0.1:6435/screen/9b43cccb-8b12-499d-aee1-d43b8cc57461) · [Component](../apple-music-clone/components/music-album-article.tsx)
 
 <a id="screen-56c2e39a"></a>
 
 - [x] **UI-56c2e39a — Album detail — share menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-56c2e39a — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-56c2e39a — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/56c2e39a-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/56c2e39a-126a-4ac8-a51c-2b5a98b0a40f.webp) · [Open app state](http://127.0.0.1:6435/screen/56c2e39a-126a-4ac8-a51c-2b5a98b0a40f) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-ef86b595"></a>
 
 - [x] **UI-ef86b595 — Album detail — album menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ef86b595 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ef86b595 — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/ef86b595-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/ef86b595-0980-4f78-ad2b-87a350374fca.webp) · [Open app state](http://127.0.0.1:6435/screen/ef86b595-0980-4f78-ad2b-87a350374fca) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-eca1baa1"></a>
 
 - [x] **UI-eca1baa1 — Album detail — album menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-eca1baa1 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-eca1baa1 — Finish and verify the exact screenshot match.**
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); optimized source/current/residual evidence is under `apple-music-clone/.qa/evidence/album-final2-20260921/readable-review/eca1baa1-source-current-residual.png`.
   - [Reference image](../apple-music-clone/reference/originals/eca1baa1-540d-458d-b00d-5847cd40ba27.webp) · [Open app state](http://127.0.0.1:6435/screen/eca1baa1-540d-458d-b00d-5847cd40ba27) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 ### Artist detail — 8 states
@@ -1349,14 +1357,17 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-fbe1a3cc — 19. Album detail (4 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/album-detail?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: b620e4ab](#screen-b620e4ab) → [3: ffd1356a](#screen-ffd1356a) → [4: eb489e8d](#screen-eb489e8d)
 
-- [ ] **FLOW-91b7c60d — 20. Album description (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-91b7c60d — 20. Album description (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); ordered screenshots and `steps.jsonl` are under `apple-music-clone/.qa/evidence/album-final2-20260921/browser-rerun/journeys/91b7c60d-album-description`.
   - [Open first recorded state](http://127.0.0.1:6435/flows/album-description?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: 32515da3](#screen-32515da3) → [3: 9b43cccb](#screen-9b43cccb)
 
-- [ ] **FLOW-1319943e — 21. Share an album (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-1319943e — 21. Share an album (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); ordered screenshots and `steps.jsonl` are under `apple-music-clone/.qa/evidence/album-final2-20260921/browser-rerun/journeys/1319943e-share-album`.
   - 2026-09-12 bounded review: Initial real hover and the album Share control are captured; pointer/keyboard focus modality is separately tested. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/share-an-album?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: 56c2e39a](#screen-56c2e39a)
 
-- [ ] **FLOW-8c9a97bc — 22. Copying an album link (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-8c9a97bc — 22. Copying an album link (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-21 acceptance: [Album exact-state acceptance](reference-review/2026-09-21-album-acceptance.md); ordered screenshots and `steps.jsonl` are under `apple-music-clone/.qa/evidence/album-final2-20260921/browser-rerun/journeys/8c9a97bc-copy-album-link`.
   - 2026-09-12 bounded review: Initial real hover, overflow, Copy Link and inline confirmation are captured; clipboard content and focus restoration are asserted. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/copying-an-album-link?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: ef86b595](#screen-ef86b595) → [3: eca1baa1](#screen-eca1baa1)
 

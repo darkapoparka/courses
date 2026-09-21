@@ -1,5 +1,10 @@
 # Reference audit — findings, not acceptance
 
+## Latest album exact-state acceptance
+
+The [album acceptance review](reference-review/2026-09-21-album-acceptance.md) records the current optimized candidate: 159 canonical desktop captures, five responsive captures, 218/218 route steps and 105/105 interaction regressions pass with zero failures. Eight album-detail/editorial MATCH states and three real-control album journeys are accepted. The sole live ledger now reports **UI 159/159, MATCH 63/159 and FLOW 8/58**. Older sections retain their historical candidate scope and do not override checked task rows.
+
+
 ## Latest signup-control follow-up
 
 [Source-supported native-control repairs](reference-review/2026-09-20-signup-control-chrome.md) refine the four signup states, with 98 full-corpus interaction tests passing. The native New review still finds selected-row and glass/underlay differences; acceptance remains 22/159 and 3/58. Older findings keep their original candidate scope.
