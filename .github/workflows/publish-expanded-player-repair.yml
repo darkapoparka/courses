@@ -2,188 +2,41 @@ name: Publish expanded player repair
 
 on:
   push:
-    branches: ['main']
-    paths: ['.github/workflows/publish-expanded-player-repair.yml']
+    branches:
+      - main
+    paths:
+      - .github/workflows/publish-expanded-player-repair.yml
 
 permissions:
   contents: write
 
 jobs:
   publish:
-    if: github.event.head_commit.message == 'ci(reference): stage expanded player repair'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
-      - name: Apply isolated expanded-player repair
+      - name: Apply verified expanded-player patch
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          def replace_once(text: str, old: str, new: str, label: str) -> str:
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f'{label}: expected one exact match, found {count}')
-              return text.replace(old, new, 1)
-
-          player_path = Path('apple-music-clone/components/music-player.tsx')
-          player = player_path.read_text(encoding='utf-8')
-          player = replace_once(
-              player,
-              'import { useEffect, useRef } from "react";',
-              'import { useEffect, useRef, type ButtonHTMLAttributes } from "react";',
-              'React import',
-          )
-          player = replace_once(
-              player,
-              'import { Art, Glyph, IconButton } from "./music-primitives";',
-              'import { Art, Glyph, IconButton, type GlyphName } from "./music-primitives";',
-              'primitive import',
-          )
-          helper = '''function ExpandedTransportGlyph({ name }: { name: GlyphName }) {
-            const className = `expanded-transport-glyph expanded-transport-${name}`;
-            const stroke = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true as const, className };
-            const fill = { viewBox: "0 0 24 24", fill: "currentColor", "aria-hidden": true as const, className };
-            switch (name) {
-              case "shuffle": return <svg {...stroke}><path d="M3 6.5h3.2L17.8 17.5H21" /><path d="m18 14.5 3 3-3 3" /><path d="M3 17.5h3.2L17.8 6.5H21" /><path d="m18 3.5 3 3-3 3" /></svg>;
-              case "previous": return <svg {...fill}><path d="M11.15 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77L.75 12.76a.92.92 0 0 1 0-1.52Z" /><path d="M22.5 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77l-10.4-5.89a.92.92 0 0 1 0-1.52Z" /></svg>;
-              case "play": return <svg {...fill}><path d="M6.7 3.7C6 3.2 5 3.7 5 4.6v14.8c0 .9 1 1.4 1.7.9l12-7.4a1 1 0 0 0 0-1.8Z" /></svg>;
-              case "pause": return <svg {...fill}><rect x="5" y="3" width="5" height="18" rx="1.2" /><rect x="14" y="3" width="5" height="18" rx="1.2" /></svg>;
-              case "next": return <svg {...fill}><g transform="translate(24 0) scale(-1 1)"><path d="M11.15 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77L.75 12.76a.92.92 0 0 1 0-1.52Z" /><path d="M22.5 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77l-10.4-5.89a.92.92 0 0 1 0-1.52Z" /></g></svg>;
-              case "repeat": return <svg {...stroke}><path d="M4 11V9.5A5 5 0 0 1 9 4.5h8.8" /><path d="m15.2 2 2.8 2.5L15.2 7" /><path d="M20 13v1.5a5 5 0 0 1-5 5H6.2" /><path d="M8.8 17 6 19.5 8.8 22" /></svg>;
-              default: return <Glyph name={name} />;
-            }
-          }
-
-          function TransportButton({ large, icon, label, className = "", ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { large: boolean; icon: GlyphName; label: string }) {
-            if (!large) return <IconButton icon={icon} label={label} className={className} {...props} />;
-            return <button type="button" className={`icon-button ${className}`} aria-label={label} title={label} {...props}><ExpandedTransportGlyph name={icon} /></button>;
-          }
-
-          function ExpandedLyricsButton({ label, pressed, onClick }: { label: string; pressed: boolean; onClick: () => void }) {
-            return <button type="button" className="icon-button expanded-lyrics-toggle" aria-label={label} title={label} aria-pressed={pressed} onClick={onClick}>
-              <svg className="expanded-lyrics-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M6 2.2h12a4.5 4.5 0 0 1 4.5 4.5v8.7a4.5 4.5 0 0 1-4.5 4.5H10l-5.4 3.2.9-3.5a4.5 4.5 0 0 1-4-4.5V6.7A4.5 4.5 0 0 1 6 2.2Z" />
-                <path fill="currentColor" stroke="none" d="M6.5 7.6h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H6.5V7.6Zm6.5 0h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H13V7.6Z" />
-              </svg>
-            </button>;
-          }
-
-          '''
-          player = replace_once(
-              player,
-              'function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {',
-              helper + 'function Transport({ large = false, radioStop = false }: { large?: boolean; radioStop?: boolean }) {',
-              'expanded helpers',
-          )
-          old_transport = '''    <IconButton icon="shuffle" label="Shuffle" disabled={m.activeId?.startsWith("station")} aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
-              <IconButton icon="previous" label="Previous track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(-1)} />
-              <IconButton icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
-              <IconButton icon="next" label="Next track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(1)} />
-              <IconButton icon="repeat" label="Repeat" disabled={m.activeId?.startsWith("station")} aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />'''.replace('              ', '')
-          new_transport = '''    <TransportButton large={large} icon="shuffle" label="Shuffle" disabled={m.activeId?.startsWith("station")} aria-pressed={m.shuffle} onClick={() => m.setShuffle(!m.shuffle)} />
-              <TransportButton large={large} icon="previous" label="Previous track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(-1)} />
-              <TransportButton large={large} icon={radioStop ? "stop" : m.playing ? "pause" : "play"} label={radioStop ? "Stop live radio" : m.playing ? "Pause" : "Play"} className="play-toggle" onClick={m.togglePlayback} />
-              <TransportButton large={large} icon="next" label="Next track" disabled={m.activeId?.startsWith("station")} onClick={() => m.skip(1)} />
-              <TransportButton large={large} icon="repeat" label="Repeat" disabled={m.activeId?.startsWith("station")} aria-pressed={m.repeat} onClick={() => m.setRepeat(!m.repeat)} />'''.replace('              ', '')
-          player = replace_once(player, old_transport, new_transport, 'transport controls')
-          player = replace_once(
-              player,
-              '    {!station && <IconButton icon="lyrics" label={hasLyrics ? "Hide lyrics" : "Show lyrics"} className="expanded-lyrics-toggle" aria-pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}',
-              '    {!station && <ExpandedLyricsButton label={hasLyrics ? "Hide lyrics" : "Show lyrics"} pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}',
-              'expanded lyrics control',
-          )
-          player_path.write_text(player, encoding='utf-8')
-
-          css_path = Path('apple-music-clone/app/player-fidelity.css')
-          css = css_path.read_text(encoding='utf-8')
-          meta_rule = '.faithful-expanded .expanded-meta > div > button { font-size:16px; line-height:20px; color:#ffffffad; text-overflow:clip; }\n'
-          css = replace_once(css, meta_rule, meta_rule + '.faithful-expanded:not(.radio-reference) .expanded-meta > div > button { letter-spacing:.4px; }\n', 'expanded metadata')
-          transport_rule = '.faithful-expanded .transport-large .play-toggle svg { width:34px; height:34px; color:#fff; }\n'
-          transport_styles = '''.faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-glyph { transform-origin:center; filter:blur(.08px); }
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-shuffle { color:rgb(255 255 255 / 60%); transform:translateY(-2px) scaleX(1.08); }
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-previous { color:rgb(255 255 255 / 78%); transform:translate(-1px,-3px); }
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-play,
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-pause { color:#fff; transform:translateY(-2.5px) scale(1.10,1.12); }
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-next { color:rgb(255 255 255 / 78%); transform:translate(2px,-3px); }
-          .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-repeat { color:rgb(255 255 255 / 60%); transform:translate(-.5px,-2px) scaleX(1.08); }
-          '''.replace('          ', '')
-          css = replace_once(css, transport_rule, transport_rule + transport_styles, 'expanded transport styles')
-          lyric_rule = '.faithful-expanded .expanded-lyrics-toggle > svg { width:29px; height:29px; }\n'
-          lyric_styles = '''.faithful-expanded:not(.radio-reference) .expanded-lyrics-toggle { color:rgb(255 255 255 / 68%); overflow:visible; }
-          .faithful-expanded:not(.radio-reference) .expanded-lyrics-glyph { width:31px !important; height:31px !important; transform:translate(-1px,-3px); filter:blur(.08px); }
-          '''.replace('          ', '')
-          css = replace_once(css, lyric_rule, lyric_rule + lyric_styles, 'expanded lyric styles')
-          css_path.write_text(css, encoding='utf-8')
-
-          entry_path = Path('apple-music-clone/scripts/browser_expanded_entry.py')
-          if entry_path.exists():
-              raise SystemExit(f'Refusing to overwrite {entry_path}')
-          entry_path.write_text('''"""Real compact-player entry into the recorded fullscreen song state."""
-          from playwright.async_api import expect
-          from browser_live_fidelity import start, record
-
-
-          async def expanded_song_entry(page, context):
-              await start(page, '6ac70c34')
-              app = page.locator('.music-app')
-              await expect(app).to_have_attribute('data-scene', 'new')
-              await expect(page.locator('.profile-button')).to_contain_text('SmithAlex')
-              await expect(page.locator('.capture-discovery')).to_have_attribute('data-catalog', 'legacy')
-              opener = page.get_by_role('button', name='Expand stupid song', exact=True)
-              await expect(opener).to_be_visible()
-              await expect(page.get_by_role('button', name='Pause', exact=True)).to_be_visible()
-              await record(page, 'expanded-song-entry', '6ac70c34',
-                           'Initial recorded compact-player state before the visible fullscreen control')
-
-              await opener.click()
-              expanded = page.locator('.expanded-player[aria-label="Expanded player"]')
-              await expect(expanded).to_be_visible()
-              await expect(expanded).to_have_attribute('data-player-ambience', 'opening')
-              await expect(page.locator('.expanded-meta strong')).to_have_text('stupid song')
-              await expect(page.get_by_role('button', name='Hide lyrics', exact=True)).to_be_visible()
-              await expect(page.get_by_role('slider', name='Playback position', exact=True)).to_be_visible()
-              await expect(page.get_by_label('Reference lyrics', exact=True)).to_be_visible()
-              await expect(page.get_by_role('button', name='Close expanded player', exact=True)).to_be_visible()
-              assert await app.get_attribute('data-source') is None
-              await expect(page.locator('.capture-discovery')).to_have_attribute('data-catalog', 'legacy')
-              await record(page, 'expanded-song-entry', 'c939c9b8',
-                           'Open fullscreen song playback with the real compact now-playing control; regression coverage for the video-visible 6ac70c34 to c939c9b8 segment')
-
-
-          CASES = [('expanded-song-entry', expanded_song_entry)]
-          '''.replace('          ', ''), encoding='utf-8')
-
-          metadata_path = Path('apple-music-clone/scripts/browser_metadata.py')
-          metadata = metadata_path.read_text(encoding='utf-8')
-          metadata = replace_once(
-              metadata,
-              'from browser_chart_flow import CASES as CHART_FLOW_CASES\n',
-              'from browser_chart_flow import CASES as CHART_FLOW_CASES\nfrom browser_expanded_entry import CASES as EXPANDED_ENTRY_CASES\n',
-              'expanded regression import',
-          )
-          metadata = replace_once(
-              metadata,
-              "CASES = [('browser-tab-icon', browser_tab_icon), *CHART_FLOW_CASES]\n",
-              "CASES = [('browser-tab-icon', browser_tab_icon), *CHART_FLOW_CASES, *EXPANDED_ENTRY_CASES]\n",
-              'expanded regression registration',
-          )
-          metadata_path.write_text(metadata, encoding='utf-8')
-
-          if player.count('function ExpandedTransportGlyph') != 1:
-              raise SystemExit('Expanded transport helper count is not one')
-          if css.count('.expanded-transport-previous') != 1:
-              raise SystemExit('Expanded transport style count is not one')
-          PY
-          python3 -m py_compile apple-music-clone/scripts/browser_expanded_entry.py apple-music-clone/scripts/browser_metadata.py
+          git apply --check .github/expanded-player-repair.patch
+          git apply .github/expanded-player-repair.patch
+          python3 -m py_compile \
+            apple-music-clone/scripts/browser_expanded_entry.py \
+            apple-music-clone/scripts/browser_metadata.py
           git diff --check
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm .github/workflows/publish-expanded-player-repair.yml
-          git add apple-music-clone/components/music-player.tsx apple-music-clone/app/player-fidelity.css apple-music-clone/scripts/browser_expanded_entry.py apple-music-clone/scripts/browser_metadata.py
+          git rm \
+            .github/workflows/publish-expanded-player-repair.yml \
+            .github/expanded-player-repair.patch
+          git add \
+            apple-music-clone/app/player-fidelity.css \
+            apple-music-clone/components/music-player.tsx \
+            apple-music-clone/scripts/browser_expanded_entry.py \
+            apple-music-clone/scripts/browser_metadata.py
           git commit -m 'fix(reference): refine expanded player controls'
           git push origin HEAD:main
