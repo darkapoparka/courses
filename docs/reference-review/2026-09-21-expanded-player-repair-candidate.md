@@ -49,3 +49,7 @@ This truthfully proves the video-visible `6ac70c34 → c939c9b8` segment. The fr
 ## Acceptance decision
 
 `MATCH-c939c9b8` is accepted. The ledger advances from MATCH 66/159 to MATCH 67/159. UI remains 159/159 and FLOW remains 14/58.
+
+## Publication and final-tree trigger
+
+The guarded publisher committed the ledger, handoff and review together at `e315b676f914d73d215c2f3d8695140a8c0f18da` after the documentation contract and task-coverage checks passed, and removed its temporary workflow/script in the same commit. This docs-only checkpoint triggers the repository's ordinary Astra documentation and full clone-verification workflows against the final published tree.
