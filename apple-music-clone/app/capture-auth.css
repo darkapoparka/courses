@@ -1,21 +1,24 @@
-/* The authentication capture is a fixed 762×534 dialog, not a generic sheet. */
-.capture-auth, .capture-checkout { width:762px; height:534px; padding:0; overflow:hidden; border-radius:11px; }
+/* The authentication capture is a fixed 762×532 dialog, not a generic sheet. */
+.capture-auth, .capture-checkout { width:762px; height:532px; padding:0; overflow:hidden; border-radius:11px; }
 .capture-auth::backdrop, .capture-checkout::backdrop { background:rgb(0 0 0 / 52%); }
-.capture-auth .dialog-close, .capture-checkout .dialog-close { left:23px; top:23px; width:34px; height:34px; background:#e6e6eb; }
-.capture-auth .dialog-close svg, .capture-checkout .dialog-close svg { width:23px; height:23px; stroke-width:1.4; }
+.capture-auth .dialog-close, .capture-checkout .dialog-close { left:23px; top:23px; width:34px; height:34px; background:#e6e6eb; color:#59595d; }
+.capture-auth .dialog-close svg, .capture-checkout .dialog-close svg { width:24px; height:24px; stroke-width:1.8; }
 .capture-auth form { height:100%; position:relative; }
 .capture-auth h2 { font-size:29px; line-height:35px; font-weight:600; letter-spacing:-.75px; }
-.capture-auth .music-badge { width:61px; height:61px; margin:43px auto 16px; border-radius:14px; }
+.capture-auth .music-badge { width:61px; height:61px; margin:43px auto 13px; border-radius:14px; }
 .capture-auth .music-badge, .capture-checkout .music-badge { background:linear-gradient(#eb4e68, #e92c3a); }
 .dialog-apple { position:absolute; right:22px; top:23px; color:#c6c6c8; z-index:1; }
 .capture-auth .auth-subtitle { color:#69696c; font-size:17px; line-height:26px; text-align:center; margin-top:11px; }
 .auth-email form { padding:0 60px; display:flow-root; }
-.email-entry { display:block; width:458px; max-width:100%; height:54px; margin:24px auto 0; }
+.email-entry { display:block; width:458px; max-width:100%; height:54px; margin:27px auto 0; }
 .email-entry input { display:block; width:100%; height:100%; padding:12px 16px; border:1px solid #96969a; border-radius:10px; font-size:16px; outline-offset:1px; }
-.auth-privacy { width:458px; max-width:100%; margin:32px auto 0; text-align:center; color:#919194; font-size:11px; line-height:14px; }
+.auth-privacy { width:458px; max-width:100%; margin:35px auto 0; text-align:center; color:#85858a; font-size:11px; line-height:14px; }
 .privacy-mark { display:grid; place-items:center; height:27px; color:#d5234b; }
-.privacy-mark svg { width:32px; height:24px; }
-.auth-privacy p { margin-top:15px; }
+.privacy-mark svg { display:none; }
+.privacy-mark::before {
+  content:""; width:32px; height:24px; background:center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'%3E%3Cg fill='%23ff1738'%3E%3Ccircle cx='8' cy='4.2' r='3.7'/%3E%3Cpath d='M1.5 23v-8.3c0-4 2.4-6.6 6.5-6.6 3.7 0 6 2.2 6.4 5.7l3.8 2.8-2.4 3.2-3.1-2.2V23H1.5Z'/%3E%3C/g%3E%3Cg fill='%23ff8d97'%3E%3Ccircle cx='24' cy='4.2' r='3.7'/%3E%3Cpath d='M30.5 23v-8.3c0-4-2.4-6.6-6.5-6.6-3.7 0-6 2.2-6.4 5.7l-3.8 2.8 2.4 3.2 3.1-2.2V23h11.2Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+.auth-privacy p { margin-top:20px; }
 .auth-privacy button { text-decoration:underline; color:#996370; }
 .auth-primary { display:block; width:304px; max-width:100%; height:42px; border-radius:7px; margin:17px auto 0; background:#ff173c; color:#fff; font-size:16px; line-height:22px; text-align:center; font-weight:400; }
 .auth-create-link { position:absolute; bottom:5px; right:24px; font-size:9px; color:#95616e; }
@@ -58,7 +61,7 @@
 .verification-pending { display:flex; align-items:center; justify-content:center; gap:8px; font-size:12px; margin-top:28px; }
 .spinner { width:21px; height:21px; border:2px dotted #777; border-radius:50%; animation:verification-spin 1s linear infinite; }
 @keyframes verification-spin { to { transform:rotate(360deg); } }
-.check-email-icon { position:relative; width:88px; height:82px; margin:62px auto 0; color:#005caf; }
+.check-email-icon { position:relative; width:88px; height:82px; margin:55px auto 0; color:#005caf; }
 .check-email-icon i { position:absolute; width:23px; height:23px; right:0; top:1px; border-radius:50%; background:#0565c4; border:3px solid white; }
 .auth-email-code h2 { font-size:23px; line-height:28px; margin-top:6px; }
 .auth-email-code .auth-code-caption { font-size:16px; line-height:24px; text-align:center; margin-top:22px; }
@@ -72,21 +75,24 @@
 .password-fields .capture-field { margin:0; }
 .password-fields .capture-field:first-child input { border-radius:10px 10px 0 0; }
 .password-fields .capture-field:last-child input { border-radius:0 0 10px 10px; border-top:0; padding-right:42px; }
-.password-continue { position:absolute; display:grid; place-items:center; right:12px; bottom:11px; width:23px; height:23px; border:1px solid #929296; border-radius:50%; }
-.password-forgot { display:block; margin:91px auto 0; color:#985f73; font-size:12px; }
+.password-continue { position:absolute; display:grid; place-items:center; right:11px; bottom:10px; width:24px; height:24px; border:1px solid #747478; border-radius:50%; color:#4f4f53; }
+.password-continue svg { display:none; }
+.password-continue::before { content:""; width:11px; height:10px; background:currentColor; clip-path:polygon(0 37%, 57% 37%, 57% 0, 100% 50%, 57% 100%, 57% 63%, 0 63%); }
+.password-forgot { display:block; margin:88px auto 0; color:#985f73; font-size:12px; }
 .capture-checkout { padding:0; }
 .checkout-scroll { height:100%; overflow-y:auto; scrollbar-width:none; overscroll-behavior:contain; padding:58px 0 54px; }
 .checkout-column { width:380px; margin:auto; }
 .capture-checkout h2 { font-size:38px; line-height:46px; font-weight:600; letter-spacing:-1px; margin-bottom:24px; }
 .capture-checkout h3 { font-size:16px; line-height:23px; margin:42px 0 8px; font-weight:600; }
+.capture-checkout #checkout-top + .capture-field + h3 { margin:29px 0 0; }
 .capture-checkout .capture-field { margin-top:14px; }
 .capture-checkout h3 + .capture-field, .capture-checkout h3 + .checkout-two .capture-field { margin-top:0; }
 .checkout-two { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
 .checkout-test-card { position:absolute; top:355px; left:calc(50% - 190px); font-size:9px; color:#8b5b66; }
 .capture-checkout h3.checkout-confirm-heading { text-align:center; font-size:23px; line-height:29px; letter-spacing:-.3px; margin:58px 0 18px; }
 .checkout-summary { border:1px solid #d8d8de; background:#f3f3f6; border-radius:8px; overflow:hidden; position:relative; }
-.checkout-plan { display:flex; gap:12px; padding:14px 12px; align-items:center; border-bottom:1px solid #c6c6cb; }
-.checkout-plan .music-badge { margin:0; width:51px; height:51px; }
+.checkout-plan { display:flex; gap:16px; padding:14px 19px; align-items:center; border-bottom:1px solid #c6c6cb; }
+.checkout-plan .music-badge { margin:0; width:48px; height:48px; }
 .checkout-plan strong { font-size:16px; font-weight:500; }
 .checkout-plan small { display:block; color:#8b8b90; font-size:12px; line-height:18px; }
 .checkout-price { padding:17px 12px; border-bottom:1px solid #c6c6cb; }
@@ -94,7 +100,7 @@
 .checkout-price strong:not(:first-child) { margin-top:17px; }
 .checkout-price small { font-size:11px; line-height:17px; color:#8e8e95; display:block; }
 .checkout-summary > p { padding:16px 12px; font-size:10px; line-height:14px; color:#5f5f64; }
-.checkout-privacy { margin:18px auto 0; text-align:center; font-size:10px; line-height:13px; color:#99999e; }
+.checkout-privacy { width:340px; max-width:100%; margin:18px auto 0; text-align:center; font-size:11px; line-height:15px; color:#85858a; }
 .checkout-privacy p { margin-top:12px; }
 .checkout-privacy button { color:#945d6d; text-decoration:underline; }
 .checkout-column > .auth-primary { width:348px; margin-top:30px; }
@@ -136,6 +142,9 @@
 
 /* Residual auth/trial capture alignment. */
 .capture-auth, .capture-checkout { outline:none; }
+@media (min-width:641px) {
+  .capture-auth, .capture-checkout { transform:translateY(-1px); }
+}
 .auth-email .auth-primary {
   position:absolute;
   left:50%;
@@ -143,9 +152,15 @@
   margin:0;
   transform:translateX(-50%);
 }
-.checkout-plan { padding:17px 12px; }
+.checkout-plan { padding:14px 19px; }
 .checkout-price { padding:20px 12px; }
 .checkout-summary > p { padding:19px 12px; }
+.capture-checkout .capture-field:has(select)::after {
+  content:""; position:absolute; right:18px; top:22px; width:7px; height:7px;
+  border-right:1.3px solid #6e6e72; border-bottom:1.3px solid #6e6e72;
+  transform:rotate(45deg); pointer-events:none;
+}
+.capture-checkout .capture-field select { appearance:none; padding-right:42px; }
 .checkout-street.with-address-menu { z-index:3; }
 .checkout-street.with-address-menu > input {
   border:2px solid #0071c5;
