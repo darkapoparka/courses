@@ -24,4 +24,4 @@ The player cases also round-trip their toggles and assert focus return after the
 
 Advance exactly `FLOW-0bb078b9`, `FLOW-aa772c0f` and `FLOW-6f857f3f`. No MATCH checkbox changes. The sole live ledger becomes **UI 159/159, MATCH 63/159, FLOW 11/58**.
 
-Publication SHA: pending connector publication. GitHub Actions success for the exact published SHA is required; parent success does not cover later changes.
+Flow implementation commit: `bbbe5b198510f57e9b16fa11288ea2ae5eccf177`. GitHub Actions success for the exact branch-head publication SHA is required; parent success does not cover later changes.
