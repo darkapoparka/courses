@@ -55,7 +55,7 @@ jobs:
           grep -F 'Exact visual matches signed off: 65/159' /tmp/checklist.txt
           grep -F 'Full recorded flows signed off: 13/58' /tmp/checklist.txt
           git diff --check
-          actual="$(git diff --name-only | sort)"
+          actual="$({ git diff --name-only; git ls-files --others --exclude-standard; } | sort)"
           expected="$(printf '%s\n' \
             docs/handoff.md \
             docs/reference-audit.md \
