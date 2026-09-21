@@ -1,0 +1,36 @@
+name: Publish expanded lyrics outline
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/publish-expanded-lyrics-outline.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Apply expanded lyrics outline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git apply --check .github/expanded-lyrics-outline.patch
+          git apply .github/expanded-lyrics-outline.patch
+          git diff --check
+          grep -q 'strokeWidth="2.4"' apple-music-clone/components/music-player.tsx
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm \
+            .github/workflows/publish-expanded-lyrics-outline.yml \
+            .github/expanded-lyrics-outline.patch
+          git add apple-music-clone/components/music-player.tsx
+          git commit -m 'fix(reference): refine expanded lyrics glyph'
+          git push origin HEAD:main
