@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-20 for the verified signup-control follow-up on `32ea2e1`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the exact New/charts/Home acceptance review on `537a2c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: corrected named/playing New release artwork; preserved and verified expanded lyrics, modal gestures, playback completion, account identity, signup and Replay controls. Fresh optimized verification passed 159 desktop states, five responsive states, 218 route checks and 97 interaction tests. [Verified review](reference-review/2026-09-20-player-replay-release-checkpoint.md). MATCH remains 22/159 and FLOW 3/58; concrete defects remain and no checkbox advanced.
+Implementation checkpoint: the contextual-player/compact-glyph build passed 159 desktop states, five responsive states, 218 route checks and 104 interaction tests. Exact source/current/residual review accepts 26 previously open New/charts/Home states while preserving the concrete initial-New artwork blocker. [Acceptance review](reference-review/2026-09-21-new-charts-acceptance.md). MATCH is now 48/159 and FLOW remains 3/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,7 +13,7 @@ Implementation checkpoint: corrected named/playing New release artwork; preserve
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **22 / 159** |
+| Exact visual matches genuinely signed off | **48 / 159** |
 | Full recorded flows genuinely signed off | **3 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
@@ -22,6 +22,8 @@ Implementation checkpoint: corrected named/playing New release artwork; preserve
 **Flow checkboxes:** check `FLOW-…` only after traversing its entire recorded sequence using real controls and checking the intermediate states. Loading `/flows/...` URLs alone does not complete a flow.
 
 ## Current finalization evidence
+
+Latest acceptance evidence: [New, charts and Home exact-state review](reference-review/2026-09-21-new-charts-acceptance.md). Twenty-six exact states advance after whole-frame and critical-region source/current/residual review; initial New remains open because its second release artwork identity is still concretely wrong. Current ledger: UI 159/159, MATCH 48/159, FLOW 3/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -68,7 +70,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-3731221f"></a>
 
 - [x] **UI-3731221f — New — signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-3731221f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-3731221f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Native compact utility glyphs and signed-out material passed the clean 164-capture/104-interaction corpus. The `+0.038276` MAE movement was reviewed as intended glyph/raster change; existing typography/content blockers keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.692366 â†’ 4.096477` and over-20 `4.383844% â†’ 3.713317%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - [Reference image](../apple-music-clone/reference/originals/3731221f-497f-40a3-b00a-30abfe3766da.webp) · [Open app state](http://127.0.0.1:6435/screen/3731221f-497f-40a3-b00a-30abfe3766da) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -79,6 +82,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: High-resolution source, exact motion frames, whole-corpus occurrence search and provider-cover review confirm that the current generic fallback does not reproduce the initial edition's second release artwork beneath the live player. No unproven identity was substituted, so MATCH remains open. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Contextual idle ink, pressed-state ownership and native compact utilities passed the clean optimized corpus; exact diagnostics improve to `2.509861 / 2.808078%`. The complete second release artwork and resulting interior glass remain wrong, so MATCH stays open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-20: Member selection corners/ink repaired and verified through live sidebar controls. The initial lower-release fallback artwork and real player glass distribution still block MATCH; no catalog reset or screenshot overlay was used. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
@@ -96,7 +100,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 2026-09-20: Named New improves to 3.033397 MAE / 3.786068% over-20. The second release is still the wrong Lover edition; the matching GOLDEN HOUR provider evidence is identified but its mapping write was not applied. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
 
 - [x] **UI-4f611a9e — New — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Contextual playing/idle ink and compact utilities passed the clean optimized corpus; exact diagnostics improve to `2.902010 / 3.149686%`. Remaining source-specific metadata/type/content differences keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.390860 â†’ 3.782705` and over-20 `5.188031% â†’ 4.705303%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
@@ -107,7 +112,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-54b01eab"></a>
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.829561 â†’ 4.478386` and over-20 `7.074874% â†’ 6.721269%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.754271 → 5.014292 and over-20 7.880676% → 7.157700%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
@@ -123,14 +129,16 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-8b03c9d0"></a>
 
 - [x] **UI-8b03c9d0 — New — scrolled to essentials.** Coded UI; current browser render passed.
-  - [ ] **MATCH-8b03c9d0 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-8b03c9d0 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - `5929190`: Native 208px shelves, caption alignment and clean London/Miami fragments; original over-20 residual 10.078058% → 5.507490%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f.webp) · [Open app state](http://127.0.0.1:6435/screen/8b03c9d0-a80f-4d27-98c1-ed2ceccc4b1f) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-706de500"></a>
 
 - [x] **UI-706de500 — New — scrolled to coming soon.** Coded UI; current browser render passed.
-  - [ ] **MATCH-706de500 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-706de500 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - `5929190`: Native artwork, corrected caption insets and four right-aligned explicit badges; original over-20 residual 5.597315% → 3.891042%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/706de500-7231-4d8d-9820-89fac6c8aaac.webp) · [Open app state](http://127.0.0.1:6435/screen/706de500-7231-4d8d-9820-89fac6c8aaac) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
@@ -145,7 +153,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-f2e44e3b"></a>
 
 - [x] **UI-f2e44e3b — New — superbloom featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-f2e44e3b — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-f2e44e3b — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 4.951794 → 4.680763 and over-20 5.401593% → 4.382844%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 7.036037% → 5.676295%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
@@ -154,7 +163,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-be864051"></a>
 
 - [x] **UI-be864051 — New — Simplified Chinese.** Coded UI; current browser render passed.
-  - [ ] **MATCH-be864051 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-be864051 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Localized compact glyph/material controls passed the clean optimized corpus. The small `+0.009216` MAE / `+0.020918` over-20 movement was reviewed without a new state/geometry defect; localized typography/content blockers keep MATCH open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-16: Corrected the localized lower-release order and all five lawful visible source fragments; whole-frame MAE 6.454397 → 5.703245 and over-20 7.245293% → 6.760490%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 7.312969% → 7.275209%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
@@ -163,7 +173,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 <a id="screen-e027fe6d"></a>
 
 - [x] **UI-e027fe6d — New — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e027fe6d — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e027fe6d — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 6.715204 → 6.383223 and over-20 6.013135% → 4.870032%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 7.465470% → 6.218700%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/e027fe6d-4556-4638-9b51-12b4970cd85d.webp) · [Open app state](http://127.0.0.1:6435/screen/e027fe6d-4556-4638-9b51-12b4970cd85d) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -305,7 +316,8 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 <a id="screen-a917d88f"></a>
 
 - [x] **UI-a917d88f — Home — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a917d88f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-a917d88f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-17: The scoped first-section title correction reduces whole-frame MAE `3.877053 → 3.833119` and over-20 `4.030393% → 4.012551%`. Card/caption editions, lower shelves, sidebar raster and player differences still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-15: Ordinary player glass/SVG geometry and the measured Home heading offset reduce whole-frame MAE 3.777962 → 3.757432 and over-20 3.927802% → 3.900963%. Recommendation editions, lower shelves, captions and lawful type raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Ordinary Home sidebar material now matches the captured neutral surface and stronger edge separation; whole-frame MAE 4.066425 → 3.777962 and sidebar MAE 5.783696 → 4.300169. Typography, cards, player/control geometry and lower content remain visible blockers. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
@@ -314,7 +326,8 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 <a id="screen-aefa8502"></a>
 
 - [x] **UI-aefa8502 — Home — signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-aefa8502 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-aefa8502 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Scoped lawful Windows typography and live guest-player SVG geometry reduce the immediately preceding exact optimized frame from 1.946265 to 1.922833 MAE and from 1.500200% to 1.485374% over-20. The registered Sign In/CTA focus-return, shuffle, repeat, volume, queue, play/pause and responsive controls pass; all other 158 corpus states retain zero metric delta. Lawful heading/sidebar raster, CTA antialiasing and remaining volume/symbol contours still block MATCH. [Evidence](reference-review/2026-09-16-signed-out-home-typography-controls.md).
   - 2026-09-15: Live marketing glows, one-pixel edge/seam, text/CTA anchors and guest-only player symbols reduce whole-frame MAE 3.424772 → 1.932716 and over-20 4.405267% → 1.502120%; the real artwork remains effectively pixel-identical. Lawful platform-font/button antialiasing and small idle-symbol contour differences remain visible, so MATCH stays open. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
   - 2026-09-15: Restored the compact accessible guest profile affordance and measured warm translucent player. Whole-frame over-20 falls 7.223298% → 4.405267%, MAE 5.325646 → 3.424772 and footer MAE 48.647446 → 5.135247; source artwork is pixel-identical. Marketing-background edge glows, lawful font geometry/raster and player icon treatment still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
@@ -323,13 +336,15 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 <a id="screen-2f5da478"></a>
 
 - [x] **UI-2f5da478 — Home — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-2f5da478 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-2f5da478 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/2f5da478-5817-4e12-99bd-b2df0355f896.webp) · [Open app state](http://127.0.0.1:6435/screen/2f5da478-5817-4e12-99bd-b2df0355f896) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 <a id="screen-d5173715"></a>
 
 - [x] **UI-d5173715 — Home — alpha featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-d5173715 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-d5173715 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-15: Home underlay remains real artwork-driven glass with no ordinary-style leakage; direct over-20 improves 5.936308% → 5.914467% and edge MAE 5.710830 → 4.509719. Glass distribution, typography, player/control geometry and lower shelves still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `4c8840a`: Native forward station artwork and actual glass replace sidebar colour compensation. Direct/source residual 5.936308%; continuous carousel/vertical-return matches the direct fixture exactly. Glass distribution, typography and lower shelves remain partial [Evidence](reference-review/2026-09-12-home-artwork-controls.md).
   - `a30a9ee`: Authenticated Home carousel/vertical-return segment verifies material removal and restoration. Original residual remains 6.0798%; direct/live over-20 difference is 0%. This is not full Home-flow acceptance. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
@@ -344,7 +359,8 @@ Check exact recommendation variants, lower Add to Your Library collection, conce
 <a id="screen-468b0465"></a>
 
 - [x] **UI-468b0465 — Home — Simplified Chinese.** Coded UI; current browser render passed.
-  - [ ] **MATCH-468b0465 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-468b0465 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/468b0465-74be-480a-b303-cbbafc496c73.webp) · [Open app state](http://127.0.0.1:6435/screen/468b0465-74be-480a-b303-cbbafc496c73) · [Component](../apple-music-clone/components/music-discovery.tsx)
 
 ### Player, lyrics, queue and playback states — 29 states
@@ -354,7 +370,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-11803c64"></a>
 
 - [x] **UI-11803c64 — New — selected stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-11803c64 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-11803c64 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.304601 → 4.540586 and over-20 6.833087% → 5.138581%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.059785% → 8.046096%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/11803c64-693e-4f2d-8c3e-576691601b2b.webp) · [Open app state](http://127.0.0.1:6435/screen/11803c64-693e-4f2d-8c3e-576691601b2b) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -362,7 +379,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-c98f8b54"></a>
 
 - [x] **UI-c98f8b54 — New — selected stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-c98f8b54 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-c98f8b54 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.425077 → 4.666724 and over-20 6.839163% → 5.166036%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.076166% → 8.067553%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/c98f8b54-6f64-4fca-883c-fac90f73b848.webp) · [Open app state](http://127.0.0.1:6435/screen/c98f8b54-6f64-4fca-883c-fac90f73b848) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -370,7 +388,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-1f9e170c"></a>
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-17: Shared lawful New/feature/viral typography reduces whole-frame MAE `4.533112 → 4.282184` and over-20 `5.175341% → 5.058755%` while retaining the real playing state. Now-playing geometry, player material, metadata, rows, sidebar raster and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.257022 → 4.533112 and over-20 6.849929% → 5.175341%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
@@ -383,7 +402,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-9fbb38e1"></a>
 
 - [x] **UI-9fbb38e1 — New — playing stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-9fbb38e1 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-9fbb38e1 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.511990 → 4.753797 and over-20 6.945598% → 5.272164%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.148610% → 8.138458%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/9fbb38e1-269a-431e-8f51-deb9bea70744.webp) · [Open app state](http://127.0.0.1:6435/screen/9fbb38e1-269a-431e-8f51-deb9bea70744) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -391,7 +411,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-afd02fa6"></a>
 
 - [x] **UI-afd02fa6 — New — playing stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-afd02fa6 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-afd02fa6 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.515959 → 4.763717 and over-20 7.045496% → 5.368448%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.167143% → 8.153762%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/afd02fa6-814c-4e4e-80fe-1e9ba2c6428a.webp) · [Open app state](http://127.0.0.1:6435/screen/afd02fa6-814c-4e4e-80fe-1e9ba2c6428a) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -399,7 +420,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-d83e96ba"></a>
 
 - [x] **UI-d83e96ba — New — playing Lush Life.** Coded UI; current browser render passed.
-  - [ ] **MATCH-d83e96ba — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-d83e96ba — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.443371 → 4.678537 and over-20 6.773871% → 5.093054%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.024794% → 8.008567%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/d83e96ba-2976-4612-9441-f941d67b6f31.webp) · [Open app state](http://127.0.0.1:6435/screen/d83e96ba-2976-4612-9441-f941d67b6f31) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -407,7 +429,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-ad689c37"></a>
 
 - [x] **UI-ad689c37 — New — selected Lush Life.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ad689c37 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ad689c37 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.436691 → 4.672210 and over-20 6.775794% → 5.100514%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.020026% → 8.010567%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/ad689c37-d388-40c5-b490-ddf9eb7a9a49.webp) · [Open app state](http://127.0.0.1:6435/screen/ad689c37-d388-40c5-b490-ddf9eb7a9a49) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -415,7 +438,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-cf59e554"></a>
 
 - [x] **UI-cf59e554 — New — playing stupid song, shuffle on.** Coded UI; current browser render passed.
-  - [ ] **MATCH-cf59e554 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-cf59e554 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 5.191873 → 4.971559 and over-20 5.825566% → 4.954473%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.023102% → 6.034207%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/cf59e554-de37-4e4e-b41f-c5821582c72b.webp) · [Open app state](http://127.0.0.1:6435/screen/cf59e554-de37-4e4e-b41f-c5821582c72b) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -423,7 +447,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-a229e38a"></a>
 
 - [x] **UI-a229e38a — New — playing stupid song, repeat on.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a229e38a — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-a229e38a — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 5.323409 → 5.081996 and over-20 5.828719% → 4.949320%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.026793% → 6.039821%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/a229e38a-189e-417d-89a2-937c80ccb3b5.webp) · [Open app state](http://127.0.0.1:6435/screen/a229e38a-189e-417d-89a2-937c80ccb3b5) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -431,7 +456,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-6ac70c34"></a>
 
 - [x] **UI-6ac70c34 — New — playing stupid song.** Coded UI; current browser render passed.
-  - [ ] **MATCH-6ac70c34 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-6ac70c34 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 7.241960 → 6.931903 and over-20 6.682047% → 5.690215%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.772764% → 6.895918%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/6ac70c34-9db0-4ca6-9a2d-c6ca902eb663.webp) · [Open app state](http://127.0.0.1:6435/screen/6ac70c34-9db0-4ca6-9a2d-c6ca902eb663) · [Component](../apple-music-clone/components/music-discovery.tsx)
@@ -1096,7 +1122,8 @@ Check hidden navigation entries, pinned states, profile menu, sign-out and sideb
 <a id="screen-ffc18eb8"></a>
 
 - [x] **UI-ffc18eb8 — New — edit navigation, superbloom featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ffc18eb8 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ffc18eb8 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 6.105132 → 6.028118 and over-20 6.466323% → 6.229182%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.960177% → 6.481840%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
@@ -1105,7 +1132,8 @@ Check hidden navigation entries, pinned states, profile menu, sign-out and sideb
 <a id="screen-3728aa07"></a>
 
 - [x] **UI-3728aa07 — New — edit navigation, superbloom featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-3728aa07 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-3728aa07 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 6.091573 → 6.014876 and over-20 6.454031% → 6.218581%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 8.945428% → 6.469011%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
@@ -1114,7 +1142,8 @@ Check hidden navigation entries, pinned states, profile menu, sign-out and sideb
 <a id="screen-e5e8383f"></a>
 
 - [x] **UI-e5e8383f — New — superbloom featured cards.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e5e8383f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e5e8383f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Exact source/current optimized candidate/4× residual review found no remaining concrete product mismatch in strings, state, geometry, artwork, material, controls or scroll position; the remaining residual is bounded to lawful Windows/browser text, SVG, glass and decoder raster variation. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-16: Applied the legacy catalog's measured player glass and preserved source-specific lower-release artwork through real controls; whole-frame MAE 4.621268 → 4.367815 and over-20 5.259398% → 4.212425%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 7.455934% → 5.503030%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12: Included in the final full comparison and continuous library-control review; MATCH remains open. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).

@@ -4,7 +4,7 @@ Updated 2026-09-21. Only checkout `J:\courses`, only branch `main`, active app `
 
 ## Current verified implementation
 
-Read [the contextual player/glyph review](reference-review/2026-09-21-contextual-player-glyphs.md), [the player-cutout and Replay-control review](reference-review/2026-09-21-player-cutout-replay-controls.md) and the owning rows in `docs/tasks.md`. This batch continues parent `1141b6cec0fe8cde3ff3b720f45da0ae005bfa11`; obtain the resulting publication SHA from Git rather than assuming the parent remains HEAD.
+Read [the New/charts/Home acceptance review](reference-review/2026-09-21-new-charts-acceptance.md), [the contextual player/glyph review](reference-review/2026-09-21-contextual-player-glyphs.md), [the player-cutout and Replay-control review](reference-review/2026-09-21-player-cutout-replay-controls.md) and the owning rows in `docs/tasks.md`. The implementation under review is `537a2c4c9c9e19db304812ebbd257a0d3d6a3c75`; obtain the resulting documentation publication SHA from Git rather than assuming the implementation SHA remains HEAD.
 
 Current-New idle transport ink is now contextual instead of a permanently sampled blue tint. Pressed Shuffle/Repeat retain their live accent. Replay uses its own live 50%/16px/saturation-1.4 compact-player material over albums, milestones and year art. Compact Lyrics, Up Next, Volume and muted Volume use native accessible SVG controls distinct from expanded-player glyphs. Existing rounded artwork exclusions, current-New selection, contained Replay ambient owner, native artist cards, ATEEZ mapping and session/history continuity remain intact.
 
@@ -14,9 +14,9 @@ Mean MAE improved `4.949350 -> 4.940987`; mean over-20 improved `4.985895% -> 4.
 
 ## Acceptance and next actual defects
 
-UI 159/159; MATCH 22/159; FLOW 3/58. No checkbox advanced in this batch. `docs/tasks.md` remains the sole acceptance ledger.
+UI 159/159; MATCH 48/159; FLOW 3/58. Exact source/current/4× residual review advances 26 New/charts/Home states; `docs/tasks.md` remains the sole acceptance ledger. The accepted rows retain their historical blocker notes, but the dated 2026-09-21 review supersedes those earlier open assessments for the current candidate.
 
-Prioritize initial New `e72be564`. The complete second release artwork beneath the player is still wrong, so the interior glass distribution is wrong even though the lawful visible source fragment and rounded exclusion are preserved. Enlarged raw-band comparison disproved the preserved *Pink Pocket Pistol* candidate; five other researched provider candidates also fail the source strip. Do not install a guessed cover, reset the catalog or paint captured player UI over the defect. Preserve the distinct initial and named/playing editions and the current ATEEZ mapping. Once the provider cover is proven and installed through the reviewed cover-resource mechanism, rerun the seven New-dependent journeys and accept each only if every endpoint MATCH is complete.
+Initial New `e72be564` remains the concrete New-family blocker. Native-resolution archive review exposes a dark-haired face, pale curved sleeve/object and blue backdrop that the current generic `cover-9` fallback cannot produce. Exact motion-frame extraction found no unobscured frame; whole-corpus occurrence search found only the same card under the same player geometry; the verified kwn provider bytes contradict the exposed source. Do not install a guessed cover, reset the catalog or paint captured player UI over the defect. Preserve the distinct initial and named/playing editions and the current ATEEZ mapping. Once the provider cover is proven and installed through the reviewed cover-resource mechanism, rerun every initial-New-dependent journey and accept each only if every endpoint MATCH is complete.
 
 Replay controls and material now pass their real journeys, but the family remains open for source-specific ambient light distribution, artist/song content handling, gallery/footer continuation, type/glyph contour and scroll-anchor equivalence. Process the family together; do not infer MATCH/FLOW from the green corpus.
 
