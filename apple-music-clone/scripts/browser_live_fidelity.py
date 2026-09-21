@@ -177,7 +177,59 @@ async def album_favourite_isolation(page, context):
     await page.get_by_role('menuitem', name='Undo Favourite', exact=True).click()
     await expect(song).to_have_attribute('aria-pressed', 'true')
 
-CASES = [('recorded-album-copy-link', album_copy_link),
+
+async def shuffle_toggle_journey(page, context):
+    await start(page, '1f9e170c')
+    player = page.locator('.floating-player')
+    transport = player.locator('.transport')
+    shuffle = transport.get_by_role('button', name='Shuffle', exact=True)
+    repeat = transport.get_by_role('button', name='Repeat', exact=True)
+    pause = transport.get_by_role('button', name='Pause', exact=True)
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+    await expect(pause).to_be_visible()
+    await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+    await expect(repeat).to_have_attribute('aria-pressed', 'false')
+    title = await player.locator('.now-playing strong').text_content()
+    await record(page, '0bb078b9-enable-shuffle', '1f9e170c', 'Initial playing state')
+    await shuffle.click()
+    await expect(shuffle).to_have_attribute('aria-pressed', 'true')
+    await expect(repeat).to_have_attribute('aria-pressed', 'false')
+    await expect(pause).to_be_visible()
+    assert await player.locator('.now-playing strong').text_content() == title
+    await record(page, '0bb078b9-enable-shuffle', 'cf59e554',
+                 'Enable shuffle with the compact-player control')
+    await shuffle.click()
+    await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+    await expect(shuffle).to_be_focused()
+
+
+async def repeat_toggle_journey(page, context):
+    await start(page, '1f9e170c')
+    player = page.locator('.floating-player')
+    transport = player.locator('.transport')
+    shuffle = transport.get_by_role('button', name='Shuffle', exact=True)
+    repeat = transport.get_by_role('button', name='Repeat', exact=True)
+    pause = transport.get_by_role('button', name='Pause', exact=True)
+    await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'new')
+    await expect(pause).to_be_visible()
+    await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+    await expect(repeat).to_have_attribute('aria-pressed', 'false')
+    title = await player.locator('.now-playing strong').text_content()
+    await record(page, 'aa772c0f-repeat-song', '1f9e170c', 'Initial playing state')
+    await repeat.click()
+    await expect(repeat).to_have_attribute('aria-pressed', 'true')
+    await expect(shuffle).to_have_attribute('aria-pressed', 'false')
+    await expect(pause).to_be_visible()
+    assert await player.locator('.now-playing strong').text_content() == title
+    await record(page, 'aa772c0f-repeat-song', 'a229e38a',
+                 'Enable repeat with the compact-player control')
+    await repeat.click()
+    await expect(repeat).to_have_attribute('aria-pressed', 'false')
+    await expect(repeat).to_be_focused()
+
+CASES = [('recorded-shuffle-toggle', shuffle_toggle_journey),
+         ('recorded-repeat-toggle', repeat_toggle_journey),
+         ('recorded-album-copy-link', album_copy_link),
          ('recorded-album-description', album_description),
          ('recorded-album-share-sheet', album_share_sheet),
          ('recorded-radio-schedule', radio_schedule),

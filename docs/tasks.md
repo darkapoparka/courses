@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the exact Replay/milestone acceptance review built from `28388bd`; obtain the resulting publication SHA from Git after commit. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-21 for the shuffle, repeat and Favourite Songs real-control acceptance review built on published checkpoint `8b9f7c4`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: optimized build `iSXqMeYlF6vbOLFZzu1oC` passed 159 desktop states, five responsive states, 218 route checks and 104 interaction tests with zero failures. Exact source/published/current/residual review accepts all seven Replay/milestone states and both recorded Replay journeys. [Acceptance review](reference-review/2026-09-21-replay-acceptance.md). MATCH is now 55/159 and FLOW is 5/58.
+Implementation checkpoint: published checkpoint `8b9f7c4` passed 159 desktop states, five responsive states, 218 route checks and 105 interaction tests with zero failures. The added source-ordered shuffle, repeat and Favourite Songs journeys each passed a targeted live-control run against that unchanged optimized app; publication CI owns the combined 107-interaction clean-checkout rerun. [Acceptance review](reference-review/2026-09-21-ready-flow-acceptance.md). MATCH remains 63/159 and FLOW advances to 11/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: optimized build `iSXqMeYlF6vbOLFZzu1oC` passed 159 de
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **55 / 159** |
-| Full recorded flows genuinely signed off | **5 / 58** |
+| Exact visual matches genuinely signed off | **63 / 159** |
+| Full recorded flows genuinely signed off | **11 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: optimized build `iSXqMeYlF6vbOLFZzu1oC` passed 159 de
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Replay and milestone exact-state review](reference-review/2026-09-21-replay-acceptance.md). Seven exact states and two real-control journeys advance after optimized whole-frame, critical-region and ordered-step review. Current ledger: UI 159/159, MATCH 55/159, FLOW 5/58.
+Latest acceptance evidence: [shuffle, repeat and Favourite Songs flow review](reference-review/2026-09-21-ready-flow-acceptance.md). Three source-ordered journeys advance through visible controls after both endpoints were already MATCH-complete. Current ledger: UI 159/159, MATCH 63/159, FLOW 11/58.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -1305,10 +1305,12 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-4139fb15 — 5. Listening to songs (8 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/listening-to-songs?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 11803c64](#screen-11803c64) → [3: c98f8b54](#screen-c98f8b54) → [4: 1f9e170c](#screen-1f9e170c) → [5: 9fbb38e1](#screen-9fbb38e1) → [6: afd02fa6](#screen-afd02fa6) → [7: d83e96ba](#screen-d83e96ba) → [8: ad689c37](#screen-ad689c37)
 
-- [ ] **FLOW-0bb078b9 — 6. Enabling shuffle (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-0bb078b9 — 6. Enabling shuffle (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: The complete archived sequence now traverses through visible controls, preserves the recorded session/content state, and lands on an already accepted endpoint. [Evidence](reference-review/2026-09-21-ready-flow-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/enabling-shuffle?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: cf59e554](#screen-cf59e554)
 
-- [ ] **FLOW-aa772c0f — 7. Repeating a song (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-aa772c0f — 7. Repeating a song (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: The complete archived sequence now traverses through visible controls, preserves the recorded session/content state, and lands on an already accepted endpoint. [Evidence](reference-review/2026-09-21-ready-flow-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/repeating-a-song?step=0). Sequence: [1: 1f9e170c](#screen-1f9e170c) → [2: a229e38a](#screen-a229e38a)
 
 - [ ] **FLOW-b6295ef8 — 8. Expanding a song (3 steps).** Complete and verify the recorded journey.
@@ -1471,7 +1473,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-12 bounded review: Adding the suggested song updates actual playlist rows. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/adding-a-suggested-song?step=0). Sequence: [1: a573d1ab](#screen-a573d1ab) → [2: 5044abe5](#screen-5044abe5)
 
-- [ ] **FLOW-6f857f3f — 50. Favorite songs (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-6f857f3f — 50. Favorite songs (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-21: The complete archived sequence now traverses through visible controls, preserves the recorded session/content state, and lands on an already accepted endpoint. [Evidence](reference-review/2026-09-21-ready-flow-acceptance.md).
   - 2026-09-12 bounded review: Home to Favourite Songs verifies the four recorded favourites. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/favorite-songs?step=0). Sequence: [1: a917d88f](#screen-a917d88f) → [2: bde65d33](#screen-bde65d33)
 

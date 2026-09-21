@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## Latest ready-flow acceptance
+
+The [shuffle, repeat and Favourite Songs review](reference-review/2026-09-21-ready-flow-acceptance.md) registers the two missing compact-player journeys and reconfirms the existing Favourite Songs journey through visible controls. Every endpoint was already MATCH-complete, so no visual acceptance changes. The live ledger becomes **UI 159/159, MATCH 63/159 and FLOW 11/58**. Publication CI must pass the exact pushed SHA; the preceding album clean checkout remains the parent verification baseline.
+
 ## Latest album exact-state acceptance
 
 The [album acceptance review](reference-review/2026-09-21-album-acceptance.md) records the current optimized candidate: 159 canonical desktop captures, five responsive captures, 218/218 route steps and 105/105 interaction regressions pass with zero failures. Eight album-detail/editorial MATCH states and three real-control album journeys are accepted. The sole live ledger now reports **UI 159/159, MATCH 63/159 and FLOW 8/58**. Older sections retain their historical candidate scope and do not override checked task rows.
