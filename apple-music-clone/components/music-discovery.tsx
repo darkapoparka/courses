@@ -122,6 +122,12 @@ const goldenHourRelease: Card = {
   id: "ateez-golden-hour-five", title: "GOLDEN HOUR : Part.5 - EP", subtitle: "ATEEZ",
   destination: "category:GOLDEN HOUR : Part.5 - EP", art: coverArtwork("cover-ateez-golden-hour-five"),
 };
+const moanaSoundtrackRelease: Card = {
+  id: "moana-live-action-soundtrack", title: "Moana (Original Motion Picture Soundtrack)",
+  subtitle: "Lin-Manuel Miranda, Catherine Laga'aia & Dwayne Johnson",
+  destination: "category:Moana (Original Motion Picture Soundtrack)",
+  art: coverArtwork("cover-moana-live-action-soundtrack"),
+};
 const initialReleaseContinuation: Card = {
   id: "initial-release-continuation", title: "Archived release continuation",
   destination: "new", metadataPartial: true,
@@ -194,6 +200,7 @@ export function NewView() {
     if (initialReleaseEdition || currentReleaseEdition) {
       if (position === 0) return lemonTangRelease;
       if (currentReleaseEdition && position === 1) return goldenHourRelease;
+      if (initialReleaseEdition && position === 1) return moanaSoundtrackRelease;
       if (position === (currentReleaseEdition ? 3 : 2)) return kwnPrideRelease;
       if (position === (currentReleaseEdition ? 4 : 3)) return marenHeroRelease;
       if (initialReleaseEdition && position === 4) return museWowRelease;

@@ -32,9 +32,9 @@ async def assert_release_overlays(cards, prefix):
 async def assert_initial_release_edition(page):
     cards = page.locator('#new-this-week .media-card')
     assert await cards.evaluate_all('(els)=>els.map(e=>e.dataset.cardId)') == [
-        'hearts-lemon-tang', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind',
+        'hearts-lemon-tang', 'moana-live-action-soundtrack', 'kwn-all-pride-aside', 'maren-hero-second-wind',
         'muse-wow-signal', 'initial-release-continuation']
-    for index, provider in [(0, 'cover-hearts-lemon-tang'), (2, 'cover-kwn-all-pride-aside'), (3, 'cover-maren-hero-second-wind'), (4, 'cover-muse-wow-signal')]:
+    for index, provider in [(0, 'cover-hearts-lemon-tang'), (1, 'cover-moana-live-action-soundtrack'), (2, 'cover-kwn-all-pride-aside'), (3, 'cover-maren-hero-second-wind'), (4, 'cover-muse-wow-signal')]:
         art = cards.nth(index).locator('.card-art-button > .music-art').first
         await expect(art).to_have_attribute('data-art-source', provider)
         await expect(art).not_to_have_attribute('data-art-partial', 'true')

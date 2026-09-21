@@ -86,5 +86,13 @@
     "observedIn": "4f611a9e,54b01eab,11803c64,1f9e170c",
     "bytes": 30686,
     "contentSha256": "4df8f7255cf8a6ee1be29ff2c872dd56b0da80c4d0b043fee01606735fc19cea"
+  },
+  "cover-moana-live-action-soundtrack": {
+    "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/12/f1/28/12f12884-0b87-6bb4-f650-1c8dc99ae2e1/26UMGIM72150.rgb.jpg/600x600bb.webp",
+    "sha256": "bd2598f88d5d4b541eaff3c997ee82c35465a23390f8a3e4b9565dadba6fc647",
+    "page": "https://music.apple.com/sg/album/moana-original-motion-picture-soundtrack/6779424259?uo=4",
+    "observedIn": "e72be564",
+    "bytes": 43254,
+    "contentSha256": "d84f518d1beda0c455e376065f47287269e43b43069fb001928d1a6b1b06a998"
   }
 }
