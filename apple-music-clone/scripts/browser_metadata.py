@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 from xml.etree import ElementTree
 from playwright.async_api import expect
 from browser_fidelity_regressions import ready
+from browser_chart_flow import CASES as CHART_FLOW_CASES
 
 
 async def browser_tab_icon(page, context):
@@ -22,4 +23,4 @@ async def browser_tab_icon(page, context):
     assert not tree.findall('.//{http://www.w3.org/2000/svg}script')
 
 
-CASES = [('browser-tab-icon', browser_tab_icon)]
+CASES = [('browser-tab-icon', browser_tab_icon), *CHART_FLOW_CASES]
