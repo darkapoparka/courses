@@ -1,0 +1,139 @@
+name: Apply initial Moana repair
+
+on:
+  push:
+    branches: ['main']
+    paths: ['.github/workflows/apply-e72-moana.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: apply-e72-moana
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Apply the source-proven initial release artwork
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 <<'PY'
+          from pathlib import Path
+          import json
+
+          app = Path('apple-music-clone')
+          resources_path = app / 'lib/cover-resources.json'
+          resources = json.loads(resources_path.read_text(encoding='utf-8'))
+          key = 'cover-moana-live-action-soundtrack'
+          entry = {
+              'url': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/12/f1/28/12f12884-0b87-6bb4-f650-1c8dc99ae2e1/26UMGIM72150.rgb.jpg/600x600bb.webp',
+              'sha256': 'bd2598f88d5d4b541eaff3c997ee82c35465a23390f8a3e4b9565dadba6fc647',
+              'page': 'https://music.apple.com/sg/album/moana-original-motion-picture-soundtrack/6779424259?uo=4',
+              'observedIn': 'e72be564',
+              'bytes': 43254,
+              'contentSha256': 'd84f518d1beda0c455e376065f47287269e43b43069fb001928d1a6b1b06a998',
+          }
+          if key in resources and resources[key] != entry:
+              raise SystemExit(f'Conflicting reviewed resource: {resources[key]!r}')
+          resources[key] = entry
+          resources_path.write_text(json.dumps(resources, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          discovery_path = app / 'components/music-discovery.tsx'
+          discovery = discovery_path.read_text(encoding='utf-8')
+          card_anchor = '''const goldenHourRelease: Card = {
+            id: "ateez-golden-hour-five", title: "GOLDEN HOUR : Part.5 - EP", subtitle: "ATEEZ",
+            destination: "category:GOLDEN HOUR : Part.5 - EP", art: coverArtwork("cover-ateez-golden-hour-five"),
+          };
+          '''
+          moana_card = '''const moanaSoundtrackRelease: Card = {
+            id: "moana-live-action-soundtrack", title: "Moana (Original Motion Picture Soundtrack)",
+            subtitle: "Lin-Manuel Miranda, Catherine Laga'aia & Dwayne Johnson",
+            destination: "category:Moana (Original Motion Picture Soundtrack)",
+            art: coverArtwork("cover-moana-live-action-soundtrack"),
+          };
+          '''
+          if moana_card not in discovery:
+              if card_anchor not in discovery:
+                  raise SystemExit('Golden Hour card anchor missing')
+              discovery = discovery.replace(card_anchor, card_anchor + moana_card, 1)
+          old_selection = '''      if (currentReleaseEdition && position === 1) return goldenHourRelease;
+                if (position === (currentReleaseEdition ? 3 : 2)) return kwnPrideRelease;'''
+          new_selection = '''      if (currentReleaseEdition && position === 1) return goldenHourRelease;
+                if (initialReleaseEdition && position === 1) return moanaSoundtrackRelease;
+                if (position === (currentReleaseEdition ? 3 : 2)) return kwnPrideRelease;'''
+          if new_selection not in discovery:
+              if old_selection not in discovery:
+                  raise SystemExit('Release selection anchor missing')
+              discovery = discovery.replace(old_selection, new_selection, 1)
+          discovery_path.write_text(discovery, encoding='utf-8')
+
+          test_path = app / 'scripts/browser_discovery_shelves.py'
+          test = test_path.read_text(encoding='utf-8')
+          old_ids = "'hearts-lemon-tang', 'cover-9', 'kwn-all-pride-aside', 'maren-hero-second-wind',"
+          new_ids = "'hearts-lemon-tang', 'moana-live-action-soundtrack', 'kwn-all-pride-aside', 'maren-hero-second-wind',"
+          if new_ids not in test:
+              if old_ids not in test:
+                  raise SystemExit('Initial release ID anchor missing')
+              test = test.replace(old_ids, new_ids, 1)
+          old_providers = "for index, provider in [(0, 'cover-hearts-lemon-tang'), (2, 'cover-kwn-all-pride-aside'),"
+          new_providers = "for index, provider in [(0, 'cover-hearts-lemon-tang'), (1, 'cover-moana-live-action-soundtrack'), (2, 'cover-kwn-all-pride-aside'),"
+          if new_providers not in test:
+              if old_providers not in test:
+                  raise SystemExit('Initial release provider anchor missing')
+              test = test.replace(old_providers, new_providers, 1)
+          test_path.write_text(test, encoding='utf-8')
+          PY
+          python3 -m py_compile apple-music-clone/scripts/browser_discovery_shelves.py
+          git diff --check
+          actual="$(git diff --name-only | sort)"
+          expected="$(printf '%s\n' \
+            apple-music-clone/components/music-discovery.tsx \
+            apple-music-clone/lib/cover-resources.json \
+            apple-music-clone/scripts/browser_discovery_shelves.py | sort)"
+          test "$actual" = "$expected"
+      - name: Validate provider bytes and application types
+        working-directory: apple-music-clone
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test scripts/test_cover_integrity.mjs
+          node scripts/probe-cover-resources.mjs
+          npx --yes pnpm@10.11.0 install --frozen-lockfile
+          npx --yes pnpm@10.11.0 typecheck
+      - name: Commit the reviewed implementation and remove this one-use workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'darkapoparka'
+          git config user.email 'obi4amdar4eto@gmail.com'
+          git rm .github/workflows/apply-e72-moana.yml
+          git add -- \
+            apple-music-clone/components/music-discovery.tsx \
+            apple-music-clone/lib/cover-resources.json \
+            apple-music-clone/scripts/browser_discovery_shelves.py
+          git diff --cached --check
+          git commit -m 'fix(reference): restore initial Moana artwork'
+          git push origin HEAD:main
+          echo "published_sha=$(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+      - name: Dispatch normal verification for the published tip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/workflows/reference-parity.yml/dispatches" -f ref=main
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/actions/workflows/astra-docs.yml/dispatches" -f ref=main
