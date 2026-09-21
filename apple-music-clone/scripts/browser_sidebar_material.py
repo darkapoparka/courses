@@ -222,7 +222,7 @@ async def ordinary_sidebar_states(page, context):
         guest_home = await page.locator('.guest-session[data-scene="home"]').count() == 1
         assert_ordinary_material(state, guest_home=guest_home)
         if prefix in ['e72be564', '1f9e170c']:
-            assert await page.locator('.sidebar-row[aria-current=page]').evaluate('(e)=>getComputedStyle(e).borderRadius') == '4px'
+            assert await page.locator('.sidebar-row[aria-current=page]').evaluate('(e)=>[getComputedStyle(e).borderRadius,getComputedStyle(e).color]') == ['9px', 'rgb(112, 36, 56)']
         if prefix == 'e72be564':
             text_contract = await page.evaluate('''() => {
               const row = getComputedStyle(document.querySelector('.sidebar-row'));

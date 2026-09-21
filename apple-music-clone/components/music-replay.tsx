@@ -108,7 +108,11 @@ export function ReplayView() {
         {show("artists") && <section className={styles.artistSection} aria-label="Your Top Artists">
           {!collection && <ReplaySectionHeading onClick={() => visit("artists")}>Your Top Artists</ReplaySectionHeading>}
           <Rail label="May top artists" className={`poster-rail ${styles.artistRail}`}>
-            {replayArtists.map((artist, index) => <button type="button" className={styles.artistPoster} key={artist.name} onClick={() => m.go(`artist:${artist.name}`)} aria-label={`${index + 1}. ${artist.name}, ${artist.minutes} minutes`}><Art resolution="standard" art={crop("3fed6760", 286 + index * 284, 417, 264, 353)} label={artist.name} /></button>)}
+            {replayArtists.map((artist, index) => <button type="button" className={styles.artistPoster} data-replay-artist={index + 1} key={artist.name} onClick={() => m.go(`artist:${artist.name}`)} aria-label={`${index + 1}. ${artist.name}, ${artist.minutes} minutes`}>
+              <span className={styles.artistPortrait} aria-hidden="true"><Art resolution="standard" art={{ ...crop("3fed6760", 286 + index * 284, 417, 264, 300), visibleMask: "linear-gradient(transparent 0 20%,#000 23.333333% 100%),linear-gradient(90deg,transparent 0 16.666667%,#000 24.242424% 100%)" }} label="" /></span>
+              <span className={styles.artistRank} aria-hidden="true">{index + 1}</span>
+              <span className={styles.artistCaption}><strong>{artist.name}</strong><span>{artist.minutes} minutes</span></span>
+            </button>)}
           </Rail>
         </section>}
         {(show("songs") || collection === "year") && <section className={styles.songSection} aria-label="Your Top Songs">

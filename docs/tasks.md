@@ -78,6 +78,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
   - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Member selection corners/ink repaired and verified through live sidebar controls. The initial lower-release fallback artwork and real player glass distribution still block MATCH; no catalog reset or screenshot overlay was used. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.113135 â†’ 3.411616` and over-20 `4.724529% â†’ 3.943645%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-17: Scoped lawful New-heading and feature-caption geometry plus the live viral star reduce whole-frame MAE `4.319364 → 4.113135` and over-20 `4.819506% → 4.724529%`. Metadata, artwork/crops, row/sidebar raster, player and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the initial repeated lower-release order, truthful partial fourth underlay and all five lawful visible source fragments; whole-frame MAE 5.213605 → 4.319364 and over-20 6.426572% → 4.819506%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
@@ -93,6 +95,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-4f611a9e — New — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-4f611a9e — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.390860 â†’ 3.782705` and over-20 `5.188031% â†’ 4.705303%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.399554 → 4.593030 and over-20 6.356820% → 5.285468%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - `5929190`: Discovery artwork/geometry and live player-state refinement; original over-20 residual 6.559078% → 6.519011%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
@@ -102,6 +105,7 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 
 - [x] **UI-54b01eab — New — alpha featured cards.** Coded UI; current browser render passed.
   - [ ] **MATCH-54b01eab — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-18: Live continuation DOM, real Viral overflow controls, measured current-New player material and row tracks improve this family; MAE `4.829561 â†’ 4.478386` and over-20 `7.074874% â†’ 6.721269%`. Concrete typography/metadata/symbol/artwork blockers keep MATCH open. [Evidence](reference-review/2026-09-18-new-initial-family-progress.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 5.754271 → 5.014292 and over-20 7.880676% → 7.157700%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: Alpha retains real provider artwork beneath state-specific glass; the ordinary-material repair does not flatten or replace it. Direct over-20 improves 7.892134% → 7.881983% and edge MAE 4.815290 → 3.974644. Typography, exact glass/control material, lower artwork and live profile/title differences still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
@@ -363,6 +367,7 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 
 - [x] **UI-1f9e170c — New — playing stupid song.** Coded UI; current browser render passed.
   - [ ] **MATCH-1f9e170c — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
   - 2026-09-17: Shared lawful New/feature/viral typography reduces whole-frame MAE `4.533112 → 4.282184` and over-20 `5.175341% → 5.058755%` while retaining the real playing state. Now-playing geometry, player material, metadata, rows, sidebar raster and lower shelves still block MATCH. [Evidence](reference-review/2026-09-17-discovery-typography-symbols.md).
   - 2026-09-16: Corrected the shared current lower-release edition and all five lawful visible source fragments; whole-frame MAE 6.257022 → 4.533112 and over-20 6.849929% → 5.175341%. Exact captions, typography, symbols and remaining state-specific content keep MATCH open. [Evidence](reference-review/2026-09-16-release-editions-legacy-player.md).
   - 2026-09-15: The playing-state ordinary player now uses the measured lighter glass and scoped live SVG geometry; whole-frame MAE 6.314517 → 6.257022 and over-20 7.126784% → 6.849929%. Lower release editions, now-playing type/metadata geometry and lawful symbol raster still block MATCH. [Evidence](reference-review/2026-09-15-guest-home-player-geometry.md).
@@ -846,30 +851,40 @@ Check month navigation, ranked cards, all milestone states, detail/back navigati
 
 - [x] **UI-f3fc07c5 — Replay — Jul, empty state.** Coded UI; current browser render passed.
   - [ ] **MATCH-f3fc07c5 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/f3fc07c5-f37c-4cbd-a025-1af76704f538.webp) · [Open app state](http://127.0.0.1:6435/screen/f3fc07c5-f37c-4cbd-a025-1af76704f538) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-3fed6760"></a>
 
 - [x] **UI-3fed6760 — Replay — May.** Coded UI; current browser render passed.
   - [ ] **MATCH-3fed6760 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/3fed6760-dab0-4f29-ae4a-1a25bb23a40a.webp) · [Open app state](http://127.0.0.1:6435/screen/3fed6760-dab0-4f29-ae4a-1a25bb23a40a) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-b67b8895"></a>
 
 - [x] **UI-b67b8895 — Replay — scrolled to top albums, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-b67b8895 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/b67b8895-5002-495a-912b-3709aaa4724d.webp) · [Open app state](http://127.0.0.1:6435/screen/b67b8895-5002-495a-912b-3709aaa4724d) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-18225175"></a>
 
 - [x] **UI-18225175 — Replay — scrolled to milestones, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-18225175 — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/18225175-b422-4fbb-8371-eae08bb6c4a8.webp) · [Open app state](http://127.0.0.1:6435/screen/18225175-b422-4fbb-8371-eae08bb6c4a8) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-b0caf02f"></a>
 
 - [x] **UI-b0caf02f — Replay — scrolled to replay year, May.** Coded UI; current browser render passed.
   - [ ] **MATCH-b0caf02f — Finish and verify the exact screenshot match.**
+  - 2026-09-21: Preserved native artist controls and repaired Replay ink/year/caption bounds were verified in the fresh whole-corpus build. Remaining light, material, type and content residuals are recorded, including worsened states; MATCH stays open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
+  - 2026-09-20: Repaired off-canvas Replay light overflow, kept the year menu outside decorative clipping, and verified native artist text/geometry and responsive controls. Source-specific lighting, text/material and content differences remain; MATCH stays open. [Evidence](reference-review/2026-09-20-new-selection-replay-containment.md).
   - [Reference image](../apple-music-clone/reference/originals/b0caf02f-21b6-4334-9304-ac9f62defebc.webp) · [Open app state](http://127.0.0.1:6435/screen/b0caf02f-21b6-4334-9304-ac9f62defebc) · [Component](../apple-music-clone/components/music-replay.tsx)
 
 <a id="screen-cc18744f"></a>

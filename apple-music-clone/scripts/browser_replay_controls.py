@@ -44,6 +44,14 @@ async def replay_monthly(page, context):
 
 async def replay_year_menu(page, context):
     await start(page, 'f3fc07c5')
+    await expect(page.get_by_role('heading', name='Replay', exact=True)).to_have_css('color', 'rgb(0, 0, 0)')
+    caption = page.get_by_role('tabpanel').locator('p')
+    await expect(caption).to_have_css('color', 'rgb(0, 0, 0)')
+    await expect(caption).to_have_css('padding-top', '50px')
+    rect = await page.get_by_role('button', name='2026', exact=True).bounding_box()
+    assert rect == {'x': 1310, 'y': 36, 'width': 92, 'height': 35}, rect
+    footer = await page.locator('.content-footer').bounding_box()
+    assert footer and footer['y'] == 840, footer
     entry = await page.evaluate('history.state.musicReferenceEntry')
     await page.get_by_role('tab', name='May', exact=True).click()
     assert await page.evaluate('history.state.musicReferenceEntry') == entry
@@ -99,3 +107,72 @@ async def replay_milestone_detail(page, context):
 CASES = [('recorded-replay-monthly', replay_monthly),
          ('replay-year-menu-isolation', replay_year_menu),
          ('recorded-milestone-detail', replay_milestone_detail)]
+
+async def replay_artist_cards(page, context):
+    await start(page, '3fed6760')
+    artists = [('ILLENIUM', 312), ('Martin Garrix', 306), ('Kygo', 161), ('RÜFÜS DU SOL', 144)]
+    cards = page.locator('[data-replay-artist]')
+    await expect(cards).to_have_count(4)
+    for index, (name, minutes) in enumerate(artists):
+        card = cards.nth(index)
+        await expect(card).to_have_accessible_name(f'{index + 1}. {name}, {minutes} minutes')
+        await expect(card.locator('strong')).to_have_text(name)
+        await expect(card).to_contain_text(f'{minutes} minutes')
+        box = await card.bounding_box()
+        assert box and abs(box['width'] - 264) < .01 and abs(box['height'] - 352) < .01, box
+        art = card.locator('.music-art')
+        mask = await art.evaluate('(e)=>getComputedStyle(e).maskImage')
+        assert mask.count('linear-gradient') == 2 and ('transparent' in mask or 'rgba(0, 0, 0, 0)' in mask), mask
+        size = await art.evaluate('(e)=>getComputedStyle(e).backgroundSize')
+        assert abs(float(size.split()[1].removesuffix('%')) - 1024 / 300 * 100) < .01, size
+    player = await page.locator('.floating-player').inner_text()
+    await record(page, 'replay-native-artist-cards', '3fed6760', 'Four live ranks, names and listening totals over artwork-only portraits')
+    await cards.first.focus()
+    await page.keyboard.press('Enter')
+    await expect(page.get_by_role('heading', name='ILLENIUM', exact=True)).to_be_visible()
+    await page.go_back()
+    await expect(page.get_by_role('tab', name='May', exact=True)).to_have_attribute('aria-selected', 'true')
+    await expect(cards).to_have_count(4)
+    assert await page.locator('.floating-player').inner_text() == player
+    for width, height in [(1024, 768), (820, 900), (390, 844)]:
+        await page.set_viewport_size({'width': width, 'height': height})
+        assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth'), width
+        await expect(cards.first).to_be_in_viewport()
+        await expect(cards.first.locator('strong')).to_have_text('ILLENIUM')
+        rail = page.get_by_role('region', name='May top artists', exact=True)
+        if width > 640:
+            await page.get_by_role('button', name='Next May top artists', exact=True).click()
+            await expect(cards.last).to_be_in_viewport()
+            await page.get_by_role('button', name='Previous May top artists', exact=True).click()
+        elif width == 390:
+            await rail.hover()
+            await page.mouse.wheel(1200, 0)
+            await expect(cards.last).to_be_in_viewport()
+            await page.mouse.wheel(-1200, 0)
+        await expect(cards.first).to_be_in_viewport()
+    await page.set_viewport_size({'width': 1440, 'height': 904})
+    await record(page, 'replay-native-artist-cards', '3fed6760', 'Keyboard artist entry, browser Back and three responsive carousel return journeys')
+
+CASES.append(('replay-native-artist-cards', replay_artist_cards))
+
+async def replay_ambient_containment(page, context):
+    """Off-canvas decoration cannot widen main or clip live Replay controls."""
+    await start(page, 'f3fc07c5')
+    for width, height in [(1440, 904), (1264, 904), (1024, 768), (820, 900), (640, 900), (390, 844)]:
+        await page.set_viewport_size({'width': width, 'height': height})
+        for month in ['Jul', 'May']:
+            await page.get_by_role('tab', name=month, exact=True).click()
+            dimensions = await page.locator('main').evaluate('(e)=>({main:e.scrollWidth-e.clientWidth,document:document.documentElement.scrollWidth-innerWidth})')
+            assert dimensions['main'] <= 1 and dimensions['document'] <= 1, (width, month, dimensions)
+            year = page.get_by_role('button', name='2026', exact=True)
+            await year.click()
+            choice = page.get_by_role('menuitemradio', name='2026', exact=True)
+            await expect(choice).to_be_visible()
+            await expect(choice).to_be_focused()
+            await choice.press('Escape')
+            await expect(year).to_be_focused()
+            await expect(page.get_by_role('menu', name='Replay year')).to_have_count(0)
+    await page.set_viewport_size({'width': 1440, 'height': 904})
+    await record(page, 'replay-ambient-containment', '3fed6760', 'Six widths, both month states, and unclipped keyboard year-menu round trips')
+
+CASES.append(('replay-ambient-containment', replay_ambient_containment))

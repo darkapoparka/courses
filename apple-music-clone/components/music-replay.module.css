@@ -2,10 +2,13 @@
   position: relative; min-height: 100%; display: flex; flex-direction: column;
   padding: 34px var(--page-right) 0 var(--page-left); isolation: isolate;
 }
-.ambient {
-  position: absolute; z-index: -1; top: -80px; right: 0;
-  width: min(660px, 100%); height: 340px; pointer-events: none; filter: blur(34px);
-  background: radial-gradient(ellipse at 91% 49%, #ff921c 0%, #ffb329 22%, #ffd48380 43%, transparent 68%);
+/* Confine only the decorative light, not Replay content or the year menu.
+   The off-canvas light source must never enlarge the main scroll surface. */
+.ambient { position:absolute; z-index:-1; inset:0; overflow:hidden; pointer-events:none; }
+.ambient::before {
+  content:""; position: absolute; top: -70px; right: -40px;
+  width: min(620px, 100%); height: 440px; pointer-events: none; filter: blur(28px);
+  background: radial-gradient(ellipse 235px 200px at 85% 38%, rgb(255 130 0) 10%, rgb(255 155 36 / 80%) 39%, rgb(255 183 98 / 35%) 72%, transparent 100%), radial-gradient(ellipse 285px 150px at 43% 32%, rgb(255 192 72) 12%, rgb(255 200 80 / 80%) 45%, rgb(255 220 148 / 30%) 75%, transparent 100%);
 }
 .header { display: flex; align-items: center; justify-content: space-between; min-height: 41px; position: relative; }
 .header h1 { font-size: 32px; line-height: 41px; letter-spacing: -.8px; margin: 0; }
@@ -86,7 +89,7 @@
   .header h1 { font-size: 28px; line-height: 35px; }
   .headerActions { gap: 5px; }
   .yearButton { font-size: 13px; padding: 5px 11px; }
-  .ambient { width: 85%; height: 300px; right: 0; top: -45px; }
+  .ambient::before { width: 85%; height: 300px; right: 0; top: -45px; }
   .months { margin-top: 25px; overflow-x: auto; scrollbar-width: none; }
   .months button { flex-basis: 48px; font-size: 14px; }
   .summary { font-size: 25px; line-height: 33px; margin-top: 65px; }
@@ -156,4 +159,34 @@
   .yearButton { min-width:92px; justify-content:center; }
   .headerActions > :global(.icon-button) { width:35px; }
   .summary { letter-spacing:-.2px; }
+}
+
+/* Artist photos exclude both the archived rank and caption regions. The
+   missing corner and lower material are native surfaces beneath live text. */
+.artistPoster { position:relative; aspect-ratio:3 / 4; text-align:center; color:rgb(245 245 245); background:var(--artist-material); }
+.artistPoster::before { content:""; position:absolute; inset:0 0 auto; height:30%; background:linear-gradient(var(--artist-top),var(--artist-corner) 65%,transparent); }
+.artistPoster[data-replay-artist="1"] { --artist-material:linear-gradient(90deg,rgb(51 77 82),rgb(29 53 61) 25%,rgb(20 35 44) 50%,rgb(20 43 51) 76%,rgb(21 58 66)); --artist-top:rgb(9 30 37); --artist-corner:rgb(20 47 54); }
+.artistPoster[data-replay-artist="2"] { --artist-material:linear-gradient(90deg,rgb(134 134 134),rgb(82 85 84) 25%,rgb(42 42 44) 50%,rgb(76 78 80) 76%,rgb(133 138 136)); --artist-top:rgb(86 86 86); --artist-corner:rgb(106 108 107); }
+.artistPoster[data-replay-artist="3"] { --artist-material:linear-gradient(90deg,rgb(49 38 35),rgb(62 45 37) 25%,rgb(78 60 48) 50%,rgb(86 60 48) 76%,rgb(68 44 36)); --artist-top:rgb(17 13 12); --artist-corner:rgb(27 20 18); }
+.artistPoster[data-replay-artist="4"] { --artist-material:linear-gradient(90deg,rgb(167 165 165),rgb(152 147 149) 25%,rgb(145 140 142) 50%,rgb(146 142 141) 76%,rgb(145 141 140)); --artist-top:rgb(8 14 21); --artist-corner:rgb(1 9 15); }
+.artistPoster > .artistPortrait { position:absolute; left:0; top:0; height:85.227273%; width:100%; display:block; mask-image:linear-gradient(#000 0 89%,transparent 100%); }
+.artistPortrait > :global(.music-art) { width:100%; height:100%; }
+.artistPoster > .artistRank { position:absolute; top:8px; left:16px; width:auto; font-size:42px; font-weight:700; line-height:50px; letter-spacing:-1px; }
+.artistPoster > .artistCaption { position:absolute; left:8px; right:8px; bottom:12px; width:auto; display:block; }
+.artistCaption > strong { display:block; font-size:14px; font-weight:500; line-height:20px; }
+.artistCaption > span { display:block; font-size:13px; font-weight:400; line-height:18px; }
+.artistPoster:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+
+/* Replay uses black native heading/caption ink in the saved web surface.
+   Keep these local: the discovery and library text palettes differ. */
+.header h1, .months button[aria-selected="true"], .summary strong,
+.sectionHeading, .empty .inProgress { color:rgb(0 0 0); }
+
+@media (min-width:1181px) {
+  /* The July line's ink begins at y=510, without moving the 840px footer. */
+  .empty .inProgress { padding-top:50px; }
+  /* The source's year control is 92x35 at y=36, with a full-size chevron. */
+  .headerActions { margin-top:-2px; }
+  .yearButton { font-size:17px; padding:0 13px; gap:6px; }
+  .yearButton > svg { width:22px; height:22px; stroke-width:1.8; }
 }

@@ -10,6 +10,7 @@ import { legacyFeatures, legacySongs, liveFeatures, performanceFeature, queueSon
 import { Art, Footer, Glyph, IconButton, Section } from "./music-primitives";
 import { Rail } from "./music-rail";
 import { useRailUnderlay } from "./use-rail-underlay";
+import { releaseArtworkMask } from "../lib/release-artwork-mask";
 import { CardTile, SongRow } from "./music-browse";
 import { categories, chartTracks, coverArtwork, crop, features, libraryCovers, newMusicDailyFeatureArt, recentlyPlayed, topPicks, viralHitsFeatureArt, viralTracks, type Artwork, type Card } from "../lib/music-catalog";
 
@@ -96,13 +97,7 @@ const currentReleaseEditionSources = new Set([
 function releaseFragmentOverlay(prefix: string, position: number): Artwork {
   const x = 286 + position * 227;
   if (position === 0 || position === 4) return crop(prefix, x, 840, 208, 63);
-  const belowPlayer = "linear-gradient(transparent 0 76.190477%,#000 76.190477% 100%)";
-  const edge = position === 1
-    ? ",linear-gradient(90deg,#000 0 6.25%,transparent 6.25% 100%)"
-    : position === 3
-      ? ",linear-gradient(90deg,transparent 0 93.269231%,#000 93.269231% 100%)"
-      : "";
-  return { ...crop(prefix, x, 840, 208, 63), visibleMask: belowPlayer + edge, partial: true };
+  return { ...crop(prefix, x, 840, 208, 63), visibleMask: releaseArtworkMask(x), partial: true };
 }
 
 // Complete provider covers matching the frozen release edition. Live glass

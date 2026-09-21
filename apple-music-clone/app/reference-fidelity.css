@@ -409,6 +409,7 @@
 .guest-session:not([data-scene="home"]) .sidebar-footer { flex-basis:106px; }
 .guest-session:not([data-scene="home"]) .sidebar-footer .open-music { height:49px; gap:8px; }
 
-/* Current discovery selection uses the compact archived corner geometry,
-   including live carousel underlays. Other page families keep their own chrome. */
-.music-app:has(.capture-discovery[data-catalog="current"]) .sidebar-row[aria-current="page"] { border-radius:4px; }
+/* Member New uses the rounded, burgundy selection observed in the archive.
+   The public edition keeps its separate compact corners; live Alpha underlay
+   still owns its translucent selected-row background. */
+.member-session:has(.capture-discovery[data-catalog="current"]) .sidebar-row[aria-current="page"] { border-radius:9px; color:rgb(112 36 56); }

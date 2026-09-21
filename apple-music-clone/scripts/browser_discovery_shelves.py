@@ -1,6 +1,7 @@
 """Native-sized discovery artwork and clean, continuously reached chart fragments."""
 from playwright.async_api import expect
 from browser_live_fidelity import start, record
+from browser_artwork_masks import assert_release_mask
 
 
 async def wheel_to(page, selector, top):
@@ -23,12 +24,7 @@ async def assert_release_overlays(cards, prefix):
         assert source and source.startswith(prefix), (prefix, index, source)
         if index in [1, 2, 3]:
             await expect(overlay).to_have_attribute('data-art-partial', 'true')
-            mask = await overlay.evaluate('(e)=>getComputedStyle(e).maskImage')
-            assert '76.1905%' in mask, (prefix, index, mask)
-            if index == 1:
-                assert '6.25%' in mask, mask
-            elif index == 3:
-                assert '93.2692%' in mask, mask
+            await assert_release_mask(overlay, index)
         else:
             await expect(overlay).not_to_have_attribute('data-art-partial', 'true')
 
@@ -831,3 +827,27 @@ async def browse_history_distinct_visits(page, context):
 
 
 CASES.append(('browse-history-distinct-visits', browse_history_distinct_visits))
+
+
+async def release_rounded_cutout(page, context):
+    """Source UI stays excluded when native cards and player bounds change."""
+    for prefix in ['e72be564', '4f611a9e', '1f9e170c', '54b01eab']:
+        await start(page, prefix)
+        original_viewport = page.viewport_size.copy()
+        art = page.locator('#new-this-week .reference-art-strip .music-art')
+        before = await art.evaluate_all('(els)=>els.map(e=>e.getAttribute("style"))')
+        for width in [1440, 1264, 1024, 820, 640, 390]:
+            await page.set_viewport_size({'width': width, 'height': original_viewport['height']})
+            for index in [1, 2, 3]:
+                await assert_release_mask(art.nth(index), index)
+            assert await art.evaluate_all('(els)=>els.map(e=>e.getAttribute("style"))') == before
+            assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
+        await page.set_viewport_size(original_viewport)
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        await page.get_by_role('button', name='Volume', exact=True).click()
+        assert await art.evaluate_all('(els)=>els.map(e=>e.getAttribute("style"))') == before
+        await record(page, 'release-rounded-cutout-' + prefix, prefix,
+                     'Resize through six widths and round-trip the real Volume control; artwork masks retain the source-space player exclusion')
+
+
+CASES.append(('release-rounded-artwork-cutout', release_rounded_cutout))
