@@ -1,0 +1,39 @@
+name: Publish expanded player follow-up
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/publish-expanded-player-followup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Apply expanded-player follow-up
+        shell: bash
+        run: |
+          set -euo pipefail
+          git apply --check .github/expanded-player-followup.patch
+          git apply .github/expanded-player-followup.patch
+          git diff --check
+          grep -q 'expanded-lyrics-bubble-mask' apple-music-clone/components/music-player.tsx
+          grep -q 'transport-large > .icon-button:last-child svg' apple-music-clone/app/player-fidelity.css
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm \
+            .github/workflows/publish-expanded-player-followup.yml \
+            .github/expanded-player-followup.patch
+          git add \
+            apple-music-clone/app/player-fidelity.css \
+            apple-music-clone/components/music-player.tsx
+          git commit -m 'fix(reference): match expanded lyrics control'
+          git push origin HEAD:main
