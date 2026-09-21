@@ -34,3 +34,7 @@ The case asserts the New scene and SmithAlex profile before the click, then the 
 ## Acceptance decision
 
 `MATCH-8a234785` and `FLOW-d5d60236` are accepted. The ledger advances from MATCH 65/159 and FLOW 13/58 to MATCH 66/159 and FLOW 14/58; UI remains 159/159. Numeric residuals remain diagnostic rather than an automatic acceptance rule.
+
+## Final-tree verification trigger
+
+The guarded one-shot publisher was removed in `2c366834dcd07e0c98aa41e96e97ae61dafc999a`. This metadata-only checkpoint exists to run the repository's normal Clone verification and Astra documentation workflows against the final tree without retaining a write-enabled publication workflow.
