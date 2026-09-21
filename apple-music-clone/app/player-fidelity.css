@@ -136,7 +136,7 @@
 .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-play,
 .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-pause { color:#fff; transform:translateY(-2.5px) scale(1.10,1.12); }
 .faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-next { color:rgb(255 255 255 / 78%); transform:translate(2px,-3px); }
-.faithful-expanded:not(.radio-reference) .transport-large .expanded-transport-repeat { color:rgb(255 255 255 / 60%); transform:translate(-.5px,-2px) scaleX(1.08); }
+.faithful-expanded:not(.radio-reference) .transport-large > .icon-button:last-child svg { color:rgb(255 255 255 / 60%); transform:translate(-.5px,-2.5px) scale(.88,.9); transform-origin:center; filter:blur(.08px); }
 .faithful-expanded .volume-expanded { margin-top:12px; height:24px; gap:7px; }
 .faithful-expanded .volume-expanded .icon-button { width:12px; height:20px; color:#e1eff6; }
 .faithful-expanded .volume-expanded .icon-button svg { width:12px; height:12px; }
@@ -145,8 +145,8 @@
 .faithful-expanded .expanded-close svg { width:28px; height:28px; stroke-width:1.6; }
 .faithful-expanded .expanded-lyrics-toggle { width:30px; height:30px; right:18px; bottom:19px; color:#c0d7e4; background:transparent; }
 .faithful-expanded .expanded-lyrics-toggle > svg { width:29px; height:29px; }
-.faithful-expanded:not(.radio-reference) .expanded-lyrics-toggle { color:rgb(255 255 255 / 68%); overflow:visible; }
-.faithful-expanded:not(.radio-reference) .expanded-lyrics-glyph { width:31px !important; height:31px !important; transform:translate(-1px,-3px); filter:blur(.08px); }
+.faithful-expanded:not(.radio-reference) .expanded-lyrics-toggle { color:rgb(225 242 249 / 75%); overflow:visible; }
+.faithful-expanded:not(.radio-reference) .expanded-lyrics-glyph { transform:translateY(-3px); filter:blur(.08px); }
 .faithful-expanded .expanded-lyrics { position:fixed; inset:0 10% 0 50%; width:auto; height:100dvh; max-height:none; overflow:hidden; padding:0; font-size:36px; }
 .lyric-viewport { position:relative; height:100%; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; mask-image:linear-gradient(transparent,#000 9%,#000 76%,transparent 91%); }
 .lyric-viewport ol { list-style:none; margin:0; padding:348px 0 380px; }

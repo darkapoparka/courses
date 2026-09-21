@@ -20,7 +20,6 @@ function ExpandedTransportGlyph({ name }: { name: GlyphName }) {
     case "play": return <svg {...fill}><path d="M6.7 3.7C6 3.2 5 3.7 5 4.6v14.8c0 .9 1 1.4 1.7.9l12-7.4a1 1 0 0 0 0-1.8Z" /></svg>;
     case "pause": return <svg {...fill}><rect x="5" y="3" width="5" height="18" rx="1.2" /><rect x="14" y="3" width="5" height="18" rx="1.2" /></svg>;
     case "next": return <svg {...fill}><g transform="translate(24 0) scale(-1 1)"><path d="M11.15 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77L.75 12.76a.92.92 0 0 1 0-1.52Z" /><path d="M22.5 5.35c.62-.43 1.47.01 1.47.77v11.76c0 .76-.85 1.2-1.47.77l-10.4-5.89a.92.92 0 0 1 0-1.52Z" /></g></svg>;
-    case "repeat": return <svg {...stroke}><path d="M4 11V9.5A5 5 0 0 1 9 4.5h8.8" /><path d="m15.2 2 2.8 2.5L15.2 7" /><path d="M20 13v1.5a5 5 0 0 1-5 5H6.2" /><path d="M8.8 17 6 19.5 8.8 22" /></svg>;
     default: return <Glyph name={name} />;
   }
 }
@@ -32,9 +31,9 @@ function TransportButton({ large, icon, label, className = "", ...props }: Butto
 
 function ExpandedLyricsButton({ label, pressed, onClick }: { label: string; pressed: boolean; onClick: () => void }) {
   return <button type="button" className="icon-button expanded-lyrics-toggle" aria-label={label} title={label} aria-pressed={pressed} onClick={onClick}>
-    <svg className="expanded-lyrics-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M6 2.2h12a4.5 4.5 0 0 1 4.5 4.5v8.7a4.5 4.5 0 0 1-4.5 4.5H10l-5.4 3.2.9-3.5a4.5 4.5 0 0 1-4-4.5V6.7A4.5 4.5 0 0 1 6 2.2Z" />
-      <path fill="currentColor" stroke="none" d="M6.5 7.6h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H6.5V7.6Zm6.5 0h3.8v3.5c0 2-.9 3.4-3 4.3l-.8-1.3c1.1-.5 1.7-1.2 1.8-2.1H13V7.6Z" />
+    <svg className="expanded-lyrics-glyph" viewBox="0 0 24 24" aria-hidden="true">
+      <defs><mask id="expanded-lyrics-bubble-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24"><rect width="24" height="24" fill="black" /><path fill="white" d="M7 2h10a5 5 0 0 1 5 5v7.3a5 5 0 0 1-5 5h-6.7L5 22.8l.9-4.1A5 5 0 0 1 2 13.8V7a5 5 0 0 1 5-5Z" /><path fill="black" d="M7.1 7.4h4.2v3.7c0 2.3-1 3.8-3.2 4.7l-.8-1.3c1.1-.5 1.7-1.2 1.9-2.2H7.1V7.4Zm6 0h4.2v3.7c0 2.3-1 3.8-3.2 4.7l-.8-1.3c1.1-.5 1.7-1.2 1.9-2.2h-2.1V7.4Z" /></mask></defs>
+      <rect width="24" height="24" fill="currentColor" mask="url(#expanded-lyrics-bubble-mask)" />
     </svg>
   </button>;
 }
