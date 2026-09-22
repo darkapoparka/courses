@@ -11,88 +11,43 @@ permissions:
 
 jobs:
   probe:
-    if: "github.event.head_commit.message == 'chore(reference): probe artist hero codec'"
+    if: "github.event.head_commit.message == 'chore(reference): inspect complete artist AVC stream'"
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
-        with:
-          python-version: '3.12'
-      - name: Probe AVC rendition in the exact browser family
+      - name: Inspect and losslessly remux Apple AVC playlist
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           base='https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d'
-          mkdir -p /tmp/media
-          for grade in 265 270 280 290; do
-            file="P1319234636_Anull_video_gr${grade}_sdr_1920x1080-.mp4"
-            printf '=== %s ===\n' "$file"
-            curl --fail --location --silent --show-error --output "/tmp/media/$file" "$base/$file"
-            wc -c "/tmp/media/$file"
-            sha256sum "/tmp/media/$file"
-          done
-          python -m venv /tmp/reference-browser
-          /tmp/reference-browser/bin/pip install --quiet 'playwright==1.62.0'
-          /tmp/reference-browser/bin/python -m playwright install --with-deps chromium >/tmp/playwright-install.log 2>&1
-          python3 -m http.server 8123 --bind 127.0.0.1 --directory /tmp/media >/tmp/media-server.log 2>&1 &
-          server=$!
-          trap 'kill "$server" 2>/dev/null || true' EXIT
-          for attempt in $(seq 1 20); do
-            curl --silent --fail http://127.0.0.1:8123/ >/dev/null && break
-            sleep .25
-          done
-          cat >/tmp/probe.py <<'PY'
-          import json, os
-          from playwright.sync_api import sync_playwright
-
-          FILE = 'P1319234636_Anull_video_gr265_sdr_1920x1080-.mp4'
-          SCRIPT = '''async ({file}) => {
-            const capability = {
-              h264: document.createElement('video').canPlayType('video/mp4; codecs="avc1.640028"'),
-              hevc: document.createElement('video').canPlayType('video/mp4; codecs="hvc1.2.20000000.L123.B0"'),
-            };
-            const video = document.createElement('video');
-            video.muted = true; video.preload = 'auto'; video.playsInline = true;
-            document.body.append(video);
-            const loaded = new Promise(resolve => {
-              video.addEventListener('loadedmetadata', () => resolve({event:'loadedmetadata'}), {once:true});
-              video.addEventListener('error', () => resolve({event:'error', code:video.error?.code, message:video.error?.message}), {once:true});
-              setTimeout(() => resolve({event:'timeout'}), 20000);
-            });
-            video.src = 'http://127.0.0.1:8123/' + file;
-            const metadata = await loaded;
-            if (metadata.event !== 'loadedmetadata') return {capability, metadata};
-            const decoded = new Promise(resolve => {
-              const finish = () => {
-                try {
-                  const canvas = document.createElement('canvas');
-                  canvas.width = 32; canvas.height = 18;
-                  const context = canvas.getContext('2d');
-                  context.drawImage(video, 0, 0, 32, 18);
-                  const pixels = context.getImageData(0, 0, 32, 18).data;
-                  resolve({event:'decoded', nonzero:[...pixels].some((v,i) => i % 4 !== 3 && v !== 0)});
-                } catch (error) { resolve({event:'canvas-error', message:String(error)}); }
-              };
-              video.addEventListener('seeked', () => {
-                if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(finish); else requestAnimationFrame(finish);
-              }, {once:true});
-              video.addEventListener('error', () => resolve({event:'error', code:video.error?.code, message:video.error?.message}), {once:true});
-              setTimeout(() => resolve({event:'timeout'}), 20000);
-              video.currentTime = 29.736667;
-            });
-            return {capability, metadata, decoded:await decoded, duration:video.duration, width:video.videoWidth, height:video.videoHeight};
-          }'''
-
-          with sync_playwright() as playwright:
-            targets = [('bundled', None)]
-            chrome = next((path for path in ['/usr/bin/google-chrome', '/usr/bin/google-chrome-stable'] if os.path.exists(path)), None)
-            if chrome: targets.append(('stock-chrome', chrome))
-            for name, executable in targets:
-              browser = playwright.chromium.launch(headless=True, **({'executable_path': executable} if executable else {}))
-              page = browser.new_page()
-              page.goto('http://127.0.0.1:8123/')
-              result = page.evaluate(SCRIPT, {'file': FILE})
-              print(name, browser.version, json.dumps(result, sort_keys=True))
-              browser.close()
+          media="$base/P1319234636_Anull_video_gr265_sdr_1920x1080.m3u8"
+          iframe="$base/P1319234636_Anull_trickPlay_gr265_sdr_1920x1080_iframes.m3u8"
+          curl --fail --location --silent --show-error "$media" -o /tmp/media.m3u8
+          curl --fail --location --silent --show-error "$iframe" -o /tmp/iframe.m3u8
+          printf '%s\n' '=== MEDIA PLAYLIST ==='
+          cat /tmp/media.m3u8
+          printf '%s\n' '=== IFRAME PLAYLIST ==='
+          cat /tmp/iframe.m3u8
+          printf '%s\n' '=== DIRECT OBJECT ==='
+          curl --fail --location --silent --show-error --output /tmp/direct.mp4 "$base/P1319234636_Anull_video_gr265_sdr_1920x1080-.mp4"
+          ffprobe -v error -show_entries stream=index,codec_name,profile,codec_tag_string,pix_fmt,width,height,r_frame_rate,avg_frame_rate -show_entries format=format_name,duration,size,bit_rate -of json /tmp/direct.mp4
+          printf '%s\n' '=== HLS INPUT ==='
+          ffprobe -v error -show_entries stream=index,codec_name,profile,codec_tag_string,pix_fmt,width,height,r_frame_rate,avg_frame_rate -show_entries format=format_name,duration,size,bit_rate -of json "$media"
+          printf '%s\n' '=== LOSSLESS REMUX ==='
+          ffmpeg -hide_banner -loglevel warning -y -i "$media" -map 0:v:0 -c copy -movflags +faststart /tmp/full-avc.mp4
+          wc -c /tmp/full-avc.mp4
+          sha256sum /tmp/full-avc.mp4
+          ffprobe -v error -show_entries stream=index,codec_name,profile,codec_tag_string,pix_fmt,width,height,r_frame_rate,avg_frame_rate -show_entries format=format_name,duration,size,bit_rate -of json /tmp/full-avc.mp4
+          printf '%s\n' '=== PLAYLIST REFERENCES ==='
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urljoin
+          for name in ('media','iframe'):
+              text=Path(f'/tmp/{name}.m3u8').read_text()
+              print(name)
+              for line in text.splitlines():
+                  if line and not line.startswith('#'):
+                      print(urljoin('https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d/', line))
           PY
-          /tmp/reference-browser/bin/python /tmp/probe.py
