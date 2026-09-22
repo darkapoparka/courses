@@ -1,0 +1,79 @@
+name: Artist hero codec probe
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/artist-codec-probe.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: "github.event.head_commit.message == 'chore(reference): probe artist hero codec'"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Inspect provider media and catalog metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d'
+          file='P1319234636_Anull_video_gr670_sdr_1920x1080-.mp4'
+          curl --fail --location --silent --show-error --output /tmp/hero.mp4 "$base/$file"
+          printf '%s\n' '=== FILE ==='
+          wc -c /tmp/hero.mp4
+          sha256sum /tmp/hero.mp4
+          file /tmp/hero.mp4
+          printf '%s\n' '=== FFPROBE ==='
+          ffprobe -v error -show_entries stream=index,codec_name,codec_long_name,profile,codec_tag_string,pix_fmt,width,height,r_frame_rate,avg_frame_rate,color_range,color_space,color_transfer,color_primaries -show_entries format=format_name,duration,size,bit_rate -of json /tmp/hero.mp4
+          printf '%s\n' '=== MP4 SIGNATURES ==='
+          strings -a /tmp/hero.mp4 | grep -E 'hvc1|hev1|avc1|av01|vp09|ftyp|moov' | head -40 || true
+          printf '%s\n' '=== APPLE PAGE MATCHES ==='
+          curl --fail --location --silent --show-error --compressed 'https://music.apple.com/us/artist/olivia-rodrigo/979458609' -o /tmp/artist.html
+          printf 'PAGE_BYTES='; wc -c < /tmp/artist.html
+          python3 - <<'PY'
+          import html, re
+          from pathlib import Path
+          text = html.unescape(Path('/tmp/artist.html').read_text(errors='replace'))
+          patterns = [
+              r'https?[^"\\\s<>]+(?:m3u8|mp4)[^"\\\s<>]*',
+              r'[^"\\\s<>]*P1319234636[^"\\\s<>]*',
+              r'[^"\\\s<>]*6267d2b3[^"\\\s<>]*',
+              r'.{0,180}motion.{0,500}',
+          ]
+          seen = set()
+          for pattern in patterns:
+              for match in re.finditer(pattern, text, re.I | re.S):
+                  value = match.group(0).replace('\\u002F', '/').replace('\\/', '/')
+                  value = re.sub(r'\s+', ' ', value)
+                  if value not in seen:
+                      seen.add(value)
+                      print(value[:1200])
+          PY
+          printf '%s\n' '=== LIKELY SIBLING STATUS ==='
+          python3 - <<'PY'
+          import itertools, subprocess
+          base='https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d/'
+          names = {
+            'P1319234636_Anull_video_gr670_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr660_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr650_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr640_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr670_sdr_1280x720-.mp4',
+            'P1319234636_Anull_video_gr660_sdr_1280x720-.mp4',
+            'P1319234636_Anull_video_gr650_sdr_1280x720-.mp4',
+            'P1319234636_Anull_video_gr640_sdr_1280x720-.mp4',
+            'P1319234636_Anull_video_gr670_sdr_960x540-.mp4',
+            'P1319234636_Anull_video_gr660_sdr_960x540-.mp4',
+            'P1319234636_Anull_video_gr670_sdr_1920x1080-.m3u8',
+            'P1319234636_Anull_video_gr670_sdr.m3u8',
+            'P1319234636_Anull_video.m3u8',
+            'P1319234636_Anull.m3u8',
+            'P1319234636.m3u8',
+          }
+          for name in sorted(names):
+              proc = subprocess.run(['curl','-L','-sS','-o','/dev/null','-w','%{http_code} %{content_type} %{size_download}',base+name], text=True, capture_output=True)
+              print(proc.stdout, name)
+          PY
