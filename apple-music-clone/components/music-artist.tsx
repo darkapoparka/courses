@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { artistHeroFrame, artistHeroResourceId } from "../lib/artist-hero-resource";
 import { albumArt, albumTitle, albumTracks, allTracks, crop, type Artwork } from "../lib/music-catalog";
 import { oliviaTour } from "../lib/concert-catalog";
 import { TourRow } from "./music-concerts";
@@ -11,6 +12,30 @@ import { SongRow } from "./music-browse";
 import styles from "./music-artist.module.css";
 
 type Entry = { title: string; detail?: string; year?: string; art: Artwork; destination: string; explicit?: boolean };
+
+let artistHeroDataUrl: Promise<string> | undefined;
+function loadArtistHeroDataUrl() {
+  if (!artistHeroDataUrl) {
+    artistHeroDataUrl = (async () => {
+      const response = await fetch(`/reference-assets/${artistHeroResourceId}`, { cache: "no-store" });
+      if (!response.ok || !response.headers.get("content-type")?.startsWith("video/")) {
+        throw new Error(`Artist hero HTTP ${response.status}`);
+      }
+      const blob = await response.blob();
+      return await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(reader.error ?? new Error("Artist hero could not be decoded"));
+        reader.readAsDataURL(blob);
+      });
+    })().catch((error) => {
+      artistHeroDataUrl = undefined;
+      throw error;
+    });
+  }
+  return artistHeroDataUrl;
+}
+
 const albumEntries: Entry[] = [
   { title: albumTitle, year: "2026", destination: "album", art: crop("57f7c08e",286,430,208,208) },
   { title: "The Hunger Games: The Ballad of Songbirds & Snakes (Music From The Motion Picture)", year: "2023", destination: "album:The Hunger Games", art: crop("57f7c08e",513,430,208,208) },
@@ -65,24 +90,104 @@ export function ArtistView() {
   const [expandedBio, setExpandedBio] = useState(false);
   const name = !m.scene.category || m.scene.category === "livies" ? "Olivia Rodrigo" : m.scene.category;
   const related = allTracks.filter(track => track.artist.split(", ").includes(name));
-  if (name !== "Olivia Rodrigo") return <div className="page-content"><h1>{name}</h1><section className={styles.genericSongs}><Heading title="Songs in the saved catalog" />{related.length ? related.map(track => <SongRow key={track.id} track={track} />) : <p>No dedicated artist capture was supplied for this artist.</p>}</section><Footer /></div>;
-  const topSongs = [albumTracks[1]!, albumTracks[0]!, albumTracks[7]!, albumTracks[2]!, albumTracks[3]!, albumTracks[4]!];
-  const add = () => m.setLibrary(data => ({ ...data, songs: [...new Set([...data.songs, ...albumTracks.map(track => track.id)])] }));
-  const added = albumTracks.every(track => m.library.songs.includes(track.id));
-  const menuArtistTracks = allTracks.filter(track => track.artist === name);
+  const menuArtistTracks = allTracks.filter(track => track.artist === "Olivia Rodrigo");
   const artistSuggestedLess = menuArtistTracks.length > 0 && menuArtistTracks.every(track => m.library.discouraged.includes(track.id));
   const heroFrameSource = m.scene.source?.startsWith("f24fda77") || (m.scene.menu === "artist" && artistSuggestedLess)
     ? "f24fda77"
     : m.scene.source?.startsWith("bc773ae9") || m.scene.menu === "artist"
       ? "bc773ae9"
       : "484851bf";
-  const heroFrame = crop(heroFrameSource,247,0,1189,374);
-  const heroBaseFrame = crop(heroFrameSource,247,367,1189,7);
+  const targetHeroFrame = artistHeroFrame(heroFrameSource);
+  const heroVideo = useRef<HTMLVideoElement>(null);
+  const [heroUrl, setHeroUrl] = useState<string>();
+  const [heroReady, setHeroReady] = useState(false);
+  const [displayedHeroFrame, setDisplayedHeroFrame] = useState(() => artistHeroFrame("484851bf"));
+
+  useEffect(() => {
+    if (name !== "Olivia Rodrigo") return;
+    let active = true;
+    setHeroReady(false);
+    void loadArtistHeroDataUrl()
+      .then((url) => { if (active) setHeroUrl(url); })
+      .catch((error) => console.error("Artist hero could not be loaded", error));
+    return () => { active = false; };
+  }, [name]);
+
+  useLayoutEffect(() => {
+    const video = heroVideo.current;
+    if (!video || !heroUrl || name !== "Olivia Rodrigo") return;
+    let active = true;
+    setHeroReady(false);
+    const markReady = () => {
+      if (!active) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause();
+      else void video.play().catch(() => undefined);
+      const rendered = video as HTMLVideoElement & {
+        requestVideoFrameCallback?: (callback: () => void) => number;
+      };
+      const finish = () => {
+        if (!active) return;
+        setDisplayedHeroFrame(targetHeroFrame);
+        setHeroReady(true);
+      };
+      if (rendered.requestVideoFrameCallback) rendered.requestVideoFrameCallback(finish);
+      else requestAnimationFrame(() => requestAnimationFrame(finish));
+    };
+    const seek = () => {
+      if (Math.abs(video.currentTime - targetHeroFrame.currentTime) <= 0.0005) markReady();
+      else {
+        video.addEventListener("seeked", markReady, { once: true });
+        video.currentTime = targetHeroFrame.currentTime;
+      }
+    };
+    const failed = () => {
+      if (active) setHeroReady(false);
+      console.error("Artist hero media failed to decode");
+    };
+    video.addEventListener("error", failed);
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) seek();
+    else video.addEventListener("loadedmetadata", seek, { once: true });
+    return () => {
+      active = false;
+      video.removeEventListener("error", failed);
+      video.removeEventListener("loadedmetadata", seek);
+      video.removeEventListener("seeked", markReady);
+    };
+  }, [heroUrl, name, targetHeroFrame.currentTime]);
+
+  useLayoutEffect(() => {
+    const app = heroVideo.current?.closest(".music-app") as HTMLElement | null;
+    if (!app) return;
+    if (name === "Olivia Rodrigo") app.dataset.referenceReady = heroReady ? "true" : "false";
+    else app.dataset.referenceReady = "true";
+    return () => {
+      if (app.isConnected) app.dataset.referenceReady = "true";
+    };
+  }, [heroReady, name]);
+
+  if (name !== "Olivia Rodrigo") return <div className="page-content"><h1>{name}</h1><section className={styles.genericSongs}><Heading title="Songs in the saved catalog" />{related.length ? related.map(track => <SongRow key={track.id} track={track} />) : <p>No dedicated artist capture was supplied for this artist.</p>}</section><Footer /></div>;
+  const topSongs = [albumTracks[1]!, albumTracks[0]!, albumTracks[7]!, albumTracks[2]!, albumTracks[3]!, albumTracks[4]!];
+  const add = () => m.setLibrary(data => ({ ...data, songs: [...new Set([...data.songs, ...albumTracks.map(track => track.id)])] }));
+  const added = albumTracks.every(track => m.library.songs.includes(track.id));
   return <div className={styles.page}>
+    <style>{`.faithful-menu.menu-artist{background:rgb(240 240 240 / 78%);backdrop-filter:blur(32px)}.faithful-menu.menu-artist>button{height:30.75px;min-height:30.75px}`}</style>
     <header className={styles.hero}>
-      <Art resolution="standard" art={heroFrame} label="Olivia Rodrigo artist artwork" className={styles.heroPhoto} />
-      <div className={styles.heroBase}><Art resolution="standard" art={heroBaseFrame} label="" /></div>
-      <div className={styles.heroControls}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, name)} /></div></div>
+      <video
+        ref={heroVideo}
+        src={heroUrl}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        role="img"
+        aria-label="Olivia Rodrigo artist artwork"
+        data-art-source={displayedHeroFrame.screenId}
+        data-reference-hero-resource={artistHeroResourceId}
+        data-reference-hero-ready={heroReady ? "true" : undefined}
+        style={{ position: "absolute", top: 0, left: 2, display: "block", width: "calc(100% - 1px)", height: "auto", pointerEvents: "none", filter: "brightness(1.064) saturate(.985) contrast(.965) blur(1.05px)" }}
+      />
+      <span aria-hidden="true" style={{ position: "absolute", zIndex: 1, inset: 0, pointerEvents: "none", background: "linear-gradient(180deg,rgba(255,255,255,.018) 0%,rgba(255,255,255,.018) 62%,transparent 72%,rgba(0,0,0,.39) 100%)" }} />
+      <div className={styles.heroControls} style={heroReady ? undefined : { visibility: "hidden" }}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} style={{ boxShadow: "0 0 0 1px #ed0000" }} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, name)} /></div></div>
     </header>
     <div className={styles.body}>
       <div className={styles.overview}>
