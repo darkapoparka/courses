@@ -19,6 +19,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           base='https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d'
           file='P1319234636_Anull_video_gr670_sdr_1920x1080-.mp4'
           curl --fail --location --silent --show-error --output /tmp/hero.mp4 "$base/$file"
@@ -54,13 +56,17 @@ jobs:
           PY
           printf '%s\n' '=== LIKELY SIBLING STATUS ==='
           python3 - <<'PY'
-          import itertools, subprocess
+          import subprocess
           base='https://mvod.itunes.apple.com/itunes-assets/HLSMusic221/v4/62/67/d2/6267d2b3-8c2f-2f94-b6a7-5387ec4fc51d/'
           names = {
             'P1319234636_Anull_video_gr670_sdr_1920x1080-.mp4',
             'P1319234636_Anull_video_gr660_sdr_1920x1080-.mp4',
             'P1319234636_Anull_video_gr650_sdr_1920x1080-.mp4',
             'P1319234636_Anull_video_gr640_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr630_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr620_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr610_sdr_1920x1080-.mp4',
+            'P1319234636_Anull_video_gr600_sdr_1920x1080-.mp4',
             'P1319234636_Anull_video_gr670_sdr_1280x720-.mp4',
             'P1319234636_Anull_video_gr660_sdr_1280x720-.mp4',
             'P1319234636_Anull_video_gr650_sdr_1280x720-.mp4',
