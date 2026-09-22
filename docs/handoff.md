@@ -1,8 +1,10 @@
 # Courses - current handoff
 
-Updated 2026-09-21. Only checkout `J:\courses`, only branch `main`, active app `apple-music-clone`. No course adaptation, replacement app, branch/worktree creation, cleanup or reference-archive mutation.
+Updated 2026-09-22. Only checkout `J:\courses`, only branch `main`, active app `apple-music-clone`. No course adaptation, replacement app, branch/worktree creation, cleanup or reference-archive mutation.
 
 ## Current verified implementation
+
+The initial New acceptance batch signs off exact state `e72be564` and six complete source-ordered journeys: Search, Artists, Albums, Songs, Music videos and All playlists. The native Moana provider removes the last concrete initial-edition artwork defect. The unchanged clean application tree `116ffff29c41915654d1648a3fdd373e41353817` passed 159 canonical desktop states, five responsive states, all 218 route checks and 109 registered interaction tests in GitHub Actions run `35628073726`; all 159 exact-size comparisons completed. A fresh current-local Chromium 151 rerun passed the native-artwork assertion plus all six journeys (`7/7`) with no page, console, request or HTTP failure. [Review](reference-review/2026-09-22-initial-new-flow-acceptance.md).
 
 The expanded song-player acceptance batch signs off exact state `c939c9b8` on final tree `116ffff29c41915654d1648a3fdd373e41353817` (application repair through `4070d2661be4c66ff81af0efc588fd052e19fd00`). GitHub Actions run `35628073726` passed 159 canonical desktop states, five responsive states, all 218 route checks and 109 registered interaction tests with zero failures; all 159 exact-size comparisons also passed. [Review](reference-review/2026-09-21-expanded-player-repair-candidate.md).
 
@@ -26,15 +28,15 @@ Corpus mean MAE changed `4.907618 -> 4.911074`; mean over-20 changed `4.927650% 
 
 ## Acceptance and next work
 
-UI 159/159; MATCH 67/159; FLOW 14/58. The expanded-player review advances exact state `c939c9b8`; the complete three-step expanding-song journey remains open. The Chart, Playlist, ready-flow and album decisions remain accepted. `docs/tasks.md` remains the sole acceptance ledger.
+UI 159/159; MATCH 68/159; FLOW 20/58. Initial New and the six source-ordered journeys above are accepted. The complete three-step expanding-song journey and the snapshot-changing Editing library menus journey remain open. The expanded-player, Chart, Playlist, ready-flow and album decisions remain accepted. `docs/tasks.md` remains the sole acceptance ledger.
 
-Recompute the dependency report from the updated ledger before selecting the next independent family. Do not mark `FLOW-b6295ef8` complete unless `1f9e170c → 6ac70c34 → c939c9b8` is traversed continuously through truthful visible controls; the current regression proves only the real `6ac70c34 → c939c9b8` segment. Do not reopen accepted New, Chart, Home, Replay, account, trial, album or Playlist states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
+Recompute the dependency report from the updated ledger before selecting the next independent family. Do not mark `FLOW-b6295ef8` complete unless `1f9e170c → 6ac70c34 → c939c9b8` is traversed continuously through truthful visible controls; the current regression proves only the real `6ac70c34 → c939c9b8` segment. Do not mark `FLOW-8db5f5fe` complete while its later immutable frames require different catalog, account and library snapshots. Do not reopen accepted states solely because lawful platform residuals are non-zero; reopen only for a concrete product mismatch or regression.
 
 Some lyrics/queue/player and session-dependent captures still require recording-order investigation. Do not rename a user, replace a queue/library/catalog snapshot or inject fixture state behind an ordinary control to manufacture an endpoint.
 
 ## Runtime, identity and preservation
 
-Remote-machine reconciliation note: Desktop Commander quota ended with a local-only pre-publication edit in `apple-music-clone/scripts/browser_live_fidelity.py`. Current `main` already owns the corresponding Shuffle/Repeat journeys. On the next remote session, fetch first and inspect that single duplicate diff; do not reset, clean or discard unrelated work.
+Remote-machine reconciliation completed on 2026-09-22. The pre-crash four-file batch was preserved at `apple-music-clone/.qa/recovery-20260922-073423`, compared against `origin/main`, and found to be either already published or superseded by stronger remote assertions. Local `main` was fast-forwarded without losing unrelated work.
 
 Canonical dev is `http://127.0.0.1:6435/` (listener PID 4728 when this handoff was written). The retained optimized listener is on `http://127.0.0.1:6437/` (PID 12600). The album audit listener remains on `http://127.0.0.1:6439/` (PID 17504) from the active app and verified build. These are observations, not authority to stop reused PIDs: inspect command line, executable path, creation time and ancestry before any process action.
 

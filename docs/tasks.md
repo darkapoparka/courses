@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-21 for the expanded song-player exact-state acceptance review. The verified final tree is `116ffff29c41915654d1648a3fdd373e41353817`; the application repair ends at `4070d2661be4c66ff81af0efc588fd052e19fd00`. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-22 for the initial New exact-state and six source-ordered journey acceptance. The verified clean application tree remains `116ffff29c41915654d1648a3fdd373e41353817`; the reviewed follow-up through `3d3a624451c3cf8408b793210b3232e9b171538f` changes documentation only. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
 
-Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159 desktop states, five responsive states, 218 route checks and 109 registered interaction tests in GitHub Actions run `35628073726`; all 159 exact-size comparisons passed. Exact source/current/residual review accepts `MATCH-c939c9b8`. The complete three-step expanding flow remains open because only its video-visible `6ac70c34 → c939c9b8` segment is truthfully reproduced by a real control. [Acceptance review](reference-review/2026-09-21-expanded-player-repair-candidate.md). MATCH is now 67/159 and FLOW remains 14/58.
+Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159 desktop states, five responsive states, 218 route checks and 109 registered interaction tests in GitHub Actions run `35628073726`; all 159 exact-size comparisons passed. Exact source/current/residual review now accepts `MATCH-e72be564`, and current-local real-control verification accepts Search, Artists, Albums, Songs, Music videos and All playlists. [Acceptance review](reference-review/2026-09-22-initial-new-flow-acceptance.md). MATCH is now 68/159 and FLOW is now 20/58; the complete three-step expanding-song flow remains open.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **67 / 159** |
-| Full recorded flows genuinely signed off | **14 / 58** |
+| Exact visual matches genuinely signed off | **68 / 159** |
+| Full recorded flows genuinely signed off | **20 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,9 @@ Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Expanded player exact-state review](reference-review/2026-09-21-expanded-player-repair-candidate.md). The repaired fullscreen song state advances after clean source/current/residual, route and real-control review. The incomplete first transition keeps the related three-step flow open. Current ledger: UI 159/159, MATCH 67/159, FLOW 14/58.
+Latest acceptance evidence: [Initial New and source-ordered journey review](reference-review/2026-09-22-initial-new-flow-acceptance.md). The repaired initial edition now uses the native Moana provider, and six complete journeys pass again through visible controls on the current local application. Current ledger: UI 159/159, MATCH 68/159, FLOW 20/58.
+
+The preceding [Expanded player exact-state review](reference-review/2026-09-21-expanded-player-repair-candidate.md) remains accepted. Its incomplete first transition still keeps the three-step expanding-song flow open.
 
 Latest follow-up: [signup control chrome](reference-review/2026-09-20-signup-control-chrome.md). Four source states now use native controls with corrected corners, readonly borders, select decoration and checkbox accent. The fresh full corpus passed 159 desktop states, five responsive states, 218 routes and 98 interaction tests. No MATCH or FLOW advanced.
 
@@ -81,7 +83,8 @@ Initial/current/localized lower-release order and lawful visible fragments are r
 2026-09-20: Initial New improves to 2.526055 MAE / 2.832610% over-20; verified session continuity and scoped glass/corners do not close the remaining ink, material, metadata and control blockers. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
 
 - [x] **UI-e72be564 — New — initial view.** Coded UI; current browser render passed.
-  - [ ] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-e72be564 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: The native Moana provider replaces the last generic lower-shelf fallback; exact source/current/residual review, the clean full corpus and a fresh current-local control check find no remaining concrete product mismatch. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-21: High-resolution source, exact motion frames, whole-corpus occurrence search and provider-cover review confirm that the current generic fallback does not reproduce the initial edition's second release artwork beneath the live player. No unproven identity was substituted, so MATCH remains open. [Evidence](reference-review/2026-09-21-new-charts-acceptance.md).
   - 2026-09-21: Contextual idle ink, pressed-state ownership and native compact utilities passed the clean optimized corpus; exact diagnostics improve to `2.509861 / 2.808078%`. The complete second release artwork and resulting interior glass remain wrong, so MATCH stays open. [Evidence](reference-review/2026-09-21-contextual-player-glyphs.md).
   - 2026-09-21: Rounded source-artwork exclusion now follows the player capsule; decoded alpha coverage, six widths and real Volume/history controls pass. Remaining player underlay/glyph differences keep MATCH open. [Evidence](reference-review/2026-09-21-player-cutout-replay-controls.md).
@@ -1391,7 +1394,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-d3879ab4 — 26. Watching a music video (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/watching-a-music-video?step=0). Sequence: [1: edae3407](#screen-edae3407) → [2: 898ca766](#screen-898ca766) → [3: a4afd6e6](#screen-a4afd6e6)
 
-- [ ] **FLOW-6c5d545e — 27. Search (4 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-6c5d545e — 27. Search (4 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-18: All three Search endpoints are now MATCH-complete and byte-identical between the continuous journey and direct fixtures. FLOW stays unchecked only because initial New frame `e72be564` remains open. [Evidence](reference-review/2026-09-18-search-family-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/search?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 035569a0](#screen-035569a0) → [3: 812ba627](#screen-812ba627) → [4: 5b3ec96a](#screen-5b3ec96a)
 
@@ -1437,15 +1441,18 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-af293a1e — 39. Recently added (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/recently-added?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: bdc69b59](#screen-bdc69b59) → [3: e757eb0f](#screen-e757eb0f)
 
-- [ ] **FLOW-9decd1cd — 40. Artists (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-9decd1cd — 40. Artists (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-12 bounded review: All three Artists steps are exercised continuously, including saved sidebar playlists and real artist selection. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/artists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 0df0d2a2](#screen-0df0d2a2) → [3: 610af644](#screen-610af644)
 
-- [ ] **FLOW-2797b86f — 41. Albums (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-2797b86f — 41. Albums (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-12 bounded review: New to Albums is exercised continuously with saved playlist navigation visible. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/albums?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 5d3db7ca](#screen-5d3db7ca)
 
-- [ ] **FLOW-0e305ee9 — 42. Songs (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-0e305ee9 — 42. Songs (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-12 bounded review: New to Songs asserts the eight exact source rows in order. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/songs?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 92589389](#screen-92589389)
 
@@ -1459,14 +1466,16 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-12 control review: All four stills are reached through actual hover, menu and Pin Song controls, with unpin/favourite isolation checked. Fractional live anchoring was corrected; original typography/icons/shadow remain imperfect. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/pinning-a-song?step=0). Sequence: [1: 92589389](#screen-92589389) → [2: e9bee76d](#screen-e9bee76d) → [3: 3884ff64](#screen-3884ff64) → [4: 06be9f09](#screen-06be9f09)
 
-- [ ] **FLOW-51ec8869 — 45. Music videos (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-51ec8869 — 45. Music videos (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-12 bounded review: New to Music Videos is exercised through the recorded empty state. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/music-videos?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4e857921](#screen-4e857921)
 
 - [ ] **FLOW-ee643f9f — 46. Made for you (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/made-for-you?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 0b0e3fbf](#screen-0b0e3fbf) → [3: e379e3fe](#screen-e379e3fe)
 
-- [ ] **FLOW-b49a8505 — 47. All playlists (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-b49a8505 — 47. All playlists (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Accepted after `MATCH-e72be564` sign-off and a fresh source-ordered real-control rerun; every recorded endpoint was already MATCH-complete. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - 2026-09-12 bounded review: New to All Playlists is exercised through the real sidebar. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - 2026-09-17: The ordered New → All Playlists path passes through the real sidebar, and the strengthened case proves both cards, browser Back and idle-player continuity. FLOW remains open because initial screen `e72be564` is not yet MATCH-complete. [Evidence](reference-review/2026-09-17-all-playlists-match.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/all-playlists?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 8a2a4241](#screen-8a2a4241)
@@ -1487,6 +1496,7 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/favorite-songs?step=0). Sequence: [1: a917d88f](#screen-a917d88f) → [2: bde65d33](#screen-bde65d33)
 
 - [ ] **FLOW-8db5f5fe — 51. Editing library menus (5 steps).** Complete and verify the recorded journey.
+  - 2026-09-22: Remains open. The real controls pass, but the immutable later frames switch catalog, account and library snapshots that the truthful live path does not reproduce; no fixture-only transition is accepted. [Evidence](reference-review/2026-09-22-initial-new-flow-acceptance.md).
   - `5929190`: Player material follows live Edit/Done and checkbox changes; clean legacy fixtures are improved separately. The continuous recording still changes catalog/profile snapshots, leaving approximately 34.36–34.63% source residuals. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - 2026-09-12 control review: All five controls/checkpoints are exercised without fixture jumping. The original changes catalog/account/library snapshots after its first image; the live flow preserves its starting state. Later source/live residuals remain 34.39–34.86%, so this is NOT a complete visually verified flow. [Exact candidate, evidence and counter-evidence](reference-review/2026-09-12-library-controls.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/editing-library-menus?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: f2e44e3b](#screen-f2e44e3b) → [3: ffc18eb8](#screen-ffc18eb8) → [4: 3728aa07](#screen-3728aa07) → [5: e5e8383f](#screen-e5e8383f)
