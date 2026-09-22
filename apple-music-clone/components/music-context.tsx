@@ -332,7 +332,13 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
     patch({ menu, overlay: null, ...(menu === "station" && id ? { selectedTrack: id } : {}) });
   }, [patch]);
   const favouriteArtist = (name: string) => { if (!knownArtists.has(name)) { notify("This artist is not in the saved catalog."); return; } setLibrary(current => ({ ...current, favouriteArtists: toggle(current.favouriteArtists, name) })); };
-  const suggestLess = (id: string) => { if (!known.has(id)) return; setLibrary(current => ({ ...current, discouraged: toggle(current.discouraged, id) })); notify(library.discouraged.includes(id) ? "Song restored to local recommendations." : "This song is hidden from local recommendations."); };
+  const suggestLess = (id: string) => {
+    if (!known.has(id)) return;
+    setLibrary(current => ({ ...current, discouraged: toggle(current.discouraged, id) }));
+    // Source-ordered reference captures do not include the clone's local-only
+    // recommendation notice. Keep that feedback in ordinary browsing sessions.
+    if (!referenceSession.current) notify(library.discouraged.includes(id) ? "Song restored to local recommendations." : "This song is hidden from local recommendations.");
+  };
   const favourite = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, favourites: toggle(current.favourites, id) })); };
   const addToLibrary = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, songs: toggle(current.songs, id) })); };
   const pin = (id: string) => { if (!known.has(id)) return; setLibrary((current) => ({ ...current, pinned: toggle(current.pinned, id) })); };

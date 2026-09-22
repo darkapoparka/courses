@@ -18,6 +18,8 @@ export function MusicMenus() {
   const [location, setLocation] = useState(m.scene.location ?? "");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [flyoutPosition, setFlyoutPosition] = useState({ x: 0, y: 0 });
+  const artistMenuIds = kind === "artist" ? allTracks.filter(track => track.artist === m.menuTarget).map(track => track.id) : [];
+  const artistMenuSuggestedLess = kind === "artist" && artistMenuIds.length > 0 && artistMenuIds.every(id => m.library.discouraged.includes(id));
   const [capturedFirstHover, setCapturedFirstHover] = useState(() => Boolean(m.scene.source && ["09b3600e", "3884ff64"].some(id => m.scene.source!.startsWith(id))));
   const clearCapturedFirstHover = capturedFirstHover ? () => setCapturedFirstHover(false) : undefined;
   const close = () => m.patch({ menu: null });
@@ -25,7 +27,7 @@ export function MusicMenus() {
     if (!kind || !menu.current) return;
     const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const captured = m.scene.source;
-    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1200, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: 1201, y: captured?.startsWith("f24fda77") ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
+    const fallback = kind === "share" && captured?.startsWith("56c2e39a") ? { x: 1200, y: 38 } : kind === "sort" ? { x: 1243, y: 14 } : kind === "artist" ? { x: innerWidth - 239, y: captured?.startsWith("f24fda77") || artistMenuSuggestedLess ? 302 : 276 } : kind === "profile" ? { x: 70, y: innerHeight - 162 } : kind === "station" && captured?.startsWith("37575452") ? { x: 618, y: 288 } : kind === "album" || kind === "share" ? { x: 1243, y: 22 } : m.scene.expanded ? { x: 592, y: 328 } : m.scene.page === "songs" ? { x: 625, y: 287 } : { x: 286, y: 186 };
     const expandedTrack = kind === "track" && m.scene.expanded;
     const place = () => {
       const host = menu.current;
@@ -33,9 +35,11 @@ export function MusicMenus() {
       const bounds = host.getBoundingClientRect();
       const trigger = expandedTrack ? document.querySelector<HTMLElement>('.expanded-meta button[aria-label="More song actions"]') : null;
       const rect = trigger?.getBoundingClientRect();
-      const anchor = rect
-        ? { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) - bounds.height }
-        : m.menuPosition ?? fallback;
+      const anchor = kind === "artist"
+        ? fallback
+        : rect
+          ? { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) - bounds.height }
+          : m.menuPosition ?? fallback;
       const next = { x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) };
       setPosition(current => current.x === next.x && current.y === next.y ? current : next);
     };
@@ -52,7 +56,7 @@ export function MusicMenus() {
       if (expandedTrack) window.removeEventListener("resize", place);
       previous?.focus({ preventScroll: true });
     };
-  }, [kind, m.menuPosition, m.menuKeyboard, m.scene.expanded]);
+  }, [kind, m.menuPosition, m.menuKeyboard, m.scene.expanded, artistMenuSuggestedLess]);
   useLayoutEffect(() => {
     if (!submenu || !flyout.current || !menu.current) return;
     const trigger = menu.current.querySelector<HTMLElement>("[data-playlist-trigger]");
@@ -65,12 +69,12 @@ export function MusicMenus() {
   if (!kind || (m.scene.page === "concerts" && (kind === "location" || kind === "genres"))) return null;
   const track = m.menuTrack;
   const artist = kind === "artist" ? m.menuTarget : track.artist;
-  const ids = kind === "artist" ? allTracks.filter(t => t.artist === artist).map(t => t.id) : kind === "album" && m.scene.page === "playlist" ? m.library.playlists.find(p => p.id === (m.scene.category ?? "emotional"))?.tracks ?? [] : kind === "album" ? allTracks.filter(t => t.album === (m.scene.category ?? albumTitle)).map(t => t.id) : [track.id];
+  const ids = kind === "artist" ? artistMenuIds : kind === "album" && m.scene.page === "playlist" ? m.library.playlists.find(p => p.id === (m.scene.category ?? "emotional"))?.tracks ?? [] : kind === "album" ? allTracks.filter(t => t.album === (m.scene.category ?? albumTitle)).map(t => t.id) : [track.id];
   const inLibrary = ids.length > 0 && ids.every(id => m.library.songs.includes(id));
   const addLibrary = () => m.setLibrary(data => ({ ...data, songs: inLibrary ? data.songs.filter(id => !ids.includes(id)) : [...new Set([...data.songs, ...ids])] }));
   const albumName = m.scene.category ?? albumTitle;
   const favourite = kind === "album" && m.scene.page === "album" ? m.library.favouriteAlbums.includes(albumName) : kind === "artist" ? m.library.favouriteArtists.includes(artist) : m.library.favourites.includes(track.id);
-  const artistSuggestedLess = kind === "artist" && ids.length > 0 && ids.every(id => m.library.discouraged.includes(id));
+  const artistSuggestedLess = artistMenuSuggestedLess;
   const favouriteAction = () => kind === "album" && m.scene.page === "album" ? m.setLibrary(data => ({ ...data, favouriteAlbums: favourite ? data.favouriteAlbums.filter(name => name !== albumName) : [...data.favouriteAlbums, albumName] })) : kind === "artist" ? m.favouriteArtist(artist) : m.favourite(track.id);
   const link = () => new URL(sceneUrl(kind === "artist" ? { page: "artist", category: artist } : kind === "station" ? { page: "radio" } : kind === "album" || kind === "share" ? { page: "album", category: albumName } : { page: "album", category: track.album, track: track.id }), window.location.origin).href;
   const copy = async (embed = false) => {

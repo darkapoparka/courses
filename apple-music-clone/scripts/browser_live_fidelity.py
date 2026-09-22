@@ -17,12 +17,45 @@ def source(prefix):
     assert len(matches) == 1, prefix
     return matches[0]
 
+async def wait_for_visual_assets(page):
+    """Wait for visible CSS artwork to load and decode before evidence capture."""
+    await page.evaluate(r"""async () => {
+      const visibleArtwork = [...document.querySelectorAll('.music-art')].filter(element => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
+      });
+      const urls = new Set();
+      for (const element of visibleArtwork) {
+        const background = getComputedStyle(element).backgroundImage;
+        for (const match of background.matchAll(/url\((['"]?)(.*?)\1\)/g)) {
+          if (match[2]) urls.add(new URL(match[2], document.baseURI).href);
+        }
+      }
+      await Promise.all([...urls].map(url => new Promise((resolve, reject) => {
+        const image = new Image();
+        const finish = async () => {
+          try {
+            if (image.decode) await image.decode();
+            if (!image.naturalWidth || !image.naturalHeight) throw new Error(`Decoded artwork is empty: ${url}`);
+            resolve();
+          } catch (error) { reject(error); }
+        };
+        image.onload = finish;
+        image.onerror = () => reject(new Error(`Artwork failed to load: ${url}`));
+        image.src = url;
+        if (image.complete) void finish();
+      })));
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }""")
+
 async def start(page, prefix):
     await page.set_viewport_size(reference_viewport(source(prefix)))
     response = await page.goto(BASE + '/screen/' + source(prefix), wait_until='networkidle')
     assert response and response.status == 200
     await page.locator('[data-reference-ready=true]').wait_for()
     await page.evaluate('document.fonts.ready')
+    await wait_for_visual_assets(page)
 
 async def record(page, journey, prefix, action, *, move_pointer=True):
     """Record an observed state; this does not grant visual acceptance."""
@@ -33,6 +66,7 @@ async def record(page, journey, prefix, action, *, move_pointer=True):
     assert page.viewport_size == reference_viewport(sid), (journey, sid, page.viewport_size)
     if move_pointer:
         await page.mouse.move(page.viewport_size['width'] - 1, page.viewport_size['height'] - 1)
+    await wait_for_visual_assets(page)
     log = path / 'steps.jsonl'
     ordinal = len(log.read_text(encoding='utf-8').splitlines()) + 1 if log.exists() else 1
     shot = path / f'{ordinal:02d}-{sid}.png'

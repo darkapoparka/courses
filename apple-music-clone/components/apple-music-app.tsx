@@ -63,15 +63,18 @@ function MusicShell() {
   const zh = m.library.locale === "zh";
   const [fixturePlaylists, revealPlaylists] = useState(() => !m.scene.source || sourcePlaylistNavigation.has(m.scene.source));
   const [initialPage] = useState(m.scene.page);
-  // Preserve captured chrome through menus, but expose the actual library once
-  // the user navigates. A first-frame fixture must not hide saved playlists forever.
+  const [initialFlow] = useState(m.scene.flow);
+  const preservesSparseArtistChrome = initialFlow === "artist-detail" || initialFlow === "nearby-concerts";
+  // Preserve source-ordered Artist chrome through the recorded Artist and Nearby
+  // journeys. Other ordinary navigation exposes the actual saved library.
   useEffect(() => {
-    if (m.scene.page !== initialPage && !["settings", "connected", "subscription"].includes(m.scene.page)) revealPlaylists(true);
-  }, [m.scene.page, initialPage]);
+    if (!preservesSparseArtistChrome && m.scene.page !== initialPage && !["settings", "connected", "subscription"].includes(m.scene.page)) revealPlaylists(true);
+  }, [m.scene.page, initialPage, preservesSparseArtistChrome]);
   const [initialPlaylistCount] = useState(m.library.playlists.length);
   const hideEmptyLibrarySearchPlaylists = m.scene.page === "search" && m.scene.scope === "library" && !(m.scene.query ?? "").trim();
   const replayChrome = ["replay", "milestones", "milestone"].includes(m.scene.page);
-  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.library.playlists.length > initialPlaylistCount);
+  const suggestLessMenuPlaylists = initialFlow === "marking-a-song-as-suggest-less" && m.scene.menu === "artist";
+  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || suggestLessMenuPlaylists || m.library.playlists.length > initialPlaylistCount);
   const sourcePrefix = m.scene.source?.slice(0, 8);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const loginOffer = m.scene.flow === "logging-in" || ["3131018d", "417f6129", "6aa4a9d7", "4e65c7c6", "97de6907"].includes(sourcePrefix ?? "");

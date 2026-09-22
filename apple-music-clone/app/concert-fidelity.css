@@ -183,6 +183,7 @@
 .music-app[data-source^='70566e85'] .faithful-concerts:not(.location-selected) > .music-section { margin-top:40px; }
 .music-app[data-source^='70566e85'] .faithful-concerts:not(.location-selected) > .music-section .rail-wrap { margin-top:9px; }
 
-/* Captured artist scroll-state spacing. */
-.music-app[data-source^='c9a554f4'] #more-to-hear { margin-top:28px; }
-.music-app[data-source^='c9a554f4'] #more-to-see { margin-top:27px; }
+/* These adjacent Artist shelves use the tighter Apple spacing in both direct
+ * fixtures and ordinary control-driven navigation. */
+.music-app #more-to-hear { margin-top:28px; }
+.music-app #more-to-see { margin-top:27px; }

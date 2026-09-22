@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## Latest Artist scroll and concert exact-state acceptance
+
+The [Artist scroll and concert review](reference-review/2026-09-22-artist-scroll-concert-acceptance.md) accepts six exact Artist/Concert states after readable source/current/amplified-residual inspection. Final evidence root `.parity-evidence/artist-final-serial-20260922-150422` uses stable application identity `8d081b3c021dc59ced983d2fd71ebbcf9a7174e1bf1dae725e4c4ecb4543dc11` and QA-tooling identity `e9d473c6228e12920de5e2bf971703fcd5829f36928ab6bd098c946be171c0a0`. The optimized candidate passed 159 canonical desktop states, five responsive states, all 218 routes and all 113 registered interactions with zero failures; all 159 exact-size comparisons completed. Corpus mean moved `4.896626 -> 4.901258` MAE and `4.919505% -> 4.922101%` over-20; readable review of the accepted frames and the largest positive-delta frames found no unintended product regression. The initial Artist hero and its two menu frames retain a concrete lower-hero artwork/material mismatch, so all three related recorded journeys remain open. The live ledger is **UI 159/159, MATCH 74/159, FLOW 20/58**.
+
 ## Latest Playlist acceptance
 
 The [Emotional Songs Playlist review](reference-review/2026-09-21-playlist-acceptance.md) accepts the initial and four-song states after exact source/current/residual review, then accepts Playlist detail and Add suggested song through visible real controls. The ledger is **UI 159/159, MATCH 65/159, FLOW 13/58**. The app checkpoint passed the complete clean-checkout corpus; no application or frozen-reference file changes in this acceptance-only batch.

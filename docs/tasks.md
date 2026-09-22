@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-22 for the initial New exact-state and six source-ordered journey acceptance. The verified clean application tree remains `116ffff29c41915654d1648a3fdd373e41353817`; the reviewed follow-up through `3d3a624451c3cf8408b793210b3232e9b171538f` changes documentation only. **Only checkout: `J:\courses`; only branch: `main`.** Development remains port 6435.
+Updated 2026-09-22 for the Artist scroll and concert exact-state acceptance. The final optimized candidate keeps application identity `8d081b3c021dc59ced983d2fd71ebbcf9a7174e1bf1dae725e4c4ecb4543dc11` and QA-tooling identity `e9d473c6228e12920de5e2bf971703fcd5829f36928ab6bd098c946be171c0a0`. **Only checkout: `J:\courses`; only branch: `main`.** The canonical development port remains 6435; final optimized evidence was captured on port 6439.
 
-Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159 desktop states, five responsive states, 218 route checks and 109 registered interaction tests in GitHub Actions run `35628073726`; all 159 exact-size comparisons passed. Exact source/current/residual review now accepts `MATCH-e72be564`, and current-local real-control verification accepts Search, Artists, Albums, Songs, Music videos and All playlists. [Acceptance review](reference-review/2026-09-22-initial-new-flow-acceptance.md). MATCH is now 68/159 and FLOW is now 20/58; the complete three-step expanding-song flow remains open.
+Implementation checkpoint: the final optimized candidate passed 159 desktop states, five responsive states, 218 route checks and 113 registered interaction tests with zero failures; all 159 exact-size comparisons completed. Exact source/current/residual review accepts six Artist/Concert scroll states while the initial Artist hero and two Artist-menu states remain open. [Acceptance review](reference-review/2026-09-22-artist-scroll-concert-acceptance.md). MATCH is now 74/159 and FLOW remains 20/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,7 +13,7 @@ Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **68 / 159** |
+| Exact visual matches genuinely signed off | **74 / 159** |
 | Full recorded flows genuinely signed off | **20 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
@@ -23,7 +23,7 @@ Implementation checkpoint: `116ffff29c41915654d1648a3fdd373e41353817` passed 159
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Initial New and source-ordered journey review](reference-review/2026-09-22-initial-new-flow-acceptance.md). The repaired initial edition now uses the native Moana provider, and six complete journeys pass again through visible controls on the current local application. Current ledger: UI 159/159, MATCH 68/159, FLOW 20/58.
+Latest acceptance evidence: [Artist scroll and concert exact-state review](reference-review/2026-09-22-artist-scroll-concert-acceptance.md). The final stable optimized candidate passed 164 captures, all 218 route checks and all 113 registered interactions with zero failures, and all 159 exact-size comparisons completed. Six scrolled/concert states advance; the initial Artist hero, two Artist-menu states and their dependent flows remain open. Current ledger: UI 159/159, MATCH 74/159, FLOW 20/58. The preceding [Initial New and source-ordered journey review](reference-review/2026-09-22-initial-new-flow-acceptance.md) remains accepted.
 
 The preceding [Expanded player exact-state review](reference-review/2026-09-21-expanded-player-repair-candidate.md) remains accepted. Its incomplete first transition still keeps the three-step expanding-song flow open.
 
@@ -688,42 +688,49 @@ Check hero/crops, lower sections, artist preferences, concert navigation and vid
 
 - [x] **UI-484851bf — Artist detail — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-484851bf — Finish and verify the exact screenshot match.**
+  - 2026-09-22: The registered controls and full corpus pass, but the lower hero artwork/material band remains visibly different from source; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/484851bf-bc23-4088-8a34-4078c4d6b4ff.webp) · [Open app state](http://127.0.0.1:6435/screen/484851bf-bc23-4088-8a34-4078c4d6b4ff) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-57f7c08e"></a>
 
 - [x] **UI-57f7c08e — Artist detail — scrolled to essential albums.** Coded UI; current browser render passed.
-  - [ ] **MATCH-57f7c08e — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-57f7c08e — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching Essential Albums scroll geometry, content order, artwork, sidebar and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/57f7c08e-12df-4c12-8102-1755d2c5ef5a.webp) · [Open app state](http://127.0.0.1:6435/screen/57f7c08e-12df-4c12-8102-1755d2c5ef5a) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-edae3407"></a>
 
 - [x] **UI-edae3407 — Artist detail — scrolled to music videos.** Coded UI; current browser render passed.
-  - [ ] **MATCH-edae3407 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-edae3407 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching Music Videos scroll geometry, rail content, artwork, sidebar and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/edae3407-e738-4e2d-ad7e-07f016effc56.webp) · [Open app state](http://127.0.0.1:6435/screen/edae3407-e738-4e2d-ad7e-07f016effc56) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-c9a554f4"></a>
 
 - [x] **UI-c9a554f4 — Artist detail — scrolled to nearby concerts.** Coded UI; current browser render passed.
-  - [ ] **MATCH-c9a554f4 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-c9a554f4 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching Nearby Concerts section geometry, calendar content, sidebar and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/c9a554f4-59ef-4e05-b61b-f3eefabc0bbe.webp) · [Open app state](http://127.0.0.1:6435/screen/c9a554f4-59ef-4e05-b61b-f3eefabc0bbe) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-0c042c32"></a>
 
 - [x] **UI-0c042c32 — Artist detail — scrolled to about artist.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0c042c32 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0c042c32 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching About-section copy, metadata, related-artists rail, footer and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/0c042c32-f6d8-48b2-b2b0-0e43106fd67c.webp) · [Open app state](http://127.0.0.1:6435/screen/0c042c32-f6d8-48b2-b2b0-0e43106fd67c) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-bc773ae9"></a>
 
 - [x] **UI-bc773ae9 — Artist detail — artist menu.** Coded UI; current browser render passed.
   - [ ] **MATCH-bc773ae9 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: The live menu geometry works, but this complete frame inherits the open lower-hero artwork/material mismatch; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/bc773ae9-a55f-495b-a49f-d5b683feee73.webp) · [Open app state](http://127.0.0.1:6435/screen/bc773ae9-a55f-495b-a49f-d5b683feee73) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-f24fda77"></a>
 
 - [x] **UI-f24fda77 — Artist detail — artist menu.** Coded UI; current browser render passed.
   - [ ] **MATCH-f24fda77 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Suggest Less state persists through the live menu, but this complete frame inherits the open lower-hero artwork/material mismatch; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/f24fda77-5050-411c-8071-906043dcea9c.webp) · [Open app state](http://127.0.0.1:6435/screen/f24fda77-5050-411c-8071-906043dcea9c) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-898ca766"></a>
@@ -739,13 +746,15 @@ Check the city/no-results suggestions, June/July range selection, genre results,
 <a id="screen-9105a602"></a>
 
 - [x] **UI-9105a602 — Upcoming concerts — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-9105a602 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-9105a602 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching Nearby Concerts heading, controls, first rows, sidebar and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/9105a602-1d41-4e20-a694-fc62c1bbda0d.webp) · [Open app state](http://127.0.0.1:6435/screen/9105a602-1d41-4e20-a694-fc62c1bbda0d) · [Component](../apple-music-clone/components/music-concerts.tsx)
 
 <a id="screen-653efa95"></a>
 
 - [x] **UI-653efa95 — Upcoming concerts — scrolled state.** Coded UI; current browser render passed.
-  - [ ] **MATCH-653efa95 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-653efa95 — Finish and verify the exact screenshot match.**
+  - 2026-09-22: Exact source/current/residual review found matching Nearby Concerts scrolled rows, footer, sidebar and player placement; remaining pixels are lawful platform raster/decoder variation without a concrete product mismatch. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/653efa95-356a-48a7-8f38-9f6fd10e2006.webp) · [Open app state](http://127.0.0.1:6435/screen/653efa95-356a-48a7-8f38-9f6fd10e2006) · [Component](../apple-music-clone/components/music-concerts.tsx)
 
 <a id="screen-a0809fad"></a>

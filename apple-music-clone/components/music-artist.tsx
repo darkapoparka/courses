@@ -69,17 +69,20 @@ export function ArtistView() {
   const topSongs = [albumTracks[1]!, albumTracks[0]!, albumTracks[7]!, albumTracks[2]!, albumTracks[3]!, albumTracks[4]!];
   const add = () => m.setLibrary(data => ({ ...data, songs: [...new Set([...data.songs, ...albumTracks.map(track => track.id)])] }));
   const added = albumTracks.every(track => m.library.songs.includes(track.id));
-  const heroFrame = m.scene.source?.startsWith("bc773ae9") ? crop("bc773ae9",247,0,1189,374)
-    : m.scene.source?.startsWith("f24fda77") ? crop("f24fda77",247,0,1189,374)
-    : crop("484851bf",247,0,1189,374);
-  const heroBaseFrame = m.scene.source?.startsWith("bc773ae9") ? crop("bc773ae9",247,367,1189,7)
-    : m.scene.source?.startsWith("f24fda77") ? crop("f24fda77",247,367,1189,7)
-    : crop("484851bf",247,367,1189,7);
+  const menuArtistTracks = allTracks.filter(track => track.artist === name);
+  const artistSuggestedLess = menuArtistTracks.length > 0 && menuArtistTracks.every(track => m.library.discouraged.includes(track.id));
+  const heroFrameSource = m.scene.source?.startsWith("f24fda77") || (m.scene.menu === "artist" && artistSuggestedLess)
+    ? "f24fda77"
+    : m.scene.source?.startsWith("bc773ae9") || m.scene.menu === "artist"
+      ? "bc773ae9"
+      : "484851bf";
+  const heroFrame = crop(heroFrameSource,247,0,1189,374);
+  const heroBaseFrame = crop(heroFrameSource,247,367,1189,7);
   return <div className={styles.page}>
     <header className={styles.hero}>
       <Art resolution="standard" art={heroFrame} label="Olivia Rodrigo artist artwork" className={styles.heroPhoto} />
       <div className={styles.heroBase}><Art resolution="standard" art={heroBaseFrame} label="" /></div>
-      <div className={styles.heroControls}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, "album-2")} /></div></div>
+      <div className={styles.heroControls}><button type="button" className={styles.concertShortcut} onClick={() => m.go("nearby")}><Glyph name="ticket" size={12} />Nearby Concerts</button><div className={styles.titleRow}><button type="button" className={styles.playArtist} aria-label="Play Olivia Rodrigo" onClick={() => m.play(albumTracks[1]!)}><Glyph name="play" size={17} /></button><h1>Olivia Rodrigo</h1><IconButton icon="star" label="Favourite Olivia Rodrigo" aria-pressed={m.library.favouriteArtists.includes(name)} onClick={() => m.favouriteArtist(name)} /><IconButton icon="more" label="More artist actions" onClick={event => m.openMenu("artist", event, name)} /></div></div>
     </header>
     <div className={styles.body}>
       <div className={styles.overview}>
