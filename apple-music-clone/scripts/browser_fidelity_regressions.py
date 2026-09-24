@@ -2,7 +2,7 @@
 import json
 import os
 from pathlib import Path
-from playwright.async_api import expect
+from playwright.async_api import TimeoutError as PlaywrightTimeoutError, expect
 
 BASE = os.environ.get('REFERENCE_URL', 'http://127.0.0.1:3000')
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +17,24 @@ async def ready(page, path='/'):
     assert response and response.status == 200, (path, response.status if response else None)
     await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.evaluate('document.fonts.ready')
+    await page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
+
+
+async def wait_main_scroll(page, expression, width, action, arg=None):
+    try:
+        if arg is None:
+            await page.wait_for_function(expression, timeout=15000)
+        else:
+            await page.wait_for_function(expression, arg=arg, timeout=15000)
+    except PlaywrightTimeoutError as error:
+        state = await page.locator('main').evaluate('''element => ({
+          active: document.activeElement === element,
+          top: element.scrollTop,
+          clientHeight: element.clientHeight,
+          scrollHeight: element.scrollHeight
+        })''')
+        raise AssertionError(f'{action} did not settle at {width}px: {state}') from error
+
 
 async def sidebar_and_rails(page, context):
     for width, height in [(1440,903), (1264,700), (1920,1080), (1024,768), (820,900), (390,844)]:
@@ -36,16 +54,19 @@ async def sidebar_and_rails(page, context):
         await page.keyboard.press('Tab')
         await expect(page.get_by_role('link', name='Skip to content', exact=True)).to_be_focused()
         await page.keyboard.press('Enter')
-        await expect(page.locator('main')).to_be_focused()
-        await page.keyboard.press('PageDown')
-        await page.wait_for_function('document.querySelector("main").scrollTop > 0')
-        await page.keyboard.press('Control+Home')
-        await page.wait_for_function('document.querySelector("main").scrollTop === 0')
+        main_scroll = page.locator('main')
+        await expect(main_scroll).to_be_focused()
+        await main_scroll.press('PageDown')
+        await wait_main_scroll(page, 'document.querySelector("main").scrollTop > 0', width, 'PageDown')
+        await main_scroll.press('Control+Home')
+        await wait_main_scroll(page, 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after PageDown')
         await page.mouse.move(width - 80, min(height - 120, 500))
+        wheel_start = await main_scroll.evaluate('(element) => element.scrollTop')
         await page.mouse.wheel(0, 260)
-        await page.wait_for_function('document.querySelector("main").scrollTop > 0')
-        await page.keyboard.press('Control+Home')
-        await page.wait_for_function('document.querySelector("main").scrollTop === 0')
+        await wait_main_scroll(page, '(start) => document.querySelector("main").scrollTop > start', width, 'Mouse wheel', wheel_start)
+        await main_scroll.focus()
+        await main_scroll.press('Control+Home')
+        await wait_main_scroll(page, 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after mouse wheel')
         if width > 640:
             sidebar = await page.locator('.music-sidebar').bounding_box()
             assert sidebar and main['x'] >= sidebar['x'] + sidebar['width'], (width, main, sidebar)
