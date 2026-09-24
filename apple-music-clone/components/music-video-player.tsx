@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { videoArt } from "../lib/music-catalog";
 import { useMusic } from "./music-context";
-import { Art, Glyph, IconButton } from "./music-primitives";
+import { Art, IconButton } from "./music-primitives";
 
 const clock = (seconds: number) => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 const progress = (value: number, maximum: number) => ({ background: `linear-gradient(to right, #fff ${value / maximum * 100}%, #20202099 ${value / maximum * 100}%)` });
@@ -29,7 +29,7 @@ export function VideoPlayer() {
 
   useEffect(() => {
     if (!playing || !running || source) return;
-    const timer = window.setInterval(() => setElapsed(value => Math.min(duration, value + .25)), 250);
+    const timer = window.setInterval(() => setElapsed(value => Math.min(duration, value + 1)), 1000);
     return () => window.clearInterval(timer);
   }, [playing, running, source, duration]);
   useEffect(() => { if (elapsed >= duration) setPlaying(false); }, [elapsed, duration]);
@@ -88,7 +88,7 @@ export function VideoPlayer() {
       <div className="video-reference-controls" aria-label="Video controls">
         <div className="video-progress-row"><span aria-label="Elapsed video time">{clock(elapsed)}</span><input type="range" aria-label="Video position" min="0" max={duration} step="0.25" value={elapsed} style={progress(elapsed, duration)} onChange={event => seek(Number(event.target.value))} /><span>-{clock(duration - elapsed)}</span></div>
         <div className="video-control-row">
-          <label className="video-volume-control"><Glyph name="volume" size={12} /><input type="range" aria-label="Video volume" min="0" max="1" step="0.01" value={m.volume} style={progress(m.volume, 1)} onChange={event => m.setVolume(Number(event.target.value))} /></label>
+          <label className="video-volume-control"><input type="range" aria-label="Video volume" min="0" max="1" step="0.01" value={m.volume} style={progress(m.volume, 1)} onChange={event => m.setVolume(Number(event.target.value))} /></label>
           <div className="video-center-controls">
             <IconButton icon="rewind-10" label="Back 10 seconds" onClick={() => seek(elapsed - 10)} />
             <IconButton icon={playing ? "pause" : "play"} label={playing ? "Pause video" : "Play video"} onClick={toggle} />

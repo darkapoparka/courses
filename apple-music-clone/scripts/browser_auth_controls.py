@@ -1,6 +1,6 @@
 """Read-only fixture and local draft regressions; no account service is used."""
 from playwright.async_api import expect
-from browser_live_fidelity import start, record
+from browser_live_fidelity import BASE, start, record, source
 
 async def signup_field_presentation(page, context):
     for prefix in ['cd34d1ac', '269160a4']:
@@ -73,3 +73,62 @@ async def signup_field_chrome(page, context):
         await expect(dialog).to_be_visible()
 
 CASES.append(('signup-field-chrome', signup_field_chrome))
+
+
+async def onboarding_live_flow(page, context):
+    """Traverse the saved onboarding sequence through the local preview controls."""
+    from qa_identity import reference_viewport
+
+    initial = source('3731221f')
+    await page.set_viewport_size(reference_viewport(initial))
+    mutating_requests = []
+    page.on('request', lambda request: mutating_requests.append(request) if request.method != 'GET' else None)
+    response = await page.goto(BASE + '/flows/onboarding?step=0', wait_until='networkidle')
+    assert response and response.status == 200
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
+    await page.evaluate('document.fonts.ready')
+    await expect(page.locator('.music-app')).to_have_attribute('data-source', initial)
+    await expect(page.locator('.music-app')).to_have_attribute('data-flow', 'onboarding')
+    await expect(page.get_by_role('button', name='Sign In', exact=True)).to_be_visible()
+    await record(page, 'onboarding-live-controls', '3731221f', 'Open the first recorded New state; no journey step is initialized by URL after this point')
+
+    await page.get_by_role('button', name='Sign In', exact=True).click()
+    await expect(page.get_by_role('dialog')).to_be_visible()
+    await record(page, 'onboarding-live-controls', 'ee751367', 'Open Sign In from the visible guest control')
+    email = page.get_by_label('Email address', exact=True)
+    await email.fill('alexsmith@content-mobbin.com')
+    await page.get_by_role('heading', name='Continue with Email Address', exact=True).click()
+    await record(page, 'onboarding-live-controls', 'bdc56e10', 'Enter the captured local preview email, then blur on the visible form heading')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+    await expect(page.locator('dialog.auth-signup')).to_be_visible()
+    await record(page, 'onboarding-live-controls', '4a1d7759', 'Continue into the local Create your account form')
+
+    await page.get_by_label('Preview password', exact=True).fill('Preview1!')
+    await page.get_by_label('First name', exact=True).fill('Alex')
+    await page.get_by_label('Last name', exact=True).fill('Smith')
+    await page.get_by_role('heading', name='Create your account', exact=True).click()
+    await record(page, 'onboarding-live-controls', 'cd34d1ac', 'Enter the documented local preview form values, then blur on the visible form heading')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+    await expect(page.locator('form[data-auth-step="1"]')).to_be_visible()
+    await record(page, 'onboarding-live-controls', 'eebd5ffb', 'Continue to the profile details form and verify its recorded scroll position')
+
+    await page.get_by_label('Date of birth', exact=True).fill('18/02/1995')
+    terms = page.get_by_role('checkbox', name='Agree to Terms & Conditions', exact=True)
+    await terms.check()
+    await expect(terms).to_be_checked()
+    await record(page, 'onboarding-live-controls', '269160a4', 'Enter the preview date and check the local form acknowledgement')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+    await expect(page.locator('dialog.auth-verification')).to_be_visible()
+    await record(page, 'onboarding-live-controls', '99af3033', 'Continue to the empty six-digit verification form')
+
+    code = page.get_by_label('Verification code', exact=True)
+    await code.fill('928523')
+    await expect(page.locator('.verification-pending')).to_be_visible()
+    await page.get_by_role('heading', name='Enter Verification Code', exact=True).click()
+    await record(page, 'onboarding-live-controls', 'dfce44a2', 'Enter the captured local preview code, blur on its visible heading and record verification before the local transition', wait_for_network_idle=False)
+    await expect(page.locator('dialog.capture-checkout')).to_be_visible(timeout=3000)
+    await expect(page.get_by_role('heading', name='Payment Method', exact=True)).to_be_visible()
+    await record(page, 'onboarding-live-controls', '51c79ae2', 'Observe the resulting local payment-method preview')
+    assert not mutating_requests, f'Local onboarding preview must not submit data: {mutating_requests}'
+
+CASES.append(('onboarding-live-controls', onboarding_live_flow))

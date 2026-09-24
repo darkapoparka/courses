@@ -10,9 +10,11 @@
 .dialog-apple { position:absolute; right:22px; top:23px; color:#c6c6c8; z-index:1; }
 .capture-auth .auth-subtitle { color:#69696c; font-size:17px; line-height:26px; text-align:center; margin-top:11px; }
 .auth-email form { padding:0 60px; display:flow-root; }
-.email-entry { display:block; width:458px; max-width:100%; height:54px; margin:27px auto 0; }
+.email-entry { display:block; position:relative; width:458px; max-width:100%; height:54px; margin:27px auto 0; }
 .email-entry input { display:block; width:100%; height:100%; padding:12px 16px; border:1px solid #96969a; border-radius:10px; font-size:16px; outline-offset:1px; }
-.auth-privacy { width:458px; max-width:100%; margin:34px auto 0; text-align:center; color:#85858a; font-size:11px; line-height:15px; }
+.email-entry.is-filled input { padding:24px 16px 2px; }
+.email-entry-caption { position:absolute; z-index:1; top:8px; left:16px; font-size:11px; line-height:13px; color:#7d7d80; pointer-events:none; }
+.auth-privacy { width:458px; max-width:100%; margin:34px auto 0; text-align:center; color:#85858a; font-size:12px; line-height:15px; }
 .privacy-mark { display:grid; place-items:center; height:27px; color:#d5234b; }
 .privacy-mark svg { display:none; }
 .privacy-mark::before {
@@ -35,6 +37,7 @@
 .capture-field > span { position:absolute; top:7px; left:16px; font-size:11px; line-height:13px; color:#7d7d80; pointer-events:none; }
 .capture-field input, .capture-field select { display:block; height:54px; border:1px solid #99999e; border-radius:9px; padding:21px 16px 7px; font-size:16px; line-height:22px; width:100%; min-width:0; }
 .capture-field:has(input[readonly]) input { background:#fcfcfc; }
+.capture-checkout .capture-field input[readonly]:focus-visible { outline:none; outline-offset:0; }
 .capture-field.placeholder-only > span:not(.sr-only) { display:none; }
 .capture-field.placeholder-only input { padding:12px 16px; }
 .capture-help { margin-top:10px; color:#7a7a7e; font-size:13px; line-height:19px; }
@@ -185,6 +188,17 @@
 .capture-checkout h3.checkout-confirm-heading { margin-top:48px; }
 
 .capture-checkout h3.checkout-confirm-heading { margin:40px 0 21px; }
+
+/* Desktop trial checkout references use tighter billing-row spacing. */
+@media (min-width:641px) {
+  .capture-checkout #checkout-billing { margin:38px 0 1px; }
+  .capture-checkout #checkout-billing ~ .capture-field { margin-top:13px; }
+  .capture-checkout.checkout-billing-step #checkout-billing { margin-top:42px; margin-bottom:2px; }
+  .capture-checkout.checkout-billing-step #checkout-billing + .checkout-two .capture-field input { height:53px; }
+  .capture-checkout.checkout-billing-step .checkout-confirm-heading { margin-top:50px; margin-bottom:14px; }
+  .capture-checkout.checkout-confirmed-step .checkout-confirm-heading { margin-bottom:7px; }
+  .capture-checkout.checkout-confirmed-step .checkout-column > .auth-primary { margin-top:58px; }
+}
 
 /* Source-observed signup fields stay live, including the filled password
    label and the profile step anchored to the actual Last Name control. */

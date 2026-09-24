@@ -18,7 +18,7 @@ The [root contract](../AGENTS.md) defines the phase and preservation rules. The 
 | Resolve conflicting directions | [decisions.md](decisions.md) |
 | Use Astra, current OpenAI sources and focused skills | [astra/README.md](astra/README.md) |
 
-Dated observations remain in [reference-review](reference-review/ledger.md). The existing [full-corpus metrics](reference-review/latest-metrics.json) identify a past candidate, not the current dirty working tree or an acceptance certificate.
+Dated observations remain in [reference-review](reference-review/ledger.md). The [full-corpus metrics](reference-review/latest-metrics.json) record the candidate named inside that diagnostic; they are not an acceptance certificate.
 
 ## Deferred product requirements
 

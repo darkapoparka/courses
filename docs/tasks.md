@@ -1,8 +1,8 @@
 # Apple Music clone — screen and flow checklist
 
-Updated 2026-09-22 for the Artist scroll and concert exact-state acceptance. The final optimized candidate keeps application identity `8d081b3c021dc59ced983d2fd71ebbcf9a7174e1bf1dae725e4c4ecb4543dc11` and QA-tooling identity `e9d473c6228e12920de5e2bf971703fcd5829f36928ab6bd098c946be171c0a0`. **Only checkout: `J:\courses`; only branch: `main`.** The canonical development port remains 6435; final optimized evidence was captured on port 6439.
+Updated 2026-09-23 after exact review of the New→Radio flow and expanded-player follow-up. Latest optimized candidate: application identity `bff0cfe37cf1b14489847886ceb6af56309c9739852396a7694d9aaf18c9062d`, QA identity `18425a67e002b0412ac9b06f91f4051786cf9319e3f09f89767502c1a3513d57`, source commit `d71c3c4355d847867fc04aa1f4b69cb8035aba4d`, build `IZsXtUJrQtuyr8ypMB7xi`. **Only checkout: `J:\courses`; only branch: `main`.** The canonical development port remains 6435; this optimized candidate is served locally on port 6473.
 
-Implementation checkpoint: the final optimized candidate passed 159 desktop states, five responsive states, 218 route checks and 113 registered interaction tests with zero failures; all 159 exact-size comparisons completed. Exact source/current/residual review accepts six Artist/Concert scroll states while the initial Artist hero and two Artist-menu states remain open. [Acceptance review](reference-review/2026-09-22-artist-scroll-concert-acceptance.md). MATCH is now 74/159 and FLOW remains 20/58.
+Latest optimized rerun: 164 browser states, all 218 routes and all 124 registered interaction regressions passed with zero failures; all 159 exact-size comparisons completed. Direct Radio review accepts `37575452` and `f49fce21` alongside `4cb8f3aa`, `0920d819`, `a9992e55`, and `47a07865`; continuous flows `4239264b` and `e7c28ffc` are accepted after real-control and exact-frame review. The saved 63% expanded-player volume state is implemented and verified; keep `7bd2ef54` open for its remaining background/glyph residual and `868aa817` open for its saved/live sidebar snapshot difference. [Latest New-to-Radio flow acceptance](reference-review/2026-09-23-radio-entry-flow-acceptance.md), [Radio selected-screen, schedule and player review](reference-review/2026-09-23-radio-selected-schedule-acceptance.md), [prior Radio screen/flow review](reference-review/2026-09-23-radio-screen-flow-review.md), [Account Settings screen and flow review](reference-review/2026-09-23-account-settings-flow-review.md), [account access and parental-controls review](reference-review/2026-09-23-account-access-parental-controls-match.md). Earlier exact reviews accept account subscriptions `44101453`, queue panel `8f029018`, expanded-player subtitle `b3f29b6f`, track-menu states `ac05c6b8` and `96711b04`, seven onboarding screens and their complete ten-step journey, four sign-in email states, both Artist video-player states and the complete watched-video and Add to Library journeys. [Account subscriptions review](reference-review/2026-09-23-account-subscriptions-match.md), [queue review](reference-review/2026-09-23-queue-panel-match.md), [subtitle review](reference-review/2026-09-23-expanded-player-subtitle-match.md), [expanded-player menu and Add to Library review](reference-review/2026-09-23-adding-to-library-flow.md), [track-menu review](reference-review/2026-09-23-expanded-track-menu-acceptance.md), [onboarding review](reference-review/2026-09-23-onboarding-acceptance.md), [sign-in form review](reference-review/2026-09-23-auth-form-acceptance.md), [video review](reference-review/2026-09-23-artist-video-acceptance.md), [Artist hero/menu review](reference-review/2026-09-23-artist-hero-menu-acceptance.md), and [lyrics-panel review](reference-review/2026-09-23-lyrics-panel-match.md). MATCH is 112/159 and FLOW is 28/58.
 
 `DOCS-ASTRA-LOCAL` adopted `67a44c4` in `eae1eff`, preserving the historical course work, original preview, all 577 reference files and all checklist boxes. `DOCS-MAIN-CONSOLIDATION` combines that guidance with the verified Home batch `4c8840a` and its evidence `e6a71f7`; [handoff](handoff.md) records actual verification and unfinished work. These repository operations grant no new UI/MATCH/FLOW acceptance.
 
@@ -13,8 +13,8 @@ Implementation checkpoint: the final optimized candidate passed 159 desktop stat
 | Unique saved screens with coded UI and a successful current browser render | **159 / 159** |
 | Recorded flows listed individually below | **58** |
 | Ordered recorded steps linked to their screen tasks | **218** |
-| Exact visual matches genuinely signed off | **74 / 159** |
-| Full recorded flows genuinely signed off | **20 / 58** |
+| Exact visual matches genuinely signed off | **112 / 159** |
+| Full recorded flows genuinely signed off | **28 / 58** |
 | TypeScript and production build | Passed using the already-installed binaries |
 
 **Two separate screen checkboxes:** `UI-…` means code exists and the exact state rendered in the browser. `MATCH-…` means the remaining visual work is finished and a source-versus-browser comparison has been reviewed. A checked UI task is not a claim of complete 1:1 implementation.
@@ -23,7 +23,7 @@ Implementation checkpoint: the final optimized candidate passed 159 desktop stat
 
 ## Current finalization evidence
 
-Latest acceptance evidence: [Artist scroll and concert exact-state review](reference-review/2026-09-22-artist-scroll-concert-acceptance.md). The final stable optimized candidate passed 164 captures, all 218 route checks and all 113 registered interactions with zero failures, and all 159 exact-size comparisons completed. Six scrolled/concert states advance; the initial Artist hero, two Artist-menu states and their dependent flows remain open. Current ledger: UI 159/159, MATCH 74/159, FLOW 20/58. The preceding [Initial New and source-ordered journey review](reference-review/2026-09-22-initial-new-flow-acceptance.md) remains accepted.
+Latest acceptance evidence: the [New-to-Radio flow review](reference-review/2026-09-23-radio-entry-flow-acceptance.md), [Radio selected-screen and schedule review](reference-review/2026-09-23-radio-selected-schedule-acceptance.md), [prior Radio screen and flow review](reference-review/2026-09-23-radio-screen-flow-review.md), [Account Settings screen and flow review](reference-review/2026-09-23-account-settings-flow-review.md), [account access and parental-controls review](reference-review/2026-09-23-account-access-parental-controls-match.md), [account subscriptions review](reference-review/2026-09-23-account-subscriptions-match.md), [queue-panel review](reference-review/2026-09-23-queue-panel-match.md), [expanded-player subtitle review](reference-review/2026-09-23-expanded-player-subtitle-match.md), [expanded-player menu and Add to Library review](reference-review/2026-09-23-adding-to-library-flow.md), [onboarding exact-state and recorded-flow review](reference-review/2026-09-23-onboarding-acceptance.md), [sign-in email form review](reference-review/2026-09-23-auth-form-acceptance.md), [Artist music-video review](reference-review/2026-09-23-artist-video-acceptance.md), [Artist hero/menu review](reference-review/2026-09-23-artist-hero-menu-acceptance.md), and [New lyrics-panel review](reference-review/2026-09-23-lyrics-panel-match.md). The latest optimized run captured 164 states, checked all 218 routes and ran 124 registered interactions with zero failures; all 159 exact-size comparisons completed. Radio `37575452` and `f49fce21` and flows `4239264b` and `e7c28ffc` are accepted after exact-state and real-control review. Radio flow `868aa817` and expanded player `7bd2ef54` retain concrete snapshot and material differences. Current ledger: UI 159/159, MATCH 112/159, FLOW 28/58. The preceding [Initial New and source-ordered journey review](reference-review/2026-09-22-initial-new-flow-acceptance.md) remains accepted.
 
 The preceding [Expanded player exact-state review](reference-review/2026-09-21-expanded-player-repair-candidate.md) remains accepted. Its incomplete first transition still keeps the three-step expanding-song flow open.
 
@@ -190,109 +190,127 @@ Check each empty/filled/error step, focus, dialog size and transitions. These re
 <a id="screen-ee751367"></a>
 
 - [x] **UI-ee751367 — New — sign-in email form, step 1, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ee751367 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ee751367 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440×903 source/render/residual review confirms the empty field, source line breaks in the privacy copy, dialog geometry, and Continue action; remaining residual is lawful text/icon raster. [Review](reference-review/2026-09-23-auth-form-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/ee751367-0aad-4762-b7c3-52724efe5656.webp) · [Open app state](http://127.0.0.1:6435/screen/ee751367-0aad-4762-b7c3-52724efe5656) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-bdc56e10"></a>
 
 - [x] **UI-bdc56e10 — New — sign-in email form, step 1, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bdc56e10 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-bdc56e10 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Added the source-observed floating “Email address” caption above the filled value; geometry and copy match the exact desktop source. [Review](reference-review/2026-09-23-auth-form-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/bdc56e10-b108-4247-85a8-749f706e94bb.webp) · [Open app state](http://127.0.0.1:6435/screen/bdc56e10-b108-4247-85a8-749f706e94bb) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-4a1d7759"></a>
 
 - [x] **UI-4a1d7759 — New — new-account form, step 1, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-4a1d7759 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-4a1d7759 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Source/current/residual review confirms the empty account form, email hint, validation copy, field order, clipped scroll position and sticky actions at 1440×903. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01.webp) · [Open app state](http://127.0.0.1:6435/screen/4a1d7759-bb4e-4fa7-b080-f32c7a3ecb01) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-cd34d1ac"></a>
 
 - [x] **UI-cd34d1ac — New — new-account form, step 1, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-cd34d1ac — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-cd34d1ac — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Filled email, preview password and name values match source content and geometry; remaining readable residuals are platform text raster. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/cd34d1ac-4edf-48aa-80f8-28565046d465.webp) · [Open app state](http://127.0.0.1:6435/screen/cd34d1ac-4edf-48aa-80f8-28565046d465) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-eebd5ffb"></a>
 
 - [x] **UI-eebd5ffb — New — new-account form, step 2, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-eebd5ffb — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-eebd5ffb — Finish and verify the exact screenshot match.**
+  - 2026-09-23: The profile form's saved scroll position, country selector, Apple Updates checkbox, unchecked terms acknowledgement and sticky action row match source placement and state. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/eebd5ffb-0edf-4662-a583-a6c7c73d38e5.webp) · [Open app state](http://127.0.0.1:6435/screen/eebd5ffb-0edf-4662-a583-a6c7c73d38e5) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-269160a4"></a>
 
 - [x] **UI-269160a4 — New — new-account form, step 2, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-269160a4 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-269160a4 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Birth date, country, checked updates/terms acknowledgements and the source scroll position match; only small font and border raster differences remain. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/269160a4-3232-492b-ab92-2a96787ab821.webp) · [Open app state](http://127.0.0.1:6435/screen/269160a4-3232-492b-ab92-2a96787ab821) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-99af3033"></a>
 
 - [x] **UI-99af3033 — New — verification form, step 1, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-99af3033 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-99af3033 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Empty six-digit verification form, account address, links and dialog bounds align with the source; remaining differences are minor type raster and one-to-three pixel placement. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/99af3033-b3bc-489e-951d-9d68077d5a1f.webp) · [Open app state](http://127.0.0.1:6435/screen/99af3033-b3bc-489e-951d-9d68077d5a1f) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-dfce44a2"></a>
 
 - [x] **UI-dfce44a2 — New — verification form, step 1, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-dfce44a2 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-dfce44a2 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: The local six-digit preview code and verifying spinner match the captured state; geometry and content align, with minor icon/text raster only. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/dfce44a2-c4ac-4b22-a64f-cde6b71cc43f.webp) · [Open app state](http://127.0.0.1:6435/screen/dfce44a2-c4ac-4b22-a64f-cde6b71cc43f) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-51c79ae2"></a>
 
 - [x] **UI-51c79ae2 — New — trial checkout, step 1, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-51c79ae2 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-51c79ae2 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Empty payment-method preview matches saved dialog bounds, title, selection, fields, billing address and crop; no payment details were entered. [Onboarding review](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/51c79ae2-62e0-48d2-9a1c-df11a23d39e5.webp) · [Open app state](http://127.0.0.1:6435/screen/51c79ae2-62e0-48d2-9a1c-df11a23d39e5) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-b74d25cb"></a>
 
 - [x] **UI-b74d25cb — New — trial checkout, step 1, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b74d25cb — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b74d25cb — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/b74d25cb-3c3c-4a08-8bfe-5c8e638d7958.webp) · [Open app state](http://127.0.0.1:6435/screen/b74d25cb-3c3c-4a08-8bfe-5c8e638d7958) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-94b9d90d"></a>
 
 - [x] **UI-94b9d90d — New — trial checkout, step 2, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-94b9d90d — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-94b9d90d — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/94b9d90d-6271-4bba-980e-2017a998c026.webp) · [Open app state](http://127.0.0.1:6435/screen/94b9d90d-6271-4bba-980e-2017a998c026) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-a728c2af"></a>
 
 - [x] **UI-a728c2af — New — trial checkout, step 2, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a728c2af — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-a728c2af — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review, including the open address suggestion. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/a728c2af-43c0-4fdf-b7d1-975a9dc05720.webp) · [Open app state](http://127.0.0.1:6435/screen/a728c2af-43c0-4fdf-b7d1-975a9dc05720) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-06ea37ef"></a>
 
 - [x] **UI-06ea37ef — New — trial checkout, step 2, filled, scrolled state, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-06ea37ef — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-06ea37ef — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review after selecting the address suggestion. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/06ea37ef-2485-4219-b244-9d56516c2c42.webp) · [Open app state](http://127.0.0.1:6435/screen/06ea37ef-2485-4219-b244-9d56516c2c42) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-5175a910"></a>
 
 - [x] **UI-5175a910 — New — trial checkout, step 3, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-5175a910 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-5175a910 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review at the subscription details. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/5175a910-7c9f-45f8-8867-9c5969209cfe.webp) · [Open app state](http://127.0.0.1:6435/screen/5175a910-7c9f-45f8-8867-9c5969209cfe) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-ecb33359"></a>
 
 - [x] **UI-ecb33359 — New — trial checkout, step 3, scrolled state, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ecb33359 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ecb33359 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review at the confirmation controls. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/ecb33359-6b42-4866-861e-e6c733c095ed.webp) · [Open app state](http://127.0.0.1:6435/screen/ecb33359-6b42-4866-861e-e6c733c095ed) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-bf099ae2"></a>
 
 - [x] **UI-bf099ae2 — New — trial checkout, step 4, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bf099ae2 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-bf099ae2 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review; Done remains below the captured modal crop and is reachable by scrolling. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Reference image](../apple-music-clone/reference/originals/bf099ae2-46b1-444a-99d0-ea3967c8ab70.webp) · [Open app state](http://127.0.0.1:6435/screen/bf099ae2-46b1-444a-99d0-ea3967c8ab70) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-3131018d"></a>
 
 - [x] **UI-3131018d — New — sign-in email form, step 1, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-3131018d — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-3131018d — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Empty sign-in form and legacy “All ad-free” offer copy/button match the exact source; no separate banner change was needed. [Review](reference-review/2026-09-23-auth-form-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/3131018d-35b8-4527-a6fe-384fbe950fe7.webp) · [Open app state](http://127.0.0.1:6435/screen/3131018d-35b8-4527-a6fe-384fbe950fe7) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-417f6129"></a>
 
 - [x] **UI-417f6129 — New — sign-in email form, step 1, filled, signed out.** Coded UI; current browser render passed.
-  - [ ] **MATCH-417f6129 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-417f6129 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Filled form includes the source-observed floating caption and value; legacy offer banner, spacing and dialog align with the exact source. [Review](reference-review/2026-09-23-auth-form-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/417f6129-8919-4535-985c-b43888ec8930.webp) · [Open app state](http://127.0.0.1:6435/screen/417f6129-8919-4535-985c-b43888ec8930) · [Component](../apple-music-clone/components/music-auth.tsx)
 
 <a id="screen-6aa4a9d7"></a>
@@ -476,21 +494,23 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-b3f29b6f"></a>
 
 - [x] **UI-b3f29b6f — Expanded song player — lyrics visible.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b3f29b6f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b3f29b6f — Expanded-player subtitle matches the exact screenshot.** 2026-09-23: reviewed the exact 1440×903 source, optimized render and residual; the ticker now ends after “in” at 0:54 and preserves the adjacent ticker states. [Evidence](reference-review/2026-09-23-expanded-player-subtitle-match.md).
   - [Reference image](../apple-music-clone/reference/originals/b3f29b6f-5884-493c-bbc2-54f25620d5fb.webp) · [Open app state](http://127.0.0.1:6435/screen/b3f29b6f-5884-493c-bbc2-54f25620d5fb) · [Component](../apple-music-clone/components/music-player.tsx)
 
 <a id="screen-ac05c6b8"></a>
 
 - [x] **UI-ac05c6b8 — Expanded song player — track menu, lyrics visible.** Coded UI; current browser render passed.
-  - [ ] **MATCH-ac05c6b8 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ac05c6b8 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact desktop review confirms the real More anchor, ten ordered track actions, favourite/library state, lyric lines and album crop. Readable residuals are confined to active playback material and raster edges. [Review](reference-review/2026-09-23-expanded-track-menu-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/ac05c6b8-9970-422b-bbc1-3aaff880946c.webp) · [Open app state](http://127.0.0.1:6435/screen/ac05c6b8-9970-422b-bbc1-3aaff880946c) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-96711b04"></a>
 
-2026-09-20: Readable source/baseline/current review confirms an inherited extra grey menu-like backplate/edge and menu/lyric geometry differences. Its owner is not established; do not assume the clean c939c9b8 artwork contains the defect. [Evidence](reference-review/2026-09-20-session-discovery-recovery.md).
+2026-09-23: The in-library menu placement is now aligned with its More control and the saved source after a shared four-pixel expanded-track positioning correction. Exact source/render/residual review accepted this screen; the complete Add to Library flow is independently accepted. The older grey backplate observation came from an earlier candidate and does not describe this reviewed render. [Review](reference-review/2026-09-23-adding-to-library-flow.md).
 
 - [x] **UI-96711b04 — Expanded song player — track menu, lyrics visible.** Coded UI; current browser render passed.
-  - [ ] **MATCH-96711b04 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-96711b04 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: The saved source places the expanded menu at the More anchor around `x=587`; the candidate had used the button center at `x=591`. The shared expanded-track position now shifts left four pixels. Full optimized source/render/residual review confirms the in-library action order, Pin Song/Delete from Library labels, art crop and player/lyric composition. MAE `7.458890`, over-20 `6.177864%`; residual review found no remaining product mismatch. The neighboring `ac05c6b8` state was also rechecked without regression. [Review](reference-review/2026-09-23-adding-to-library-flow.md).
   - [Reference image](../apple-music-clone/reference/originals/96711b04-1b3e-4b9d-acbc-f84a3ee05b47.webp) · [Open app state](http://127.0.0.1:6435/screen/96711b04-1b3e-4b9d-acbc-f84a3ee05b47) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-0c6da10e"></a>
@@ -534,7 +554,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 - [x] **UI-ee8db412 — New — lyrics panel, playing stupid song.** Coded UI; current browser render passed.
   - 2026-09-15: Live first entry now applies the reviewed lyric/player glass and 191px active-line anchor without an endpoint-catalog reset. Close/reopen is byte-identical; the direct fixture remains unchanged at 10.104359% over-20. The continuous endpoint remains 36.523933% because its saved catalog/library/lyric snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Refined panel geometry and lyric spacing/fade; first-verse seeking and close/reopen retain the established catalog. Initial recorded entry remains different: see FLOW-bc0ba8f1. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
-  - [ ] **MATCH-ee8db412 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-ee8db412 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 source/render/residual review found matching lyric panel, text state, underlying New page, sidebar and player. The separate session-dependent live-entry flow remains open. [Evidence](reference-review/2026-09-23-lyrics-panel-match.md).
   - 2026-09-15: Opening lyrics no longer has any path to mutate unrelated sidebar material; direct over-20 is 10.100975% / 6.873147 MAE. Real-control open/close/reopen is byte-identical, but typography, lyric fade/blur, player geometry and the unsupported endpoint catalog snapshot still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.138351% → 10.104359%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/ee8db412-71b0-49a8-a1ab-5d6685153abe.webp) · [Open app state](http://127.0.0.1:6435/screen/ee8db412-71b0-49a8-a1ab-5d6685153abe) · [Component](../apple-music-clone/components/music-player.tsx)
@@ -546,7 +567,8 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 - [x] **UI-8f029018 — New — queue panel, playing stupid song.** Coded UI; current browser render passed.
   - 2026-09-15: Live first entry now applies open-panel player glass while preserving the current eleven-row queue exactly. Close/reopen is byte-identical; the direct fixture remains unchanged at 9.781054% over-20. The continuous endpoint remains 34.701150% because its saved discovery/queue snapshot differs, so MATCH stays open. [Evidence](reference-review/2026-09-15-lyrics-queue-first-entry.md).
   - 2026-09-12 bounded review: Separated discovery and queue YUKON editions, retained full queue titles/credits and removed opaque row rules. Volume toggling preserves editions. Initial recorded entry remains different: see FLOW-e0a0f93e. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
-  - [ ] **MATCH-8f029018 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-8f029018 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized 1440 × 903 source/render/residual review confirms the 12 queue rows, labels, durations, artwork, panel placement, New page and player composition. The live `FLOW-e0a0f93e` entry from `1f9e170c` is separately recorded through Up Next and preserves its different starting queue/catalog; that endpoint discrepancy remains open in the flow. [Review and evidence](reference-review/2026-09-23-queue-panel-match.md).
   - 2026-09-15: Opening Up Next no longer has any path to mutate unrelated sidebar material; direct residual is 9.783284% / 7.451456 MAE. Real-control open/close/reopen is byte-identical, but queue row geometry/artwork, player controls and the unsupported endpoint discovery/queue snapshot still block MATCH. [Evidence](reference-review/2026-09-15-sidebar-material-repair.md).
   - `5929190`: Native 193px panel releases and corrected safe fragment coordinates; original over-20 residual 10.134659% → 9.776978%. Remaining visible differences are not signed off. [Evidence](reference-review/2026-09-13-main-discovery-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/8f029018-9c70-4715-9012-88a8a9d106b2.webp) · [Open app state](http://127.0.0.1:6435/screen/8f029018-9c70-4715-9012-88a8a9d106b2) · [Component](../apple-music-clone/components/music-player.tsx)
@@ -594,13 +616,15 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-a4afd6e6"></a>
 
 - [x] **UI-a4afd6e6 — Music-video player — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a4afd6e6 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-a4afd6e6 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized source/render/residual review accepts the six-second player frame; the bare volume slider and transport match, with only platform raster and lower-player material residuals. [Evidence](reference-review/2026-09-23-artist-video-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/a4afd6e6-eddb-4263-b7eb-5be73f8f2b03.webp) · [Open app state](http://127.0.0.1:6435/screen/a4afd6e6-eddb-4263-b7eb-5be73f8f2b03) · [Component](../apple-music-clone/components/apple-music-app.tsx)
 
 <a id="screen-7bd2ef54"></a>
 
 - [x] **UI-7bd2ef54 — Expanded radio player — named profile.** Coded UI; current browser render passed.
   - [ ] **MATCH-7bd2ef54 — Finish and verify the exact screenshot match.**
+  - 2026-09-23 optimized follow-up: expanded transport spacing and volume-row position align; saved volume is now 0.63, matching the captured thumb. The latest 1440 × 903 source/render review reduces MAE from 6.298 to 5.939 and over-20 pixels from 9.236% to 7.521%. Ambient background hue/gradient and control-glyph sizing remain visibly different, so keep MATCH open. Full 164-capture, 218-route and 124-interaction optimized run passed with zero failures. [Latest comparison and evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3.webp) · [Open app state](http://127.0.0.1:6435/screen/7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3) · [Component](../apple-music-clone/components/music-player.tsx)
 
 ### Song credits — 2 states
@@ -687,8 +711,8 @@ Check hero/crops, lower sections, artist preferences, concert navigation and vid
 <a id="screen-484851bf"></a>
 
 - [x] **UI-484851bf — Artist detail — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-484851bf — Finish and verify the exact screenshot match.**
-  - 2026-09-22: The registered controls and full corpus pass, but the lower hero artwork/material band remains visibly different from source; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
+  - [x] **MATCH-484851bf — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized source/render/residual review found matching hero crop, controls, page content, sidebar and player; remaining pixels are video-decoder and lawful platform text/SVG/material raster variation. [Evidence](reference-review/2026-09-23-artist-hero-menu-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/484851bf-bc23-4088-8a34-4078c4d6b4ff.webp) · [Open app state](http://127.0.0.1:6435/screen/484851bf-bc23-4088-8a34-4078c4d6b4ff) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 <a id="screen-57f7c08e"></a>
@@ -722,21 +746,22 @@ Check hero/crops, lower sections, artist preferences, concert navigation and vid
 <a id="screen-bc773ae9"></a>
 
 - [x] **UI-bc773ae9 — Artist detail — artist menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-bc773ae9 — Finish and verify the exact screenshot match.**
-  - 2026-09-22: The live menu geometry works, but this complete frame inherits the open lower-hero artwork/material mismatch; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
+  - [x] **MATCH-bc773ae9 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized source/render/residual review found matching hero, menu geometry and labels, page content, sidebar and player; residuals are decoder and lawful platform raster variation. [Evidence](reference-review/2026-09-23-artist-hero-menu-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/bc773ae9-a55f-495b-a49f-d5b683feee73.webp) · [Open app state](http://127.0.0.1:6435/screen/bc773ae9-a55f-495b-a49f-d5b683feee73) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-f24fda77"></a>
 
 - [x] **UI-f24fda77 — Artist detail — artist menu.** Coded UI; current browser render passed.
-  - [ ] **MATCH-f24fda77 — Finish and verify the exact screenshot match.**
-  - 2026-09-22: Suggest Less state persists through the live menu, but this complete frame inherits the open lower-hero artwork/material mismatch; MATCH stays open. [Evidence](reference-review/2026-09-22-artist-scroll-concert-acceptance.md).
+  - [x] **MATCH-f24fda77 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized source/render/residual review found matching hero, menu and persisted Undo Suggest Less state, sidebar and player; residuals are decoder and lawful platform raster variation. [Evidence](reference-review/2026-09-23-artist-hero-menu-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/f24fda77-5050-411c-8071-906043dcea9c.webp) · [Open app state](http://127.0.0.1:6435/screen/f24fda77-5050-411c-8071-906043dcea9c) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-898ca766"></a>
 
 - [x] **UI-898ca766 — Artist detail — scrolled to music videos.** Coded UI; current browser render passed.
-  - [ ] **MATCH-898ca766 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-898ca766 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440×903 optimized source/render/residual review confirms the video shelf, visible card controls, sidebar and player; residuals are lawful platform/artwork raster variation. [Evidence](reference-review/2026-09-23-artist-video-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/898ca766-3133-4e02-a186-00d62d3804e4.webp) · [Open app state](http://127.0.0.1:6435/screen/898ca766-3133-4e02-a186-00d62d3804e4) · [Component](../apple-music-clone/components/music-artist.tsx)
 
 ### Concerts, locations and date filters — 16 states
@@ -973,38 +998,45 @@ Check station identity, lower station collections, schedule menu and expanded li
 <a id="screen-4cb8f3aa"></a>
 
 - [x] **UI-4cb8f3aa — Radio — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-4cb8f3aa — Finish and verify the exact screenshot match.**
+- [x] **MATCH-4cb8f3aa — Finish and verify the exact screenshot match.**
+  - 2026-09-23 optimized review: direct 1440×903 source/render/residual review accepts the station rail, default episode copy, shelf positions, artist rail, sidebar and player. Source SHA `ae380387e28d490aef23870306b1b95b9fbbac08240f1464a5b87638061f4baf`, render SHA `e5e40f4729ba9334892032c23936a0bf2473e6129e5cf2f39ceb03912bf8fc0e`, MAE 6.157, over-20 7.858%. The real New→Radio flow still keeps the user's two playlist rows, unlike this saved direct state, so its FLOW remains open. [Radio review and evidence](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Reference image](../apple-music-clone/reference/originals/4cb8f3aa-e45c-4482-b47b-7bc395aa4f14.webp) · [Open app state](http://127.0.0.1:6435/screen/4cb8f3aa-e45c-4482-b47b-7bc395aa4f14) · [Component](../apple-music-clone/components/music-radio.tsx)
 
 <a id="screen-0920d819"></a>
 
 - [x] **UI-0920d819 — Radio — scrolled to radio stations.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0920d819 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0920d819 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-23 optimized recheck at 1440×903; source SHA `7fb62746e29b71d3db4da21b92830e57a707675e9bf64d49fa579d1fb8bdcaea`, render SHA `37974122afb8d016c8c3b4ea46dc84dd413b8c955e2a312101f9765e9aa128c3`, MAE 5.214, over-20 4.842%. Readable review confirms the station cards, labels, rail geometry, section spacing, sidebar and compact player align without a concrete product mismatch. The continuous New→Radio flow still retains a different playlist sidebar and stays open. [Review and exact evidence](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Reference image](../apple-music-clone/reference/originals/0920d819-fa2a-4b93-a0c0-d91db1cb1a50.webp) · [Open app state](http://127.0.0.1:6435/screen/0920d819-fa2a-4b93-a0c0-d91db1cb1a50) · [Component](../apple-music-clone/components/music-radio.tsx)
 
 <a id="screen-a9992e55"></a>
 
 - [x] **UI-a9992e55 — Radio — selected Apple Music Hits.** Coded UI; current browser render passed.
-  - [ ] **MATCH-a9992e55 — Finish and verify the exact screenshot match.**
+- [x] **MATCH-a9992e55 — Finish and verify the exact screenshot match.**
+  - 2026-09-23 optimized review: direct 1440×903 source/render/residual review confirms the hover-selected Hits artwork, correct Hits episode edition, artists rail, sidebar and player. Source SHA `78418c0722314dfeb1bdcdeddbb54b97cf55e6dd646bd884ef792cd24feb8169`, render SHA `8d42da83a7a2f51e5e4cf7258b3f36ab689da67bb10b55e3e6a333248521c657`, MAE 7.773, over-20 9.737%. The selected live journey has a different sidebar snapshot, so its FLOW remains open. [Radio review and evidence](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Reference image](../apple-music-clone/reference/originals/a9992e55-7e7f-4219-95d3-e081b1a8377b.webp) · [Open app state](http://127.0.0.1:6435/screen/a9992e55-7e7f-4219-95d3-e081b1a8377b) · [Component](../apple-music-clone/components/music-radio.tsx)
 
 <a id="screen-47a07865"></a>
 
 - [x] **UI-47a07865 — Radio — playing Apple Music Hits.** Coded UI; current browser render passed.
-  - [ ] **MATCH-47a07865 — Finish and verify the exact screenshot match.**
+- [x] **MATCH-47a07865 — Finish and verify the exact screenshot match.**
+  - 2026-09-23 optimized review: direct 1440×903 source/render/residual review confirms Hits artwork and playback, `Gorgeous` / `Doja Cat — Vie — Apple Music Hits`, station rail, editorial copy, sidebar and player. Source SHA `563735e228756c9ca3cf077a5c24bf7a562ad1b8fb5158b0d8aaaab6369bc6eb`, render SHA `73d5d3eae74349596698438e1dabae7a5ef8aed7659a20d42b4e825a3449b22c`, MAE 7.516, over-20 8.594%. [Radio review and evidence](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Reference image](../apple-music-clone/reference/originals/47a07865-7602-4a16-adcd-0d9ec67db543.webp) · [Open app state](http://127.0.0.1:6435/screen/47a07865-7602-4a16-adcd-0d9ec67db543) · [Component](../apple-music-clone/components/music-radio.tsx)
 
 <a id="screen-37575452"></a>
 
 - [x] **UI-37575452 — Radio — station menu, selected Apple Music Hits.** Coded UI; current browser render passed.
-  - [ ] **MATCH-37575452 — Finish and verify the exact screenshot match.**
+- [x] **MATCH-37575452 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-23 optimized exact-size review confirms the menu, selected Hits station, sidebar and player. Both this original and the schedule original show All Playlists, Favourite Songs and Emotional Songs; the former one-row source note was incorrect. Source SHA `9c00d14393dbd57168c0e7de1d02e94ecbc6bd2b0b9d82abd9ecb04e54507fbd`, render SHA `9f29868ceebd71afb730e1b5ee35876da92a214a063df001da3aafc61124b908`, MAE 6.425, over-20 7.679%. [Exact review and evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/37575452-9dfc-4d5d-a581-cbbcd78b67aa.webp) · [Open app state](http://127.0.0.1:6435/screen/37575452-9dfc-4d5d-a581-cbbcd78b67aa) · [Component](../apple-music-clone/components/music-menus.tsx)
 
 <a id="screen-f49fce21"></a>
 
 - [x] **UI-f49fce21 — Radio schedule — named profile.** Coded UI; current browser render passed.
   - 2026-09-12 bounded review: Reviewed the intermediate regression, then corrected the cover crop, LIVE separator, title sizing and line boxes. The 13-entry schedule is reached via the real station menu. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
-  - [ ] **MATCH-f49fce21 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Reached via View Schedule and verified all 13 entries plus the live time label at 1440×903. The live journey and saved endpoint both show the same three sidebar playlist rows. [Radio acceptance](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
+  - [x] **MATCH-f49fce21 — Exact screenshot match reviewed and signed off.**
+  - 2026-09-23 optimized exact-size review confirms all 13 schedule tiles, live label, layout, sidebar and player. Source SHA `4f4f4013ade571206b744e1ebc931936831db5e2be206cd0d32d11813d1cd3a3`, render SHA `3c1137dd1db39cdf505edd52bf0928b6a2e1b4a73c54cfbfc7c7507382e0f862`, MAE 4.354, over-20 4.737%. [Exact review and evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/f49fce21-d9a7-4c97-9e2e-bae95924e5d4.webp) · [Open app state](http://127.0.0.1:6435/screen/f49fce21-d9a7-4c97-9e2e-bae95924e5d4) · [Component](../apple-music-clone/components/music-chart-schedule.tsx)
 
 ### Library screens — 14 states
@@ -1195,25 +1227,29 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 <a id="screen-481cd568"></a>
 
 - [x] **UI-481cd568 — Account settings — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-481cd568 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-481cd568 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized 1440 × 903 source/render/residual review confirms the Account Settings summary, billing/region fields, Radio selection, Account Access teaser, sidebar and fixed footer/player. Remaining residuals are text/glyph raster and minor edges; no concrete product mismatch remains in this direct state. This accepts the screen only; the Settings flow remains open. [Review and evidence](reference-review/2026-09-23-account-settings-flow-review.md).
   - [Reference image](../apple-music-clone/reference/originals/481cd568-59d9-47ab-88fc-ec20f843d9c1.webp) · [Open app state](http://127.0.0.1:6435/screen/481cd568-59d9-47ab-88fc-ec20f843d9c1) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-1e5b4763"></a>
 
 - [x] **UI-1e5b4763 — Account settings — scrolled to account access.** Coded UI; current browser render passed.
-  - [ ] **MATCH-1e5b4763 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-1e5b4763 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 optimized source/render/residual review confirms the Account Access copy and line wraps, connected-account section, parental-controls divider and visible control values. Remaining residual is browser text and glyph raster; no concrete product mismatch remains. [Review and evidence](reference-review/2026-09-23-account-access-parental-controls-match.md).
   - [Reference image](../apple-music-clone/reference/originals/1e5b4763-6664-4fc0-871d-3b7c9a03853e.webp) · [Open app state](http://127.0.0.1:6435/screen/1e5b4763-6664-4fc0-871d-3b7c9a03853e) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-01f96377"></a>
 
 - [x] **UI-01f96377 — Account settings — scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-01f96377 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-01f96377 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact 1440 × 903 optimized source/render/residual review confirms the parental-controls content, rating values, control geometry and playlist rail. The residual improves against the prior account candidate; no concrete product mismatch remains. [Review and evidence](reference-review/2026-09-23-account-access-parental-controls-match.md).
   - [Reference image](../apple-music-clone/reference/originals/01f96377-a362-452d-9045-449e0916609f.webp) · [Open app state](http://127.0.0.1:6435/screen/01f96377-a362-452d-9045-449e0916609f) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-44101453"></a>
 
 - [x] **UI-44101453 — Account settings — scrolled to subscriptions.** Coded UI; current browser render passed.
-  - [ ] **MATCH-44101453 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-44101453 — Finish and verify the exact screenshot match.**
+  - 2026-09-23: Exact optimized 1440 × 903 source/render/residual inspection confirms the subscription row, scroll position, settings controls, sidebar and player. The separate cancellation journey still preserves its starting account identity where later saved stills show a different name. [Review and evidence](reference-review/2026-09-23-account-subscriptions-match.md).
   - [Reference image](../apple-music-clone/reference/originals/44101453-7009-49f7-bde3-406e3193e96a.webp) · [Open app state](http://127.0.0.1:6435/screen/44101453-7009-49f7-bde3-406e3193e96a) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-b2e0f231"></a>
@@ -1302,10 +1338,12 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 
 Each sequence below links to the same screen tasks above. The numbers are the original one-based recorded steps; the preview route uses zero-based `step`. An unchecked flow can have substantial working code—the checkbox specifically means the entire reference journey has passed.
 
-- [ ] **FLOW-43dfc8c6 — 1. Onboarding (10 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-43dfc8c6 — 1. Onboarding (10 steps).** Complete and verify the recorded journey.
+  - 2026-09-23 acceptance: traversed all ten ordered states using the visible sign-in, Continue/Back, form fields, consent checkboxes and local verification transition. Each 1440×903 flow capture is byte-identical to its direct candidate screen capture; every source hash matches its immutable reference. Preview-only values; no network submission. [Evidence](reference-review/2026-09-23-onboarding-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/onboarding?step=0). Sequence: [1: 3731221f](#screen-3731221f) → [2: ee751367](#screen-ee751367) → [3: bdc56e10](#screen-bdc56e10) → [4: 4a1d7759](#screen-4a1d7759) → [5: cd34d1ac](#screen-cd34d1ac) → [6: eebd5ffb](#screen-eebd5ffb) → [7: 269160a4](#screen-269160a4) → [8: 99af3033](#screen-99af3033) → [9: dfce44a2](#screen-dfce44a2) → [10: 51c79ae2](#screen-51c79ae2)
 
 - [ ] **FLOW-32937ec7 — 2. Starting a trial (10 steps).** Complete and verify the recorded journey.
+  - 2026-09-23: All ten steps passed through visible controls in `recorded-starting-a-trial`; ordered 1440 × 903 screenshots and source hashes are saved. The flow remains open because the recorded motion clip could not be reviewed in the Browser session. [Trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/starting-a-trial?step=0). Sequence: [1: 51c79ae2](#screen-51c79ae2) → [2: b74d25cb](#screen-b74d25cb) → [3: 94b9d90d](#screen-94b9d90d) → [4: a728c2af](#screen-a728c2af) → [5: 06ea37ef](#screen-06ea37ef) → [6: 5175a910](#screen-5175a910) → [7: ecb33359](#screen-ecb33359) → [8: bf099ae2](#screen-bf099ae2) → [9: e72be564](#screen-e72be564) → [10: a917d88f](#screen-a917d88f)
 
 - [ ] **FLOW-bc4b3fa8 — 3. New (5 steps).** Complete and verify the recorded journey.
@@ -1337,7 +1375,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 - [ ] **FLOW-2765d26d — 9. Favoriting a song (2 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/favoriting-a-song?step=0). Sequence: [1: c939c9b8](#screen-c939c9b8) → [2: b3f29b6f](#screen-b3f29b6f)
 
-- [ ] **FLOW-80cc296e — 10. Adding to a library (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-80cc296e — 10. Adding to a library (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-23: Traversed `b3f29b6f → ac05c6b8 → 96711b04` through the expanded player, More menu and Add to Library menu action. The local silent preview advanced from 0:54 through 1:13 to 1:21; the open menu changed from Add to Library to Delete from Library and showed Pin Song. The registered flow passed in the asset-aware full optimized corpus run with all three 1440×903 captures and source hashes recorded. Screen MATCH remains a separate checklist entry. [Evidence](reference-review/2026-09-23-adding-to-library-flow.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/adding-to-a-library?step=0). Sequence: [1: b3f29b6f](#screen-b3f29b6f) → [2: ac05c6b8](#screen-ac05c6b8) → [3: 96711b04](#screen-96711b04)
 
 - [ ] **FLOW-6652f3e8 — 11. Adding to a playlist (6 steps).** Complete and verify the recorded journey.
@@ -1391,16 +1430,20 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-12 bounded review: Initial real hover, overflow, Copy Link and inline confirmation are captured; clipboard content and focus restoration are asserted. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/copying-an-album-link?step=0). Sequence: [1: b620e4ab](#screen-b620e4ab) → [2: ef86b595](#screen-ef86b595) → [3: eca1baa1](#screen-eca1baa1)
 
-- [ ] **FLOW-98bde04b — 23. Artist detail (6 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-98bde04b — 23. Artist detail (6 steps).** Complete and verify the recorded journey.
+  - 2026-09-23 acceptance: traversed New → Artist → Essential Albums → Music Videos → Nearby Concerts → About using visible controls and scrolling; ordered screenshots and `steps.jsonl` are under `apple-music-clone/.parity-evidence/full-production-final-normalized-20260923-004700/browser/journeys/98bde04b-artist-detail`.
   - [Open first recorded state](http://127.0.0.1:6435/flows/artist-detail?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 484851bf](#screen-484851bf) → [3: 57f7c08e](#screen-57f7c08e) → [4: edae3407](#screen-edae3407) → [5: c9a554f4](#screen-c9a554f4) → [6: 0c042c32](#screen-0c042c32)
 
-- [ ] **FLOW-138a3f56 — 24. Nearby concerts (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-138a3f56 — 24. Nearby concerts (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-23 acceptance: opened Nearby Concerts from the live Artist hero button and scrolled the concert list; ordered screenshots and `steps.jsonl` are under `apple-music-clone/.parity-evidence/full-production-final-normalized-20260923-004700/browser/journeys/138a3f56-nearby-concerts`.
   - [Open first recorded state](http://127.0.0.1:6435/flows/nearby-concerts?step=0). Sequence: [1: 484851bf](#screen-484851bf) → [2: 9105a602](#screen-9105a602) → [3: 653efa95](#screen-653efa95)
 
-- [ ] **FLOW-bb755884 — 25. Marking a song as suggest less (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-bb755884 — 25. Marking a song as suggest less (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-23 acceptance: opened the live Artist overflow, applied Suggest Less and verified the persistent menu and sidebar state; ordered screenshots and `steps.jsonl` are under `apple-music-clone/.parity-evidence/full-production-final-normalized-20260923-004700/browser/journeys/bb755884-marking-a-song-as-suggest-less`.
   - [Open first recorded state](http://127.0.0.1:6435/flows/marking-a-song-as-suggest-less?step=0). Sequence: [1: 484851bf](#screen-484851bf) → [2: bc773ae9](#screen-bc773ae9) → [3: f24fda77](#screen-f24fda77)
 
-- [ ] **FLOW-d3879ab4 — 26. Watching a music video (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-d3879ab4 — 26. Watching a music video (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-23 acceptance: traversed the Music Videos shelf → Begged (Lyric Video) hover controls → silent local six-second video preview using the visible card controls; ordered screenshots match direct optimized renders. [Evidence](reference-review/2026-09-23-artist-video-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/watching-a-music-video?step=0). Sequence: [1: edae3407](#screen-edae3407) → [2: 898ca766](#screen-898ca766) → [3: a4afd6e6](#screen-a4afd6e6)
 
 - [x] **FLOW-6c5d545e — 27. Search (4 steps).** Complete and verify the recorded journey.
@@ -1437,14 +1480,17 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - `a30a9ee`: Only the authenticated a917d88f to d5173715 carousel/vertical-return segment was added here. The full six-step sequence and visual acceptance remain open. [Measured evidence](reference-review/2026-09-12-sidebar-live.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/home?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: aefa8502](#screen-aefa8502) → [3: a917d88f](#screen-a917d88f) → [4: 2f5da478](#screen-2f5da478) → [5: d5173715](#screen-d5173715) → [6: 42098642](#screen-42098642)
 
-- [ ] **FLOW-e7c28ffc — 36. Radio (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-e7c28ffc — 36. Radio (3 steps).** Complete and verify the recorded journey.
+  - 2026-09-23: Accepted after continuous New → Radio sidebar navigation and mouse-wheel scrolling to Top Stations. All three exact 1440 × 903 journey frames were visually reviewed; one All Playlists row persists as in the saved states, and the Top Stations section aligns at y=31. The optimized full corpus passed 164 renders, 218 route checks and 124 interactions with zero failures. [Evidence and exact-size frame review](reference-review/2026-09-23-radio-entry-flow-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/radio?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4cb8f3aa](#screen-4cb8f3aa) → [3: 0920d819](#screen-0920d819)
 
 - [ ] **FLOW-868aa817 — 37. Listening to a live radio (4 steps).** Complete and verify the recorded journey.
+  - 2026-09-23: Completed by hover, station click, player expand and actual lyrics/playback controls. Keep open because the selected `a9992e55` saved still and live session have different playlist/sidebar snapshots; radio material/glyph residuals also remain. [Evidence and exact-size comparisons](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/listening-to-a-live-radio?step=0). Sequence: [1: 4cb8f3aa](#screen-4cb8f3aa) → [2: a9992e55](#screen-a9992e55) → [3: 47a07865](#screen-47a07865) → [4: 7bd2ef54](#screen-7bd2ef54)
 
-- [ ] **FLOW-4239264b — 38. Live radio schedule (3 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-4239264b — 38. Live radio schedule (3 steps).** Complete and verify the recorded journey.
   - 2026-09-12 bounded review: All three steps use real controls; LIVE text and 13 entries are asserted. A minor live station-menu versus direct-fixture difference remains. [Evidence and remaining defects](reference-review/2026-09-12-library-panels.md).
+  - 2026-09-23 optimized candidate: Replayed the complete sequence from selected Hits through the real overflow and View Schedule controls. All three saved checkpoints and the live path show the same three playlist rows; the menu and all 13 schedule entries plus the live label were reviewed. [Journey screenshots and exact-size evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/live-radio-schedule?step=0). Sequence: [1: a9992e55](#screen-a9992e55) → [2: 37575452](#screen-37575452) → [3: f49fce21](#screen-f49fce21)
 
 - [ ] **FLOW-af293a1e — 39. Recently added (3 steps).** Complete and verify the recorded journey.
@@ -1512,9 +1558,11 @@ Each sequence below links to the same screen tasks above. The numbers are the or
 
 - [ ] **FLOW-079e1da7 — 52. Logging out (3 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/logging-out?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: fc5d84bd](#screen-fc5d84bd) → [3: 3731221f](#screen-3731221f)
+  - 2026-09-23: The real Account menu → Sign Out journey passes, including the guest endpoint. Keep FLOW open: source step 1 has one personal playlist, while saved step 2 has three; opening the menu preserves the live one-playlist state (step 2 MAE 9.869, over-20 10.983%). Do not inject playlist state to manufacture the screenshot. [Ordered journey evidence and review](reference-review/2026-09-23-account-settings-flow-review.md).
 
 - [ ] **FLOW-c4422161 — 53. Settings (5 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/settings?step=0). Sequence: [1: fc5d84bd](#screen-fc5d84bd) → [2: 481cd568](#screen-481cd568) → [3: 1e5b4763](#screen-1e5b4763) → [4: 01f96377](#screen-01f96377) → [5: 44101453](#screen-44101453)
+  - 2026-09-23: The real Settings control and native account-pane scrolling reach all five checkpoints with restriction values unchanged. Keep FLOW open: the saved first two account-page stills highlight Radio, but the actual transition from the New profile menu preserves New; later stills switch back to New without a navigation control. [Ordered journey evidence and review](reference-review/2026-09-23-account-settings-flow-review.md).
 
 - [ ] **FLOW-d1a98fb1 — 54. Connected accounts (2 steps).** Complete and verify the recorded journey.
   - [Open first recorded state](http://127.0.0.1:6435/flows/connected-accounts?step=0). Sequence: [1: 1e5b4763](#screen-1e5b4763) → [2: b2e0f231](#screen-b2e0f231)

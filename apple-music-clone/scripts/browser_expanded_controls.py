@@ -233,3 +233,41 @@ async def bridge_lyric_following(page, context):
     assert await current.locator('.lyric-word').nth(5).evaluate('(e)=>e.getBoundingClientRect().y') - await current.locator('.lyric-word').first.evaluate('(e)=>e.getBoundingClientRect().y') == 48
 
 CASES.append(('bridge-lyric-following', bridge_lyric_following))
+
+
+async def adding_to_library_flow(page, context):
+    """Traverse the recorded expanded-player library journey while preview time advances."""
+    journey = '80cc296e-adding-to-library'
+    mutating_requests = []
+    page.on('request', lambda request: mutating_requests.append(request) if request.method != 'GET' else None)
+    await start(page, 'b3f29b6f')
+    slider = page.get_by_role('slider', name='Playback position', exact=True)
+    await expect(slider).to_have_value('54')
+    await expect(page.locator('.expanded-player')).to_be_visible()
+    await record(page, journey, 'b3f29b6f', 'Open the recorded expanded player at the captured preview position')
+
+    # Fixture playback starts frozen so the screenshot stays stable. Resume it
+    # using the visible controls and let its local silent preview reach each
+    # recorded timestamp before taking the next checkpoint.
+    await page.get_by_role('button', name='Pause', exact=True).click()
+    await expect(page.get_by_role('button', name='Play', exact=True)).to_be_visible()
+    await page.get_by_role('button', name='Play', exact=True).click()
+    await page.wait_for_function("Number(document.querySelector('.expanded-player input[aria-label=\"Playback position\"]')?.value) >= 73", timeout=30000)
+    opener = page.get_by_role('button', name='More song actions', exact=True)
+    await opener.click()
+    menu = page.get_by_role('menu', name='track actions', exact=True)
+    await expect(menu.get_by_role('menuitem', name='Add to Library', exact=True)).to_be_visible()
+    await expect(menu.get_by_role('menuitem', name='Undo Favourite', exact=True)).to_be_visible()
+    await assert_anchor(page)
+    await record(page, journey, 'ac05c6b8', 'Open More at the recorded 1:13 position')
+
+    await menu.get_by_role('menuitem', name='Add to Library', exact=True).click()
+    await expect(menu.get_by_role('menuitem', name='Delete from Library', exact=True)).to_be_visible()
+    await expect(menu.get_by_role('menuitem', name='Pin Song', exact=True)).to_be_visible()
+    await assert_anchor(page)
+    await page.wait_for_function("Number(document.querySelector('.expanded-player input[aria-label=\"Playback position\"]')?.value) >= 81", timeout=15000)
+    await record(page, journey, '96711b04', 'Add the song through its real menu action; retain the open menu through the recorded 1:21 checkpoint')
+    assert not mutating_requests, f'Local library preview must not submit data: {mutating_requests}'
+
+
+CASES.append(('recorded-adding-to-library', adding_to_library_flow))

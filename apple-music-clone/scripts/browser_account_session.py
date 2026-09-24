@@ -1,6 +1,8 @@
 """Account session regressions; frozen endpoints do not authorize identity resets."""
+import re
 from playwright.async_api import expect
-from browser_live_fidelity import start, record
+from browser_live_fidelity import start, record, source
+from qa_identity import reference_viewport
 
 async def chrome(page):
     return {
@@ -53,3 +55,74 @@ async def account_navigation_identity(page, context):
     await expect(page.get_by_role('navigation', name='Music library', exact=True)).to_have_count(0)
 
 CASES.append(('account-navigation-identity', account_navigation_identity))
+
+
+async def recorded_logout_flow(page, context):
+    """Logging out: New, account menu, then the signed-out New screen."""
+    await start(page, 'e72be564')
+    await record(page, 'flow-079e1da7-logging-out-canonical-runner', 'e72be564',
+                 'Begin at the recorded New screen with the account session intact')
+    await page.get_by_role('button', name='Account menu', exact=True).click()
+    await expect(page.get_by_role('menuitem', name='Sign Out', exact=True)).to_be_visible()
+    await page.set_viewport_size(reference_viewport(source('fc5d84bd')))
+    await record(page, 'flow-079e1da7-logging-out-canonical-runner', 'fc5d84bd',
+                 'Open the account menu using the profile control')
+    await page.get_by_role('menuitem', name='Sign Out', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_class(re.compile(r'\bguest-session\b'))
+    await expect(page.get_by_role('button', name='Sign In', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='Account menu', exact=True)).to_have_count(0)
+    await page.set_viewport_size(reference_viewport(source('3731221f')))
+    await record(page, 'flow-079e1da7-logging-out-canonical-runner', '3731221f',
+                 'Sign Out returns to the same New page in the signed-out session')
+
+
+async def recorded_settings_flow(page, context):
+    """Settings: open the real menu destination, then scroll its native pane."""
+    await start(page, 'fc5d84bd')
+    await record(page, 'flow-c4422161-settings-canonical-runner', 'fc5d84bd',
+                 'Begin at the recorded profile menu')
+    await page.get_by_role('menuitem', name='Settings', exact=True).click()
+    await expect(page.get_by_role('heading', name='Account Settings', exact=True)).to_be_visible()
+    await page.set_viewport_size(reference_viewport(source('481cd568')))
+    await record(page, 'flow-c4422161-settings-canonical-runner', '481cd568',
+                 'Choose Settings from the open account menu')
+
+    async def align_section(section_id: str, viewport_y: int):
+        section = page.locator(f'#{section_id}')
+        await expect(section.locator('h2')).to_be_visible()
+        await page.mouse.move(1400, 600)
+        for _ in range(5):
+            current_y = await section.evaluate('(element) => element.getBoundingClientRect().top')
+            delta = round(current_y - viewport_y)
+            if abs(delta) <= 2:
+                return
+            await page.mouse.wheel(0, delta)
+            await page.wait_for_timeout(120)
+        current_y = await section.evaluate('(element) => element.getBoundingClientRect().top')
+        assert abs(current_y - viewport_y) <= 2, (section_id, current_y, viewport_y)
+
+    await page.set_viewport_size(reference_viewport(source('1e5b4763')))
+    await align_section('account-access', -10)
+    await expect(page.get_by_role('heading', name='Connected Accounts', exact=True)).to_be_visible()
+    await record(page, 'flow-c4422161-settings-canonical-runner', '1e5b4763',
+                 'Scroll the account pane to Account Access')
+    await page.set_viewport_size(reference_viewport(source('01f96377')))
+    await align_section('parental-controls', 24)
+    await expect(page.get_by_role('switch', name='Content Restrictions', exact=True)).to_be_visible()
+    await expect(page.get_by_label('Music and Podcasts rating', exact=True)).to_have_value('Clean')
+    await expect(page.get_by_label('TV show rating', exact=True)).to_have_value('G')
+    await expect(page.get_by_label('Movie rating', exact=True)).to_have_value('G')
+    await record(page, 'flow-c4422161-settings-canonical-runner', '01f96377',
+                 'Continue scrolling to Parental Controls without changing restriction values')
+    await page.set_viewport_size(reference_viewport(source('44101453')))
+    await align_section('subscriptions', 525)
+    await expect(page.get_by_role('heading', name='Subscriptions', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='Manage', exact=True)).to_be_visible()
+    await record(page, 'flow-c4422161-settings-canonical-runner', '44101453',
+                 'Continue scrolling to Subscriptions')
+
+
+CASES.extend([
+    ('recorded-logout-flow', recorded_logout_flow),
+    ('recorded-settings-flow', recorded_settings_flow),
+])

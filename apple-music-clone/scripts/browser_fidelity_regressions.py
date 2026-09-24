@@ -15,7 +15,7 @@ def source(prefix):
 async def ready(page, path='/'):
     response = await page.goto(BASE + path, wait_until='networkidle')
     assert response and response.status == 200, (path, response.status if response else None)
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.evaluate('document.fonts.ready')
 
 async def sidebar_and_rails(page, context):

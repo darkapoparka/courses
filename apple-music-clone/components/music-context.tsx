@@ -185,7 +185,7 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
 
   const go = useCallback((destination: string) => {
     const [kind, ...rest] = destination.split(":");
-    if (kind === "video") { patch({ video: true, overlay: null, menu: null }); return; }
+    if (kind === "video") { patch({ video: true, overlay: null, menu: null, source: undefined }); return; }
     if (kind === "station") {
       const id = destination.replace(":", "-");
       if (!radioStations.some(station => station.id === id)) { notify("This station is not in the saved catalog."); return; }
@@ -289,6 +289,11 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
         if (document.querySelector(".menu-layer")) patch({ menu: null });
         else if (document.querySelector('.volume-control[data-open="true"]')) patch({ volumeOpen: false });
         else patch({ expanded: false, panel: null, video: false, volumeOpen: false });
+        return;
+      }
+      if (element?.matches("main.music-main") && (event.key === "PageDown" || event.key === "PageUp")) {
+        event.preventDefault();
+        element.scrollBy({ top: (event.key === "PageDown" ? 1 : -1) * element.clientHeight, behavior: "auto" });
         return;
       }
       if (!element?.closest("input, textarea, select, [contenteditable=true]") && event.shiftKey) {

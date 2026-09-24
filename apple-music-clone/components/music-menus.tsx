@@ -40,7 +40,8 @@ export function MusicMenus() {
         : rect
           ? { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) - bounds.height }
           : m.menuPosition ?? fallback;
-      const next = { x: Math.max(8, Math.min(anchor.x, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) };
+      const expandedTrackOffset = expandedTrack ? -4 : 0;
+      const next = { x: Math.max(8, Math.min(anchor.x + expandedTrackOffset, innerWidth - bounds.width - 8)), y: Math.max(8, Math.min(anchor.y, innerHeight - bounds.height - 8)) };
       setPosition(current => current.x === next.x && current.y === next.y ? current : next);
     };
     place();

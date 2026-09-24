@@ -1,6 +1,6 @@
 """Source-ordered Artist journeys and sidebar-chrome regressions."""
 from playwright.async_api import expect
-from browser_live_fidelity import BASE, record, source, start
+from browser_live_fidelity import BASE, record, source, start, wait_for_visual_assets
 from qa_identity import reference_viewport
 
 
@@ -9,8 +9,9 @@ async def start_flow(page, slug, first_prefix):
     await page.set_viewport_size(reference_viewport(sid))
     response = await page.goto(f"{BASE}/flows/{slug}?step=0", wait_until="networkidle")
     assert response and response.status == 200
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.evaluate("document.fonts.ready")
+    await wait_for_visual_assets(page)
     await expect(page.locator(".music-app")).to_have_attribute("data-source", sid)
     await expect(page.locator(".music-app")).to_have_attribute("data-flow", slug)
 
@@ -46,7 +47,7 @@ async def wheel_target_to_reference_top(page, selector, top):
 
 
 async def source_chrome(page, context):
-    for prefix in ("484851bf", "57f7c08e", "edae3407", "c9a554f4", "0c042c32", "9105a602", "653efa95"):
+    for prefix in ("484851bf", "57f7c08e", "edae3407", "c9a554f4", "0c042c32", "9105a602", "653efa95", "898ca766"):
         await start(page, prefix)
         await assert_playlist_chrome(page, False)
     for prefix in ("bc773ae9", "f24fda77"):
@@ -121,9 +122,40 @@ async def suggest_less(page, context):
     await record(page, journey, "f24fda77", "Mark the represented song as Suggest Less")
 
 
+async def watching_a_music_video(page, context):
+    journey = "d3879ab4-watching-a-music-video"
+    await start_flow(page, "watching-a-music-video", "edae3407")
+    await assert_playlist_chrome(page, False)
+    await record(page, journey, "edae3407", "Initial Music Videos shelf", move_pointer=False)
+
+    begged = page.get_by_role("button", name="Open Begged (Lyric Video)", exact=True)
+    await begged.hover()
+    video_card = page.locator('[data-video-card="Begged (Lyric Video)"]')
+    await expect(video_card.get_by_role("button", name="More actions for Begged (Lyric Video)", exact=True)).to_be_visible()
+    await expect(video_card.locator("[data-video-hover-actions]")).to_be_visible()
+    await record(page, journey, "898ca766", "Hover Begged (Lyric Video) to reveal its play and more controls", move_pointer=False)
+
+    await begged.click()
+    player = page.get_by_role("dialog", name="Video player", exact=True)
+    await expect(player).to_be_visible()
+    assert await page.locator(".music-app").get_attribute("data-source") is None, "The real video action must leave fixture-only source state behind."
+    await expect(player.get_by_role("slider", name="Video position", exact=True)).to_have_value("0")
+    volume = player.get_by_role("slider", name="Video volume", exact=True)
+    await expect(volume).to_be_visible()
+    await expect(player.locator(".video-volume-control svg")).to_have_count(0)
+    volume_box = await volume.bounding_box()
+    assert volume_box and abs(volume_box["x"] - 28) <= 1 and abs(volume_box["width"] - 58) <= 1, volume_box
+    await expect(player.get_by_role("button", name="Pause video", exact=True)).to_be_visible()
+    await expect(player.locator("video[src]")).to_have_count(0)
+    await page.wait_for_function("document.querySelector('[aria-label=\"Video position\"]')?.value === '6'")
+    await record(page, journey, "a4afd6e6", "Play the silent local video preview and reach its recorded six-second state")
+    assert await page.locator("audio").evaluate("element => element.paused"), "Opening a silent video preview must not start unrelated audio."
+
+
 CASES = [
     ("artist-source-sidebar-chrome", source_chrome),
     ("recorded-artist-detail", artist_detail),
     ("recorded-nearby-concerts", nearby_concerts),
     ("recorded-artist-suggest-less", suggest_less),
+    ("recorded-watching-a-music-video", watching_a_music_video),
 ]

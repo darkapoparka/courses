@@ -16,7 +16,7 @@ import re
 import struct
 import wave
 from playwright.async_api import async_playwright, expect
-from browser_live_fidelity import CASES as LIVE_FIDELITY_CASES
+from browser_live_fidelity import CASES as LIVE_FIDELITY_CASES, wait_for_visual_assets
 from browser_expanded_controls import CASES as EXPANDED_CONTROL_CASES
 from browser_dialog_controls import CASES as DIALOG_CONTROL_CASES
 from browser_playback_completion import CASES as PLAYBACK_COMPLETION_CASES
@@ -33,6 +33,7 @@ from browser_metadata import CASES as METADATA_CASES
 from browser_session_controls import CASES as SESSION_CONTROL_CASES
 from browser_discovery_shelves import CASES as DISCOVERY_SHELF_CASES
 from browser_artist_flows import CASES as ARTIST_FLOW_CASES
+from browser_concert_flows import CASES as CONCERT_FLOW_CASES
 from qa_browser_fonts import platform_fonts
 from browser_fidelity_regressions import sidebar_and_rails, library_artists_and_videos, playlist_suggestion_flow, menu_flyout_and_dialog, video_transport_and_focus, lyrics_panel_rail_geometry, article_scroll_state
 
@@ -42,6 +43,87 @@ BASE = os.environ.get('REFERENCE_URL', 'http://127.0.0.1:3000')
 ARCHIVE = json.loads((APP / 'reference/originals/flow-screen-map.json').read_text(encoding='utf-8'))
 IDS = list(dict.fromkeys(step['screenId'] for flow in ARCHIVE['flows'] for step in flow['steps']))
 BOXES = ['.music-sidebar', '.music-main', 'h1', '.feature-card .music-art', '.poster-card .music-art', '.song-art-button', '.floating-player', 'dialog[open]', '.album-header > .music-art', '.album-information', '.library-topbar', '.category-grid', '.account-scroll', '.account-inner', '.content-footer', '.capture-result', '.code-field', '.auth-primary']
+TARGET_CLOSED_MARKERS = (
+    'Target page, context or browser has been closed',
+    'Browser has been closed',
+    'Browser closed',
+    'Connection closed while reading from the driver',
+)
+IDENTITY_KEYS = ('implementationSha256', 'toolingSha256')
+
+
+def is_target_closed(error):
+    message = str(error)
+    return type(error).__name__ == 'TargetClosedError' or any(marker in message for marker in TARGET_CLOSED_MARKERS)
+
+
+def same_candidate(expected):
+    current = candidate_identity()
+    return all(current[key] == expected[key] for key in IDENTITY_KEYS), current
+
+
+def write_results(result):
+    temporary = OUT / 'results.json.tmp'
+    temporary.write_text(json.dumps(result, indent=2), encoding='utf-8')
+    temporary.replace(OUT / 'results.json')
+
+
+class BrowserManager:
+    def __init__(self, playwright, launch_options):
+        self.playwright = playwright
+        self.launch_options = launch_options
+        self.browser = None
+        self.lock = asyncio.Lock()
+
+    async def get(self):
+        async with self.lock:
+            if self.browser is None or not self.browser.is_connected():
+                self.browser = await self.playwright.chromium.launch(**self.launch_options)
+            return self.browser
+
+    async def invalidate(self, browser):
+        async with self.lock:
+            if self.browser is not browser:
+                return
+            self.browser = None
+            try:
+                await browser.close()
+            except Exception:
+                pass
+
+    async def close(self):
+        async with self.lock:
+            browser, self.browser = self.browser, None
+            if browser is None:
+                return
+            try:
+                await browser.close()
+            except Exception:
+                pass
+
+
+async def with_browser_recovery(manager, label, operation, failure_row, identity, attempts):
+    for attempt in range(attempts + 1):
+        try:
+            browser = await manager.get()
+            row = await operation(browser)
+            if attempt:
+                row['browserRecoveryAttempts'] = attempt
+            return row
+        except Exception as error:
+            if not is_target_closed(error):
+                raise
+            await manager.invalidate(locals().get('browser'))
+            stable, current = same_candidate(identity)
+            if not stable:
+                return failure_row(
+                    'Application or QA source changed during browser recovery; evidence is mixed.',
+                    attempt + 1,
+                    current,
+                )
+            print(f'BROWSER RECOVERY {label} attempt {attempt + 1}/{attempts + 1}: {error}', flush=True)
+            if attempt == attempts:
+                return failure_row(str(error), attempt + 1, current)
 
 
 def source(prefix):
@@ -53,56 +135,104 @@ def source(prefix):
 async def ready(page, path='/'):
     response = await page.goto(BASE + path, wait_until='networkidle', timeout=30000)
     assert response and response.status == 200, f'{path}: HTTP {response.status if response else None}'
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.evaluate('document.fonts.ready')
+    hero = page.locator('video[data-reference-hero-resource]')
+    if await hero.count():
+        await expect(hero).to_have_attribute('data-reference-hero-ready', 'true', timeout=30000)
+        await expect(page.get_by_role('heading', name='Olivia Rodrigo', exact=True)).to_be_visible(timeout=30000)
+        await expect(page.get_by_role('button', name='Nearby Concerts', exact=True)).to_be_visible(timeout=30000)
+        await expect(page.get_by_role('button', name='More artist actions', exact=True)).to_be_visible(timeout=30000)
     await page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
 
 
 async def capture(browser, sid, width=1440, height=None):
     height = height if height is not None else reference_viewport(sid)['height']
-    context = await browser.new_context(viewport={'width': width, 'height': height}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
-    page = await context.new_page()
-    page.set_default_timeout(8000)
-    errors, failures, bad_responses = [], [], []
-    page.on('pageerror', lambda error: errors.append(str(error)))
-    page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
-    page.on('requestfailed', lambda request: failures.append(request.url))
-    page.on('response', lambda response: bad_responses.append({'url': response.url, 'status': response.status}) if response.status >= 400 else None)
     row = {'screen': sid, 'width': width, 'height': height, 'deviceScaleFactor': 1}
+    context = None
+    page = None
+    errors, failures, bad_responses = [], [], []
     try:
-        await ready(page, '/screen/' + sid)
-        row['boxes'] = await page.evaluate('''selectors => Object.fromEntries(selectors.map(selector => {
-          const element = document.querySelector(selector); if (!element) return [selector, null];
-          const r = element.getBoundingClientRect(); return [selector, {x:r.x,y:r.y,width:r.width,height:r.height}];
-        }))''', BOXES)
-        row['overflow'] = await page.evaluate('''() => ({document: document.documentElement.scrollWidth > innerWidth,
-          main: document.querySelector('main').scrollWidth > document.querySelector('main').clientWidth + 1})''')
-        row['scene'] = await page.locator('.music-app').get_attribute('data-scene')
-        assert await page.locator('.music-app').get_attribute('data-source') == sid
-        row['artworkCount'] = await page.locator('[data-art-source]').count()
-        row['partialArtworkCount'] = await page.locator('[data-art-partial=true]').count()
-        row['fontFamily'] = await page.locator('body').evaluate('(element) => getComputedStyle(element).fontFamily')
-        row['platformFonts'] = await platform_fonts(page)
-        row['deviceScaleFactor'] = await page.evaluate('window.devicePixelRatio')
-        assert row['deviceScaleFactor'] == 1
-        assert await page.locator('main > *').count() > 0, 'Main content is empty'
-        assert not errors, str(errors)
-        assert not failures, str(failures)
-        assert not bad_responses, str(bad_responses)
-        assert not any(row['overflow'].values()), str(row['overflow'])
-        row['status'] = 'pass'
-    except Exception as error:
-        row.update(status='fail', error=str(error))
-    try:
-        await page.screenshot(path=str(OUT / f'{sid}-{width}.png'), animations='disabled')
-        row['renderSha256'] = sha256((OUT / f'{sid}-{width}.png').read_bytes()).hexdigest()
-        assert not errors and not failures and not bad_responses, 'Late browser/resource error'
-    except Exception as error:
-        row.update(status='fail', screenshotError=str(error))
-    row.update(errors=errors, failedRequests=failures, badResponses=bad_responses)
-    print(f"SCREEN {sid[:8]} {width} {row['status']}", flush=True)
-    await context.close()
-    return row
+        context = await browser.new_context(viewport={'width': width, 'height': height}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
+        page = await context.new_page()
+        page.set_default_timeout(8000)
+        page.on('pageerror', lambda error: errors.append(str(error)))
+        page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
+        page.on('requestfailed', lambda request: failures.append(request.url))
+        page.on('response', lambda response: bad_responses.append({'url': response.url, 'status': response.status}) if response.status >= 400 else None)
+        try:
+            await ready(page, '/screen/' + sid)
+            await wait_for_visual_assets(page)
+            row['boxes'] = await page.evaluate('''selectors => Object.fromEntries(selectors.map(selector => {
+              const element = document.querySelector(selector); if (!element) return [selector, null];
+              const r = element.getBoundingClientRect(); return [selector, {x:r.x,y:r.y,width:r.width,height:r.height}];
+            }))''', BOXES)
+            row['overflow'] = await page.evaluate('''() => ({document: document.documentElement.scrollWidth > innerWidth,
+              main: document.querySelector('main').scrollWidth > document.querySelector('main').clientWidth + 1})''')
+            row['scene'] = await page.locator('.music-app').get_attribute('data-scene')
+            assert await page.locator('.music-app').get_attribute('data-source') == sid
+            row['artworkCount'] = await page.locator('[data-art-source]').count()
+            row['partialArtworkCount'] = await page.locator('[data-art-partial=true]').count()
+            row['fontFamily'] = await page.locator('body').evaluate('(element) => getComputedStyle(element).fontFamily')
+            row['platformFonts'] = await platform_fonts(page)
+            row['deviceScaleFactor'] = await page.evaluate('window.devicePixelRatio')
+            assert row['deviceScaleFactor'] == 1
+            assert await page.locator('main > *').count() > 0, 'Main content is empty'
+            assert not errors, str(errors)
+            assert not failures, str(failures)
+            assert not bad_responses, str(bad_responses)
+            assert not any(row['overflow'].values()), str(row['overflow'])
+            row['status'] = 'pass'
+        except Exception as error:
+            if is_target_closed(error):
+                raise
+            row.update(status='fail', error=str(error))
+        try:
+            await page.screenshot(path=str(OUT / f'{sid}-{width}.png'), animations='disabled')
+            row['renderSha256'] = sha256((OUT / f'{sid}-{width}.png').read_bytes()).hexdigest()
+            assert not errors and not failures and not bad_responses, 'Late browser/resource error'
+        except Exception as error:
+            if is_target_closed(error):
+                raise
+            row.update(status='fail', screenshotError=str(error))
+        row.update(errors=errors, failedRequests=failures, badResponses=bad_responses)
+        print(f"SCREEN {sid[:8]} {width} {row['status']}", flush=True)
+        return row
+    finally:
+        if context is not None:
+            try:
+                await context.close()
+            except Exception as error:
+                if is_target_closed(error):
+                    raise
+
+
+async def recovered_capture(manager, sid, identity, attempts, width=1440, height=None):
+    resolved_height = height if height is not None else reference_viewport(sid)['height']
+
+    def failure_row(error, recovery_attempts, current):
+        return {
+            'screen': sid,
+            'width': width,
+            'height': resolved_height,
+            'deviceScaleFactor': 1,
+            'status': 'fail',
+            'error': f'Browser recovery exhausted: {error}',
+            'browserRecoveryAttempts': recovery_attempts,
+            'candidateAtFailure': current,
+            'errors': [],
+            'failedRequests': [],
+            'badResponses': [],
+        }
+
+    return await with_browser_recovery(
+        manager,
+        f'screen {sid[:8]} {width}',
+        lambda browser: capture(browser, sid, width, resolved_height),
+        failure_row,
+        identity,
+        attempts,
+    )
 
 
 async def flow_routes(request):
@@ -119,28 +249,62 @@ async def flow_routes(request):
 
 
 async def run_case(browser, name, callback, mobile=False):
-    context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
-    page = await context.new_page()
-    page.set_default_timeout(8000)
+    context = None
+    page = None
     errors = []
-    page.on('pageerror', lambda error: errors.append(str(error)))
-    page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
     result = {'test': name}
     try:
-        await callback(page, context)
-        assert not errors, str(errors)
-        result['status'] = 'pass'
-    except Exception as error:
-        result.update(status='fail', error=str(error))
-    result['errors'] = errors
-    try:
-        await page.screenshot(path=str(OUT / f'test-{name}.png'), animations='disabled')
-        assert not errors, str(errors)
-    except Exception as error:
-        result.update(status='fail', screenshotError=str(error))
-    print('TEST', name, result['status'], result.get('error', ''), flush=True)
-    await context.close()
-    return result
+        context = await browser.new_context(viewport={'width': 390 if mobile else 1440, 'height': 844 if mobile else 903}, locale='en-SG', timezone_id='Asia/Singapore', reduced_motion='reduce', device_scale_factor=1, color_scheme='light')
+        page = await context.new_page()
+        page.set_default_timeout(8000)
+        page.on('pageerror', lambda error: errors.append(str(error)))
+        page.on('console', lambda message: errors.append('console.error: ' + message.text) if message.type == 'error' else None)
+        try:
+            await callback(page, context)
+            assert not errors, str(errors)
+            result['status'] = 'pass'
+        except Exception as error:
+            if is_target_closed(error):
+                raise
+            result.update(status='fail', error=str(error))
+        result['errors'] = errors
+        try:
+            await page.screenshot(path=str(OUT / f'test-{name}.png'), animations='disabled')
+            assert not errors, str(errors)
+        except Exception as error:
+            if is_target_closed(error):
+                raise
+            result.update(status='fail', screenshotError=str(error))
+        print('TEST', name, result['status'], result.get('error', ''), flush=True)
+        return result
+    finally:
+        if context is not None:
+            try:
+                await context.close()
+            except Exception as error:
+                if is_target_closed(error):
+                    raise
+
+
+async def recovered_case(manager, name, callback, identity, attempts, mobile=False):
+    def failure_row(error, recovery_attempts, current):
+        return {
+            'test': name,
+            'status': 'fail',
+            'error': f'Browser recovery exhausted: {error}',
+            'browserRecoveryAttempts': recovery_attempts,
+            'candidateAtFailure': current,
+            'errors': [],
+        }
+
+    return await with_browser_recovery(
+        manager,
+        f'test {name}',
+        lambda browser: run_case(browser, name, callback, mobile=mobile),
+        failure_row,
+        identity,
+        attempts,
+    )
 
 
 async def navigation(page, context):
@@ -183,7 +347,7 @@ async def library(page, context):
     await page.get_by_role('button', name='Unfavourite stupid song', exact=True).click()
     await expect(page.get_by_role('button', name='Favourite stupid song', exact=True)).to_have_attribute('aria-pressed', 'false')
     await page.reload()
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await expect(page.get_by_role('button', name='Favourite stupid song', exact=True)).to_have_attribute('aria-pressed', 'false')
     await page.get_by_role('button', name='More actions for stupid song', exact=True).click()
     await page.get_by_role('menuitem', name='Add to Playlist', exact=True).click()
@@ -194,7 +358,7 @@ async def library(page, context):
     await expect(page.get_by_role('heading', name='Browser Test Playlist', exact=True)).to_be_visible()
     assert await page.locator('.track-table .track-table-row').count() == 1
     await page.reload()
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await expect(page.get_by_role('heading', name='Browser Test Playlist', exact=True)).to_be_visible()
 
 
@@ -295,7 +459,7 @@ async def cancellation(page, context):
     await page.get_by_role('button', name='Done', exact=True).click()
     await expect(page.get_by_text('You have cancelled your subscription.', exact=True)).to_be_visible()
     await page.reload()
-    await page.locator('[data-reference-ready="true"]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await expect(page.get_by_text('You have cancelled your subscription.', exact=True)).to_be_visible()
 
 
@@ -352,51 +516,75 @@ async def main():
     concurrency = int(os.environ.get('REFERENCE_CONCURRENCY', '1' if os.name == 'nt' else '3'))
     if not 1 <= concurrency <= 4:
         raise ValueError('REFERENCE_CONCURRENCY must be between 1 and 4.')
+    recovery_attempts = int(os.environ.get('REFERENCE_BROWSER_RECOVERY_ATTEMPTS', '2'))
+    if not 0 <= recovery_attempts <= 3:
+        raise ValueError('REFERENCE_BROWSER_RECOVERY_ATTEMPTS must be between 0 and 3.')
     identity = candidate_identity()
-    result = {'candidate': identity, 'baseUrl': BASE, 'locale': 'en-SG', 'timezone': 'Asia/Singapore', 'commit': identity['commit'], 'note': 'Rendering/functional coverage, not visual-parity acceptance.', 'screens': [], 'tests': [], 'flowRoutes': []}
+    result = {'candidate': identity, 'baseUrl': BASE, 'locale': 'en-SG', 'timezone': 'Asia/Singapore', 'commit': identity['commit'], 'note': 'Rendering/functional coverage, not visual-parity acceptance.', 'screens': [], 'tests': [], 'flowRoutes': [], 'browserRecoveryAttempts': recovery_attempts}
+    fatal_error = None
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(**({"executable_path": os.environ["REFERENCE_BROWSER_EXECUTABLE"]} if os.environ.get("REFERENCE_BROWSER_EXECUTABLE") else {}))
-        result['browser'] = browser.version
-        result['concurrency'] = concurrency
-        request = await playwright.request.new_context()
-        result['flowRoutes'] = await flow_routes(request)
-        await request.dispose()
-        semaphore = asyncio.Semaphore(concurrency)
-        async def bounded_capture(sid, width=1440, height=None):
-            async with semaphore:
-                return await capture(browser, sid, width, height)
-        result['screens'] = await asyncio.gather(*(bounded_capture(sid) for sid in IDS))
-        for prefix in ['e72be564', 'a917d88f', 'b620e4ab', '035569a0', '3131018d']:
-            result['screens'].append(await bounded_capture(source(prefix), 390, 844))
-        cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
-        cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry), ("article-scroll-state", article_scroll_state)]
-        cases += LIVE_FIDELITY_CASES
-        cases += EXPANDED_CONTROL_CASES
-        cases += DIALOG_CONTROL_CASES
-        cases += PLAYBACK_COMPLETION_CASES
-        cases += REPLAY_CONTROL_CASES
-        cases += PLAYER_MATERIAL_CASES
-        cases += AUTH_CONTROL_CASES
-        cases += ACCOUNT_SESSION_CASES
-        cases += LIBRARY_FLOW_CASES
-        cases += LIBRARY_CONTROL_CASES
-        cases += PANEL_CONTROL_CASES
-        cases += SIDEBAR_MATERIAL_CASES
-        cases += HOME_CONTROL_CASES
-        cases += METADATA_CASES
-        cases += SESSION_CONTROL_CASES
-        cases += DISCOVERY_SHELF_CASES
-        cases += ARTIST_FLOW_CASES
-        for name, callback in cases:
-            result['tests'].append(await run_case(browser, name, callback))
-        result['tests'].append(await run_case(browser, 'mobile-navigation', mobile_navigation, mobile=True))
-        await browser.close()
+        launch_options = {"executable_path": os.environ["REFERENCE_BROWSER_EXECUTABLE"]} if os.environ.get("REFERENCE_BROWSER_EXECUTABLE") else {}
+        manager = BrowserManager(playwright, launch_options)
+        try:
+            browser = await manager.get()
+            result['browser'] = browser.version
+            result['concurrency'] = concurrency
+            request = await playwright.request.new_context()
+            try:
+                result['flowRoutes'] = await flow_routes(request)
+            finally:
+                await request.dispose()
+            write_results(result)
+
+            for offset in range(0, len(IDS), concurrency):
+                batch = IDS[offset:offset + concurrency]
+                rows = await asyncio.gather(*(recovered_capture(manager, sid, identity, recovery_attempts) for sid in batch))
+                result['screens'].extend(rows)
+                write_results(result)
+
+            for prefix in ['e72be564', 'a917d88f', 'b620e4ab', '035569a0', '3131018d']:
+                result['screens'].append(await recovered_capture(manager, source(prefix), identity, recovery_attempts, 390, 844))
+                write_results(result)
+
+            cases = [('navigation-history', navigation), ('scoped-search', search), ('library-playlists-persistence', library), ('queue-actions', queue), ('preview-form-validation', modal_safety), ('password-signin', password_signin), ('account-passcode', passcode), ('checkout-preview', checkout), ('cancellation-preview', cancellation), ('local-media-playback', local_media), ('strict-reference-routes', strict_routes)]
+            cases += [("sidebar-and-rail-containment", sidebar_and_rails), ("library-artists-videos", library_artists_and_videos), ("playlist-suggestion-flow", playlist_suggestion_flow), ("nested-menu-create-playlist", menu_flyout_and_dialog), ("video-transport-and-focus", video_transport_and_focus), ("lyrics-panel-rail-geometry", lyrics_panel_rail_geometry), ("article-scroll-state", article_scroll_state)]
+            cases += LIVE_FIDELITY_CASES
+            cases += EXPANDED_CONTROL_CASES
+            cases += DIALOG_CONTROL_CASES
+            cases += PLAYBACK_COMPLETION_CASES
+            cases += REPLAY_CONTROL_CASES
+            cases += PLAYER_MATERIAL_CASES
+            cases += AUTH_CONTROL_CASES
+            cases += ACCOUNT_SESSION_CASES
+            cases += LIBRARY_FLOW_CASES
+            cases += LIBRARY_CONTROL_CASES
+            cases += PANEL_CONTROL_CASES
+            cases += SIDEBAR_MATERIAL_CASES
+            cases += HOME_CONTROL_CASES
+            cases += METADATA_CASES
+            cases += SESSION_CONTROL_CASES
+            cases += DISCOVERY_SHELF_CASES
+            cases += ARTIST_FLOW_CASES
+            cases += CONCERT_FLOW_CASES
+            for name, callback in cases:
+                result['tests'].append(await recovered_case(manager, name, callback, identity, recovery_attempts))
+                write_results(result)
+            result['tests'].append(await recovered_case(manager, 'mobile-navigation', mobile_navigation, identity, recovery_attempts, mobile=True))
+            write_results(result)
+        except Exception as error:
+            fatal_error = error
+            result['tests'].append({'test': 'qa-runner', 'status': 'fail', 'error': str(error)})
+        finally:
+            await manager.close()
+
     result['candidateAfter'] = candidate_identity()
-    if any(result['candidateAfter'][key] != identity[key] for key in ('implementationSha256', 'toolingSha256')):
+    if any(result['candidateAfter'][key] != identity[key] for key in IDENTITY_KEYS):
         result['tests'].append({'test': 'candidate-stability', 'status': 'fail', 'error': 'Application or QA source changed during capture; evidence is mixed.'})
-    (OUT / 'results.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
+    write_results(result)
     failures = [row for row in [*result['screens'], *result['tests'], *result['flowRoutes']] if row['status'] != 'pass']
     print(f"Rendered {len(result['screens'])} states; checked {len(result['flowRoutes'])} flow routes; ran {len(result['tests'])} interaction regressions; {len(failures)} failures.", flush=True)
+    if fatal_error is not None:
+        raise fatal_error
     if failures:
         raise SystemExit(1)
 

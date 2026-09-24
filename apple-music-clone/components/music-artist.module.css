@@ -3,11 +3,11 @@
 .heroPhoto { position: absolute; inset: 0 0 auto; width: 100%; }
 .heroBase { position: absolute; bottom: 0; left: 0; right: 0; height: 20%; overflow: hidden; }
 .heroBase > span { width: 100%; height: 100%; filter: brightness(.72) blur(9px); transform: scale(1.015); }
-.heroControls { position: absolute; bottom: 21px; left: var(--page-left); right: var(--page-right); color: white; }
+.heroControls { position: absolute; z-index: 2; bottom: 21px; left: var(--page-left); right: var(--page-right); color: white; }
 .concertShortcut { display: flex; gap: 3px; align-items: center; padding: 3px 6px; background: #2a521a70; font-size: 11px; line-height: 15px; border-radius: 4px; margin-bottom: 11px; }
 .titleRow { display: flex; align-items: center; gap: 14px; }
 .titleRow h1 { font-size: 32px; line-height: 40px; letter-spacing: -.6px; }
-.playArtist { display: grid; place-items: center; border-radius: 50%; width: 34px; height: 34px; flex: none; background: #ed0000; color: white; }
+.playArtist { display: grid; place-items: center; border-radius: 50%; width: 34px; height: 34px; flex: none; background: #ed0000; color: white; box-shadow: 0 0 0 1px #ed0000; }
 .titleRow > button:nth-last-child(2) { margin-left: auto; }
 .titleRow > :global(.icon-button) { width: 28px; height: 28px; background: #0002; }
 .body { padding: 37px var(--page-right) 0 var(--page-left); }
@@ -94,6 +94,11 @@
 }
 
 .songFavourite { font-style:normal; color:#c50028; font-size:10px; margin-left:3px; }
-.captureHover { position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:space-between; padding:0 10px 10px; background:#6d4d3b38; }
-.captureHover > span,.captureHover > i { width:29px; height:29px; border-radius:50%; display:grid; place-items:center; background:#ffffffb8; color:#fff; font-style:normal; text-shadow:0 1px 2px #0005; }
-.captureHover > i { font-size:13px; letter-spacing:1px; }
+.videoCardArt { position:relative; width:100%; overflow:hidden; border-radius:6px; box-shadow:0 4px 8px #0001; }
+.videoCardArt .entryArt { border-radius:inherit; box-shadow:none; }
+.captureHover { position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:flex-start; padding:0 10px 10px; background:#6d4d3b38; opacity:0; visibility:hidden; pointer-events:none; }
+.videoCardArt:hover .captureHover,.videoCardArt:focus-within .captureHover,.videoCardArt[data-captured-hover="true"] .captureHover { opacity:1; visibility:visible; }
+.captureHover > span,.videoMore { width:29px; height:29px; border:0; border-radius:50%; display:grid; place-items:center; background:#ffffffb8; color:#fff; text-shadow:0 1px 2px #0005; }
+.videoMore { position:absolute; right:10px; bottom:10px; padding:0; opacity:0; visibility:hidden; cursor:pointer; }
+.videoCardArt:hover .videoMore,.videoCardArt:focus-within .videoMore,.videoCardArt[data-captured-hover="true"] .videoMore { opacity:1; visibility:visible; }
+.videoMore:focus-visible { outline:2px solid #fff; outline-offset:2px; }

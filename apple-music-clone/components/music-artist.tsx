@@ -11,7 +11,7 @@ import { Rail } from "./music-rail";
 import { SongRow } from "./music-browse";
 import styles from "./music-artist.module.css";
 
-type Entry = { title: string; detail?: string; year?: string; art: Artwork; destination: string; explicit?: boolean };
+type Entry = { title: string; detail?: string; year?: string; art: Artwork; destination: string; explicit?: boolean; videoCard?: boolean };
 
 let artistHeroDataUrl: Promise<string> | undefined;
 function loadArtistHeroDataUrl() {
@@ -43,10 +43,10 @@ const albumEntries: Entry[] = [
   { title: "SOUR (Video Version)", year: "2021", destination: "album:SOUR (Video Version)", art: crop("57f7c08e",967,430,208,208) },
 ];
 const videoEntries: Entry[] = [
-  { title: "Olivia Rodrigo: The Zane Lowe Interview", year: "2026", explicit: true, destination: "video", art: crop("edae3407",286,72,264,148) },
-  { title: "Begged (Lyric Video)", year: "2026", destination: "video", art: crop("edae3407",570,72,264,148) },
-  { title: "cigarette smoke (Lyric Video)", year: "2026", explicit: true, destination: "video", art: crop("edae3407",854,72,264,148) },
-  { title: "expectations (Lyric Video)", year: "2026", destination: "video", art: crop("edae3407",1138,72,264,148) },
+  { title: "Olivia Rodrigo: The Zane Lowe Interview", year: "2026", explicit: true, destination: "video", videoCard: true, art: crop("edae3407",286,72,264,148) },
+  { title: "Begged (Lyric Video)", year: "2026", destination: "video", videoCard: true, art: crop("edae3407",570,72,264,148) },
+  { title: "cigarette smoke (Lyric Video)", year: "2026", explicit: true, destination: "video", videoCard: true, art: crop("edae3407",854,72,264,148) },
+  { title: "expectations (Lyric Video)", year: "2026", destination: "video", videoCard: true, art: crop("edae3407",1138,72,264,148) },
 ];
 const artistPlaylists: Entry[] = [
   { title: "Olivia Rodrigo Essentials", destination: "category:Olivia Rodrigo Essentials", art: crop("edae3407",286,329,264,264) },
@@ -74,12 +74,18 @@ function Heading({ title, onClick }: { title: string; onClick?: () => void }) {
 function EntryCard({ entry, width = "five", continuation }: { entry: Entry; width?: "four" | "five"; continuation?: number }) {
   const m = useMusic();
   const capturedHover = m.scene.source?.startsWith("898ca766") && entry.title === "Begged (Lyric Video)";
+  const image = <Art resolution="standard" art={entry.art} label={entry.title} />;
   return <article className={`${styles.entry} ${width === "four" ? styles.four : styles.five}`}>
-    <button type="button" className={continuation !== undefined ? styles.stitchedVideo : styles.entryArt} aria-label={`Open ${entry.title}`} onClick={() => m.go(entry.destination)}>
-      <Art resolution="standard" art={entry.art} label={entry.title} />
+    {entry.videoCard ? <div className={styles.videoCardArt} data-video-card={entry.title} data-captured-hover={capturedHover || undefined}>
+      <button type="button" className={styles.entryArt} aria-label={`Open ${entry.title}`} onClick={() => m.go(entry.destination)}>
+        {image}
+        <span className={styles.captureHover} data-video-hover-actions aria-hidden="true"><span><Glyph name="play" size={14} /></span></span>
+      </button>
+      <button type="button" className={styles.videoMore} aria-label={`More actions for ${entry.title}`} onClick={() => m.notify("More video actions are not available in the local preview.")}><Glyph name="more" size={14} /></button>
+    </div> : <button type="button" className={continuation !== undefined ? styles.stitchedVideo : styles.entryArt} aria-label={`Open ${entry.title}`} onClick={() => m.go(entry.destination)}>
+      {image}
       {continuation !== undefined && <Art resolution="standard" art={crop("0c042c32", 286 + continuation * 284, 0, 264, 110)} label="" />}
-      {capturedHover && <span className={styles.captureHover} aria-hidden="true"><span><Glyph name="play" size={14} /></span><i>•••</i></span>}
-    </button>
+    </button>}
     <button type="button" className={styles.entryTitle} onClick={() => m.go(entry.destination)}>{entry.title}{entry.explicit && <span className="explicit">E</span>}</button>
     {entry.year && <span className={styles.entryMeta}>{entry.year}</span>}
     {entry.detail && <span className={styles.entryMeta}>{entry.detail}</span>}
@@ -118,10 +124,12 @@ export function ArtistView() {
     if (!video || !heroUrl || name !== "Olivia Rodrigo") return;
     let active = true;
     setHeroReady(false);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finishAfterPaint = (finish: () => void) => {
+      requestAnimationFrame(() => requestAnimationFrame(finish));
+    };
     const markReady = () => {
       if (!active) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.pause();
-      else void video.play().catch(() => undefined);
       const rendered = video as HTMLVideoElement & {
         requestVideoFrameCallback?: (callback: () => void) => number;
       };
@@ -130,8 +138,15 @@ export function ArtistView() {
         setDisplayedHeroFrame(targetHeroFrame);
         setHeroReady(true);
       };
+      if (reducedMotion) {
+        video.pause();
+        finishAfterPaint(finish);
+        return;
+      }
+      const playback = video.play();
       if (rendered.requestVideoFrameCallback) rendered.requestVideoFrameCallback(finish);
-      else requestAnimationFrame(() => requestAnimationFrame(finish));
+      else finishAfterPaint(finish);
+      void playback.catch(() => finishAfterPaint(finish));
     };
     const seek = () => {
       if (Math.abs(video.currentTime - targetHeroFrame.currentTime) <= 0.0005) markReady();

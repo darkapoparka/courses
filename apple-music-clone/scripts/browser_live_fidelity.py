@@ -19,6 +19,12 @@ def source(prefix):
 
 async def wait_for_visual_assets(page):
     """Wait for visible CSS artwork to load and decode before evidence capture."""
+    hero = page.locator('video[data-reference-hero-resource]')
+    if await hero.count():
+        await expect(hero).to_have_attribute('data-reference-hero-ready', 'true', timeout=30000)
+        await expect(page.get_by_role('heading', name='Olivia Rodrigo', exact=True)).to_be_visible(timeout=30000)
+        await expect(page.get_by_role('button', name='Nearby Concerts', exact=True)).to_be_visible(timeout=30000)
+        await expect(page.get_by_role('button', name='More artist actions', exact=True)).to_be_visible(timeout=30000)
     await page.evaluate(r"""async () => {
       const visibleArtwork = [...document.querySelectorAll('.music-art')].filter(element => {
         const rect = element.getBoundingClientRect();
@@ -53,15 +59,16 @@ async def start(page, prefix):
     await page.set_viewport_size(reference_viewport(source(prefix)))
     response = await page.goto(BASE + '/screen/' + source(prefix), wait_until='networkidle')
     assert response and response.status == 200
-    await page.locator('[data-reference-ready=true]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.evaluate('document.fonts.ready')
     await wait_for_visual_assets(page)
 
-async def record(page, journey, prefix, action, *, move_pointer=True):
+async def record(page, journey, prefix, action, *, move_pointer=True, wait_for_network_idle=True):
     """Record an observed state; this does not grant visual acceptance."""
     path = OUT / journey
     path.mkdir(parents=True, exist_ok=True)
-    await page.wait_for_load_state('networkidle')
+    if wait_for_network_idle:
+        await page.wait_for_load_state('networkidle')
     sid = source(prefix)
     assert page.viewport_size == reference_viewport(sid), (journey, sid, page.viewport_size)
     if move_pointer:
@@ -77,6 +84,20 @@ async def record(page, journey, prefix, action, *, move_pointer=True):
                 'sourceSha256': sha256((APP / 'reference/originals' / f'{sid}.webp').read_bytes()).hexdigest()}
     with (path / 'steps.jsonl').open('a', encoding='utf-8') as output:
         output.write(json.dumps(evidence, ensure_ascii=False) + '\n')
+
+async def scroll_checkout_to(page, selector, top):
+    host = page.locator('.checkout-scroll')
+    target = page.locator(selector)
+    await host.hover()
+    for _ in range(20):
+        current = await target.evaluate('(element) => element.getBoundingClientRect().top - element.closest(".checkout-scroll").getBoundingClientRect().top')
+        difference = current - top
+        if abs(difference) <= 1:
+            return
+        await page.mouse.wheel(0, max(-120, min(120, difference)))
+        await page.wait_for_timeout(40)
+    raise AssertionError(f'Wheel scrolling did not place {selector} at {top}px (last offset {current}px)')
+
 
 async def album_copy_link(page, context):
     await context.grant_permissions(['clipboard-read', 'clipboard-write'])
@@ -151,16 +172,47 @@ async def radio_schedule(page, context):
     await expect(page.locator('.schedule-entry').first.locator('small')).to_have_text('LIVE · 08:00–10:00')
     await record(page, '4239264b-radio-schedule', 'f49fce21', 'Open full station schedule')
 
+async def radio_entry_journey(page, context):
+    await start(page, 'e72be564')
+    await expect(page.get_by_role('heading', name='New', exact=True)).to_be_visible()
+    await record(page, 'e7c28ffc-radio-entry', 'e72be564', 'Start at New')
+    await page.get_by_role('button', name='Radio', exact=True).click()
+    await expect(page.get_by_role('heading', name='Radio', exact=True)).to_be_visible()
+    await expect(page.locator('.radio-page')).to_have_attribute('data-edition', 'launch')
+    await record(page, 'e7c28ffc-radio-entry', '4cb8f3aa', 'Open Radio from the sidebar')
+
+    stations = page.locator('#radio-stations')
+    await page.mouse.move(page.viewport_size['width'] - 300, page.viewport_size['height'] - 180)
+    for _ in range(12):
+        box = await stations.bounding_box()
+        assert box, 'Top Stations section should remain in the live Radio page.'
+        delta = box['y'] - 31
+        if abs(delta) <= 2:
+            break
+        await page.mouse.wheel(0, delta)
+        await page.wait_for_timeout(120)
+    box = await stations.bounding_box()
+    assert box and abs(box['y'] - 31) <= 2, f'Radio scroll should align Top Stations at the recorded y=31: {box}'
+    await expect(page.get_by_role('heading', name='Top Stations', exact=True)).to_be_visible()
+    await record(page, 'e7c28ffc-radio-entry', '0920d819', 'Scroll Radio until Top Stations reaches the recorded position')
+
 async def radio_live_playback(page, context):
-    # The first still in this flow has an older editorial catalog. This test
-    # starts at the selected-station state; it is not full-flow sign-off.
-    await start(page, 'a9992e55')
+    await start(page, '4cb8f3aa')
+    station = page.get_by_role('button', name='Listen to Apple Music Hits', exact=True)
+    await expect(station).to_be_visible()
+    await record(page, '868aa817-radio-live', '4cb8f3aa', 'Start on the Radio launch screen')
+
+    await station.hover()
+    await expect(page.locator('.radio-page')).to_have_attribute('data-edition', 'hits')
+    await expect(station.locator('xpath=..')).to_have_attribute('data-selected', 'true')
+    await record(page, '868aa817-radio-live', 'a9992e55', 'Hover Apple Music Hits to select the station', move_pointer=False)
     original_titles = await page.locator('.episode > div > button').all_text_contents()
-    await page.get_by_role('button', name='Listen to Apple Music Hits', exact=True).click()
+    assert original_titles[1:3] == ['JÄY-Z: The Impact', 'JÄY-Z: The Playboy'], original_titles
+    await station.click()
     await expect(page.locator('.now-playing')).to_contain_text('Gorgeous')
     await expect(page.get_by_role('button', name='Stop live radio', exact=True)).to_be_visible()
     assert await page.locator('.episode > div > button').all_text_contents() == original_titles
-    await record(page, 'radio-playback-segment', '47a07865', 'Start selected station')
+    await record(page, '868aa817-radio-live', '47a07865', 'Start listening to Apple Music Hits')
     await page.get_by_role('button', name='Expand Apple Music Hits', exact=True).click()
     await expect(page.locator('.expanded-player')).to_have_class(re.compile('radio-reference'))
     await expect(page.locator('.expanded-meta')).to_contain_text('Doja Cat — Vie — Apple Music Hits')
@@ -168,7 +220,13 @@ async def radio_live_playback(page, context):
     await expect(art).to_have_attribute('data-art-source', source('7bd2ef54'))
     await expect(page.get_by_role('button', name='Next station item', exact=True)).to_be_disabled()
     await expect(page.get_by_role('button', name='Previous station item', exact=True)).to_be_disabled()
-    await record(page, 'radio-playback-segment', '7bd2ef54', 'Expand the playing station')
+    await record(page, '868aa817-radio-live', '7bd2ef54', 'Expand the playing station')
+    lyrics = page.get_by_role('button', name='Show lyrics', exact=True)
+    await expect(lyrics).to_have_attribute('aria-pressed', 'false')
+    await lyrics.click()
+    await expect(page.get_by_text('Lyrics are not included for this recording in the saved reference.', exact=True)).to_be_visible()
+    await page.get_by_role('button', name='Hide lyrics', exact=True).click()
+    await expect(page.get_by_text('Lyrics are not included for this recording in the saved reference.', exact=True)).not_to_be_visible()
     await page.get_by_role('button', name='Stop live radio', exact=True).click()
     await expect(page.get_by_role('button', name='Play live radio', exact=True)).to_be_visible()
     await page.get_by_role('button', name='Play live radio', exact=True).click()
@@ -197,7 +255,7 @@ async def expanded_menu_state(page, context):
 
 async def album_favourite_isolation(page, context):
     await page.goto(BASE + '/?view=album', wait_until='networkidle')
-    await page.locator('[data-reference-ready=true]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     song = page.get_by_role('button', name='Unfavourite stupid song', exact=True)
     await expect(song).to_have_attribute('aria-pressed', 'true')
     opener = page.get_by_role('button', name='More actions for you seem pretty sad for a girl so in love', exact=True)
@@ -205,7 +263,7 @@ async def album_favourite_isolation(page, context):
     await page.get_by_role('menuitem', name='Favourite', exact=True).click()
     await expect(song).to_have_attribute('aria-pressed', 'true')
     await page.reload(wait_until='networkidle')
-    await page.locator('[data-reference-ready=true]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await opener.click()
     await expect(page.get_by_role('menuitem', name='Undo Favourite', exact=True)).to_be_visible()
     await page.get_by_role('menuitem', name='Undo Favourite', exact=True).click()
@@ -266,6 +324,7 @@ CASES = [('recorded-shuffle-toggle', shuffle_toggle_journey),
          ('recorded-album-copy-link', album_copy_link),
          ('recorded-album-description', album_description),
          ('recorded-album-share-sheet', album_share_sheet),
+         ('recorded-radio-entry', radio_entry_journey),
          ('recorded-radio-schedule', radio_schedule),
          ('radio-live-playback', radio_live_playback),
          ('expanded-menu-state', expanded_menu_state),
@@ -335,6 +394,22 @@ async def clear_recorded_queue(page, context):
     await expect(queue.get_by_role('button', name='Clear', exact=True)).to_have_count(0)
     await record(page, '7f504621-clear-queue', 'de48a956', 'Clear using the live queue control')
 
+async def recorded_song_queue_entry(page, context):
+    journey = 'e0a0f93e-song-queue-entry'
+    await start(page, '1f9e170c')
+    await record(page, journey, '1f9e170c', 'Start at the recorded New listening session')
+    await page.get_by_role('button', name='Up Next', exact=True).click()
+    queue = page.get_by_role('complementary', name='Up Next queue', exact=True)
+    await expect(queue).to_be_visible()
+    rows = queue.locator('.queue-list .song-row')
+    observed = await rows.all_inner_texts()
+    print(f'FLOW e0a0f93e current-session queue rows={len(observed)}: {json.dumps(observed, ensure_ascii=False)}', flush=True)
+    assert len(observed) >= 14, observed
+    assert any('I Knew It, I Knew You' in row for row in observed), observed
+    assert any('Dracula (JENNIE Remix)' in row for row in observed), observed
+    await expect(page.get_by_role('button', name='Expand stupid song', exact=True)).to_be_visible()
+    await record(page, journey, '8f029018', 'Open Up Next through the live player control; preserve the 14-item starting-session queue')
+
 async def recorded_autoplay(page, context):
     await start(page, '8f029018')
     await record(page, 'fc3dbfae-autoplay', '8f029018', 'Initial populated queue')
@@ -392,7 +467,8 @@ async def approved_preview_covers(page, context):
     assert await art.evaluate('(e)=>getComputedStyle(e).backgroundSize') == '100% 100%'
     assert 'NaN' not in (await art.get_attribute('style'))
 
-CASES += [('recorded-clear-queue', clear_recorded_queue),
+CASES += [('recorded-song-queue-entry', recorded_song_queue_entry),
+          ('recorded-clear-queue', clear_recorded_queue),
           ('recorded-autoplay', recorded_autoplay),
           ('lyrics-catalog-persistence', lyrics_catalog_persistence),
           ('approved-preview-covers', approved_preview_covers)]
@@ -420,3 +496,74 @@ async def cancellation_sequence(page, context):
 
 
 CASES.append(('recorded-canceling-a-trial', cancellation_sequence))
+
+
+async def starting_trial_sequence(page, context):
+    journey = 'starting-a-trial-continuous-20260923'
+    non_get_requests = []
+    page.on('request', lambda request: non_get_requests.append(request) if request.method != 'GET' else None)
+    await start(page, '51c79ae2')
+    await expect(page.get_by_role('dialog', name='Payment Method')).to_be_visible()
+    await expect(page.get_by_label('Fixed test card number', exact=True)).to_have_value('')
+    await record(page, journey, '51c79ae2', 'Start at the empty local trial checkout')
+
+    await page.get_by_label('Fixed test card number', exact=True).click()
+    await expect(page.get_by_label('Fixed test card number', exact=True)).to_have_value('2235123456789000')
+    await expect(page.get_by_label('Test expiry date', exact=True)).to_have_value('01/2030')
+    await expect(page.get_by_label('Test security code', exact=True)).to_have_value('123')
+    assert await page.get_by_label('Fixed test card number', exact=True).evaluate('(element) => getComputedStyle(element).outlineStyle') == 'none'
+    await record(page, journey, 'b74d25cb', 'Select the built-in preview test card')
+
+    await scroll_checkout_to(page, '#checkout-billing', 27)
+    await record(page, journey, '94b9d90d', 'Scroll to the billing address section')
+
+    street = page.get_by_label('Preview street address', exact=True)
+    await street.fill('75 Ayer Rajah Crescent, #02-02')
+    suggestion = page.get_by_role('button', name='75 Ayer Rajah Cres, Singapore', exact=True)
+    await expect(suggestion).to_be_visible()
+    await record(page, journey, 'a728c2af', 'Type the billing street and review its suggestion')
+
+    await suggestion.click()
+    await expect(street).to_have_value('75 Ayer Rajah Cres, JTC Launchpad@One-North, Blk 71, Singapore')
+    assert await street.evaluate('(element) => document.activeElement !== element')
+    await scroll_checkout_to(page, '#checkout-billing', 94)
+    await record(page, journey, '06ea37ef', 'Choose the address suggestion and continue through the billing form')
+
+    await scroll_checkout_to(page, '#checkout-confirm', 28)
+    await record(page, journey, '5175a910', 'Scroll to the subscription confirmation details')
+
+    await scroll_checkout_to(page, '.checkout-summary', -15)
+    await expect(page.get_by_role('button', name='Confirm', exact=True)).to_be_visible()
+    await record(page, journey, 'ecb33359', 'Scroll to the final confirmation controls')
+
+    await page.get_by_role('button', name='Confirm', exact=True).click()
+    await expect(page.get_by_role('button', name='Done', exact=True)).to_be_visible()
+    await expect(page.locator('.checkout-tick')).to_be_visible()
+    await expect(page.get_by_role('dialog', name='Payment Method')).to_be_visible()
+    await expect(page.locator('.trial-banner')).to_be_visible()
+    await expect(page.locator('.sidebar-footer > .profile-button')).to_be_visible()
+    await page.wait_for_function('''() => {
+      const host = document.querySelector('.checkout-scroll');
+      const heading = document.querySelector('#checkout-confirm');
+      return host && heading && Math.abs(heading.getBoundingClientRect().top - host.getBoundingClientRect().top - 28) < 1;
+    }''')
+    await record(page, journey, 'bf099ae2', 'Confirm only the local preview; review the completed state')
+
+    await scroll_checkout_to(page, '.checkout-column > .auth-primary', 460)
+    await expect(page.get_by_role('button', name='Done', exact=True)).to_be_visible()
+    await page.get_by_role('button', name='Done', exact=True).click()
+    await expect(page.get_by_role('dialog', name='Payment Method')).to_have_count(0)
+    await expect(page.get_by_role('heading', name='New', exact=True)).to_be_visible()
+    await expect(page.locator('.trial-banner')).to_have_count(0)
+    await expect(page.get_by_text('SmithAlex', exact=True)).to_have_count(0)
+    await record(page, journey, 'e72be564', 'Dismiss the confirmation and return to New')
+
+    await page.get_by_role('button', name='Home', exact=True).click()
+    await expect(page.get_by_role('heading', name='Home', exact=True)).to_be_visible()
+    await expect(page.get_by_text('SmithAlex', exact=True)).to_be_visible()
+    await record(page, journey, 'a917d88f', 'Open Home from the completed trial journey')
+
+    assert not non_get_requests, 'The trial preview must not submit account or payment data.'
+
+
+CASES.append(('recorded-starting-a-trial', starting_trial_sequence))

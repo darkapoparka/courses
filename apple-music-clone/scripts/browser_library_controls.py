@@ -150,7 +150,7 @@ async def preferences_persist(page, context):
     # isolated while viewing a source fixture, but must work in the live app.
     from browser_live_fidelity import BASE
     await page.goto(BASE + '/?view=songs', wait_until='networkidle')
-    await page.locator('[data-reference-ready=true]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     await page.get_by_role('button', name='More actions for stupid song', exact=True).click()
     await page.get_by_role('menuitem', name='Pin Song', exact=True).click()
     label = page.locator('.library-section-label')
@@ -162,7 +162,7 @@ async def preferences_persist(page, context):
     await page.get_by_role('menuitemradio', name='Descending', exact=True).click()
     titles = await page.locator('.table-song-title').all_text_contents()
     await page.reload(wait_until='networkidle')
-    await page.locator('[data-reference-ready=true]').wait_for()
+    await page.locator('div[data-reference-ready="true"]:not(.music-app)').wait_for()
     assert await page.locator('.table-song-title').all_text_contents() == titles
     await expect(page.get_by_role('navigation', name='Pins', exact=True).get_by_role('button', name='stupid song', exact=False)).to_be_visible()
     await expect(page.get_by_role('navigation', name='Music library', exact=True).get_by_role('button', name='Albums', exact=True)).to_have_count(0)

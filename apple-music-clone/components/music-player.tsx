@@ -103,21 +103,26 @@ export function ExpandedPlayer() {
   const stationSubtitle = broadcast?.subtitle ?? "Live Radio";
   const art = radioReference && broadcast ? broadcast.expandedArt : m.scene.playerArt ?? (station ? station.art : m.activeId === "album-2" || !m.activeId ? crop("c939c9b8",144,134,461,462) : m.active?.art ?? albumArt);
   const total = m.duration;
-  const hasLyrics = Boolean(m.scene.lyrics && !station);
-  return <div className={`expanded-player faithful-expanded ${hasLyrics ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} data-player-ambience={!station && (!m.activeId || m.activeId === "album-2") ? expandedPresentation(m.elapsed, hasLyrics).ambience : undefined} aria-label="Expanded player">
+  const lyricsOpen = Boolean(m.scene.lyrics);
+  const hasLyrics = lyricsOpen && !station;
+  const presentation = expandedPresentation(m.elapsed, hasLyrics);
+  const metadataText = station ? stationSubtitle : `${m.active?.artist ?? "Olivia Rodrigo"} — ${m.active?.album ?? albumTitle}`;
+  const metadataOffset = !station && (!m.activeId || m.activeId === "album-2") ? presentation.metadataOffset : 0;
+  const metadataClipReduction = !station && (!m.activeId || m.activeId === "album-2") ? presentation.metadataClipReduction : 0;
+  return <div className={`expanded-player faithful-expanded ${lyricsOpen ? "with-lyrics" : "without-lyrics"} ${radioReference ? "radio-reference" : ""}`} data-local-media={m.mediaName || undefined} data-player-ambience={!station && (!m.activeId || m.activeId === "album-2") ? presentation.ambience : undefined} aria-label="Expanded player">
     {radioReference && <Art art={art} label="" className="radio-reference-backdrop" />}
     <IconButton icon="close" label="Close expanded player" className="expanded-close" onClick={() => m.patch({ expanded: false })} />
     <div className="expanded-layout"><div className="expanded-left">
       <ExpandedArtwork art={art} label={m.active?.album ?? stationTitle ?? albumTitle} ambience={!station && (!m.activeId || m.activeId === "album-2") ? expandedPresentation(m.elapsed, true).ambience : undefined} />
-      <div className="expanded-meta"><div><strong>{m.active?.title ?? stationTitle ?? "stupid song"}</strong><button type="button" onClick={() => m.go(station ? "radio" : `album:${m.active?.album ?? albumTitle}`)}>{station ? stationSubtitle : `${m.active?.artist ?? "Olivia Rodrigo"} — ${m.active?.album ?? albumTitle}`}</button></div>
+      <div className="expanded-meta"><div><strong>{m.active?.title ?? stationTitle ?? "stupid song"}</strong><button type="button" className="expanded-meta-subtitle" aria-label={metadataText} onClick={() => m.go(station ? "radio" : `album:${m.active?.album ?? albumTitle}`)} style={{ maxWidth: metadataClipReduction ? `calc(100% - ${metadataClipReduction}px)` : undefined }}><span className="expanded-meta-ticker" aria-hidden="true" data-metadata-offset={Math.round(metadataOffset)} style={{ transform: `translate3d(-${metadataOffset}px, 0, 0)` }}><span>{metadataText}</span>{!radioReference && <span>{metadataText}</span>}</span></button></div>
         {!station && <IconButton icon="star" label="Favourite current song" aria-pressed={m.library.favourites.includes(m.activeId ?? "album-2")} onClick={() => m.favourite(m.activeId ?? "album-2")} />}
         {!radioReference && <IconButton icon="more" label="More song actions" onClick={event => m.openMenu(station ? "station" : "track", event, m.activeId ?? "album-2")} />}
       </div>
       {!station && <div className="seek-control"><input type="range" aria-label="Playback position" min="0" max={total || 1} step="0.1" value={Math.min(m.elapsed, total)} disabled={!total} style={{ backgroundSize: `${total ? m.elapsed / total * 100 : 0}% 100%` }} onChange={event => m.setElapsed(Number(event.target.value))} /><div><span>{formatTime(m.elapsed)}</span><span>-{formatTime(Math.max(0, total - m.elapsed))}</span></div></div>}
       {station && <div className={`live-progress ${radioReference ? "radio-live-progress" : ""}`}>{radioReference ? <><span>--:--</span><span>LIVE</span></> : <span>LIVE</span>}</div>}
       {station ? <RadioTransport /> : <Transport large />}<Volume expanded />
-    </div>{hasLyrics && <div className="expanded-lyrics"><Lyrics /></div>}</div>
-    {!station && <ExpandedLyricsButton label={hasLyrics ? "Hide lyrics" : "Show lyrics"} pressed={hasLyrics} onClick={() => m.patch({ lyrics: !hasLyrics })} />}
+    </div>{lyricsOpen && <div className="expanded-lyrics"><Lyrics /></div>}</div>
+    <ExpandedLyricsButton label={lyricsOpen ? "Hide lyrics" : "Show lyrics"} pressed={lyricsOpen} onClick={() => m.patch({ lyrics: !lyricsOpen })} />
     <span className="sr-only">This is a local reference player. Without a user-owned file, transport controls preview UI state silently. Shift+M opens local media.</span>
   </div>;
 }

@@ -14,11 +14,32 @@ const frames = [
 ] as const;
 
 export function expandedPresentation(elapsed: number, lyrics: boolean) {
-  if (!lyrics) return { ambience: "instrumental", previousLines: 0 };
-  for (let index = frames.length - 1; index >= 0; index -= 1) {
-    if (elapsed >= frames[index]!.time) return frames[index]!;
+  if (!lyrics) return { ambience: "instrumental", previousLines: 0, metadataOffset: elapsed >= 112 && elapsed < 141 ? 300 : 0, metadataClipReduction: 0 };
+  const metadataFrames = [
+    { time: 0, offset: 0, clipReduction: 0 }, { time: 11, offset: 0, clipReduction: 0 },
+    { time: 54, offset: 50, clipReduction: 29 }, { time: 73, offset: 403, clipReduction: 0 },
+    { time: 81, offset: 0, clipReduction: 0 }, { time: 101, offset: 0, clipReduction: 0 },
+    { time: 110, offset: 0, clipReduction: 0 }, { time: 141, offset: 0, clipReduction: 0 },
+    { time: 151, offset: 0, clipReduction: 0 }, { time: 167, offset: 0, clipReduction: 0 },
+  ] as const;
+  let metadataOffset: number = metadataFrames[0].offset;
+  let metadataClipReduction: number = metadataFrames[0].clipReduction;
+  for (let index = 0; index < metadataFrames.length - 1; index += 1) {
+    const from = metadataFrames[index]!;
+    const to = metadataFrames[index + 1]!;
+    if (elapsed < to.time) {
+      const progress = Math.max(0, (elapsed - from.time) / (to.time - from.time));
+      metadataOffset = from.offset + (to.offset - from.offset) * progress;
+      metadataClipReduction = from.clipReduction + (to.clipReduction - from.clipReduction) * progress;
+      break;
+    }
+    metadataOffset = to.offset;
+    metadataClipReduction = to.clipReduction;
   }
-  return frames[0]!;
+  for (let index = frames.length - 1; index >= 0; index -= 1) {
+    if (elapsed >= frames[index]!.time) return { ...frames[index]!, metadataOffset, metadataClipReduction };
+  }
+  return { ...frames[0]!, metadataOffset, metadataClipReduction };
 }
 
 /** Line endings visible in c939c9b8, b3f29b6f, ac05c6b8, 96711b04,

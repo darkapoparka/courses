@@ -1,8 +1,9 @@
-.page > :global(.music-section):first-of-type { margin-top: 23px; }
+.page > :global(.music-section):first-of-type { margin-top: 28px; }
+.page > :global(.music-section):first-of-type > :global(.rail-wrap) { margin-top: 11px; }
 .page :global(.station-card .card-art-button) { border-radius: 22px; box-shadow: 0 7px 12px #0002; }
 .page :global(.station-rail .music-rail) { padding-bottom: 10px; }
 .page :global(.station-card > .icon-button) { bottom: 8px; }
-.page > :global(.music-section):nth-of-type(2) { margin-top: 31px; }
+.page > :global(.music-section):nth-of-type(2) { margin-top: 32px; }
 .page > :global(.music-section):nth-of-type(3) { margin-top: 39px; }
 .episodesRail { margin-top: 12px; }
 .episodesRail :global(.episode-grid) { width: 100%; flex: none; margin-top: 0; }
@@ -11,10 +12,14 @@
 .episodesRail :global(.episode p) { font-size: 12px; line-height: 15px; margin-top: 2px; }
 .episodesRail :global(.episode small) { font-size: 11px; line-height: 16px; }
 .episodesRail :global(.episode > div > button) { font-weight: 400; }
-.section { margin-top: 42px; }
+.section { margin-top: 41px; }
 .section h2 { font-size: 17px; line-height: 22px; }
 .section h2 button { display: flex; align-items: center; gap: 4px; }
 .section h2 svg { color: #888; }
+.page :global(#radio-stations) > :global(.rail-wrap) { margin-top: 10px; }
+.section + .section { margin-top: 39px; }
+.section + .section > :global(.rail-wrap) { margin-top: 9px; }
+.section + .section + .section { margin-top: 36px; }
 .section > :global(.rail-wrap) { margin-top: 12px; }
 .section :global(.media-card .music-art) { aspect-ratio: 208/209 !important; }
 .explore { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); grid-template-rows: repeat(3,55px); grid-auto-flow: column; gap: 23px 20px; margin-top: 26px; }
@@ -30,3 +35,4 @@
 .page :global(.station-card[data-selected="true"] > .icon-button svg) { width:15px; }
 .page :global(.station-card[data-selected="true"] .card-play) { background:#d90027; color:#fff; }
 .page[data-station-menu="true"] :global(.station-card[data-selected="true"] .card-play) { background:#acd1dc; color:#fff; }
+.page :global(.station-card[data-selected="true"] .card-art-button > .music-art) { background-color:#d3d3d3; filter:saturate(.715) brightness(.9); }

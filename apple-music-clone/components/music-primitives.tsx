@@ -62,7 +62,7 @@ export function Glyph({ name, size = 18 }: { name: GlyphName; size?: number }) {
     case "play-next": return <svg {...common}><path d="M3 6h12M3 11h10M3 16h8" /><path d="M18 4v13M15 7l3-3 3 3" /></svg>;
     case "play-last": return <svg {...common}><path d="M3 6h8M3 11h10M3 16h12" /><path d="M18 4v13M15 14l3 3 3-3" /></svg>;
     case "help": return <svg {...common}><circle cx="12" cy="12" r="9" /><path d="M9.6 9a2.7 2.7 0 1 1 4.7 1.8c-1.3 1.2-2.3 1.5-2.3 3.2M12 17.5h.01" /></svg>;
-    case "settings": return <svg {...common}><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg>;
+    case "settings": return <svg {...common}><path d="M10.7 2h2.6l.5 2.2a7.8 7.8 0 0 1 1.7.8l2.1-1.1 1.8 1.8-1.1 2.1c.4.5.7 1.1.8 1.7l2.2.5v2.6l-2.2.5a7.8 7.8 0 0 1-.8 1.7l1.1 2.1-1.8 1.8-2.1-1.1a7.8 7.8 0 0 1-1.7.8l-.5 2.2h-2.6l-.5-2.2a7.8 7.8 0 0 1-1.7-.8l-2.1 1.1-1.8-1.8 1.1-2.1a7.8 7.8 0 0 1-.8-1.7L2.7 13v-2.6l2.2-.5a7.8 7.8 0 0 1 .8-1.7L4.6 6.1l1.8-1.8 2.1 1.1a7.8 7.8 0 0 1 1.7-.8Z" /><circle cx="12" cy="12" r="3" /></svg>;
     case "transfer": return <svg {...common}><rect x="4" y="6" width="13" height="12" rx="2" /><path d="M13 10h8M18 7l3 3-3 3M8 10v5l4-1" /></svg>;
     case "muted": return <svg {...common}><path d="M3 9h4l5-5v16l-5-5H3V9Z" /><path d="m16 9 6 6m0-6-6 6" /></svg>;
     default: return <Icon name={(name === "person" ? "user" : name) as IconName} size={size} />;
