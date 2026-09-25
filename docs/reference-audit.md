@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## 2026-09-25 expanded live-radio and continuous journey acceptance
+
+The [live-radio review](reference-review/2026-09-25-radio-live-acceptance.md) accepts `MATCH-7bd2ef54` and `FLOW-868aa817`. Exact review confirms the radio-only ambient field, controls and 0.63 volume have no remaining actionable product mismatch. The four-step live path now reproduces the saved one-row launch chrome and three-row selected/playing chrome through visible hover, click and expand controls; the canonical regression also passes lyrics, stop/restart, close and error checks. The stable candidate passed 164 browser states, 218 routes, 124 interactions and all 159 comparisons with zero functional failures. Ledger: **UI 159/159, MATCH 113/159, FLOW 29/58**.
+
 ## Latest starting trial checkout matches
 
 The [2026-09-23 trial checkout review](reference-review/2026-09-23-starting-trial-checkout-matches.md) accepts `MATCH-b74d25cb`, `MATCH-94b9d90d`, `MATCH-a728c2af`, `MATCH-06ea37ef`, `MATCH-5175a910`, `MATCH-ecb33359`, and `MATCH-bf099ae2` after exact 1440 × 903 source/render/residual review. The fresh optimized candidate (`yA4L7Jwf1ReiiuJdkX1Fu`, app `6387e08df950ff9012cf82ebc7ab27dee4bcc2cab72b727e2573d8ccbcc56b0c`, QA `18425a67e002b0412ac9b06f91f4051786cf9319e3f09f89767502c1a3513d57`, Chromium `151.0.7922.34`) passed 159 desktop captures, five responsive samples, 218 routes, and 124 interactions with zero failures; all 159 comparisons completed. The ten-step real-control trial path passes, but `FLOW-32937ec7` stays open because its motion clip was not reviewed. Ledger: **UI 159/159, MATCH 110/159, FLOW 26/58**.

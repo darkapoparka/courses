@@ -1,6 +1,14 @@
 # Courses - current handoff
 
-Updated 2026-09-24. Only checkout `J:\courses`, only branch `main`, active app `apple-music-clone`. No course adaptation, replacement app, branch/worktree creation, cleanup or reference-archive mutation.
+## 2026-09-25 expanded live-radio acceptance
+
+The current verified working-tree candidate on `main` accepts `MATCH-7bd2ef54` and `FLOW-868aa817`. The radio-only ambient material now follows the saved yellow/green, cyan/blue and dark-edge fields; disabled transport, close, lyrics glyph and saved 0.63 volume were reviewed at exact `1440 × 903`. The continuous journey truthfully changes the sidebar from one playlist row to three on Hits hover/focus, preserves those rows through click and expansion, and uses no direct route jump after the initial state.
+
+Build `VV5EkiHK_-4SZrU7t11DN` and Chromium `151.0.7922.34` passed 159 desktop plus five responsive renders, all 218 ordered routes and all 124 real-control regressions with zero failures. Application identity `8747d93dda352aff05e386802c67b9a015823884bf2ffa5581e6fc4fd1a20b1f` and QA identity `d3ccd0b86e479daec98eda8632097d0a58846546620beee5e15b70513ab589b7` remained stable. All 159 exact comparisons completed with mean MAE `4.742176` and mean over-20 share `4.711469%`. Evidence: `apple-music-clone/.qa/evidence/gpt56-radio-resume-prod-20260925-0430/{browser,comparison-official-2}`.
+
+The Windows evidence writer now retries only transient `PermissionError` failures during atomic `results.json.tmp` replacement and still raises persistent failures; two focused unit tests cover both outcomes. The ledger is **UI 159/159, MATCH 113/159, FLOW 29/58**. Publication commit is the commit containing [the review](reference-review/2026-09-25-radio-live-acceptance.md).
+
+Updated 2026-09-25. Only checkout `J:\courses`, only branch `main`, active app `apple-music-clone`. No course adaptation, replacement app, branch/worktree creation, cleanup or reference-archive mutation.
 ## 2026-09-24 final verified fidelity checkpoint
 
 Before publication, `main` and `origin/main` both remained at `d71c3c4355d847867fc04aa1f4b69cb8035aba4d`; the complete local fidelity batch was preserved without reset, clean, restore, branch switching, worktrees, deletion or force-push. The application-byte-current optimized candidate is `.next-gpt56-optimized-20260924-1600`, build `joGs4_X0x4_zJ4V9bjfM7`, verified in Chromium `151.0.7922.34`.

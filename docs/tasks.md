@@ -623,8 +623,9 @@ Check exact transport icons, captured times, queue contents, lyrics positions, e
 <a id="screen-7bd2ef54"></a>
 
 - [x] **UI-7bd2ef54 — Expanded radio player — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-7bd2ef54 — Finish and verify the exact screenshot match.**
-  - 2026-09-23 optimized follow-up: expanded transport spacing and volume-row position align; saved volume is now 0.63, matching the captured thumb. The latest 1440 × 903 source/render review reduces MAE from 6.298 to 5.939 and over-20 pixels from 9.236% to 7.521%. Ambient background hue/gradient and control-glyph sizing remain visibly different, so keep MATCH open. Full 164-capture, 218-route and 124-interaction optimized run passed with zero failures. [Latest comparison and evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
+  - [x] **MATCH-7bd2ef54 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Accepted after exact 1440 × 903 source/render/residual review on the stable optimized candidate. The scoped ambient material, disabled transport, close control, 0.63 volume and lyrics glyph now match without affecting ordinary expanded-song states. MAE is 4.615950 and over-20 share is 6.477175%. [Review and evidence](reference-review/2026-09-25-radio-live-acceptance.md).
+  - 2026-09-23 optimized follow-up: expanded transport spacing and volume-row position align; saved volume is now 0.63, matching the captured thumb. The latest 1440 × 903 source/render review reduces MAE from 6.298 to 5.939 and over-20 pixels from 9.236% to 7.521%. That historical candidate still had ambient and glyph differences; the 2026-09-25 acceptance above supersedes this blocker. Full 164-capture, 218-route and 124-interaction optimized run passed with zero failures. [Latest comparison and evidence](reference-review/2026-09-23-radio-selected-schedule-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3.webp) · [Open app state](http://127.0.0.1:6435/screen/7bd2ef54-565a-42a6-ad5d-2fa21b98f2a3) · [Component](../apple-music-clone/components/music-player.tsx)
 
 ### Song credits — 2 states
@@ -1484,8 +1485,9 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-23: Accepted after continuous New → Radio sidebar navigation and mouse-wheel scrolling to Top Stations. All three exact 1440 × 903 journey frames were visually reviewed; one All Playlists row persists as in the saved states, and the Top Stations section aligns at y=31. The optimized full corpus passed 164 renders, 218 route checks and 124 interactions with zero failures. [Evidence and exact-size frame review](reference-review/2026-09-23-radio-entry-flow-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/radio?step=0). Sequence: [1: e72be564](#screen-e72be564) → [2: 4cb8f3aa](#screen-4cb8f3aa) → [3: 0920d819](#screen-0920d819)
 
-- [ ] **FLOW-868aa817 — 37. Listening to a live radio (4 steps).** Complete and verify the recorded journey.
-  - 2026-09-23: Completed by hover, station click, player expand and actual lyrics/playback controls. Keep open because the selected `a9992e55` saved still and live session have different playlist/sidebar snapshots; radio material/glyph residuals also remain. [Evidence and exact-size comparisons](reference-review/2026-09-23-radio-screen-flow-review.md).
+- [x] **FLOW-868aa817 — 37. Listening to a live radio (4 steps).** Complete and verify the recorded journey.
+  - 2026-09-25: Accepted through one continuous real-control journey: hover selects Hits and exposes the saved playlist rows, click starts the local silent preview, and Expand reaches the accepted live-radio player. All four captures, source hashes, supplemental lyrics/stop/restart/close controls and error checks pass on the stable optimized candidate. [Review and evidence](reference-review/2026-09-25-radio-live-acceptance.md).
+  - 2026-09-23: Completed by hover, station click, player expand and actual lyrics/playback controls. That historical candidate still had playlist/sidebar and player-material differences; the 2026-09-25 acceptance above supersedes this blocker. [Evidence and exact-size comparisons](reference-review/2026-09-23-radio-screen-flow-review.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/listening-to-a-live-radio?step=0). Sequence: [1: 4cb8f3aa](#screen-4cb8f3aa) → [2: a9992e55](#screen-a9992e55) → [3: 47a07865](#screen-47a07865) → [4: 7bd2ef54](#screen-7bd2ef54)
 
 - [x] **FLOW-4239264b — 38. Live radio schedule (3 steps).** Complete and verify the recorded journey.

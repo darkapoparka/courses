@@ -9,6 +9,7 @@ import asyncio
 import io
 import json
 import os
+import time
 from pathlib import Path
 from hashlib import sha256
 from qa_identity import candidate_identity, reference_viewport
@@ -62,10 +63,22 @@ def same_candidate(expected):
     return all(current[key] == expected[key] for key in IDENTITY_KEYS), current
 
 
+RESULT_WRITE_ATTEMPTS = 8
+RESULT_WRITE_BACKOFF_SECONDS = .05
+
+
 def write_results(result):
     temporary = OUT / 'results.json.tmp'
+    destination = OUT / 'results.json'
     temporary.write_text(json.dumps(result, indent=2), encoding='utf-8')
-    temporary.replace(OUT / 'results.json')
+    for attempt in range(RESULT_WRITE_ATTEMPTS):
+        try:
+            temporary.replace(destination)
+            return
+        except PermissionError:
+            if attempt + 1 >= RESULT_WRITE_ATTEMPTS:
+                raise
+            time.sleep(RESULT_WRITE_BACKOFF_SECONDS * (attempt + 1))
 
 
 class BrowserManager:

@@ -13,7 +13,7 @@
     "qa:browser": "python scripts/browser-reference.py",
     "qa:visual": "python scripts/compare-reference.py",
     "qa:acceptance": "node scripts/check-task-coverage.mjs --require-complete",
-    "qa:tools": "python -m unittest discover -s scripts -p test_qa_tools.py"
+    "qa:tools": "python -m unittest discover -s scripts -p \"test_*.py\""
   },
   "dependencies": {
     "next": "16.3.4",

@@ -201,10 +201,13 @@ async def radio_live_playback(page, context):
     station = page.get_by_role('button', name='Listen to Apple Music Hits', exact=True)
     await expect(station).to_be_visible()
     await record(page, '868aa817-radio-live', '4cb8f3aa', 'Start on the Radio launch screen')
+    playlists = page.get_by_role('navigation', name='Playlists', exact=True)
+    assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists']
 
     await station.hover()
     await expect(page.locator('.radio-page')).to_have_attribute('data-edition', 'hits')
     await expect(station.locator('xpath=..')).to_have_attribute('data-selected', 'true')
+    assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists', 'Favourite Songs', 'Emotional Songs']
     await record(page, '868aa817-radio-live', 'a9992e55', 'Hover Apple Music Hits to select the station', move_pointer=False)
     original_titles = await page.locator('.episode > div > button').all_text_contents()
     assert original_titles[1:3] == ['JÄY-Z: The Impact', 'JÄY-Z: The Playboy'], original_titles
@@ -212,6 +215,7 @@ async def radio_live_playback(page, context):
     await expect(page.locator('.now-playing')).to_contain_text('Gorgeous')
     await expect(page.get_by_role('button', name='Stop live radio', exact=True)).to_be_visible()
     assert await page.locator('.episode > div > button').all_text_contents() == original_titles
+    assert await playlists.get_by_role('button').all_text_contents() == ['All Playlists', 'Favourite Songs', 'Emotional Songs']
     await record(page, '868aa817-radio-live', '47a07865', 'Start listening to Apple Music Hits')
     await page.get_by_role('button', name='Expand Apple Music Hits', exact=True).click()
     await expect(page.locator('.expanded-player')).to_have_class(re.compile('radio-reference'))
@@ -220,6 +224,7 @@ async def radio_live_playback(page, context):
     await expect(art).to_have_attribute('data-art-source', source('7bd2ef54'))
     await expect(page.get_by_role('button', name='Next station item', exact=True)).to_be_disabled()
     await expect(page.get_by_role('button', name='Previous station item', exact=True)).to_be_disabled()
+    assert await page.get_by_role('slider', name='Volume level', exact=True).input_value() == '0.63'
     await record(page, '868aa817-radio-live', '7bd2ef54', 'Expand the playing station')
     lyrics = page.get_by_role('button', name='Show lyrics', exact=True)
     await expect(lyrics).to_have_attribute('aria-pressed', 'false')
