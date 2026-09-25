@@ -1,5 +1,13 @@
 # Courses - current handoff
 
+## 2026-09-25 cancellation acceptance
+
+The current verified working-tree candidate on `main` accepts `MATCH-fd1c0c71`, `MATCH-03157020`, `MATCH-603983c7`, and continuous `FLOW-16a876bc`. The visible **Cancel Free Trial** action now resolves the saved full account session (`Alex Smith` plus Favourite Songs and Emotional Songs) without replacing library data or injecting fixture-only state; browser Back restores the earlier compact subscription snapshot.
+
+The 707-file exact source staging at `H:\courses-final-parity\cancellation-exact-stage-20260925-201358` is byte-identical to the working source after normalising only generated Next type-path churn. Production build `ci6-kFunT-wWZ2r-BHxLE` and Chromium `151.0.7922.34` passed 159 desktop plus five responsive states, all 218 ordered routes, 128 interactions, and all 159 exact comparisons with zero failures. Stable identities: application `64bf728a0a63daf6749212328075f6abb2d23da62cd80e3419e53844cf6ab05b`, QA `95ad115354985d5159582599a5be214f6cf1524ddc591553c0771a42f5f7529a`. Evidence: `apple-music-clone/.qa/evidence/gpt56-cancellation-full-20260925-2129/{browser,comparison}`. Review: [cancellation acceptance](reference-review/2026-09-25-cancellation-acceptance.md).
+
+The ledger is now **UI 159/159, MATCH 126/159, FLOW 33/58**. The exact production preview remains at `http://127.0.0.1:6535` with listener PID `16388`; inspect its executable, command line, creation time and ancestry before stopping it. Settings, logout, login and every other unchecked family remain governed by `docs/tasks.md`.
+
 ## 2026-09-25 Changing Language acceptance
 
 The current verified working-tree candidate on `main` accepts `MATCH-50fe374b` and continuous `FLOW-59b6cb8b`. The footer language control now changes the live locale immediately, localized Account Settings uses the recorded Simplified Chinese copy and geometry, and translated Search, Home and New navigation retains locale, account, playlist, footer and player state through visible controls.

@@ -481,20 +481,35 @@ CASES += [('recorded-song-queue-entry', recorded_song_queue_entry),
 
 async def cancellation_sequence(page, context):
     journey = 'canceling-a-trial-continuous'
+    initial = {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    resolved = {'profile': 'Alex Smith', 'playlists': ['All Playlists', 'Favourite Songs', 'Emotional Songs']}
+
+    async def chrome():
+        return {
+            'profile': await page.locator('.profile-button').inner_text(),
+            'playlists': await page.get_by_role('navigation', name='Playlists', exact=True).get_by_role('button').all_text_contents(),
+        }
+
     await start(page, '44101453')
+    assert await chrome() == initial
     await record(page, journey, '44101453', 'Start at recorded account settings')
     await page.get_by_role('button', name='Manage', exact=True).click()
+    assert await chrome() == initial
     await record(page, journey, 'c0997fe5', 'Manage the local subscription')
     await page.get_by_role('button', name='Cancel Free Trial', exact=True).click()
-    await record(page, journey, 'fd1c0c71', 'Open cancellation confirmation')
+    assert await chrome() == resolved
+    await record(page, journey, 'fd1c0c71', 'Open cancellation confirmation; resolve the full account session')
     await page.get_by_role('button', name='Cancel Subscription', exact=True).click()
     await expect(page.get_by_role('dialog', name='Subscription cancellation preview')).to_be_visible()
+    assert await chrome() == resolved
     await record(page, journey, '03157020', 'Confirm; preserve subscription details under the result dialog')
     await expect(page.locator('.subscription-details')).not_to_have_class('subscription-details cancelled')
     await expect(page.locator('.subscription-details strong')).to_have_text('You have subscribed through a free offer.')
     await page.get_by_role('button', name='Done', exact=True).click()
     await expect(page.get_by_text('You have cancelled your subscription.', exact=True)).to_be_visible()
     await expect(page.get_by_text('Only the local preview subscription changed. No external account was cancelled.', exact=True)).not_to_be_visible(timeout=6000)
+    assert await page.locator('.profile-button').inner_text() == resolved['profile']
+    await expect(page.get_by_role('navigation', name='Music library', exact=True)).to_have_count(0)
     await record(page, journey, '603983c7', 'Dismiss success; reveal cancelled state after the local notice clears')
     # Frozen-reference sessions intentionally do not write browser storage.
     # The ordinary cancellation-preview case separately checks reload persistence.

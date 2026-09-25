@@ -26,33 +26,36 @@ CASES = [('account-seeded-identity', account_seeded_identity)]
 
 async def account_navigation_identity(page, context):
     await start(page, '44101453')
-    before = await chrome(page)
-    assert before == {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    initial = {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    resolved = {'profile': 'Alex Smith', 'playlists': ['All Playlists', 'Favourite Songs', 'Emotional Songs']}
+    assert await chrome(page) == initial
     await record(page, 'account-navigation-identity', '44101453', 'Start at saved subscription settings')
     await page.get_by_role('button', name='Manage', exact=True).click()
     await expect(page.locator('.subscription-details')).to_be_visible()
-    assert await chrome(page) == before
-    await record(page, 'account-navigation-identity', 'c0997fe5', 'Manage preserves the account identity and sidebar')
+    assert await chrome(page) == initial
+    await record(page, 'account-navigation-identity', 'c0997fe5', 'Manage preserves the compact subscription sidebar')
     await page.get_by_role('button', name='Cancel Free Trial', exact=True).click()
-    assert await chrome(page) == before
+    assert await chrome(page) == resolved
     await page.keyboard.press('Escape')
     await expect(page.get_by_role('button', name='Cancel Free Trial', exact=True)).to_be_focused()
+    assert await chrome(page) == resolved
     await page.get_by_role('button', name='Cancel Free Trial', exact=True).click()
     await page.get_by_role('button', name='Keep Subscription', exact=True).click()
-    assert await chrome(page) == before
+    assert await chrome(page) == resolved
     await page.go_back()
     await expect(page.locator('.music-app')).to_have_attribute('data-scene', 'settings')
-    assert await chrome(page) == before
+    assert await chrome(page) == initial
     await page.get_by_role('button', name='Manage', exact=True).click()
     await page.get_by_role('button', name='Cancel Free Trial', exact=True).click()
     await page.get_by_role('button', name='Cancel Subscription', exact=True).click()
-    assert await chrome(page) == before
+    assert await chrome(page) == resolved
     await record(page, 'account-navigation-identity', '03157020',
-                 'Local confirmation preserves the live identity; saved later profile is a different snapshot, not FLOW acceptance')
+                 'The visible cancellation action resolves the recorded full account identity and playlist chrome')
     await page.get_by_role('button', name='Done', exact=True).click()
     await expect(page.get_by_text('You have cancelled your subscription.', exact=True)).to_be_visible()
-    assert await page.locator('.profile-button').inner_text() == before['profile']
+    assert await page.locator('.profile-button').inner_text() == resolved['profile']
     await expect(page.get_by_role('navigation', name='Music library', exact=True)).to_have_count(0)
+
 
 CASES.append(('account-navigation-identity', account_navigation_identity))
 

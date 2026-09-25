@@ -1320,21 +1320,24 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 <a id="screen-fd1c0c71"></a>
 
 - [x] **UI-fd1c0c71 — Subscription — cancellation confirmation.** Coded UI; current browser render passed.
-  - [ ] **MATCH-fd1c0c71 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-fd1c0c71 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Accepted after exact 1440 x 903 source/render/residual review of the live cancellation confirmation. The visible Cancel Free Trial action resolves the recorded Alex Smith account and three-playlist sidebar; dialog, underlay, footer and player align without a concrete product mismatch. [Review and evidence](reference-review/2026-09-25-cancellation-acceptance.md).
   - 2026-09-13: Scoped backdrop, symbol and dialog material corrected; direct over-20 residual 2.70387%. Live playlist-row discrepancy remains. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/fd1c0c71-8411-48fb-9d7d-537cf52224a2.webp) · [Open app state](http://127.0.0.1:6435/screen/fd1c0c71-8411-48fb-9d7d-537cf52224a2) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-03157020"></a>
 
 - [x] **UI-03157020 — Subscription — cancellation result.** Coded UI; current browser render passed.
-  - [ ] **MATCH-03157020 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-03157020 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Accepted after exact 1440 x 903 source/render/residual review of the cancellation result. The active subscription details remain beneath the acknowledgement exactly as recorded, with resolved account/sidebar chrome and matching result geometry. [Review and evidence](reference-review/2026-09-25-cancellation-acceptance.md).
   - 2026-09-13: Success geometry corrected; live prior details remain beneath the acknowledgement until Done. Direct over-20 residual 3.01403%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/03157020-edc1-453b-8d8a-8aa44d31ed81.webp) · [Open app state](http://127.0.0.1:6435/screen/03157020-edc1-453b-8d8a-8aa44d31ed81) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-603983c7"></a>
 
 - [x] **UI-603983c7 — Subscription — signed out, cancelled.** Coded UI; current browser render passed.
-  - [ ] **MATCH-603983c7 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-603983c7 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Accepted after exact 1440 x 903 source/render/residual review of the cancelled state reached through Done. Cancelled copy, controls, signed-out trial banner, Alex Smith chrome, footer and player align without a concrete product mismatch. [Review and evidence](reference-review/2026-09-25-cancellation-acceptance.md).
   - 2026-09-13: Cancelled-state typography and button spacing corrected; direct over-20 residual 3.29419%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/603983c7-b9be-401e-8547-9c469ee313c0.webp) · [Open app state](http://127.0.0.1:6435/screen/603983c7-b9be-401e-8547-9c469ee313c0) · [Component](../apple-music-clone/components/music-account.tsx)
 
@@ -1584,7 +1587,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-25: Accepted through the complete eight-step visible-control sequence: switch on, first passcode, confirmation, recovery email, completion and Done. Focus restoration, checked state, Clean/G/G values, scroll anchor, one-row chrome and every exact checkpoint were reviewed on the zero-failure production candidate. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/turning-on-content-restrictions?step=0). Sequence: [1: 01f96377](#screen-01f96377) → [2: f99d9583](#screen-f99d9583) → [3: 0da4882b](#screen-0da4882b) → [4: 8b9e8598](#screen-8b9e8598) → [5: 0260ef9f](#screen-0260ef9f) → [6: 5b34ad72](#screen-5b34ad72) → [7: 7437b956](#screen-7437b956) → [8: 6436de36](#screen-6436de36)
 
-- [ ] **FLOW-16a876bc — 56. Canceling a trial (5 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-16a876bc — 56. Canceling a trial (5 steps).** Complete and verify the recorded journey.
+  - 2026-09-25: Accepted through Manage, Cancel Free Trial, Cancel Subscription and Done without checkpoint URL hopping. The visible cancellation action truthfully resolves the recorded full account and three-playlist session; every journey frame equals its direct candidate capture, Back/Escape/focus behavior passes, and no browser, console, request or HTTP errors occurred. [Review and evidence](reference-review/2026-09-25-cancellation-acceptance.md).
   - 2026-09-13: All five checkpoints traversed using Manage, Cancel Free Trial, Cancel Subscription and Done. The underlay transition is fixed and registered; sidebar/profile and visual residuals keep acceptance open. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/canceling-a-trial?step=0). Sequence: [1: 44101453](#screen-44101453) → [2: c0997fe5](#screen-c0997fe5) → [3: fd1c0c71](#screen-fd1c0c71) → [4: 03157020](#screen-03157020) → [5: 603983c7](#screen-603983c7)
 

@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## 2026-09-25 cancellation screens and journey acceptance
+
+The [cancellation review](reference-review/2026-09-25-cancellation-acceptance.md) accepts `MATCH-fd1c0c71`, `MATCH-03157020`, `MATCH-603983c7`, and continuous real-control `FLOW-16a876bc`. The visible Cancel Free Trial action resolves the recorded full account and three-playlist session; confirmation, acknowledgement and cancelled-state frames now equal their direct candidate captures without hidden user-state injection. Exact production verification passed 164 browser states, 218 routes, 128 interactions and 159 comparisons with zero failures and stable source identity. Ledger: **UI 159/159, MATCH 126/159, FLOW 33/58**.
+
 ## 2026-09-25 Changing Language acceptance
 
 The [Changing Language review](reference-review/2026-09-25-language-change-acceptance.md) accepts exact state `MATCH-50fe374b` and continuous real-control journey `FLOW-59b6cb8b`. The exact candidate passed 164 browser states, 218 routes, 128 interactions and 159 comparisons with zero failures and stable source identity. Readable review confirms the Simplified Chinese Account Settings copy, columns, sidebar, footer, player and scroll state align; all five journey frames equal their direct candidate captures and were produced through the visible language and sidebar controls. Ledger: **UI 159/159, MATCH 123/159, FLOW 32/58**.

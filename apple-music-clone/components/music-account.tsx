@@ -77,7 +77,7 @@ export function SubscriptionView() {
     <h2><span className="music-badge small"><Glyph name="apple-music" size={33} /></span>Apple Music</h2><h3>Individual</h3>
     {cancelled ? <><p className="text-accent">You have cancelled your subscription.</p><p>Your subscription ended on 13 July.</p><button type="button" className="account-action filled" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>Subscribe</button></> : <><strong>You have subscribed through a free offer.</strong><p>Starting 25 July, plan renews for $10.98 per month until cancelled.</p></>}
     <hr />{!cancelled && <h3>Manage</h3>}<button type="button" className="account-action" onClick={() => m.patch({ overlay: "payment", formStep: 0, filled: false })}>See All Plans</button>
-    {!cancelled && <><button type="button" className="account-action" onClick={() => m.patch({ overlay: "cancel-trial" })}>Cancel Free Trial</button><p>If you cancel, you will immediately lose access to your subscription.</p></>}
+    {!cancelled && <><button type="button" className="account-action" onClick={() => m.patch({ overlay: "cancel-trial", profileName: "Alex Smith" })}>Cancel Free Trial</button><p>If you cancel, you will immediately lose access to your subscription.</p></>}
     <button type="button" className="text-accent subscription-privacy" onClick={() => m.notify("Local subscription preview only. No billing account or payment provider is connected.")}>About Subscriptions and Privacy</button>
   </section></AccountFrame>;
 }

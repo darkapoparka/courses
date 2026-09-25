@@ -74,7 +74,7 @@ export function useMusic(): Controller { const value = useContext(Context); if (
 
 export function MusicProvider({ initialScene, children }: { initialScene: Scene; children: ReactNode }) {
   const [scene, setScene] = useState(initialScene);
-  const [profileName] = useState(initialScene.profileName ?? "SmithAlex");
+  const profileName = scene.profileName ?? initialScene.profileName ?? "SmithAlex";
   const referenceSession = useRef(Boolean(initialScene.source));
   const viewportMemory = useRef<BrowseViewportMemory>({ main: new Map(), rails: new Map(), entries: new Map() });
   useEffect(() => { viewportMemory.current.entryKey = browseEntryKey(); }, []);

@@ -36,6 +36,23 @@ async def wait_main_scroll(page, expression, width, action, arg=None):
         raise AssertionError(f'{action} did not settle at {width}px: {state}') from error
 
 
+async def press_main_scroll_key(page, main_scroll, key, expression, width, action):
+    """Send a real focused key and retry one lost event without hiding failure."""
+    for attempt in range(2):
+        await main_scroll.focus()
+        await expect(main_scroll).to_be_focused()
+        await page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
+        await page.keyboard.press(key, delay=40)
+        try:
+            await page.wait_for_function(expression, timeout=4000)
+            return
+        except PlaywrightTimeoutError as error:
+            state = await main_scroll.evaluate("element => ({ active: document.activeElement === element, top: element.scrollTop, clientHeight: element.clientHeight, scrollHeight: element.scrollHeight })")
+            if attempt == 0 and state['active'] and state['scrollHeight'] > state['clientHeight']:
+                continue
+            raise AssertionError(f'{action} did not settle at {width}px after {attempt + 1} key attempts: {state}') from error
+
+
 async def sidebar_and_rails(page, context):
     for width, height in [(1440,903), (1264,700), (1920,1080), (1024,768), (820,900), (390,844)]:
         await page.set_viewport_size({'width':width,'height':height})
@@ -56,17 +73,13 @@ async def sidebar_and_rails(page, context):
         await page.keyboard.press('Enter')
         main_scroll = page.locator('main')
         await expect(main_scroll).to_be_focused()
-        await main_scroll.press('PageDown')
-        await wait_main_scroll(page, 'document.querySelector("main").scrollTop > 0', width, 'PageDown')
-        await main_scroll.press('Control+Home')
-        await wait_main_scroll(page, 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after PageDown')
+        await press_main_scroll_key(page, main_scroll, 'PageDown', 'document.querySelector("main").scrollTop > 0', width, 'PageDown')
+        await press_main_scroll_key(page, main_scroll, 'Control+Home', 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after PageDown')
         await page.mouse.move(width - 80, min(height - 120, 500))
         wheel_start = await main_scroll.evaluate('(element) => element.scrollTop')
         await page.mouse.wheel(0, 260)
         await wait_main_scroll(page, '(start) => document.querySelector("main").scrollTop > start', width, 'Mouse wheel', wheel_start)
-        await main_scroll.focus()
-        await main_scroll.press('Control+Home')
-        await wait_main_scroll(page, 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after mouse wheel')
+        await press_main_scroll_key(page, main_scroll, 'Control+Home', 'Math.abs(document.querySelector("main").scrollTop) < 1', width, 'Control+Home after mouse wheel')
         if width > 640:
             sidebar = await page.locator('.music-sidebar').bounding_box()
             assert sidebar and main['x'] >= sidebar['x'] + sidebar['width'], (width, main, sidebar)
