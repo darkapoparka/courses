@@ -41,6 +41,20 @@ class BrowserResultWriterTests(unittest.TestCase):
                 with self.assertRaises(PermissionError):
                     MODULE.write_results({"ok": False})
 
+    def test_explicit_external_evidence_root_is_bounded(self):
+        with tempfile.TemporaryDirectory() as directory:
+            external = Path(directory).resolve()
+            output = external / "fresh-run" / "browser"
+            with patch.dict(MODULE.os.environ, {"REFERENCE_EXTERNAL_EVIDENCE_ROOT": str(external)}):
+                MODULE.validate_output_path(output)
+                with self.assertRaisesRegex(ValueError, "explicit external evidence root"):
+                    MODULE.validate_output_path(external.parent / "outside-run")
+
+    def test_external_evidence_root_must_be_absolute(self):
+        with patch.dict(MODULE.os.environ, {"REFERENCE_EXTERNAL_EVIDENCE_ROOT": "relative-evidence"}):
+            with self.assertRaisesRegex(ValueError, "absolute path"):
+                MODULE.evidence_roots()
+
 
 if __name__ == "__main__":
     unittest.main()

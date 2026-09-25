@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## 2026-09-25 Changing Language acceptance
+
+The [Changing Language review](reference-review/2026-09-25-language-change-acceptance.md) accepts exact state `MATCH-50fe374b` and continuous real-control journey `FLOW-59b6cb8b`. The exact candidate passed 164 browser states, 218 routes, 128 interactions and 159 comparisons with zero failures and stable source identity. Readable review confirms the Simplified Chinese Account Settings copy, columns, sidebar, footer, player and scroll state align; all five journey frames equal their direct candidate captures and were produced through the visible language and sidebar controls. Ledger: **UI 159/159, MATCH 123/159, FLOW 32/58**.
+
 ## 2026-09-25 Connected Accounts and Content Restrictions acceptance
 
 The [account acceptance review](reference-review/2026-09-25-account-connected-restrictions-acceptance.md) accepts exact states `b2e0f231`, `f99d9583`, `0da4882b`, `8b9e8598`, `0260ef9f`, `5b34ad72`, `7437b956`, `6436de36`, and `c0997fe5`, plus continuous real-control journeys `FLOW-d1a98fb1` and `FLOW-29245bc1`. Exact production verification passed 164 browser states, 218 routes, 127 interactions and 159 comparisons with zero failures and stable source identity. Readable full-frame and regional review found only lawful raster, antialiasing, border and blur residuals. Ledger: **UI 159/159, MATCH 122/159, FLOW 31/58**.

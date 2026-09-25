@@ -77,7 +77,11 @@ function MusicShell() {
   const suggestLessMenuPlaylists = initialFlow === "marking-a-song-as-suggest-less" && m.scene.menu === "artist";
   const sourcePrefix = m.scene.source?.slice(0, 8);
   const singlePlaylistAccountChrome = m.scene.page === "connected" || Boolean(m.scene.source && sourceSinglePlaylistNavigation.has(m.scene.source));
-  const showPlaylists = !singlePlaylistAccountChrome && !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.scene.radioEdition === "hits" || suggestLessMenuPlaylists || m.library.playlists.length > initialPlaylistCount);
+  // The localized Search recording intentionally uses the compact one-row
+  // playlist navigation, while localized Home and New preserve the live library.
+  // Model that visible page chrome directly instead of mutating session data.
+  const localizedSearchChrome = zh && m.scene.page === "search";
+  const showPlaylists = !singlePlaylistAccountChrome && !localizedSearchChrome && !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.scene.radioEdition === "hits" || suggestLessMenuPlaylists || m.library.playlists.length > initialPlaylistCount);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const loginOffer = m.scene.flow === "logging-in" || ["3131018d", "417f6129", "6aa4a9d7", "4e65c7c6", "97de6907"].includes(sourcePrefix ?? "");
   const cancelledOffer = loginOffer || sourcePrefix === "603983c7" || (m.scene.page === "subscription" && m.scene.guest && (m.library.cancelled || m.scene.cancelled));

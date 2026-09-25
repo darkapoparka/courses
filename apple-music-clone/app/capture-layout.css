@@ -58,6 +58,13 @@
 .account-section .text-accent { color:#e32e4b; }
 .account-section .text-accent { margin:0; }
 .account-summary { min-height:507px; }
+.music-app[lang="zh-Hans"] .account-inner > h1 { font-size:29px; line-height:42px; font-weight:600; letter-spacing:-.5px; }
+.music-app[lang="zh-Hans"] .account-section { padding-top:65px; }
+.music-app[lang="zh-Hans"] .account-section h2 { font-size:21px; line-height:30px; letter-spacing:-.25px; }
+.music-app[lang="zh-Hans"] .account-section h3 { font-size:16px; line-height:24px; }
+.music-app[lang="zh-Hans"] .account-summary { min-height:474px; }
+.music-app[lang="zh-Hans"] .account-summary .account-columns { grid-template-columns:112px 374px minmax(0,1fr); gap:25px; }
+.music-app[lang="zh-Hans"] .account-summary .account-columns { margin-bottom:35px; }
 .account-summary .account-columns { display:grid; grid-template-columns:117px minmax(0,1fr) 137px; gap:25px; margin:40px 0; }
 .account-columns h3 { margin:0; }
 .account-columns .payment-link { display:block; width:100%; text-align:center; line-height:25px; margin:0; }

@@ -1,5 +1,13 @@
 # Courses - current handoff
 
+## 2026-09-25 Changing Language acceptance
+
+The current verified working-tree candidate on `main` accepts `MATCH-50fe374b` and continuous `FLOW-59b6cb8b`. The footer language control now changes the live locale immediately, localized Account Settings uses the recorded Simplified Chinese copy and geometry, and translated Search, Home and New navigation retains locale, account, playlist, footer and player state through visible controls.
+
+Exact source was safely staged on `H:` because `J:` lacked room for another dependency tree. The 707-file staging manifest covers 58,410,820 bytes with aggregate SHA-256 `df16ffe3effb37484f8033d0cec6d804a452ba655d669a77c1895c28ca00b428` and reports no missing or mismatched source. Production build `zGxMyWKjc_OcQviTMYeW9` and Chromium `151.0.7922.34` passed 159 desktop plus five responsive states, all 218 ordered routes, 128 interactions, and all 159 exact comparisons with zero failures. Stable identities: application `fe02890b898183e3948eaa12aaa05173e0061bb5232741109671cdbde8abfa8f`, QA `5a4d314c5efd8382cb386ef77e019b875c145345c6f81f4e058b1f1b58b83c9e`. Evidence: `H:\courses-final-parity\language-final3-full-20260925-185036\browser` and `H:\courses-final-parity\language-acceptance-final-stage-20260925-174019\.parity-evidence\language-final3-comparison-20260925-190358`. Review: [Changing Language acceptance](reference-review/2026-09-25-language-change-acceptance.md).
+
+The ledger is now **UI 159/159, MATCH 123/159, FLOW 32/58**. The exact production preview remains at `http://127.0.0.1:6534`; inspect its process identity before stopping it. Cancellation, Settings, logout, login and every other unchecked family remain governed by `docs/tasks.md`.
+
 ## 2026-09-25 connected accounts and content restrictions acceptance
 
 The current verified working-tree candidate on `main` accepts nine account states—`b2e0f231`, `f99d9583`, `0da4882b`, `8b9e8598`, `0260ef9f`, `5b34ad72`, `7437b956`, `6436de36`, and `c0997fe5`—plus continuous `FLOW-d1a98fb1` and `FLOW-29245bc1`. Connected Accounts now exposes the recorded one-row subpage chrome through the visible Manage control and restores its prior Radio/playlist state through browser Back. The restriction journey traverses switch, two passcode entries, recovery email, completion and Done through real controls while preserving the recorded account, playlist, scroll, focus and rating state.

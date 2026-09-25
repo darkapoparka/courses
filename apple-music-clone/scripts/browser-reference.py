@@ -53,6 +53,28 @@ TARGET_CLOSED_MARKERS = (
 IDENTITY_KEYS = ('implementationSha256', 'toolingSha256')
 
 
+def evidence_roots():
+    roots = [(APP / '.parity-evidence').resolve(), (APP / '.qa/evidence').resolve()]
+    raw_external = os.environ.get('REFERENCE_EXTERNAL_EVIDENCE_ROOT')
+    if not raw_external:
+        return roots
+    external = Path(raw_external)
+    if not external.is_absolute():
+        raise ValueError('REFERENCE_EXTERNAL_EVIDENCE_ROOT must be an absolute path.')
+    external = external.resolve()
+    if external == Path(external.anchor):
+        raise ValueError('REFERENCE_EXTERNAL_EVIDENCE_ROOT cannot be a drive root.')
+    if external.is_relative_to(APP.resolve()) and not any(external.is_relative_to(root) for root in roots):
+        raise ValueError('REFERENCE_EXTERNAL_EVIDENCE_ROOT must not point into application source.')
+    return [*roots, external]
+
+
+def validate_output_path(output):
+    output = output.resolve()
+    if output.is_relative_to((APP / 'reference').resolve()) or not any(output.is_relative_to(root) for root in evidence_roots()):
+        raise ValueError('REFERENCE_OUTPUT must be inside .parity-evidence, .qa/evidence, or the explicit external evidence root, never the archive.')
+
+
 def is_target_closed(error):
     message = str(error)
     return type(error).__name__ == 'TargetClosedError' or any(marker in message for marker in TARGET_CLOSED_MARKERS)
@@ -521,8 +543,7 @@ async def strict_routes(page, context):
 
 
 async def main():
-    if OUT.is_relative_to((APP / 'reference').resolve()) or not any(OUT.is_relative_to((APP / root).resolve()) for root in ('.parity-evidence', '.qa/evidence')):
-        raise ValueError('REFERENCE_OUTPUT must be inside .parity-evidence or .qa/evidence, never the archive.')
+    validate_output_path(OUT)
     OUT.mkdir(parents=True, exist_ok=True)
     if any(OUT.iterdir()):
         raise ValueError(f'Use a fresh REFERENCE_OUTPUT; refusing to overwrite evidence: {OUT}')

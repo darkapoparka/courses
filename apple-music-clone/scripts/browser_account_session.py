@@ -220,9 +220,57 @@ async def recorded_content_restrictions_flow(page, context):
                  'Acknowledge completion and return to the enabled restriction controls')
 
 
+async def recorded_changing_language_flow(page, context):
+    """Change locale in Settings, then use the translated sidebar controls."""
+    english_member_chrome = {'profile': 'SmithAlex', 'playlists': ['All Playlists', 'Favourite Songs', 'Emotional Songs']}
+    localized_member_chrome = {'profile': 'SmithAlex', 'playlists': ['所有播放列表', '喜爱歌曲', 'Emotional Songs']}
+    localized_search_chrome = {'profile': 'SmithAlex', 'playlists': ['所有播放列表']}
+    await start(page, '481cd568')
+    history_length = await page.evaluate('history.length')
+    assert await chrome(page) == english_member_chrome
+    await record(page, 'flow-59b6cb8b-changing-language', '481cd568',
+                 'Start at the recorded English Account Settings state')
+
+    await page.get_by_role('button', name='简体中文', exact=True).click()
+    await expect(page.locator('.music-app')).to_have_attribute('lang', 'zh-Hans')
+    await expect(page.get_by_role('heading', name='账户设置', exact=True)).to_be_visible()
+    assert await page.locator('.music-app').get_attribute('data-source') is None
+    assert await page.evaluate('history.length') == history_length
+    new_button = page.get_by_role('navigation', name='Browse music', exact=True).get_by_role('button', name='新发现', exact=True)
+    await expect(new_button).to_have_attribute('aria-current', 'page')
+    localized_settings_chrome = await chrome(page)
+    assert localized_settings_chrome == localized_member_chrome, localized_settings_chrome
+    await page.set_viewport_size(reference_viewport(source('50fe374b')))
+    await record(page, 'flow-59b6cb8b-changing-language', '50fe374b',
+                 'Use the footer language control; localized Settings becomes the live state')
+
+    browse = page.get_by_role('navigation', name='Browse music', exact=True)
+    await browse.get_by_role('button', name='搜索', exact=True).click()
+    await expect(page.get_by_label('Search Apple Music', exact=True)).to_have_attribute('placeholder', '搜索')
+    assert await chrome(page) == localized_search_chrome
+    await page.set_viewport_size(reference_viewport(source('f4a8b5dc')))
+    await record(page, 'flow-59b6cb8b-changing-language', 'f4a8b5dc',
+                 'Open translated Search from the sidebar')
+
+    await browse.get_by_role('button', name='主页', exact=True).click()
+    await expect(page.get_by_role('heading', name='主页', exact=True)).to_be_visible()
+    assert await chrome(page) == localized_member_chrome
+    await page.set_viewport_size(reference_viewport(source('468b0465')))
+    await record(page, 'flow-59b6cb8b-changing-language', '468b0465',
+                 'Open translated Home from the sidebar')
+
+    await browse.get_by_role('button', name='新发现', exact=True).click()
+    await expect(page.get_by_role('heading', name='新发现', exact=True)).to_be_visible()
+    assert await chrome(page) == localized_member_chrome
+    await page.set_viewport_size(reference_viewport(source('be864051')))
+    await record(page, 'flow-59b6cb8b-changing-language', 'be864051',
+                 'Open translated New from the sidebar')
+
+
 CASES.extend([
     ('recorded-logout-flow', recorded_logout_flow),
     ('recorded-settings-flow', recorded_settings_flow),
     ('recorded-connected-accounts-flow', recorded_connected_accounts_flow),
     ('recorded-content-restrictions-flow', recorded_content_restrictions_flow),
+    ('recorded-changing-language-flow', recorded_changing_language_flow),
 ])

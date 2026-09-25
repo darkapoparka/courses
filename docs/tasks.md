@@ -1341,7 +1341,8 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 <a id="screen-50fe374b"></a>
 
 - [x] **UI-50fe374b — Account settings — Simplified Chinese.** Coded UI; current browser render passed.
-  - [ ] **MATCH-50fe374b — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-50fe374b — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Accepted after exact 1440 x 903 source/render/residual review of the live Simplified Chinese Account Settings state. Sidebar, summary columns, translated Account Access copy, footer, player, scroll and account chrome align; remaining pixels are lawful raster and material noise. [Evidence](reference-review/2026-09-25-language-change-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/50fe374b-43b5-403d-962e-b072bf58d5e1.webp) · [Open app state](http://127.0.0.1:6435/screen/50fe374b-43b5-403d-962e-b072bf58d5e1) · [Component](../apple-music-clone/components/music-account.tsx)
 
 ## Recorded flow checklist
@@ -1587,7 +1588,8 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - 2026-09-13: All five checkpoints traversed using Manage, Cancel Free Trial, Cancel Subscription and Done. The underlay transition is fixed and registered; sidebar/profile and visual residuals keep acceptance open. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/canceling-a-trial?step=0). Sequence: [1: 44101453](#screen-44101453) → [2: c0997fe5](#screen-c0997fe5) → [3: fd1c0c71](#screen-fd1c0c71) → [4: 03157020](#screen-03157020) → [5: 603983c7](#screen-603983c7)
 
-- [ ] **FLOW-59b6cb8b — 57. Changing language (5 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-59b6cb8b — 57. Changing language (5 steps).** Complete and verify the recorded journey.
+  - 2026-09-25: Accepted through the visible footer language control and translated Search, Home and New sidebar controls. All five exact journey frames equal their direct candidate captures; locale, history, account, playlist, footer and player state persist with no errors or checkpoint URL hopping. [Evidence](reference-review/2026-09-25-language-change-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/changing-language?step=0). Sequence: [1: 481cd568](#screen-481cd568) → [2: 50fe374b](#screen-50fe374b) → [3: f4a8b5dc](#screen-f4a8b5dc) → [4: 468b0465](#screen-468b0465) → [5: be864051](#screen-be864051)
 
 - [ ] **FLOW-f5a37141 — 58. Logging in (7 steps).** Complete and verify the recorded journey.
