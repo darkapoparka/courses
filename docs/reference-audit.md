@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## 2026-09-25 profile menu and logout acceptance
+
+The [updated account review](reference-review/2026-09-23-account-settings-flow-review.md#profile-menu-and-logout-acceptance--2026-09-25) accepts `MATCH-fc5d84bd` and continuous `FLOW-079e1da7`. Exact review confirms the saved menu uses one playlist row; visible Account and Sign Out controls reproduce all three frames without URL hopping or hidden library replacement. Build `GM5iGeaIa4coS6v1WmWtj` passed 164 states, 218 routes, 128 interactions and 159 comparisons with zero failures. Ledger: **UI 159/159, MATCH 127/159, FLOW 34/58**.
+
 ## 2026-09-25 cancellation screens and journey acceptance
 
 The [cancellation review](reference-review/2026-09-25-cancellation-acceptance.md) accepts `MATCH-fd1c0c71`, `MATCH-03157020`, `MATCH-603983c7`, and continuous real-control `FLOW-16a876bc`. The visible Cancel Free Trial action resolves the recorded full account and three-playlist session; confirmation, acknowledgement and cancelled-state frames now equal their direct candidate captures without hidden user-state injection. Exact production verification passed 164 browser states, 218 routes, 128 interactions and 159 comparisons with zero failures and stable source identity. Ledger: **UI 159/159, MATCH 126/159, FLOW 33/58**.

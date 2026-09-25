@@ -56,6 +56,11 @@ const initialPartialFeature: Card = {
   metadataPartial: true,
   art: { ...crop("e72be564", 1422, 167, 18, 314), partial: true },
 };
+const profilePartialFeature: Card = {
+  ...initialPartialFeature,
+  id: "profile-feature-continuation",
+  art: { ...crop("fc5d84bd", 1422, 167, 18, 314), partial: true },
+};
 
 function Cards({ cards, label, className = "square-rail", initialIndex = 0, poster = false, artContents, artOverlays, onPositionChange, artOverlayPosition = "top" }: { cards: Card[]; label: string; className?: string; initialIndex?: number; poster?: boolean; artContents?: Partial<Record<string, ReactNode>>; onPositionChange?: (index: number) => void; artOverlays?: Partial<Record<number, Artwork>>; artOverlayPosition?: "top" | "bottom" }) {
   return <Rail label={label} className={className} initialIndex={initialIndex} onPositionChange={onPositionChange}>{cards.map((card, index) => <CardTile key={`${card.id}-${index}`} card={card} poster={poster} artContent={artContents?.[card.id]} artOverlay={artOverlays?.[index]} artOverlayPosition={artOverlayPosition} />)}</Rail>;
@@ -142,11 +147,14 @@ export function NewView() {
   const legacy = !queue && (finalLogin || m.scene.catalog === "legacy" || m.scene.hero === "superbloom");
   const legacyCards = m.scene.panel ? legacyFeatures.map((card, i) => i < 2 ? { ...card, art: crop("ee8db412", i === 0 ? 286 : 710, 167, 406, 233) } : i === 2 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[3]! : i === 3 && m.scene.panel === "lyrics" && legacy ? legacyFeatures[2]! : card) : legacyFeatures;
   // A local control clears source routing, not the visible catalog/artwork edition.
-  const [source] = useState(() => (m.scene.discoveryOrigin ?? m.scene.source)?.slice(0, 8));
+  const [initialSource] = useState(() => (m.scene.discoveryOrigin ?? m.scene.source)?.slice(0, 8));
+  const source = m.scene.discoveryOrigin?.slice(0, 8) ?? initialSource;
   const currentFeatures = currentFeatureSequence.map((card, index) => {
-    if ((m.scene.featureEdge === "initial" || m.scene.guest) && index === 2) {
-      return m.scene.guest ? { ...initialPartialFeature, art: { ...crop("3731221f", 1422, 167, 18, 314), partial: true } } : initialPartialFeature;
+    if (m.scene.guest && index === 2) {
+      return { ...initialPartialFeature, art: { ...crop("3731221f", 1422, 167, 18, 314), partial: true } };
     }
+    if (source === "fc5d84bd" && index === 2) return profilePartialFeature;
+    if (m.scene.featureEdge === "initial" && index === 2) return initialPartialFeature;
     // The public edition retains the same editorial artwork identities,
     // using its signed-out animation frame without resetting catalog data.
     if (m.scene.guest && index < 2) {

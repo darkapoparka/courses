@@ -37,3 +37,32 @@ The saved `481cd568` and `1e5b4763` stills highlight Radio. Opening Settings fro
 ## Decision and limits
 
 The live ledger is UI `159/159`, MATCH `99/159`, FLOW `26/58`. Both account journeys work through real controls, but neither receives FLOW acceptance because one or more continuous checkpoints visibly disagree with the saved source snapshots. No credentials, payment data, external account changes, or subscription actions were used. No commit or push was made.
+
+
+## Profile menu and logout acceptance — 2026-09-25
+
+This section supersedes the earlier `FLOW-079e1da7` diagnosis above. Exact reinspection of the immutable `fc5d84bd` source shows the saved profile-menu frame has **All Playlists only**, not three playlist rows. Opening Account from `e72be564` now resolves only the recorded named-profile/menu chrome and current New editorial provenance; it does not replace library records. Sign Out clears that provenance and restores the signed-out New edition, including the short `I Knew It, I Knew You` title.
+
+### Exact candidate
+
+- Source base: `ce7382ec0ec4ca42b24d2a986fa21585bc9cb5ef`; branch `main`.
+- Production build: `GM5iGeaIa4coS6v1WmWtj` at `http://127.0.0.1:6539`.
+- Chromium: `151.0.7922.34`; application identity `c62601b051d317dc73e616fb38c7199b7987f9cd84cb5863d0bf17d301d85cf6`; QA identity `9210781b052aed39f6fff8e429acab48fc837d481b445aa493742f5571565c37`.
+- Full evidence: `J:\courses\apple-music-clone\.qa\evidence\gpt56-logout-final-20260925-232804`; focused evidence: `apple-music-clone/.qa/evidence/gpt56-profile-focused-20260925-232737`.
+- Complete gate: 159 desktop + 5 responsive states, 218 routes, 128 interactions, zero failures; 159 exact comparisons. Corpus mean MAE `4.733041`, mean over-20 `4.693121%`.
+
+### `MATCH-fc5d84bd`
+
+Source SHA-256 `e87f1135e97a8f896869558407a9f4ff635539a0c1f759a840485dd73437fbb4`; render SHA-256 `c380f67f98cbfc29fa7ad59f83182988d39f8085a664a627d8d5025b97b4cc8b`; exact viewport `1440 × 904` at device scale 1; MAE `3.983670`, over-20 `4.045753%`. Readable full-frame and residual review confirms the menu anchor, Help/Settings/Transfer Music/Sign Out rows, one-row playlist chrome, SmithAlex footer, current editorial artwork, player material, clipping and scroll state have no remaining concrete product mismatch. `MATCH-fc5d84bd` is accepted.
+
+### `FLOW-079e1da7`
+
+| Step | Screen | Source SHA-256 | Live render SHA-256 | Visible action |
+| ---: | --- | --- | --- | --- |
+| 1 | `e72be564` | `a76e7f75d85f3639aa185a215a9d829232fe69d8a4b5f68a4f334520f4b11b03` | `664d7b67be91b5ec6eda76ef706611d5f0a3c31034457b1543dcfb89004e64ee` | Begin at the recorded New screen with the compact account session |
+| 2 | `fc5d84bd` | `e87f1135e97a8f896869558407a9f4ff635539a0c1f759a840485dd73437fbb4` | `c7f4960168699bcec5e57aaf9bbb898ec54a992d939d671d628722a3905f9eba` | Open the source-aligned account menu using the profile control |
+| 3 | `3731221f` | `d066c557f8a724aa17fbadb401ab564a093ff0cc557762762280dfb4705dd7b9` | `a75a7dc2ec9756b6622398bc8df7c10870ef027c70e7411eecadb97222ef36d3` | Sign Out returns to the same New page in the signed-out session |
+
+The journey starts once at `e72be564`, opens the real Account menu, then invokes the visible Sign Out item. All checkpoints retain the same browser URL, so there is no direct route hopping. The final live `3731221f` frame was reviewed against both the frozen source and direct candidate; repeat-run raster/decode variation remains, but no concrete product mismatch is visible. Profile, playlist, guest/trial, current-release and player state are produced by the continuous session; page, console, request and HTTP error lists are empty. The accepted Alpha sidebar regression confirms profile-menu resolution is scoped to this recording and does not change the accepted Alpha edition. `FLOW-079e1da7` is accepted.
+
+The ledger after these decisions is UI `159/159`, MATCH `127/159`, FLOW `34/58`. `FLOW-c4422161` remains open under its separate Radio/New sidebar chronology issue.

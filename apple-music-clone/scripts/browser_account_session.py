@@ -64,7 +64,7 @@ async def account_single_playlist_fixtures(page, context):
     """Direct account snapshots with source-owned one-row playlist chrome."""
     prefixes = [
         'b2e0f231', 'f99d9583', '0da4882b', '8b9e8598', '0260ef9f',
-        '5b34ad72', '7437b956', '6436de36', 'c0997fe5',
+        '5b34ad72', '7437b956', '6436de36', 'c0997fe5', 'fc5d84bd',
     ]
     for prefix in prefixes:
         await start(page, prefix)
@@ -79,17 +79,26 @@ CASES.append(('account-single-playlist-fixtures', account_single_playlist_fixtur
 async def recorded_logout_flow(page, context):
     """Logging out: New, account menu, then the signed-out New screen."""
     await start(page, 'e72be564')
+    initial = {'profile': '', 'playlists': ['All Playlists']}
+    opened = {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    assert await chrome(page) == initial
     await record(page, 'flow-079e1da7-logging-out-canonical-runner', 'e72be564',
-                 'Begin at the recorded New screen with the account session intact')
-    await page.get_by_role('button', name='Account menu', exact=True).click()
-    await expect(page.get_by_role('menuitem', name='Sign Out', exact=True)).to_be_visible()
+                 'Begin at the recorded New screen with the compact account session')
     await page.set_viewport_size(reference_viewport(source('fc5d84bd')))
+    await page.get_by_role('button', name='Account menu', exact=True).click()
+    menu = page.get_by_role('menu', name='profile actions', exact=True)
+    await expect(menu.get_by_role('menuitem', name='Sign Out', exact=True)).to_be_visible()
+    assert await chrome(page) == opened
+    box = await menu.bounding_box()
+    assert box and abs(box['x'] - 70) < 1 and abs(box['y'] - 742) < 1, box
     await record(page, 'flow-079e1da7-logging-out-canonical-runner', 'fc5d84bd',
-                 'Open the account menu using the profile control')
+                 'Open the source-aligned account menu using the profile control')
     await page.get_by_role('menuitem', name='Sign Out', exact=True).click()
     await expect(page.locator('.music-app')).to_have_class(re.compile(r'\bguest-session\b'))
     await expect(page.get_by_role('button', name='Sign In', exact=True)).to_be_visible()
     await expect(page.get_by_role('button', name='Account menu', exact=True)).to_have_count(0)
+    await expect(page.get_by_role('button', name='I Knew It, I Knew You', exact=True)).to_be_visible()
+    await expect(page.get_by_role('button', name='I Knew It, I Knew You (From "Toy Story 5")', exact=True)).to_have_count(0)
     await page.set_viewport_size(reference_viewport(source('3731221f')))
     await record(page, 'flow-079e1da7-logging-out-canonical-runner', '3731221f',
                  'Sign Out returns to the same New page in the signed-out session')

@@ -13,7 +13,7 @@ export const sourcePlaylistNavigation = new Set([
   "a573d1ab", "a917d88f", "be864051", "bbb92581", "bc773ae9", "bde65d33",
   "d5173715", "e379e3fe", "e5e8383f", "e70094e3",
   "e757eb0f", "e9bee76d", "f24fda77", "f2e44e3b", "f49fce21",
-  "fc5d84bd", "ffc18eb8",
+  "ffc18eb8",
 ].map(sourceId));
 
 // These direct account snapshots were captured before the personal playlist

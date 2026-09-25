@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type Dispatch, type MouseEvent, type ReactNode, type RefObject, type SetStateAction } from "react";
-import { allTracks, autoplayTracks, capturedQueue, libraryTracks, radioStations, trackById, viralTracks, type Track } from "../lib/music-catalog";
+import { allTracks, autoplayTracks, capturedQueue, libraryTracks, radioStations, sourceId, trackById, viralTracks, type Track } from "../lib/music-catalog";
 import { isPage, sceneFromUrl, sceneUrl, type Menu, type Scene } from "../lib/music-scenes";
 
 export type Playlist = { id: string; name: string; description: string; tracks: string[]; public: boolean };
@@ -330,12 +330,13 @@ export function MusicProvider({ initialScene, children }: { initialScene: Scene;
         // Anchor to that real control; MusicMenus still clamps narrow viewports.
         : menu === "sort" && event.currentTarget.closest(".library-songs") ? { x: r.right - 179, y: r.top + 8 }
         : menu === "track" && event.currentTarget.closest(".library-song-table") ? { x: Math.round(r.right - 20), y: Math.round(r.top + 8) }
+        : menu === "profile" && event.currentTarget.closest(".music-sidebar") ? { x: 70, y: innerHeight - 162 }
         : { x: r.right - 176, y: r.bottom + 5 };
       setMenuPosition(anchor);
     }
     else setMenuPosition(null);
-    patch({ menu, overlay: null, ...(menu === "station" && id ? { selectedTrack: id } : {}) });
-  }, [patch]);
+    patch({ menu, overlay: null, ...(menu === "profile" ? { namedProfile: true, ...(scene.page === "new" && scene.source === sourceId("e72be564") ? { discoveryOrigin: sourceId("fc5d84bd") } : {}) } : {}), ...(menu === "station" && id ? { selectedTrack: id } : {}) });
+  }, [patch, scene.page]);
   const favouriteArtist = (name: string) => { if (!knownArtists.has(name)) { notify("This artist is not in the saved catalog."); return; } setLibrary(current => ({ ...current, favouriteArtists: toggle(current.favouriteArtists, name) })); };
   const suggestLess = (id: string) => {
     if (!known.has(id)) return;

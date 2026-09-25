@@ -1,5 +1,11 @@
 # Courses - current handoff
 
+## 2026-09-25 profile menu and logout acceptance
+
+The verified `main` candidate accepts `MATCH-fc5d84bd` and continuous `FLOW-079e1da7`. Account-menu opening resolves the saved SmithAlex/current-New menu snapshot while retaining the source's All Playlists-only chrome. Sign Out clears that snapshot provenance and returns through the same live session to the signed-out New state; its final live frame matches the direct candidate in copy, geometry, artwork and account/player chrome, with only lawful repeat-run raster and decode variation. Alpha profile-menu controls remain unchanged.
+
+Production build `GM5iGeaIa4coS6v1WmWtj` on `http://127.0.0.1:6539` passed 159 desktop plus five responsive states, 218 routes, 128 interactions and 159 comparisons with zero failures. Stable identities: application `c62601b051d317dc73e616fb38c7199b7987f9cd84cb5863d0bf17d301d85cf6`, QA `9210781b052aed39f6fff8e429acab48fc837d481b445aa493742f5571565c37`. Evidence: `J:\courses\apple-music-clone\.qa\evidence\gpt56-logout-final-20260925-232804` and [review](reference-review/2026-09-23-account-settings-flow-review.md#profile-menu-and-logout-acceptance--2026-09-25). Ledger: **UI 159/159, MATCH 127/159, FLOW 34/58**. Settings and all remaining unchecked rows stay governed by `docs/tasks.md`.
+
 ## 2026-09-25 cancellation acceptance
 
 The current verified working-tree candidate on `main` accepts `MATCH-fd1c0c71`, `MATCH-03157020`, `MATCH-603983c7`, and continuous `FLOW-16a876bc`. The visible **Cancel Free Trial** action now resolves the saved full account session (`Alex Smith` plus Favourite Songs and Emotional Songs) without replacing library data or injecting fixture-only state; browser Back restores the earlier compact subscription snapshot.
