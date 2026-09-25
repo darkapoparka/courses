@@ -57,6 +57,22 @@ async def account_navigation_identity(page, context):
 CASES.append(('account-navigation-identity', account_navigation_identity))
 
 
+async def account_single_playlist_fixtures(page, context):
+    """Direct account snapshots with source-owned one-row playlist chrome."""
+    prefixes = [
+        'b2e0f231', 'f99d9583', '0da4882b', '8b9e8598', '0260ef9f',
+        '5b34ad72', '7437b956', '6436de36', 'c0997fe5',
+    ]
+    for prefix in prefixes:
+        await start(page, prefix)
+        assert await page.get_by_role('navigation', name='Playlists', exact=True).get_by_role('button').all_text_contents() == ['All Playlists'], prefix
+        await record(page, 'account-single-playlist-fixtures', prefix,
+                     'Direct saved account snapshot keeps the source-owned All Playlists-only chrome')
+
+
+CASES.append(('account-single-playlist-fixtures', account_single_playlist_fixtures))
+
+
 async def recorded_logout_flow(page, context):
     """Logging out: New, account menu, then the signed-out New screen."""
     await start(page, 'e72be564')
@@ -122,7 +138,91 @@ async def recorded_settings_flow(page, context):
                  'Continue scrolling to Subscriptions')
 
 
+async def recorded_connected_accounts_flow(page, context):
+    """Account Access to Connected Accounts through the visible Manage control."""
+    await start(page, '1e5b4763')
+    initial = await chrome(page)
+    assert initial == {'profile': 'SmithAlex', 'playlists': ['All Playlists', 'Favourite Songs', 'Emotional Songs']}
+    assert await page.get_by_role('navigation', name='Browse music', exact=True).get_by_role('button', name='Radio', exact=True).get_attribute('aria-current') == 'page'
+    initial_history = await page.evaluate('history.length')
+    await record(page, 'flow-d1a98fb1-connected-accounts', '1e5b4763',
+                 'Start at Account Access with the recorded Radio-selected session chrome')
+
+    opener = page.get_by_role('button', name='Manage Connected Accounts', exact=True)
+    await opener.click()
+    await expect(page.get_by_role('heading', name='Connected Accounts', exact=True)).to_be_visible()
+    assert await page.evaluate('history.length') == initial_history + 1
+    assert await chrome(page) == {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    assert await page.get_by_role('navigation', name='Browse music', exact=True).get_by_role('button', name='New', exact=True).get_attribute('aria-current') == 'page'
+    await record(page, 'flow-d1a98fb1-connected-accounts', 'b2e0f231',
+                 'Open Connected Accounts; the account subpage exposes its recorded one-row playlist chrome')
+
+    await page.go_back()
+    await expect(page.get_by_role('heading', name='Account Settings', exact=True)).to_be_visible()
+    assert await chrome(page) == initial
+    assert await page.get_by_role('navigation', name='Browse music', exact=True).get_by_role('button', name='Radio', exact=True).get_attribute('aria-current') == 'page'
+
+
+async def recorded_content_restrictions_flow(page, context):
+    """Enable restrictions through the complete eight-step native account dialog."""
+    expected_chrome = {'profile': 'SmithAlex', 'playlists': ['All Playlists']}
+    await start(page, '01f96377')
+    assert await chrome(page) == expected_chrome
+    switch = page.get_by_role('switch', name='Content Restrictions', exact=True)
+    await expect(switch).to_have_attribute('aria-checked', 'false')
+    await record(page, 'flow-29245bc1-content-restrictions', '01f96377',
+                 'Start at Parental Controls with restrictions off')
+
+    await switch.click()
+    first = page.get_by_label('Preview passcode', exact=True)
+    await expect(first).to_be_visible()
+    await expect(page.get_by_role('dialog', name='Set a passcode', exact=True)).to_be_focused()
+    assert await chrome(page) == expected_chrome
+    await record(page, 'flow-29245bc1-content-restrictions', 'f99d9583',
+                 'Turn on Content Restrictions and open the passcode setup dialog')
+    await first.fill('1234')
+    assert await page.locator('.passcode-reference-dialog .code-cells').evaluate("element => getComputedStyle(element).outlineStyle") == 'none'
+    await record(page, 'flow-29245bc1-content-restrictions', '0da4882b',
+                 'Enter the first four-digit passcode')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+
+    confirm = page.get_by_label('Confirm preview passcode', exact=True)
+    await expect(confirm).to_be_visible()
+    await record(page, 'flow-29245bc1-content-restrictions', '8b9e8598',
+                 'Continue to the confirmation passcode step')
+    await confirm.fill('1234')
+    assert await page.locator('.passcode-reference-dialog .code-cells').evaluate("element => getComputedStyle(element).outlineStyle") == 'none'
+    await record(page, 'flow-29245bc1-content-restrictions', '0260ef9f',
+                 'Re-enter the four-digit passcode')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+
+    email = page.get_by_label('Preview recovery email', exact=True)
+    await expect(email).to_be_visible()
+    await expect(email).to_have_value('alexsmith@content-mobbin.com')
+    assert await chrome(page) == expected_chrome
+    await record(page, 'flow-29245bc1-content-restrictions', '5b34ad72',
+                 'Continue to the recovery email step')
+    await page.get_by_role('button', name='Continue', exact=True).click()
+
+    await expect(page.get_by_role('heading', name='Passcode set', exact=True)).to_be_visible()
+    assert await chrome(page) == expected_chrome
+    await record(page, 'flow-29245bc1-content-restrictions', '7437b956',
+                 'Submit the recovery email and show the completion state')
+    await page.get_by_role('button', name='Done', exact=True).click()
+    await expect(switch).to_be_focused()
+    await expect(switch).to_have_attribute('aria-checked', 'true')
+    await expect(page.get_by_label('Music and Podcasts rating', exact=True)).to_have_value('Clean')
+    await expect(page.get_by_label('TV show rating', exact=True)).to_have_value('G')
+    await expect(page.get_by_label('Movie rating', exact=True)).to_have_value('G')
+    await page.wait_for_function("Math.abs(document.querySelector('#parental-controls').getBoundingClientRect().top - 19) <= 1")
+    assert await chrome(page) == expected_chrome
+    await record(page, 'flow-29245bc1-content-restrictions', '6436de36',
+                 'Acknowledge completion and return to the enabled restriction controls')
+
+
 CASES.extend([
     ('recorded-logout-flow', recorded_logout_flow),
     ('recorded-settings-flow', recorded_settings_flow),
+    ('recorded-connected-accounts-flow', recorded_connected_accounts_flow),
+    ('recorded-content-restrictions-flow', recorded_content_restrictions_flow),
 ])

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Scene } from "../lib/music-scenes";
 import { trackById } from "../lib/music-catalog";
-import { sourcePlaylistNavigation } from "../lib/reference-chrome";
+import { sourcePlaylistNavigation, sourceSinglePlaylistNavigation } from "../lib/reference-chrome";
 import { MusicProvider, useMusic } from "./music-context";
 import { SidebarGlyph, ProfileAvatar } from "./music-sidebar-icons";
 import { VideoPlayer } from "./music-video-player";
@@ -75,8 +75,9 @@ function MusicShell() {
   const hideEmptyLibrarySearchPlaylists = m.scene.page === "search" && m.scene.scope === "library" && !(m.scene.query ?? "").trim();
   const replayChrome = ["replay", "milestones", "milestone"].includes(m.scene.page);
   const suggestLessMenuPlaylists = initialFlow === "marking-a-song-as-suggest-less" && m.scene.menu === "artist";
-  const showPlaylists = !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.scene.radioEdition === "hits" || suggestLessMenuPlaylists || m.library.playlists.length > initialPlaylistCount);
   const sourcePrefix = m.scene.source?.slice(0, 8);
+  const singlePlaylistAccountChrome = m.scene.page === "connected" || Boolean(m.scene.source && sourceSinglePlaylistNavigation.has(m.scene.source));
+  const showPlaylists = !singlePlaylistAccountChrome && !hideEmptyLibrarySearchPlaylists && (replayChrome || fixturePlaylists || m.scene.radioEdition === "hits" || suggestLessMenuPlaylists || m.library.playlists.length > initialPlaylistCount);
   const cancellationProfile = m.scene.page === "subscription" || ["fd1c0c71", "03157020", "603983c7"].includes(sourcePrefix ?? "");
   const loginOffer = m.scene.flow === "logging-in" || ["3131018d", "417f6129", "6aa4a9d7", "4e65c7c6", "97de6907"].includes(sourcePrefix ?? "");
   const cancelledOffer = loginOffer || sourcePrefix === "603983c7" || (m.scene.page === "subscription" && m.scene.guest && (m.library.cancelled || m.scene.cancelled));

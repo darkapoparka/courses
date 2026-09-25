@@ -1256,55 +1256,64 @@ Check independent scrolling, passcode setup/confirmation/recovery, local cancell
 <a id="screen-b2e0f231"></a>
 
 - [x] **UI-b2e0f231 — Connected accounts — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-b2e0f231 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-b2e0f231 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production source/render/residual review accepts the Connected Accounts page, its source-owned one-row playlist chrome, sidebar, footer and player. The visible Manage control also reaches this state continuously in the accepted Connected Accounts journey. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/b2e0f231-51e2-4227-921f-82d567937b6b.webp) · [Open app state](http://127.0.0.1:6435/screen/b2e0f231-51e2-4227-921f-82d567937b6b) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-f99d9583"></a>
 
 - [x] **UI-f99d9583 — Account settings — restriction passcode dialog, step 1, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-f99d9583 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-f99d9583 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the initial passcode dialog after the real Content Restrictions switch opens it; modal geometry, one-row chrome, scroll anchor and controls match. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/f99d9583-5836-47c5-ae0a-a26ffaf0d1b8.webp) · [Open app state](http://127.0.0.1:6435/screen/f99d9583-5836-47c5-ae0a-a26ffaf0d1b8) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-0da4882b"></a>
 
 - [x] **UI-0da4882b — Account settings — restriction passcode dialog, step 1, filled, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0da4882b — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0da4882b — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the filled first-passcode state reached by entering the four digits through the live field. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/0da4882b-707f-4cbd-aba1-034f3e9f2a90.webp) · [Open app state](http://127.0.0.1:6435/screen/0da4882b-707f-4cbd-aba1-034f3e9f2a90) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-8b9e8598"></a>
 
 - [x] **UI-8b9e8598 — Account settings — restriction passcode dialog, step 2, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-8b9e8598 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-8b9e8598 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the confirmation passcode dialog reached by the visible Continue control. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/8b9e8598-7025-46c7-91ef-d1b9b1d3af55.webp) · [Open app state](http://127.0.0.1:6435/screen/8b9e8598-7025-46c7-91ef-d1b9b1d3af55) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-0260ef9f"></a>
 
 - [x] **UI-0260ef9f — Account settings — restriction passcode dialog, step 2, filled, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-0260ef9f — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-0260ef9f — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the filled confirmation state reached through the live passcode field. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/0260ef9f-bfb7-406b-90c0-1f43c378b826.webp) · [Open app state](http://127.0.0.1:6435/screen/0260ef9f-bfb7-406b-90c0-1f43c378b826) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-5b34ad72"></a>
 
 - [x] **UI-5b34ad72 — Account settings — restriction passcode dialog, step 3, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-5b34ad72 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-5b34ad72 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the recovery-email state, including the recorded email value, helper copy, modal geometry and chrome. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/5b34ad72-fdad-47f1-8505-e24df0d9019c.webp) · [Open app state](http://127.0.0.1:6435/screen/5b34ad72-fdad-47f1-8505-e24df0d9019c) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-7437b956"></a>
 
 - [x] **UI-7437b956 — Account settings — restriction passcode dialog, step 4, scrolled to parental controls.** Coded UI; current browser render passed.
-  - [ ] **MATCH-7437b956 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-7437b956 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the Passcode set completion state reached by submitting the live recovery-email form. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/7437b956-e1fb-4be4-a43c-7299cda8c1e6.webp) · [Open app state](http://127.0.0.1:6435/screen/7437b956-e1fb-4be4-a43c-7299cda8c1e6) · [Component](../apple-music-clone/components/music-account-dialogs.tsx)
 
 <a id="screen-6436de36"></a>
 
 - [x] **UI-6436de36 — Account settings — scrolled to parental controls, restrictions enabled.** Coded UI; current browser render passed.
-  - [ ] **MATCH-6436de36 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-6436de36 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the enabled parental-controls state after Done, including switch focus/state, Clean/G/G ratings, scroll anchor and one-row chrome. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Reference image](../apple-music-clone/reference/originals/6436de36-bec0-483d-b9a5-5bb9793c211e.webp) · [Open app state](http://127.0.0.1:6435/screen/6436de36-bec0-483d-b9a5-5bb9793c211e) · [Component](../apple-music-clone/components/music-account.tsx)
 
 <a id="screen-c0997fe5"></a>
 
 - [x] **UI-c0997fe5 — Subscription — named profile.** Coded UI; current browser render passed.
-  - [ ] **MATCH-c0997fe5 — Finish and verify the exact screenshot match.**
+  - [x] **MATCH-c0997fe5 — Finish and verify the exact screenshot match.**
+  - 2026-09-25: Exact production review accepts the named-profile subscription state; artwork, renewal copy, controls, sidebar, footer and player align without a concrete product mismatch. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - 2026-09-13: Renewal wording, filled music symbol, typography and control spacing corrected; over-20 residual 3.05033%. [Evidence](reference-review/2026-09-13-subscription-artwork.md).
   - [Reference image](../apple-music-clone/reference/originals/c0997fe5-7f01-4d42-9b12-1c7f284f8046.webp) · [Open app state](http://127.0.0.1:6435/screen/c0997fe5-7f01-4d42-9b12-1c7f284f8046) · [Component](../apple-music-clone/components/music-account.tsx)
 
@@ -1566,10 +1575,12 @@ Each sequence below links to the same screen tasks above. The numbers are the or
   - [Open first recorded state](http://127.0.0.1:6435/flows/settings?step=0). Sequence: [1: fc5d84bd](#screen-fc5d84bd) → [2: 481cd568](#screen-481cd568) → [3: 1e5b4763](#screen-1e5b4763) → [4: 01f96377](#screen-01f96377) → [5: 44101453](#screen-44101453)
   - 2026-09-23: The real Settings control and native account-pane scrolling reach all five checkpoints with restriction values unchanged. Keep FLOW open: the saved first two account-page stills highlight Radio, but the actual transition from the New profile menu preserves New; later stills switch back to New without a navigation control. [Ordered journey evidence and review](reference-review/2026-09-23-account-settings-flow-review.md).
 
-- [ ] **FLOW-d1a98fb1 — 54. Connected accounts (2 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-d1a98fb1 — 54. Connected accounts (2 steps).** Complete and verify the recorded journey.
+  - 2026-09-25: Accepted through the visible Manage Connected Accounts control. The two ordered checkpoints, history increment, source-owned subpage chrome, New/Radio selection changes, browser Back restoration and exact account identity all pass with no browser, request or HTTP errors. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/connected-accounts?step=0). Sequence: [1: 1e5b4763](#screen-1e5b4763) → [2: b2e0f231](#screen-b2e0f231)
 
-- [ ] **FLOW-29245bc1 — 55. Turning on content restrictions (8 steps).** Complete and verify the recorded journey.
+- [x] **FLOW-29245bc1 — 55. Turning on content restrictions (8 steps).** Complete and verify the recorded journey.
+  - 2026-09-25: Accepted through the complete eight-step visible-control sequence: switch on, first passcode, confirmation, recovery email, completion and Done. Focus restoration, checked state, Clean/G/G values, scroll anchor, one-row chrome and every exact checkpoint were reviewed on the zero-failure production candidate. [Review and evidence](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
   - [Open first recorded state](http://127.0.0.1:6435/flows/turning-on-content-restrictions?step=0). Sequence: [1: 01f96377](#screen-01f96377) → [2: f99d9583](#screen-f99d9583) → [3: 0da4882b](#screen-0da4882b) → [4: 8b9e8598](#screen-8b9e8598) → [5: 0260ef9f](#screen-0260ef9f) → [6: 5b34ad72](#screen-5b34ad72) → [7: 7437b956](#screen-7437b956) → [8: 6436de36](#screen-6436de36)
 
 - [ ] **FLOW-16a876bc — 56. Canceling a trial (5 steps).** Complete and verify the recorded journey.

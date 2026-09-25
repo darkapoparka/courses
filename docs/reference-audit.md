@@ -1,5 +1,9 @@
 # Reference audit — findings, not acceptance
 
+## 2026-09-25 Connected Accounts and Content Restrictions acceptance
+
+The [account acceptance review](reference-review/2026-09-25-account-connected-restrictions-acceptance.md) accepts exact states `b2e0f231`, `f99d9583`, `0da4882b`, `8b9e8598`, `0260ef9f`, `5b34ad72`, `7437b956`, `6436de36`, and `c0997fe5`, plus continuous real-control journeys `FLOW-d1a98fb1` and `FLOW-29245bc1`. Exact production verification passed 164 browser states, 218 routes, 127 interactions and 159 comparisons with zero failures and stable source identity. Readable full-frame and regional review found only lawful raster, antialiasing, border and blur residuals. Ledger: **UI 159/159, MATCH 122/159, FLOW 31/58**.
+
 ## 2026-09-25 expanded live-radio and continuous journey acceptance
 
 The [live-radio review](reference-review/2026-09-25-radio-live-acceptance.md) accepts `MATCH-7bd2ef54` and `FLOW-868aa817`. Exact review confirms the radio-only ambient field, controls and 0.63 volume have no remaining actionable product mismatch. The four-step live path now reproduces the saved one-row launch chrome and three-row selected/playing chrome through visible hover, click and expand controls; the canonical regression also passes lyrics, stop/restart, close and error checks. The stable candidate passed 164 browser states, 218 routes, 124 interactions and all 159 comparisons with zero functional failures. Ledger: **UI 159/159, MATCH 113/159, FLOW 29/58**.

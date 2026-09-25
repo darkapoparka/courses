@@ -217,7 +217,7 @@ const definitions: Record<string, Scene> = {
   "8b9e8598": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 1 },
   "0260ef9f": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 1, filled: true },
   "5b34ad72": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 2 },
-  "7437b956": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 3 },
+  "7437b956": { ...account, scroll: "parental-controls", overlay: "passcode", formStep: 3, restrictions: true },
   "6436de36": { ...account, scroll: "parental-controls", restrictions: true },
   "c0997fe5": { page: "subscription", namedProfile: true },
   "fd1c0c71": { page: "subscription", namedProfile: true, profileName: "Alex Smith", overlay: "cancel-trial" },

@@ -89,9 +89,9 @@
 .account-back > button { color:#f02b48; }
 .account-inner:has(.account-back) > h1 { border:0; padding-bottom:0; }
 .connected-account-view { padding-top:31px; }
-.connected-account-view > h2 { font-size:24px; line-height:31px; }
-.connected-account-view > p { font-size:16px; line-height:25px; color:#777; margin-top:8px; }
-.connected-account-view > .connected-empty { min-height:66px; margin-top:63px; text-align:left; display:flex; align-items:center; padding:18px; border:1px solid #e1e1e4; background:#f7f7fa; border-radius:9px; color:#333; font-size:14px; }
+.connected-account-view > h2 { font-size:23px; line-height:30px; }
+.connected-account-view > p { font-size:16px; line-height:25px; color:#777; margin-top:29px; }
+.connected-account-view > .connected-empty { min-height:66px; margin-top:65px; text-align:left; display:flex; align-items:center; padding:18px; border:1px solid #e1e1e4; background:#f7f7fa; border-radius:9px; color:#333; font-size:16px; line-height:24px; }
 .subscription-details { padding-top:19px; }
 .subscription-details > h2 { display:flex; gap:12px; align-items:center; font-size:22px; line-height:32px; margin:0 0 22px; }
 .subscription-details .music-badge { width:48px; height:48px; border-radius:11px; background:linear-gradient(#ff5276,#ff0039); }
@@ -104,6 +104,11 @@
 .account-action { display:table; padding:7px 13px; border:1px solid #ed2948; color:#ed2948; border-radius:7px; font-size:13px; line-height:18px; margin:8px 0; }
 .account-action.filled { background:#ff1c42; color:#fff; border-color:transparent; }
 .subscription-privacy { font-size:16px; margin-top:38px; }
+.subscription-details:not(.cancelled) > h2 { margin-bottom:21px; }
+.subscription-details:not(.cancelled) hr { margin-top:17px; margin-bottom:34px; }
+.subscription-details:not(.cancelled) > hr + h3 { margin-bottom:14px; }
+.subscription-details:not(.cancelled) > .account-action + .account-action { margin-bottom:10px; }
+.subscription-details:not(.cancelled) .subscription-privacy { margin-top:39px; }
 .subscription-details.cancelled > h3 { margin-bottom:16px; }
 .subscription-details.cancelled > p.text-accent { color:#d70015; font-size:16px; font-weight:600; line-height:23px; }
 .subscription-details.cancelled > .account-action.filled { margin-top:26px; }
@@ -122,6 +127,7 @@
 .code-cells > span { display:grid; place-items:center; width:43px; height:43px; border:1px solid #d3d3d6; border-radius:3px; color:#242427; background:#fff; font-size:24px; line-height:30px; }
 .code-field > input { position:absolute; inset:0; width:100%; height:100%; border:0; padding:0; margin:0; background:transparent; color:transparent; caret-color:transparent; letter-spacing:0; opacity:.01; }
 .code-field:focus-within .code-cells { outline:2px solid #007aff; outline-offset:3px; border-radius:3px; }
+.passcode-reference-dialog .code-field:has(input:valid) .code-cells { outline:none; }
 .account-dialog-footer { display:flex; flex:0 0 54px; align-items:center; justify-content:flex-end; gap:9px; background:#f7f7f9; padding:8px 19px; }
 .account-dialog-continue { min-height:35px; padding:7px 15px; border-radius:7px; color:#fff; background:#ff2445; font-size:14px; line-height:20px; }
 .account-dialog-continue:disabled { opacity:1; color:#ffebef; background:#ffa7b5; }
@@ -208,10 +214,15 @@
 
 .account-scoped-dialog:focus, .cancel-reference-dialog:focus, .cancel-result-dialog:focus { outline:none; }
 .account-scoped-dialog .reference-disclosure, .cancel-reference-dialog .reference-disclosure, .cancel-result-dialog .reference-disclosure { display:none; }
+.passcode-step-0 .code-field { margin-top:14px; }
 .passcode-step-1 .code-field { margin-top:50px; }
 .cancel-result-dialog .dialog-primary { width:260px; }
 
-.passcode-step-2 .field-label > input { min-height:54px; height:54px; border-radius:12px; }
+.passcode-step-2 .passcode-body { padding-left:37px; padding-right:37px; }
+.passcode-step-2 .field-label { max-width:none; margin-top:14px; }
+.passcode-step-2 .field-label > span { left:17px; top:9px; font-size:11px; line-height:14px; }
+.passcode-step-2 .field-label > input { min-height:54px; height:54px; border-radius:12px; padding:21px 16px 5px; font-size:16.5px; line-height:22px; }
+.passcode-step-2 .field-help { margin-top:11px; font-size:12px; line-height:18px; }
 
 .schedule-entry small.text-accent { color:#b70024; font-weight:600; }
 @media(min-width:1181px) {

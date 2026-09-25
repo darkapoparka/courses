@@ -1,5 +1,13 @@
 # Courses - current handoff
 
+## 2026-09-25 connected accounts and content restrictions acceptance
+
+The current verified working-tree candidate on `main` accepts nine account states—`b2e0f231`, `f99d9583`, `0da4882b`, `8b9e8598`, `0260ef9f`, `5b34ad72`, `7437b956`, `6436de36`, and `c0997fe5`—plus continuous `FLOW-d1a98fb1` and `FLOW-29245bc1`. Connected Accounts now exposes the recorded one-row subpage chrome through the visible Manage control and restores its prior Radio/playlist state through browser Back. The restriction journey traverses switch, two passcode entries, recovery email, completion and Done through real controls while preserving the recorded account, playlist, scroll, focus and rating state.
+
+Exact source was safely staged on `H:` because `J:` lacked room for another dependency tree; the 707-file staging manifest aggregate is `542206c437d8ea5f6c709f2bcd7c987b7f9e9bc0e5ad8020d0d338d34ed6f98b`, with no source mismatch or build mutation. Production build `ZfQw3V4yLj1m7WAb3uAml` and Chromium `151.0.7922.34` passed 159 desktop plus five responsive states, all 218 ordered routes, 127 interactions, and all 159 exact comparisons with zero failures. Stable identities: application `1301ea3cd3bbaa962db1a7200b17c54262ebbcd022a124a26428ca90cd821957`, QA `77318c488ad06246e487260ffc03e4e29a42b73c0b6eee63c30dbeb54ccc66e9`. Evidence: `apple-music-clone/.qa/evidence/gpt56-account-acceptance-final-prod-20260925-162601/{browser,comparison}`. Review: [connected-account and restriction acceptance](reference-review/2026-09-25-account-connected-restrictions-acceptance.md).
+
+The ledger is now **UI 159/159, MATCH 122/159, FLOW 31/58**. The exact production preview remains at `http://127.0.0.1:6531`; inspect its process identity before stopping it. Cancellation, language, Settings, logout and login work remains governed by the unchecked rows in `docs/tasks.md`.
+
 ## 2026-09-25 expanded live-radio acceptance
 
 The current verified working-tree candidate on `main` accepts `MATCH-7bd2ef54` and `FLOW-868aa817`. The radio-only ambient material now follows the saved yellow/green, cyan/blue and dark-edge fields; disabled transport, close, lyrics glyph and saved 0.63 volume were reviewed at exact `1440 × 903`. The continuous journey truthfully changes the sidebar from one playlist row to three on Hits hover/focus, preserves those rows through click and expansion, and uses no direct route jump after the initial state.

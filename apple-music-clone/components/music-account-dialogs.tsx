@@ -13,7 +13,7 @@ export function PasscodeDialog() {
   const [error, setError] = useState("");
   const first = useRef("1234");
   const title = ["Set a passcode", "Re-enter your passcode", "Enter email address", "Passcode set"][Math.min(step, 3)]!;
-  const close = () => m.patch({ overlay: null });
+  const close = () => m.patch({ overlay: null, scroll: "parental-controls" });
   const submit = (event: FormEvent) => {
     event.preventDefault();
     setError("");
@@ -29,7 +29,6 @@ export function PasscodeDialog() {
     } else {
       m.setLibrary(data => ({ ...data, restrictions: true }));
       close();
-      m.notify("Local content filter enabled. This is a UI preview, not a device-security passcode.");
     }
   };
   return <Dialog title={title} onClose={close} className={`account-scoped-dialog passcode-reference-dialog passcode-step-${step} ${step === 3 ? "passcode-success" : ""}`}>

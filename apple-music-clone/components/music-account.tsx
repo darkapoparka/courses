@@ -24,12 +24,14 @@ function AccountFrame({ children, heading = true }: { children: ReactNode; headi
       const id = m.scene.scroll;
       const section = id ? host.querySelector<HTMLElement>(`#${id}`) : null;
       if (section) {
-        const offset = id === "account-access" ? -10 : id === "parental-controls" ? 24 : id === "subscriptions" ? 525 : 24;
+        const sourcePrefix = m.scene.source?.slice(0, 8);
+        const finalRestrictionState = !m.scene.overlay && m.library.restrictions;
+        const offset = id === "account-access" ? -10 : id === "parental-controls" ? (sourcePrefix === "6436de36" || finalRestrictionState ? 19 : 24) : id === "subscriptions" ? 525 : 24;
         host.scrollTop += section.getBoundingClientRect().top - host.getBoundingClientRect().top - offset;
       }
     });
     return () => cancelAnimationFrame(frame);
-  }, [m.scene.scroll]);
+  }, [m.scene.scroll, m.scene.overlay, m.library.restrictions]);
   return <div className="account-frame"><div className="account-scroll" ref={scroll}><div className="account-inner">
     {heading && <h1>{chinese ? "账户设置" : "Account Settings"}</h1>}{children}
   </div></div><Footer /></div>;
