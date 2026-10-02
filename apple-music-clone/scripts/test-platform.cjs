@@ -22,7 +22,7 @@ const catalog = load('catalog'); const state = load('preview-state'); const cont
 const design = catalog.courseById('design'); const web = catalog.courseById('web');
 test('catalog IDs and slugs are unique', () => { for (const key of ['id', 'slug']) assert.equal(new Set(catalog.courses.map(c => c[key])).size, catalog.courses.length); const ids = catalog.courses.flatMap(c => c.lessons.map(l => l.id)); assert.equal(new Set(ids).size, ids.length); });
 test('catalog totals and prices are internally consistent', () => { for (const c of catalog.courses) { assert.equal(c.minutes, c.lessons.reduce((sum, l) => sum + l.minutes, 0)); assert(Number.isInteger(c.priceMinor) && c.priceMinor >= 0); assert.equal(c.lessons.length, 3); } });
-test('search is trimmed, case-insensitive and category-aware', () => { assert.equal(catalog.filterCourses(' DESIGN ', '').length, 1); assert.equal(catalog.filterCourses('design', 'Writing').length, 0); assert.equal(catalog.filterCourses('no-such-course', '').length, 0); assert.equal(catalog.filterCourses('', '').length, 5); });
+test('search is trimmed, case-insensitive and category-aware', () => { assert.equal(catalog.filterCourses(' DESIGN ', '').length, 3); assert.equal(catalog.filterCourses('design', 'Writing').length, 0); assert.equal(catalog.filterCourses('no-such-course', '').length, 0); assert.equal(catalog.filterCourses('', '').length, 15); });
 test('unknown courses and cross-course lessons are rejected', () => { assert.equal(catalog.courseBySlug('absent'), undefined); assert.equal(catalog.canReadDemoLesson(design, 'web-purpose'), false); assert.equal(catalog.canReadDemoLesson(design, 'absent'), false); });
 test('all free demo lessons have server-selected bodies', () => { for (const c of catalog.courses.filter(c => c.priceMinor === 0)) for (const l of c.lessons) { assert(catalog.canReadDemoLesson(c, l.id)); assert(content.demoLessonBody(c, l.id)?.exercise); } });
 test('paid non-preview bodies remain locked', () => { assert(content.demoLessonBody(web, 'web-purpose')); assert.equal(content.demoLessonBody(web, 'web-states'), null); assert.equal(content.demoLessonBody(web, 'web-ship'), null); assert(fs.readFileSync(path.join(root, 'lesson-content.server.ts'), 'utf8').includes('import "server-only"')); });
@@ -89,7 +89,7 @@ test('creator and topic identities are unique and every course has an owner', ()
   }
 });
 test('creator search returns associated courses and rejects unknown entity URLs', () => {
-  assert.deepEqual(catalog.filterCourses('Maya Chen', '').map(c => c.id), ['design']);
+  assert.deepEqual(catalog.filterCourses('Maya Chen', '').map(c => c.id), ['design','systems','color']);
   assert.equal(discovery.creatorBySlug('unknown'), undefined);
   assert.equal(discovery.topicBySlug('unknown'), undefined);
 });
@@ -141,8 +141,8 @@ test('recent searches are bounded, normalized and backward compatible', () => {
 });
 test('collection filters and sorts do not mutate the catalog or grant access', () => {
   const before=JSON.stringify(catalog.courses);
-  assert.deepEqual(search.selectCourses(catalog.courses,'','', 'free', 'duration').map(c=>c.id), ['writing','design']);
-  assert.deepEqual(search.selectCourses(catalog.courses,'Maya','Design','all','title').map(c=>c.id), ['design']);
+  assert.deepEqual(search.selectCourses(catalog.courses,'','', 'free', 'duration').map(c=>c.id), ['writing','interviews','design','color']);
+  assert.deepEqual(search.selectCourses(catalog.courses,'Maya','Design','all','title').map(c=>c.id), ['systems','color','design']);
   assert.equal(search.selectCourses(catalog.courses,'Maya','Writing','all','title').length,0);
   assert.equal(JSON.stringify(catalog.courses), before);
   const options=search.catalogOptions({view:'list',sort:'duration',category:'unknown',filter:['a']});
@@ -206,6 +206,7 @@ test('Short lessons honor the time budget, completion switch and actual demo acc
 });
 
 require("./test-marketplace.cjs")({ test, assert, load, fs, path, app });
+require("./test-merchandising.cjs")({ test, assert, load });
 
 // Visual restoration: keep neutral UI surfaces distinct from colorful course artwork.
 test('course canvas stays white without warm merchandising surface overrides', () => {
@@ -230,7 +231,7 @@ test('compact lesson artwork hides old cover captions but not the photograph', (
 // Editorial covers are a shared asset system, not changes to music fixtures.
 test('all demo courses have a distinct editorial jacket identity', () => {
   const artwork = fs.readFileSync(path.join(app, 'components/platform/course-artwork.tsx'), 'utf8');
-  for (const course of catalog.courses) assert(artwork.includes(`${course.id}: { style:`), course.id);
+  for (const course of catalog.courses) assert(artwork.includes(`${course.id}: { style:`) || artwork.includes(`"${course.id}":`), course.id);
   assert(artwork.includes('data-course-art={course.id}'));
   assert(artwork.includes('aria-hidden="true"'));
   assert(!artwork.includes('/reference-assets/'));

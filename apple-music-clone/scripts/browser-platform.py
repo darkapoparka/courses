@@ -5,6 +5,7 @@ import argparse, json, os, hashlib
 from browser_platform_contract import check_shell_contract, check_reply_journey
 from browser_platform_home import check_learning_home
 from browser_platform_marketplace import check_marketplace
+from browser_platform_market_depth import check_market_depth
 from browser_platform_catalog import check_rich_catalog
 from browser_platform_search import check_search_and_collections
 from playwright.sync_api import sync_playwright, expect
@@ -97,6 +98,7 @@ with sync_playwright() as p:
         check_search_and_collections(page, visit, out, passed)
         check_learning_home(page, visit, out, passed, shell_observations, errors)
         check_marketplace(page, visit, out, passed, shell_observations, errors)
+        check_market_depth(page, visit, out, passed, errors)
         page.set_viewport_size({'width':1440,'height':903}); visit(page, '/learn')
         page.get_by_role('link', name='Open music reference', exact=False).click(); page.wait_for_load_state("networkidle", timeout=90000); expect(page.locator('.music-sidebar')).to_be_visible()
         assert sidebar(page)==original_sidebar, (sidebar(page),original_sidebar); passed('Real client navigation back to music preserves sidebar computed styling')

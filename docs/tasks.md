@@ -1789,3 +1789,11 @@ The previous visual pass was rejected by the owner. Existing completion entries 
 Editorial-card recovery evidence: 47 unit/style tests, TypeScript, 55 full optimized and 55 canonical optimized browser checks passed. The interrupted build was reused only after exact source identity verification; the recovery strengthened profile-route test assertions. Evidence: `.qa/editorial-resume-20261003/`. Original 81-file music fingerprint set is unchanged. User aesthetic approval, backend integration and release are not implied. See the current handoff for retained failures and runtime.
 
 - [ ] `CP-042` Diagnose the development-runtime JSON/reload failure and prove stable real navigation in development mode. Canonical port 6435 currently serves the verified optimized build, without hot reload. Preserve the card system and existing failure evidence; do not claim this runtime issue is fixed by an optimized pass.
+
+### Marketplace discovery depth — 2026-10-03
+- [x] `CP-043` Add distinct bestseller-demo, editor-picked top-course, free-course and development shelves with real See all routes and shared preview/save controls; retain the existing card and shell language.
+- [x] `CP-044` Expand the original demo catalog to fifteen coherent offers with readable samples, complete new free courses, stable creator associations and unchanged paid-content boundaries.
+- [x] `CP-045` Make top search prominent and add a visible filter modal with combined price/level/duration facets, matching counts, cancellation, URL state, active-filter removal and empty recovery.
+- [x] `CP-046` Verify desktop/mobile composition, collection navigation, expanded content, facets, cross-shelf state, all prior platform journeys and original-source preservation; publish only the reviewed batch.
+
+Marketplace-depth evidence: 51 domain/style tests, TypeScript/build, 59 complete optimized browser checks and five canonical-preview checks passed. See handoff.md for exact source/build identity, reviewed screenshots, preserved failures, unchanged legacy files and optimized-versus-dev limits. Real ranking/commerce and owner aesthetic acceptance are not claimed.

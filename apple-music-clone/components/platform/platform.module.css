@@ -726,3 +726,47 @@
 .featureCard .jacketByline span:first-child { font-size:1.6cqw; }
 .homePick .courseJacket { aspect-ratio:3 / 4; }
 @media (max-width:760px) { .featureCard .courseJacket { aspect-ratio:1.7; } }
+
+/* Marketplace discovery depth: shared card language, clear destinations and compact filters. */
+.titledToolbar .searchAnchor { max-width:640px; }
+.titledToolbar .globalSearch { min-height:52px; border-radius:12px; }
+.titledToolbar .globalSearch input { height:50px; font-size:14px; }
+.titledToolbar .searchSubmit { min-height:48px; font-size:13px; padding-inline:18px; }
+.marketBrowseBar { display:flex; align-items:flex-start; gap:20px; }
+.marketBrowseBar .marketCategories { flex:1; min-width:0; }
+.marketFilterButton { flex:none; min-height:42px; padding:8px 14px; display:inline-flex; align-items:center; gap:8px; border-radius:9px; background:#f5f5f7; font-size:12px; }
+.marketFilterButton > span { display:grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--course-accent); color:#fff; font-size:10px; }
+.marketFilterButton svg { width:17px; height:17px; }
+.marketFilterDialog label { display:block; margin:20px 0 7px; font-size:13px; font-weight:600; }
+.marketFilterDialog select { width:100%; min-height:44px; padding:10px 12px; border:1px solid #d8d8df; border-radius:8px; background:#fff; }
+.filterDialogTitle { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.filterDialogTitle > button { min-height:44px; min-width:44px; border-radius:50%; font-size:25px; }
+.filterDialogTitle > button:hover { background:var(--course-surface); }
+.marketFilterDialog .actions > .textButton { margin-right:auto; }
+.filterResultNote { min-height:42px; }
+.marketActiveFilters { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+.marketActiveFilters a { min-height:36px; display:inline-flex; align-items:center; gap:8px; border-radius:8px; background:#f5f5f7; padding:7px 11px; font-size:12px; }
+.marketActiveFilters a:first-child { background:transparent; color:var(--course-accent); padding-left:0; }
+.marketCollection { margin-top:36px; }
+.collectionHeading { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-right:84px; margin-bottom:16px; }
+.collectionHeading h2 { display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:20px; line-height:27px; }
+.collectionHeading p { color:var(--course-muted); font-size:12px; line-height:19px; margin-top:3px; }
+.collectionHeading > a { white-space:nowrap; }
+.marketCollection .shelfControls { position:absolute; top:-54px; right:0; margin:0; }
+.demoCollectionLabel { font-size:9px; line-height:18px; font-weight:500; letter-spacing:.2px; color:var(--course-muted); background:#f5f5f7; border-radius:5px; padding:1px 6px; }
+.marketCollections + .marketCatalog { margin-top:42px; }
+
+@media (max-width:760px) {
+  .marketBrowseBar { gap:8px; }
+  .marketFilterButton { min-height:44px; padding-inline:10px; }
+  .collectionHeading { padding-right:0; align-items:flex-start; margin-bottom:8px; }
+  .collectionHeading h2 { font-size:18px; line-height:24px; }
+  .collectionHeading p { font-size:11px; max-width:260px; }
+  .marketCollection .shelfControls { position:static; margin-bottom:8px; }
+  .marketCollection { margin-top:28px; }
+}
+@media (forced-colors:active) { .marketFilterButton,.marketActiveFilters a,.demoCollectionLabel { border:1px solid ButtonText; } }
+
+/* Long course names must fit the same cover, not be clipped by its artwork mask. */
+.courseJacket[data-long-title] .jacketTitle { font-size:11cqw; line-height:1.06; }
+.featureCard .courseJacket[data-long-title] .jacketTitle { font-size:6.7cqw; }

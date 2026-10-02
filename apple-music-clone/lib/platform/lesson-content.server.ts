@@ -1,4 +1,5 @@
 import "server-only";
+import { additionalLessonBodies } from "./catalog-lessons.server";
 import { canReadDemoLesson } from "./catalog";
 import type { Course, LessonBody } from "./types";
 // Original demo lessons. Select bodies on the server; never serialize locked content.
@@ -24,5 +25,5 @@ const bodies: Record<string, LessonBody> = {
 };
 export function demoLessonBody(course: Course, lessonId: string): LessonBody | null {
   if (!canReadDemoLesson(course, lessonId)) return null;
-  return bodies[lessonId] ?? null;
+  return bodies[lessonId] ?? additionalLessonBodies[lessonId] ?? null;
 }

@@ -30,7 +30,7 @@ def check_learning_home(existing_page, visit, out, passed, observations, errors)
         dialog.get_by_role('checkbox',name='Design',exact=True).check()
         dialog.get_by_role('button',name='Save preferences',exact=True).click()
         page.reload(wait_until='networkidle'); heading('Learning overview')
-        expect(page.get_by_text('Because you chose Design',exact=True)).to_be_visible()
+        expect(page.locator('[data-home-pick=design]').get_by_text('Because you chose Design',exact=True)).to_be_visible()
         assert state()['saved']==[] and state()['progress']=={}
         page.get_by_role('button',name='Learning preferences',exact=True).click()
         expect(dialog.get_by_role('checkbox',name='Design',exact=True)).to_be_checked()

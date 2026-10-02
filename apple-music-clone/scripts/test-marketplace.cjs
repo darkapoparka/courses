@@ -5,15 +5,15 @@ module.exports = ({ test, assert, load, fs, path, app }) => {
   test('marketplace filters validate query shapes and preserve real course relationships', () => {
     const invalid = market.marketplaceOptions({category:['Design'],price:'everything',sort:'rating'});
     assert.deepEqual(invalid,{category:'',price:'all',sort:'featured'});
-    assert.deepEqual(market.marketplaceCourses(market.marketplaceOptions({category:'design'})).map(c=>c.id),['design']);
-    assert.equal(market.marketplaceCourses(market.marketplaceOptions({price:'free'})).length,2);
-    assert.equal(market.marketplaceCourses(market.marketplaceOptions({price:'under50'})).length,4);
-    assert.deepEqual(market.marketplaceCourses(market.marketplaceOptions({category:'business',price:'free'})),[]);
+    assert.deepEqual(market.marketplaceCourses(market.marketplaceOptions({category:'design'})).map(c=>c.id),['design','systems','color']);
+    assert.equal(market.marketplaceCourses(market.marketplaceOptions({price:'free'})).length,4);
+    assert.equal(market.marketplaceCourses(market.marketplaceOptions({price:'under50'})).length,10);
+    assert.deepEqual(market.marketplaceCourses(market.marketplaceOptions({category:'photography',price:'free'})),[]);
   });
   test('marketplace sorting and merchandising never mutate catalog or preview access', () => {
     const before=JSON.stringify(catalog.courses);
     const sorted=market.marketplaceCourses(market.marketplaceOptions({sort:'price'}));
-    assert.deepEqual(sorted.map(c=>c.priceMinor),[0,0,3500,4900,5900]);
+    assert.deepEqual(sorted.map(c=>c.priceMinor),[0,0,0,0,2900,3500,3900,4500,4900,4900,5900,5900,6900,7900,8900]);
     assert.equal(JSON.stringify(catalog.courses),before);
     assert.equal(catalog.canReadDemoLesson(catalog.courseById('web'),'web-states'),false);
     assert.equal(market.offerPrice(catalog.courseById('design')),'Free');

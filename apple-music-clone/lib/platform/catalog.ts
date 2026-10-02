@@ -1,4 +1,5 @@
 import type { Course } from "./types";
+import { additionalCourses } from "./catalog-expansion";
 import { creatorName } from "./discovery";
 // Original demonstration metadata. No invented ratings, revenue, or enrollment counts.
 export const courses: readonly Course[] = [
@@ -17,6 +18,7 @@ export const courses: readonly Course[] = [
   { id: "business", slug: "make-something-useful", title: "Make something useful", subtitle: "Start with a problem, not a pitch.", category: "Business", creatorId: "amara", level: "Beginner", minutes: 25, priceMinor: 5900, currency: "EUR", cover: "violet", coverLabel: "SMALL START.\nREAL VALUE.", outcome: "Describe a practical customer problem and design a small test of your idea.", prerequisites: "An idea you are willing to question. This is not financial advice.", lessons: [
     { id: "business-problem", title: "Name the problem precisely", minutes: 8, preview: true }, { id: "business-test", title: "Test your riskiest assumption", minutes: 9, preview: false }, { id: "business-learn", title: "Decide what to learn next", minutes: 8, preview: false },
   ] },
+  ...additionalCourses,
 ];
 export const categories = ["Design", "Development", "Writing", "Photography", "Business"] as const;
 export function courseBySlug(slug: string): Course | undefined { return courses.find(course => course.slug === slug); }

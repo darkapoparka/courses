@@ -14,23 +14,37 @@ const identities = {
   business: { style: "jacketBusiness", title: "Make something\nuseful.", edition: "THE BUSINESS SERIES" },
 } as const;
 
+const families: Record<Course["category"], keyof typeof identities> = { Design: "design", Development: "web", Writing: "writing", Photography: "photo", Business: "business" };
+const additionalTitles: Record<string, string> = {
+  "systems": "Build a\ndesign system.",
+  "color": "Color that\ncommunicates.",
+  "typescript": "TypeScript,\nmade practical.",
+  "accessible": "Build an\naccessible web.",
+  "story": "Tell a\nstronger story.",
+  "microcopy": "Words\nthat guide.",
+  "light": "Find\nthe light.",
+  "editing": "Edit with\nintention.",
+  "interviews": "Ask better\nquestions.",
+  "offer": "From idea\nto first offer."
+};
 /** Original course cover compositions, not instructor portraits or course footage. */
 export function CourseArtwork({ course, format = "square", priority = false }: Props) {
-  const identity = identities[course.id as keyof typeof identities];
-  const photographic = course.id === "web" || course.id === "photo";
+  const family = families[course.category];
+  const identity = identities[family];
+  const photographic = family === "web" || family === "photo";
   return <div className={`${styles.cover} ${styles.courseJacket} ${identity ? styles[identity.style] : styles.jacketDesign}`}
-    data-course-art={course.id} data-art-format={format} aria-hidden="true">
-    {photographic && <img className={styles.jacketPhotoLayer} src={courseArtwork(course.id)} alt=""
+    data-course-art={course.id} data-art-format={format} data-long-title={Boolean(additionalTitles[course.id]) || undefined} aria-hidden="true">
+    {photographic && <img className={styles.jacketPhotoLayer} src={courseArtwork(family)} alt=""
       width="1200" height="800" loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} />}
     <div className={styles.jacketFigure}>
-      {course.id === "design" && <span className={styles.jacketDesignMark}>D</span>}
-      {course.id === "web" && <span className={styles.jacketCode}>&#123; &#125;</span>}
-      {course.id === "writing" && <span className={styles.jacketLetter}>Aa</span>}
-      {course.id === "photo" && <span className={styles.jacketViewfinder} />}
-      {course.id === "business" && <span className={styles.jacketSteps}><i /><i /><i /><b /></span>}
+      {family === "design" && <span className={styles.jacketDesignMark}>D</span>}
+      {family === "web" && <span className={styles.jacketCode}>&#123; &#125;</span>}
+      {family === "writing" && <span className={styles.jacketLetter}>Aa</span>}
+      {family === "photo" && <span className={styles.jacketViewfinder} />}
+      {family === "business" && <span className={styles.jacketSteps}><i /><i /><i /><b /></span>}
     </div>
     <div className={styles.jacketMasthead}><span>courses</span><span>STUDIO EDITIONS</span></div>
-    <div className={styles.jacketTitle} data-art-title>{identity?.title ?? course.title}</div>
+    <div className={styles.jacketTitle} data-art-title>{additionalTitles[course.id] ?? identity?.title ?? course.title}</div>
     <div className={styles.jacketByline}><span>{identity?.edition ?? course.category.toUpperCase()}</span><span>{creatorName(course)}</span></div>
   </div>;
 }

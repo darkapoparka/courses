@@ -5,22 +5,23 @@ import { courseArtwork, marketplaceCourses, marketplaceHref, type MarketplaceOpt
 import { CreatorCard } from "./discovery-cards";
 import { EditorialShelf } from "./editorial-shelf";
 import { MarketplaceBrowser } from "./marketplace-browser";
+import { MarketplaceFilters } from "./marketplace-filters";
 import { Icon } from "./icon";
 import styles from "./platform.module.css";
 
 export function MarketplaceHome({ options }: { options: MarketplaceOptions }) {
   const shown = marketplaceCourses(options);
-  const filtered = Boolean(options.category || options.price !== "all");
+  const filtered = Boolean(options.category || options.price !== "all" || options.level || options.duration || options.collection || options.sort !== "featured");
   const introductions = Object.fromEntries(shown.map(course => [course.id,
     demoLessonBody(course, course.lessons[0].id)?.introduction ?? "Explore the curriculum and open sample.",
   ]));
   return <div className={`${styles.page} ${styles.marketplace}`} data-marketplace>
 
-    <nav className={styles.marketCategories} aria-label="Marketplace subjects">
+    <div className={styles.marketBrowseBar}><nav className={styles.marketCategories} aria-label="Marketplace subjects">
       <Link href={marketplaceHref({ ...options, category: "" })} aria-current={!options.category ? "page" : undefined}>All courses</Link>
       {topics.map(topic => <Link key={topic.slug} href={marketplaceHref({ ...options, category: topic.slug })}
         aria-current={options.category === topic.slug ? "page" : undefined}>{topic.name}</Link>)}
-    </nav>
+    </nav><MarketplaceFilters options={options} /></div>
     <MarketplaceBrowser courses={shown} options={options} sampleIntroductions={introductions} />
     {!filtered && <>
       <section className={styles.marketSpotlight} aria-labelledby="market-spotlight">

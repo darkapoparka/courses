@@ -24,9 +24,9 @@ def check_rich_catalog(page, visit, out, passed, observations):
     expect(page.get_by_role("heading", name="Maya Chen", level=1, exact=True)).to_be_visible(timeout=60000)
     expect(page.get_by_role("heading", name="Maya Chen", exact=True)).to_be_visible(timeout=60000)
     thumbs = page.locator('[class*=lessonThumb] [data-course-art]')
-    expect(thumbs).to_have_count(3)
+    expect(thumbs).to_have_count(7)
+    assert thumbs.evaluate_all('(nodes)=>nodes.map(n=>n.dataset.courseArt)') == ['design','design','design','systems','color','color','color']
     for art in thumbs.all():
-        expect(art).to_have_attribute('data-course-art', 'design')
         assert art.bounding_box()['width'] >= 39
         expect(art.locator('[class*=jacketFigure]')).not_to_have_css('display', 'none')
     expect(page.get_by_role("navigation", name="Main navigation").get_by_role("link", name="Creators", exact=True)).to_have_attribute("aria-current", "page")

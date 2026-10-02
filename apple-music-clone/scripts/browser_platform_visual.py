@@ -15,12 +15,12 @@ def check_marketplace_style(page):
     for link in subjects.locator('a').all():
         expect(link).to_have_css('border-bottom-width', '0px')
     cards = page.locator('[data-market-course]')
-    expect(cards.locator('[data-course-art]')).to_have_count(5)
+    expect(cards.locator('[data-course-art]')).to_have_count(15)
     for card in cards.all():
         art = card.locator('[data-course-art]'); rect = art.bounding_box()
         assert rect and abs(rect['width']-rect['height']) < 1, rect
         title = art.locator('[data-art-title]')
-        assert title.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), 'Cover title overflow'
+        assert title.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), ('Cover title overflow', art.get_attribute('data-course-art'), rect)
     features = page.get_by_role('region', name='Marketplace features', exact=True)
     posters = features.locator('[data-art-format=poster]')
     expect(posters).to_have_count(5)
