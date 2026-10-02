@@ -12,7 +12,7 @@ export function LessonTools({ courseId, lessonId }: { courseId: string; lessonId
   const complete = state.progress[lessonId]?.completed ?? false;
   useEffect(() => {
     if (!ready || !writable) return;
-    updatePreview(current => ({ ...current, resume: { courseId, lessonId }, progress: { ...current.progress, [lessonId]: current.progress[lessonId] ?? { completed: false, updatedAt: new Date().toISOString() } } }));
+    updatePreview(current => ({ ...current, resume: { courseId, lessonId }, progress: { ...current.progress, [lessonId]: { ...(current.progress[lessonId] ?? { completed: false, updatedAt: new Date().toISOString() }), lastOpenedAt: new Date().toISOString() } } }));
   }, [courseId, lessonId, ready, writable]);
   function saveNote() {
     let collided = false;
@@ -38,7 +38,7 @@ export function LessonTools({ courseId, lessonId }: { courseId: string; lessonId
     return () => { window.removeEventListener("courses:before-navigate", onSearchNavigate); window.removeEventListener("beforeunload", onUnload); document.removeEventListener("click", onNavigate, true); };
   }, [draft]);
   return <section className={styles.lessonTools} aria-labelledby="practice-progress"><h2 id="practice-progress">Make it part of your practice</h2><button className={styles.primaryButton} aria-pressed={complete} disabled={!ready || !writable} onClick={() => {
-    const ok = updatePreview(current => ({ ...current, progress: { ...current.progress, [lessonId]: { completed: !current.progress[lessonId]?.completed, updatedAt: new Date().toISOString() } } }));
+    const ok = updatePreview(current => ({ ...current, progress: { ...current.progress, [lessonId]: { ...current.progress[lessonId], completed: !current.progress[lessonId]?.completed, updatedAt: new Date().toISOString() } } }));
     setMessage(ok ? (complete ? "Marked as unfinished." : "Lesson marked complete in this browser.") : "Completion could not be saved.");
   }}><Icon name="check" />{complete ? "Completed · undo" : "Mark lesson complete"}</button>
     <label htmlFor="lesson-note">Your lesson notes <span>Only in this browser, not an account</span></label>

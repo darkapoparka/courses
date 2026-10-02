@@ -76,3 +76,8 @@ The Courses, Saved and My learning collections need title/creator filtering, cat
 | Replay, events and radio-style programming | Assess progress, events and scheduled learning; document decisions, do not silently drop families | CP-028 |
 
 These rows describe mapping coverage, not an additional acceptance ledger. `tasks.md` owns status. Match visual density and actual interactions before calling a family migrated; screenshots, route presence and green tests each prove only their stated scope.
+
+## Personal Home is a separate product surface
+[home.md](home.md) now owns the exact Home blueprint and the saved source mapping. `/learn/home` prioritizes continuing actual learning; `/learn` remains Discover for open-ended browsing. Both retain the shared visible search and navigation. The new Home entry does not redirect or remove an existing route.
+The first Home slice combines completion-aware continuation, portrait picks with visible reasons, interest editing, short-lesson time controls, real saved/followed content and a dismissible contextual discussion prompt. Completion, opening, bookmarking and following remain distinct. On Home the floating resume dock uses the same computed next-step destination as the Continue section; finished samples offer course detail, not locked playback.
+Learning paths, real sessions, richer media panels and a permissioned activity feed keep their existing CP task owners. Their presence in the Home plan is not a claim that those integrations are implemented.

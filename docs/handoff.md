@@ -1,5 +1,27 @@
 # Courses - current handoff
 
+## Personal learning Home - 2026-10-02
+
+Starting commit: `5a9affede07bf868b44e860d77d96e85dfaa975b`. The owner requested an exact Home plan grounded in the saved Apple Music Home, plus useful implementation. `docs/home.md` now owns that screen blueprint, section order, behavior, source mapping, dependencies and acceptance scope. Status stays in the single `docs/tasks.md` ledger.
+
+### Delivered
+Home is a visible separate destination at `/learn/home`; `/learn` remains Discover and its existing URLs stay intact. The shared search and nine navigation destinations remain available, including narrow layouts. Home adds real continuation, explained portrait picks, Customize Home interests, short-lesson time controls, actual saved/followed content and a dismissible course-context discussion prompt. No fake ranks, dates, events or live activity were added.
+Continuation selects unfinished accessible lessons without marking them opened/completed. Completing a course offers review; completing only a paid sample offers its course details and does not resume into a locked lesson. Home and its floating dock share this next-step selection. Last-opened time is stored separately from explicit completion update time.
+Preferences and hidden picks persist in additive v1 state without losing older bookmarks, progress, notes, following, recents, posts or replies. Save/cancel/Escape/focus return, hide/undo/restore, multi-tab preference conflicts and write failures have real behavior. Private note and discussion bodies are not used for recommendations. This remains browser-local preview behavior, not authentication, enrollment, commerce or cross-device persistence.
+
+### Verification
+38/38 domain/style tests passed. TypeScript and the optimized webpack build passed. All 48 platform browser checks passed in development and all 48 passed against the optimized runtime, with zero captured page errors. Both include 54 computed shell/search observations across nine surfaces at six widths, plus the existing search/list captures and new Home modal/new/returning states. The Home module is registered in the normal runner and therefore the existing CI workflow.
+Exact evidence: `apple-music-clone/.qa/home-dev-final-20261002/` and `.qa/home-prod-final-20261002/`. Both retain source/tooling digest `c7ebb47e52db8b1861b8e92c6c9366f713e70066f72bf4fc23e19988b2ec39e1` in Chromium `151.0.7922.34`. Build: `b8nKyqLXMNkUpUL_j0dPI`, output `.qa/home-prod-20261002`. An earlier focused run passed all eight new Home journeys; images/reports remain at `.qa/home-focus-v1-20261002/`.
+Read and visually reviewed originals `a917d88f` and `42098642`, the live music Home, and desktop/mobile new/returning Home and native preferences. Same-run music before/after images remain pixel-identical. The 81 fingerprinted pre-existing top-level app/components/lib files are unchanged; proof is `.qa/home-20261002-213218/music-preservation.json`. Archive checks, documentation validation and its nine unit tests, task inventory and whitespace checks passed. Music counts stay UI 159/159, MATCH 127/159, FLOW 34/58; no reference acceptance was manufactured. This scoped batch did not rerun the entire music corpus locally.
+
+### Runtime and publication
+Development stays reachable at `http://127.0.0.1:6435/learn/home`; a final HTTP check returned 200 and Home was opened in the user's browser. The positively identified optimized audit on 6549 (PID 42316, created 21:46:10 local) was stopped after verification at 21:51 local to avoid leaving another background preview. Its logs/runtime record remain in `.qa/home-prod-20261002-server/`. The optimized check used the existing next-start local-audit path; Windows standalone deployment packaging remains a separate unverified item.
+No source checkout, dependency version, reference asset or junction was changed. No cleanup/file deletion was performed. Generated Next type-path changes were compared with exact pre-build copies and only those differences restored. The earlier unrelated music/config/generated modifications and untracked outputs remain outside this coherent platform commit.
+The preceding `5a9affe` reference/platform CI run `37046793196` is verified successful; that does not certify this newer candidate. Publication is the commit containing this handoff. Read HEAD/origin and Actions for its exact status; local evidence includes the preserved dirty music tree whereas CI checks the committed candidate.
+
+### Next work
+CP-031 through CP-033 are locally verified. Preserve the Home blueprint rather than replacing it with static cards. Next integrate CP-026 ordered learning paths into Home only after the paths have working detail/edit/continuation journeys; continue CP-025 richer course actions and CP-027 real media/outline/transcript panels. Real sessions and permissioned activity belong to CP-028/CP-016 and need genuine data, not placeholder buttons. `docs/next-session.md` points to these owners.
+
 ## Shared search and collection controls — 2026-10-02
 
 Starting commit: `4f5b45344d82cf0aa73bd4da3ac021cdc7c3364e`. The owner correctly identified missing interaction coverage: the live input existed on Discover and Search but not Courses or creator pages. Preserving the separate music application was not equivalent to migrating its useful UI/UX. CP-029 and CP-030 recover shared search and collection controls; they do not complete every remaining music-to-course family.

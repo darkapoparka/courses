@@ -6,7 +6,7 @@ import styles from "./platform.module.css";
 
 /** Native horizontal scrolling; server-rendered cards remain children, not client imports. */
 export function EditorialShelf({ label, children, variant = "cards" }: {
-  label: string; children: ReactNode; variant?: "cards" | "features" | "creators";
+  label: string; children: ReactNode; variant?: "cards" | "features" | "creators" | "posters";
 }) {
   const track = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -34,7 +34,7 @@ export function EditorialShelf({ label, children, variant = "cards" }: {
       <button type="button" aria-label={`Next ${label}`} aria-controls={id} disabled={edges.last} onClick={() => move(1)}><Icon name="arrow" /></button>
     </div>
     <div id={id} ref={track} role="region" aria-label={label} tabIndex={0}
-      className={`${styles.shelfTrack} ${variant === "features" ? styles.shelfFeatures : variant === "creators" ? styles.shelfCreators : styles.shelfCards}`}
+      className={`${styles.shelfTrack} ${variant === "features" ? styles.shelfFeatures : variant === "creators" ? styles.shelfCreators : variant === "posters" ? styles.shelfPosters : styles.shelfCards}`}
       onKeyDown={event => { if (event.target === event.currentTarget && ["ArrowLeft", "ArrowRight"].includes(event.key)) { event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1); } }}>
       {children}
     </div>

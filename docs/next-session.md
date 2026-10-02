@@ -19,3 +19,5 @@ The canonical dev URL is http://127.0.0.1:6435/learn. Inspect the current runtim
 
 Run platform domain/type/browser checks, review desktop and mobile screenshots, confirm all new routes and real return journeys, and verify optimized behavior. Preserve exact source identity and failed evidence; do not relax assertions or accept screenshots alone as full UX parity. Stage only the reviewed slice, commit/push to main, check the exact-SHA Actions result, update the single task ledger/handoff, and leave dev reachable.
 ```
+
+Home continuation: read `docs/home.md` and the newest handoff before editing `/learn/home`. Home now has a separate source-backed specification and connected local personalization/continuation work under CP-031–033. Preserve `/learn` as Discover, the visible Home navigation, shared search and the distinct bookmark/open/completion states. Do not replace the Home slice with static cards or silently call planned learning paths/events/media implemented. Check the exact publication SHA and its CI; continue the next unchecked CP task from the actual checkout rather than reverting to an older checkpoint.

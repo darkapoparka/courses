@@ -9,6 +9,7 @@ The owner authorized product adaptation on 2026-10-02. Continue the same Next.js
 | Find the single live course and reference checklist | [tasks.md](tasks.md) — course work uses CP IDs |
 | Preserve visual tokens, material and regression standards | [style.md](style.md) |
 | Understand product navigation, component mapping and interaction states | [design.md](design.md) |
+| Home screen order, personalization rules and saved Apple Home mapping | [home.md](home.md) |
 | Understand audience, value and phased scope | [platform.md](platform.md), [features.md](features.md) |
 | Server/client boundaries and next backend slice | [architecture.md](architecture.md) |
 | Start the right app and run checks | [development.md](development.md) |

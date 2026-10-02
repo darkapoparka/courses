@@ -5,6 +5,7 @@ import styles from "./platform.module.css";
 const groups = [
   { title: "Explore", items: [
     { href: "/learn/search", label: "Search", icon: "search" },
+    { href: "/learn/home", label: "Home", icon: "home" },
     { href: "/learn", label: "Discover", icon: "discover" },
     { href: "/learn/categories", label: "Categories", icon: "grid" },
     { href: "/learn/community", label: "Community", icon: "community" },

@@ -149,3 +149,58 @@ test('collection filters and sorts do not mutate the catalog or grant access', (
   assert.equal(search.catalogHref('/learn/courses',options), '/learn/courses?sort=duration&view=list');
   assert.equal(search.catalogHref('https://untrusted.invalid', search.catalogOptions({})), '/learn/courses');
 });
+
+const home = load('home');
+const stamp = '2026-10-02T18:00:00Z';
+test('Home preferences are additive, bounded and preserve older preview data', () => {
+  const value = state.emptyState(); delete value.homePreferences;
+  value.saved = ['design']; value.notes['design-observe'] = 'Keep this private';
+  const result = state.decodePreview(JSON.stringify(value));
+  assert(result.writable); assert.deepEqual(result.state.homePreferences, home.defaultHomePreferences());
+  assert.deepEqual(result.state.saved, ['design']); assert.equal(result.state.notes['design-observe'], 'Keep this private');
+  value.homePreferences = { interests: ['Design','Design','unknown'], hiddenPicks: ['web','unknown'], communityDismissed: false };
+  assert.deepEqual(state.decodePreview(JSON.stringify(value)).state.homePreferences, { interests:['Design'],hiddenPicks:['web'],communityDismissed:false });
+  value.homePreferences = { interests:'broken' }; assert.equal(state.decodePreview(JSON.stringify(value)).writable, false);
+});
+test('Home resume targets the next unfinished open lesson without mutating progress', () => {
+  const value = state.emptyState(); value.progress['design-observe'] = { completed:true,updatedAt:stamp };
+  value.resume = { courseId:'design',lessonId:'design-observe' }; const before = JSON.stringify(value);
+  const entry = home.learningEntries(value)[0];
+  assert.equal(entry.lesson.id, 'design-hierarchy'); assert.equal(entry.completed, 1); assert.equal(entry.status, 'continue');
+  assert.equal(JSON.stringify(value), before); assert.equal(value.progress['design-hierarchy'], undefined);
+});
+test('Home honors an unfinished last-opened lesson and keeps open time separate from completion', () => {
+  const value = state.emptyState(); value.progress['design-observe'] = { completed:false,updatedAt:stamp,lastOpenedAt:'2026-10-02T18:01:00Z' };
+  value.progress['design-hierarchy'] = { completed:false,updatedAt:stamp,lastOpenedAt:'2026-10-02T18:03:00Z' };
+  assert.equal(home.learningEntries(value)[0].lesson.id, 'design-hierarchy');
+  const decoded = state.decodePreview(JSON.stringify(value)).state;
+  assert.equal(decoded.progress['design-observe'].updatedAt, stamp); assert.equal(decoded.progress['design-hierarchy'].lastOpenedAt, '2026-10-02T18:03:00Z');
+});
+test('A finished paid sample never resumes into a locked lesson or claims course completion', () => {
+  const value = state.emptyState(); value.progress['web-purpose'] = { completed:true,updatedAt:stamp };
+  const entry = home.learningEntries(value)[0];
+  assert.equal(entry.status, 'sample-finished'); assert.equal(entry.completed, 1); assert.equal(entry.total, 3);
+  assert.equal(entry.lesson, undefined); assert.equal(entry.href, '/learn/courses/build-for-the-web');
+});
+test('A fully completed free course is a review destination, not a fresh lesson', () => {
+  const value = state.emptyState(); for(const lesson of design.lessons) value.progress[lesson.id] = { completed:true,updatedAt:stamp };
+  const entry = home.learningEntries(value)[0]; assert.equal(entry.status, 'complete'); assert.equal(entry.completed, 3);
+  assert.equal(entry.href, '/learn/courses/design-with-intention');
+});
+test('Home picks explain their ranking, respect dismissals and do not infer private-note interests', () => {
+  const value = state.emptyState(); value.homePreferences.interests = ['Writing'];
+  assert.equal(home.homePicks(value)[0].course.id, 'writing'); assert.equal(home.homePicks(value)[0].reason, 'Because you chose Writing');
+  value.following = ['noah']; assert.equal(home.homePicks(value)[0].course.id, 'web');
+  value.homePreferences.hiddenPicks = ['web']; assert(!home.homePicks(value).some(pick => pick.course.id === 'web'));
+  value.saved = ['writing']; assert(!home.homePicks(value).some(pick => pick.course.id === 'writing'));
+  const before = JSON.stringify(home.homePicks(value)); value.notes['design-observe'] = 'I want more photography';
+  assert.equal(JSON.stringify(home.homePicks(value)), before);
+});
+test('Short lessons honor the time budget, completion switch and actual demo access', () => {
+  const value = state.emptyState(); assert.equal(home.shortLessons(value, 5).length, 0);
+  const lessons = home.shortLessons(value, 10); assert(lessons.length > 0);
+  for(const { course, lesson } of lessons) { assert(lesson.minutes <= 10); assert(catalog.canReadDemoLesson(course, lesson.id)); }
+  value.progress['design-observe'] = { completed:true,updatedAt:stamp };
+  assert(!home.shortLessons(value,10).some(item => item.lesson.id === 'design-observe'));
+  assert(home.shortLessons(value,10,true).some(item => item.lesson.id === 'design-observe'));
+});
