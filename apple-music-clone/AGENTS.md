@@ -8,22 +8,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## Application-specific contract
+## Application contract — adaptation authorized 2026-10-02
+Follow `../AGENTS.md`. Use only `J:\courses` on `main`; the existing junction may resolve to `L:\PLATFORMS\courses\app`. Keep this application, its lockfile, `/` and `/screen/*`. Build the independent product under `/learn`. The owner's transition supersedes the former all-parity-before-courses gate without accepting unchecked reference states.
+Read `../docs/handoff.md`, the relevant `../docs/tasks.md` entries, `../docs/style.md` and `../docs/design.md`. No competing backlog, replacement app, branches, worktrees, cleanup or deletion. Preserve prior dirty work and all reference/evidence assets.
 
-Follow `../AGENTS.md`, `../docs/handoff.md` and the relevant `../docs/tasks.md` entries. The only implementation checkout is `J:\courses`, the only working branch is `main`, and the active app is `J:\courses\apple-music-clone`. Do not create or switch branches or worktrees for implementation unless the owner explicitly reverses this rule. Preserve the original preview evidence and recovery material described in `../docs/astra/branch-transition.md`. No courses adaptation before clone acceptance.
+## Ownership and styling
+Music: trace the `Content` switch in `components/apple-music-app.tsx`; similarly named modules can be inactive. Courses: `app/learn`, `components/platform`, `lib/platform`. Platform styles are CSS-module scoped; do not add global overrides or repurpose music fixture state.
+Sidebar and material must follow actual visible content, not a fixture hint. Keep prefixed backdrop declarations before standard declarations; verify optimized computed values. Preserve native scroll, focus, overlays, responsive containment and the reference archive.
 
-Keep `reference/` unchanged. Use the read-only `qa:coverage` command; do not run the historical screen-status generator. Keep local QA and captures in ignored `.qa/` and `.parity-evidence/` directories. Use explicit UTF-8 for Windows file and stdin operations.
-
-## Known regression traps
-
-The `Content` switch in `components/apple-music-app.tsx` identifies the active view. Some similarly named exports in `music-browse.tsx` are not the active album/artist implementation. Trace imports before editing.
-
-Shared material, artwork edition and navigation must follow live state, not the continued presence of `data-source`. After sidebar/carousel changes exercise Volume, Account, Next, Previous, vertical scrolling, return navigation and the existing six-width containment regression. Artwork leaving the viewport must not leave its tint behind.
-
-Inspect optimized production computed blur/saturation, not just development or a non-none filter. This toolchain previously dropped a standard backdrop override when declaration order was reversed. Preserve the reviewed standard-after-prefixed order where both are used. Native dialog initial scrolling also needs cold production verification.
-
-A fixture endpoint and a continuous journey can have different catalogs, account/library snapshots or playback state. Do not silently replace session data behind a hover or panel toggle to manufacture the endpoint image. Retain the discrepancy and investigate the recording/scenario model.
-
-Register new browser suites in `scripts/browser-reference.py` and execute them before reporting coverage. Journey captures require each original's exact viewport, ordered non-overwriting image names and `steps.jsonl` evidence. Chromium platform-font usage, not a CSS family list, identifies the actual rendered font; never copy proprietary font files.
-
-Use `../docs/development.md` for runnable commands and `../docs/quality-and-operations.md` for evidence requirements. A rendered fixture, passing regression or small pixel residual does not independently accept MATCH or FLOW.
+## Boundaries and verification
+Server-selected lesson bodies stay in `*.server.ts` with `server-only`; client components receive only safe metadata and IDs. Preview storage never grants enrollment or paid access. Every future protected read/write requires server identity and object-level authorization. See `../docs/architecture.md`.
+Run `qa:platform:unit`, typecheck and `scripts/browser-platform.py` for platform changes. Use the isolated QA interpreter and existing browser from `../docs/development.md`. Shared music/global changes also require the full registered reference suite. Neither a passing fixture nor a screenshot grants MATCH/FLOW acceptance.
+Before modifying framework code, inspect the installed version and bundled guides. If a bundled guide is absent, record that fact and use current official Next.js documentation plus Context7; do not invent version-matched content or silently upgrade. The attempted installed data-security guide was absent on 2026-10-02.
+Use unique ignored `.qa/` evidence/build locations. Never build into a running development output. Do not stop unrelated listeners. Keep all credentials, reference originals, dependency trees, screenshots and generated Next type-path churn out of the implementation commit.

@@ -1,4 +1,6 @@
-# Apple Music clone — screen and flow checklist
+# Courses - single product and reference task ledger
+
+Current phase, 2026-10-02: the owner authorized adaptation under `/learn`. Use the CP backlog at the end of this file for current product work. The music screen/flow entries below preserve their historical acceptance; they are not prerequisites to the new phase and have not been reclassified as complete.
 
 Updated 2026-09-25 after exact profile-menu and logout acceptance. Latest production build `GM5iGeaIa4coS6v1WmWtj` passed 164 browser states, 218 ordered routes, 128 real-control regressions and all 159 exact comparisons with zero failures. Application identity `c62601b051d317dc73e616fb38c7199b7987f9cd84cb5863d0bf17d301d85cf6` and QA identity `9210781b052aed39f6fff8e429acab48fc837d481b445aa493742f5571565c37` were stable. **Only checkout: `J:\courses`; only branch: `main`.** Evidence: `J:\courses\apple-music-clone\.qa\evidence\gpt56-logout-final-20260925-232804` and [reference-review/2026-09-23-account-settings-flow-review.md#profile-menu-and-logout-acceptance--2026-09-25](reference-review/2026-09-23-account-settings-flow-review.md#profile-menu-and-logout-acceptance--2026-09-25). The live ledger is UI 159/159, MATCH 127/159, FLOW 34/58.
 
@@ -1702,3 +1704,35 @@ Record ID; date/assignee; explicit assignment; starting commit; scope; changed f
 Historical PLAN-001–003/FOUND/UX/global mockup gates and outbox-oriented tasks remain in Git history. This is the current backlog. UI-001–004 replace the all-page design prerequisite; PAY-003 replaces the earlier custom-worker proposal.
 
 </details>
+
+## Course platform adaptation — active from 2026-10-02
+
+The owner authorized adaptation now; this supersedes the old requirement to complete all Apple parity before product work. Historical UI/MATCH/FLOW boxes above retain their original meaning and evidence. `CP-` entries below are the only course backlog; no separate tasks file. A local-preview task is not authentication, production commerce or live community acceptance.
+
+### A0 — coherent local product foundation
+- [x] `CP-001` Record the phase transition, one-app/main-only rules and current documentation ownership; preserve every reference acceptance entry.
+- [x] `CP-002` Establish `style.md`, `design.md` and scoped agent contracts with source-derived geometry, material, typography, accessible states and regression gates.
+- [x] `CP-003` Verify discovery, URL search/category filters, course detail, truthful sample pricing, curriculum and recoverable unknown-course states.
+- [x] `CP-004` Verify server-selected free/sample reading lessons and direct-URL denial for unavailable paid content; browser flags cannot unlock it.
+- [x] `CP-005` Verify Saved versus started learning, reversible completion and last-opened-lesson resume through real controls and reloads.
+- [x] `CP-006` Verify bounded local lesson notes, explicit save, reload persistence, draft preservation and changed-note conflict recovery.
+- [x] `CP-007` Verify contextual local community posts and helpful toggles with explicit non-public demo labels.
+- [x] `CP-008` Implement accessible reply threads, bounded parent-aware validation, backward-compatible stored state, plain-text rendering and reload/context isolation tests.
+- [x] `CP-009` Verify unknown-schema preservation, read-only recovery, unavailable-storage fallback and quota-failure preservation without false success.
+- [x] `CP-010` Wire platform unit/browser verification into normal commands and CI; verify six widths, normal/reduced-transparency materials and music-route style isolation in development and optimized production. CI wiring and actual remote CI outcome must be reported separately.
+
+### A1 — real free-course alpha, next priority
+- [ ] `CP-011` Inspect existing authorized provider configuration without exposing secrets; confirm the intended backend/project and local/test environment. Record provider, region/cost boundaries and migration plan before provisioning. No arbitrary connected project or paid service creation.
+- [ ] `CP-012` Implement verified identity, safe sign-in/return intent, creator ownership and migrations with cross-user/workspace denial tests using separate real test accounts.
+- [ ] `CP-013` Implement creator draft/course/lesson editing, stable IDs, revision-conflict recovery, preview, submission and operator publication with attributable changes.
+- [ ] `CP-014` Implement idempotent free enrollment and authoritative source-specific grants; demonstrate concurrent duplicate requests do not create duplicate grants.
+- [ ] `CP-015` Implement authorized lesson reads plus durable progress, resume and private notes; prove cross-device persistence, stale-write handling and denial of another learner's data.
+- [ ] `CP-016` Implement real course-context posts/replies, author/creator/operator permissions, report/hide/restore and abuse limits; prove no private-note disclosure. Do not send external notifications by default.
+- [ ] `CP-017` Add authorized private media/resources, captions/transcripts and upload/processing/expiry failure states only after access policy is proven.
+
+### A2 — controlled selling and release
+- [ ] `CP-018` Resolve marketplace/merchant responsibilities and supported markets, then implement server-priced sandbox checkout with verified idempotent fulfillment, refunds, replay/out-of-order handling and access recovery. A success URL must grant nothing.
+- [ ] `CP-019` Complete permission/adversarial integration tests, accessibility and learner/creator usability review, performance budgets, backups/restore and support/moderation operations.
+- [ ] `CP-020` Resolve branding/assets, privacy/retention/age rules, terms, fees/taxes/refunds/access policy, budgets and explicit live-release approval. Only then enable live payments, external delivery and public production.
+
+A0 checkpoint evidence, 2026-10-02: 22/22 domain checks, 22/22 development browser checks and 22/22 optimized browser checks; four surfaces at six widths and 24 computed-shell observations per run. Evidence: `.qa/platform-final-dev-media-20261002-resume/` and `.qa/platform-final-canonical-20261002-resume/`; optimized build `sJy5-1zZtYGVBg3uQpeUd`. Reply screenshots at 1440px and 320px were visually reviewed in `.qa/platform-reply-review-20261002/`. Original catalog/learning/community foundation was inherited and verified; reply functionality and regression contracts were added in this batch. CI gates are wired, not a claim of an observed green remote run. Windows standalone packaging remains unverified after a dependency-link EPERM failure; the optimized runtime passed when launched from the resolved checkout, not the junction spelling. Full local music corpus and real backend/release acceptance remain separate.

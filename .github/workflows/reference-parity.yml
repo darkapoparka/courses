@@ -27,7 +27,7 @@ env:
 jobs:
   reference:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: apple-music-clone
@@ -58,6 +58,8 @@ jobs:
         run: node scripts/check-task-coverage.mjs
       - name: Install the existing locked application dependencies
         run: npx --yes pnpm@10.11.0 install --frozen-lockfile
+      - name: Test course domain and style contracts
+        run: node scripts/test-platform.cjs
       - name: Typecheck the application
         run: npx --yes pnpm@10.11.0 typecheck
       - name: Compile the reference preview
@@ -85,6 +87,7 @@ jobs:
           done
           curl --silent --show-error --fail http://127.0.0.1:3000/ > /dev/null
           /tmp/reference-browser/bin/python scripts/browser-reference.py
+          /tmp/reference-browser/bin/python scripts/browser-platform.py --url http://127.0.0.1:3000 --output .parity-evidence/platform
       - name: Preserve provider-byte diagnostics on failure
         if: failure()
         run: node scripts/probe-cover-resources.mjs
@@ -100,6 +103,7 @@ jobs:
           name: reference-candidate-${{ github.sha }}
           path: |
             apple-music-clone/.parity-evidence/browser/
+            apple-music-clone/.parity-evidence/platform/
             apple-music-clone/.parity-evidence/comparison/
             apple-music-clone/.parity-evidence/archive-check.json
             apple-music-clone/.parity-evidence/server.log

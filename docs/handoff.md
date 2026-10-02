@@ -1,5 +1,29 @@
 # Courses - current handoff
 
+## Course adaptation checkpoint - 2026-10-02
+
+The owner authorized course-selling/community adaptation now, retaining Apple Music-derived styling. This supersedes the old clone-completion prerequisite, not the acceptance evidence. Use `docs/tasks.md` CP-001 onward; preserve historical UI 159/159, MATCH 127/159 and FLOW 34/58. Work only in `J:\courses` on `main`; the existing junction resolves to `L:\PLATFORMS\courses\app`.
+
+### Recovered state and actual implementation
+The session began at `23072c3` with pre-existing dirty music changes and a substantial untracked `/learn` foundation. Those were preserved and inspected rather than overwritten. Existing catalog/detail/reading/library/saved/progress/notes/community behavior was verified. This session added parent-aware, bounded local reply threads, old-preview compatibility, plain-text rendering, scoped reply styling, unit tests and a real keyboard/reload/context-isolation journey.
+The platform remains explicitly local-only: no authentication, real enrollment, checkout, public posting, notifications or cross-device persistence. Public demo lesson bodies are selected server-side; paid non-preview content remains unavailable. Backend A1 is the next integrated step, not something to bolt on after a large mock UI expansion.
+Root/app/scoped AGENTS contracts, `style.md`, `design.md`, product/architecture/feature/decision docs, entry READMEs, research, runbook, CP backlog and `next-session.md` now define the transition. Platform unit/browser gates are registered in the existing reference CI workflow; actual remote CI status is separate from this configuration.
+
+### Verification in this checkout
+- Domain/style unit checks: 22/22 passed. TypeScript: passed.
+- Development browser suite: 22 named checks passed, four key surfaces at 320/390/768/1024/1280/1440px, explicit normal/reduced-transparency branches, stable platform source identity, zero captured page errors. Evidence: `apple-music-clone/.qa/platform-final-dev-media-20261002-resume/`.
+- Optimized webpack build: passed; build ID `sJy5-1zZtYGVBg3uQpeUd`, output `.qa/platform-build-20261002-resume`. Optimized browser verification passed all 22 checks with zero page errors and 24 shell observations. Evidence: `.qa/platform-final-canonical-20261002-resume/`. Both development and optimized runs retained platform source identity `2e4d59a139e4169e52da149047a43b937c2f7b18efc8f401f340165191c51541`.
+- Preserved failed runs: `platform-baseline-20261002-resume` caught an invalid test-injection receiver at the quota step; fixed without relaxing assertions. `platform-final-dev-20261002-resume` observed the opaque reduced-transparency material; the runner now explicitly verifies both media conditions rather than confusing them.
+- Same-run music before/after images and computed styles check cross-route leakage, not all 159 states or an earlier Git baseline. No new MATCH/FLOW acceptance. Full corpus was not rerun locally in this scoped batch.
+
+### Runtime, preservation and remaining work
+Canonical development is `http://127.0.0.1:6435/learn`, verified from the correct source. The existing dev output is `.qa/dev-platform-20261002`. A separate optimized audit listener is at loopback 6545. Launching from the junction spelling first caused an invalid combined path; launching the same output from the resolved checkout fixed the runtime and passed the suite. It emits the existing standalone advisory, so this is a local optimized-runtime check, not deployment packaging. A standalone package launch separately failed resolving a React symbolic link (EPERM); do not claim that package deployable. A second diagnostic build `.qa/p1002` compiled successfully but is not the tested runtime. Keep 6435 alive and do not stop unrelated listeners.
+D: was effectively full. L:, the actual source target, had about 8GB free before build. No cleanup/deletion or junction changes were performed. Both builds’ generated `next-env.d.ts` and `tsconfig.json` changes were checked against exact pre-build copies and only those generated path changes restored; pre-existing dirty bytes remain.
+A0 CP-001 through CP-010 is implemented and locally verified; CP-011 onward remains open. The candidate is prepared for a coherent main commit; inspect Git log/origin and the exact-SHA Actions results rather than assuming remote CI success. Documentation validation and its 9 tests, archive/coverage checks and diff whitespace checks passed. Do not stage unrelated pre-existing music changes, generated output or evidence.
+Next: finish any failing A0 gate, then CP-011 backend/project inspection and CP-012 onward for a real free-course journey with separate creator/learner sessions and cross-user authorization tests. `docs/next-session.md` contains the continuation prompt. Live money, paid provisioning, public release and external notifications still need explicit approval.
+
+## Historical handoff entries - preserve their dated scope
+
 ## 2026-09-25 profile menu and logout acceptance
 
 The verified `main` candidate accepts `MATCH-fc5d84bd` and continuous `FLOW-079e1da7`. Account-menu opening resolves the saved SmithAlex/current-New menu snapshot while retaining the source's All Playlists-only chrome. Sign Out clears that snapshot provenance and returns through the same live session to the signed-out New state; its final live frame matches the direct candidate in copy, geometry, artwork and account/player chrome, with only lawful repeat-run raster and decode variation. Alpha profile-menu controls remain unchanged.

@@ -1,4 +1,6 @@
-# Design system — reference fidelity now, course adaptation later
+# Music reference design system - preserved fidelity contract
+
+Scope updated 2026-10-02: this document governs the preserved music routes only. The owner authorized course adaptation now; `style.md` and `design.md` govern `/learn`. The older transition prerequisite below is historical and superseded by A-08 in `decisions.md`, without accepting unfinished music parity.
 
 ## Current design authority
 

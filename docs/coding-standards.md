@@ -24,7 +24,7 @@ Keep changes cohesive. Do not mix an unrelated dependency upgrade, formatting sw
 
 ## Requirements for later integrated course code
 
-After the phase gate, keep server-only secrets, signing, data queries and authorization out of client bundles. Server actions and HTTP handlers must validate identity, resource relationships, payload limits and authorization at the operation itself; a parent layout or hidden UI is not an access boundary. Return minimal safe view models, not private rows that the browser hides.
+For the authorized course phase, keep server-only secrets, signing, data queries and authorization out of client bundles. Server actions and HTTP handlers must validate identity, resource relationships, payload limits and authorization at the operation itself; a parent layout or hidden UI is not an access boundary. Return minimal safe view models, not private rows that the browser hides.
 
 Use request-scoped identity contexts and least-privilege database access. Separate public metadata from protected lesson material. Test grants/policies and direct requests with actual anonymous, learner and cross-workspace identities, not only privileged credentials. A sequence of independent writes is not a transaction; money, grants and publication invariants need a checked atomic path.
 

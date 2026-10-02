@@ -4,7 +4,7 @@
 
 At the inspected baseline, `apple-music-clone/package.json` specifies Next.js 16.3.4, React and React DOM 19.2.8, TypeScript 7.0.2, and Tailwind/PostCSS 4.3.3. `pnpm-lock.yaml` is the existing dependency authority. These are observed repository versions, not a claim that they are the latest or a new recommendation to install them elsewhere.
 
-Local adoption verified the installed Next/React/TypeScript/Tailwind versions against those declarations. Available runtimes are Node 24.21.0 and Python 3.13.1; reference CI uses Node 22 and the documented install uses pnpm 10.11.0. The package does not currently declare `engines` or `packageManager`; the pinned workflow/runbook and lockfile record its reproduction path. Runtime/package-manager alignment belongs in a separately tested dependency change, not a silent documentation-side upgrade.
+Local adoption verified the installed Next/React/TypeScript/Tailwind versions against those declarations. Historical runtime observations included Node 24.21.0 and Python 3.13.1; the 2026-10-02 Courses dev listener uses Node 22.20.0; reference CI uses Node 22 and the documented install uses pnpm 10.11.0. The package does not currently declare `engines` or `packageManager`; the pinned workflow/runbook and lockfile record its reproduction path. Runtime/package-manager alignment belongs in a separately tested dependency change, not a silent documentation-side upgrade.
 
 Preserve the existing combination during fidelity repairs. Use the locked install procedure in [development](development.md) only when needed. Read the framework-generated instructions and relevant version-matched `node_modules/next/dist/docs/` guides. Resolve unfamiliar APIs against the installed version, not examples recalled from an older release.
 
@@ -12,11 +12,11 @@ QA remains isolated Python/Playwright plus the repository's Node checks. Do not 
 
 ## Agent tooling
 
-The Git branch is named `astra-pro`. Branch naming does not select a ChatGPT model, grant Pro access or configure an API model. [Astra guidance](astra/README.md) separates project instructions, workflow skills, live documentation access and optional client configuration. Consult the current official model guide before any actual model/API migration.
+The only active working branch is `main`; `astra-pro` is a historical branch name. Branch naming does not select a ChatGPT model, grant Pro access or configure an API model. [Astra guidance](astra/README.md) separates project instructions, workflow skills, live documentation access and optional client configuration. Consult the current official model guide before any actual model/API migration.
 
 Repository-local skills are instruction files under `.agents/skills/`. Their presence in Git does not prove that a particular client has loaded them; verify discovery in that client. Global settings, connectors and credentials are separate and must not be silently overwritten.
 
-## Recommended course baseline — integrate after acceptance
+## Candidate course backend — next integrated slice after A0
 
 Continue one Next.js App Router application with strict TypeScript and the existing content-led design. Recommend one Supabase Postgres database with managed identity/files, Stripe Connect with hosted Checkout for marketplace commerce, and Mux for managed video. This combines the necessary capabilities without a second auth provider, database, framework or custom media backend. These are project recommendations; accounts, SDK versions, commercial eligibility and live integrations remain unverified.
 

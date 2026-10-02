@@ -1,24 +1,22 @@
-# Apple Music reference clone
+# Courses application and preserved music reference
 
-This is the active application. Reconstruct the saved music interface and recorded flows before any courses/community adaptation. Read [the root contract](../AGENTS.md), [handoff](../docs/handoff.md), [runbook](../docs/development.md) and [single checklist](../docs/tasks.md).
+The owner authorized course/community adaptation on 2026-10-02. Keep this application and lockfile; product routes live under `/learn`, music reference routes remain `/` and `/screen/*`. Read [the root contract](../AGENTS.md), [handoff](../docs/handoff.md), [style](../docs/style.md), [design](../docs/design.md) and [single checklist](../docs/tasks.md).
 
-The primary checkout is `J:\courses` with `main` as the integrated baseline. The Astra guidance and verified Home artwork/control fixes are reconciled here. See [branch transition](../docs/astra/branch-transition.md) for preserved history and any unfinished preview work.
+Use only `J:\courses` on `main`. Its existing junction points at the same active source on `L:`; inspect rather than moving it. Preserve prior dirty changes, reference originals and local evidence.
 
-## Run
-
-Run from `J:\courses\apple-music-clone` after confirming the port and checkout. An older listener is not evidence that this checkout is running.
+## Preview
+From this app directory, first inspect existing port ownership, then use the canonical `http://127.0.0.1:6435/learn` preview. Do not start a duplicate listener or take another project's port.
 
 ```powershell
-$env:REFERENCE_PREVIEW='1'
-npm run dev -- --hostname 127.0.0.1 --port 6431
+npm run dev -- --hostname 127.0.0.1 --port 6435
+npm run qa:platform:unit
+npm run typecheck
 ```
 
-Use existing locked dependencies. Inspect the listener and actual browser at `http://127.0.0.1:6431/`; do not take another project's port. Local-preview account/payment/playback controls are not real Apple integrations.
+The [runbook](../docs/development.md) supplies the isolated Python/Chromium paths, platform browser command and separate optimized-build procedure. The default `.next` junction is on a full drive; use an existing verified dev output or a unique ignored `.qa/` output, never cleanup/delete commands.
 
-## Check
-
-`npm run qa:archive` checks the frozen archive. `npm run qa:coverage` reports separate UI, MATCH and FLOW status. `npm run typecheck` and `npm run build` validate source changes. The runbook supplies isolated Python setup and complete browser/comparison commands. The strict `npm run qa:acceptance` must fail while required acceptance entries remain open.
-
-`/screen/<full-screen-id>` is a canonical fixture. `/flows/<flow-slug>?step=0` is an indexed recorded step, not a completed real-control flow. `Shift+R` opens the reference browser; `Shift+M` opens the local-media chooser.
-
-Preserve `reference/`, including `reference/originals/flow-screen-map.json`. Captures go into fresh local `.parity-evidence/` directories; dependencies, evidence images and `.qa/` remain uncommitted. Do not redistribute proprietary assets/fonts or deploy this reference preview publicly.
+## Verification and boundaries
+Platform tests cover original demo metadata, server-selected public lessons, versioned browser storage, community validation, scoped CSS and real-control journeys. The preview is not authentication, enrollment, live community or commerce. A bookmark or browser flag cannot unlock protected content.
+`qa:archive` validates immutable source assets; `qa:coverage` reports the separate UI/MATCH/FLOW ledger. Strict `qa:acceptance` still fails while reference acceptance entries remain open. Platform checks do not silently check those entries.
+`/screen/<full-screen-id>` is a music fixture and `/flows/<flow-slug>?step=0` an indexed recording step, not proof of a completed continuous journey. Keep all original IDs and evidence. Course screenshots use independent adaptation baselines.
+Never commit dependency/build/evidence directories, credentials or proprietary font files. Do not redistribute source music artwork in the course product or deploy this reference preview publicly.

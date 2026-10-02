@@ -123,6 +123,8 @@ def main() -> int:
     active += [path for path in (ROOT / "docs").glob("*.md") if path.name != "tasks.md"]
     active += list((ROOT / "docs/astra").glob("*.md")) + skills
     active += [ROOT / "docs/history/README.md"]
+    for subtree in ("app/learn", "components/platform", "lib/platform"):
+        active += list((ROOT / "apple-music-clone" / subtree).rglob("AGENTS.md"))
     checked_links = 0
     for path in sorted(set(active)):
         text = path.read_text(encoding="utf-8")

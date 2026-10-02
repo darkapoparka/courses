@@ -1,5 +1,15 @@
 # Decision register
 
+## Active transition - 2026-10-02
+
+A-08: The owner explicitly authorized course-selling/community adaptation now. This supersedes the clone-completion prerequisite in A-01 and earlier deferred-product wording. Preserve all reference evidence and unchecked acceptance; develop `/learn` in the same application. No claim of 159 MATCH/58 FLOW acceptance is made.
+
+A-09: Use only `J:\courses` on `main`, including its existing resolved junction. The older A-02 suggestion of future branches/worktrees is superseded. Preserve unrelated dirty work and use reviewed coherent commits; no cleanup or deletion.
+
+A-10: Keep A0 as an explicit local preview; make the real free-course backend journey A1, before paid commerce. Server-selected demo content is implemented; production identity, grants, persistence and community permissions are not. Candidate providers remain unconfigured.
+
+A-11: `style.md` and `design.md` govern independent course adaptation; `design-system.md` retains music-only fidelity rules. `tasks.md` remains the sole ledger, with CP IDs for course work. Visual evidence and actual CI outcomes remain distinct.
+
 ## Active decisions — 2026-09-12
 
 | ID | Decision | Authority and consequence |

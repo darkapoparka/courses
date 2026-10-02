@@ -2,15 +2,15 @@
 
 Feature requirements live here; completion status lives only in [tasks.md](tasks.md). A future feature is not an instruction to create it now.
 
-## Stage C — current Apple Music clone
+## Stage C — preserved Apple Music reference
 
-Implement the exact saved screen states and continuous recorded journeys in the existing app. Preserve music semantics, working controls, local-preview safety and immutable originals. Acceptance requires 159 genuine MATCH entries, 58 complete FLOW entries and explicit owner approval before a product transition. Implemented routes, regression counts and a polished subset do not satisfy this gate.
+Implement the exact saved screen states and continuous recorded journeys in the existing app. Preserve music semantics, working controls, local-preview safety and immutable originals. Those acceptance targets remain music-reference criteria, but the owner authorized the product transition on 2026-10-02 without claiming them complete. Implemented routes, regression counts and a polished subset do not satisfy this gate.
 
-## Stage A0 — authorized course adaptation, after Stage C
+## Stage A0 — current authorized course adaptation
 
 Adapt an accepted shell/detail/learning slice with original or licensed fixtures. Discovery, a course detail and a sample lesson must form a coherent navigable journey. Show curriculum, outcome, teacher and distinct preview/owned/locked states without pretending to charge, publish or persist to a backend. Test keyboard, responsive layout, loading/empty/error behavior and source-to-adaptation decisions.
 
-This stage uses the existing application and needs no payment/backend credentials. Create independent course-design baselines, not new claims of pixel identity to Apple. A route redesign or path rename needs a migration decision.
+This stage includes local course discussions/replies, progress and notes with explicit preview labels. It uses the existing application and needs no payment/backend credentials. Create independent course-design baselines, not new claims of pixel identity to Apple. A route redesign or path rename needs a migration decision.
 
 ## Stage A1 — real free-course alpha
 
@@ -34,7 +34,7 @@ Private notes remain author-only; lesson questions have course-context permissio
 
 ## Stage A3 — separately assigned expansion
 
-Community spaces, reviews/follows, team roles, bundles/subscriptions, versioning, assessments, AI study tools, dedicated search, live events, native apps, offline media and affiliates are optional. Promote only a concrete need with access, data, support and validation requirements; do not precreate their infrastructure.
+Broader community spaces, reviews/follows, team roles, bundles/subscriptions, versioning, assessments, AI study tools, dedicated search, live events, native apps, offline media and affiliates are optional. Promote only a concrete need with access, data, support and validation requirements; do not precreate their infrastructure.
 
 ## Complete means observed
 

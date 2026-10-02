@@ -1,31 +1,23 @@
-# Documentation map
+# Documentation map — active course and community adaptation
 
-## Current phase: exact Apple Music reconstruction
-
-The [root contract](../AGENTS.md) defines the phase and preservation rules. The primary workspace is `J:\courses` on `main`; the [transition record](astra/branch-transition.md) explains the consolidated histories and retained preview evidence. Read only the relevant documents below, not the entire repository at every task.
+The owner authorized product adaptation on 2026-10-02. Continue the same Next.js app under `/learn`, preserve music at `/` and `/screen/*`, and keep only `J:\courses` on `main`. Earlier dated clone-only phase gates are superseded by [the root contract](../AGENTS.md); unchecked reference acceptance remains unchanged.
 
 | Need | Owning document |
 | --- | --- |
-| Resume actual work and understand unverified changes | [handoff.md](handoff.md) |
-| Start the right server; run captures, comparisons and tests | [development.md](development.md) |
-| Locate screen/flow IDs and record acceptance | [tasks.md](tasks.md), the sole live checklist |
-| Understand unresolved mismatches | [reference-audit.md](reference-audit.md) |
-| Locate active components and state boundaries | [architecture.md](architecture.md) |
-| Match visual geometry, material, assets and interaction | [design-system.md](design-system.md) |
-| Interpret fixture routes versus continuous journeys | [screens-and-flows.md](screens-and-flows.md) |
-| Edit with the installed stack | [tech-stack.md](tech-stack.md), [coding-standards.md](coding-standards.md) |
-| Choose verification and record evidence | [quality-and-operations.md](quality-and-operations.md) |
-| Resolve conflicting directions | [decisions.md](decisions.md) |
-| Use Astra, current OpenAI sources and focused skills | [astra/README.md](astra/README.md) |
+| Resume actual work, verification and remaining failures | [handoff.md](handoff.md) |
+| Copy the next-session assignment | [next-session.md](next-session.md) |
+| Find the single live course and reference checklist | [tasks.md](tasks.md) — course work uses CP IDs |
+| Preserve visual tokens, material and regression standards | [style.md](style.md) |
+| Understand product navigation, component mapping and interaction states | [design.md](design.md) |
+| Understand audience, value and phased scope | [platform.md](platform.md), [features.md](features.md) |
+| Server/client boundaries and next backend slice | [architecture.md](architecture.md) |
+| Start the right app and run checks | [development.md](development.md) |
+| Resolve technical/phase decisions and source provenance | [decisions.md](decisions.md), [research.md](research.md) |
+| Coding, dependencies and operational quality | [coding-standards.md](coding-standards.md), [tech-stack.md](tech-stack.md), [quality-and-operations.md](quality-and-operations.md) |
+| Durable data, commerce/media and trust requirements | [data-model.md](data-model.md), [commerce-and-video.md](commerce-and-video.md), [security-and-trust.md](security-and-trust.md) |
+| Music-only source fidelity, unresolved mismatches and saved journeys | [design-system.md](design-system.md), [reference-audit.md](reference-audit.md), [screens-and-flows.md](screens-and-flows.md) |
+| Focused agent workflows and historical reconciliation | [astra/README.md](astra/README.md), [astra/branch-transition.md](astra/branch-transition.md) |
 
-Dated observations remain in [reference-review](reference-review/ledger.md). The [full-corpus metrics](reference-review/latest-metrics.json) record the candidate named inside that diagnostic; they are not an acceptance certificate.
-
-## Deferred product requirements
-
-[platform.md](platform.md) and [features.md](features.md) describe the later multi-creator course product. [data-model.md](data-model.md), [commerce-and-video.md](commerce-and-video.md), and [security-and-trust.md](security-and-trust.md) retain its important correctness and trust requirements. They do not authorize a new app, provider provisioning, live money or a course-themed redesign during clone finalization.
-
-[research.md](research.md) distinguishes repository evidence, reviewed official OpenAI guidance and vendor references to refresh at integration time. [history](history/README.md) preserves the prior documentation without making its superseded instructions active.
-
-## Ownership of status
-
-Tasks own acceptance. Audit owns findings. Handoff owns the actual checkpoint and immediate next work. Decisions own phase/architecture changes. Research owns source provenance. Skills route repeated workflows; they do not hold a second set of completion counters. Historical documents and source captures are not rewritten to make a current status look better.
+## Ownership of truth
+Tasks own completion; style/design own product contracts; architecture owns implementation boundaries; decisions own changed scope; handoff owns the exact working checkpoint and actual checks. Do not create a competing backlog or turn a passing local prototype test into backend or paid-release acceptance.
+Dated [reference reviews](reference-review/ledger.md), [diagnostic metrics](reference-review/latest-metrics.json) and [historical documents](history/README.md) remain provenance with their original candidate scope. They are not current runtime observations or authority to revert the owner's transition. Reference originals and historical records must not be rewritten to improve reported completion.
