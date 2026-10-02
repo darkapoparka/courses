@@ -3,7 +3,7 @@
 Use this prompt with the connected Remote Desktop Commander, GitHub and Context7 tools:
 
 ```text
-Continue Courses from the existing working state. The owner authorized course-selling/community adaptation on 2026-10-02; do not resume the old all-159-MATCH/all-58-FLOW completion loop as a prerequisite. Preserve that reference and its honest incomplete acceptance ledger.
+Continue Courses from the existing working state. The source checkpoint is 1d140c83f9e1996bad7b609e207cae2332894d1e; a documentation-only follow-up may be HEAD. Inspect Git rather than reverting to that SHA. The owner authorized course-selling/community adaptation on 2026-10-02; do not resume the old all-159-MATCH/all-58-FLOW completion loop as a prerequisite. Preserve that reference and its honest incomplete acceptance ledger.
 
 Only checkout: J:\courses. Only branch: main. Active app: J:\courses\apple-music-clone. The existing J:\courses junction resolves to L:\PLATFORMS\courses\app; it is the same source. Do not move it, create a new app, switch branches/worktrees, reset, clean, delete caches/files, or lose dirty/untracked work. Inspect status, HEAD, incoming changes and existing listener ownership before writes. D: was full; inspect actual target-drive space and never use cleanup commands.
 

@@ -2,6 +2,8 @@
 
 ## Course adaptation checkpoint - 2026-10-02
 
+Implementation commit: `1d140c83f9e1996bad7b609e207cae2332894d1e` (`feat(platform): establish course preview and style contracts`). A following documentation-only commit records this identifier. Local results below are verified; remote push/CI status must be read from origin and Actions for the final HEAD, not inferred from this file.
+
 The owner authorized course-selling/community adaptation now, retaining Apple Music-derived styling. This supersedes the old clone-completion prerequisite, not the acceptance evidence. Use `docs/tasks.md` CP-001 onward; preserve historical UI 159/159, MATCH 127/159 and FLOW 34/58. Work only in `J:\courses` on `main`; the existing junction resolves to `L:\PLATFORMS\courses\app`.
 
 ### Recovered state and actual implementation
