@@ -2,6 +2,7 @@
 import re
 from playwright.sync_api import expect
 from browser_platform_contract import check_shell_contract
+from browser_platform_editorial import check_editorial_cards
 from browser_platform_visual import check_marketplace_style, check_merchandising_controls
 
 def check_marketplace(existing_page, visit, out, passed, observations, errors):
@@ -25,6 +26,8 @@ def check_marketplace(existing_page, visit, out, passed, observations, errors):
         check_marketplace_style(page)
         page.screenshot(path=str(out/'marketplace-1440.png'))
         passed('Home is an artwork-led public course storefront, not an activity dashboard')
+        check_editorial_cards(page, out)
+        passed('Featured cards and catalog share accessible previews, bookmarks and visible save-failure recovery')
         check_merchandising_controls(page)
         passed('Reference-style featured shelves keep working pointer and keyboard controls')
         subjects=page.get_by_role('navigation',name='Marketplace subjects',exact=True)

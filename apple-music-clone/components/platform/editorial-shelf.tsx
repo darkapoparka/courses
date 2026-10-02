@@ -25,7 +25,13 @@ export function EditorialShelf({ label, children, variant = "cards" }: {
   function move(direction: number) {
     const element = track.current;
     if (!element) return;
-    element.scrollBy({ left: direction * element.clientWidth * 0.9, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    const first = element.children[0] as HTMLElement | undefined;
+    const second = element.children[1] as HTMLElement | undefined;
+    const stride = first && second ? second.offsetLeft - first.offsetLeft : element.clientWidth;
+    const gap = first ? Math.max(0, stride - first.offsetWidth) : 0;
+    const count = Math.max(1, Math.floor((element.clientWidth + gap) / stride));
+    const next = Math.round(element.scrollLeft / stride) + direction * count;
+    element.scrollTo({ left: Math.max(0, Math.min(next * stride, element.scrollWidth - element.clientWidth)), behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
     setMessage(`${direction > 0 ? "Next" : "Previous"} items in ${label}.`);
   }
   return <div className={styles.shelf}>

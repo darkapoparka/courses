@@ -18,11 +18,17 @@ def check_rich_catalog(page, visit, out, passed, observations):
     passed("Editorial shelves support Next, Previous and native keyboard navigation")
     page.get_by_role("link", name="See all creators", exact=False).click(); page.wait_for_load_state("networkidle", timeout=90000)
     expect(page.get_by_role("heading", name="Creators", exact=True)).to_be_visible(timeout=60000)
-    page.get_by_role("link", name=re.compile("^Maya Chen Design")).click(); page.wait_for_load_state("networkidle", timeout=90000)
+    page.get_by_role("link", name=re.compile("^Maya Chen Design")).click()
+    # A directory card also has this name; require the actual profile route and h1.
+    expect(page).to_have_url(re.compile(r"/learn/creators/maya-chen$"), timeout=60000)
+    expect(page.get_by_role("heading", name="Maya Chen", level=1, exact=True)).to_be_visible(timeout=60000)
     expect(page.get_by_role("heading", name="Maya Chen", exact=True)).to_be_visible(timeout=60000)
-    expect(page.locator('[class*=lessonThumb] img')).to_have_count(3)
-    for image in page.locator('[class*=lessonThumb] img').all():
-        expect(image).not_to_have_css("display", "none")
+    thumbs = page.locator('[class*=lessonThumb] [data-course-art]')
+    expect(thumbs).to_have_count(3)
+    for art in thumbs.all():
+        expect(art).to_have_attribute('data-course-art', 'design')
+        assert art.bounding_box()['width'] >= 39
+        expect(art.locator('[class*=jacketFigure]')).not_to_have_css('display', 'none')
     expect(page.get_by_role("navigation", name="Main navigation").get_by_role("link", name="Creators", exact=True)).to_have_attribute("aria-current", "page")
     before = page.evaluate("JSON.parse(localStorage.getItem('courses:learning-preview:v1'))")
     page.get_by_role("button", name="Follow Maya Chen", exact=True).click()
@@ -32,15 +38,20 @@ def check_rich_catalog(page, visit, out, passed, observations):
     assert before["saved"] == after["saved"] and before["progress"] == after["progress"]
     page.get_by_role("link", name="Creators", exact=False).filter(has_text="‹ Creators").click(); page.wait_for_load_state("networkidle", timeout=90000)
     page.get_by_role("navigation", name="Creator collections").get_by_role("link", name="Following", exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
+    expect(page).to_have_url(re.compile(r"/learn/creators\?view=following$"), timeout=60000)
     expect(page.get_by_role("heading", name="Maya Chen", exact=True)).to_be_visible(timeout=60000)
     expect(page.get_by_role("heading", name="Noah Reed", exact=True)).to_have_count(0)
-    page.get_by_role("link", name=re.compile("^Maya Chen Design")).click(); page.wait_for_load_state("networkidle", timeout=90000)
+    page.get_by_role("link", name=re.compile("^Maya Chen Design")).click()
+    # A directory card also has this name; require the actual profile route and h1.
+    expect(page).to_have_url(re.compile(r"/learn/creators/maya-chen$"), timeout=60000)
+    expect(page.get_by_role("heading", name="Maya Chen", level=1, exact=True)).to_be_visible(timeout=60000)
     page.get_by_role("button", name="Unfollow Maya Chen", exact=True).click()
     expect(page.get_by_role("button", name="Follow Maya Chen", exact=True)).to_have_attribute("aria-pressed", "false")
     passed("Creator following persists, filters the directory and does not grant learning access")
     page.get_by_role("link", name="Explore courses", exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
     expect(page.get_by_role("heading", name="Design with intention", level=1, exact=True)).to_be_visible(timeout=60000)
     page.get_by_role("link", name="Maya Chen ›", exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
+    expect(page.get_by_role("heading", name="Maya Chen", level=1, exact=True)).to_be_visible(timeout=60000)
     page.get_by_role("link", name="Design ›", exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
     expect(page.get_by_role("heading", name="Design", exact=True)).to_be_visible(timeout=60000)
     expect(page.get_by_role("navigation", name="Main navigation").get_by_role("link", name="Categories", exact=True)).to_have_attribute("aria-current", "page")

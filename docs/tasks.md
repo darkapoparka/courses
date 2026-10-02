@@ -1779,3 +1779,13 @@ Storefront evidence: 42 domain/style tests, TypeScript/build, 53 complete optimi
 - [x] `CP-038` Verify the complete styling batch through actual rendered color/geometry assertions, six-width visual review, shelf pointer/keyboard controls, existing browse/preview/save/learning/community journeys, optimized output and original-source preservation.
 
 Visual-restoration evidence: 45 domain/style tests and optimized build passed; 54 full optimized browser checks and seven focused dev checks passed. See handoff for source identity, six-width rendered styling assertions, legacy-source preservation, the retained earlier dev timeout and limits. Test success is not owner aesthetic approval.
+
+### Editorial card rebuild - 2026-10-03
+The previous visual pass was rejected by the owner. Existing completion entries prove implementation, not aesthetic acceptance.
+- [x] `CP-039` Replace repeating stock-photo covers with distinct original course jackets shared by Home, catalog, detail and preview, while preserving white application surfaces and the original music assets.
+- [x] `CP-040` Restore the saved Home four-portrait-card composition, square catalog covers, aligned shelf navigation and pointer/keyboard/touch quick actions without introducing a personal dashboard or fictional offers.
+- [x] `CP-041` Integrate the same cover and offer identity into accessible course previews, sample links and saved-state controls; verify full existing journeys, failures, responsive layouts and optimized behavior.
+
+Editorial-card recovery evidence: 47 unit/style tests, TypeScript, 55 full optimized and 55 canonical optimized browser checks passed. The interrupted build was reused only after exact source identity verification; the recovery strengthened profile-route test assertions. Evidence: `.qa/editorial-resume-20261003/`. Original 81-file music fingerprint set is unchanged. User aesthetic approval, backend integration and release are not implied. See the current handoff for retained failures and runtime.
+
+- [ ] `CP-042` Diagnose the development-runtime JSON/reload failure and prove stable real navigation in development mode. Canonical port 6435 currently serves the verified optimized build, without hot reload. Preserve the card system and existing failure evidence; do not claim this runtime issue is fixed by an optimized pass.

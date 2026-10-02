@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { courses as catalog } from "../../lib/platform/catalog";
-import { creators, topics, creatorName } from "../../lib/platform/discovery";
+import { creators, topics } from "../../lib/platform/discovery";
 import { demoLessonBody } from "../../lib/platform/lesson-content.server";
 import { courseArtwork, marketplaceCourses, marketplaceHref, type MarketplaceOptions } from "../../lib/platform/marketplace";
 import { CreatorCard } from "./discovery-cards";
@@ -22,17 +21,6 @@ export function MarketplaceHome({ options }: { options: MarketplaceOptions }) {
       {topics.map(topic => <Link key={topic.slug} href={marketplaceHref({ ...options, category: topic.slug })}
         aria-current={options.category === topic.slug ? "page" : undefined}>{topic.name}</Link>)}
     </nav>
-    {!filtered && <section className={styles.marketFeatures} aria-label="Featured courses">
-      <EditorialShelf label="Marketplace features" variant="features">
-        {catalog.map(course => <Link key={course.id} href={`/learn/courses/${course.slug}`} className={styles.marketFeature}>
-          <div className={styles.marketFeatureCopy}>
-            <span>{course.priceMinor === 0 ? "FREE COURSE" : "COURSE SPOTLIGHT"} · {course.category}</span>
-            <h2>{course.title}</h2><p>{creatorName(course)}</p>
-          </div>
-          <img src={courseArtwork(course.id)} alt="" width="1200" height="800" loading={course.id === "design" ? "eager" : "lazy"} />
-        </Link>)}
-      </EditorialShelf>
-    </section>}
     <MarketplaceBrowser courses={shown} options={options} sampleIntroductions={introductions} />
     {!filtered && <>
       <section className={styles.marketSpotlight} aria-labelledby="market-spotlight">

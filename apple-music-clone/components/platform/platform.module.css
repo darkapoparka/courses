@@ -605,3 +605,124 @@
 .marketCardHeading { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:8px; }
 .marketCardHeading > strong { font-size:13px; font-weight:500; white-space:nowrap; margin-top:8px; }
 .marketCardBottom .marketBookmark { margin-left:auto; }
+
+/* Course cover artwork: independent of the white application canvas. */
+.cover.courseJacket {
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  display: block;
+  padding: 0;
+  aspect-ratio: 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9px;
+  color: #fff;
+}
+.courseJacket::before { content: none; }
+.courseJacket[data-art-format="poster"] { aspect-ratio: 3 / 4; }
+.jacketPhotoLayer { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
+.jacketMasthead { position:absolute; top:7%; left:8%; right:8%; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.jacketMasthead span:first-child { font-size:7cqw; line-height:1; font-weight:750; letter-spacing:-.06em; }
+.jacketMasthead span:last-child { font-size:2.4cqw; letter-spacing:.12em; font-weight:600; }
+.jacketTitle { position:absolute; top:24%; left:8%; right:5%; font-size:13cqw; font-weight:720; letter-spacing:-.055em; line-height:.98; white-space:pre-line; }
+.jacketByline { position:absolute; bottom:7%; left:8%; right:8%; display:flex; flex-direction:column; gap:1.5cqw; font-size:3.5cqw; line-height:1.35; }
+.jacketByline span:first-child { font-size:2.7cqw; letter-spacing:.09em; font-weight:600; }
+.jacketFigure { position:absolute; inset:0; z-index:-1; overflow:hidden; }
+.jacketDesign { background:linear-gradient(145deg,#fb3e9a 0%,#e93487 55%,#d91e64 100%); }
+.jacketDesign .jacketTitle { top:22%; font-size:14cqw; }
+.jacketDesignMark { position:absolute; bottom:-17%; right:-5%; font-size:112cqw; line-height:1; letter-spacing:-.1em; font-weight:800; color:#ffacd3; opacity:.6; transform:rotate(-18deg); text-shadow:8px 8px 0 #9d174734; }
+.jacketWeb { background:#072837; }
+.jacketWeb .jacketPhotoLayer { opacity:.12; filter:grayscale(1); }
+.jacketWeb .jacketFigure { background:radial-gradient(ellipse at 5% 105%,#15aaa1 0%,#063a46 47%,transparent 75%); }
+.jacketWeb .jacketTitle { color:#b9f6dd; font-weight:550; }
+.jacketCode { position:absolute; bottom:8%; right:1%; font-family:Georgia,serif; font-size:65cqw; letter-spacing:-.16em; line-height:1; color:#83e9c7; opacity:.7; transform:rotate(-14deg); }
+.jacketWriting { background:#fa493d; }
+.jacketWriting .jacketTitle { top:22%; font-family:Georgia,"Times New Roman",serif; font-weight:400; letter-spacing:-.055em; font-size:14cqw; }
+.jacketLetter { position:absolute; bottom:-3%; right:-6%; font-size:72cqw; font-family:Georgia,"Times New Roman",serif; font-style:italic; letter-spacing:-.12em; line-height:1; color:#ffaca1; transform:rotate(-12deg); }
+.jacketPhoto { background:#172e43; }
+.jacketPhoto .jacketPhotoLayer { opacity:.75; object-position:56% 50%; }
+.jacketPhoto .jacketFigure { background:linear-gradient(180deg,#11283b80,transparent 55%,#061626dd); }
+.jacketPhoto .jacketTitle { top:22%; font-family:Georgia,"Times New Roman",serif; font-size:14cqw; font-weight:400; }
+.jacketViewfinder { position:absolute; bottom:26%; left:22%; width:56%; aspect-ratio:1.3; border:1px solid #ffffff70; border-radius:2px; }
+.jacketViewfinder::after { content:"+"; position:absolute; inset:0; display:grid; place-items:center; font-size:12cqw; color:#ffffff80; font-weight:200; }
+.jacketBusiness { background:linear-gradient(145deg,#d8cafa,#b7a0ec); color:#31244f !important; }
+.jacketBusiness .jacketTitle { top:22%; font-size:13cqw; font-weight:600; }
+.jacketSteps { position:absolute; bottom:20%; right:10%; width:76%; height:35%; display:flex; gap:4%; align-items:flex-end; transform:rotate(-8deg); }
+.jacketSteps i { width:28%; background:#68469a; height:35%; box-shadow:7px -5px 0 #ffffff55; }
+.jacketSteps i:nth-child(2) { height:65%; background:#50307f; }
+.jacketSteps i:nth-child(3) { height:100%; background:#362358; }
+.jacketSteps b { position:absolute; right:4%; top:-24%; width:29%; aspect-ratio:1; border-radius:50%; background:#ff6b43; }
+@container (max-width:100px) {
+  .jacketMasthead,.jacketTitle,.jacketByline { display:none; }
+  .jacketFigure { display:block; }
+}
+/* Thumbnail wrappers must retain the artwork rather than hide all children. */
+.lessonThumb .courseJacket > .jacketFigure { display:block; }
+.lessonThumb .courseJacket > .jacketPhotoLayer { display:block; }
+@media (forced-colors:active) { .courseJacket { background:Canvas; color:CanvasText; border:1px solid CanvasText; } .jacketFigure,.jacketPhotoLayer { display:none; } }
+
+/* The saved Home uses four portrait cards, then a denser square-cover shelf. */
+.editorialFeatures { margin-top:10px; }
+.editorialHeading { display:flex; align-items:baseline; gap:12px; margin-bottom:14px; padding-right:76px; }
+.editorialHeading h2 { font-size:18px; line-height:25px; font-weight:600; }
+.editorialHeading > span { color:var(--course-muted); font-size:12px; }
+.editorialFeatures .shelfControls { position:absolute; top:-41px; right:0; margin:0; }
+.editorialFeatures .shelfTrack { padding:2px 0 8px; }
+.featurePoster { min-width:0; position:relative; }
+.featurePosterLink { position:relative; display:block; border-radius:9px; box-shadow:0 4px 12px #00000010; }
+.featurePosterLink:hover { box-shadow:0 6px 18px #00000020; }
+.featureOffer { position:absolute; top:7%; right:8%; border-radius:999px; padding:4px 9px; font-size:11px; line-height:16px; font-weight:600; background:#ffffffed; color:#1d1d1f; }
+.featurePoster .jacketMasthead span:last-child { visibility:hidden; }
+.featurePoster .jacketByline { right:36%; }
+.featurePosterActions { position:absolute; bottom:6%; right:6%; display:flex; gap:6px; opacity:0; pointer-events:none; transition:opacity 150ms; }
+.featurePoster:hover .featurePosterActions,.featurePoster:focus-within .featurePosterActions { opacity:1; pointer-events:auto; }
+.featurePosterActions button { display:grid; place-items:center; width:38px; height:38px; border-radius:50%; color:#1d1d1f; background:#fffffff0; box-shadow:0 2px 8px #0002; }
+.featurePosterActions button:last-child { width:38px; }
+.featurePosterActions button:hover,.featurePosterActions button[aria-pressed="true"] { color:var(--course-accent); background:#fff; }
+.featurePosterActions svg { width:16px; height:16px; }
+.marketCardArt .courseJacket { height:100%; }
+.marketCourseCard .marketCardMeta { font-size:11px; }
+.marketCourseCard .marketCardBottom { justify-content:space-between; }
+.marketCourseCard .marketCardBottom button:first-child { padding-left:0; }
+@media (max-width:760px) {
+  .editorialHeading > span { display:none; }
+  .editorialFeatures { margin-top:14px; }
+  .editorialFeatures .shelfPosters > * { flex-basis:72%; }
+  .featurePosterActions button { min-height:44px; }
+  .featurePosterActions button:last-child { width:44px; }
+}
+
+.courseJacket[data-art-format="square"] .jacketSteps { height:24%; bottom:14%; right:6%; width:54%; }
+.quickPreviewHeader { display:grid; grid-template-columns:160px minmax(0,1fr); align-items:center; gap:26px; padding:30px 58px 10px 30px; }
+.quickPreviewHeader h2 { font-size:26px; line-height:32px; font-weight:650; letter-spacing:-.7px; }
+.quickPreviewCreator { display:inline-flex; min-height:32px; align-items:center; color:var(--course-accent); font-size:14px; margin-top:4px; }
+.quickPreviewMeta { font-size:12px; color:var(--course-muted); margin-top:9px !important; line-height:20px; }
+.quickPreviewPrice { display:block; font-size:18px; margin-top:10px; }
+.quickPreviewHeader + .marketPreviewBody { padding-top:8px; }
+.marketPreviewBody .quickPreviewOutcome { font-size:15px; line-height:24px; margin-bottom:20px; }
+.marketPreviewBody li > a { flex:1; min-width:0; padding:8px 0; }
+.marketPreviewBody li > a:hover { color:var(--course-accent); }
+.marketPreviewBody li .quickLessonNumber { flex:0 0 22px; color:var(--course-muted); font-size:11px; }
+.previewSave { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:44px; min-width:70px; margin-left:auto; border-radius:8px; font-size:12px; color:var(--course-accent); }
+.previewSave:hover { background:var(--course-surface); }
+@media (hover:none), (pointer:coarse) { .featurePosterActions { opacity:1; pointer-events:auto; } }
+@media (max-width:760px) {
+  .featurePosterActions { opacity:1; pointer-events:auto; }
+  .quickPreviewHeader { grid-template-columns:96px minmax(0,1fr); gap:16px; padding:54px 20px 8px; }
+  .quickPreviewHeader h2 { font-size:21px; line-height:26px; }
+  .quickPreviewHeader .eyebrow { font-size:9px; }
+  .quickPreviewCreator { font-size:12px; }
+  .quickPreviewMeta { font-size:11px; }
+  .marketPreviewBody .previewSave { margin:0; }
+}
+
+/* Keep the existing Discover landscape and personal-learning poster variants. */
+.featureCard .courseJacket { aspect-ratio:1.93; }
+.featureCard .jacketTitle { top:25%; right:40%; font-size:8cqw; }
+.featureCard .jacketMasthead span:first-child { font-size:4cqw; }
+.featureCard .jacketMasthead span:last-child { font-size:1.6cqw; }
+.featureCard .jacketByline { font-size:2.1cqw; gap:.5cqw; }
+.featureCard .jacketByline span:first-child { font-size:1.6cqw; }
+.homePick .courseJacket { aspect-ratio:3 / 4; }
+@media (max-width:760px) { .featureCard .courseJacket { aspect-ratio:1.7; } }

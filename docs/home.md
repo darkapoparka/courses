@@ -1,38 +1,30 @@
-# Home — course marketplace storefront
+# Home - course marketplace
 
-## Active owner direction
-The latest owner correction on 2026-10-02 is explicit: Home is a marketplace for browsing courses, not a personal learning dashboard. This supersedes the earlier personalized-Home blueprint. Do not reintroduce Continue learning, interest setup, empty saved shelves, time-budget controls or a large resume dock as the Home experience.
+## Direction and route
+Home is the public browsing surface at `/learn/home`, never the personal learning dashboard. `/learn` remains Discover; `/learn/library/overview` retains personal progress/preferences. The original music application stays at `/` and `/screen/*`. Preserve every existing local saved item, note, progress entry and discussion.
 
-The working storefront lives at `/learn/home`; the Courses brand link opens it. `/learn` keeps the existing Discover URLs and `/` plus `/screen/*` keep the music reference. The previous personal screen is preserved at `/learn/library/overview`, linked from My learning. Its stored preferences, completion, notes and other local data are not reset.
+The owner rejected both the earlier dashboard and the flat repeated-stock-photo storefront. A neutral background alone was not enough. The latest composition returns to the saved Apple Music **Home** (`a917d88f-d15a-4f53-92d3-1daecf59d05f`): four portrait cards, a denser square-cover shelf, compact labels, restrained controls, and the floating sidebar. The saved **New** screen has a different two-landscape-card composition; do not conflate the two. This adapts proportions and interaction patterns, not Apple assets or recommendation data.
 
-## First-screen composition
-1. Shared visible search and the existing floating sidebar.
-2. A compact browsing headline and immediately visible subject navigation.
-3. A native horizontal feature shelf with quiet captions above un-tinted photography and real course destinations.
-4. A visible course selection: artwork, subject, title, creator, level, lesson count, duration, price, bookmark and Preview. Do not substitute a progress panel or an onboarding form.
-5. Real category/price filters and deterministic sorting. The initial selection includes all five current demo courses; do not hide owned/saved/started items from a marketplace or pretend this small catalog has thousands of offers.
+## Page composition
+1. Home title and always-visible shared search. Subject navigation remains URL-addressable.
+2. Featured courses: four visible 3:4 portrait jackets on desktop, with native horizontal scrolling, aligned next/previous controls, keyboard access, real offer prices, course links, quick preview and save. Mobile presents one readable poster and a visible continuation edge.
+3. Full five-course sample catalog: square covers, real creator links, price, duration, preview, bookmark, price filters and deterministic sort. No invented inventory, ratings, enrollment counts, discounts or bestseller labels.
+4. Existing photography spotlight, creator shelf and further browsing destinations remain connected. Personal continuation does not cover the storefront.
 
-At the desktop layout, two captioned editorial covers are visible at roughly 2:1 while the catalog uses five square-cover columns; smaller widths use three or two columns. The first course row includes prices without a floating activity panel covering them. Features and subject links scroll on narrow screens; course cards remain a browsable two-column grid. Use neutral white surfaces, restrained red selection, captions and spacing. Do not restore cream hero overlays, black category pills or full-width decorative section dividers.
+## Artwork and surface separation
+`CourseArtwork` owns original course jackets. Each course has its own typography, composition and color identity, with selected licensed contextual photography. Jacket titles are actual course titles, not interchangeable motivational slogans. A jacket may contain original typesetting and illustration, just as album artwork does. This is different from placing marketing paragraphs over a page-wide hero panel.
+The UI canvas remains opaque white; no cream panels, decorative full-width rules, black subject pills or competing component kit. Color belongs inside covers. Catalog/detail/preview use the same jacket identity. Tiny lesson thumbnails retain visible motifs or photographs without squeezing unreadable cover text into 40px. Discover retains its existing landscape variant; personal learning retains its existing poster variant.
+The photo source/license/hash records in `public/course-art/credits.json` and `/learn/credits` remain. No Apple art, proprietary font, instructor portrait, endorsement or purported course footage is imported.
 
-## Browsing and offer behavior
-Subject links retain the price/sort settings. Price choices are All prices, Free and Under EUR 50. Under EUR 50 means strictly below 5000 minor units. Sort options are editorial order, price ascending and shortest first. Query values are validated, URL-addressable and preserved on reload/back navigation. An empty combination offers Browse all courses, not fake catalog entries.
-Each offer has a real course detail and creator destination. Bookmarking preserves the existing Saved store and never enrolls, purchases or starts a lesson. A native preview dialog shows public metadata, outcomes, the server-selected introduction of the open sample, and curriculum availability. It supports Escape, a named Close control, focus return, View course and Read free sample. Locked lesson bodies are never serialized for the preview.
-The featured photography section and creator directory are merchandising, not fabricated recommendations, bestseller ranks, instructor credentials or activity counts. Avoid false Buy/Checkout buttons while commerce is disconnected. The demo notice states that prices are illustrative and checkout is not connected.
+## Working interactions
+Subject and price filters preserve shareable query state, sorting, reload and browser history. The marketplace never hides a course because it was saved or started. The initial catalog remains five original demos.
+Featured preview and catalog preview open the same native modal and show the same course identity, outcome, public curriculum, price and server-selected sample introduction. Only accessible lesson rows navigate; locked bodies remain server-only. View course, Read free sample and Save are real actions. Close/Escape return focus to the exact initiating card. Native modal focus has explicit forward/reverse boundary wrapping; save failure is visible inside it and preserves prior data.
+Desktop quick actions appear on pointer hover or keyboard focus; touch layouts retain visible controls. No decorative play button pretends that reading courses contain video. Aligned shelf paging uses actual card widths, not arbitrary fractional scroll distances.
 
-## Artwork
-The repeating typographic sample covers have been replaced by locally stored, licensed contextual photography. These are not screenshots of actual paid lessons or portraits/endorsements of the fictional demo instructors. `public/course-art/credits.json` records photographer, source, license, dimensions and SHA-256; `/learn/credits` supplies visible attribution. Images are served locally, with fixed dimensions and bounded WebP bytes; the browser makes no stock-photo service requests.
+## Ownership and verification
+`marketplace-home.tsx` owns server-selected offers/sample introductions. `marketplace-browser.tsx` owns shared preview/bookmark state. `marketplace-features.tsx` owns the featured composition. `course-artwork.tsx` owns jacket identity and shape. `course-quick-preview.tsx` owns the offer preview. `EditorialShelf` remains the existing shared scrolling owner. No second app or framework upgrade is involved.
+CP-039 through CP-041 in `tasks.md` own this batch. Earlier checked tasks are implementation history, not owner design approval. Verify jacket identity across entry/detail/preview, 3:4 versus square geometry, keyboard/touch controls, focus return/trap, saved-state consistency, quota failure, sample access, six widths, existing learning/community journeys and original-source preservation.
+Automated and visual checks establish only their reported scope; the user has not aesthetically approved this revision. Keep exact screenshots, source identity and failures in the handoff.
 
-## Separation from personal learning
-My learning keeps completion, continuation, notes and the preserved Learning overview. The storefront has no data-dependent welcome/continue section, Customize Home gate or progress percentage. A returning learner sees the same browseable offers as a fresh browser, with only genuine bookmark state reflected in the card controls. Do not conflate marketplace browsing with a paid entitlement.
-
-## Owners and verification
-`app/learn/home/page.tsx` validates route parameters. `marketplace-home.tsx` owns server-side merchandising and explicitly allowed sample introductions. `marketplace-browser.tsx` owns quick previews, bookmarks and sorting interactions. `lib/platform/marketplace.ts` owns pure option parsing, filtering, sorting and artwork lookup. Styling remains in the shared scoped module.
-`CP-034` and `CP-035` in the sole `tasks.md` ledger own this correction. Older CP-031–033 retain their historical implementation meaning at the relocated learning destination, not approval of the rejected Home design.
-Verify actual course/creator/preview navigation, filtering, browser history, unchanged saved/progress data, unavailable paid lessons, Escape/focus return, all six widths and loaded local art. Preserve the old learning behavior through its relocated real navigation tests instead of deleting its assertions. Shared platform components require the full platform suite and an optimized build; music originals and unrelated dirty work remain unchanged.
-
-## Next work
-Expand the real demo catalog only with coherent course details and readable sample content; do not fill shelves with dead offers. Rich course/curriculum actions remain CP-025, learning paths CP-026, meaningful lesson media and panels CP-027. Real accounts, creator authoring, enrollment, checkout and public community retain their backend gates. None is inferred from a polished storefront.
-
-## Visual restoration, 2026-10-02
-Home stays a marketplace. The title and persistent search share a compact desktop header; narrow layouts keep both visible. Category/price choices have understated neutral selection, features place captions outside artwork, course covers are square, and save/preview actions sit below the art. Creator merchandising reuses the existing round CreatorCard shelf. Do not reintroduce a dashboard, marketing-banner overlays or a second visual kit. The saved New capture `e72be564-1f7a-4448-9568-f239af3233ed` is the comparison source; its images stay separate from the product.
-The shared shell no longer adds a separate notice stripe, footer rule or all-red inactive navigation. Demo/access disclosures remain visible in the sidebar, offer copy, preview and footer. Row separators remain valid in actual curriculum/discussion lists; blanket removal would reduce their readability. `CP-036`–`CP-038` own this pass; tests are not owner aesthetic approval.
+## Remaining product work
+Substantive demo catalog expansion, richer course/curriculum actions, learning paths, real lesson media, accounts/authoring/enrollment and commerce retain their existing task owners. Do not manufacture content or add disconnected controls to make the page appear complete.

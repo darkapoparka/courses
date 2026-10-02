@@ -226,3 +226,23 @@ test('compact lesson artwork hides old cover captions but not the photograph', (
   assert(css.includes('.lessonThumb .cover > :not(img)'));
   assert(!css.includes('.lessonThumb .cover > *'));
 });
+
+// Editorial covers are a shared asset system, not changes to music fixtures.
+test('all demo courses have a distinct editorial jacket identity', () => {
+  const artwork = fs.readFileSync(path.join(app, 'components/platform/course-artwork.tsx'), 'utf8');
+  for (const course of catalog.courses) assert(artwork.includes(`${course.id}: { style:`), course.id);
+  assert(artwork.includes('data-course-art={course.id}'));
+  assert(artwork.includes('aria-hidden="true"'));
+  assert(!artwork.includes('/reference-assets/'));
+  assert(fs.readFileSync(path.join(app, 'components/platform/course-card.tsx'), 'utf8').includes('<CourseArtwork'));
+});
+test('featured and square cards share preview state and retain marketplace controls', () => {
+  const browser = fs.readFileSync(path.join(app, 'components/platform/marketplace-browser.tsx'), 'utf8');
+  const featured = fs.readFileSync(path.join(app, 'components/platform/marketplace-features.tsx'), 'utf8');
+  assert(browser.includes('onPreview={preview}'));
+  assert(browser.includes('<CourseQuickPreview'));
+  assert(featured.includes('variant="posters"'));
+  assert(featured.includes('aria-pressed='));
+  assert(featured.includes('format="poster"'));
+  assert(css.includes('.featurePoster:focus-within'));
+});

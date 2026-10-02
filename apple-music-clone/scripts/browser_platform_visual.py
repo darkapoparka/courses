@@ -15,13 +15,19 @@ def check_marketplace_style(page):
     for link in subjects.locator('a').all():
         expect(link).to_have_css('border-bottom-width', '0px')
     cards = page.locator('[data-market-course]')
+    expect(cards.locator('[data-course-art]')).to_have_count(5)
     for card in cards.all():
-        image = card.locator('img').bounding_box()
-        assert image and abs(image['width'] - image['height']) < 1, image
+        art = card.locator('[data-course-art]'); rect = art.bounding_box()
+        assert rect and abs(rect['width']-rect['height']) < 1, rect
+        title = art.locator('[data-art-title]')
+        assert title.evaluate('e => e.scrollWidth <= e.clientWidth + 1'), 'Cover title overflow'
     features = page.get_by_role('region', name='Marketplace features', exact=True)
-    caption = features.get_by_role('heading').first.bounding_box()
-    image = features.locator('img').first.bounding_box()
-    assert caption and image and caption['y'] + caption['height'] <= image['y'], (caption, image)
+    posters = features.locator('[data-art-format=poster]')
+    expect(posters).to_have_count(5)
+    for poster in posters.all():
+        rect = poster.bounding_box()
+        assert rect and abs(rect['width']/rect['height'] - 0.75) < .01, rect
+    assert len(set(posters.evaluate_all('(nodes)=>nodes.map(n=>getComputedStyle(n).background)'))) == 5
     inactive = page.get_by_role('navigation', name='Main navigation').get_by_role('link', name='Saved', exact=True)
     expect(inactive.locator('svg')).to_have_css('color', 'rgb(29, 29, 31)')
 

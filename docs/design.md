@@ -86,3 +86,6 @@ Learning paths, real sessions, richer media panels and a permissioned activity f
 
 ## Whole-interface visual restoration
 The storefront remains the default Home experience, but its presentation must follow the saved reference rather than a new marketing kit. Use the source New screen for caption/art hierarchy, square collection covers and whitespace. Preserve useful search/filter/preview/save behaviors while removing unrelated cream treatments, all-red inactive navigation, redundant stripes and decorative full-width rules. Personal learning remains under My learning. The new rendered-style checks and captioned carousel are regression contracts, not owner aesthetic approval.
+
+## Latest editorial card decision - 2026-10-03
+Home is still the marketplace. The owner rejected the last styling pass, so its checked tasks must not be treated as accepted design. The active composition is specified in [home.md](home.md): original course jackets, the saved Home four-portrait-card pattern, square catalog covers and connected previews/bookmarks. Artwork identity stays consistent across browsing and course detail. The New landscape pattern remains appropriate for Discover, not a reason to keep substituting two plain stock photos for the Home card experience.

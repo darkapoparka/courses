@@ -69,7 +69,7 @@ with sync_playwright() as p:
         page.get_by_role('navigation', name='Main navigation').get_by_role('link', name='My learning', exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
         page.get_by_role('complementary', name='Continue learning').get_by_role('link', name='Continue', exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
         expect(page.get_by_role('heading', name='Give the important things room', exact=True)).to_be_visible(timeout=60000); passed('Resume follows the actual last-opened lesson')
-        page.get_by_role('link', name='Bring it to the discussion', exact=False).click(); page.wait_for_load_state("networkidle", timeout=90000); expect(page.locator('#post-course')).to_have_value('design')
+        page.get_by_role('link', name='Bring it to the discussion', exact=False).click(); expect(page.get_by_role('heading', name='Community', level=1, exact=True)).to_be_visible(timeout=60000); expect(page.locator('#post-course')).to_have_value('design')
         page.locator('#post-title').fill('One change worth testing'); page.locator('#post-body').fill('I removed a competing action and will observe which action a reader chooses.')
         page.get_by_role('button', name='Post to local preview', exact=True).click()
         expect(page.get_by_role('heading', name='One change worth testing', exact=True)).to_be_visible(timeout=60000)
