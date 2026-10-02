@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 import argparse, json, os, hashlib
 from browser_platform_contract import check_shell_contract, check_reply_journey
 from browser_platform_catalog import check_rich_catalog
+from browser_platform_search import check_search_and_collections
 from playwright.sync_api import sync_playwright, expect
 parser = argparse.ArgumentParser()
 parser.add_argument('--url', default=os.environ.get('PLATFORM_URL', 'http://127.0.0.1:6435'))
@@ -44,6 +45,7 @@ with sync_playwright() as p:
         expect(glass).to_have_css('backdrop-filter', 'blur(16px) saturate(1.8)')
         passed('Reduced transparency has an opaque fallback and normal material restores correctly')
         page.get_by_label('Search courses', exact=True).fill('writing'); page.get_by_role('button', name='Search', exact=True).click()
+        expect(page.get_by_role('heading', name='Search', level=1, exact=True)).to_be_visible(timeout=60000)
         expect(page.get_by_role('heading', name='Make your ideas clear', exact=True)).to_be_visible(timeout=60000)
         expect(page.get_by_role('heading', name='Design with intention', exact=True)).to_have_count(0); passed('Search submits a real URL and filters the catalog')
         visit(page, DESIGN); page.get_by_role('button', name='Save course', exact=True).click()
@@ -90,6 +92,7 @@ with sync_playwright() as p:
                 page.screenshot(path=str(out/f'{name}-{width}.png'))
             passed(f'Four main surfaces contain content at {width}px')
         check_rich_catalog(page, visit, out, passed, shell_observations)
+        check_search_and_collections(page, visit, out, passed)
         page.set_viewport_size({'width':1440,'height':903}); visit(page, '/learn')
         page.get_by_role('link', name='Open music reference', exact=False).click(); page.wait_for_load_state("networkidle", timeout=90000); expect(page.locator('.music-sidebar')).to_be_visible()
         assert sidebar(page)==original_sidebar, (sidebar(page),original_sidebar); passed('Real client navigation back to music preserves sidebar computed styling')

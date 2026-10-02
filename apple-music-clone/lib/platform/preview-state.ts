@@ -1,13 +1,14 @@
 import { canReadDemoLesson, courses } from "./catalog";
 import { creatorById } from "./discovery";
 import { discussionPrompts } from "./community-seeds";
+import { recentQueries } from "./search";
 import type { PreviewState, PreviewPost, PreviewReply } from "./types";
 export const STORAGE_KEY = "courses:learning-preview:v1";
 export const MAX_POSTS = 40;
 export const MAX_REPLIES = 80;
 export const MAX_STORAGE_LENGTH = 400000;
 export const MAX_NOTE_LENGTH = 6000;
-export const emptyState = (): PreviewState => ({ version: 1, saved: [], progress: {}, notes: {}, posts: [], helpful: [], replies: [], following: [], resume: null });
+export const emptyState = (): PreviewState => ({ version: 1, saved: [], progress: {}, notes: {}, posts: [], helpful: [], replies: [], following: [], recentSearches: [], resume: null });
 const courseIds = new Set(courses.map(course => course.id));
 const lessonIds = new Set(courses.flatMap(course => course.lessons.filter(lesson => canReadDemoLesson(course, lesson.id)).map(lesson => lesson.id)));
 const object = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === "object" && !Array.isArray(value));
@@ -19,6 +20,8 @@ export function decodePreview(raw: string | null): { state: PreviewState; writab
     const value: unknown = JSON.parse(raw);
     if (!object(value) || value.version !== 1 || !Array.isArray(value.saved) || !object(value.progress) || !object(value.notes) || !Array.isArray(value.posts) || !Array.isArray(value.helpful)) throw new Error("unsupported");
     const state = emptyState();
+    if (value.recentSearches !== undefined && !Array.isArray(value.recentSearches)) throw new Error("invalid recent searches");
+    state.recentSearches = recentQueries((value.recentSearches ?? []) as unknown[]);
     if (value.following !== undefined && !Array.isArray(value.following)) throw new Error("invalid following");
     state.following = [...new Set(((value.following ?? []) as unknown[]).filter((id): id is string => typeof id === "string" && Boolean(creatorById(id))))];
     state.saved = [...new Set(value.saved.filter((id): id is string => typeof id === "string" && courseIds.has(id)))];

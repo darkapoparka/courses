@@ -17,5 +17,6 @@ export type PreviewState = {
   replies: PreviewReply[];
   // Additive preview preference. Following never grants course access.
   following: string[];
+  recentSearches: string[];
   resume: { courseId: string; lessonId: string } | null;
 };

@@ -21,7 +21,11 @@ def check_shell_contract(page, width, observations):
     assert 'blur(16px)' in actual['filter'] and 'saturate(1.8)' in actual['filter'], actual
     assert actual['background'] == 'rgba(248, 248, 250, 0.94)', actual
     if mobile: assert abs(actual['height']-114)<1, actual
-    observations.append({'viewport':width, **actual})
+    search = page.get_by_role('combobox', name='Search courses', exact=True)
+    expect(search).to_be_visible()
+    rect = search.bounding_box()
+    assert rect and rect['width'] >= 90 and rect['height'] >= 40, (width, rect)
+    observations.append({'viewport':width, 'search':rect, **actual})
 
 def check_reply_journey(page):
     post = page.get_by_role('article').filter(has=page.get_by_role('heading', name='One change worth testing', exact=True))

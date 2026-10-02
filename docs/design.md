@@ -57,3 +57,22 @@ The owner clarified on 2026-10-02 that the small A0 preview omitted too much of 
 | Account and billing | Real identity, enrollment, authoring and commerce retain their existing A1/A2 task owners |
 
 Routes now include `/learn/search`, `/learn/creators`, `/learn/creators/[slug]`, `/learn/categories`, `/learn/categories/[slug]`, and `/learn/courses`. Creator IDs are separate from labels; courses point to their creator, and categories connect the relevant creators, lessons and courses. Fictional creators are explicitly labeled, use original typographic portraits, and claim no credentials or popularity. Following is a local preference, not an access grant or subscription.
+
+
+## Shared controls are part of the migration — 2026-10-02 correction
+A destination existing is not proof that its UI/UX has been carried across. The owner identified missing visible search on most course pages. Preserve the original reference, but also implement its useful controls and states in the product; preserving a separate music route alone does not satisfy adaptation.
+The course shell owns a visible, sticky search field across discovery, creators, categories, collections, lessons and community. Page-local forms must not leave other surfaces without search. Suggestions support manual keyboard selection, Escape, click and a documented shortcut. Search covers public courses/creators/lesson metadata/categories, with All Courses versus Your Library scope and URL-addressable result types. Private notes/discussions are not indexed. Recents are explicitly local, bounded and removable without clearing other activity.
+The Courses, Saved and My learning collections need title/creator filtering, category/free-course filters, deterministic sort, grid/list views and working save controls. Filter/view URLs must survive reload and browser navigation. Empty-filter results are different from an empty collection. Search navigation must honor unsaved-note guards.
+
+| Source interaction family | Course implementation requirement | Owning task |
+| --- | --- | --- |
+| Search field, suggestions, recents, scoped results | Shared visible search plus courses/creators/lessons/subjects; not just a sidebar link | CP-029 |
+| Album/library filters, view switch, save state | Collection filters/sort/grid/list and real local save transitions | CP-030 |
+| Artist hierarchy, catalog, follow, contextual actions | Preserve creator identity/detail and add only meaningful actions; not all artist menus are adapted yet | CP-022, CP-025 |
+| Album detail, tracks, menus and editorial information | Rich course offer, curriculum, samples and accessible course/lesson actions | CP-025 |
+| Playlists and playlist editing | Ordered learning paths and user collections; still separate work | CP-026 |
+| Expanded player, queue, lyrics/resources and video | Lesson player, outline, transcript and resource panels with real state; do not fake media | CP-027 |
+| Account, preferences and access dialogs | Course identity/preferences/access with truthful preview and real integration boundaries | CP-028, CP-012 |
+| Replay, events and radio-style programming | Assess progress, events and scheduled learning; document decisions, do not silently drop families | CP-028 |
+
+These rows describe mapping coverage, not an additional acceptance ledger. `tasks.md` owns status. Match visual density and actual interactions before calling a family migrated; screenshots, route presence and green tests each prove only their stated scope.

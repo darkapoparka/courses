@@ -32,8 +32,10 @@ export function LessonTools({ courseId, lessonId }: { courseId: string; lessonId
       const anchor = (event.target as HTMLElement).closest?.("a[href]");
       if (anchor && !anchor.getAttribute("href")?.startsWith("#") && !window.confirm("Your note has unsaved changes. Leave without saving this draft?")) { event.preventDefault(); event.stopPropagation(); }
     };
+    const onSearchNavigate = (event: Event) => { if (!window.confirm("Your note has unsaved changes. Leave without saving this draft?")) event.preventDefault(); };
+    window.addEventListener("courses:before-navigate", onSearchNavigate);
     window.addEventListener("beforeunload", onUnload); document.addEventListener("click", onNavigate, true);
-    return () => { window.removeEventListener("beforeunload", onUnload); document.removeEventListener("click", onNavigate, true); };
+    return () => { window.removeEventListener("courses:before-navigate", onSearchNavigate); window.removeEventListener("beforeunload", onUnload); document.removeEventListener("click", onNavigate, true); };
   }, [draft]);
   return <section className={styles.lessonTools} aria-labelledby="practice-progress"><h2 id="practice-progress">Make it part of your practice</h2><button className={styles.primaryButton} aria-pressed={complete} disabled={!ready || !writable} onClick={() => {
     const ok = updatePreview(current => ({ ...current, progress: { ...current.progress, [lessonId]: { completed: !current.progress[lessonId]?.completed, updatedAt: new Date().toISOString() } } }));

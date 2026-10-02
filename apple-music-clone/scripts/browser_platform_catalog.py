@@ -45,6 +45,7 @@ def check_rich_catalog(page, visit, out, passed, observations):
     expect(page.get_by_role("heading", name="Start by noticing", exact=True)).to_be_visible(timeout=60000)
     passed("Creator to course to creator to category to lesson works through real links")
     page.get_by_role("navigation", name="Main navigation").get_by_role("link", name="Search", exact=True).click(); page.wait_for_load_state("networkidle", timeout=90000)
+    expect(page.get_by_role("heading", name="Search", level=1, exact=True)).to_be_visible(timeout=60000)
     page.get_by_label("Search courses", exact=True).fill("Maya Chen")
     page.get_by_role("button", name="Search", exact=True).click()
     expect(page.get_by_role("heading", name="Maya Chen", exact=True)).to_be_visible(timeout=60000)

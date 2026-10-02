@@ -107,3 +107,45 @@ test('following is bounded to known creators and invalid data stays read-only', 
   assert.deepEqual(decoded.state.saved, []); assert.deepEqual(decoded.state.progress, {});
   value.following = 'malformed'; assert.equal(state.decodePreview(JSON.stringify(value)).writable, false);
 });
+
+const search = load('search');
+test('search handles all public entity types without indexing protected bodies or private notes', () => {
+  const hits = search.searchCatalog('design');
+  for (const kind of ['courses', 'creators', 'lessons', 'categories']) assert(hits.some(hit => hit.kind === kind));
+  assert.equal(search.searchCatalog('Before you move a button').length, 0);
+  assert.equal(search.searchCatalog('   ').length, 0);
+  assert(search.searchCatalog('Design the states', 'lessons').every(hit => hit.available === false));
+});
+test('search scope limits every entity to saved or started courses, never following', () => {
+  const value = state.emptyState(); value.following=['noah']; value.saved=['design'];
+  assert.deepEqual(search.libraryCourseIds(value), ['design']);
+  assert.equal(search.searchCatalog('Noah', 'all', search.libraryCourseIds(value)).length, 0);
+  assert.equal(search.searchCatalog('design', 'all', []).length, 0);
+  value.progress['writing-reader']={completed:false,updatedAt:'2026-10-02T12:00:00Z'};
+  assert.deepEqual(search.libraryCourseIds(value), ['design','writing']);
+});
+test('query parsing and URLs reject unsupported shapes and encode text safely', () => {
+  assert.equal(search.normalizeQuery(['a','b']), '');
+  assert.equal(search.normalizeQuery('  Maya   Chen '), 'Maya Chen');
+  assert.equal(search.normalizeQuery('x'.repeat(200)).length, 100);
+  assert.equal(search.searchKind('html'), 'all'); assert.equal(search.searchScope('admin'), 'catalog');
+  assert(search.searchHref('<script>&x', 'library', 'lessons').startsWith('/learn/search?q=%3Cscript%3E%26x'));
+});
+test('recent searches are bounded, normalized and backward compatible', () => {
+  assert.deepEqual(search.recentQueries(['Design', ' design ', 17, null, '  ', 'Maya Chen']), ['Design','Maya Chen']);
+  assert.equal(search.recentQueries(Array.from({length:20},(_,i)=>String(i))).length, 8);
+  const value=state.emptyState(); delete value.recentSearches; value.notes['design-observe']='Keep this note';
+  const decoded=state.decodePreview(JSON.stringify(value)); assert(decoded.writable);
+  assert.deepEqual(decoded.state.recentSearches, []); assert.equal(decoded.state.notes['design-observe'], 'Keep this note');
+  value.recentSearches='unknown schema'; assert.equal(state.decodePreview(JSON.stringify(value)).writable, false);
+});
+test('collection filters and sorts do not mutate the catalog or grant access', () => {
+  const before=JSON.stringify(catalog.courses);
+  assert.deepEqual(search.selectCourses(catalog.courses,'','', 'free', 'duration').map(c=>c.id), ['writing','design']);
+  assert.deepEqual(search.selectCourses(catalog.courses,'Maya','Design','all','title').map(c=>c.id), ['design']);
+  assert.equal(search.selectCourses(catalog.courses,'Maya','Writing','all','title').length,0);
+  assert.equal(JSON.stringify(catalog.courses), before);
+  const options=search.catalogOptions({view:'list',sort:'duration',category:'unknown',filter:['a']});
+  assert.equal(search.catalogHref('/learn/courses',options), '/learn/courses?sort=duration&view=list');
+  assert.equal(search.catalogHref('https://untrusted.invalid', search.catalogOptions({})), '/learn/courses');
+});

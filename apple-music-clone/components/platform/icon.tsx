@@ -1,6 +1,7 @@
 import type { SVGProps } from "react";
-type Name = "discover" | "search" | "library" | "saved" | "community" | "arrow" | "check" | "book" | "lock" | "person" | "grid";
+type Name = "discover" | "search" | "library" | "saved" | "community" | "arrow" | "check" | "book" | "lock" | "person" | "grid" | "list";
 const paths: Record<Name, string> = {
+  list: "M8 6h13M8 12h13M8 18h13M3 6h.1M3 12h.1M3 18h.1",
   discover: "m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z",
   search: "M17 17l4 4M19 10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z",
   library: "M4 4v16M9 4v16m5-15 5-1 3 15-5 1-3-15Z",

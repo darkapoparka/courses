@@ -267,3 +267,70 @@
   .lessonDuration { display:none; }
 }
 @media (max-width:380px) { .topicGrid { grid-template-columns:1fr; } .topicCard { min-height:170px; } }
+
+/* CP-029: shared search chrome, not a page-specific hidden destination. */
+.browseToolbar { position:sticky; top:0; z-index:55; display:flex; align-items:center; justify-content:center; gap:20px; min-height:66px; padding:10px var(--course-gutter-right) 10px var(--course-gutter-left); background:rgb(255 255 255 / 94%); border-bottom:1px solid var(--course-line); -webkit-backdrop-filter:blur(24px) saturate(1.5); backdrop-filter:blur(24px) saturate(1.5); }
+.toolbarLabel { font-size:12px; color:var(--course-muted); white-space:nowrap; }
+.searchAnchor { position:relative; flex:1; max-width:560px; min-width:0; }
+.globalSearch { display:flex; align-items:center; gap:8px; width:100%; min-width:0; min-height:44px; padding:0 6px 0 14px; border-radius:999px; border:1px solid #e2e2e7; background:#f8f8fa; color:var(--course-muted); box-shadow:0 2px 12px rgb(0 0 0 / 3%); }
+.globalSearch:focus-within { background:#fff; border-color:#a0a0aa; }
+.globalSearch input { flex:1; min-width:0; width:100%; height:42px; background:transparent; border:0; font-size:12px; }
+.globalSearch > svg { width:17px; height:17px; }
+.searchSubmit { min-height:42px; padding:0 13px; color:var(--course-accent); font-size:12px; font-weight:500; border-radius:999px; white-space:nowrap; }
+.clearSearch { width:32px; height:40px; flex:none; font-size:23px; color:var(--course-muted); border-radius:999px; }
+.searchShortcut { flex:none; color:var(--course-muted); font-family:inherit; font-size:10px; padding:3px 6px; border:1px solid #e1e1e5; border-radius:5px; }
+.searchPopup { position:absolute; left:0; right:0; top:calc(100% + 9px); border:1px solid #dedee4; border-radius:13px; background:#fff; box-shadow:0 12px 36px rgb(0 0 0 / 14%); overflow:hidden; }
+.searchPopup > p { padding:12px 14px 7px; font-size:10px; font-weight:600; color:var(--course-muted); }
+.searchPopup ul { list-style:none; margin:0; padding:0 6px; max-height:320px; overflow:auto; }
+.searchPopup li { display:flex; align-items:center; gap:12px; min-height:56px; padding:9px 10px; border-radius:7px; cursor:pointer; }
+.searchPopup li[aria-selected="true"],.searchPopup li:hover { background:#f3f3f6; }
+.searchPopup li > span { flex:1; min-width:0; }
+.searchPopup strong,.searchPopup small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.searchPopup strong { font-size:12px; font-weight:500; } .searchPopup small { font-size:10px; color:var(--course-muted); text-transform:capitalize; margin-top:2px; }
+.searchPopup li > svg { width:16px; height:16px; color:var(--course-muted); }
+.searchPopup .suggestionHint { padding:10px 14px; font-weight:400; border-top:1px solid var(--course-line); }
+.main { scroll-padding-top:78px; }
+.searchScopes { display:flex; width:fit-content; max-width:100%; padding:4px; border-radius:999px; background:#f3f3f6; gap:4px; }
+.searchScopes a { min-height:38px; display:flex; align-items:center; padding:8px 20px; border-radius:999px; font-size:12px; color:var(--course-muted); }
+.searchScopes a[aria-current="page"] { background:#fff; color:var(--course-ink); box-shadow:0 1px 5px rgb(0 0 0 / 8%); }
+.scopeNote { color:var(--course-muted); font-size:11px; margin-top:12px !important; }
+.resultKinds { display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--course-line); padding:20px 0 12px; }
+.resultKinds a { display:flex; align-items:center; min-height:40px; padding:8px 12px; gap:6px; border-radius:8px; font-size:12px; }
+.resultKinds a[aria-current="page"] { color:var(--course-accent); background:#f9edf0; }
+.resultKinds span { color:var(--course-muted); font-size:10px; }
+.resultCount { color:var(--course-muted); font-size:12px; padding-top:16px; }
+.searchLessons { list-style:none; padding:0; margin:0; }
+.searchLessons li { border-bottom:1px solid var(--course-line); }
+.searchLessons a { display:flex; align-items:center; min-height:72px; padding:12px 8px; gap:14px; border-radius:8px; }
+.searchLessons a:hover { background:var(--course-surface); } .searchLessons a > span:nth-child(2) { flex:1; min-width:0; }
+.searchLessons strong { display:block; font-size:13px; font-weight:500; } .searchLessons small { display:block; color:var(--course-muted); font-size:11px; margin-top:4px; }
+.resultArtwork { display:grid; place-items:center; color:#fff; width:44px; height:44px; border-radius:7px; flex:none; }
+.recentSearches { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.recentSearches li { display:flex; align-items:center; background:var(--course-surface); border-radius:8px; }
+.recentSearches a { display:flex; align-items:center; gap:10px; flex:1; min-width:0; overflow-wrap:anywhere; min-height:54px; padding:12px; font-size:12px; }
+.recentSearches button { flex:none; width:44px; height:44px; font-size:22px; border-radius:8px; color:var(--course-muted); }
+.catalogFilters { display:flex; align-items:end; flex-wrap:wrap; gap:12px; padding:20px 0; border-block:1px solid var(--course-line); }
+.catalogFilters .filterField { display:flex; flex-direction:column; gap:6px; flex:1; min-width:120px; font-size:10px; font-weight:600; color:var(--course-muted); }
+.catalogFilters .filterField:first-child { flex:1.6; }
+.catalogFilters :is(input:not([type="hidden"]),select) { border:1px solid #d4d4db; border-radius:8px; padding:9px 10px; min-height:42px; width:100%; min-width:0; font-size:12px; font-weight:400; background:#fff; }
+.catalogUtility { display:flex; align-items:center; gap:16px; margin:14px 0 24px; min-height:44px; }
+.catalogUtility > p { font-size:11px; color:var(--course-muted); }
+.viewSwitch { margin-left:auto; display:flex; gap:3px; padding:3px; border-radius:9px; background:var(--course-surface); }
+.viewSwitch a { display:grid; place-items:center; width:38px; height:36px; border-radius:6px; color:var(--course-muted); }
+.viewSwitch a[aria-current="page"] { color:var(--course-accent); background:#fff; box-shadow:0 1px 4px rgb(0 0 0 / 7%); }
+.collectionCard { position:relative; min-width:0; }
+.catalogSave { display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:rgb(255 255 255 / 96%); color:var(--course-accent); flex:none; }
+.collectionCard > .catalogSave { position:absolute; top:8px; right:8px; box-shadow:0 2px 10px rgb(0 0 0 / 12%); }
+.catalogList { list-style:none; margin:0; padding:0; }
+.catalogList > li { display:grid; grid-template-columns:44px minmax(0,1fr) 110px 200px 44px; gap:16px; align-items:center; padding:12px 10px; border-bottom:1px solid var(--course-line); }
+.catalogList > li:nth-child(even) { background:#fafafa; }
+.listTitle { display:block; font-size:13px; font-weight:500; } .listCreator { display:inline-block; font-size:11px; color:var(--course-muted); }
+.listTitle:hover,.listCreator:hover { text-decoration:underline; } .listCategory,.listOffer { color:var(--course-muted); font-size:11px; }
+@media (max-width:1100px) { .toolbarLabel,.searchShortcut { display:none; } .catalogList > li { grid-template-columns:44px minmax(0,1fr) 145px 44px; gap:12px; } .listCategory { display:none; } .recentSearches { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .browseToolbar { padding:10px 16px; gap:0; min-height:64px; } .searchAnchor { max-width:none; } .globalSearch { gap:6px; padding-left:10px; } .searchSubmit { padding:0 10px; } .searchPopup { max-height:calc(100dvh - 200px); overflow:auto; } .recentSearches { grid-template-columns:1fr; } .catalogFilters { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } .catalogFilters .filterField { min-width:0; } .catalogFilters .filterField:first-child { grid-column:1/-1; } .catalogList > li { grid-template-columns:36px minmax(0,1fr) 44px; gap:8px; } .catalogList .resultArtwork { width:36px; height:36px; grid-row:1/3; } .catalogList .catalogSave { grid-column:3; grid-row:1/3; } .listOffer { grid-column:2; font-size:10px; } .searchLessons small { font-size:10px; } .viewSwitch a { width:44px; height:40px; } }
+@media (prefers-reduced-transparency:reduce) { .browseToolbar { background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; } }
+@media (forced-colors:active) { .globalSearch,.searchPopup,.resultArtwork,.catalogSave,.searchScopes,.viewSwitch { border:1px solid CanvasText; } }
+
+/* Keep keyboard focus on the whole search pill, rather than a clipped input box. */
+.shell .globalSearch input:focus-visible { outline:none; }
+.globalSearch:has(input:focus-visible) { outline:3px solid var(--course-focus); outline-offset:2px; }

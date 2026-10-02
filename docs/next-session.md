@@ -9,6 +9,8 @@ Read root/app/scoped AGENTS.md, docs/handoff.md, docs/tasks.md, docs/style.md an
 
 Continue the current /learn implementation. Creator directory/detail, category directory/detail, rich editorial shelves, unified search, linked course ownership and local following were added to restore the artist/genre patterns. Check the latest handoff and CP-021 through CP-024 evidence before assuming their validation is complete.
 
+Preserve the shared visible search toolbar, keyboard suggestions, local recents, result-type/library scope filters, and URL-backed collection filters/sort/grid/list under CP-029 and CP-030. A page existing is not equivalent to migrating its controls. Search must not bypass unsaved-note protection or index private notes. Keep visible field labels correctly associated with each input/select.
+
 The next priorities are CP-025 and CP-026: richer album-to-course/curriculum actions and playlist-to-learning-path/collection behavior. Reuse the current UI, types, tokens and working navigation, notes, progress, saved items and discussions. Do not invent playback, enrollment, purchases, follower counts or activity. Use original/licensed demo content. Track the remaining player/panel/media and event/account families under their actual owners rather than silently omitting them.
 
 Backend A1 tasks remain important, but do not abandon the requested rich interface migration for a backend-only or disconnected mock-screen session. No arbitrary provider projects, paid provisioning, live charges, public deployment or external notifications without explicit authorization. Browser flags never authorize paid content.
