@@ -76,3 +76,34 @@ test('replies retain the correct local discussion parent', () => {
   assert.equal(decoded.replies[0].postId, 'local-parent');
   assert.equal(decoded.replies.filter(r => r.postId === 'seed-design').length, 0);
 });
+
+const discovery = load('discovery');
+test('creator and topic identities are unique and every course has an owner', () => {
+  for (const key of ['id', 'slug']) assert.equal(new Set(discovery.creators.map(c => c[key])).size, discovery.creators.length);
+  assert.equal(new Set(discovery.topics.map(t => t.slug)).size, discovery.topics.length);
+  for (const course of catalog.courses) {
+    const creator = discovery.creatorById(course.creatorId);
+    assert(creator); assert.equal(creator.category, course.category);
+    assert(discovery.topics.some(topic => topic.name === course.category));
+    assert.equal(discovery.creatorBySlug(creator.slug), creator);
+  }
+});
+test('creator search returns associated courses and rejects unknown entity URLs', () => {
+  assert.deepEqual(catalog.filterCourses('Maya Chen', '').map(c => c.id), ['design']);
+  assert.equal(discovery.creatorBySlug('unknown'), undefined);
+  assert.equal(discovery.topicBySlug('unknown'), undefined);
+});
+test('older preview data gains following without losing notes or bookmarks', () => {
+  const value = state.emptyState(); delete value.following;
+  value.saved = ['design']; value.notes['design-observe'] = 'Keep this note.';
+  const decoded = state.decodePreview(JSON.stringify(value));
+  assert(decoded.writable); assert.deepEqual(decoded.state.following, []);
+  assert.deepEqual(decoded.state.saved, ['design']); assert.equal(decoded.state.notes['design-observe'], 'Keep this note.');
+});
+test('following is bounded to known creators and invalid data stays read-only', () => {
+  const value = state.emptyState(); value.following = ['maya', 'maya', 'missing'];
+  const decoded = state.decodePreview(JSON.stringify(value));
+  assert.deepEqual(decoded.state.following, ['maya']);
+  assert.deepEqual(decoded.state.saved, []); assert.deepEqual(decoded.state.progress, {});
+  value.following = 'malformed'; assert.equal(state.decodePreview(JSON.stringify(value)).writable, false);
+});

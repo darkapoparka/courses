@@ -2,7 +2,7 @@ export type Category = "Design" | "Development" | "Writing" | "Photography" | "B
 export type Lesson = Readonly<{ id: string; title: string; minutes: number; preview: boolean }>;
 export type Course = Readonly<{
   id: string; slug: string; title: string; subtitle: string; category: Category;
-  creator: string; level: "Beginner" | "Intermediate"; minutes: number;
+  creatorId: string; level: "Beginner" | "Intermediate"; minutes: number;
   priceMinor: number; currency: "EUR"; cover: "rose" | "blue" | "amber" | "green" | "violet";
   coverLabel: string; outcome: string; prerequisites: string; lessons: readonly Lesson[];
 }>;
@@ -15,5 +15,7 @@ export type PreviewState = {
   notes: Record<string, string>; posts: PreviewPost[]; helpful: string[];
   // Additive v1 field: older saved previews without replies decode to an empty array.
   replies: PreviewReply[];
+  // Additive preview preference. Following never grants course access.
+  following: string[];
   resume: { courseId: string; lessonId: string } | null;
 };

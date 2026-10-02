@@ -41,3 +41,19 @@ For every slice record entry and exit routes, source of state, allowed transitio
 
 ## Near-term validation, not vanity metrics
 Observe whether a learner can find a suitable course, distinguish a sample from paid access, start without assistance, return to the right lesson and ask a question with its context intact. Observe whether a creator can publish without losing a draft and understand who can see each item. Measure completion of those tasks, errors and recovery before adding streaks, leaderboards, AI, live events or complex subscriptions.
+
+## Owner clarification: adapt the full interface, do not simplify it away
+The owner clarified on 2026-10-02 that the small A0 preview omitted too much of the existing music experience. It is an implementation starting point, not permission to discard the screen/interaction inventory. Keep the music reference intact, evolve the current platform components, and connect equivalent entities with real navigation. Do not create a third application or mechanically relabel playback as learning when the behavior would be false.
+
+| Music family | Course adaptation and owner |
+| --- | --- |
+| Search, New, editorial shelves | Unified creator/course search, Discover, real Next/Previous and keyboard shelf controls (`CP-021`) |
+| Artists and artist detail | Creator directory, following preference, broad identity hero, teaching catalog, open lessons, biography/context and related creators (`CP-022`) |
+| Genres | Subject directory and detail with courses, creators and sample lessons (`CP-023`) |
+| Albums and tracks | Course offer, ordered curriculum, samples, lesson selection and detail actions; retain rich interaction work (`CP-025`) |
+| Playlists and library collections | Learning paths and personal collections; no invented enrollment or automatic completion (`CP-026`) |
+| Player, lyrics and queue | Focused lesson media, readable transcript/resources and upcoming lessons; preserve preview/access distinctions (`CP-027`) |
+| Radio, schedules and concerts | Consider cohort sessions/events only when real content and useful behavior are available; no dead controls or invented attendance (`CP-028`) |
+| Account and billing | Real identity, enrollment, authoring and commerce retain their existing A1/A2 task owners |
+
+Routes now include `/learn/search`, `/learn/creators`, `/learn/creators/[slug]`, `/learn/categories`, `/learn/categories/[slug]`, and `/learn/courses`. Creator IDs are separate from labels; courses point to their creator, and categories connect the relevant creators, lessons and courses. Fictional creators are explicitly labeled, use original typographic portraits, and claim no credentials or popularity. Following is a local preference, not an access grant or subscription.

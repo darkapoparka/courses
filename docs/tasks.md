@@ -1736,3 +1736,17 @@ The owner authorized adaptation now; this supersedes the old requirement to comp
 - [ ] `CP-020` Resolve branding/assets, privacy/retention/age rules, terms, fees/taxes/refunds/access policy, budgets and explicit live-release approval. Only then enable live payments, external delivery and public production.
 
 A0 checkpoint evidence, 2026-10-02: 22/22 domain checks, 22/22 development browser checks and 22/22 optimized browser checks; four surfaces at six widths and 24 computed-shell observations per run. Evidence: `.qa/platform-final-dev-media-20261002-resume/` and `.qa/platform-final-canonical-20261002-resume/`; optimized build `sJy5-1zZtYGVBg3uQpeUd`. Reply screenshots at 1440px and 320px were visually reviewed in `.qa/platform-reply-review-20261002/`. Original catalog/learning/community foundation was inherited and verified; reply functionality and regression contracts were added in this batch. CI gates are wired, not a claim of an observed green remote run. Windows standalone packaging remains unverified after a dependency-link EPERM failure; the optimized runtime passed when launched from the resolved checkout, not the junction spelling. Full local music corpus and real backend/release acceptance remain separate.
+
+
+### Rich adaptation correction — owner priority on 2026-10-02
+The owner requested continuation of the full music-derived UI/UX rather than a stripped-down preview. Keep A1/A2 backend tasks; these frontend mappings take immediate priority without removing the original implementation.
+- [x] `CP-021` Restore rich editorial shelves and unified creator/course search, with real Next/Previous, keyboard navigation and URL history.
+- [x] `CP-022` Map artist directory/detail to fictional demo creators, creator-course links, hero/catalog/lesson/about/related sections, and compatible local following preferences.
+- [x] `CP-023` Map genre browsing to subject directory/detail with correctly associated courses, creators and open lessons.
+- [x] `CP-024` Restore grouped navigation, verify all new routes at six widths, preserve existing progress/notes/community flows, and prove original music source remained unchanged.
+- [ ] `CP-025` Continue rich course-detail/curriculum adaptation: complete meaningful course actions, ordered lesson states and richer offer/details while preserving existing learning behavior.
+- [ ] `CP-026` Adapt playlist/collection UX into real navigable learning paths and saved collections, with explicit preview persistence and no false access grants.
+- [ ] `CP-027` Adapt expanded player/queue/panels into meaningful lesson media, outline and readable transcript/resources, not a second minimal reader or pretend playback.
+- [ ] `CP-028` Review remaining screen families against the preserved inventory; map useful account/event/progress surfaces and explicitly justify any deferred music-only behavior.
+
+Rich adaptation checkpoint: CP-021 through CP-024 passed 26 domain/style tests and 33 development plus 33 optimized browser checks, including eight surfaces at six widths (48 shell observations per run), linked creator/category journeys, following persistence, shelf controls and unchanged existing preview behavior. Evidence: `.qa/rich-dev-20261002-reviewed/`, `.qa/rich-prod-20261002-reviewed/`; build `slghx_J2K2svgbdVDZvaG`. The 78 fingerprinted pre-existing top-level app/components/lib source files remained unchanged. This is local course-preview verification, not complete Apple parity, backend integration or final-SHA CI certification. See handoff.md for failures, scope and runtime.

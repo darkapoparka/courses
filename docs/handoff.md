@@ -1,5 +1,33 @@
 # Courses - current handoff
 
+## Rich creator/category adaptation — 2026-10-02
+
+Starting Git checkpoint: `fe8593bc20eaf4aca49157a18c841026d2749158`. The owner clarified that adaptation means carrying forward the rich Apple Music UI/UX inventory: artists become creators, genres become subjects, albums become courses and playlists become learning paths. The earlier A0 preview was too narrow to represent the complete product. Preserve the original music implementation and unfinished acceptance ledger; do not replace them with a minimal dashboard or restart parity sign-off as a prerequisite.
+
+### Implemented and verified in this batch
+Five explicitly fictional demo creators now have stable IDs, linked courses, directory/following views, broad artist-style identity pages, catalog, open lessons, about/subject context and related creator shelves. Genre patterns now map to five subject categories and detail pages connecting the correct creators, courses and samples. Search finds creators and their courses. Discover uses working horizontal editorial shelves with Next/Previous and keyboard scrolling. Explore/Library sidebar groups expose all eight destinations, including a horizontally scrollable mobile navigation rather than dropping destinations.
+The existing saved courses, lesson reading, completion, resume, notes, community posts, reactions and replies remain. Following is a bounded local preference with old-v1 compatibility; it neither enrolls nor sends notifications. No backend, real account, payments, creator credentials or audience counts are implied. New course artwork and initials are original demo compositions, not copied Apple assets.
+
+### Evidence and scope
+- Platform domain/style tests: 26/26 passed. TypeScript and optimized webpack build passed.
+- Development: 33/33 named browser checks, zero captured page errors, 48 computed-shell observations across eight surfaces at 320/390/768/1024/1280/1440px. Evidence: `apple-music-clone/.qa/rich-dev-20261002-reviewed/`.
+- Optimized runtime: the same 33/33 checks passed with stable source identity and the same 48 shell observations. Build `slghx_J2K2svgbdVDZvaG`, output `.qa/rich-prod-20261002`, evidence `.qa/rich-prod-20261002-reviewed/`.
+- Both runs retained platform/tooling digest `8b9e271c141a3e73c9756879864a4a168ac6253156d834e7a03469928154fa01`. Each retained the same-run music before/after pixel check and actual computed sidebar material. This checks cross-route leakage, not complete 159-state parity.
+- The 78 previously fingerprinted top-level app/components/lib source files are byte-identical to this session's starting working state. Proof: `.qa/rich-work-20261002/music-preservation.json`. Reference archive checks pass; UI 159/159, MATCH 127/159 and FLOW 34/58 are unchanged.
+- Visually reviewed desktop Discover, category and creator screens, the saved artist original, mobile Discover/detail and new creator/category captures. This is independent course-design review, not Apple MATCH approval or an accessibility certification.
+- Documentation validator and its nine tests, task coverage, archive integrity and whitespace checks passed. Previous commit `fe8593b` also finished the full GitHub reference/platform workflow successfully (run `37033947235`); that prior success does not certify this later batch. Check the final commit's own Actions result.
+
+### Runtime recovery and retained failures
+The old dev listener PID 8340/parent 10368 was positively identified as Courses and timed out while still listening. Only those verified processes were stopped. Replacement dev runs at `http://127.0.0.1:6435/learn`, output `.qa/dev-rich-20261002-201018`, parent PID 22864 and observed listener PID 43640. Runtime/log record: `.qa/dev-rich-20261002-201018-logs/`. Inspect creation time and command line before acting on a reused PID.
+The optimized local audit runs on loopback 6546, PID 7696, from the same physical checkout `L:\PLATFORMS\courses\app\apple-music-clone`. It uses the existing next-start local-audit path and standalone advisory; deployment packaging is not newly verified. The old 6545 listener is an older candidate, not this batch.
+Cold dev compilation caused long navigation waits. Failed runs remain in `.qa/rich-dev-20261002-{final,stable,navigation,complete}`: an aborted navigation during editing, a Saved-page test that could falsely match the prior course heading, a community destination checked before navigation completed, and an ambiguous creator/course heading. The runner now checks actual destination headings, uses level-1 for course detail and awaits network completion after real link clicks. Assertions were not removed, clicks were not forced, and no state was injected to manufacture the rich journeys. The fresh development and optimized runs above are the final passing evidence.
+Build-generated next-env and tsconfig type-path changes were compared against exact pre-build copies and only those generated differences restored. Prior dirty music/config/generated files and all untracked evidence remain preserved and excluded from the platform commit. No cleanup, deletion, junction change, framework upgrade, new app, public deployment or paid provisioning was performed.
+
+### Next implementation
+`CP-021` through `CP-024` are locally verified. Continue `CP-025` rich course-detail/curriculum actions, then `CP-026` playlist-to-learning-path/collection behavior. Preserve the complete mapping in `design.md`; player/panel/media and remaining families have explicit follow-up tasks rather than silent omission. Backend `CP-011` onward remains planned; do not abandon this requested rich frontend migration for disconnected mock screens or a backend-only detour. The full continuation prompt is in `docs/next-session.md`.
+
+Publication is the coherent commit containing this entry; inspect HEAD/origin for its SHA and exact-SHA CI status. Local verification covered the preserved working tree, including unrelated pre-existing music edits; a clean-checkout CI run independently validates the committed candidate.
+
 ## Course adaptation checkpoint - 2026-10-02
 
 Implementation commit: `1d140c83f9e1996bad7b609e207cae2332894d1e` (`feat(platform): establish course preview and style contracts`). A following documentation-only commit records this identifier. Local results below are verified; remote push/CI status must be read from origin and Actions for the final HEAD, not inferred from this file.
