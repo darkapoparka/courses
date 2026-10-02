@@ -20,6 +20,9 @@ def check_rich_catalog(page, visit, out, passed, observations):
     expect(page.get_by_role("heading", name="Creators", exact=True)).to_be_visible(timeout=60000)
     page.get_by_role("link", name=re.compile("^Maya Chen Design")).click(); page.wait_for_load_state("networkidle", timeout=90000)
     expect(page.get_by_role("heading", name="Maya Chen", exact=True)).to_be_visible(timeout=60000)
+    expect(page.locator('[class*=lessonThumb] img')).to_have_count(3)
+    for image in page.locator('[class*=lessonThumb] img').all():
+        expect(image).not_to_have_css("display", "none")
     expect(page.get_by_role("navigation", name="Main navigation").get_by_role("link", name="Creators", exact=True)).to_have_attribute("aria-current", "page")
     before = page.evaluate("JSON.parse(localStorage.getItem('courses:learning-preview:v1'))")
     page.get_by_role("button", name="Follow Maya Chen", exact=True).click()

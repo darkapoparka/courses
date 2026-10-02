@@ -8,11 +8,11 @@ The working storefront lives at `/learn/home`; the Courses brand link opens it. 
 ## First-screen composition
 1. Shared visible search and the existing floating sidebar.
 2. A compact browsing headline and immediately visible subject navigation.
-3. Two photographic editorial course features with real course destinations.
+3. A native horizontal feature shelf with quiet captions above un-tinted photography and real course destinations.
 4. A visible course selection: artwork, subject, title, creator, level, lesson count, duration, price, bookmark and Preview. Do not substitute a progress panel or an onboarding form.
 5. Real category/price filters and deterministic sorting. The initial selection includes all five current demo courses; do not hide owned/saved/started items from a marketplace or pretend this small catalog has thousands of offers.
 
-At the current 1440px desktop layout, the editorial features are 245px high and the course grid has five columns; smaller widths use three or two columns. The first course row includes prices without a floating activity panel covering them. Features and subject links scroll on narrow screens; course cards remain a browsable two-column grid. Use existing tokens, restrained red actions and quiet separators rather than a generic dashboard kit.
+At the desktop layout, two captioned editorial covers are visible at roughly 2:1 while the catalog uses five square-cover columns; smaller widths use three or two columns. The first course row includes prices without a floating activity panel covering them. Features and subject links scroll on narrow screens; course cards remain a browsable two-column grid. Use neutral white surfaces, restrained red selection, captions and spacing. Do not restore cream hero overlays, black category pills or full-width decorative section dividers.
 
 ## Browsing and offer behavior
 Subject links retain the price/sort settings. Price choices are All prices, Free and Under EUR 50. Under EUR 50 means strictly below 5000 minor units. Sort options are editorial order, price ascending and shortest first. Query values are validated, URL-addressable and preserved on reload/back navigation. An empty combination offers Browse all courses, not fake catalog entries.
@@ -32,3 +32,7 @@ Verify actual course/creator/preview navigation, filtering, browser history, unc
 
 ## Next work
 Expand the real demo catalog only with coherent course details and readable sample content; do not fill shelves with dead offers. Rich course/curriculum actions remain CP-025, learning paths CP-026, meaningful lesson media and panels CP-027. Real accounts, creator authoring, enrollment, checkout and public community retain their backend gates. None is inferred from a polished storefront.
+
+## Visual restoration, 2026-10-02
+Home stays a marketplace. The title and persistent search share a compact desktop header; narrow layouts keep both visible. Category/price choices have understated neutral selection, features place captions outside artwork, course covers are square, and save/preview actions sit below the art. Creator merchandising reuses the existing round CreatorCard shelf. Do not reintroduce a dashboard, marketing-banner overlays or a second visual kit. The saved New capture `e72be564-1f7a-4448-9568-f239af3233ed` is the comparison source; its images stay separate from the product.
+The shared shell no longer adds a separate notice stripe, footer rule or all-red inactive navigation. Demo/access disclosures remain visible in the sidebar, offer copy, preview and footer. Row separators remain valid in actual curriculum/discussion lists; blanket removal would reduce their readability. `CP-036`–`CP-038` own this pass; tests are not owner aesthetic approval.

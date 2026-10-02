@@ -2,6 +2,7 @@
 import re
 from playwright.sync_api import expect
 from browser_platform_contract import check_shell_contract
+from browser_platform_visual import check_marketplace_style, check_merchandising_controls
 
 def check_marketplace(existing_page, visit, out, passed, observations, errors):
     context = existing_page.context.browser.new_context(viewport={'width':1440,'height':903},device_scale_factor=1)
@@ -11,7 +12,7 @@ def check_marketplace(existing_page, visit, out, passed, observations, errors):
     cdp.send('Emulation.setEmulatedMedia',{'features':[{'name':'prefers-reduced-transparency','value':'no-preference'},{'name':'forced-colors','value':'none'}]})
     def home():
         visit(page,'/learn/home')
-        expect(page.get_by_role('heading',name='Find your next possibility.',exact=True)).to_be_visible()
+        expect(page.get_by_role('heading',name='Home',level=1,exact=True)).to_be_visible()
     def cards(): return page.locator('[data-market-course]')
     try:
         home()
@@ -21,8 +22,11 @@ def check_marketplace(existing_page, visit, out, passed, observations, errors):
         expect(page.get_by_role('heading',name='Continue learning',exact=True)).to_have_count(0)
         expect(page.get_by_role('complementary',name='Continue learning',exact=True)).to_have_count(0)
         page.wait_for_function("[...document.querySelectorAll('[data-market-course] img')].every(image=>image.complete && image.naturalWidth>0)")
+        check_marketplace_style(page)
         page.screenshot(path=str(out/'marketplace-1440.png'))
         passed('Home is an artwork-led public course storefront, not an activity dashboard')
+        check_merchandising_controls(page)
+        passed('Reference-style featured shelves keep working pointer and keyboard controls')
         subjects=page.get_by_role('navigation',name='Marketplace subjects',exact=True)
         subjects.get_by_role('link',name='Business',exact=True).click()
         expect(page.locator('[data-market-course=business]')).to_be_visible(timeout=60000)
@@ -68,7 +72,7 @@ def check_marketplace(existing_page, visit, out, passed, observations, errors):
         passed('Storefront merchandising links reach actual course, creator and image-credit pages')
         for width in [320,390,768,1024,1280,1440]:
             page.set_viewport_size({'width':width,'height':844 if width<=760 else 903})
-            home(); check_shell_contract(page,width,observations)
+            home(); check_shell_contract(page,width,observations); check_marketplace_style(page)
             assert not page.locator('main').evaluate('e=>e.scrollWidth>e.clientWidth+1'),width
             page.screenshot(path=str(out/f'marketplace-{width}.png'))
             card.get_by_role('button',name='Preview Build for the web',exact=True).click()

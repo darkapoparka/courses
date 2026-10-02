@@ -206,3 +206,23 @@ test('Short lessons honor the time budget, completion switch and actual demo acc
 });
 
 require("./test-marketplace.cjs")({ test, assert, load, fs, path, app });
+
+// Visual restoration: keep neutral UI surfaces distinct from colorful course artwork.
+test('course canvas stays white without warm merchandising surface overrides', () => {
+  assert(css.includes('--course-canvas:#fff'));
+  assert(!css.includes('#f1f0ea'));
+  assert(!css.includes('background:#f3f3f1'));
+  const shell = fs.readFileSync(path.join(app, 'components/platform/platform-shell.tsx'), 'utf8');
+  assert(!shell.includes('styles.previewNotice'), 'Do not restore the extra full-width notice stripe');
+});
+test('marketplace reuses captioned editorial and creator shelves without hero copy overlays', () => {
+  const source = fs.readFileSync(path.join(app, 'components/platform/marketplace-home.tsx'), 'utf8');
+  assert(source.includes('EditorialShelf'));
+  assert(source.includes('CreatorCard'));
+  assert(!source.includes('marketFeatureLight'));
+  assert(!source.includes('A sharper eye.'));
+});
+test('compact lesson artwork hides old cover captions but not the photograph', () => {
+  assert(css.includes('.lessonThumb .cover > :not(img)'));
+  assert(!css.includes('.lessonThumb .cover > *'));
+});

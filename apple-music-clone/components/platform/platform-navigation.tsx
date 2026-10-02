@@ -21,7 +21,7 @@ const groups = [
 export function PlatformNavigation({ pathname }: { pathname: string }) {
   return <nav className={styles.navigation} aria-label="Main navigation">
     {groups.map(group => <div key={group.title} className={styles.navGroup}>
-      <span className={styles.navCaption}>{group.title}</span>
+      {group.title !== "Explore" && <span className={styles.navCaption}>{group.title}</span>}
       {group.items.map(item => <Link key={item.href} href={item.href}
         aria-current={pathname === item.href || (item.href !== "/learn" && pathname.startsWith(item.href + "/")) ? "page" : undefined}>
         <Icon name={item.icon} /><span>{item.label}</span>

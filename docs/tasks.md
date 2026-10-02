@@ -1772,3 +1772,10 @@ The owner rejected personal-dashboard Home and requested a course marketplace. C
 - [x] `CP-035` Add working course previews and bookmark controls, relocate personal learning without losing stored data, verify real journeys/mobile/optimized output and document the corrected Home contract.
 
 Storefront evidence: 42 domain/style tests, TypeScript/build, 53 complete optimized browser checks and 13 focused fresh-dev checks passed. Exact scope, retained initial dev failure, source identity and preservation are in handoff.md. Commerce and full Apple acceptance remain separate.
+
+### Visual restoration — owner feedback, 2026-10-02
+- [x] `CP-036` Restore the shared neutral canvas and shell: white main surface, reference-like sidebar density and inactive icons, visible search without a separate notice stripe, and no decorative footer/filter rules.
+- [x] `CP-037` Restore marketplace merchandising to the saved reference language: integrated Home/search header, captions above images, neutral subject selection, square covers, compact offer actions, reusable creator and feature shelves; preserve storefront semantics.
+- [x] `CP-038` Verify the complete styling batch through actual rendered color/geometry assertions, six-width visual review, shelf pointer/keyboard controls, existing browse/preview/save/learning/community journeys, optimized output and original-source preservation.
+
+Visual-restoration evidence: 45 domain/style tests and optimized build passed; 54 full optimized browser checks and seven focused dev checks passed. See handoff for source identity, six-width rendered styling assertions, legacy-source preservation, the retained earlier dev timeout and limits. Test success is not owner aesthetic approval.

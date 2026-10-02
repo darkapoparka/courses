@@ -46,7 +46,7 @@ export function MarketplaceBrowser({ courses, options, sampleIntroductions }: Pr
   return <section className={styles.marketCatalog} aria-labelledby="marketplace-courses" aria-busy={pending}>
     <div className={styles.marketCatalogHeading}>
       <div><h2 id="marketplace-courses">{filtered ? "Find your next course" : "Courses to get you started"}</h2>
-        <p>{courses.length} {courses.length === 1 ? "course" : "courses"} to explore. Every course has an open sample.</p></div>
+        <p>{courses.length} {courses.length === 1 ? "course" : "courses"} to explore. Sample prices. Checkout is not connected.</p></div>
       <Link className={styles.textButton} href="/learn/courses">Full catalog <Icon name="arrow" /></Link>
     </div>
     <div className={styles.marketFilters}>
@@ -78,16 +78,16 @@ export function MarketplaceBrowser({ courses, options, sampleIntroductions }: Pr
             <Link href={`/learn/courses/${course.slug}`} aria-label={`View ${course.title}`}>
               <img src={courseArtwork(course.id)} alt="" width="1200" height="800" loading="lazy" />
             </Link>
-            <span className={styles.marketCardCategory}>{course.category}</span>
-            <button type="button" className={styles.marketBookmark} aria-label={`${saved ? "Unsave" : "Save"} ${course.title}`}
-              aria-pressed={saved} disabled={!ready || !writable} onClick={() => toggleSaved(course)}><Icon name={saved ? "check" : "saved"} /></button>
+
+
           </div>
-          <h3><Link href={`/learn/courses/${course.slug}`}>{course.title}</Link></h3>
+          <div className={styles.marketCardHeading}><h3><Link href={`/learn/courses/${course.slug}`}>{course.title}</Link></h3><strong>{offerPrice(course)}</strong></div>
           <Link className={styles.marketTeacher} href={`/learn/creators/${creator?.slug}`}>{creatorName(course)}</Link>
           <p className={styles.marketCardMeta}>{course.level} · {course.lessons.length} lessons · {course.minutes} min</p>
           <div className={styles.marketCardBottom}>
-            <strong>{offerPrice(course)}</strong>
             <button type="button" onClick={event => preview(course, event.currentTarget)} aria-label={`Preview ${course.title}`}>Preview <Icon name="arrow" /></button>
+            <button type="button" className={styles.marketBookmark} aria-label={`${saved ? "Unsave" : "Save"} ${course.title}`}
+              aria-pressed={saved} disabled={!ready || !writable} onClick={() => toggleSaved(course)}><Icon name={saved ? "check" : "saved"} /></button>
           </div>
         </article>;
       })}

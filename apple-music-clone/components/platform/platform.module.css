@@ -4,26 +4,26 @@
 .shell button:disabled { opacity:.5; cursor:not-allowed; }
 .shell :is(h1,h2,h3,p) { margin:0; }
 .shell h1 { font-size:34px; line-height:41px; font-weight:700; letter-spacing:-.8px; }
-.shell h2 { font-size:20px; line-height:27px; font-weight:650; letter-spacing:-.35px; }
+.shell h2 { font-size:18px; line-height:25px; font-weight:600; letter-spacing:-.25px; }
 .shell h3 { font-size:14px; line-height:20px; font-weight:600; }
 .shell :is(input,select,textarea) { color:var(--course-ink); font:inherit; }
 .shell :is(input,textarea)::placeholder { color:var(--course-muted); opacity:1; }
 .sidebar { position:fixed; left:8px; top:8px; bottom:8px; width:var(--course-sidebar-width); z-index:30; display:flex; flex-direction:column; overflow:auto; border-radius:var(--course-radius-shell); background:rgb(248 248 250 / 94%); -webkit-backdrop-filter:blur(16px) saturate(1.8); backdrop-filter:blur(16px) saturate(1.8); box-shadow:inset 0 0 0 1px rgb(0 0 0 / 2%),0 4px 36px rgb(0 0 0 / 10%); }
-.brand { display:flex; align-items:center; gap:9px; padding:25px 22px 6px; font-size:25px; font-weight:650; letter-spacing:-.9px; }
-.brandMark { color:var(--course-accent); }
+.brand { display:flex; align-items:center; gap:9px; padding:18px 20px; font-size:25px; line-height:30px; font-weight:650; letter-spacing:-.9px; }
+.brandMark { color:var(--course-ink); }
 .brandMark svg { width:26px; height:26px; }
 .sidebarCaption { color:var(--course-muted); font-size:11px; padding:0 22px 27px; }
-.navigation { display:flex; flex-direction:column; padding:0 12px; gap:4px; }
-.navigation a { display:flex; align-items:center; gap:10px; border-radius:9px; min-height:40px; padding:8px 10px; font-size:13px; transition:background var(--course-transition); }
+.navigation { display:flex; flex-direction:column; padding:0 12px; gap:0; }
+.navigation a { display:flex; align-items:center; gap:10px; border-radius:7px; min-height:38px; padding:7px 10px; font-size:13px; transition:background var(--course-transition); }
 .navigation a:hover { background:rgb(0 0 0 / 4%); }
-.navigation a[aria-current="page"] { color:#93001a; background:#ecebed; font-weight:550; }
-.navigation svg { width:19px; height:19px; color:var(--course-accent); }
-.sidebarBottom { margin-top:auto; padding:26px 22px 22px; }
-.sidebarBottom > p { margin:10px 0 6px; font-size:13px; font-weight:600; }
+.navigation a[aria-current="page"] { color:var(--course-accent); background:#efeff0; font-weight:500; }
+.navigation svg { width:19px; height:19px; color:currentColor; }
+.sidebarBottom { margin-top:auto; padding:22px 20px 18px; }
+.sidebarBottom > p { margin:0 0 5px; color:var(--course-muted); font-size:11px; font-weight:500; }
 .sidebarBottom small { display:block; font-size:11px; line-height:1.6; color:var(--course-muted); }
 .sidebarBottom a { display:inline-flex; align-items:center; gap:8px; color:var(--course-muted); font-size:11px; margin-top:18px; min-height:44px; }
 .previewBadge { display:inline-block; font-size:9px; font-weight:600; letter-spacing:.8px; color:var(--course-muted); border:1px solid #d7d7dc; border-radius:5px; padding:3px 6px; }
-.main { position:fixed; inset:0 0 0 var(--course-sidebar-offset); overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-gutter:stable; }
+.main { position:fixed; inset:0 0 0 var(--course-sidebar-offset); overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-gutter:stable; background:var(--course-canvas); color-scheme:light; }
 .previewNotice { min-height:34px; display:flex; gap:8px; justify-content:center; align-items:center; padding:7px 16px; font-size:10px; color:var(--course-muted); border-bottom:1px solid var(--course-line); background:#fdfdfd; }
 .previewNotice span { color:#919196; }
 .storageNotice { margin:12px var(--course-gutter-right) 0 var(--course-gutter-left) !important; border:1px solid #bb831a; padding:12px; border-radius:8px; background:#fff9e9; color:#61420e; }
@@ -68,7 +68,7 @@
 .secondaryButton { background:#f3f3f6; border:1px solid #d9d9df; color:var(--course-ink); } .secondaryButton:hover { background:#eaeaf0; }
 .textButton { display:inline-flex; align-items:center; gap:6px; color:var(--course-accent); min-height:44px; font-size:12px; } .textButton:hover { text-decoration:underline; }
 .actions { display:flex; align-items:center; flex-wrap:wrap; gap:10px; } .actionNote { font-size:11px; line-height:18px; color:var(--course-muted); margin-top:10px !important; min-height:18px; }
-.footer { max-width:1516px; margin:44px var(--course-gutter-right) 0 var(--course-gutter-left); padding:24px 0 140px; border-top:1px solid var(--course-line); font-size:10px; color:var(--course-muted); }
+.footer { max-width:1516px; margin:38px var(--course-gutter-right) 0 var(--course-gutter-left); padding:18px 0 120px; border:0; font-size:11px; color:var(--course-muted); }
 .footer strong { display:block; font-size:12px; font-weight:500; margin-bottom:6px; color:var(--course-ink); }
 .resumeDock { position:fixed; bottom:16px; left:calc(var(--course-sidebar-offset) + 36px); right:36px; max-width:1000px; margin:0 auto; z-index:40; border-radius:22px; background:rgb(249 249 251 / 93%); border:1px solid rgb(210 210 215 / 70%); -webkit-backdrop-filter:blur(24px) saturate(1.5); backdrop-filter:blur(24px) saturate(1.5); box-shadow:0 6px 30px rgb(0 0 0 / 10%); padding:10px 14px; display:flex; align-items:center; gap:12px; }
 .resumeArtwork { color:#fff; width:46px; height:46px; display:grid; place-items:center; border-radius:9px; flex:none; }
@@ -79,7 +79,7 @@
 .detailHero .cover strong { font-size:40px; } .detailHero h1 { max-width:600px; }
 .lead { color:var(--course-muted); font-size:18px; margin-top:8px !important; line-height:26px; } .creator { color:var(--course-accent); margin-top:12px !important; font-size:14px; }
 .facts { display:flex; flex-wrap:wrap; gap:8px 16px; color:var(--course-muted); font-size:11px; margin:18px 0 8px; } .price { display:block; font-size:14px; margin-bottom:18px; }
-.detailColumns { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:40px; border-top:1px solid var(--course-line); padding-top:30px; }
+.detailColumns { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:40px; border-top:0; padding-top:16px; }
 .curriculum { list-style:none; margin:0; padding:0; } .curriculum li { border-bottom:1px solid var(--course-line); }
 .curriculum a { display:flex; align-items:center; gap:16px; padding:15px 10px; border-radius:7px; min-height:72px; } .curriculum a:hover { background:var(--course-surface); }
 .lessonNumber { color:var(--course-muted); font-size:12px; font-variant-numeric:tabular-nums; } .curriculum a > div { flex:1; }
@@ -174,15 +174,15 @@
 .replyForm .actions { margin-top:12px; }
 
 /* Rich catalog adaptation: artist profiles, genre browsing, and native shelves. */
-.navGroup { display:flex; flex-direction:column; gap:4px; }
-.navGroup + .navGroup { margin-top:18px; }
-.navCaption { color:var(--course-muted); font-size:11px; padding:0 10px 5px; }
+.navGroup { display:flex; flex-direction:column; gap:0; }
+.navGroup + .navGroup { margin-top:24px; }
+.navCaption { color:var(--course-muted); font-size:11px; padding:0 10px 8px; }
 .cardCreator,.cardPrice { color:var(--course-muted); font-size:11px; line-height:18px; }
 .cardCreator a:hover { color:var(--course-accent); text-decoration:underline; }
 .cardPrice { font-size:10px; }
 .shelf { position:relative; min-width:0; }
 .shelfControls { display:flex; justify-content:flex-end; gap:5px; margin-bottom:8px; }
-.shelfControls button { display:grid; place-items:center; width:32px; height:32px; border:1px solid var(--course-line); border-radius:50%; background:var(--course-canvas); }
+.shelfControls button { display:grid; place-items:center; width:32px; height:32px; border:0; border-radius:7px; background:transparent; color:var(--course-muted); }
 .shelfControls button:hover:not(:disabled) { background:var(--course-surface); }
 .reverseIcon { transform:rotate(180deg); }
 .shelfTrack { display:flex; gap:var(--course-space); overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x proximity; scrollbar-width:none; padding:4px 0 8px; }
@@ -211,7 +211,7 @@
 .lessonRows a { display:flex; align-items:center; gap:12px; min-height:66px; padding:9px 8px; border-radius:6px; }
 .lessonRows a:hover { background:var(--course-surface); }
 .lessonThumb { flex:none; width:40px; height:40px; overflow:hidden; border-radius:5px; }
-.lessonThumb .cover { padding:0; } .lessonThumb .cover > * { display:none; }
+.lessonThumb .cover { padding:0; } .lessonThumb .cover > :not(img) { display:none; }
 .lessonRowCopy { min-width:0; flex:1; }
 .lessonRowCopy strong { display:block; font-size:13px; line-height:19px; font-weight:500; }
 .lessonRowCopy small { display:block; font-size:11px; line-height:17px; color:var(--course-muted); }
@@ -269,11 +269,11 @@
 @media (max-width:380px) { .topicGrid { grid-template-columns:1fr; } .topicCard { min-height:170px; } }
 
 /* CP-029: shared search chrome, not a page-specific hidden destination. */
-.browseToolbar { position:sticky; top:0; z-index:55; display:flex; align-items:center; justify-content:center; gap:20px; min-height:66px; padding:10px var(--course-gutter-right) 10px var(--course-gutter-left); background:rgb(255 255 255 / 94%); border-bottom:1px solid var(--course-line); -webkit-backdrop-filter:blur(24px) saturate(1.5); backdrop-filter:blur(24px) saturate(1.5); }
+.browseToolbar { position:sticky; top:0; z-index:55; display:flex; align-items:center; justify-content:flex-end; gap:16px; min-height:60px; padding:8px var(--course-gutter-right) 8px var(--course-gutter-left); background:rgb(255 255 255 / 96%); border:0; -webkit-backdrop-filter:blur(24px) saturate(1.5); backdrop-filter:blur(24px) saturate(1.5); }
 .toolbarLabel { font-size:12px; color:var(--course-muted); white-space:nowrap; }
 .searchAnchor { position:relative; flex:1; max-width:560px; min-width:0; }
-.globalSearch { display:flex; align-items:center; gap:8px; width:100%; min-width:0; min-height:44px; padding:0 6px 0 14px; border-radius:999px; border:1px solid #e2e2e7; background:#f8f8fa; color:var(--course-muted); box-shadow:0 2px 12px rgb(0 0 0 / 3%); }
-.globalSearch:focus-within { background:#fff; border-color:#a0a0aa; }
+.globalSearch { display:flex; align-items:center; gap:8px; width:100%; min-width:0; min-height:44px; padding:0 6px 0 12px; border-radius:9px; border:0; background:#f5f5f5; color:var(--course-muted); box-shadow:none; }
+.globalSearch:focus-within { background:#f5f5f5; }
 .globalSearch input { flex:1; min-width:0; width:100%; height:42px; background:transparent; border:0; font-size:12px; }
 .globalSearch > svg { width:17px; height:17px; }
 .searchSubmit { min-height:42px; padding:0 13px; color:var(--course-accent); font-size:12px; font-weight:500; border-radius:999px; white-space:nowrap; }
@@ -309,7 +309,7 @@
 .recentSearches li { display:flex; align-items:center; background:var(--course-surface); border-radius:8px; }
 .recentSearches a { display:flex; align-items:center; gap:10px; flex:1; min-width:0; overflow-wrap:anywhere; min-height:54px; padding:12px; font-size:12px; }
 .recentSearches button { flex:none; width:44px; height:44px; font-size:22px; border-radius:8px; color:var(--course-muted); }
-.catalogFilters { display:flex; align-items:end; flex-wrap:wrap; gap:12px; padding:20px 0; border-block:1px solid var(--course-line); }
+.catalogFilters { display:flex; align-items:end; flex-wrap:wrap; gap:12px; padding:20px 0; border-block:0; }
 .catalogFilters .filterField { display:flex; flex-direction:column; gap:6px; flex:1; min-width:120px; font-size:10px; font-weight:600; color:var(--course-muted); }
 .catalogFilters .filterField:first-child { flex:1.6; }
 .catalogFilters :is(input:not([type="hidden"]),select) { border:1px solid #d4d4db; border-radius:8px; padding:9px 10px; min-height:42px; width:100%; min-width:0; font-size:12px; font-weight:400; background:#fff; }
@@ -427,74 +427,74 @@
 /* Marketplace Home: browse offers first. Learning activity has its own destination. */
 .marketplace { padding-top:22px; }
 .marketHeader { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:14px; }
-.marketHeader h1 { font-size:30px; line-height:38px; letter-spacing:-.9px; }
+.marketHeader h1 { font-size:34px; line-height:41px; letter-spacing:-.8px; }
 .marketHeader p { font-size:13px; color:var(--course-muted); margin-top:4px; }
-.marketCategories { display:flex; gap:8px; overflow-x:auto; scrollbar-width:thin; padding:2px 0 18px; }
-.marketCategories a { flex-shrink:0; display:flex; align-items:center; min-height:38px; padding:7px 17px; border:1px solid var(--course-line); border-radius:999px; font-size:12px; color:var(--course-muted); }
+.marketCategories { display:flex; gap:4px; overflow-x:auto; scrollbar-width:thin; padding:0 0 18px; }
+.marketCategories a { flex-shrink:0; display:flex; align-items:center; min-height:38px; padding:7px 13px; border:0; border-radius:7px; font-size:13px; color:var(--course-muted); }
 .marketCategories a:hover { background:var(--course-surface); color:var(--course-ink); }
-.marketCategories a[aria-current="page"] { background:var(--course-ink); border-color:var(--course-ink); color:#fff; }
-.marketFeatures { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
-.marketFeature { position:relative; min-width:0; height:245px; border-radius:var(--course-radius-card); overflow:hidden; isolation:isolate; color:#fff; background:#1d1d1f; }
-.marketFeature > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; transition:transform 350ms; }
-.marketFeature::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#000c,#0004); z-index:-1; }
-.marketFeature:hover > img { transform:scale(1.025); }
-.marketFeatureCopy { position:relative; height:100%; padding:26px 28px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
-.marketFeatureCopy > span:first-child { font-size:9px; letter-spacing:1.2px; font-weight:650; opacity:.85; margin-bottom:10px; }
-.marketFeatureCopy h2 { font-size:30px; line-height:34px; font-weight:650; letter-spacing:-.75px; }
-.marketFeatureCopy p { margin-top:9px; font-size:12px; opacity:.87; }
+.marketCategories a[aria-current="page"] { background:#f2f2f2; color:var(--course-accent); font-weight:500; }
+.marketFeatures { display:block; position:relative; }
+.marketFeature { display:flex; flex-direction:column; min-width:0; height:auto; color:var(--course-ink); background:var(--course-canvas); border-radius:9px; }
+.marketFeature > img { display:block; position:static; width:100%; height:auto; aspect-ratio:2 / 1; object-fit:cover; object-position:50% 55%; border-radius:9px; }
+.marketFeature::after { content:none; }
+.marketFeature:hover > img { transform:none; }
+.marketFeatureCopy { padding:0 0 14px; display:block; height:auto; }
+.marketFeatureCopy > span:first-child { display:block; color:var(--course-muted); font-size:10px; letter-spacing:.2px; font-weight:500; line-height:16px; }
+.marketFeatureCopy h2 { font-size:17px; line-height:23px; font-weight:400; letter-spacing:0; }
+.marketFeatureCopy p { color:var(--course-muted); font-size:15px; line-height:21px; margin-top:0; }
 .marketFeatureCta { margin-top:18px; display:inline-flex; align-items:center; gap:18px; font-size:12px; font-weight:600; min-height:32px; }
 .marketFeatureCta svg { width:15px; height:15px; }
-.marketFeatureLight { color:#232321; background:#e8e8e4; }
+.marketFeatureLight { color:var(--course-ink); background:#fff; }
 .marketFeatureLight > img { object-position:70% 55%; }
-.marketFeatureLight::after { background:linear-gradient(90deg,#f1f0eaeF 0%,#f1f0eac0 45%,#fff0 85%); }
-.marketCatalog { margin-top:27px; }
+.marketFeatureLight::after { content:none; }
+.marketCatalog { margin-top:32px; }
 .marketCatalogHeading { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:10px; }
-.marketCatalogHeading h2 { font-size:21px; line-height:28px; }
+.marketCatalogHeading h2 { font-size:18px; line-height:25px; font-weight:600; }
 .marketCatalogHeading p { color:var(--course-muted); font-size:12px; margin-top:3px; }
-.marketFilters { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:15px; border-bottom:1px solid var(--course-line); padding-bottom:10px; }
+.marketFilters { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:12px; border:0; padding:0; }
 .marketPriceFilters { display:flex; align-items:center; gap:6px; }
 .marketPriceFilters a { display:flex; align-items:center; min-height:36px; padding:6px 12px; font-size:12px; color:var(--course-muted); border-radius:7px; white-space:nowrap; }
-.marketPriceFilters a[aria-current="page"] { color:var(--course-accent); background:#f9edf0; }
+.marketPriceFilters a[aria-current="page"] { color:var(--course-accent); background:#f2f2f2; }
 .marketFilters form { display:flex; align-items:center; gap:8px; font-size:11px; color:var(--course-muted); }
 .marketFilters select { background:transparent; border:0; border-radius:6px; font-size:12px; min-height:38px; max-width:150px; padding:6px; }
 .marketSortApply { min-height:36px; padding:6px 9px; font-size:11px; border-radius:6px; color:var(--course-accent); }
 .marketCourseGrid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:20px; }
 .marketCourseCard { min-width:0; }
-.marketCardArt { position:relative; aspect-ratio:1.55; border-radius:var(--course-radius-card); background:var(--course-surface); }
+.marketCardArt { position:relative; aspect-ratio:1; border-radius:9px; background:var(--course-surface); }
 .marketCardArt > a { display:block; height:100%; width:100%; border-radius:inherit; overflow:hidden; }
 .marketCardArt img { width:100%; height:100%; object-fit:cover; object-position:50% 57%; transition:transform 250ms; }
-.marketCardArt > a:hover img { transform:scale(1.04); }
-.marketCardCategory { position:absolute; left:9px; bottom:9px; font-size:9px; font-weight:600; background:#ffffffed; color:#333; padding:3px 7px; border-radius:4px; pointer-events:none; }
-.marketBookmark { position:absolute; top:8px; right:8px; width:34px; height:34px; display:grid; place-items:center; border-radius:50%; color:#35353a; background:#ffffffed; box-shadow:0 2px 8px #0001; }
+.marketCardArt > a:hover img { transform:none; }
+.marketCardCategory { display:none; }
+.marketBookmark { position:static; width:32px; height:36px; display:grid; place-items:center; border-radius:6px; color:var(--course-muted); background:transparent; box-shadow:none; flex-shrink:0; }
 .marketBookmark svg { width:17px; height:17px; }
 .marketBookmark[aria-pressed="true"] { color:var(--course-accent); }
-.marketCourseCard h3 { font-size:14px; line-height:20px; margin-top:10px; font-weight:600; }
+.marketCourseCard h3 { font-size:13px; line-height:19px; margin-top:8px; font-weight:500; }
 .marketCourseCard h3 a:hover { text-decoration:underline; text-underline-offset:3px; }
-.marketTeacher { display:inline-block; margin-top:3px; color:var(--course-muted); font-size:12px; }
+.marketTeacher { display:inline-block; margin-top:1px; color:var(--course-muted); font-size:12px; line-height:18px; }
 .marketTeacher:hover { text-decoration:underline; }
 .marketCardMeta { color:var(--course-muted); font-size:10px; line-height:18px; margin-top:3px !important; }
-.marketCardBottom { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:8px; }
-.marketCardBottom > strong { font-size:16px; font-weight:650; }
+.marketCardBottom { display:flex; align-items:center; gap:8px; margin-top:2px; }
+.marketCardBottom > strong { font-size:13px; font-weight:500; margin-right:auto; }
 .marketCardBottom button { display:flex; align-items:center; gap:5px; min-height:36px; color:var(--course-accent); font-size:12px; padding:4px 0 4px 8px; border-radius:5px; }
 .marketCardBottom svg { width:13px; height:13px; }
 .marketEmpty { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; min-height:300px; text-align:center; padding:32px 20px; }
 .marketEmpty p { color:var(--course-muted); }
-.marketSpotlight { margin-top:40px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; border-radius:var(--course-radius-card); background:#f3f3f1; }
-.marketSpotlightArt { display:block; min-height:260px; }
-.marketSpotlightArt img { display:block; width:100%; height:100%; max-height:310px; object-fit:cover; }
-.marketSpotlight > div { padding:32px 38px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
-.marketSpotlight h2 { font-size:29px; line-height:33px; margin-top:6px; }
+.marketSpotlight { margin-top:40px; display:grid; grid-template-columns:208px minmax(0,1fr); gap:24px; border:0; background:#fff; }
+.marketSpotlightArt { display:block; min-height:0; aspect-ratio:1; overflow:hidden; border-radius:9px; }
+.marketSpotlightArt img { display:block; width:100%; height:100%; object-fit:cover; }
+.marketSpotlight > div { padding:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+.marketSpotlight h2 { font-size:20px; line-height:27px; margin-top:2px; font-weight:500; }
 .marketSpotlight p:not(.eyebrow) { color:var(--course-muted); font-size:13px; line-height:21px; max-width:410px; margin-top:12px; }
 .marketSpotlight .primaryButton { margin-top:20px; }
 .marketCreatorSection { margin-top:34px; }
 .marketCreatorGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 20px; }
-.marketCreator { display:flex; align-items:center; gap:12px; min-height:78px; padding:12px 0; border-bottom:1px solid var(--course-line); }
+.marketCreator { display:flex; align-items:center; gap:12px; min-height:78px; padding:12px 0; border:0; }
 .marketInitials { display:grid; place-items:center; width:44px; height:44px; border-radius:50%; color:#fff; font-weight:650; font-size:13px; flex-shrink:0; }
 .marketCreator > span:nth-child(2) { flex:1; min-width:0; }
 .marketCreator strong { display:block; font-size:13px; font-weight:600; }
 .marketCreator small { display:block; margin-top:3px; font-size:11px; color:var(--course-muted); }
 .marketCreator > svg { width:14px; color:var(--course-muted); }
-.marketExplore { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:34px; padding-top:28px; border-top:1px solid var(--course-line); }
+.marketExplore { display:block; margin-top:38px; padding-top:0; border:0; }
 .marketExplore > div > svg { color:var(--course-accent); margin-bottom:10px; }
 .marketExplore h3 { font-size:15px; }
 .marketExplore p { color:var(--course-muted); font-size:12px; margin-top:6px; }
@@ -511,7 +511,7 @@
 .marketPreviewBody h2 { font-size:25px; line-height:32px; }
 .marketPreviewBody > p { font-size:13px; line-height:21px; margin-top:10px; }
 .marketPreviewTeacher { color:var(--course-muted); }
-.marketPreviewFacts { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin:15px 0; padding:12px 0; border-block:1px solid var(--course-line); font-size:12px; color:var(--course-muted); }
+.marketPreviewFacts { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin:15px 0; padding:12px 0; border-block:0; font-size:12px; color:var(--course-muted); }
 .marketPreviewFacts strong { margin-left:auto; color:var(--course-ink); font-size:18px; }
 .marketPreviewBody .marketSample { color:var(--course-muted); }
 .marketPreviewBody ol { list-style:none; padding:0; margin:14px 0 22px; }
@@ -529,22 +529,22 @@
 @media (max-width:1150px) {
  .marketCourseGrid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px 18px; }
  .marketFeatures { gap:16px; }
- .marketFeature { height:245px; }
- .marketFeatureCopy { padding:20px; }
- .marketFeatureCopy h2 { font-size:24px; line-height:28px; }
+ .marketFeature { height:auto; }
+ .marketFeatureCopy { padding:0 0 12px; }
+ .marketFeatureCopy h2 { font-size:17px; line-height:23px; font-weight:400; }
  .marketCreatorGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
- .marketSpotlight > div { padding:24px; }
+ .marketSpotlight > div { padding:0; }
 }
 @media (max-width:760px) {
  .marketHeader { align-items:flex-start; margin-bottom:12px; }
- .marketHeader h1 { font-size:27px; line-height:33px; }
+ .marketHeader h1 { font-size:30px; line-height:36px; }
  .marketHeader p { font-size:12px; line-height:19px; max-width:300px; }
  .marketHeader > a { display:none; }
  .marketCategories { padding-bottom:14px; }
  .marketCategories a { min-height:44px; padding-inline:14px; }
- .marketFeatures { display:flex; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:thin; padding-bottom:8px; }
- .marketFeature { flex:0 0 90%; height:230px; scroll-snap-align:start; }
- .marketFeatureCopy h2 { font-size:27px; line-height:31px; }
+ .marketFeatures { display:block; }
+ .marketFeature { height:auto; }
+ .marketFeatureCopy h2 { font-size:16px; line-height:22px; font-weight:400; }
  .marketCatalog { margin-top:20px; }
  .marketCatalogHeading { align-items:flex-start; gap:12px; }
  .marketCatalogHeading h2 { font-size:19px; line-height:25px; }
@@ -554,16 +554,16 @@
  .marketFilters form { margin-left:auto; }
  .marketPriceFilters a { min-height:44px; }
  .marketCourseGrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 16px; }
- .marketCardArt { aspect-ratio:1.25; }
- .marketBookmark { width:36px; height:36px; top:5px; right:5px; }
+ .marketCardArt { aspect-ratio:1; }
+ .marketBookmark { position:static; width:36px; height:44px; }
  .marketCardCategory { left:6px; bottom:6px; font-size:8px; }
  .marketCourseCard h3 { font-size:13px; line-height:19px; }
  .marketTeacher { font-size:11px; }
  .marketCardMeta { font-size:10px; }
  .marketCardBottom button { min-height:44px; font-size:11px; }
  .marketSpotlight { grid-template-columns:1fr; margin-top:30px; }
- .marketSpotlightArt { min-height:190px; height:210px; }
- .marketSpotlight > div { padding:24px; }
+ .marketSpotlightArt { min-height:0; height:auto; max-width:220px; }
+ .marketSpotlight > div { padding:0; }
  .marketCreatorGrid { grid-template-columns:1fr; }
  .marketCreator { min-height:68px; }
  .marketExplore { grid-template-columns:1fr; gap:24px; }
@@ -572,3 +572,36 @@
  .marketPreviewBody .actions { flex-direction:column; align-items:stretch; }
 }
 @media (forced-colors:active) { .marketFeature,.marketCourseCard,.marketPreview,.marketCategories a,.marketBookmark { border:1px solid CanvasText; } .marketFeature::after { background:Canvas; } .marketFeatureCopy { color:CanvasText; } }
+
+/* Captioned merchandising shares the existing shelf, not a separate hero kit. */
+.marketFeatures .shelfControls { position:absolute; right:0; top:-47px; margin:0; }
+.marketCategories { padding-right:76px; }
+.marketCreatorSection .shelfControls { margin-top:-6px; }
+.marketExplore nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 24px; margin-top:12px; }
+.marketExplore nav a { justify-content:space-between; color:var(--course-ink); font-size:13px; }
+.marketPreviewFacts { border:0; }
+@media (max-width:760px) {
+  .marketFeatures .shelfControls { position:static; height:32px; margin:0 0 4px; }
+  .marketCategories { padding-right:0; }
+  .marketFeature > img { aspect-ratio:1.75; }
+  .marketExplore nav { grid-template-columns:1fr; gap:0; }
+  .marketCardBottom { flex-wrap:wrap; gap:4px; }
+  .marketCardBottom > strong { flex:1 0 100%; }
+}
+
+/* A single marketplace header keeps the title and visible search on one row. */
+.titledToolbar { min-height:82px; padding-top:22px; padding-bottom:16px; }
+.toolbarTitle { flex:1; min-width:120px; margin-right:auto !important; }
+.titledToolbar .searchAnchor { flex:1; max-width:560px; }
+.titledToolbar .searchShortcut { display:none; }
+.marketplace { padding-top:0; }
+.marketCategories { padding-bottom:8px; }
+@media (max-width:760px) {
+  .titledToolbar { flex-wrap:wrap; gap:10px; padding:14px 16px 10px; }
+  .toolbarTitle { flex:0 0 100%; font-size:30px !important; line-height:36px !important; }
+  .titledToolbar .searchAnchor,.titledToolbar > form { flex:0 0 100%; }
+}
+
+.marketCardHeading { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:baseline; gap:8px; }
+.marketCardHeading > strong { font-size:13px; font-weight:500; white-space:nowrap; margin-top:8px; }
+.marketCardBottom .marketBookmark { margin-left:auto; }

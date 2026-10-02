@@ -16,7 +16,7 @@ Content comes first. Retain a bright canvas, dark neutral type, quiet separators
 | Main gutters | left `46px`, right `38px` | At the desktop reference width; narrow layouts have explicit overrides |
 | Shelf gap / cover corner | `20px` / `9px` | Preserve editorial rhythm and consistent cropping |
 | Main title | `34px / 41px`, weight 700, tracking `-0.8px` | Desktop heading, not every card title |
-| Section title | `20px / 27px`, weight 650 | Platform adaptation value; not every music source state |
+| Section title | `18px / 25px`, weight 600 | Platform adaptation value; not every music source state |
 | Primary controls | minimum height `44px`, pill radius | Deliberately larger learning controls, not a claim about reference hit areas |
 
 ## Material, not flat gray
@@ -32,7 +32,7 @@ At `<=1150px`, gutters become 28px/24px and the catalog becomes three columns. A
 Verify 320, 390, 768, 1024, 1280 and 1440px widths. Test long words, empty states, open replies, focused forms and a visible resume dock. Scroll the actual main scrollport. Never hide overflow to disguise inaccessible content. Ensure the final control can be scrolled clear of the dock; the lesson route hides the dock rather than stacking a second player.
 
 ## Components and assets
-Use `Cover`, `CourseCard`, `PlatformShell`, existing buttons, fields, navigation and shared CSS-module tokens. Square catalog covers, wider editorial covers and readable lesson content serve different jobs. Current demo covers are original CSS compositions; they are not licensed instructor artwork or evidence of real offerings. Do not reuse `/reference-assets/`, Apple logos, album artwork, copyrighted video or copied font binaries in course UI.
+Use `Cover`, `CourseCard`, `PlatformShell`, existing buttons, fields, navigation and shared CSS-module tokens. Square catalog covers, wider editorial covers and readable lesson content serve different jobs. Current course covers are locally served contextual photographs with source records. They are not instructor endorsements or evidence of real commercial offerings; original typographic compositions remain a fallback. Do not reuse `/reference-assets/`, Apple logos, album artwork, copyrighted video or copied font binaries in course UI.
 Add a token only after checking existing values. Add a variant to the owning component instead of a screen-specific clone. Keep course CSS scoped: no `:global`, global `body`, `html`, `:root`, or bare universal selectors in the platform stylesheet. Do not modify music capture CSS to style courses. Root resets still affect both surfaces: treat changes there as full-corpus risk.
 
 ## Interaction and accessibility
@@ -56,7 +56,7 @@ Typography and demo artwork remain independent assets. Initials are intentional 
 
 
 ### Persistent search and collection chrome
-The shared search toolbar is sticky within the main scrollport (66px desktop, 64px narrow layout). It uses a bounded 560px search group, 44px pill field, quiet borders, 24px blur, restrained labels and a visible Search action. The field remains visible on mobile instead of becoming an unlabeled search icon. Its fallback is a real GET form, not an inert loading rectangle.
+The shared search toolbar is sticky within the main scrollport (60px base toolbar; Home combines its title and search in one desktop header). It uses a bounded 560px search group, 44px neutral search field, 24px blur, restrained labels and a visible Search action. The field remains visible on mobile instead of becoming an unlabeled search icon. Its fallback is a real GET form, not an inert loading rectangle.
 Autocomplete is anchored to the field, keyboard-highlighted and constrained to the viewport; input focus stays on the combobox. Clearing text, dismissing suggestions and clearing search history are distinct actions. Collections reuse the existing white canvas, quiet separators and cover components for grid and compact list variants. The toolbar must not cover anchored/focused content: the main scrollport has explicit scroll padding.
 The existing sidebar width, offset, material, typography tokens and music CSS remain unchanged. Review suggestions, filtered lists, empty results, long input, narrow screens and an active resume dock. Cold-route compilation is not permission to weaken interaction assertions; wait for the actual destination state.
 
@@ -66,3 +66,11 @@ Continue rows use real cover thumbnails, quiet separators and explicitly styled 
 
 ## Marketplace Home correction
 Home uses compact merchandising: subject pills, two 245px desktop feature panels, landscape image-led course cards with creator/price/preview, and restrained filter chrome. The large resume dock is absent on the storefront; progress is for My learning. Covers use bounded, locally served contextual WebP photos with attribution, not repeated slogan posters. Review the whole first viewport with prices visible, mobile subject/feature scrolling, the course grid and native quick-preview dialog. This owner-directed adaptation is not a claim of Apple pixel identity.
+
+## Reference-driven neutral restoration
+The normal canvas is explicitly opaque white (`#fff`) in the shell and actual main scrollport. Warm cream feature overlays and warm-gray promotional panels are not part of the reference language. Do not tint the page to match photography. Color may remain inside course artwork.
+Merchandising uses white-backed captions above artwork, compact 17px feature titles, square catalog covers, subdued price/save/preview controls and the existing rounded creator portraits. Inactive sidebar icons inherit the neutral text color; red denotes actions and selection. Main filters, category navigation, feature sections and footer use spacing rather than full-width decorative lines. Preserve separators inside real curriculum/list rows and native focus outlines.
+Home places its heading alongside persistent search on desktop and stacks both without hiding search on narrow screens. Neutral subject/price selection replaces black pills. The separate notice stripe and sidebar marketing copy are removed, while demo/access disclosures remain visible.
+`browser_platform_visual.py` checks actual main canvas, no toolbar/category border, neutral active treatment, square cover geometry, captions above images and neutral inactive icons. The marketplace suite exercises the shared carousel with pointer and keyboard. These contracts prevent specific regressions; they do not substitute for source-screen comparison or owner visual approval.
+
+Compact creator lesson rows must display their photo thumbnails: hide legacy cover captions with `:not(img)`, not every child. Course offer prices sit beside the card title, with Preview and bookmark below; no floating white bookmark badge hides the artwork.

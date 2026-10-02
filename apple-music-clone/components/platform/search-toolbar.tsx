@@ -7,14 +7,14 @@ import { updatePreview, usePreview } from "./preview-store";
 import { Icon } from "./icon";
 import styles from "./platform.module.css";
 
-export function SearchToolbar() {
+export function SearchToolbar({ title }: { title?: string }) {
   const pathname = usePathname();
   const params = useSearchParams();
   const query = normalizeQuery(params.get("q"));
   const scope = searchScope(params.get("scope"));
-  return <SearchField key={`${pathname}:${query}:${scope}`} initialQuery={query} scope={scope} />;
+  return <SearchField key={`${pathname}:${query}:${scope}`} initialQuery={query} scope={scope} title={title} />;
 }
-function SearchField({ initialQuery, scope }: { initialQuery: string; scope: SearchScope }) {
+function SearchField({ initialQuery, scope, title }: { initialQuery: string; scope: SearchScope; title?: string }) {
   const router = useRouter(); const input = useRef<HTMLInputElement>(null); const id = useId();
   const [query, setQuery] = useState(initialQuery); const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState(-1); const [pending, transition] = useTransition();
@@ -52,8 +52,8 @@ function SearchField({ initialQuery, scope }: { initialQuery: string; scope: Sea
       event.preventDefault(); navigate(options[active].href, options[active].query);
     }
   }
-  return <div className={styles.browseToolbar} data-search-toolbar>
-    <span className={styles.toolbarLabel}>Explore Courses</span>
+  return <div className={`${styles.browseToolbar} ${title ? styles.titledToolbar : ""}`} data-search-toolbar>
+    {title ? <h1 className={styles.toolbarTitle}>{title}</h1> : <span className={styles.toolbarLabel}>Explore Courses</span>}
     <div className={styles.searchAnchor} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) { setExpanded(false); setActive(-1); } }}>
       <form action="/learn/search" role="search" aria-label="Global search" className={styles.globalSearch}
         onSubmit={event => { event.preventDefault(); navigate(searchHref(query, scope), query); }}>
@@ -83,6 +83,6 @@ function SearchField({ initialQuery, scope }: { initialQuery: string; scope: Sea
     <span role="status" className={styles.srOnly}>{pending ? "Searching the demo catalog" : ""}</span>
   </div>;
 }
-export function SearchToolbarFallback() {
-  return <div className={styles.browseToolbar}><span className={styles.toolbarLabel}>Explore Courses</span><form className={styles.globalSearch} action="/learn/search" role="search"><Icon name="search" /><label className={styles.srOnly} htmlFor="initial-search">Search courses</label><input id="initial-search" name="q" placeholder="Search courses, creators, lessons" maxLength={100} /><button type="submit" className={styles.searchSubmit}>Search</button></form></div>;
+export function SearchToolbarFallback({ title }: { title?: string }) {
+  return <div className={`${styles.browseToolbar} ${title ? styles.titledToolbar : ""}`}>{title ? <h1 className={styles.toolbarTitle}>{title}</h1> : <span className={styles.toolbarLabel}>Explore Courses</span>}<form className={styles.globalSearch} action="/learn/search" role="search"><Icon name="search" /><label className={styles.srOnly} htmlFor="initial-search">Search courses</label><input id="initial-search" name="q" placeholder="Search courses, creators, lessons" maxLength={100} /><button type="submit" className={styles.searchSubmit}>Search</button></form></div>;
 }

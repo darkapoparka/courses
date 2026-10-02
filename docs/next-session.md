@@ -1,6 +1,6 @@
 # Continue the course marketplace
 
-The latest owner correction is decisive: Home must be a marketplace for browsing courses, not a personal learning dashboard. Read `docs/home.md`, root/app/scoped AGENTS.md, the current handoff and the single task ledger before changing it.
+The latest owner correction includes restoring the original visual language rather than substituting a generic storefront kit: Home must be a marketplace for browsing courses, not a personal learning dashboard. Read `docs/home.md`, root/app/scoped AGENTS.md, the current handoff and the single task ledger before changing it.
 
 Use only J:\courses on main; active app apple-music-clone. The existing junction resolves to L:\PLATFORMS\courses\app. Preserve all dirty/untracked work, original music reference files and historical evidence. Never reset, clean, delete caches/files, create another app or switch branches/worktrees. Inspect current HEAD/origin, disk space and listener identity before commands.
 
@@ -13,3 +13,5 @@ Check the publication's exact-SHA CI outcome and any recorded failures. Do not r
 Continue rich course actions (CP-025), substantive demo catalog content, learning paths (CP-026), and meaningful lesson-player panels (CP-027) after preserving the storefront direction. Backend tasks remain explicit; no paid provisioning, public deployment, charges or external notifications without approval. Do not fabricate reviews, ratings, enrollment counts, discounts or unavailable content to fill the design.
 
 Canonical dev: http://127.0.0.1:6435/learn/home. Verify the owning process, use the resolved path for optimized Windows runs, keep dev/build outputs separate and retain failures. D: was effectively full; no cleanup commands. Run platform unit/type/browser checks and review real desktop/mobile screenshots. Commit only the reviewed slice on main, push normally, record actual CI state, update tasks/handoff and leave dev reachable.
+
+Preserve the visual restoration across the whole product: opaque white canvas, captions above artwork, square course covers, compact feature/section typography, neutral inactive sidebar icons, quiet selected states and an integrated Home/search header. No cream overlays, black subject pills, decorative full-width filter/footer rules or redundant notice stripe. Preserve real row separators, visible prices, bookmarks, preview actions, focus behavior and disclosures. Check rendered assertions in browser_platform_visual.py and creator lesson-image visibility; green checks are not aesthetic approval. Do not declare the design finished on behalf of the owner.
