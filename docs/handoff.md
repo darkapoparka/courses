@@ -1,5 +1,26 @@
 # Courses - current handoff
 
+## Marketplace Home correction — 2026-10-02
+
+Starting commit: `85b23b7c8ac673b7a3848e2340e2c866a39b44e7`. The owner rejected personal-dashboard Home and requested a course-browsing marketplace. This supersedes the preceding Home blueprint. `docs/home.md` and root instructions now make the distinction explicit.
+
+### Delivered
+Home `/learn/home` is a storefront with persistent search, subject navigation, photographic editorial features, five course offers with visible prices, real category/price filters, sorting, bookmarks and native quick-preview dialogs. Preview shows public metadata and only a server-selected open-sample introduction. It supports course/sample navigation, Escape, Close and focus return. Checkout remains disconnected; no fabricated ratings or enrollment claims were added.
+Five locally served contextual photographs replace the repeating slogan covers. Sources, license, dimensions and hashes are in `public/course-art/credits.json`; `/learn/credits` provides attribution. These are illustrative images, not course footage or creator endorsements.
+The personal interface and stored progress/preferences are preserved at `/learn/library/overview`, linked from My learning. The brand opens the storefront and the large resume dock no longer covers it. Existing Discover and original music routes remain intact.
+
+### Verification
+42/42 domain/style tests, TypeScript and optimized webpack build passed. Build `CEstEOFq6WFnKZSEo3M3Y`, output `.qa/storefront-build-20261002`. The complete optimized platform suite passed 53/53 checks, zero captured page errors and 60 shell/search observations. Evidence: `.qa/marketplace-prod-20261002-v1/`; stable source/tooling digest `041e056cb01d7ae0083934ad572a461e8608522012605e2e020f5bba48d87166`, Chromium `151.0.7922.34`.
+After a fresh dev restart, 13/13 focused storefront and relocated learning-overview checks passed, including six widths, previews, navigation, persistence, conflicts and failures. Evidence: `.qa/marketplace-dev-fresh-20261002/`. This is focused development coverage, not a claim that the full dev suite passed.
+Visually reviewed the desktop/mobile storefront, course cards and preview dialog. Same-run music before/after images remain identical; 81 fingerprinted pre-existing top-level music app/components/lib files are unchanged. Proof: `.qa/marketplace-20261002-220817/music-preservation.json`. Archive, document validation and nine document-unit tests passed. This is not full local 159-state parity or an accessibility/launch certification.
+
+### Retained failures and runtime
+The initial full dev suite `.qa/marketplace-dev-20261002-v1` failed after two checks when Saved-to-My-learning navigation returned to Saved. The cause was not established and no assertions were removed. The full optimized suite and focused fresh-dev journeys subsequently passed. A separate screenshot attempt failed initializing the bundled Playwright driver; the explicit installed Node via `PLAYWRIGHT_NODEJS_PATH` restored browser tooling.
+Only verified Courses dev parent 22864/listener 43640 was restarted. Current dev parent 27376, created 2026-10-02 22:28:15 local, serves port 6435 using `.qa/storefront-dev-20261002`; ownership record: `.qa/storefront-dev-20261002-logs/runtime.json`. Recheck PIDs before acting. Optimized audit port 6550 has its record at `.qa/storefront-server-20261002/runtime.json`.
+Optimized verification uses the existing next-start local-audit path with its standalone advisory. Windows deployment packaging remains separately unverified. Build-generated type-path changes were verified against exact pre-build copies and restored; fresh dev added its own uncommitted paths. Prior dirty music/config work and untracked outputs remain excluded. No cleanup/deletion, junction change, dependency upgrade, public release or paid provisioning occurred.
+
+CP-034 and CP-035 are locally verified. The commit containing this entry is the publication; inspect HEAD/origin and its exact-SHA Actions rather than inferring push or CI success from prose. Continue storefront/catalog depth and meaningful course actions; do not put the rejected personal dashboard back on Home. Backend, commerce, learning paths and media keep their existing task owners.
+
 ## Personal learning Home - 2026-10-02
 
 Starting commit: `5a9affede07bf868b44e860d77d96e85dfaa975b`. The owner requested an exact Home plan grounded in the saved Apple Music Home, plus useful implementation. `docs/home.md` now owns that screen blueprint, section order, behavior, source mapping, dependencies and acceptance scope. Status stays in the single `docs/tasks.md` ledger.

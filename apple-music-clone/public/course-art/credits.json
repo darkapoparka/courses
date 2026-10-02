@@ -1,0 +1,62 @@
+[
+  {
+    "file": "public/course-art/design.webp",
+    "source": "https://unsplash.com/photos/kYqO-zK3esU",
+    "image": "https://images.unsplash.com/photo-1530127062450-3562a5d086cd?auto=format&fit=crop&w=1200&q=82&fm=jpg",
+    "photographer": "Patrick Rosenberger (Schneider)",
+    "license": "https://unsplash.com/license",
+    "reviewed": "2026-10-02",
+    "sha256": "a18a2a01a874f15423fc79cb8a1c9b92effd5bba4bf1393a4e8443581ace433f",
+    "width": 1200,
+    "height": 807,
+    "bytes": 17000
+  },
+  {
+    "file": "public/course-art/web.webp",
+    "source": "https://unsplash.com/photos/ieic5Tq8YMk",
+    "image": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=82&fm=jpg",
+    "photographer": "Chris Ried",
+    "license": "https://unsplash.com/license",
+    "reviewed": "2026-10-02",
+    "sha256": "a9b7731b18140bb04dd18462eb3f5467fefe7f96712c0cceeec7245841db5d9b",
+    "width": 1200,
+    "height": 801,
+    "bytes": 70064
+  },
+  {
+    "file": "public/course-art/writing.webp",
+    "source": "https://unsplash.com/photos/9QtYDvBEgqQ",
+    "image": "https://images.unsplash.com/photo-1621413268056-ce8911fe1563?auto=format&fit=crop&w=1200&q=82&fm=jpg",
+    "photographer": "mimi lalaa",
+    "license": "https://unsplash.com/license",
+    "reviewed": "2026-10-02",
+    "sha256": "fdfb557c2d8bf08857ac7be9c428f17d8325733561ccba62cca083f8948e2410",
+    "width": 1200,
+    "height": 800,
+    "bytes": 75196
+  },
+  {
+    "file": "public/course-art/photo.webp",
+    "source": "https://unsplash.com/photos/TYdYAyYPTb0",
+    "image": "https://images.unsplash.com/photo-1589708447452-a241ce823e0d?auto=format&fit=crop&w=1200&q=82&fm=jpg",
+    "photographer": "Adam Przeniewski",
+    "license": "https://unsplash.com/license",
+    "reviewed": "2026-10-02",
+    "sha256": "fd324e6863f545091e9b8c8ec03e39aec80e155397edabefa21321495d5ccafa",
+    "width": 1200,
+    "height": 800,
+    "bytes": 27406
+  },
+  {
+    "file": "public/course-art/business.webp",
+    "source": "https://unsplash.com/photos/Hx-4TbpsoIw",
+    "image": "https://images.unsplash.com/photo-1620275765334-4ed948bb4502?auto=format&fit=crop&w=1200&q=82&fm=jpg",
+    "photographer": "Justin Morgan",
+    "license": "https://unsplash.com/license",
+    "reviewed": "2026-10-02",
+    "sha256": "17132d1ac3cacdbd4d6ded6da6b29558784d7fcf3b8ece3697058f0aeae71ab0",
+    "width": 667,
+    "height": 1000,
+    "bytes": 67042
+  }
+]

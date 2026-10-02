@@ -1,54 +1,34 @@
-# Home - product blueprint and Apple Music adaptation
+# Home — course marketplace storefront
 
-Owner: platform UI. Updated 2026-10-02. Status lives only in [tasks.md](tasks.md); this is the screen specification, not a second checklist. `CP-031` through `CP-033` own the first Home slice. [style.md](style.md) governs presentation and [design.md](design.md) owns the full migration map.
+## Active owner direction
+The latest owner correction on 2026-10-02 is explicit: Home is a marketplace for browsing courses, not a personal learning dashboard. This supersedes the earlier personalized-Home blueprint. Do not reintroduce Continue learning, interest setup, empty saved shelves, time-budget controls or a large resume dock as the Home experience.
 
-## Job and route
-Home answers: what can I continue, what is relevant to me, and what can I learn in the time I have? Discover answers: what else could I explore? Keep both, rather than making one busy catalog serve every job.
-The personal local-preview Home is `/learn/home`, reached through the visible Home sidebar item. `/learn` remains Discover; its existing query URLs and links still work. `/` and `/screen/*` remain the music reference. No root redirect, new app or loss of the original inventory is part of this change.
-The shared sticky search remains visible on Home, including narrow layouts. Home uses the existing sidebar, editorial shelves, covers, creator cards, typography, spacing and persistent resume dock. It is not a dashboard of invented statistics.
+The working storefront lives at `/learn/home`; the Courses brand link opens it. `/learn` keeps the existing Discover URLs and `/` plus `/screen/*` keep the music reference. The previous personal screen is preserved at `/learn/library/overview`, linked from My learning. Its stored preferences, completion, notes and other local data are not reset.
 
-## What the saved Apple Music Home actually contains
-This describes the repository captures, not a claim about every current Apple Music version or account.
-Source `a917d88f-d15a-4f53-92d3-1daecf59d05f` shows Home, a four-visible-card portrait shelf titled Top Picks for You, Recently Played, a Pop shelf beginning below it, the shared library sidebar and floating player. Cards link to stations, artists, albums and playlists; shelves scroll independently.
-Source `42098642-4b2d-429d-8fd9-9afc2711c1ed` shows the lower Top 100 shelf, Add to Your Library with a supporting line, and a Concerts card with Set Location and a dismiss action. The 120px Mobbin acquisition footer is not app UI.
-The active `HomeView` in `components/music-discovery.tsx` also preserves localized editions and a separate signed-out membership invitation. These source screens remain unchanged. Personalized ordering, ratings and recommendations from Apple's backend are not reproduced or inferred from a screenshot.
+## First-screen composition
+1. Shared visible search and the existing floating sidebar.
+2. A compact browsing headline and immediately visible subject navigation.
+3. Two photographic editorial course features with real course destinations.
+4. A visible course selection: artwork, subject, title, creator, level, lesson count, duration, price, bookmark and Preview. Do not substitute a progress panel or an onboarding form.
+5. Real category/price filters and deterministic sorting. The initial selection includes all five current demo courses; do not hide owned/saved/started items from a marketplace or pretend this small catalog has thousands of offers.
 
-| Saved pattern | Useful course equivalent | Decision |
-| --- | --- | --- |
-| Top Picks for You portrait shelf | Reason-labeled course picks with save, dismiss and restore | First Home slice; explicit local rules, not AI or popularity claims |
-| Recently Played | Continue learning and review completed courses | First slice; uses actual open/completion state, not a static list |
-| Genre shelves | Chosen interests and creator-follow context | First slice; subjects can be changed through Customize Home |
-| Add to Your Library | Saved for later, separate from enrollment | First slice; save never changes course access |
-| Top 100 | Editorial learning paths and collections | CP-026; do not invent rankings before real evidence exists |
-| Dismissible Concerts prompt | Contextual practice/discussion prompt now; live/cohort sessions later | Local discussion is real preview behavior; real events remain CP-028 |
-| Floating player | Existing resume dock, later real lesson player/panels | Dock retained; CP-027 owns media, outline, transcript and resources |
-| Signed-out trial invitation | Useful first lesson and interest setup without a purchase claim | No payment or registration wall in the demo |
+At the current 1440px desktop layout, the editorial features are 245px high and the course grid has five columns; smaller widths use three or two columns. The first course row includes prices without a floating activity panel covering them. Features and subject links scroll on narrow screens; course cards remain a browsable two-column grid. Use existing tokens, restrained red actions and quiet separators rather than a generic dashboard kit.
 
-## Initial screen order and interactions
-1. **Home header and shortcuts.** Home title, Customize Home, anchors to continue/picks/short lessons, and a link to Discover. Search is shell-owned, not duplicated or hidden.
-2. **Continue learning.** Up to four recently active courses. Each shows course/creator, the actual next accessible lesson, estimated duration and explicit completion progress. Starting a lesson and completing it remain different actions. A fresh browser gets a real free-lesson entry instead of invented progress.
-3. **Picks for you.** Portrait artwork, creator, free/sample label, explanation, Save for later and Not now. Prefer followed creators, then chosen subjects, then saved-course subjects, then editorial order. Exclude already started/saved courses and hidden picks. Dismiss is undoable; hidden picks can be restored after reload.
-4. **A little learning, right now.** 5/10/15-minute controls and Include completed. List only genuinely open demo lessons within that estimated reading time. An empty 5-minute result offers a recovery action; it does not invent a shorter lesson. Time and completion filters are view-local, not an asserted personal goal or measured study time.
-5. **Saved for later.** Actual bookmarks with course links, remove-save control and a link to the searchable Saved collection. No bookmark means no enrollment, access grant or percentage complete.
-6. **From creators you follow.** Courses attached to the actual followed creator IDs. With no follows, show clearly labeled demo creators with working profile destinations. Do not invent release dates, subscriber counts or new-course alerts.
-7. **Bring your next question.** Open Community with the recent course context. This is a labeled local discussion preview, not an invented live feed. Dismissal persists, has immediate undo and can be reversed in Customize Home.
+## Browsing and offer behavior
+Subject links retain the price/sort settings. Price choices are All prices, Free and Under EUR 50. Under EUR 50 means strictly below 5000 minor units. Sort options are editorial order, price ascending and shortest first. Query values are validated, URL-addressable and preserved on reload/back navigation. An empty combination offers Browse all courses, not fake catalog entries.
+Each offer has a real course detail and creator destination. Bookmarking preserves the existing Saved store and never enrolls, purchases or starts a lesson. A native preview dialog shows public metadata, outcomes, the server-selected introduction of the open sample, and curriculum availability. It supports Escape, a named Close control, focus return, View course and Read free sample. Locked lesson bodies are never serialized for the preview.
+The featured photography section and creator directory are merchandising, not fabricated recommendations, bestseller ranks, instructor credentials or activity counts. Avoid false Buy/Checkout buttons while commerce is disconnected. The demo notice states that prices are illustrative and checkout is not connected.
 
-## Personalization controls and durable behavior
-Customize Home is a native modal dialog. It edits subject interests and discussion-card visibility, explains what is local, and supports Save, Cancel, Escape, keyboard focus and focus return. Cancel changes nothing. A changed preference in another tab is a conflict: retain the editing choices and explain how to reopen the current saved version. Failed storage writes keep the dialog/draft and prior saved data.
-Use additive `homePreferences` in preview schema v1. Old snapshots without it retain bookmarks, notes, posts, replies, following and completion. Unknown or malformed shapes stay preserved/read-only. Topic IDs and hidden course IDs are validated against the catalog. These preferences never authorize lesson reads.
-`lastOpenedAt` is independent of progress `updatedAt`. Opening a lesson updates the former without changing completion. Continue prefers an unfinished last-opened accessible lesson, then the next unfinished accessible lesson. Completing all lessons gives Review course. Completing only a paid sample gives View course and a clear unavailable-remainder message, never a locked-lesson resume link or a false completed course.
-Home never reads private note or discussion bodies to generate suggestions, and it never silently imports local activity into an account. Cross-device data, verified identity and real entitlements remain A1 backend work.
+## Artwork
+The repeating typographic sample covers have been replaced by locally stored, licensed contextual photography. These are not screenshots of actual paid lessons or portraits/endorsements of the fictional demo instructors. `public/course-art/credits.json` records photographer, source, license, dimensions and SHA-256; `/learn/credits` supplies visible attribution. Images are served locally, with fixed dimensions and bounded WebP bytes; the browser makes no stock-photo service requests.
 
-## Later Home additions, in dependency order
-Learning paths (`CP-026`) should supply ordered next steps, save/edit behavior and completion-aware continuation before their Home shelf is enabled. No dead path cards.
-Lesson-player expansion (`CP-027`) should replace the navigation-only dock with actual permitted media and readable outline/transcript/resource panels; do not fake video controls for reading content.
-A real community/activity shelf (`CP-016`, `CP-028`) needs course visibility, author identity, moderation, unread semantics and trustworthy timestamps. Real upcoming sessions need an event model, timezone handling, enrollment/access, cancel/reschedule and usable empty states. Neither belongs in the current mock catalog as fake activity.
-Progress summaries should use actual recorded completion, not inferred watch time, fabricated streaks, arbitrary scores or public leaderboards. Completion is not proof of learning mastery. Paid recommendations, offers or enrollment calls to action depend on the actual commerce/access integration.
+## Separation from personal learning
+My learning keeps completion, continuation, notes and the preserved Learning overview. The storefront has no data-dependent welcome/continue section, Customize Home gate or progress percentage. A returning learner sees the same browseable offers as a fresh browser, with only genuine bookmark state reflected in the card controls. Do not conflate marketplace browsing with a paid entitlement.
 
-## Acceptance and preservation
-Exercise new and returning states through real controls: interest save/cancel/reload; save vs start; hide/undo/restore; next unfinished lesson; completed-course review; paid-sample exhaustion; time filters and empty recovery; follow-to-Home; contextual discussion; concurrent preference edits; storage failure; mobile navigation and sticky search.
-Review 320, 390, 768, 1024, 1280 and 1440px. Preserve focus visibility, modal containment, horizontal shelves, scrollable final controls above the resume dock, reduced-motion behavior and normal/reduced-transparency material. Course-only CSS must not alter music CSS or source fixtures.
-Use domain tests, the registered Home browser journey and the full platform suite against development and an optimized build. Record exact source/tooling identity and failed runs. A passing route, screenshot or checkbox is not proof of full music UI/UX migration, accessibility certification, real backend integration or release readiness.
+## Owners and verification
+`app/learn/home/page.tsx` validates route parameters. `marketplace-home.tsx` owns server-side merchandising and explicitly allowed sample introductions. `marketplace-browser.tsx` owns quick previews, bookmarks and sorting interactions. `lib/platform/marketplace.ts` owns pure option parsing, filtering, sorting and artwork lookup. Styling remains in the shared scoped module.
+`CP-034` and `CP-035` in the sole `tasks.md` ledger own this correction. Older CP-031–033 retain their historical implementation meaning at the relocated learning destination, not approval of the rejected Home design.
+Verify actual course/creator/preview navigation, filtering, browser history, unchanged saved/progress data, unavailable paid lessons, Escape/focus return, all six widths and loaded local art. Preserve the old learning behavior through its relocated real navigation tests instead of deleting its assertions. Shared platform components require the full platform suite and an optimized build; music originals and unrelated dirty work remain unchanged.
 
-## Implementation owners
-`app/learn/home/page.tsx` owns the server-rendered route/header. `components/platform/learning-home.tsx` owns local live Home sections. `home-preferences.tsx` owns the modal editor. `lib/platform/home.ts` owns deterministic projections; `preview-state.ts` validates the persisted fields; `lesson-tools.tsx` records actual openings. The existing `EditorialShelf`, cards, shell and CSS module remain shared owners. `scripts/browser_platform_home.py` is registered in the platform runner.
+## Next work
+Expand the real demo catalog only with coherent course details and readable sample content; do not fill shelves with dead offers. Rich course/curriculum actions remain CP-025, learning paths CP-026, meaningful lesson media and panels CP-027. Real accounts, creator authoring, enrollment, checkout and public community retain their backend gates. None is inferred from a polished storefront.

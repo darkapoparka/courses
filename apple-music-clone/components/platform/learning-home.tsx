@@ -59,7 +59,7 @@ export function LearningHome() {
           {entry.status === "sample-finished" && <p className={styles.homeMeta}>Remaining lessons are not available in this preview.</p>}
           <Link className={styles.textButton} href={entry.href} aria-label={`${entry.status === "continue" ? "Continue" : entry.status === "complete" ? "Review" : "View"} ${entry.course.title}`}>{entry.status === "continue" ? "Continue lesson" : entry.status === "complete" ? "Review course" : "View course"}<Icon name="arrow" /></Link>
         </div>
-      </article>)}</div> : <div className={styles.homeWelcome}><span className={styles.homeWelcomeIcon}><Icon name="book" width="32" height="32" /></span><div><h3>Your first lesson starts a new chapter.</h3><p>Try a free reading lesson. Home will remember your next step in this browser.</p></div><Link className={styles.primaryButton} href="/learn/courses/design-with-intention/lessons/design-observe">Try a free lesson <Icon name="arrow" /></Link></div>}
+      </article>)}</div> : <div className={styles.homeWelcome}><span className={styles.homeWelcomeIcon}><Icon name="book" width="32" height="32" /></span><div><h3>Your first lesson starts a new chapter.</h3><p>Try a free reading lesson. This space will remember your next step in this browser.</p></div><Link className={styles.primaryButton} href="/learn/courses/design-with-intention/lessons/design-observe">Try a free lesson <Icon name="arrow" /></Link></div>}
     </section>
     <section className={styles.homeSection} aria-labelledby="home-picks-heading">
       <div className={styles.sectionHeading}><div><h2 ref={picksHeading} tabIndex={-1} id="home-picks-heading">Picks for you</h2><p>Courses to explore, with a reason behind every pick.</p></div>
@@ -98,7 +98,7 @@ export function LearningHome() {
       <button type="button" className={styles.homeDismiss} disabled={!writable} aria-label="Dismiss discussion prompt" onClick={() => {
         const ok = updatePreview(current => ({ ...current, homePreferences: { ...current.homePreferences, communityDismissed: true } }));
         if (ok) { setUndo({ kind: "community" }); requestAnimationFrame(() => document.getElementById("home-title")?.focus({ preventScroll: true })); }
-        setMessage(ok ? "Discussion prompt hidden. Customize Home can show it again." : "The prompt could not be hidden.");
+        setMessage(ok ? "Discussion prompt hidden. Learning preferences can show it again." : "The prompt could not be hidden.");
       }}>×</button>
     </section>}
   </>;

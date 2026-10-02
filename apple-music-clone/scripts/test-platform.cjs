@@ -6,7 +6,7 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const root = path.resolve(__dirname, '../lib/platform');
 const compiled = path.resolve(__dirname, `../.qa/unit-platform-${Date.now()}`);
-execFileSync(process.execPath, [path.resolve(__dirname, '../node_modules/typescript/bin/tsc'), '--ignoreConfig', '--module', 'commonjs', '--target', 'es2022', '--skipLibCheck', '--outDir', compiled, path.resolve(__dirname, '../node_modules/next/types/global.d.ts'), ...['types.ts', 'catalog.ts', 'preview-state.ts', 'lesson-content.server.ts'].map(name => path.join(root, name))], { stdio: 'inherit' });
+execFileSync(process.execPath, [path.resolve(__dirname, '../node_modules/typescript/bin/tsc'), '--ignoreConfig', '--module', 'commonjs', '--target', 'es2022', '--skipLibCheck', '--outDir', compiled, path.resolve(__dirname, '../node_modules/next/types/global.d.ts'), ...['types.ts', 'catalog.ts', 'preview-state.ts', 'lesson-content.server.ts', 'marketplace.ts'].map(name => path.join(root, name))], { stdio: 'inherit' });
 const cache = new Map();
 function load(name) {
   const file = path.resolve(root, name.endsWith('.ts') ? name : `${name}.ts`);
@@ -204,3 +204,5 @@ test('Short lessons honor the time budget, completion switch and actual demo acc
   assert(!home.shortLessons(value,10).some(item => item.lesson.id === 'design-observe'));
   assert(home.shortLessons(value,10,true).some(item => item.lesson.id === 'design-observe'));
 });
+
+require("./test-marketplace.cjs")({ test, assert, load, fs, path, app });

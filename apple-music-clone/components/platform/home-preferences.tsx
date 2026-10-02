@@ -28,15 +28,15 @@ export function HomePreferencesDialog() {
       const homePreferences: HomePreferences = { ...current.homePreferences, interests: draft, communityDismissed: !showCommunity };
       return { ...current, homePreferences };
     });
-    if (conflict) { setMessage("Home changed in another tab. Your choices are still here. Cancel and reopen to review the saved preferences."); return; }
+    if (conflict) { setMessage("Preferences changed in another tab. Your choices are still here. Cancel and reopen to review the saved preferences."); return; }
     if (!ok) { setMessage("Preferences were not saved. Your choices are still here; try again or cancel."); return; }
     dialog.current?.close();
   }
   return <>
-    <button ref={trigger} type="button" className={styles.secondaryButton} onClick={open} disabled={!ready || !writable}>Customize Home</button>
+    <button ref={trigger} type="button" className={styles.secondaryButton} onClick={open} disabled={!ready || !writable}>Learning preferences</button>
     <dialog ref={dialog} className={styles.homeDialog} aria-labelledby="home-preferences-title" onClose={() => trigger.current?.focus()}>
       <form onSubmit={event => { event.preventDefault(); save(); }}>
-        <h2 id="home-preferences-title">Make Home yours</h2>
+        <h2 id="home-preferences-title">Your learning preferences</h2>
         <p>Choose the subjects you want to see more of. Preferences stay in this browser.</p>
         <fieldset><legend>Your interests</legend><div className={styles.interestChoices}>
           {categories.map(category => <label key={category}>
@@ -49,7 +49,7 @@ export function HomePreferencesDialog() {
         {message && <p className={styles.errorText} role="alert">{message}</p>}
         <div className={styles.actions}>
           <button type="button" className={styles.secondaryButton} onClick={() => dialog.current?.close()}>Cancel</button>
-          <button type="submit" className={styles.primaryButton} disabled={!writable}>Save Home preferences</button>
+          <button type="submit" className={styles.primaryButton} disabled={!writable}>Save preferences</button>
         </div>
       </form>
     </dialog>

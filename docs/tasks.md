@@ -1765,3 +1765,10 @@ The precise screen blueprint and source-to-product map live in [home.md](home.md
 - [x] `CP-033` Verify Home in development and optimized production: real preference/save/hide/undo/restore/follow/learn journeys, two-tab conflicts, storage failure, six widths, sticky search, modal focus and matching Home/dock continuation. Retain exact evidence and the existing platform regression suite.
 
 Home evidence: 38 domain/style tests and 48 development + 48 optimized browser checks passed with stable source identity, 54 shell/search observations, music isolation and real Home journeys. Evidence: `.qa/home-dev-final-20261002/`, `.qa/home-prod-final-20261002/`; build `b8nKyqLXMNkUpUL_j0dPI`. See handoff.md for scope; backend, learning paths, events and full reference acceptance remain separate.
+
+## Marketplace Home — supersedes the personal Home direction
+The owner rejected personal-dashboard Home and requested a course marketplace. CP-031–033 remain historical completed implementation retained under My learning, not approval of that Home design.
+- [x] `CP-034` Replace Home with a browse-first storefront: editorial course features, subjects, image-led offers, visible prices, real filter/sort URLs and creator browsing.
+- [x] `CP-035` Add working course previews and bookmark controls, relocate personal learning without losing stored data, verify real journeys/mobile/optimized output and document the corrected Home contract.
+
+Storefront evidence: 42 domain/style tests, TypeScript/build, 53 complete optimized browser checks and 13 focused fresh-dev checks passed. Exact scope, retained initial dev failure, source identity and preservation are in handoff.md. Commerce and full Apple acceptance remain separate.

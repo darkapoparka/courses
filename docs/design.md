@@ -1,5 +1,7 @@
 # Product design — learning and community, one coherent experience
 
+**Latest owner correction:** Home is a course-browsing marketplace, not a personal dashboard. The storefront contract in [home.md](home.md) supersedes the earlier personal Home sections below. The prior personal interface is retained in My learning at `/learn/library/overview`.
+
 Updated 2026-10-02. The owner authorized course adaptation now. This is an independent product specification, not a claim that Apple designed these screens or that the product is already superior to competitors. Status is owned exclusively by `tasks.md`; values and visual regression rules are owned by `style.md`.
 
 ## Product quality hypothesis
